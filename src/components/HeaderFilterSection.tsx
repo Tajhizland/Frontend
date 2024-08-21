@@ -7,7 +7,7 @@ import NavItem from "@/shared/NavItem/NavItem";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import TabFilters from "@/components/TabFilters";
-import { Transition } from "@/app/headlessui";
+import { Transition } from "@/app/(shop)/headlessui";
 
 export interface HeaderFilterSectionProps {
   className?: string;

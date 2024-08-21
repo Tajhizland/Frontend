@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, Fragment } from "react";
-import { Menu, MenuButton, MenuItems, Transition } from "@/app/headlessui";
+import { Menu, MenuButton, MenuItems, Transition } from "@/app/(shop)/headlessui";
 import Link from "next/link";
 import { Route } from "@/routers/types";
 

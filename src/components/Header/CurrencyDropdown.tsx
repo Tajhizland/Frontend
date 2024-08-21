@@ -3,7 +3,7 @@ import {
   PopoverButton,
   PopoverPanel,
   Transition,
-} from "@/app/headlessui";
+} from "@/app/(shop)/headlessui";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import {
   CurrencyDollarIcon,

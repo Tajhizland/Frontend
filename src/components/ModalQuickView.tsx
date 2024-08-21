@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog, Transition, TransitionChild } from "@/app/headlessui";
+import { Dialog, Transition, TransitionChild } from "@/app/(shop)/headlessui";
 import React, { FC, Fragment } from "react";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 import ProductQuickView from "./ProductQuickView";
@@ -51,7 +51,7 @@ const ModalQuickView: FC<ModalQuickViewProps> = ({
           >
             <div className="relative inline-flex xl:py-8 w-full max-w-5xl max-h-full">
               <div
-                className="flex-1 flex overflow-hidden max-h-full p-8 w-full text-left align-middle transition-all transform lg:rounded-2xl bg-white 
+                className="flex-1 flex overflow-hidden max-h-full p-8 w-full text-left align-middle transition-all transform lg:rounded-2xl bg-white
               dark:bg-neutral-900 dark:border dark:border-slate-700 dark:text-slate-100 shadow-xl"
               >
                 <span className="absolute end-3 top-3 z-50">

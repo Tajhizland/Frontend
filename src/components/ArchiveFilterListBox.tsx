@@ -7,7 +7,7 @@ import {
   ListboxOption,
   ListboxOptions,
   Transition,
-} from "@/app/headlessui";
+} from "@/app/(shop)/headlessui";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import ButtonDropdown from "./ButtonDropdown";
 

@@ -1,4 +1,4 @@
-import { Dialog, Transition, TransitionChild } from "@/app/headlessui";
+import { Dialog, Transition, TransitionChild } from "@/app/(shop)/headlessui";
 import { StarIcon } from "@heroicons/react/24/solid";
 import ReviewItem from "@/components/ReviewItem";
 import SortOrderFilter from "@/components/SectionGridMoreExplore/SortOrderFilter";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Disclosure } from "@/app/headlessui";
+import { Disclosure } from "@/app/(shop)/headlessui";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { FC } from "react";
 

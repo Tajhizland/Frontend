@@ -3,7 +3,7 @@ import {
   PopoverButton,
   PopoverPanel,
   Transition,
-} from "@/app/headlessui";
+} from "@/app/(shop)/headlessui";
 import Input from "@/shared/Input/Input";
 import React, { FC } from "react";
 

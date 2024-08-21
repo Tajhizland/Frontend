@@ -1,6 +1,6 @@
 "use client";
 import React, { FC, Fragment, ReactNode, useEffect, useState } from "react";
-import { Dialog, Transition, TransitionChild } from "@/app/headlessui";
+import { Dialog, Transition, TransitionChild } from "@/app/(shop)/headlessui";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 import Button from "@/shared/Button/Button";
 

@@ -9,7 +9,7 @@ import {
   PopoverPanel,
   Transition,
   TransitionChild,
-} from "@/app/headlessui";
+} from "@/app/(shop)/headlessui";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonThird from "@/shared/Button/ButtonThird";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";

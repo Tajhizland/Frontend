@@ -3,7 +3,7 @@ import {
   PopoverButton,
   PopoverPanel,
   Transition,
-} from "@/app/headlessui";
+} from "@/app/(shop)/headlessui";
 import { Fragment } from "react";
 import Avatar from "@/shared/Avatar/Avatar";
 

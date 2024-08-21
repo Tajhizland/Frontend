@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Transition } from "@/app/headlessui";
+import { Transition } from "@/app/(shop)/headlessui";
 import Prices from "@/components/Prices";
 import { PRODUCTS } from "@/data/data";
 import Image, { StaticImageData } from "next/image";

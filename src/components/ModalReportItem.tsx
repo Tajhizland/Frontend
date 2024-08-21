@@ -1,6 +1,6 @@
 "use client";
 import React, { FC, useEffect, useRef, useState } from "react";
-import { RadioGroup } from "@/app/headlessui";
+import { RadioGroup } from "@/app/(shop)/headlessui";
 import Textarea from "@/shared/Textarea/Textarea";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";

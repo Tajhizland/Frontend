@@ -6,7 +6,7 @@ import {
   PopoverButton,
   PopoverPanel,
   Transition,
-} from "@/app/headlessui";
+} from "@/app/(shop)/headlessui";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
@@ -48,7 +48,7 @@ const CATEGORIES: SolutionItem[] = [
     <path d="M9.81995 12H14.1799" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M22.5 14.5V9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M1.5 14.5V9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg> 
+    </svg>
      `,
     description: "The needs of sports ",
   },

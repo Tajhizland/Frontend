@@ -5,7 +5,7 @@ import {
   PopoverButton,
   PopoverPanel,
   Transition,
-} from "@/app/headlessui";
+} from "@/app/(shop)/headlessui";
 import Prices from "@/components/Prices";
 import { Product, PRODUCTS } from "@/data/data";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";

@@ -15,7 +15,7 @@ import Heading from "@/components/Heading/Heading";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import { PRODUCTS, SPORT_PRODUCTS } from "@/data/data";
 import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
-import SectionMagazine5 from "@/app/blog/SectionMagazine5";
+import SectionMagazine5 from "@/app/(shop)/blog/SectionMagazine5";
 
 function PageHome() {
   return (

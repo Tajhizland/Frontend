@@ -10,7 +10,7 @@ import {
   TabPanel,
   TabPanels,
   Transition,
-} from "@/app/headlessui";
+} from "@/app/(shop)/headlessui";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import { FC, Fragment } from "react";

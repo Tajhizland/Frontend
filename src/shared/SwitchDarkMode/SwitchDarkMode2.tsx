@@ -1,4 +1,4 @@
-import { Switch } from "@/app/headlessui";
+import { Switch } from "@/app/(shop)/headlessui";
 import { useThemeMode } from "@/hooks/useThemeMode";
 import React from "react";
 

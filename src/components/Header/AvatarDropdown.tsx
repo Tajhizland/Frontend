@@ -6,7 +6,7 @@ import {
   PopoverOverlay,
   PopoverPanel,
   Transition,
-} from "@/app/headlessui";
+} from "@/app/(shop)/headlessui";
 import { avatarImgs } from "@/contains/fakeData";
 import { Fragment } from "react";
 import Avatar from "@/shared/Avatar/Avatar";

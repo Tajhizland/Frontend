@@ -1,6 +1,6 @@
 "use client";
 import { FC, Fragment, useState } from "react";
-import { Listbox, Transition } from "@/app/headlessui";
+import { Listbox, Transition } from "@/app/(shop)/headlessui";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 const DEMO_DATA = [
