@@ -29,8 +29,8 @@ export default function Breadcrump({breadcrumb}: { breadcrumb: BreadcrumbType[] 
                                                   stroke-width="2"
                                                   d="m1 9 4-4-4-4"/>
                                         </svg>
-                                        <Link href={"/admin/"+item.href}
-                                           className="ms-1 text-sm font-bold text-gray-700 hover:text-orange-400 md:ms-2  ">{item.title}</Link>
+                                        <Link     href={{ pathname: "/admin/" + item.href }}
+                                                  className="ms-1 text-sm font-bold text-gray-700 hover:text-orange-400 md:ms-2  ">{item.title}</Link>
                                     </div>
                                 </li>
                             </>))
