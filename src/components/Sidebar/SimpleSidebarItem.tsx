@@ -8,9 +8,9 @@ export  default  function SimpleSidebarItem({item}:{item:MENU_ITEM_INTERFACE})
         <li>
             <Link
                 href={{ pathname: "/admin/" + item.url }}
-                className="flex items-center w-full p-2 py-4  transition duration-75 rounded-lg   group hover:bg-slate-800  bg-slate-900 text-white "
+                className="text-xs flex items-center w-full p-2 py-4  transition duration-75 rounded-lg   group hover:bg-slate-800  bg-transparent text-white "
             >
-                <span className={"font-bold mx-4 text-white"}>
+                <span className={"font-bold  text-white ml-3"}>
                 {item.icon}
                     </span>
                 {item.title}

@@ -17,6 +17,13 @@ export default function Navbar({sidebarControl}:{sidebarControl:any}) {
             <div className="px-3 py-3 lg:px-5 lg:pl-3">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center justify-start rtl:justify-end">
+
+                        <Image
+                            sizes={"responsive"}
+                            src={logo}
+                            className="h-8 me-3"
+                            alt="FlowBite Logo"
+                        />
                         <button
                             data-drawer-target="logo-sidebar"
                             data-drawer-toggle="logo-sidebar"
@@ -40,23 +47,14 @@ export default function Navbar({sidebarControl}:{sidebarControl:any}) {
                                 ></path>
                             </svg>
                         </button>
-                        <a href="https://flowbite.com" className="flex ms-2 md:me-24">
-                            <Image
-                                sizes={"responsive"}
-                                src={logo}
-                                className="h-8 me-3"
-                                alt="FlowBite Logo"
-                            />
-
-                        </a>
                     </div>
 
                     <div className="flex items-center gap-x-10 ml-10">
                         <div>
-<Bell/>
+                            <Bell/>
                         </div>
                         <div className="flex items-center ms-3">
-<Profile/>
+                            <Profile/>
                         </div>
 
                     </div>

@@ -9,11 +9,11 @@ const Sidebar = ({isOpen}:{isOpen:boolean}) => {
     return (
         <aside
             id="sidebar-multi-level-sidebar"
-            className={`fixed bg-slate-900 top-14 right-0 z-40 w-64 h-screen transition-transform  ${isOpen ?"translate-x-0":"translate-x-full"} `}
+            className={`fixed bg-slate-900 top-14 right-0 z-40 w-52 h-screen transition-transform  ${isOpen ?"translate-x-0":"translate-x-full"} `}
             aria-label="Sidebar"
         >
-            <div className="h-full px-3 py-4 overflow-y-auto bg-slate-900  ">
-                <ul className=" font-medium divide-y bg-slate-900">
+            <div className="h-full   py-3 overflow-y-auto bg-slate-900  ">
+                <ul className=" font-medium divide-y divide-slate-950 bg-slate-900">
                     {
                         MENU_ITEM.map((item) => (<>
                             {

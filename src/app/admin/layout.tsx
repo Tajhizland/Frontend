@@ -28,7 +28,7 @@ export default function AdminLayout({
             <body className={[myFont.className, myFont2.className].join(" ")}>
             <Navbar sidebarControl={()=>{setSidebarOpen(!sidebarOpen)}}/>
             <Sidebar isOpen={sidebarOpen}/>
-            <div className={`py-2 bg-slate-100 min-h-screen mt-14 transition-all  ${sidebarOpen ?"md:mr-64 ":" "}`}>
+            <div className={`py-2 bg-slate-100 min-h-screen mt-14 transition-all  ${sidebarOpen ?"md:mr-52 ":" "}`}>
 
                 {children}
             </div>

@@ -18,8 +18,7 @@ export default function ToggleSidebarItem({menuItem}: { menuItem: MENU_ITEM_INTE
                 onClick={toggleDropdown}
             >
                 {menuItem.icon}
-
-                <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
+                 <span className={`flex-1 ms-3 text-left rtl:text-right whitespace-nowrap text-xs `}>
                 {menuItem.title}
               </span>
                 <svg
@@ -42,7 +41,7 @@ export default function ToggleSidebarItem({menuItem}: { menuItem: MENU_ITEM_INTE
             </button>
             <ul
                 id="dropdown-example"
-                className={`${isOpen ? "block" : "hidden"} bg-slate-900`}
+                className={`${isOpen ? "block" : "hidden"} bg-slate-950 divide-y divide-slate-900`}
             >
                 {
                     menuItem.sub?.map((item: MENU_ITEM_INTERFACE) => (<>
