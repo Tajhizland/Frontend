@@ -16,6 +16,7 @@ type DataRow = {
     title: string;
     status: number;
     icon: string;
+    created_at: string;
 };
 
 export default function page() {
@@ -29,7 +30,7 @@ export default function page() {
         },
         {key: 'id', header: 'شناسه', filterType: 'input',   editable: true},
 
-        {key: 'title', header: 'عنوان', filterType: 'input' ,editable: true},
+        {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input' ,editable: true},
         {
             key: 'status',
             header: 'وضعیت',
