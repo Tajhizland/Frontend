@@ -106,7 +106,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
         <Heading desc={subHeading} hasNextPrev>
           {heading}
         </Heading>
-        <div className="glide__track" data-glide-el="track">
+        <div className="glide__track" data-glide-el="track" style={{direction:"ltr"}}>
           <ul className="glide__slides">
             {data.map((item, index) => (
               <li key={index} className={`glide__slide ${itemClassName}`}>

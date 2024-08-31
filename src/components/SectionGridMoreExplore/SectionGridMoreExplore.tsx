@@ -117,7 +117,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
               <path d="M22.5 14.5V9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M1.5 14.5V9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              
+
                `,
             },
             {
@@ -143,7 +143,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
               isActive={tabActive === item.name}
               onClick={() => setTabActive(item.name)}
             >
-              <div className="flex items-center justify-center space-x-1.5 sm:space-x-2.5 text-xs sm:text-sm ">
+              <div className="flex items-center justify-center gap-x-1.5 sm:gap-x-2.5  text-xs sm:text-sm ">
                 <span
                   className="inline-block"
                   dangerouslySetInnerHTML={{ __html: item.icon }}
@@ -160,7 +160,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
   return (
     <div className={`nc-SectionGridMoreExplore relative ${className}`}>
       {renderHeading()}
-      <div className={`grid gap-4 md:gap-7 ${gridClassName}`}>
+      <div className={`grid gap-4 md:gap-7 ${gridClassName}`} >
         {data.map((item) => renderCard(item))}
       </div>
     </div>

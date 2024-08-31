@@ -120,7 +120,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
             >
               <PopoverPanel
                 static
-                className="sub-menu absolute transform z-10 w-56 top-full left-0"
+                className="sub-menu absolute transform z-10 w-56 top-full right-0"
               >
                 <ul className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-white dark:ring-opacity-10 text-sm relative bg-white dark:bg-neutral-900 py-4 grid space-y-1">
                   {menuDropdown.children?.map((i) => {
@@ -204,7 +204,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
         {item.name}
         {item.type && (
           <ChevronDownIcon
-            className="ml-2 h-4 w-4 text-neutral-500"
+            className="mr-2 h-4 w-4 text-neutral-500"
             aria-hidden="true"
           />
         )}
@@ -225,7 +225,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
           {item.name}
           {item.type && (
             <ChevronDownIcon
-              className="ml-1 -mr-1 h-4 w-4 text-slate-400"
+              className="mr-1 -ml-1 h-4 w-4 text-slate-400"
               aria-hidden="true"
             />
           )}

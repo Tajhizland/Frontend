@@ -53,7 +53,7 @@ export default function AvatarDropdown() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <PopoverPanel className="absolute z-10 w-screen max-w-[260px] px-4 mt-3.5 -right-10 sm:right-0 sm:px-0">
+              <PopoverPanel className="absolute z-10 w-screen max-w-[260px] px-4 mt-3.5 -left-10 sm:left-0 sm:px-0">
                 <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
                     <div className="flex items-center space-x-3">
@@ -97,7 +97,7 @@ export default function AvatarDropdown() {
                           />
                         </svg>
                       </div>
-                      <div className="ml-4">
+                      <div className="mr-4">
                         <p className="text-sm font-medium ">{"My Account"}</p>
                       </div>
                     </Link>
@@ -149,7 +149,7 @@ export default function AvatarDropdown() {
                           />
                         </svg>
                       </div>
-                      <div className="ml-4">
+                      <div className="mr-4">
                         <p className="text-sm font-medium ">{"My Order"}</p>
                       </div>
                     </Link>
@@ -176,7 +176,7 @@ export default function AvatarDropdown() {
                           />
                         </svg>
                       </div>
-                      <div className="ml-4">
+                      <div className="mr-4">
                         <p className="text-sm font-medium ">{"Wishlist"}</p>
                       </div>
                     </Link>
@@ -217,7 +217,7 @@ export default function AvatarDropdown() {
                             />
                           </svg>
                         </div>
-                        <div className="ml-4">
+                        <div className="mr-4">
                           <p className="text-sm font-medium ">{"Dark theme"}</p>
                         </div>
                       </div>
@@ -282,7 +282,7 @@ export default function AvatarDropdown() {
                           />
                         </svg>
                       </div>
-                      <div className="ml-4">
+                      <div className="mr-4">
                         <p className="text-sm font-medium ">{"Help"}</p>
                       </div>
                     </Link>
@@ -324,7 +324,7 @@ export default function AvatarDropdown() {
                           />
                         </svg>
                       </div>
-                      <div className="ml-4">
+                      <div className="mr-4">
                         <p className="text-sm font-medium ">{"Log out"}</p>
                       </div>
                     </Link>

@@ -23,7 +23,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 }) => {
   const _renderMenuChild = (
     item: NavItemType,
-    itemClass = " pl-3 text-neutral-900 dark:text-neutral-200 font-medium "
+    itemClass = " pr-3 text-neutral-900 dark:text-neutral-200 font-medium "
   ) => {
     return (
       <ul className="nav-mobile-sub-menu pl-6 pb-1 text-base">

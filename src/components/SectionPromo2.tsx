@@ -45,7 +45,7 @@ const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10" }) => {
 
         <NcImage
           alt=""
-          containerClassName="relative block lg:absolute lg:left-0 lg:bottom-0 mt-10 lg:mt-0 max-w-xl lg:max-w-[calc(55%-40px)]"
+          containerClassName="relative block lg:absolute lg:start-0 lg:bottom-0 mt-10 lg:mt-0 max-w-xl lg:max-w-[calc(55%-40px)]"
           src={rightImgDemo}
           sizes="(max-width: 768px) 100vw, 50vw"
           className=""

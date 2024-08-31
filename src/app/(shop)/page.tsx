@@ -26,56 +26,56 @@ function PageHome() {
         <DiscoverMoreSlider />
       </div>
 
-      <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
-        <SectionSliderProductCard
-          data={[
-            PRODUCTS[4],
-            SPORT_PRODUCTS[5],
-            PRODUCTS[7],
-            SPORT_PRODUCTS[1],
-            PRODUCTS[6],
-          ]}
-        />
-
-        <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
-          <SectionHowItWork />
-        </div>
-        <SectionPromo1 />
-
-        <div className="relative py-24 lg:py-32">
-          <BackgroundSection />
-          <SectionGridMoreExplore />
-        </div>
-
-        <SectionSliderProductCard
-          heading="Best Sellers"
-          subHeading="Best selling of the month"
-        />
-
-        <SectionPromo2 />
-
-        <SectionSliderLargeProduct cardStyle="style2" />
-
-        <SectionSliderCategories />
-
-        <SectionPromo3 />
-
-        <SectionGridFeatureItems />
-
-        <div className="relative py-24 lg:py-32">
-          <BackgroundSection />
-          <div>
-            <Heading rightDescText="From the Ciseco blog">
-              The latest news
-            </Heading>
-            <SectionMagazine5 />
-            <div className="flex mt-16 justify-center">
-              <ButtonSecondary>Show all blog articles</ButtonSecondary>
+        <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
+            <SectionSliderProductCard
+                data={[
+                    PRODUCTS[4],
+                    SPORT_PRODUCTS[5],
+                    PRODUCTS[7],
+                    SPORT_PRODUCTS[1],
+                    PRODUCTS[6],
+                ]}
+            />
+            <div className="relative py-24 lg:py-32">
+                <BackgroundSection/>
+                <SectionGridMoreExplore/>
             </div>
-          </div>
+            <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
+                <SectionHowItWork/>
+            </div>
+            <SectionPromo1/>
+
+            <SectionGridFeatureItems/>
+            <SectionPromo2/>
+            <SectionSliderLargeProduct cardStyle="style2"/>
+
+            <div className="relative py-24 lg:py-32">
+                <BackgroundSection/>
+                <div>
+                    <Heading rightDescText="From the Ciseco blog">
+                        The latest news
+                    </Heading>
+                    <SectionMagazine5/>
+                    <div className="flex mt-16 justify-center">
+                        <ButtonSecondary>Show all blog articles</ButtonSecondary>
+                    </div>
+                </div>
+            </div>
+
+            <SectionSliderCategories/>
+
+            {/*<SectionSliderProductCard*/}
+            {/*    heading="Best Sellers"*/}
+            {/*    subHeading="Best selling of the month"*/}
+            {/*/>*/}
+
+
+
+            {/*<SectionPromo3/>*/}
+
+
+            {/*<SectionClientSay/>*/}
         </div>
-        <SectionClientSay />
-      </div>
     </div>
   );
 }

@@ -217,7 +217,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
 
       <button
         type="button"
-        className="absolute inset-y-px end-0 px-10 hidden lg:flex items-center justify-center z-10 text-slate-700"
+        className="absolute inset-y-px start-0 px-10 hidden lg:flex items-center justify-center z-10 text-slate-700"
         onClick={handleClickNext}
       >
         <svg
@@ -237,7 +237,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
       </button>
       <button
         type="button"
-        className="absolute inset-y-px start-0 px-10 hidden lg:flex items-center justify-center z-10 text-slate-700"
+        className="absolute inset-y-px end-0 px-10 hidden lg:flex items-center justify-center z-10 text-slate-700"
         onClick={handleClickPrev}
       >
         <svg

@@ -54,6 +54,7 @@ const DiscoverMoreSlider = () => {
   return (
     <div
       ref={sliderRef}
+
       className={`nc-DiscoverMoreSlider nc-p-l-container ${
         isShow ? "" : "invisible"
       }`}
@@ -66,7 +67,7 @@ const DiscoverMoreSlider = () => {
       >
         Discover more
       </Heading>
-      <div className="" data-glide-el="track">
+      <div className="" data-glide-el="track"  style={{direction:"ltr"}}>
         <ul className="glide__slides">
           {CATS_DISCOVER.map((item, index) => (
             <li key={index} className={`glide__slide`}>

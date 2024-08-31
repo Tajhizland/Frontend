@@ -112,7 +112,7 @@ const TabFilters = () => {
   // OK
   const renderXClear = () => {
     return (
-      <span className="flex-shrink-0 w-4 h-4 rounded-full bg-primary-500 text-white flex items-center justify-center ml-3 cursor-pointer">
+      <span className="flex-shrink-0 w-4 h-4 rounded-full bg-primary-500 text-white flex items-center justify-center mr-3 cursor-pointer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-3 w-3"
@@ -197,9 +197,9 @@ const TabFilters = () => {
                 />
               </svg>
 
-              <span className="ml-2">Categories</span>
+              <span className="mr-2">Categories</span>
               {!categoriesState.length ? (
-                <ChevronDownIcon className="w-4 h-4 ml-3" />
+                <ChevronDownIcon className="w-4 h-4 mr-3" />
               ) : (
                 <span onClick={() => setCategoriesState([])}>
                   {renderXClear()}
@@ -214,7 +214,7 @@ const TabFilters = () => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-md">
+              <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 lg:max-w-md">
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
                     <Checkbox
@@ -325,7 +325,7 @@ const TabFilters = () => {
                 />
               </svg>
 
-              <span className="ml-2">
+              <span className=" mr-2">
                 {sortOrderStates
                   ? DATA_sortOrderRadios.filter(
                       (i) => i.id === sortOrderStates
@@ -333,7 +333,7 @@ const TabFilters = () => {
                   : "Sort order"}
               </span>
               {!sortOrderStates.length ? (
-                <ChevronDownIcon className="w-4 h-4 ml-3" />
+                <ChevronDownIcon className="w-4 h-4 mr-3" />
               ) : (
                 <span onClick={() => setSortOrderStates("")}>
                   {renderXClear()}
@@ -349,7 +349,7 @@ const TabFilters = () => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 lg:max-w-sm">
+              <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-sm">
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
                     {DATA_sortOrderRadios.map((item) => (
@@ -452,9 +452,9 @@ const TabFilters = () => {
                 />
               </svg>
 
-              <span className="ml-2">Colors</span>
+              <span className=" mr-2">Colors</span>
               {!colorsState.length ? (
-                <ChevronDownIcon className="w-4 h-4 ml-3" />
+                <ChevronDownIcon className="w-4 h-4 mr-3" />
               ) : (
                 <span onClick={() => setColorsState([])}>{renderXClear()}</span>
               )}
@@ -468,7 +468,7 @@ const TabFilters = () => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-sm">
+              <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 lg:max-w-sm">
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
                     {DATA_colors.map((item) => (
@@ -562,9 +562,9 @@ const TabFilters = () => {
                 />
               </svg>
 
-              <span className="ml-2">Sizes</span>
+              <span className=" mr-2">Sizes</span>
               {!sizesState.length ? (
-                <ChevronDownIcon className="w-4 h-4 ml-3" />
+                <ChevronDownIcon className="w-4 h-4 mr-3" />
               ) : (
                 <span onClick={() => setSizesState([])}>{renderXClear()}</span>
               )}
@@ -578,7 +578,7 @@ const TabFilters = () => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-sm">
+              <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 lg:max-w-sm">
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
                     {DATA_sizes.map((item) => (
@@ -658,7 +658,7 @@ const TabFilters = () => {
                 />
               </svg>
 
-              <span className="ml-2 min-w-[90px]">{`${rangePrices[0]}$ - ${rangePrices[1]}$`}</span>
+              <span className="mr-2 min-w-[90px]">{`${rangePrices[0]}$ - ${rangePrices[1]}$`}</span>
               {rangePrices[0] === PRICE_RANGE[0] &&
               rangePrices[1] === PRICE_RANGE[1] ? null : (
                 <span onClick={() => setRangePrices(PRICE_RANGE)}>
@@ -675,7 +675,7 @@ const TabFilters = () => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 ">
+              <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 ">
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-8">
                     <div className="space-y-5">
@@ -811,7 +811,7 @@ const TabFilters = () => {
           />
         </svg>
 
-        <span className="line-clamp-1 ml-2">On sale</span>
+        <span className="line-clamp-1  mr-2">On sale</span>
         {isOnSale && renderXClear()}
       </div>
     );
@@ -919,7 +919,7 @@ const TabFilters = () => {
             />
           </svg>
 
-          <span className="ml-2">Products filters (3)</span>
+          <span className=" mr-2">Products filters (3)</span>
           {renderXClear()}
         </div>
 
@@ -958,7 +958,7 @@ const TabFilters = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <div className="inline-flex flex-col w-full text-left align-middle transition-all transform bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 h-full">
+                <div className="inline-flex flex-col w-full text-right align-middle transition-all transform bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 h-full">
                   <div className="relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
                     <DialogTitle
                       as="h3"
@@ -966,12 +966,12 @@ const TabFilters = () => {
                     >
                       Products filters
                     </DialogTitle>
-                    <span className="absolute left-3 top-3">
+                    <span className="absolute right-3 top-3">
                       <ButtonClose onClick={closeModalMoreFilter} />
                     </span>
                   </div>
 
-                  <div className="flex-grow overflow-y-auto">
+                  <div className="flex-grow overflow-y-auto" >
                     <div className="px-6 sm:px-8 md:px-10 divide-y divide-neutral-200 dark:divide-neutral-800">
                       {/* --------- */}
                       {/* ---- */}
@@ -1027,7 +1027,7 @@ const TabFilters = () => {
                                   Min price
                                 </label>
                                 <div className="mt-1 relative rounded-md">
-                                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                     <span className="text-neutral-500 sm:text-sm">
                                       $
                                     </span>
@@ -1037,7 +1037,7 @@ const TabFilters = () => {
                                     name="minPrice"
                                     disabled
                                     id="minPrice"
-                                    className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
+                                    className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-7 pl-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
                                     value={rangePrices[0]}
                                   />
                                 </div>
@@ -1050,7 +1050,7 @@ const TabFilters = () => {
                                   Max price
                                 </label>
                                 <div className="mt-1 relative rounded-md">
-                                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                     <span className="text-neutral-500 sm:text-sm">
                                       $
                                     </span>
@@ -1060,7 +1060,7 @@ const TabFilters = () => {
                                     disabled
                                     name="maxPrice"
                                     id="maxPrice"
-                                    className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
+                                    className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-7 pl-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
                                     value={rangePrices[1]}
                                   />
                                 </div>
@@ -1138,17 +1138,17 @@ const TabFilters = () => {
   return (
     <div className="flex lg:space-x-4">
       {/* FOR DESKTOP */}
-      <div className="hidden lg:flex flex-1 space-x-4">
+      <div className="hidden lg:flex flex-1 gap-x-4">
         {renderTabsPriceRage()}
         {renderTabsCategories()}
         {renderTabsColor()}
         {renderTabsSize()}
         {renderTabIsOnsale()}
-        <div className="!ml-auto">{renderTabsSortOrder()}</div>
+        <div className="!mr-auto">{renderTabsSortOrder()}</div>
       </div>
 
       {/* FOR RESPONSIVE MOBILE */}
-      <div className="flex overflow-x-auto lg:hidden space-x-4">
+      <div className="flex overflow-x-auto lg:hidden gap-x-4">
         {renderTabMobileFilter()}
       </div>
     </div>

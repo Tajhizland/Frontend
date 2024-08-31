@@ -19,15 +19,15 @@ const MenuBar: React.FC<MenuBarProps> = () => {
           className="fixed inset-0 z-50 overflow-y-auto"
           onClose={handleCloseMenu}
         >
-          <div className="fixed left-0 top-0 bottom-0 w-full max-w-md md:w-auto z-max outline-none focus:outline-none">
+          <div className="fixed right-0 top-0 bottom-0 w-full max-w-md md:w-auto z-max outline-none focus:outline-none">
             <React.Fragment>
               <TransitionChild
                 enter="transition duration-100 transform"
-                enterFrom="opacity-0 -translate-x-14"
+                enterFrom="opacity-0 translate-x-14"
                 enterTo="opacity-100 translate-x-0"
                 leave="transition duration-150 transform"
                 leaveFrom="opacity-100 translate-x-0"
-                leaveTo="opacity-0 -translate-x-14"
+                leaveTo="opacity-0 translate-x-14"
               >
                 <div className="z-20 relative">
                   <NavMobile onClickClose={handleCloseMenu} />

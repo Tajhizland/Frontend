@@ -29,7 +29,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
       className={`nc-CardCategory4 relative w-full aspect-w-12 aspect-h-11 h-0 rounded-3xl overflow-hidden bg-white dark:bg-neutral-900 group hover:nc-shadow-lg transition-shadow ${className}`}
     >
       <div>
-        <div className="absolute bottom-0 right-0 max-w-[280px] opacity-80">
+        <div className="absolute bottom-0 -left-40 max-w-[280px] opacity-80">
           <Image src={bgSVG} alt="" />
         </div>
 
@@ -60,8 +60,9 @@ const CardCategory4: FC<CardCategory4Props> = ({
             href={"/collection"}
             className="flex items-center text-sm font-medium group-hover:text-primary-500 transition-colors"
           >
-            <span>See Collection</span>
-            <ArrowRightIcon className="w-4 h-4 ml-2.5" />
+              <ArrowRightIcon className="w-4 h-4 ml-2.5" />
+
+              <span>See Collection</span>
           </Link>
         </div>
       </div>
