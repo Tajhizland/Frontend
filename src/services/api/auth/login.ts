@@ -8,6 +8,6 @@ export const login = async <T extends ServerResponse<TokenResponse>>
         password?: string;
     }
 ) => {
-    return axios.post("auth/login", {params})
-        .then((res) => res?.data?.result)
+    return axios.post("auth/login", params)
+        .then((res) => res?.data);
 };

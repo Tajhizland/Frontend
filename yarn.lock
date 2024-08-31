@@ -338,6 +338,11 @@
   "resolved" "https://registry.npmjs.org/@tanstack/virtual-core/-/virtual-core-3.8.4.tgz"
   "version" "3.8.4"
 
+"@types/cookie@^0.6.0":
+  "integrity" "sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA=="
+  "resolved" "https://registry.npmjs.org/@types/cookie/-/cookie-0.6.0.tgz"
+  "version" "0.6.0"
+
 "@types/glidejs__glide@^3.6.5":
   "integrity" "sha512-OUjzveIu+tiK5VvyPh6jTBJ/vH6+vC+XWzC2KJzpgUW8uancMJBa7R+BlXuvtSPdLw/pQForVasy0fm1D7JWOQ=="
   "resolved" "https://registry.npmjs.org/@types/glidejs__glide/-/glidejs__glide-3.6.5.tgz"
@@ -875,6 +880,19 @@
   "resolved" "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
   "version" "0.0.1"
 
+"cookie@^0.6.0":
+  "integrity" "sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw=="
+  "resolved" "https://registry.npmjs.org/cookie/-/cookie-0.6.0.tgz"
+  "version" "0.6.0"
+
+"cookies-next@^4.2.1":
+  "integrity" "sha512-qsjtZ8TLlxCSX2JphMQNhkm3V3zIMQ05WrLkBKBwu50npBbBfiZWIdmSMzBGcdGKfMK19E0PIitTfRFAdMGHXg=="
+  "resolved" "https://registry.npmjs.org/cookies-next/-/cookies-next-4.2.1.tgz"
+  "version" "4.2.1"
+  dependencies:
+    "@types/cookie" "^0.6.0"
+    "cookie" "^0.6.0"
+
 "copy-to-clipboard@^3.3.1":
   "integrity" "sha512-2KV8NhB5JqC3ky0r9PMCAZKbUHSwtEo4CwCs0KXgruG43gX5PMqDEBbVU4OUzw2MuAWUfsuFmWvEKG5QRfSnJA=="
   "resolved" "https://registry.npmjs.org/copy-to-clipboard/-/copy-to-clipboard-3.3.3.tgz"
@@ -1051,6 +1069,11 @@
   "version" "3.0.0"
   dependencies:
     "esutils" "^2.0.2"
+
+"dotenv@^16.4.5":
+  "integrity" "sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg=="
+  "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-16.4.5.tgz"
+  "version" "16.4.5"
 
 "eastasianwidth@^0.2.0":
   "integrity" "sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA=="
@@ -2772,6 +2795,11 @@
   "integrity" "sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-18.3.1.tgz"
   "version" "18.3.1"
+
+"react-spinners@^0.14.1":
+  "integrity" "sha512-2Izq+qgQ08HTofCVEdcAQCXFEYfqTDdfeDQJeo/HHQiQJD4imOicNLhkfN2eh1NYEWVOX4D9ok2lhuDB0z3Aag=="
+  "resolved" "https://registry.npmjs.org/react-spinners/-/react-spinners-0.14.1.tgz"
+  "version" "0.14.1"
 
 "react-swipeable@^7.0.1":
   "integrity" "sha512-RKB17JdQzvECfnVj9yDZsiYn3vH0eyva/ZbrCZXZR0qp66PBRhtg4F9yJcJTWYT5Adadi+x4NoG53BxKHwIYLQ=="

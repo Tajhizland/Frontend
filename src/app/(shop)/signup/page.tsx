@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+"use client"
+import React, {FC, useState} from "react";
 import facebookSvg from "@/images/Facebook.svg";
 import twitterSvg from "@/images/Twitter.svg";
 import googleSvg from "@/images/Google.svg";
@@ -6,91 +7,152 @@ import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
-
-const loginSocials = [
-  {
-    name: "Continue with Facebook",
-    href: "#",
-    icon: facebookSvg,
-  },
-  {
-    name: "Continue with Twitter",
-    href: "#",
-    icon: twitterSvg,
-  },
-  {
-    name: "Continue with Google",
-    href: "#",
-    icon: googleSvg,
-  },
-];
+import {register, registerSendCode, registerVerifyCode} from "@/services/api/auth/register";
+import useCountDownTime from "@/hooks/useCountDownTime";
+import Counter from "@/components/Counter/Counter";
+import {setCookie} from "cookies-next";
+import {useRouter} from "next/navigation";
 
 const PageSignUp = () => {
-  return (
-    <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
-      <div className="container mb-24 lg:mb-32">
-        <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
-          Signup
-        </h2>
-        <div className="max-w-md mx-auto space-y-6 ">
-          <div className="grid gap-3">
-            {loginSocials.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className=" flex w-full rounded-lg bg-primary-50 dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]"
-              >
-                <Image
-                  sizes="40px"
-                  className="flex-shrink-0"
-                  src={item.icon}
-                  alt={item.name}
-                />
-                <h3 className="flex-grow text-center text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:text-sm">
-                  {item.name}
-                </h3>
-              </a>
-            ))}
-          </div>
-          {/* OR */}
-          <div className="relative text-center">
-            <span className="relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900">
-              OR
-            </span>
-            <div className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
-          </div>
-          {/* FORM */}
-          <form className="grid grid-cols-1 gap-6" action="#" method="post">
-            <label className="block">
-              <span className="text-neutral-800 dark:text-neutral-200">
-                Email address
-              </span>
-              <Input
-                type="email"
-                placeholder="example@example.com"
-                className="mt-1"
-              />
-            </label>
-            <label className="block">
-              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                Password
-              </span>
-              <Input type="password" className="mt-1" />
-            </label>
-            <ButtonPrimary type="submit">Continue</ButtonPrimary>
-          </form>
+    const [step, setStep] = useState(1);
+    const [resend, setResend] = useState(false);
+    const [mobile, setMobile] = useState("");
+    const router = useRouter();
 
-          {/* ==== */}
-          <span className="block text-center text-neutral-700 dark:text-neutral-300">
-            Already have an account? {` `}
-            <Link className="text-green-600" href="/login">
-              Sign in
+    function nextStep() {
+        setStep(step + 1);
+    }
+
+    async function sendCode(e:FormData) {
+        let mobile= e.get("mobile") as string
+        setMobile(mobile);
+        let response= await registerSendCode({mobile:mobile})
+        if(response?.success)
+            nextStep()
+    }
+
+    async function actionResend() {
+        let response=await registerSendCode({mobile: mobile})
+        if(response?.success)
+            setResend(false);
+    }
+
+    async function verifyCode(e:FormData) {
+        let response=   await registerVerifyCode({mobile: e.get("mobile") as string, code: e.get("code") as string})
+        if(response?.success)
+            nextStep()
+    }
+
+    async function setPassword(e:FormData) {
+        let res =   await register({mobile: e.get("mobile") as string, password: e.get("password") as string, password_confirmation: e.get("password_confirmation") as string})
+        if(res)
+        {
+            setCookie("token",res?.data.token)
+            router.push("/")
+
+        }
+    }
+
+    return (
+        <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
+            <div className="container mb-24 lg:mb-32">
+                <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
+                    ثبت‌نام
+                </h2>
+                <div className="max-w-md mx-auto space-y-6 ">
+
+                    {/* FORM */}
+                    {step == 1 && <form className="grid grid-cols-1 gap-6" action={sendCode} method="post">
+                        <label className="block">
+              <span className="text-neutral-800 dark:text-neutral-200">
+               شماره ‌همراه
+              </span>
+                            <Input
+                                name={"mobile"}
+                                type="text"
+                                placeholder="شماره همراه"
+                                className="mt-1"
+                            />
+                        </label>
+                        <ButtonPrimary type="submit">ادامه</ButtonPrimary>
+                    </form>}
+
+                    {step == 2 && <form className="grid grid-cols-1 gap-6" action={verifyCode} method="post">
+                        <label className="block">
+                            <div className="flex flex-col gap-y-2">
+              <span className="text-neutral-800 dark:text-neutral-200">
+               کد ثبت نام
+              </span>
+                                <small className={"text-neutral-600 dark:text-neutral-100"}>
+                                    کد ارسال شده به شماره موبایل خود را وارد نمایید و سپس روی ادامه کلیک کنید :
+                                </small>
+                            </div>
+                            <Input
+                                name={"code"}
+                                type="text"
+                                placeholder="کد ثبت نام"
+                                className="mt-1"
+                            />
+                            <Input
+                                name={"mobile"}
+                                type="hidden"
+                                value={mobile}
+                            />
+                        </label>
+                        <div className={"flex gap-x-2"}>
+
+                            {
+                                resend ? <span className={"text-green-600 cursor-pointer"} onClick={actionResend}>
+                                  ارسال مجدد کد
+                            </span> :
+                                    <>  <Counter initialSeconds={120} end={() => {
+                                        setResend(true)
+                                    }}/>
+                                        <span>
+                                تا ارسال مجدد کد
+                            </span>
+                                    </>
+                            }
+
+
+                        </div>
+
+                        <ButtonPrimary type="submit">ادامه</ButtonPrimary>
+                    </form>}
+
+                    {step == 3 && <form className="grid grid-cols-1 gap-6" action={setPassword} method="post">
+                        <label className="block">
+              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                کلمه عبور
+              </span>
+                            <Input type={"password"} placeholder="کلمه عبور" className="mt-1" name={"password"}/>
+
+                        </label>
+                        <label className="block">
+              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+تکرار کلمه عبور              </span>
+                            <Input  type={"password"} placeholder="تکرار کلمه عبور" className="mt-1" name={"password_confirmation"}/>
+                            <Input
+                                name={"mobile"}
+                                type="hidden"
+                                value={mobile}
+                            />
+                        </label>
+
+                        <ButtonPrimary type="submit">ادامه</ButtonPrimary>
+                    </form>}
+
+                    {/* ==== */}
+                    <span className="block text-center text-neutral-700 dark:text-neutral-300">
+            قلا ثبت‌نام کرده اید ؟ {` `}
+                        <Link className="text-green-600" href="/login">
+             وارد شوید
             </Link>
           </span>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default PageSignUp;

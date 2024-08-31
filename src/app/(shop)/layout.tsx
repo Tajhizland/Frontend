@@ -6,12 +6,17 @@ import "rc-slider/assets/index.css";
 import Footer from "@/shared/Footer/Footer";
 import SiteHeader from "@/app/(shop)/SiteHeader";
 import CommonClient from "./CommonClient";
+import {NextFont} from "next/dist/compiled/@next/font";
+import localFont from "next/font/local";
 
 const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
 });
+
+const myFont: NextFont = localFont({src: '../../fonts/fa/IRANSansWeb.woff2'})
+const myFont2: NextFont = localFont({src: '../../fonts/fa/IRANSansWeb(FaNum).woff2'})
 
 export default function RootLayout({
   children,
@@ -21,7 +26,7 @@ export default function RootLayout({
   params: any;
 }) {
   return (
-    <html lang="fa" dir="rtl" className={poppins.className}>
+    <html lang="fa" dir="rtl" className={[myFont.className , myFont2.className].join(" ")}>
       <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
         <div>
           <SiteHeader />
