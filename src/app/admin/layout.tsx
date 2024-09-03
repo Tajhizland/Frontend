@@ -10,6 +10,7 @@ import {NextFont} from "next/dist/compiled/@next/font";
 import Navbar from "@/components/Navbar/Navbar";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import CommonClient from "@/app/(shop)/CommonClient";
+import {QueryClient, QueryClientProvider} from "react-query";
 
 const myFont: NextFont = localFont({src: '../../fonts/fa/IRANSansWeb.woff2'})
 const myFont2: NextFont = localFont({src: '../../fonts/fa/IRANSansWeb(FaNum).woff2'})
@@ -22,6 +23,7 @@ export default function AdminLayout({
     params: any;
 }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const queryClient = new QueryClient();
     return (
         <>
             <html dir={"rtl"}>
@@ -29,8 +31,9 @@ export default function AdminLayout({
             <Navbar sidebarControl={()=>{setSidebarOpen(!sidebarOpen)}}/>
             <Sidebar isOpen={sidebarOpen}/>
             <div className={`py-2 bg-slate-100 min-h-screen mt-14 transition-all  ${sidebarOpen ?"md:mr-52 ":" "}`}>
-
+                <QueryClientProvider client={queryClient}>
                 {children}
+                </QueryClientProvider>
             </div>
             <CommonClient />
 

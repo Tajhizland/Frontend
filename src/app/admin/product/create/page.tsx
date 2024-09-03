@@ -14,11 +14,43 @@ import {Options} from "sucrase/dist/types/Options-gen-types";
 import toast from "react-hot-toast";
 import {useState} from "react";
 import {set} from "immutable";
+import Form from "@/app/admin/product/Form";
+import {store} from "@/services/api/admin/product";
 
 export default function page() {
-     function clickHandle(){
-        toast.success("محصول با موفقیت ایجاد شد" )
+    async function submit(e: FormData) {
+
+        const colors = [];
+        for (let i = 0; i < 1; i++) {
+            const colorData = {
+                name: e.get(`color[${i}][name]`)as string,
+                code: e.get(`color[${i}][code]`)as string,
+                delivery_delay: e.get(`color[${i}][delivery_delay]`)as string,
+                status: e.get(`color[${i}][status]`)as string,
+                price: e.get(`color[${i}][price]`)as string,
+                discount: e.get(`color[${i}][discount]`)as string,
+                stock: e.get(`color[${i}][stock]`)as string,
+            };
+            colors.push(colorData);
+        }
+
+        let response=await store(
+            {
+                name: e.get("name") as string,
+                url: e.get("url") as string,
+                status: e.get("status") as string,
+                brand_id: e.get("brand_id") as string,
+                description: e.get("description") as string,
+                meta_description: e.get("meta_description") as string,
+                meta_title: e.get("meta_title") as string,
+                study: e.get("study") as string,
+                categoryId: e.get("category_id") as string,
+                colors: colors
+            }
+        )
+        toast.success(response?.message as string)
     }
+
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -30,49 +62,12 @@ export default function page() {
                 href: "product/create"
             }
         ]}/>
-        <Panel >
+        <Panel>
             <PageTitle>
-               ایجاد محصول جدید
+                ایجاد محصول جدید
             </PageTitle>
             <div>
-            <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
-                <div>
-                    <Label>نام محصول</Label>
-                    <Input/>
-                </div>
-                <div>
-                    <Label>وضعیت محصول</Label>
-                    <Select>
-                        <option>
-                            فعال
-                        </option>
-                        <option>
-                            غیر فعال
-                        </option>
-                    </Select>
-                </div>
-                <div>
-                    <Label>نام محصول</Label>
-                    <Input/>
-                </div>
-                <div>
-                    <Label>نام محصول</Label>
-                    <Input/>
-                </div>
-                <div>
-                    <Label>نام محصول</Label>
-                    <Input/>
-                </div>
-                <div>
-                    <Label>نام محصول</Label>
-                    <Input/>
-                </div>
-            </div>
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary onClick={clickHandle}>
-                    ذخیره
-                </ButtonPrimary>
-            </div>
+                <Form submit={submit}/>
             </div>
         </Panel>
 
