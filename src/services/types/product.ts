@@ -8,6 +8,8 @@ export type ProductResponse = {
     status:string ;
     view:number ;
     description:string ;
+    seo_description:string ,
+    seo_title:string ,
     category:string ;
     min_price:number ;
     rating:number ;
@@ -15,6 +17,8 @@ export type ProductResponse = {
     study:string ;
     created_at:string ;
     updated_at:string ;
-    colors:ColorResponse [] ;
+    colors:{
+      data :ColorResponse []
+    } ;
     comments:CommentResponse[] ;
   };

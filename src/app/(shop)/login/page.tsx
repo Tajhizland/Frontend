@@ -17,7 +17,7 @@ const PageLogin = () => {
         let params = {username: e.get("username") as string, password: e.get("password") as string}
         let res = await login(params)
         if (res) {
-             setCookie('token', res.data.token);
+             setCookie('token', res.token);
             router.push("/")
         }
     }

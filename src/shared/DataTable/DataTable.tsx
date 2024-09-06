@@ -67,7 +67,6 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
 
             const response = await axios.get(`${apiUrl}?${queryParams.toString()}`)
                 .then((res) => res?.data?.result)
-            console.log("response is ", response);
             setData(response?.data);
             setEditedData(response?.data);
             setMeta(response?.meta);
@@ -219,7 +218,7 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                             </td>
                         </tr>
                     ) : (
-                        editedData.map((row, rowIndex) => (
+                        editedData && editedData.map((row, rowIndex) => (
                             <tr key={rowIndex}>
                                 {columns.map((col) => {
                                     const cellValue = row[col.key];

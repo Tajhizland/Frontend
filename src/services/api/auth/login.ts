@@ -9,5 +9,5 @@ export const login = async <T extends ServerResponse<TokenResponse>>
     }
 ) => {
     return axios.post("auth/login", params)
-        .then((res) => res?.data);
+        .then((res) => res?.data?.result);
 };

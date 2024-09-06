@@ -7,6 +7,12 @@ export const dataTable = async <T extends ServerResponse<ProductResponse>>
         .then((res) => res?.data?.result)
 };
 
+export const getById = async <T extends ServerResponse<ProductResponse>>
+(id:number|string) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/product/find/"+id)
+        .then((res) => res?.data?.result)
+};
+
 export const store = async <T extends ServerResponse<unknown>>
 (
     params: {
@@ -18,8 +24,8 @@ export const store = async <T extends ServerResponse<unknown>>
         meta_description: string,
         meta_title: string,
         study: string,
-        categoryId: string,
-        colors:{
+        category_id: string,
+        color:{
             name:string,
             code:string,
             price:number|string,
@@ -37,7 +43,7 @@ export const store = async <T extends ServerResponse<unknown>>
 export const update = async <T extends ServerResponse<ProductResponse>>
 (
     params: {
-        id: number,
+        id: number|string,
         name: string,
         url: string,
         status: string,
@@ -46,18 +52,18 @@ export const update = async <T extends ServerResponse<ProductResponse>>
         meta_description: string,
         meta_title: string,
         study: string,
-        categoryId: string,
-        colors:{
+        category_id: string,
+        color:{
             name:string,
             code:string,
-            price:number,
-            discount:number,
-            stock:number,
-            status:number,
-            delivery_delay:number,
+            price:number|string,
+            discount:number|string,
+            stock:number|string,
+            status:number|string,
+            delivery_delay:number|string,
         }[]
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/store",params)
+    return axios.post<T, SuccessResponseType<T>>("admin/product/update",params)
         .then((res) => res?.data?.result)
 };

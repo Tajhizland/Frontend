@@ -3,12 +3,17 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle"; 
 import toast from "react-hot-toast"; 
-import Form from "@/app/admin/product/Form";
-import {store} from "@/services/api/admin/product";
+import Form from "@/app/admin/category/Form";
+import {getById, store, update} from "@/services/api/admin/product";
 import { useState } from "react";
+import { useParams } from "next/navigation";
 
-export default function page() {
+export default async function page() {
     const [colorCount,setColorCount]=useState(1)
+    const { id } = useParams();
+    
+    const product=await getById(Number(id))
+     
     async function submit(e: FormData) {
 
         const colors = [];
@@ -25,8 +30,9 @@ export default function page() {
             colors.push(colorData);
         }
 
-        let response=await store(
+        let response=await update(
             {
+                id: e.get("id") as string,
                 name: e.get("name") as string,
                 url: e.get("url") as string,
                 status: e.get("status") as string,
@@ -38,19 +44,18 @@ export default function page() {
                 category_id: e.get("category_id") as string,
                 color: colors
             }
-        )
-        toast.success(response?.message as string)
+        ) 
     }
 
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "محصولات",
-                href: "product"
+                title: "دسته بندی",
+                href: "category"
             },
             {
-                title: "افزودن محصول جدید",
-                href: "product/create"
+                title: "ویرایش دسته بندی",
+                href: "category/edit/"+id
             }
         ]}/>
         <Panel>
@@ -58,7 +63,7 @@ export default function page() {
                 ایجاد محصول جدید
             </PageTitle>
             <div>
-                <Form submit={submit} colorCount={colorCount} setColorCount={setColorCount}/>
+                <Form productData={product} submit={submit} colorCount={colorCount} setColorCount={setColorCount}/>
             </div>
         </Panel>
 

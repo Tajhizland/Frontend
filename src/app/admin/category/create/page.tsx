@@ -3,7 +3,7 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle"; 
 import toast from "react-hot-toast"; 
-import Form from "@/app/admin/product/Form";
+import Form from "@/app/admin/category/Form";
 import {store} from "@/services/api/admin/product";
 import { useState } from "react";
 
@@ -45,17 +45,17 @@ export default function page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "محصولات",
-                href: "product"
+                title: "دسته‌بندی",
+                href: "category"
             },
             {
-                title: "افزودن محصول جدید",
-                href: "product/create"
+                title: "افزودن دسته‌بندی جدید",
+                href: "category/create"
             }
         ]}/>
         <Panel>
             <PageTitle>
-                ایجاد محصول جدید
+                ایجاد دسته‌بندی جدید
             </PageTitle>
             <div>
                 <Form submit={submit} colorCount={colorCount} setColorCount={setColorCount}/>
