@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 import {findById} from "@/services/api/admin/category";
 
-export default async function page()
+export default async function Page()
 {
     const { id } = useParams();
     const data=await findById(Number(id))

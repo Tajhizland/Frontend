@@ -8,7 +8,7 @@ import {findById, update} from "@/services/api/admin/product";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 
-export default async function page() {
+export default async function Page() {
     const [colorCount,setColorCount]=useState(1)
     const { id } = useParams();
 

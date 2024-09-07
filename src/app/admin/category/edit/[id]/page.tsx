@@ -8,7 +8,7 @@ import {findById, update} from "@/services/api/admin/category";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 
-export default async function page() {
+export default async function Page() {
     const { id } = useParams();
     const data=await findById(Number(id))
 

@@ -7,7 +7,7 @@ import {findById, update} from "@/services/api/admin/user";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 
-export default async function page()
+export default async function Page()
 {
     const { id } = useParams();
     const data=await findById(Number(id))
