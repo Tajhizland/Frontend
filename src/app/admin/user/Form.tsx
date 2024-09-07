@@ -14,7 +14,7 @@ interface Form {
 export default function Form({ data, submit  }: Form) {
 
     return (<>
-        <form action={submit}>
+        <form action={submit} method={"post"}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>نام کاربر</Label>
@@ -27,10 +27,10 @@ export default function Form({ data, submit  }: Form) {
                 <div>
                     <Label>نقش کاربر</Label>
                     <Select name={"role"}>
-                        <option value={1} selected={data?.role == "user"}>
+                        <option value={"user"} selected={data?.role == "user"}>
                             کاربر
                         </option>
-                        <option value={0} selected={data?.role == "admin"}>
+                        <option value={"admin"} selected={data?.role == "admin"}>
                             مدیر
                         </option>
                     </Select>

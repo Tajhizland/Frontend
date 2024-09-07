@@ -2,17 +2,21 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import Form from "@/app/admin/brand/Form";
+import Form from "@/app/admin/news/Form";
 import {update} from "@/services/api/admin/news";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {findById} from "@/services/api/admin/category";
+import {findById} from "@/services/api/admin/news";
+import {useQuery} from "react-query";
 
-export default async function Page()
+export default  function Page()
 {
     const { id } = useParams();
-    const data=await findById(Number(id))
-
+     const { data: data } = useQuery({
+        queryKey: [`news-info`],
+        queryFn: () => findById(Number(id)),
+        staleTime: 5000,
+    });
     async function submit(e: FormData) {
         let response=await update(
             {

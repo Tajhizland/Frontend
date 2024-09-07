@@ -2,7 +2,7 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import Form from "@/app/admin/brand/Form";
+import Form from "@/app/admin/news/Form";
 import {store} from "@/services/api/admin/news";
 import toast from "react-hot-toast";
 

@@ -40,7 +40,7 @@ export const store = async <T extends ServerResponse<unknown>>
         .then((res) => res?.data)
 };
 
-export const update = async <T extends ServerResponse<ProductResponse>>
+export const update = async <T extends ServerResponse<unknown>>
 (
     params: {
         id: number|string,
@@ -65,5 +65,5 @@ export const update = async <T extends ServerResponse<ProductResponse>>
     }
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/product/update",params)
-        .then((res) => res?.data?.result)
+        .then((res) => res?.data)
 };

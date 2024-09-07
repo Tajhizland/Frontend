@@ -51,10 +51,10 @@ export default function Form({ data, submit}: productForm) {
                 </div>
                 <div>
                     <Label>والد</Label>
-                    <Select name={"category_id"}>
+                    <Select name={"parent_id"}>
                         {
                             categoryLists?.data.map((item) => (<>
-                                <option value={item.id} >
+                                <option value={item.id} selected={item.id==data?.parent_id} >
                                     {item.name}
                                 </option>
                             </>))
@@ -68,7 +68,7 @@ export default function Form({ data, submit}: productForm) {
             <div className={"grid grid-cols-1 gap-5 mt-5"}>
                 <div>
                     <Label>توضیحات</Label>
-                    <Textarea name={"study"} defaultValue={data?.description} />
+                    <Textarea name={"description"} defaultValue={data?.description} />
                 </div>
                 <div>
                     <Label>تصویر دسته‌بندی</Label>

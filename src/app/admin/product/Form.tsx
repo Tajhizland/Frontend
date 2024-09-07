@@ -12,13 +12,13 @@ import FormComponent from "@/components/Form/Product/ColorForm";
 import { ProductResponse } from "@/services/types/product";
 
 interface productForm {
-    productData?: ProductResponse;
+    data?: ProductResponse;
     submit: (e: FormData) => void;
     setColorCount: (e: number) => void;
     colorCount: number
 }
 
-export default function Form({ productData, submit, setColorCount, colorCount }: productForm) {
+export default function Form({ data, submit, setColorCount, colorCount }: productForm) {
 
     const handleAddForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -35,29 +35,28 @@ export default function Form({ productData, submit, setColorCount, colorCount }:
         staleTime: 5000,
     });
 
-    console.log("PROD", productData?.name);
 
     return (<>
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>نام محصول</Label>
-                    <Input name={"name"} defaultValue={productData?.name} />
+                    <Input name={"name"} defaultValue={data?.name} />
                 </div>
                 <div>
                     <Label>وضعیت محصول</Label>
                     <Select name={"status"}>
-                        <option value={1} selected={productData?.status == "1"}>
+                        <option value={1} selected={data?.status == "1"}>
                             فعال
                         </option>
-                        <option value={0} selected={productData?.status == "0"}>
+                        <option value={0} selected={data?.status == "0"}>
                             غیر فعال
                         </option>
                     </Select>
                 </div>
                 <div>
                     <Label>ادرس محصول</Label>
-                    <Input name={"url"} defaultValue={productData?.url} />
+                    <Input name={"url"} defaultValue={data?.url} />
                 </div>
                 <div>
                     <Label>دسته بندی محصول</Label>
@@ -90,19 +89,19 @@ export default function Form({ productData, submit, setColorCount, colorCount }:
             <div className={"grid grid-cols-1 gap-5"}>
                 <div>
                     <Label>بررسی اجمالی</Label>
-                    <Textarea name={"study"} defaultValue={productData?.study} />
+                    <Textarea name={"study"} defaultValue={data?.study} />
                 </div>
                 <div>
                     <Label>توضیحات محصول</Label>
-                    <Textarea name={"description"} defaultValue={productData?.description} />
+                    <Textarea name={"description"} defaultValue={data?.description} />
                 </div>
                 <div>
                     <Label>عنوان سئو</Label>
-                    <Textarea name={"seo_title"} defaultValue={productData?.seo_title} />
+                    <Textarea name={"seo_title"} defaultValue={data?.seo_title} />
                 </div>
                 <div>
                     <Label>توضیحات سئو</Label>
-                    <Textarea name={"seo_description"} defaultValue={productData?.seo_description} />
+                    <Textarea name={"seo_description"} defaultValue={data?.seo_description} />
                 </div>
 
             </div>
@@ -113,7 +112,7 @@ export default function Form({ productData, submit, setColorCount, colorCount }:
                 </ButtonPrimary>
 
                 {
-                    productData?.colors.data.map((item, index) => (<>
+                    data?.colors.data.map((item, index) => (<>
 
                         <FormComponent
                             index={index}

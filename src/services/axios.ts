@@ -79,9 +79,7 @@ axios.interceptors.response.use(
                 new AxiosError(res.data.message || "خطای سرور")
             );
         }
-        if (res?.data?.message) {
-            toast.success(res.data.message);
-        }
+
         return res;
     },
     errorHandler // مدیریت خطا در پاسخ

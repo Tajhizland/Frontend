@@ -2,17 +2,22 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import toast from "react-hot-toast";
 import Form from "@/app/admin/product/Form";
 import {findById, update} from "@/services/api/admin/product";
 import { useState } from "react";
 import { useParams } from "next/navigation";
+import {useQuery} from "react-query";
+import toast from "react-hot-toast";
 
-export default async function Page() {
+export default   function Page() {
     const [colorCount,setColorCount]=useState(1)
     const { id } = useParams();
 
-    const product=await findById(Number(id))
+    const { data: data } = useQuery({
+        queryKey: [`product-info`],
+        queryFn: () => findById(Number(id)),
+        staleTime: 5000,
+    });
 
     async function submit(e: FormData) {
 
@@ -45,6 +50,8 @@ export default async function Page() {
                 color: colors
             }
         )
+        toast.success(response?.message as string)
+
     }
 
     return (<>
@@ -63,7 +70,7 @@ export default async function Page() {
                 ویرایش محصول
             </PageTitle>
             <div>
-                <Form productData={product} submit={submit} colorCount={colorCount} setColorCount={setColorCount}/>
+                <Form data={data} submit={submit} colorCount={colorCount} setColorCount={setColorCount}/>
             </div>
         </Panel>
 
