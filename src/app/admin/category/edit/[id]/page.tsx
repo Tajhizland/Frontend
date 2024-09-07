@@ -1,50 +1,31 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
-import PageTitle from "@/shared/PageTitle/PageTitle"; 
-import toast from "react-hot-toast"; 
+import PageTitle from "@/shared/PageTitle/PageTitle";
+import toast from "react-hot-toast";
 import Form from "@/app/admin/category/Form";
-import {getById, store, update} from "@/services/api/admin/product";
+import {findById, update} from "@/services/api/admin/category";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 
 export default async function page() {
-    const [colorCount,setColorCount]=useState(1)
     const { id } = useParams();
-    
-    const product=await getById(Number(id))
-     
+    const data=await findById(Number(id))
+
     async function submit(e: FormData) {
-
-        const colors = [];
-        for (let i = 0; i < colorCount; i++) {
-            const colorData = {
-                name: e.get(`color[${i}][name]`)as string,
-                code: e.get(`color[${i}][code]`)as string,
-                delivery_delay: e.get(`color[${i}][delivery_delay]`)as string,
-                status: e.get(`color[${i}][status]`)as string,
-                price: e.get(`color[${i}][price]`)as string,
-                discount: e.get(`color[${i}][discount]`)as string,
-                stock: e.get(`color[${i}][stock]`)as string,
-            };
-            colors.push(colorData);
-        }
-
         let response=await update(
             {
-                id: e.get("id") as string,
+                id: Number(id),
                 name: e.get("name") as string,
                 url: e.get("url") as string,
                 status: e.get("status") as string,
-                brand_id: "1" as string,
                 description: e.get("description") as string,
-                meta_description: e.get("meta_description") as string,
-                meta_title: e.get("meta_title") as string,
-                study: e.get("study") as string,
-                category_id: e.get("category_id") as string,
-                color: colors
+                image:e.get("image"),
+                parent_id:e.get("parent_id") as string
+
             }
-        ) 
+        )
+        toast.success(response?.message as string)
     }
 
     return (<>
@@ -60,10 +41,10 @@ export default async function page() {
         ]}/>
         <Panel>
             <PageTitle>
-                ایجاد محصول جدید
+                ویرایش دسته بندی
             </PageTitle>
             <div>
-                <Form productData={product} submit={submit} colorCount={colorCount} setColorCount={setColorCount}/>
+                <Form data={data} submit={submit}/>
             </div>
         </Panel>
 

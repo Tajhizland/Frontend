@@ -1,19 +1,19 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
-import PageTitle from "@/shared/PageTitle/PageTitle"; 
-import toast from "react-hot-toast"; 
+import PageTitle from "@/shared/PageTitle/PageTitle";
+import toast from "react-hot-toast";
 import Form from "@/app/admin/product/Form";
-import {getById, store, update} from "@/services/api/admin/product";
+import {findById, update} from "@/services/api/admin/product";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 
 export default async function page() {
     const [colorCount,setColorCount]=useState(1)
     const { id } = useParams();
-    
-    const product=await getById(Number(id))
-     
+
+    const product=await findById(Number(id))
+
     async function submit(e: FormData) {
 
         const colors = [];
@@ -44,7 +44,7 @@ export default async function page() {
                 category_id: e.get("category_id") as string,
                 color: colors
             }
-        ) 
+        )
     }
 
     return (<>
@@ -60,7 +60,7 @@ export default async function page() {
         ]}/>
         <Panel>
             <PageTitle>
-                ایجاد محصول جدید
+                ویرایش محصول
             </PageTitle>
             <div>
                 <Form productData={product} submit={submit} colorCount={colorCount} setColorCount={setColorCount}/>

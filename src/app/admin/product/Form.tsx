@@ -19,11 +19,10 @@ interface productForm {
 }
 
 export default function Form({ productData, submit, setColorCount, colorCount }: productForm) {
-    const [formCount, setFormCount] = useState(1);  
 
     const handleAddForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setColorCount(colorCount + 1); 
+        setColorCount(colorCount + 1);
     };
     const { data: categoryLists } = useQuery({
         queryKey: [`category-list`],
@@ -132,8 +131,8 @@ export default function Form({ productData, submit, setColorCount, colorCount }:
 
                 {Array.from({ length: colorCount }).map((_, index) => (
                     <>
-                        <FormComponent 
-                        
+                        <FormComponent
+
                         key={index} index={index} />
                         <hr className={"my-5"} />
                     </>

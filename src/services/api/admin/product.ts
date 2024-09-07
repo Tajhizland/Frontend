@@ -7,10 +7,10 @@ export const dataTable = async <T extends ServerResponse<ProductResponse>>
         .then((res) => res?.data?.result)
 };
 
-export const getById = async <T extends ServerResponse<ProductResponse>>
+export const findById = async <T extends ServerResponse<ProductResponse>>
 (id:number|string) => {
     return axios.get<T, SuccessResponseType<T>>("admin/product/find/"+id)
-        .then((res) => res?.data?.result)
+        .then((res) => res?.data?.result?.data)
 };
 
 export const store = async <T extends ServerResponse<unknown>>

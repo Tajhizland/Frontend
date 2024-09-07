@@ -6,10 +6,10 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Textarea from "@/shared/Textarea/Textarea";
 import React from "react";
 import Uploader from "@/shared/Uploader/Uploader";
-import {NewsResponse} from "@/services/types/news";
+import {BrandResponse} from "@/services/types/brand";
 
 interface Form {
-    data?: NewsResponse;
+    data?: BrandResponse;
     submit: (e: FormData) => void;
 }
 
@@ -19,20 +19,20 @@ export default function Form({ data, submit  }: Form) {
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
-                    <Label>عنوان بلاگ</Label>
-                    <Input name={"title"} defaultValue={data?.title}/>
+                    <Label>نام برند</Label>
+                    <Input name={"name"} defaultValue={data?.name}/>
                 </div>
                 <div>
-                    <Label>ادرس بلاگ</Label>
+                    <Label>ادرس برند</Label>
                     <Input name={"url"} defaultValue={data?.url}/>
                 </div>
                 <div>
-                    <Label>وضعیت بلاگ</Label>
-                    <Select name={"published"}>
-                        <option value={1} selected={data?.published == 1}>
+                    <Label>وضعیت برند</Label>
+                    <Select name={"status"}>
+                        <option value={1} selected={data?.status == "1"}>
                             فعال
                         </option>
-                        <option value={0} selected={data?.published == 0}>
+                        <option value={0} selected={data?.status == "0"}>
                             غیر فعال
                         </option>
                     </Select>
@@ -44,13 +44,13 @@ export default function Form({ data, submit  }: Form) {
             <div className={"grid grid-cols-1 gap-5"}>
 
                 <div>
-                    <Label>محتوا بلاگ</Label>
-                    <Textarea name={"content"} defaultValue={data?.content}/>
+                    <Label>توضیحات برند</Label>
+                    <Textarea name={"description"} defaultValue={data?.description}/>
                 </div>
 
             </div>
             <div>
-                <Label>تصویر بلاگ</Label>
+                <Label>تصویر برند</Label>
                 <Uploader/>
             </div>
             <hr className={"my-5"}/>

@@ -2,45 +2,49 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
+import Form from "@/app/admin/brand/Form";
+import {findById, update} from "@/services/api/admin/brand";
 import toast from "react-hot-toast";
-import Form from "@/app/admin/category/Form";
-import {store} from "@/services/api/admin/category";
-import { useState } from "react";
+import {useParams} from "next/navigation";
 
-export default function page() {
+export default async function page()
+{
+    const { id } = useParams();
+    const data=await findById(Number(id))
+
     async function submit(e: FormData) {
-        let response=await store(
+
+        let response=await update(
             {
+                id:Number(id),
                 name: e.get("name") as string,
                 url: e.get("url") as string,
                 status: e.get("status") as string,
+                image: e.get("image") ,
                 description: e.get("description") as string,
-                image:e.get("image"),
-                parent_id:e.get("parent_id") as string
             }
         )
         toast.success(response?.message as string)
     }
 
-    return (<>
+    return(<>
         <Breadcrump breadcrumb={[
             {
-                title: "دسته‌بندی",
-                href: "category"
+                title: "برند",
+                href: "brand"
             },
             {
-                title: "افزودن دسته‌بندی جدید",
-                href: "category/create"
+                title: "افزودن برند جدید",
+                href: "product/create"
             }
         ]}/>
         <Panel>
             <PageTitle>
-                ایجاد دسته‌بندی جدید
+               ویرایش محصول
             </PageTitle>
             <div>
-                <Form submit={submit} />
+                <Form submit={submit}  data={data}/>
             </div>
         </Panel>
-
     </>)
 }
