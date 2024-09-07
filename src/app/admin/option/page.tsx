@@ -18,7 +18,7 @@ type DataRow = {
     created_at: string;
 };
 
-export default function page() {
+export default function Page() {
     const columns: Column<DataRow>[] = [
         { key: 'id', header: 'شناسه', filterType: 'input', editable: true },
         { key: 'title', header: 'عنوان', filterType: 'input', editable: true },

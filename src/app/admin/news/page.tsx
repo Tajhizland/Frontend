@@ -9,7 +9,7 @@ import DataTable from "@/shared/DataTable/DataTable";
 import {buttons, columns} from "@/app/admin/news/TableRow";
 
 
-export default function page() {
+export default function Page() {
 
     return (<>
         <Breadcrump breadcrumb={[

@@ -1,13 +1,13 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
-import PageTitle from "@/shared/PageTitle/PageTitle"; 
-import toast from "react-hot-toast"; 
+import PageTitle from "@/shared/PageTitle/PageTitle";
+import toast from "react-hot-toast";
 import Form from "@/app/admin/product/Form";
 import {store} from "@/services/api/admin/product";
 import { useState } from "react";
 
-export default function page() {
+export default function Page() {
     const [colorCount,setColorCount]=useState(1)
     async function submit(e: FormData) {
 

@@ -7,7 +7,7 @@ import Form from "@/app/admin/category/Form";
 import {store} from "@/services/api/admin/category";
 import { useState } from "react";
 
-export default function page() {
+export default function Page() {
     async function submit(e: FormData) {
         let response=await store(
             {

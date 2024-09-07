@@ -11,7 +11,7 @@ import {FaComment, FaFileInvoiceDollar} from "react-icons/fa";
 import {MdOutlinePendingActions} from "react-icons/md";
 import {TbTruckReturn} from "react-icons/tb";
 
-export default function page() {
+export default function Page() {
     const chartData = [
         {date: '1403/01/01', value: 10},
         {date: '1403/01/02', value: 15},

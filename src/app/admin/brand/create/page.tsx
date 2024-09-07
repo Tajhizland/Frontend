@@ -6,7 +6,7 @@ import Form from "@/app/admin/brand/Form";
 import {store} from "@/services/api/admin/brand";
 import toast from "react-hot-toast";
 
-export default function page()
+export default function Page()
 {
     async function submit(e: FormData) {
 

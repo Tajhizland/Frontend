@@ -8,7 +8,7 @@ import Link from "next/link";
 import DataTable from "@/shared/DataTable/DataTable";
 import {buttons, columns} from "@/app/admin/product/TableRow";
 
-export default function page() {
+export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
