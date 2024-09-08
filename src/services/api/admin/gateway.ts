@@ -5,7 +5,7 @@ export const store = async <T extends ServerResponse<unknown>>
 (
     params: {
         name:string,
-        status:number,
+        status:number|string,
         description:string,
     }
 ) => {
