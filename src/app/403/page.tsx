@@ -1,8 +1,8 @@
-import heroBg from '@/images/hero-bg.png';
-import NcImage from "@/shared/NcImage/NcImage";
+
 import I403Png from "@/images/403.jpg";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
+import Image from "next/image";
 
 const ServiceUnavailable = () => {
 
@@ -12,7 +12,7 @@ const ServiceUnavailable = () => {
                 <div className="container relative pt-5 pb-16 lg:pb-20 lg:pt-5">
                     {/* HEADER */}
                     <header className="text-center max-w-2xl mx-auto space-y-2">
-                        <NcImage src={I403Png} alt="not-found" className={"object-cover w-96 h-96 mx-auto"}/>
+                        <Image src={I403Png} alt="403" className={"object-cover w-96 h-96 mx-auto"}/>
                         <span
                             className="block text-3xl text-neutral-800    tracking-wider font-bold ">
           403
