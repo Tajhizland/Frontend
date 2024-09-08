@@ -173,6 +173,7 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                             عملیات
                         </th>
                     </tr>
+ 
                     <tr className={"text-slate-900 bg-white"}>
                         {columns.map((col) => (
                             <th key={col.key as string} className={"text-center p-3"}>
@@ -209,7 +210,7 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                         ))}
                         <th></th>
                     </tr>
-                    </thead>
+                     </thead>
                     <tbody>
                     {loading ? (
                         <tr>
@@ -228,7 +229,7 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                         if (col.filterType === "select") {
                                             content = (
                                                 <CustomSelect
-                                                    hasAll={1}
+                                                    hasAll={0}
                                                     options={col.selectOptions || []}
                                                     value={cellValue as string}
                                                     onChange={(value) =>
@@ -250,6 +251,7 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                             content = (
                                                 <Input
                                                     value={cellValue as string}
+                                                    name={col.key as string}
                                                     onChange={(e) =>
                                                         handleInputChange(e, col.key, rowIndex)
                                                     }
@@ -277,7 +279,7 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                             <div className={"flex gap-x-2 justify-center"}>
 
                                                 <Button
-                                                    onClick={() => handleSaveClick(rowIndex)}
+                                                    onClick={() => {(onEdit!=undefined &&onEdit(editedData[rowIndex]) );setEditingRow(null) }}
                                                     className={"bg-teal-500 text-white"}
                                                     sizeClass={"py-1 px-3 sm:py-1 h-8 sm:px-6 h-8"}
                                                     fontSize={" text-sm"}>

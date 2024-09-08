@@ -2,8 +2,9 @@ import {Column, DataTableButtons} from "@/shared/DataTable/type";
 import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
+import { UrlObject } from "url";
 
-type DataRow = {
+export type DataRow = {
     id: number;
     name: string;
     view: number;
@@ -21,7 +22,7 @@ export const columns: Column<DataRow>[] = [
         render: (value) => <img className={"w-10 h-10 mx-auto"} alt={"image"}
                                 src={"https://statics.honari.com/honarifiles/faq/" + value}/>
     },
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: true},
+    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'name', header: 'نام برند', filterType: 'input', editable: true},
     {key: 'url', header: 'آدرس برند', filterType: 'input', editable: true},
     {
@@ -42,24 +43,20 @@ export const columns: Column<DataRow>[] = [
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },
-    {
-        key: 'created_at',
-        header: 'تاریخ ایجاد',
-        editable: false,
-        hasFilter: false,
-        render: (value) => value == 1 ? <Badge name={"فعال"} color={"green"}/> :
-            <Badge name={"غیر‌‌فعال"} color={"red"}/>,
+    { key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false },
 
-    },
 ];
 export const buttons: DataTableButtons[] = [
     {
         label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
-        type: "action",
+        type: "link",
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        action: (value: any) => console.log(value)
+        href : (value: any): UrlObject => {
+            return {
+                pathname: 'brand/edit/'+value,
+            };
+        }
     },
-
     {
         label: <FaEye/>,
         type: "action",

@@ -19,7 +19,7 @@ export type DataTableProps<T> = {
     columns: Column<T>[];
     buttons:DataTableButtons[];
     apiUrl: string; // URL for fetching data from API
-    onEdit?: (updatedRow: T) => void; // Callback for when a row is edited
+    onEdit?: (e: unknown) => void; // Callback for when a row is edited
     onDelete?: (row: T) => void; // Callback for when a row is deleted
 };
 export type  DataTableButtons=DataTableLink |DataTableAction
