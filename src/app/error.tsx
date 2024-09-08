@@ -4,7 +4,12 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import NcImage from "@/shared/NcImage/NcImage";
 import I403Png from "@/images/500.png";
 
-export default function Error() {
+type ErrorPageProps = {
+    error: Error;
+    reset: () => void;
+};
+
+export default function Error({error, reset}:ErrorPageProps) {
 
 
     return (
