@@ -2,17 +2,17 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import Form from "@/app/admin/user/Form";
-import {findById, update} from "@/services/api/admin/user";
+import Form from "@/app/admin/gateway/Form";
+import {update ,findById} from "@/services/api/admin/gateway";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useQuery} from "react-query";
+ import {useQuery} from "react-query";
 
-export default   function Page()
+export default  function Page()
 {
     const { id } = useParams();
-    const { data: data } = useQuery({
-        queryKey: [`category-info`],
+     const { data: data } = useQuery({
+        queryKey: [`gateway-info`],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
@@ -21,8 +21,9 @@ export default   function Page()
             {
                 id:Number(id),
                 name: e.get("name") as string,
-                username: e.get("username") as string,
-                role: e.get("role") as string ,
+                status: e.get("status") as string,
+                description: e.get("description") as string,
+
             }
         )
         toast.success(response?.message as string)
@@ -31,21 +32,22 @@ export default   function Page()
     return(<>
         <Breadcrump breadcrumb={[
             {
-                title: "کاربران",
-                href: "user"
+                title: "تنظیمات درگاه پرداخت",
+                href: "gateway"
             },
             {
-                title: "ویرایش کاربر",
-                href: "user/update/"+id
+                title: "ویرایش درگاه پرداخت",
+                href: "gateway/update/"+id
             }
         ]}/>
         <Panel>
             <PageTitle>
-               ویرایش کاربر
+                ویرایش بلاگ
             </PageTitle>
             <div>
-                <Form submit={submit}  data={data}/>
+                <Form data={data} submit={submit} />
             </div>
         </Panel>
+
     </>)
 }

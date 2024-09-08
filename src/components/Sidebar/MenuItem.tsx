@@ -32,8 +32,8 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
 
             },
             {
-                title: "افزودن محصول جدید",
-                url: "/product",
+                title: "افزودن محصول",
+                url: "/product/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
 
             }
@@ -41,18 +41,18 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
     },
     {
         title: "دسته بندی ها",
-        url: "/product",
+        url: "/",
         icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
         sub: [
             {
-                title: "مدیریت ",
-                url: "/product",
+                title: "مدیریت دسته بندی ها",
+                url: "/category",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
 
             },
             {
-                title: "افزودن ",
-                url: "/product",
+                title: "افزودن دسته بندی",
+                url: "/category/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
 
             }
@@ -65,41 +65,102 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         sub: [
             {
                 title: "مدیریت برند ها",
-                url: "/product",
+                url: "/brand",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
 
             },
             {
-                title: "افزودن برند جدید",
-                url: "/product",
+                title: "افزودن برند",
+                url: "/brand/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
 
             }
         ]
     },
     {
-        title: "بلاگ",
-        url: "/product",
+        title: "بلاگ ها",
+        url: "/",
         icon: <NewspaperIcon className="h-6 w-6 text-gray-500" />,
         sub: [
             {
                 title: "مدیریت بلاگ ها",
-                url: "/product",
+                url: "/news",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
 
             },
             {
-                title: "افزودن بلاگ جدید",
-                url: "/product",
+                title: "افزودن بلاگ",
+                url: "/news/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
 
             }
         ]
     },
     {
+        title: "مدیریت کاربران",
+        url: "/user",
+        icon: <NewspaperIcon className="h-6 w-6 text-gray-500" />,
+
+    },
+    {
         title: "سفارشات",
-        url: "/product",
+        url: "/order",
         icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
      },
+    {
+        title: "مدیریت مرجوعی ها",
+        url: "/returned",
+        icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
+     },
+    {
+        title: "مدیریت تراکنش ها",
+        url: "/transaction",
+        icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
+     },
+    {
+        title: "مدیریت کامنت ها",
+        url: "/comment",
+        icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
+     },
+    {
+        title: "ویژگی ها",
+        url: "/",
+        icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
+        sub: [
+            {
+                title: "مدیریت ویژگی ها",
+                url: "/option",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+
+            },
+            {
+                title: "افزودن ویژگی",
+                url: "/option/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
+
+            }
+        ]
+
+    },
+    {
+        title: "تنظیمات",
+        url: "/",
+        icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
+        sub: [
+            {
+                title: "درگاه پرداخت",
+                url: "/gateway",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+
+            },
+            {
+                title: "روش ارسال ",
+                url: "/delivery",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
+
+            }
+        ]
+
+    },
 
 ];

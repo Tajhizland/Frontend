@@ -3,23 +3,23 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/comment/TableRow";
+import {buttons, columns} from "@/app/admin/transaction/TableRow";
 
 export default function Page() {
 
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "کامنت ها",
-                href: "comment"
+                title: "تراکنش ها",
+                href: "transaction"
             }
         ]}/>
         <Panel>
             <PageTitle>
-                مدیریت کامنت ها
+                مدیریت تراکنش ها
             </PageTitle>
             <DataTable
-                apiUrl={"admin/comment/dataTable"}
+                apiUrl={"admin/transaction/dataTable"}
                 columns={columns}
                 buttons={buttons}
             />
