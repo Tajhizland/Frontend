@@ -7,12 +7,26 @@ export const store = async <T extends ServerResponse<unknown>>
         title:string,
         url:string,
         published:number|string,
-        image:unknown,
+        image: File | null,
         content:string
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/news/store" , params)
-        .then((res) => res?.data)
+    const formData = new FormData();
+    formData.append('title', params.title);
+    formData.append('url', params.url);
+    formData.append('published', params.published.toString());
+    formData.append('content', params.content);
+
+    if (params.image) {
+        formData.append('image', params.image);
+    }
+
+    return axios.post<T, SuccessResponseType<T>>("admin/news/store", formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
+        .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
@@ -22,12 +36,27 @@ export const update = async <T extends ServerResponse<unknown>>
         title:string,
         url:string,
         published:number|string,
-        image:unknown,
+        image: File | null,
         content:string
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/news/update" , params)
-        .then((res) => res?.data)
+    const formData = new FormData();
+    formData.append('id', params.id.toString());
+    formData.append('title', params.title);
+    formData.append('url', params.url);
+    formData.append('published', params.published.toString());
+    formData.append('content', params.content);
+
+    if (params.image) {
+        formData.append('image', params.image);
+    }
+
+    return axios.post<T, SuccessResponseType<T>>("admin/news/update", formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
+        .then((res) => res?.data);
 };
 
 export const findById = async <T extends ServerResponse<NewsResponse>>

@@ -3,18 +3,10 @@ import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
 import {UrlObject} from "node:url";
+import {CategoryResponse} from "@/services/types/category";
 
-type DataRow = {
-    id: number;
-    name: string;
-    view: number;
-    url: string;
-    status: number;
-    icon: string;
-    created_at: string;
-};
 
-export const columns: Column<DataRow>[] = [
+export const columns: Column<CategoryResponse>[] = [
 
     {key: 'id', header: 'شناسه', filterType: 'input', editable: true},
     {key: 'name', header: 'نام دسته‌بندی', filterType: 'input', editable: true},

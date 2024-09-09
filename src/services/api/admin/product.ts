@@ -63,6 +63,7 @@ export const update = async <T extends ServerResponse<unknown>>
             delivery_delay:number|string,
         }[]
     }
+
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/product/update",params)
         .then((res) => res?.data)

@@ -12,15 +12,33 @@ export const categoryList = async <T extends ServerResponse<CategoryResponse[]>>
 export const store = async <T extends ServerResponse<unknown>>
 (
     params: {
-        name:number|string,
+        name:string,
         url:string,
-        image:unknown,
+        image:File|null,
         parent_id:number|string,
         status:number|string,
         description:string
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/category/store" , params)
+
+    const formData = new FormData();
+    formData.append('name', params.name.toString());
+    formData.append('url', params.url);
+    formData.append('parent_id', params.parent_id.toString());
+    formData.append('status', params.status.toString());
+    formData.append('description', params.description);
+
+    if (params.image) {
+        formData.append('image', params.image);
+    }
+
+
+    return axios.post<T, SuccessResponseType<T>>("admin/category/store" , formData ,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
         .then((res) => res?.data)
 };
 
@@ -28,15 +46,31 @@ export const update = async <T extends ServerResponse<unknown>>
 (
     params: {
         id:number|string,
-        name:number|string,
+        name:string,
         url:string,
-        image:unknown,
+        image:File|null,
         parent_id:number|string,
         status:number|string,
         description:string
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/category/update" , params)
+    const formData = new FormData();
+    formData.append('id', params.id.toString());
+    formData.append('name', params.name);
+    formData.append('url', params.url);
+    formData.append('parent_id', params.parent_id.toString());
+    formData.append('status', params.status.toString());
+    formData.append('description', params.description);
+
+    if (params.image) {
+        formData.append('image', params.image);
+    }
+    return axios.post<T, SuccessResponseType<T>>("admin/category/update" , formData ,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
         .then((res) => res?.data)
 };
 

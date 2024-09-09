@@ -7,10 +7,25 @@ import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import DataTable from "@/shared/DataTable/DataTable";
 import {buttons, columns} from "@/app/admin/news/TableRow";
+ import {update} from "@/services/api/admin/news";
+import {toast} from "react-hot-toast";
+import {NewsResponse} from "@/services/types/news";
 
 
 export default function Page() {
-
+    async function submit(e: NewsResponse) {
+        let response=await update(
+            {
+                id: e.id,
+                title: e.title,
+                url: e.url,
+                published: e.published,
+                image: e.img ,
+                content: e.content,
+            }
+        )
+        toast.success(response?.message as string)
+    }
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -28,6 +43,7 @@ export default function Page() {
                 </Link>
             </PageLink>
             <DataTable
+                onEdit={submit}
                 apiUrl={"admin/news/dataTable"}
                 columns={columns}
                 buttons={buttons}

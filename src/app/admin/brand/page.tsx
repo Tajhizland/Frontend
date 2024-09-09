@@ -6,14 +6,14 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import DataTable from "@/shared/DataTable/DataTable";
-import {DataRow, buttons, columns} from "@/app/admin/brand/TableRow";
+import {buttons, columns} from "@/app/admin/brand/TableRow";
 import { update } from "@/services/api/admin/brand";
 import { toast } from "react-hot-toast";
+import {BrandResponse} from "@/services/types/brand";
 
 export default function Page() {
 
-    async function submit(e: DataRow) {
-
+    async function submit(e: BrandResponse) {
         let response=await update(
             {
                 id: e.id,
@@ -21,7 +21,7 @@ export default function Page() {
                 url: e.url,
                 status: e.status,
                 image: e.image ,
-                description: "",
+                description: e.description,
             }
         )
         toast.success(response?.message as string)

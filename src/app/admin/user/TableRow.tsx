@@ -2,15 +2,9 @@ import {Column, DataTableButtons} from "@/shared/DataTable/type";
 import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
+import {UserResponse} from "@/services/types/user";
 
-type DataRow = {
-    id: number;
-    name: string;
-    username: string;
-    role: string;
-
-};
-export const columns: Column<DataRow>[] = [
+export const columns: Column<UserResponse>[] = [
 
     {key: 'id', header: 'شناسه', filterType: 'input', editable: true},
     {key: 'name', header: 'نام کاربر', filterType: 'input', editable: true},

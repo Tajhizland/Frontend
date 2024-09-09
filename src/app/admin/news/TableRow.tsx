@@ -2,16 +2,9 @@ import {Column, DataTableButtons} from "@/shared/DataTable/type";
 import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
+import {NewsResponse} from "@/services/types/news";
 
-type DataRow = {
-    id: number;
-    title: string;
-    url: string;
-    published: number;
-    created_at: string;
-};
-
-export const columns: Column<DataRow>[] = [
+export const columns: Column<NewsResponse>[] = [
     { key: 'id', header: 'شناسه', filterType: 'input', editable: true },
     { key: 'title', header: 'عنوان', filterType: 'input', editable: true },
     { key: 'url', header: 'آدرس محصول', filterType: 'input', editable: true },

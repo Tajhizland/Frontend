@@ -3,25 +3,11 @@ import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
 import {UrlObject} from "node:url";
-type DataRow = {
-    id: number;
-    name: string;
-    view: number;
-    url: string;
-    status: number;
-    icon: string;
-    created_at: string;
-};
+import {ProductResponse} from "@/services/types/product";
 
-export const columns: Column<DataRow>[] = [
-    {
-        key: 'icon',
-        header: 'تصویر',
-        hasFilter: false,
-        hasSort: false,
-        render: (value) => <img className={"w-10 h-10 mx-auto"} alt={"s"}
-                                src={"https://statics.honari.com/honarifiles/faq/" + value}/>
-    },
+
+export const columns: Column<ProductResponse>[] = [
+    
     {key: 'id', header: 'شناسه', filterType: 'input', editable: true},
     {key: 'name', header: 'نام محصول', filterType: 'input', editable: true},
     {key: 'view', header: 'تعداد بازدید', filterType: 'input', editable: false},

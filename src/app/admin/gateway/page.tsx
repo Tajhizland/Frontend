@@ -7,10 +7,24 @@ import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import DataTable from "@/shared/DataTable/DataTable";
 import {buttons, columns} from "@/app/admin/news/TableRow";
+import {DeliveryResponse} from "@/services/types/delivery";
+import {update} from "@/services/api/admin/gateway";
+import {toast} from "react-hot-toast";
+import {GatewayResponse} from "@/services/types/gateway";
 
 
 export default function Page() {
-
+    async function submit(e: GatewayResponse) {
+        let response = await update(
+            {
+                id: e.id,
+                name: e.name,
+                status: e.status,
+                description: e.description,
+            }
+        )
+        toast.success(response?.message as string)
+    }
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -28,6 +42,7 @@ export default function Page() {
                 </Link>
             </PageLink>
             <DataTable
+                onEdit={submit}
                 apiUrl={"admin/gateway/dataTable"}
                 columns={columns}
                 buttons={buttons}

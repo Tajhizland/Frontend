@@ -3,17 +3,10 @@ import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
 import { UrlObject } from "url";
+import {BrandResponse} from "@/services/types/brand";
 
-export type DataRow = {
-    id: number;
-    name: string;
-    view: number;
-    url: string;
-    status: number;
-    image: string;
-    created_at: string;
-};
-export const columns: Column<DataRow>[] = [
+
+export const columns: Column<BrandResponse>[] = [
     {
         key: 'image',
         header: 'تصویر',

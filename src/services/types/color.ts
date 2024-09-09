@@ -6,6 +6,7 @@ export type ColorResponse = {
     status: string,
     price: number,
     discount: number,
+    delivery_delay: number,
     stock: number,
     created_at: string,
     updated_at: string,
