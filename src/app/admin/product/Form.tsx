@@ -10,6 +10,7 @@ import { useQuery } from "react-query";
 import { brandList } from "@/services/api/admin/brand";
 import FormComponent from "@/components/Form/Product/ColorForm";
 import { ProductResponse } from "@/services/types/product";
+import TinyEditor from "@/shared/Editor/TinyEditor";
 
 interface productForm {
     data?: ProductResponse;
@@ -89,19 +90,21 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
             <div className={"grid grid-cols-1 gap-5"}>
                 <div>
                     <Label>بررسی اجمالی</Label>
-                    <Textarea name={"study"} defaultValue={data?.study} />
+                    <TinyEditor name={"study"} value={data?.study} />
+
                 </div>
                 <div>
                     <Label>توضیحات محصول</Label>
-                    <Textarea name={"description"} defaultValue={data?.description} />
+                    <TinyEditor name={"description"} value={data?.description} />
                 </div>
                 <div>
                     <Label>عنوان سئو</Label>
-                    <Textarea name={"seo_title"} defaultValue={data?.seo_title} />
+                    <Textarea name={"seo_title"} defaultValue={data?.meta_title} />
                 </div>
                 <div>
                     <Label>توضیحات سئو</Label>
-                    <Textarea name={"seo_description"} defaultValue={data?.seo_description} />
+                    <TinyEditor name={"description"} value={data?.meta_description} />
+
                 </div>
 
             </div>

@@ -12,6 +12,7 @@ import FormComponent from "@/components/Form/Product/ColorForm";
 import { ProductResponse } from "@/services/types/product";
 import Uploader from "@/shared/Uploader/Uploader";
 import {CategoryResponse} from "@/services/types/category";
+import TinyEditor from "@/shared/Editor/TinyEditor";
 
 interface productForm {
     data?: CategoryResponse;
@@ -68,7 +69,7 @@ export default function Form({ data, submit}: productForm) {
             <div className={"grid grid-cols-1 gap-5 mt-5"}>
                 <div>
                     <Label>توضیحات</Label>
-                    <Textarea name={"description"} defaultValue={data?.description} />
+                    <TinyEditor name={"description"} value={data?.description} />
                 </div>
                 <div>
                     <Label>تصویر دسته‌بندی</Label>

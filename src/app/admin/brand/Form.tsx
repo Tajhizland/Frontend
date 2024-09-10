@@ -7,6 +7,7 @@ import Textarea from "@/shared/Textarea/Textarea";
 import React from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import {BrandResponse} from "@/services/types/brand";
+import TinyEditor from "@/shared/Editor/TinyEditor";
 
 interface Form {
     data?: BrandResponse;
@@ -45,7 +46,8 @@ export default function Form({ data, submit  }: Form) {
 
                 <div>
                     <Label>توضیحات برند</Label>
-                    <Textarea name={"description"} defaultValue={data?.description}/>
+                    <TinyEditor name={"description"} value={data?.description} />
+
                 </div>
 
             </div>

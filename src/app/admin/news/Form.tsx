@@ -7,6 +7,7 @@ import Textarea from "@/shared/Textarea/Textarea";
 import React from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import {NewsResponse} from "@/services/types/news";
+import TinyEditor from "@/shared/Editor/TinyEditor";
 
 interface Form {
     data?: NewsResponse;
@@ -45,7 +46,7 @@ export default function Form({ data, submit  }: Form) {
 
                 <div>
                     <Label>محتوا بلاگ</Label>
-                    <Textarea name={"content"} defaultValue={data?.content}/>
+                    <TinyEditor name={"content"} value={data?.content} />
                 </div>
 
             </div>
