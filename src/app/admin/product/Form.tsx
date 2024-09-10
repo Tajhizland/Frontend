@@ -11,6 +11,7 @@ import { brandList } from "@/services/api/admin/brand";
 import FormComponent from "@/components/Form/Product/ColorForm";
 import { ProductResponse } from "@/services/types/product";
 import TinyEditor from "@/shared/Editor/TinyEditor";
+import Uploader from "@/shared/Uploader/Uploader";
 
 interface productForm {
     data?: ProductResponse;
@@ -38,6 +39,7 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
 
 
     return (<>
+
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
@@ -135,7 +137,7 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                     <>
                         <FormComponent
 
-                        key={index} index={index} />
+                            key={index} index={index} />
                         <hr className={"my-5"} />
                     </>
                 ))}

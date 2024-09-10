@@ -4,28 +4,28 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import toast from "react-hot-toast";
 import Form from "@/app/admin/product/Form";
-import {store} from "@/services/api/admin/product";
+import { store } from "@/services/api/admin/product";
 import { useState } from "react";
 
 export default function Page() {
-    const [colorCount,setColorCount]=useState(1)
-    async function submit(e: FormData) {
+    const [colorCount, setColorCount] = useState(1)
+     async function submit(e: FormData) {
 
         const colors = [];
         for (let i = 0; i < colorCount; i++) {
             const colorData = {
-                name: e.get(`color[${i}][name]`)as string,
-                code: e.get(`color[${i}][code]`)as string,
-                delivery_delay: e.get(`color[${i}][delivery_delay]`)as string,
-                status: e.get(`color[${i}][status]`)as string,
-                price: e.get(`color[${i}][price]`)as string,
-                discount: e.get(`color[${i}][discount]`)as string,
-                stock: e.get(`color[${i}][stock]`)as string,
+                name: e.get(`color[${i}][name]`) as string,
+                code: e.get(`color[${i}][code]`) as string,
+                delivery_delay: e.get(`color[${i}][delivery_delay]`) as string,
+                status: e.get(`color[${i}][status]`) as string,
+                price: e.get(`color[${i}][price]`) as string,
+                discount: e.get(`color[${i}][discount]`) as string,
+                stock: e.get(`color[${i}][stock]`) as string,
             };
             colors.push(colorData);
         }
 
-        let response=await store(
+        let response = await store(
             {
                 name: e.get("name") as string,
                 url: e.get("url") as string,
@@ -52,13 +52,13 @@ export default function Page() {
                 title: "افزودن محصول جدید",
                 href: "product/create"
             }
-        ]}/>
+        ]} />
         <Panel>
             <PageTitle>
                 ایجاد محصول جدید
-            </PageTitle>
+            </PageTitle> 
             <div>
-                <Form submit={submit} colorCount={colorCount} setColorCount={setColorCount}/>
+                <Form submit={submit} colorCount={colorCount} setColorCount={setColorCount} />
             </div>
         </Panel>
 

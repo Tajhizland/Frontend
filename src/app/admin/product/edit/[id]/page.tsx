@@ -8,7 +8,10 @@ import { useState } from "react";
 import { useParams } from "next/navigation";
 import {useQuery} from "react-query";
 import toast from "react-hot-toast";
-
+import { IoIosColorPalette, IoMdOptions } from "react-icons/io";
+import { FaFilter } from "react-icons/fa";
+import { MdOutlinePreview } from "react-icons/md";
+import { SiBasicattentiontoken } from "react-icons/si";
 export default   function Page() {
     const [colorCount,setColorCount]=useState(1)
     const { id } = useParams();
@@ -69,6 +72,43 @@ export default   function Page() {
             <PageTitle>
                 ویرایش محصول
             </PageTitle>
+
+            <div className="border-b border-gray-200 dark:border-gray-700">
+                <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                    <li className="me-2">
+                        <a href="#" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group gap-x-2">
+                        <SiBasicattentiontoken  className="w-5 h-5"/>
+
+                            محصول
+                        </a>
+                    </li>
+                    <li className="me-2">
+                        <a href="#" className="inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group gap-x-2" aria-current="page">
+                        <IoIosColorPalette  className="w-5 h-5"/>
+                        رنگ
+                        </a>
+                    </li>
+                    <li className="me-2">
+                        <a href="#" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group gap-x-2">
+                        <FaFilter className="w-5 h-5"/>
+                          فیلتر
+                        </a>
+                    </li>
+                    <li className="me-2">
+                        <a href="#" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group gap-x-2">
+                        <IoMdOptions className="w-5 h-5"/>
+                        ویژگی
+                        </a>
+                    </li>
+                    <li className="me-2">
+                        <a href="#" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group gap-x-2">
+                        <MdOutlinePreview className="w-5 h-5"/>
+                        بررسی تخصصی
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
             <div>
                 <Form data={data} submit={submit} colorCount={colorCount} setColorCount={setColorCount}/>
             </div>

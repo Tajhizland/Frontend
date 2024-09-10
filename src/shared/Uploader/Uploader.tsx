@@ -1,4 +1,4 @@
-export  default  function Uploader( )
+export  default  function Uploader(props:any)
 {
     return(<>
         <div className="flex items-center justify-center w-full">
@@ -13,7 +13,7 @@ export  default  function Uploader( )
                     <p className="mb-2 text-xs text-gray-500 text-center">
                         <span className="font-semibold">برای آپلود عکس کلیک کنید</span> یا عکس را در اینجا بکشید</p>
                  </div>
-                <input id="dropzone-file" type="file" className="hidden"/>
+                <input id="dropzone-file" type="file" className="hidden" {...props}/>
             </label>
         </div>
 
