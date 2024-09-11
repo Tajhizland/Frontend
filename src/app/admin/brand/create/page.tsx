@@ -15,7 +15,7 @@ export default function Page()
                 name: e.get("name") as string,
                 url: e.get("url") as string,
                 status: e.get("status") as string,
-                image: e.get("image") ,
+                image: e.get("image") as File,
                  description: e.get("description") as string,
             }
         )
