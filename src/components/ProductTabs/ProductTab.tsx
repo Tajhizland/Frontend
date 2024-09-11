@@ -42,7 +42,7 @@ export default function ProductTab({id}:{id:string}) {
                 {
                     TABS.map((item) => (<>
                         <li className="me-2">
-                            <Link href={item.link} className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group gap-x-2">
+                            <Link  href={{pathname:  item.link}} className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group gap-x-2">
                                  {item.icon}
                                 {item.title}
                             </Link>
