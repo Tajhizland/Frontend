@@ -23,7 +23,7 @@ export default  function Page()
                 name: e.get("title") as string,
                 description: e.get("description") as string,
                 status: e.get("status") as string,
-                logo: e.get("logo") as string,
+                logo: e.get("logo") as File,
                 price: e.get("price") as string,
 
             }
