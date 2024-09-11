@@ -15,7 +15,7 @@ export default function Page() {
                 url: e.get("url") as string,
                 status: e.get("status") as string,
                 description: e.get("description") as string,
-                image:e.get("image"),
+                image:e.get("image") as File,
                 parent_id:e.get("parent_id") as string
             }
         )
