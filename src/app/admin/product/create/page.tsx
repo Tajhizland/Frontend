@@ -10,20 +10,7 @@ import { useState } from "react";
 export default function Page() {
     const [colorCount, setColorCount] = useState(1)
      async function submit(e: FormData) {
-
-        const colors = [];
-        for (let i = 0; i < colorCount; i++) {
-            const colorData = {
-                name: e.get(`color[${i}][name]`) as string,
-                code: e.get(`color[${i}][code]`) as string,
-                delivery_delay: e.get(`color[${i}][delivery_delay]`) as string,
-                status: e.get(`color[${i}][status]`) as string,
-                price: e.get(`color[${i}][price]`) as string,
-                discount: e.get(`color[${i}][discount]`) as string,
-                stock: e.get(`color[${i}][stock]`) as string,
-            };
-            colors.push(colorData);
-        }
+ 
 
         let response = await store(
             {
@@ -35,8 +22,7 @@ export default function Page() {
                 meta_description: e.get("meta_description") as string,
                 meta_title: e.get("meta_title") as string,
                 study: e.get("study") as string,
-                category_id: e.get("category_id") as string,
-                color: colors
+                categoryId: e.get("category_id") as string, 
             }
         )
         toast.success(response?.message as string)
