@@ -45,12 +45,10 @@ const PageSignUp = () => {
 
     async function setPassword(e:FormData) {
         let res =   await register({mobile: e.get("mobile") as string, password: e.get("password") as string, password_confirmation: e.get("password_confirmation") as string})
-        if(res)
-        {
-            setCookie("token",res?.data.token)
-            router.push("/")
-
-        }
+        if (res) {
+            setCookie('token', res.token);
+           router.push("/")
+       }
     }
 
     return (

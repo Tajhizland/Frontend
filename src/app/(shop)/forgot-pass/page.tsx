@@ -44,7 +44,7 @@ const PageForgotPass = ({}) => {
         let res=  await resetPassword({mobile: e.get("mobile") as string, password: e.get("password") as string, password_confirmation: e.get("password_confirmation") as string})
         if(res)
         {
-            setCookie("token",res?.data.token)
+            setCookie('token', res.token);
             router.push("/")
 
         }
