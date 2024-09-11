@@ -73,7 +73,7 @@ export default function Form({ data, submit}: productForm) {
                 </div>
                 <div>
                     <Label>تصویر دسته‌بندی</Label>
-                    <Uploader />
+                    <Uploader  name={"image"} />
                 </div>
             </div>
 

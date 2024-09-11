@@ -50,7 +50,7 @@ export default function Form({ data, submit  }: Form) {
                 </div>
                 <div>
                     <Label>لوگو سرویس</Label>
-                    <Uploader />
+                    <Uploader  name={"image"} />
                 </div>
 
             </div>

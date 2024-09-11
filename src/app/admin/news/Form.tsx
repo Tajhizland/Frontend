@@ -52,7 +52,7 @@ export default function Form({ data, submit  }: Form) {
             </div>
             <div>
                 <Label>تصویر بلاگ</Label>
-                <Uploader/>
+                <Uploader  name={"image"}/>
             </div>
             <hr className={"my-5"}/>
             <div className={"flex justify-center my-5"}>
