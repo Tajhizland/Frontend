@@ -20,7 +20,7 @@ export default function Page() {
                 name: e.name,
                 url: e.url,
                 status: e.status,
-                image: e.image ,
+                image: null,
                 description: e.description,
             }
         )
