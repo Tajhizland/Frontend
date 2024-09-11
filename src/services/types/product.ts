@@ -5,12 +5,12 @@ export type ProductResponse = {
     id: number;
     name: string;
     url: string;
-    status: string;
+    status: number;
     view: number;
     description: string;
     brand_id: string;
     brand: string;
-    category_id: string;
+    category_id: number;
     meta_description: string;
     meta_title: string;
     category: string;

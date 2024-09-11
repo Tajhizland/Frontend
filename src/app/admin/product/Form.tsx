@@ -42,6 +42,8 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
 
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
+            <Input type="hidden" name={"id"} value={data?.id} />
+
                 <div>
                     <Label>نام محصول</Label>
                     <Input name={"name"} defaultValue={data?.name} />
@@ -49,10 +51,10 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                 <div>
                     <Label>وضعیت محصول</Label>
                     <Select name={"status"}>
-                        <option value={1} selected={data?.status == "1"}>
+                        <option value={1} selected={data?.status == 1}>
                             فعال
                         </option>
-                        <option value={0} selected={data?.status == "0"}>
+                        <option value={0} selected={data?.status == 0}>
                             غیر فعال
                         </option>
                     </Select>
@@ -66,7 +68,7 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                     <Select name={"category_id"}>
                         {
                             categoryLists?.data.map((item) => (<>
-                                <option value={item.id} >
+                                <option value={item.id} selected={item.id==data?.category_id}>
                                     {item.name}
                                 </option>
                             </>))
@@ -111,37 +113,7 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
 
             </div>
             <hr className={"my-5"} />
-            <div className={"flex-col flex gap-y-10 "}>
-                <ButtonPrimary className={"w-48"} onClick={handleAddForm}>
-                    افزودن رنگ جدید
-                </ButtonPrimary>
-
-                {
-                    data?.colors.data.map((item, index) => (<>
-
-                        <FormComponent
-                            index={index}
-                            code={item.color_code}
-                            name={item.color_name}
-                            discount={item.discount}
-                            id={item.id}
-                            price={item.price}
-                            stock={item.stock}
-                            deliveryDelay={1}
-                        />
-                        <hr className={"my-5"} />
-                    </>))
-                }
-
-                {Array.from({ length: colorCount }).map((_, index) => (
-                    <>
-                        <FormComponent
-
-                            key={index} index={index} />
-                        <hr className={"my-5"} />
-                    </>
-                ))}
-            </div>
+      
             <div className={"flex justify-center my-5"}>
                 <ButtonPrimary type={"submit"}>
                     ذخیره

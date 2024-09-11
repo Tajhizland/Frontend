@@ -15,7 +15,7 @@ interface form {
 }
 export default function FormComponent({index ,id , name , code ,deliveryDelay , status ,price , discount , stock}: form) {
     return (
-        <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
+        <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 my-2"}>
             <div>
                 <Label>نام رنگ</Label>
                 <Input name={`color[${index}][name]`} defaultValue={name??""}/>
@@ -49,13 +49,8 @@ export default function FormComponent({index ,id , name , code ,deliveryDelay , 
                 <Label>موجودی</Label>
                 <Input name={`color[${index}][stock]`} defaultValue={stock??""}/>
             </div>
-            {
-                id ? <>
-                        <Input type={"hidden"} value={id}/>
-                    </>
-                    :
-                    ""
-            }
+            <Input name={`color[${index}][id]`} type={"hidden"} value={id}/>
+
         </div>
     );
 }
