@@ -40,12 +40,12 @@ export const set = async <T extends ServerResponse<unknown>>(
         option:{
             value:string,
             item_id:string,
-           
+
         }[]
-    
+
     }
 ) => {
-  
+
     return axios.post<T, SuccessResponseType<T>>("admin/product/option/set", params)
         .then((res) => res?.data);
 };
@@ -55,5 +55,12 @@ export const findByProductId = async <T extends ServerResponse<OptionResponse[]>
     id:number|string
 ) => {
     return axios.get<T, SuccessResponseType<T>>("admin/product/option/get/"+id )
+        .then((res) => res?.data?.result?.data)
+};
+export const findByCategoryId= async <T extends ServerResponse<OptionResponse[]>>
+(
+    id:number|string
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/category/option/get/"+id )
         .then((res) => res?.data?.result?.data)
 };

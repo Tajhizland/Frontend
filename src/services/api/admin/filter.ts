@@ -7,12 +7,12 @@ export const set = async <T extends ServerResponse<unknown>>(
         filter:{
             id:string,
             item_id:string,
-           
+
         }[]
-    
+
     }
 ) => {
-  
+
     return axios.post<T, SuccessResponseType<T>>("admin/product/filter/set", params)
         .then((res) => res?.data);
 };
@@ -22,5 +22,12 @@ export const findById = async <T extends ServerResponse<FilterResponse[]>>
     id:number|string
 ) => {
     return axios.get<T, SuccessResponseType<T>>("admin/product/filter/get/"+id )
+        .then((res) => res?.data?.result?.data)
+};
+export const findByCategoryId = async <T extends ServerResponse<FilterResponse[]>>
+(
+    id:number|string
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/category/filter/get/"+id )
         .then((res) => res?.data?.result?.data)
 };
