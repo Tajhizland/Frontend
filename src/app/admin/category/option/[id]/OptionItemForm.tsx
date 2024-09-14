@@ -1,19 +1,29 @@
 import Input from "@/shared/Input/Input";
-interface optionItemProps{
-    optionId?:number;
-    itemId?:number;
-    status?:number;
-    title?:string;
+import Select from "@/shared/Select/Select";
+interface optionItemProps {
+    optionId?: number;
+    itemId?: number;
+    status?: number;
+    title?: string;
+    optionIndex: number;
+    itemIndex: number;
 }
-export default function OptionItemForm({optionId, itemId, status, title}: optionItemProps) {
+export default function OptionItemForm({ optionIndex, itemIndex, itemId, status, title }: optionItemProps) {
     return (<>
-        <Input name={`option[${optionId}][item][${itemId}][id]`} type={"hidden"}/>
+        <Input name={`option[${optionIndex}][item][${itemIndex}][id]`} type={"hidden"} value={itemId} />
 
         <div>
-            <Input name={`option[${optionId}][item][${itemId}][title]`} defaultValue={title}/>
+            <Input name={`option[${optionIndex}][item][${itemIndex}][title]`} defaultValue={title} />
         </div>
         <div>
-            <Input name={`option[${optionId}][item][${itemId}][status]`} defaultValue={status}/>
+            <Select name={`option[${optionIndex}][item][${itemIndex}][status]`} >
+                <option selected={status == 0}>
+                    غیر‌فعال
+                </option>
+                <option selected={status == 1}>
+                    فعال
+                </option>
+            </Select>
         </div>
     </>)
 }

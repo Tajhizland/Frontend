@@ -1,11 +1,12 @@
 "use client"
-import {FilterResponse} from "@/services/types/filter";
+import { FilterResponse } from "@/services/types/filter";
 import Input from "@/shared/Input/Input";
-import {useState} from "react";
+import { useState } from "react";
 import FilterItemForm from "@/app/admin/category/filter/[id]/FilterItemForm";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
+import Label from "@/components/Label/Label";
 
-export default function FilterForm({filter}: { filter?: FilterResponse }) {
+export default function FilterForm({ filter, index }: { filter?: FilterResponse, index: number }) {
     const [extraItem, setExtraItem] = useState(0);
 
     function handleAddForm() {
@@ -14,19 +15,25 @@ export default function FilterForm({filter}: { filter?: FilterResponse }) {
 
     return (<>
         <div>
-            <div>{filter?.name}</div>
-            <Input name={`filter[${filter?.id}][id]`} type={"hidden"}/>
+            <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 my-2"}>
+                <div>
+                    <Label>عنوان فیلتر</Label>
+                    <Input name={`option[${index}][name]`} defaultValue={filter?.name} />
+                </div>
+            </div>
+            <hr className="my-5" /> 
+            <Input name={`filter[${index}][id]`} type={"hidden"} value={filter?.id} />
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 my-2"}>
 
                 {
-                    filter?.items.data.map((item) => (<>
-                        <FilterItemForm filterId={filter.id} itemId={item.id} status={item.status} value={item.value}/>
+                    filter?.items.data.map((item, itemIndex) => (<>
+                        <FilterItemForm filterIndex={index} itemIndex={itemIndex} itemId={item.id} status={item.status} value={item.value} />
                     </>))
                 }
 
-                {Array.from({length: extraItem}).map((_, index) => (
+                {Array.from({ length: extraItem }).map((_, itemIndex) => (
                     <>
-                        <FilterItemForm/>
+                        <FilterItemForm filterIndex={index} itemIndex={itemIndex + (filter?.items?.data?.length != undefined ? filter?.items?.data?.length : 0)} />
                     </>
                 ))}
             </div>

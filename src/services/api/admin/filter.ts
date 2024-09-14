@@ -31,3 +31,21 @@ export const findByCategoryId = async <T extends ServerResponse<FilterResponse[]
     return axios.get<T, SuccessResponseType<T>>("admin/category/filter/get/"+id )
         .then((res) => res?.data?.result?.data)
 };
+
+export const setToCategory = async <T extends ServerResponse<unknown>>
+    (
+        params: {
+            category_id: number | string,
+            option: {
+                id?: number, 
+                item: {
+                    id?: number,
+                    value: string,
+                    status: number
+                }[]
+            }[]
+        }
+    ) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/category/filter/set/", params)
+        .then((res) => res?.data?.result?.data)
+};

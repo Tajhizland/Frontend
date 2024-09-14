@@ -1,11 +1,12 @@
 "use client"
-import {OptionResponse} from "@/services/types/option";
+import { OptionResponse } from "@/services/types/option";
 import Input from "@/shared/Input/Input";
-import {useState} from "react";
+import { useState } from "react";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import OptionItemForm from "@/app/admin/category/option/[id]/OptionItemForm";
+import Label from "@/components/Label/Label";
 
-export default function OptionForm({option}: { option?: OptionResponse }) {
+export default function OptionForm({ option ,index}: { option?: OptionResponse ,index:number}) {
     const [extraItem, setExtraItem] = useState(0);
 
     function handleAddForm() {
@@ -14,19 +15,23 @@ export default function OptionForm({option}: { option?: OptionResponse }) {
 
     return (<>
         <div>
-            <div>{option?.title}</div>
-            <Input name={`option[${option?.id}][id]`} type={"hidden"}/>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 my-2"}>
-
+                <div>
+                    <Label>عنوان ویژگی</Label>
+                    <Input name={`option[${index}][title]`} defaultValue={option?.title} />
+                </div>
+            </div>
+            <hr  className="my-5"/>
+            <Input name={`option[${index}][id]`} type={"hidden"} value={option?.id} />
+            <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 my-2"}>
                 {
-                    option?.optionItems?.data.map((item) => (<>
-                        <OptionItemForm optionId={option.id} itemId={item.id} status={item.status} value={item.title}/>
+                    option?.optionItems?.data.map((item ,itemIndex) => (<>
+                        <OptionItemForm optionIndex={index} itemIndex={itemIndex} itemId={item.id} status={item.status} title={item.title} />
                     </>))
                 }
-
-                {Array.from({length: extraItem}).map((_, index) => (
+                {Array.from({ length: extraItem }).map((_, itemIndex) => (
                     <>
-                        <OptionItemForm/>
+                        <OptionItemForm optionIndex={index} itemIndex={itemIndex  + (option?.optionItems?.data?.length != undefined ? option?.optionItems?.data?.length : 0)} />
                     </>
                 ))}
             </div>
