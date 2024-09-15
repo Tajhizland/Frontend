@@ -8,12 +8,21 @@ import {
 } from "@/app/(shop)/headlessui";
 import Prices from "@/components/Prices";
 import { Product, PRODUCTS } from "@/data/data";
+import { getCart } from "@/services/api/shop/cart";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";
 import Link from "next/link";
+import { useQuery } from "react-query";
 
 export default function CartDropdown() {
+
+  const { data: data } = useQuery({
+    queryKey: [`cart`],
+    queryFn: () => getCart(),
+    staleTime: 5000,
+  });
+
   const renderProduct = (item: Product, index: number, close: () => void) => {
     const { name, price, image } = item;
     return (
@@ -32,7 +41,7 @@ export default function CartDropdown() {
           />
         </div>
 
-        <div className="ml-4 flex flex-1 flex-col">
+        <div className="mr-4 flex flex-1 flex-col">
           <div>
             <div className="flex justify-between ">
               <div>
@@ -42,23 +51,21 @@ export default function CartDropdown() {
                   </Link>
                 </h3>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                  <span>{`Natural`}</span>
-                  <span className="mx-2 border-l border-slate-200 dark:border-slate-700 h-4"></span>
-                  <span>{"XL"}</span>
+                  <span>{`سفید`}</span>
                 </p>
               </div>
               <Prices price={price} className="mt-0.5" />
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">
-            <p className="text-gray-500 dark:text-slate-400">{`Qty 1`}</p>
+            <p className="text-gray-500 dark:text-slate-400">{`تعداد : 1`}</p>
 
             <div className="flex">
               <button
                 type="button"
                 className="font-medium text-primary-6000 dark:text-primary-500 "
               >
-                Remove
+                حذف
               </button>
             </div>
           </div>
@@ -67,6 +74,13 @@ export default function CartDropdown() {
     );
   };
 
+  const renderSumPrice=()=>{
+    let sumPrice=0;
+    data?.data.map((item)=>{
+      sumPrice+=item.color.price;
+    })
+    return sumPrice;
+  }
   return (
     <Popover className="relative">
       {({ open, close }) => (
@@ -77,7 +91,9 @@ export default function CartDropdown() {
                  group w-10 h-10 sm:w-12 sm:h-12 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 relative`}
           >
             <div className="w-3.5 h-3.5 flex items-center justify-center bg-primary-500 absolute top-1.5 right-1.5 rounded-full text-[10px] leading-none text-white font-medium">
-              <span className="mt-[1px]">3</span>
+              <span className="mt-[1px]"> 
+                {data?.data.length??0} 
+              </span>
             </div>
             <svg
               className="w-6 h-6"
@@ -133,7 +149,9 @@ export default function CartDropdown() {
               <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/10">
                 <div className="relative bg-white dark:bg-neutral-800">
                   <div className="max-h-[60vh] p-5 overflow-y-auto hiddenScrollbar">
-                    <h3 className="text-xl font-semibold">Shopping cart</h3>
+                    <h3 className="text-xl font-semibold">
+                      سبد خرید
+                    </h3>
                     <div className="divide-y divide-slate-100 dark:divide-slate-700">
                       {[PRODUCTS[0], PRODUCTS[1], PRODUCTS[2]].map(
                         (item, index) => renderProduct(item, index, close)
@@ -142,28 +160,23 @@ export default function CartDropdown() {
                   </div>
                   <div className="bg-neutral-50 dark:bg-slate-900 p-5">
                     <p className="flex justify-between font-semibold text-slate-900 dark:text-slate-100">
-                      <span>
-                        <span>Subtotal</span>
-                        <span className="block text-sm text-slate-500 dark:text-slate-400 font-normal">
-                          Shipping and taxes calculated at checkout.
-                        </span>
-                      </span>
-                      <span className="">$299.00</span>
+                         <span>قیمت کل</span> 
+                       <span className="">{renderSumPrice()} تومان </span>
                     </p>
-                    <div className="flex space-x-2 mt-5">
+                    <div className="flex gap-x-2 mt-5">
                       <ButtonSecondary
                         href="/cart"
                         className="flex-1 border border-slate-200 dark:border-slate-700"
                         onClick={close}
                       >
-                        View cart
+                        مشاهده کارت
                       </ButtonSecondary>
                       <ButtonPrimary
                         href="/checkout"
                         onClick={close}
                         className="flex-1"
                       >
-                        Check out
+                        پرداخت
                       </ButtonPrimary>
                     </div>
                   </div>

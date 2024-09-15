@@ -84,7 +84,7 @@ const AccountOrder = () => {
   return (
     <div className="space-y-10 sm:space-y-12">
       {/* HEADING */}
-      <h2 className="text-2xl sm:text-3xl font-semibold">Order History</h2>
+      <h2 className="text-2xl sm:text-3xl font-semibold">تاریخچه سفارشات</h2>
       {renderOrder()}
       {renderOrder()}
     </div>

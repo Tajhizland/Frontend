@@ -9,7 +9,7 @@ export type CartResponse = {
     color:{
         title:string ,
         code:string ,
-        price:string ,
+        price:number ,
     }
 
 };

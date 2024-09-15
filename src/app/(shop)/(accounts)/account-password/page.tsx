@@ -8,23 +8,23 @@ const AccountPass = () => {
     <div className="space-y-10 sm:space-y-12">
       {/* HEADING */}
       <h2 className="text-2xl sm:text-3xl font-semibold">
-        Update your password
+        ویرابش کلمه عبور
       </h2>
       <div className=" max-w-xl space-y-6">
         <div>
-          <Label>Current password</Label>
+          <Label>کلمه عبور فعلی</Label>
           <Input type="password" className="mt-1.5" />
         </div>
         <div>
-          <Label>New password</Label>
+          <Label>کلمه عبور جدید</Label>
           <Input type="password" className="mt-1.5" />
         </div>
         <div>
-          <Label>Confirm password</Label>
+          <Label>تکرار کلمه عبور</Label>
           <Input type="password" className="mt-1.5" />
         </div>
         <div className="pt-2">
-          <ButtonPrimary>Update password</ButtonPrimary>
+          <ButtonPrimary>ویرایش</ButtonPrimary>
         </div>
       </div>
     </div>

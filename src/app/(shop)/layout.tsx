@@ -1,3 +1,5 @@
+"use client"
+
 import { Poppins } from "next/font/google";
 import "../globals.css";
 import "@/fonts/line-awesome-1.3.0/css/line-awesome.css";
@@ -8,6 +10,7 @@ import SiteHeader from "@/app/(shop)/SiteHeader";
 import CommonClient from "./CommonClient";
 import {NextFont} from "next/dist/compiled/@next/font";
 import localFont from "next/font/local";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,12 +28,17 @@ export default function RootLayout({
   children: React.ReactNode;
   params: any;
 }) {
+  const queryClient = new QueryClient();
+
   return (
     <html lang="fa" dir="rtl" className={[myFont.className , myFont2.className].join(" ")}>
       <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
         <div>
+          <QueryClientProvider client={queryClient}>
           <SiteHeader />
+
           {children}
+          </QueryClientProvider>
           <Footer />
         </div>
         <CommonClient />
