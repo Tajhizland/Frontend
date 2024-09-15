@@ -7,6 +7,7 @@ import Form from "@/app/admin/category/Form";
 import {findById, update} from "@/services/api/admin/category";
 import { useParams } from "next/navigation";
 import {useQuery} from "react-query";
+import CategoryTab from "@/components/CategoryTabs/CategoryTab";
 
 export default   function Page() {
     const { id } = useParams();
@@ -43,6 +44,8 @@ export default   function Page() {
             }
         ]}/>
         <Panel>
+            <CategoryTab id={id + ""} />
+
             <PageTitle>
                 ویرایش دسته بندی
             </PageTitle>

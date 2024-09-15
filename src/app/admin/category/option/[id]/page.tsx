@@ -35,17 +35,17 @@ export default function Page() {
 
             while (data[`option[${optionIndex}][item][${itemIndex}][id]`]) {
                 items.push({
-                    id: data[`option[${optionIndex}][item][${itemIndex}][id]`] ? parseInt(data[`option[${optionIndex}][item][${itemIndex}][id]`]) : undefined,
-                    title: data[`option[${optionIndex}][item][${itemIndex}][title]`],
-                    status: data[`option[${optionIndex}][item][${itemIndex}][status]`] === "فعال" ? 1 : 0,
+                    id: data[`option[${optionIndex}][item][${itemIndex}][id]`] ? parseInt(data[`option[${optionIndex}][item][${itemIndex}][id]`]) : undefined as number|undefined,
+                    title: data[`option[${optionIndex}][item][${itemIndex}][title]`] as string,
+                    status: data[`option[${optionIndex}][item][${itemIndex}][status]`] === "فعال" ? 1 : 0  as number,
                 });
                 itemIndex++;
             }
 
             options.push({
-                id: data[`option[${optionIndex}][id]`] ? parseInt(data[`option[${optionIndex}][id]`]) : undefined,
-                title: data[`option[${optionIndex}][title]`],
-                status: data[`option[${optionIndex}][item][0][status]`] === "فعال" ? 1 : 0,
+                id: data[`option[${optionIndex}][id]`] ? parseInt(data[`option[${optionIndex}][id]`]) : undefined as number|undefined,
+                title: data[`option[${optionIndex}][title]`] as string,
+                status: data[`option[${optionIndex}][item][0][status]`] === "فعال" ? 1 : 0 as number,
                 item: items,
             });
 
@@ -53,7 +53,7 @@ export default function Page() {
         }
 
         return {
-            category_id: id, // مقدار category_id دلخواه شما
+            category_id: Number(id) ,
             option: options
         };
     };
@@ -64,21 +64,22 @@ export default function Page() {
         e.forEach((value, key) => {
             formDataObject[key] = value;
         });
+
         const formattedData = convertData(formDataObject);
         await setToCategory(formattedData)
     }
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "دسته بندی",
+                title: "دسته‌بندی",
                 href: "category"
             },
             {
-                title: "ویرایش دسته بندی",
+                title: "ویرایش دسته‌بندی",
                 href: "category/edit/" + id
             },
             {
-                title: "ویرایش ویژگی دسته بندی  ",
+                title: "ویرایش ویژگی دسته‌بندی",
                 href: "category/option/" + id
             }
         ]} />

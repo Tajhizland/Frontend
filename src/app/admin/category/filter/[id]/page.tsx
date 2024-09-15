@@ -59,25 +59,25 @@ export default function Page() {
          const formDataObject: any = {};
         e.forEach((value, key) => {
             formDataObject[key] = value;
-        }); 
+        });
         const formattedFilterData = convertFilterData(formDataObject);
         console.log("Formatted Filter Data", formattedFilterData);
-     
+
     }
-    
+
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "دسته بندی",
+                title: "دسته‌بندی",
                 href: "category"
             },
             {
-                title: "ویرایش دسته بندی",
+                title: "ویرایش دسته‌بندی",
                 href: "category/edit/" + id
             },
             {
-                title: "ویرایش فیلتر دسته بندی  ",
-                href: "category/color/" + id
+                title: "ویرایش فیلتر دسته‌بندی",
+                href: "category/filter/" + id
             }
         ]} />
         <Panel>
@@ -109,4 +109,4 @@ export default function Page() {
         </Panel>
 
     </>)
-} 
+}

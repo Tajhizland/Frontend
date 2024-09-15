@@ -118,27 +118,40 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
      },
     {
+        title: "اعلان ها",
+        url: "/notification",
+        icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
+     },
+    {
         title: "مدیریت کامنت ها",
         url: "/comment",
         icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
      },
     {
-        title: "ویژگی ها",
+        title: "صفحه اصلی",
         url: "/",
         icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
         sub: [
             {
-                title: "مدیریت ویژگی ها",
-                url: "/option",
+                title: "اسلابدر",
+                url: "/slider",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+                sub: [
+                    {
+                        title: "مدیریت اسلابدر",
+                        url: "/slider",
+                        icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
 
+                    },
+                    {
+                        title: "افزودن اسلابدر",
+                        url: "/slider/create",
+                        icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
+
+                    }
+                ]
             },
-            {
-                title: "افزودن ویژگی",
-                url: "/option/create",
-                icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
 
-            }
         ]
 
     },
