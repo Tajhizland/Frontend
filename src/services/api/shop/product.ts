@@ -1,10 +1,11 @@
-import axios, {ServerResponse} from "@/services/axios";
+import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {ProductResponse} from "@/services/types/product";
 
-export const findProduct = async <T extends ServerResponse<ProductResponse>>
+export const findProductByUrl = async <T extends ServerResponse<ProductResponse>>
 (
     url:string
 ) => {
-    return axios.get("product/find/"+url)
-        .then((res) => res?.data?.result)
+
+    return axios.post<T, SuccessResponseType<T>>("product/find",{url:url})
+        .then((res) => res?.data?.result?.data)
 };

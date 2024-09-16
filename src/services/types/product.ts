@@ -1,5 +1,6 @@
 import {ColorResponse} from "./color";
 import {CommentResponse} from "./comment";
+import {ProductOptionResponse} from "@/services/types/productOption";
 
 export type ProductResponse = {
     id: number;
@@ -18,10 +19,17 @@ export type ProductResponse = {
     rating: number;
     favorite: boolean;
     study: string;
+    review: string;
     created_at: string;
     updated_at: string;
     colors: {
         data: ColorResponse []
+    };
+    images: {
+        data: ColorResponse []
+    };
+    productOptions: {
+        data: ProductOptionResponse []
     };
     comments: CommentResponse[];
 };

@@ -5,6 +5,7 @@ export type CartResponse = {
     product:{
         name:string ,
         url:string ,
+        image:string ,
     };
     color:{
         title:string ,

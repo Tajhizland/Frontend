@@ -47,7 +47,8 @@ const errorHandler = (error: FailedResponseType<ServerResponse>) => {
     } catch (caughtError) {
         if (caughtError instanceof AxiosError) {
             const message = caughtError.response?.data?.message || "خطای ناشناخته";
-            toast.error(message, { position: "top-left" });
+            console.log(message);
+            // toast.error(message, { position: "top-left" });
         }
     }
 };

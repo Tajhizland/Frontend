@@ -2,7 +2,8 @@
 
 import { Disclosure } from "@/app/(shop)/headlessui";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { FC } from "react";
+import {FC} from "react";
+import {NodeProps} from "postcss";
 
 const DEMO_DATA = [
   {

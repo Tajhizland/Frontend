@@ -14,6 +14,7 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "react-query";
+import {CartResponse} from "@/services/types/cart";
 
 export default function CartDropdown() {
 
@@ -23,8 +24,10 @@ export default function CartDropdown() {
     staleTime: 5000,
   });
 
-  const renderProduct = (item: Product, index: number, close: () => void) => {
-    const { name, price, image } = item;
+  const renderProduct = (item: CartResponse, index: number, close: () => void) => {
+    const { product, count, color } = item;
+    const { name, url, image } = product;
+    const { title, code, price } = color;
     return (
       <div key={index} className="flex py-5 last:pb-0">
         <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -51,14 +54,14 @@ export default function CartDropdown() {
                   </Link>
                 </h3>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                  <span>{`سفید`}</span>
+                  <span>{title}</span>
                 </p>
               </div>
               <Prices price={price} className="mt-0.5" />
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">
-            <p className="text-gray-500 dark:text-slate-400">{`تعداد : 1`}</p>
+            <p className="text-gray-500 dark:text-slate-400">{`تعداد : ${count}`}</p>
 
             <div className="flex">
               <button
@@ -91,8 +94,8 @@ export default function CartDropdown() {
                  group w-10 h-10 sm:w-12 sm:h-12 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 relative`}
           >
             <div className="w-3.5 h-3.5 flex items-center justify-center bg-primary-500 absolute top-1.5 right-1.5 rounded-full text-[10px] leading-none text-white font-medium">
-              <span className="mt-[1px]"> 
-                {data?.data.length??0} 
+              <span className="mt-[1px]">
+                {data?.data.length??0}
               </span>
             </div>
             <svg
@@ -153,14 +156,14 @@ export default function CartDropdown() {
                       سبد خرید
                     </h3>
                     <div className="divide-y divide-slate-100 dark:divide-slate-700">
-                      {[PRODUCTS[0], PRODUCTS[1], PRODUCTS[2]].map(
+                      {data?.data.map(
                         (item, index) => renderProduct(item, index, close)
                       )}
                     </div>
                   </div>
                   <div className="bg-neutral-50 dark:bg-slate-900 p-5">
                     <p className="flex justify-between font-semibold text-slate-900 dark:text-slate-100">
-                         <span>قیمت کل</span> 
+                         <span>قیمت کل</span>
                        <span className="">{renderSumPrice()} تومان </span>
                     </p>
                     <div className="flex gap-x-2 mt-5">
