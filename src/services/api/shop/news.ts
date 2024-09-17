@@ -6,8 +6,8 @@ export const findNewsByUrl = async <T extends ServerResponse<NewsResponse>>
     return axios.post<T, SuccessResponseType<T>>("news/find",{url:url})
         .then((res) => res?.data?.result.data)
 };
-export const getNews = async <T extends ServerResponse<NewsResponse[]>>
-() => {
-    return axios.get<T, SuccessResponseType<T>>("news/paginated")
+export const getNewsPaginated = async <T extends ServerResponse<NewsResponse[]>>
+(page:number) => {
+    return axios.get<T, SuccessResponseType<T>>("news/paginated?page="+page)
         .then((res) => res?.data?.result)
 };

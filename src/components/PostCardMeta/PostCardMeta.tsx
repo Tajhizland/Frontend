@@ -6,11 +6,13 @@ import Link from "next/link";
 export interface PostCardMetaProps {
   className?: string;
   hiddenAvatar?: boolean;
+  date:string;
 }
 
 const PostCardMeta: FC<PostCardMetaProps> = ({
   className = "leading-none",
-  hiddenAvatar = false,
+  hiddenAvatar = true,
+  date
 }) => {
   return (
     <div
@@ -18,14 +20,14 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
       data-nc-id="PostCardMeta"
     >
       <Link
-        href={"/blog"}
+        href={"/news"}
         className="flex-shrink-0 relative flex items-center space-x-2"
       >
         {!hiddenAvatar && (
           <Avatar radius="rounded-full" sizeClass={"h-7 w-7 text-sm"} />
         )}
         <span className="block text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium">
-          {_getPersonNameRd()}
+          مدیر سایت
         </span>
       </Link>
       <>
@@ -33,7 +35,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
           ·
         </span>
         <span className="text-neutral-500 dark:text-neutral-400 font-normal line-clamp-1">
-          May 20, 2021
+         {date}
         </span>
       </>
     </div>
