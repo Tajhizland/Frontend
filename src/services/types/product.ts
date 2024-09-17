@@ -1,6 +1,7 @@
 import {ColorResponse} from "./color";
 import {CommentResponse} from "./comment";
 import {ProductOptionResponse} from "@/services/types/productOption";
+import {ProductImageResponse} from "@/services/types/productImage";
 
 export type ProductResponse = {
     id: number;
@@ -26,7 +27,7 @@ export type ProductResponse = {
         data: ColorResponse []
     };
     images: {
-        data: ColorResponse []
+        data: ProductImageResponse []
     };
     productOptions: {
         data: ProductOptionResponse []

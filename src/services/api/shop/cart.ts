@@ -4,7 +4,7 @@ import {CartResponse} from "@/services/types/cart";
 export const getCart = async <T extends ServerResponse<CartResponse[]>>
 () => {
     return axios.get<T, SuccessResponseType<T>>("cart/get")
-        .then((res) => res?.data?.result)
+        .then((res) => res?.data?.result?.data)
 };
 
 export const addToCart = async <T extends ServerResponse<unknown>>
@@ -14,28 +14,28 @@ export const addToCart = async <T extends ServerResponse<unknown>>
         count: number
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("cart/add-to-cart", {params})
+    return axios.post<T, SuccessResponseType<T>>("cart/add-to-cart", params)
         .then((res) => res?.data?.result)
 };
 export const removeCartItem = async <T extends ServerResponse<unknown>>
 (params: {
     productColorId: number
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("cart/remove-item", {params})
-        .then((res) => res?.data?.result)
+    return axios.post<T, SuccessResponseType<T>>("cart/remove-item", params)
+        .then((res) => res?.data)
 };
 export const increaseCartItem = async <T extends ServerResponse<unknown>>
 (params: {
     productColorId: number
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("cart/increase", {params})
+    return axios.post<T, SuccessResponseType<T>>("cart/increase", params)
         .then((res) => res?.data?.result)
 };
 export const decreaseCartItem = async <T extends ServerResponse<unknown>>
 (params: {
     productColorId: number
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("cart/decrease", {params})
+    return axios.post<T, SuccessResponseType<T>>("cart/decrease", params)
         .then((res) => res?.data?.result)
 };
 export const clearCart = async <T extends ServerResponse<unknown>>
@@ -44,6 +44,6 @@ export const clearCart = async <T extends ServerResponse<unknown>>
         productColorId: number
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("cart/clear-all", {params})
+    return axios.post<T, SuccessResponseType<T>>("cart/clear-all", params)
         .then((res) => res?.data?.result)
 };
