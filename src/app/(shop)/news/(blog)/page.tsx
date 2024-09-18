@@ -12,8 +12,8 @@ interface BlogPageProps {
 const BlogPage  = async ({ searchParams }: BlogPageProps) => {
   const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
   console.log("PAGE IS ",page);
-  
-  const data = await getNewsPaginated(page);  
+
+  const data = await getNewsPaginated(page);
   return (
     <div className="nc-BlogPage overflow-hidden relative">
       <div className="container relative">
@@ -29,7 +29,7 @@ const BlogPage  = async ({ searchParams }: BlogPageProps) => {
                 ))}
               </div>
               <div className="flex flex-col mt-12 md:mt-20 space-y-5 sm:space-y-0 sm:space-x-3 sm:flex-row sm:justify-between sm:items-center">
-                <ShopPagination currentPage={page}  totalPages={data.meta?.total ??1} url="news"/>
+                <ShopPagination currentPage={page}  totalPages={((data?.meta?.total??1) / (data?.meta?.total??1)) } url="news"/>
               </div>
             </div>
           </div>

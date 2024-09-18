@@ -7,7 +7,7 @@ interface PaginationProps {
     url: string;
 }
 
-const ShopPagination: React.FC<PaginationProps> = ({ currentPage, totalPages, url }) => {
+const ShopPagination: React.FC<PaginationProps> = ({ currentPage, totalPages=1, url }) => {
     const PAGE_LIMIT = 3; // Number of pages to show around the current page
 
     const generatePageNumbers = () => {
