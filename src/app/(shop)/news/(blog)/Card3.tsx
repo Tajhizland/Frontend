@@ -54,7 +54,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full", item }) => {
               className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 text-xl`}
             >
               <Link
-                href={"/news/show/" + item.url}
+                  href={{pathname:"/news/show/" +(item.url)}}
                 className="line-clamp-2 capitalize"
                 title={"عنوان"}
               >
