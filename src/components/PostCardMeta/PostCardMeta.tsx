@@ -6,7 +6,7 @@ import Link from "next/link";
 export interface PostCardMetaProps {
   className?: string;
   hiddenAvatar?: boolean;
-  date:string;
+  date?:string;
 }
 
 const PostCardMeta: FC<PostCardMetaProps> = ({
