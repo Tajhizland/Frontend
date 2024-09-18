@@ -26,6 +26,7 @@ import NotifyAddTocart from "@/components/NotifyAddTocart";
 import Image from "next/image";
 import AccordionInfo from "@/components/AccordionInfo";
 import {findProductByUrl} from "@/services/api/shop/product";
+import ProductCartHandle from "@/app/(shop)/product/[...url]/ProductCartHandle";
 
 const LIST_IMAGES_DEMO = [detail1JPG, detail2JPG, detail3JPG];
 
@@ -37,7 +38,7 @@ interface ProductPageProps {
 
 const ProductDetailPage = async ({params}: ProductPageProps) => {
     const {sizes, variants, status, allOfSizes, image} = PRODUCTS[0];
-    let product = await findProductByUrl(params.url[0]);
+    let product = await findProductByUrl(decodeURIComponent(params.url[0]));
 
     const renderOption = () => {
         const options = product.productOptions.data
@@ -98,10 +99,7 @@ const ProductDetailPage = async ({params}: ProductPageProps) => {
 
                     <div className="flex items-center mt-5 space-x-4 sm:space-x-5">
                         {/* <div className="flex text-xl font-semibold">$112.00</div> */}
-                        <Prices
-                            contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold"
-                            price={product.min_price}
-                        />
+
 
                         <div className="h-7 border-l border-slate-300 dark:border-slate-700"></div>
 
@@ -131,25 +129,7 @@ const ProductDetailPage = async ({params}: ProductPageProps) => {
                     </div>
                 </div>
 
-                {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
-
-
-                {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
-                <div className="flex space-x-3.5">
-                    <div
-                        className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
-                        <NcInputNumber
-                        />
-                    </div>
-                    <ButtonPrimary
-                        className="flex-1 flex-shrink-0"
-                    >
-                        <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
-                        <span className="mr-3">افزودن به سبد خرید</span>
-                    </ButtonPrimary>
-                </div>
-
-                {/*  */}
+                <ProductCartHandle colors={product.colors.data}/>
                 <hr className=" 2xl:!my-10 border-slate-200 dark:border-slate-700"></hr>
                 {/*  */}
 

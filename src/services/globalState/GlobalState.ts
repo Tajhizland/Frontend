@@ -31,7 +31,7 @@ export const setCart = (cart: CartResponse[]) => {
 };
 
 // تابع افزودن محصول به سبد خرید
-export const addToCart = (product: ProductResponse, quantity: number, colorIndex: number) => {
+export const reduxAddToCart = (product: ProductResponse, quantity: number, colorIndex: number) => {
     const cart = getGlobalState('cart');
 
     const existingProductIndex = cart.findIndex(item => item.color.id === product.colors.data[colorIndex].id);
@@ -74,7 +74,7 @@ export const reduxRemoveFromCart = (colorId: number) => {
     setGlobalState('cart', newCart);
 };
 
-export const incrementQuantity = (colorId: number) => {
+export const reduxIncrementQuantity = (colorId: number) => {
     const cart = getGlobalState('cart');
     const newCart = cart.map(item =>
         item.color.id === colorId
@@ -83,7 +83,7 @@ export const incrementQuantity = (colorId: number) => {
     );
     setGlobalState('cart', newCart);
 };
-export const decrementQuantity = (colorId: number) => {
+export const reduxDecrementQuantity = (colorId: number) => {
     const cart = getGlobalState('cart');
     const newCart = cart.map(item =>
         item.color.id === colorId && item.count > 1
