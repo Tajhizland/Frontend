@@ -1,10 +1,11 @@
-import axios, {ServerResponse} from "@/services/axios";
-import {CategoryListing, CategoryResponse} from "@/services/types/category";
+import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
+import {CategoryListing} from "@/services/types/category";
 
-export const findCategory= async <T extends ServerResponse<CategoryListing>>
+export const findCategoryByUrl = async <T extends ServerResponse<CategoryListing>>
 (
     url:string
 ) => {
-    return axios.get("category/find/"+url)
-        .then((res) => res?.data?.result)
+
+    return axios.post<T, SuccessResponseType<T>>("category/find",{url:url})
+        .then((res) => res?.data?.result?.data)
 };

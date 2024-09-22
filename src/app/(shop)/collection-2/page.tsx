@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
 import SectionPromo1 from "@/components/SectionPromo1";
-import ProductCard from "@/components/ProductCard";
+import ProductCard2 from "@/components/ProductCard";
 import { PRODUCTS } from "@/data/data";
 import SidebarFilters from "@/components/SidebarFilters";
 
@@ -32,7 +32,7 @@ const PageCollection2 = ({}) => {
               <div className="flex-1 ">
                 <div className="flex-1 grid sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-10 ">
                   {PRODUCTS.map((item, index) => (
-                    <ProductCard data={item} key={index} />
+                    <ProductCard2 data={item} key={index} />
                   ))}
                 </div>
               </div>

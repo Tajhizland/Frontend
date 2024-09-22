@@ -1,17 +1,13 @@
 import { ProductResponse } from "@/services/types/product";
 import { CartResponse } from "@/services/types/cart";
 import { createGlobalState } from 'react-hooks-global-state';
+import {UserResponse} from "@/services/types/user";
 
 
-interface User {
-    id: number;
-    name: string;
-    email: string;
-}
 
 // مقداردهی اولیه سبد خرید و اطلاعات کاربر
 interface State {
-    user: User | null;
+    user: UserResponse | null;
     cart: CartResponse[];
 }
 
@@ -28,6 +24,9 @@ export const useCart = () => useGlobalState('cart');
 
 export const setCart = (cart: CartResponse[]) => {
     setGlobalState('cart', cart);
+};
+export const setUser = (user: UserResponse) => {
+    setGlobalState('user', user);
 };
 
 // تابع افزودن محصول به سبد خرید

@@ -4,7 +4,7 @@ import React, { FC, useEffect, useId, useRef, useState } from "react";
 import Heading from "@/components/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
-import ProductCard from "./ProductCard";
+import ProductCard2 from "./ProductCard";
 import { Product, PRODUCTS } from "@/data/data";
 
 export interface SectionSliderProductCardProps {
@@ -84,7 +84,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
           <ul className="glide__slides">
             {data.map((item, index) => (
               <li key={index} className={`glide__slide ${itemClassName}`}>
-                <ProductCard data={item} />
+                <ProductCard2 data={item} />
               </li>
             ))}
           </ul>

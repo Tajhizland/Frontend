@@ -18,6 +18,8 @@ import Slider from "rc-slider";
 import Radio from "@/shared/Radio/Radio";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import MySwitch from "@/components/MySwitch";
+import {FilterResponse} from "@/services/types/filter";
+import {FilterItemResponse} from "@/services/types/filterItem";
 
 // DEMO DATA
 const DATA_categories = [
@@ -74,7 +76,7 @@ const DATA_sortOrderRadios = [
 
 const PRICE_RANGE = [1, 500];
 //
-const TabFilters = () => {
+const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
   const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false);
   //
   const [isOnSale, setIsIsOnSale] = useState(false);
@@ -249,13 +251,13 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                     پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                    اعمال
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -371,13 +373,13 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                     پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                    اعمال
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -492,13 +494,13 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                     پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                    اعمال
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -602,13 +604,13 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                     پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                    اعمال
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -679,7 +681,7 @@ const TabFilters = () => {
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-8">
                     <div className="space-y-5">
-                      <span className="font-medium">Price range</span>
+                      <span className="font-medium">محدوده قیمت</span>
                       <Slider
                         range
                         min={PRICE_RANGE[0]}
@@ -699,7 +701,7 @@ const TabFilters = () => {
                           htmlFor="minPrice"
                           className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                         >
-                          Min price
+                          حداقل قیمت
                         </label>
                         <div className="mt-1 relative rounded-md">
                           <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
@@ -720,7 +722,7 @@ const TabFilters = () => {
                           htmlFor="maxPrice"
                           className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                         >
-                          Max price
+                          حداکثر قیمت
                         </label>
                         <div className="mt-1 relative rounded-md">
                           <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
@@ -746,13 +748,13 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                     پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                    اعمال
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -819,35 +821,18 @@ const TabFilters = () => {
 
   // OK
   const renderMoreFilterItem = (
-    data: {
-      name: string;
-      description?: string;
-      defaultChecked?: boolean;
-    }[]
+    data: FilterItemResponse[]
   ) => {
-    const list1 = data.filter((_, i) => i < data.length / 2);
-    const list2 = data.filter((_, i) => i >= data.length / 2);
+
     return (
       <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-8">
         <div className="flex flex-col space-y-5">
-          {list1.map((item) => (
+          {data.map((item) => (
             <Checkbox
-              key={item.name}
-              name={item.name}
-              subLabel={item.description}
-              label={item.name}
-              defaultChecked={!!item.defaultChecked}
-            />
-          ))}
-        </div>
-        <div className="flex flex-col space-y-5">
-          {list2.map((item) => (
-            <Checkbox
-              key={item.name}
-              name={item.name}
-              subLabel={item.description}
-              label={item.name}
-              defaultChecked={!!item.defaultChecked}
+              key={item.value}
+              name={item.value}
+              subLabel={item.value}
+              label={item.value}
             />
           ))}
         </div>
@@ -975,28 +960,25 @@ const TabFilters = () => {
                     <div className="px-6 sm:px-8 md:px-10 divide-y divide-neutral-200 dark:divide-neutral-800">
                       {/* --------- */}
                       {/* ---- */}
-                      <div className="py-7">
-                        <h3 className="text-xl font-medium">Categories</h3>
-                        <div className="mt-6 relative ">
-                          {renderMoreFilterItem(DATA_categories)}
-                        </div>
-                      </div>
+                        {
+
+                        }
+
                       {/* --------- */}
                       {/* ---- */}
-                      <div className="py-7">
-                        <h3 className="text-xl font-medium">Colors</h3>
-                        <div className="mt-6 relative ">
-                          {renderMoreFilterItem(DATA_colors)}
-                        </div>
-                      </div>
+                        {
+                            filters.map((filter)=>(<>
+                                <div className="py-7">
+                                    <h3 className="text-xl font-medium">{filter.name}</h3>
+                                    <div className="mt-6 relative ">
+                                        {renderMoreFilterItem(filter.items.data)}
+                                    </div>
+                                </div>
+                            </>))
+                        }
+
                       {/* --------- */}
                       {/* ---- */}
-                      <div className="py-7">
-                        <h3 className="text-xl font-medium">Size</h3>
-                        <div className="mt-6 relative ">
-                          {renderMoreFilterItem(DATA_sizes)}
-                        </div>
-                      </div>
 
                       {/* --------- */}
                       {/* ---- */}
@@ -1117,13 +1099,13 @@ const TabFilters = () => {
                       }}
                       sizeClass="py-2.5 px-5"
                     >
-                      Clear
+                     پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={closeModalMoreFilter}
                       sizeClass="py-2.5 px-5"
                     >
-                      Apply
+                    اعمال
                     </ButtonPrimary>
                   </div>
                 </div>

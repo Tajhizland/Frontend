@@ -18,6 +18,6 @@ export type CategoryResponse = {
 
 export type CategoryListing = {
     category:CategoryResponse ;
-    products:ProductResponse[] ;
+    products: { data:ProductResponse[] } ;
 
 };

@@ -4,5 +4,5 @@ import {UserResponse} from "@/services/types/user";
 export const me = async <T extends ServerResponse<UserResponse>>
 (  ) => {
     return axios.get<T, SuccessResponseType<T>>("auth/me")
-        .then((res) => res);
+        .then((res) => res.data.result.data);
 };

@@ -1,4 +1,4 @@
-import ProductCard from "@/components/ProductCard";
+import ProductCard2 from "@/components/ProductCard";
 import { PRODUCTS } from "@/data/data";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 
@@ -14,7 +14,7 @@ const AccountSavelists = () => {
 
         <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 ">
           {PRODUCTS.filter((_, i) => i < 6).map((stay) => (
-            <ProductCard key={stay.id} data={stay} />
+            <ProductCard2 key={stay.id} data={stay} />
           ))}
         </div>
         <div className="flex !mt-20 justify-center items-center">
