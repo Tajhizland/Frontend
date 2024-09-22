@@ -216,10 +216,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                     <div>
                         <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
                             {data?.name}
-                        </h2>
-                        <p className={`text-sm text-slate-500 dark:text-slate-400 mt-1 `}>
-                            {data?.description}
-                        </p>
+                        </h2> 
                     </div>
 
                     <div className="flex justify-between items-end ">

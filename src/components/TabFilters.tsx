@@ -18,8 +18,9 @@ import Slider from "rc-slider";
 import Radio from "@/shared/Radio/Radio";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import MySwitch from "@/components/MySwitch";
-import {FilterResponse} from "@/services/types/filter";
-import {FilterItemResponse} from "@/services/types/filterItem";
+import { FilterResponse } from "@/services/types/filter";
+import { FilterItemResponse } from "@/services/types/filterItem";
+import { FaFilter } from "react-icons/fa";
 
 // DEMO DATA
 const DATA_categories = [
@@ -76,7 +77,7 @@ const DATA_sortOrderRadios = [
 
 const PRICE_RANGE = [1, 500];
 //
-const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
+const TabFilters = ({ filters }: { filters: FilterResponse[] }) => {
   const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false);
   //
   const [isOnSale, setIsIsOnSale] = useState(false);
@@ -139,15 +140,13 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
           <>
             <PopoverButton
               className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
-               ${
-                 open
-                   ? "!border-primary-500 "
-                   : "border-neutral-300 dark:border-neutral-700"
-               }
-                ${
-                  !!categoriesState.length
-                    ? "!border-primary-500 bg-primary-50 text-primary-900"
-                    : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
+               ${open
+                  ? "!border-primary-500 "
+                  : "border-neutral-300 dark:border-neutral-700"
+                }
+                ${!!categoriesState.length
+                  ? "!border-primary-500 bg-primary-50 text-primary-900"
+                  : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
                 }
                 `}
             >
@@ -251,13 +250,13 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                     پاک کردن
+                      پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                    اعمال
+                      اعمال
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -278,10 +277,9 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
             <PopoverButton
               className={`flex items-center justify-center px-4 py-2 text-sm border rounded-full focus:outline-none select-none
               ${open ? "!border-primary-500 " : ""}
-                ${
-                  !!sortOrderStates.length
-                    ? "!border-primary-500 bg-primary-50 text-primary-900"
-                    : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
+                ${!!sortOrderStates.length
+                  ? "!border-primary-500 bg-primary-50 text-primary-900"
+                  : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
                 }
                 `}
             >
@@ -330,9 +328,9 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
               <span className=" mr-2">
                 {sortOrderStates
                   ? DATA_sortOrderRadios.filter(
-                      (i) => i.id === sortOrderStates
-                    )[0].name
-                  : "Sort order"}
+                    (i) => i.id === sortOrderStates
+                  )[0].name
+                  : "مرتب سازی"}
               </span>
               {!sortOrderStates.length ? (
                 <ChevronDownIcon className="w-4 h-4 mr-3" />
@@ -373,13 +371,13 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                     پاک کردن
+                      پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                    اعمال
+                      اعمال
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -400,10 +398,9 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
             <PopoverButton
               className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
               ${open ? "!border-primary-500 " : ""}
-                ${
-                  !!colorsState.length
-                    ? "!border-primary-500 bg-primary-50 text-primary-900"
-                    : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
+                ${!!colorsState.length
+                  ? "!border-primary-500 bg-primary-50 text-primary-900"
+                  : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
                 }
                 `}
             >
@@ -494,13 +491,13 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                     پاک کردن
+                      پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                    اعمال
+                      اعمال
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -513,6 +510,88 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
   };
 
   // OK
+
+  function handleChangeFilter(){
+    
+  }
+  const renderFilters = () => {
+    return (
+
+      filters && filters.map((filter) => (<>
+        <Popover className="relative">
+          {({ open, close }) => (
+            <>
+              <PopoverButton
+                className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
+                ${open ? "!border-primary-500 " : ""}
+                  ${!!colorsState.length
+                    ? "!border-primary-500 bg-primary-50 text-primary-900"
+                    : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
+                  }
+                  `}
+              >
+                <FaFilter />
+
+                <span className=" mr-2">{filter.name}</span>
+                {!colorsState.length ? (
+                  <ChevronDownIcon className="w-4 h-4 mr-3" />
+                ) : (
+                  <span onClick={() => setColorsState([])}>{renderXClear()}</span>
+                )}
+              </PopoverButton>
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-200"
+                enterFrom="opacity-0 translate-y-1"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition ease-in duration-150"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-1"
+              >
+                <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 lg:max-w-sm">
+                  <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
+                    <div className="relative flex flex-col px-5 py-6 space-y-5">
+                      {filter.items.data.map((item) => (
+                        <div key={item.value} className="">
+                          <Checkbox
+                            name={item.value}
+                            label={item.value}
+                            defaultChecked={colorsState.includes(item.value)}
+                            onChange={(checked) =>
+                              handleChangeColors(checked, item.value)
+                            }
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="p-5 bg-slate-50 dark:bg-slate-900 dark:border-t dark:border-slate-800 flex items-center justify-between">
+                      <ButtonThird
+                        onClick={() => {
+                          close();
+                          setColorsState([]);
+                        }}
+                        sizeClass="px-4 py-2 sm:px-5"
+                      >
+                        پاک کردن
+                      </ButtonThird>
+                      <ButtonPrimary
+                        onClick={close}
+                        sizeClass="px-4 py-2 sm:px-5"
+                      >
+                        اعمال
+                      </ButtonPrimary>
+                    </div>
+                  </div>
+                </PopoverPanel>
+              </Transition>
+            </>
+          )}
+        </Popover>
+      </>))
+
+    );
+  };
+  // OK
   const renderTabsSize = () => {
     return (
       <Popover className="relative">
@@ -521,10 +600,9 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
             <PopoverButton
               className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
               ${open ? "!border-primary-500 " : ""}
-                ${
-                  !!sizesState.length
-                    ? "!border-primary-500 bg-primary-50 text-primary-900"
-                    : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
+                ${!!sizesState.length
+                  ? "!border-primary-500 bg-primary-50 text-primary-900"
+                  : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
                 }
                 `}
             >
@@ -604,13 +682,13 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                     پاک کردن
+                      پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                    اعمال
+                      اعمال
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -662,7 +740,7 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
 
               <span className="mr-2 min-w-[90px]">{`${rangePrices[0]}$ - ${rangePrices[1]}$`}</span>
               {rangePrices[0] === PRICE_RANGE[0] &&
-              rangePrices[1] === PRICE_RANGE[1] ? null : (
+                rangePrices[1] === PRICE_RANGE[1] ? null : (
                 <span onClick={() => setRangePrices(PRICE_RANGE)}>
                   {renderXClear()}
                 </span>
@@ -748,13 +826,13 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                     پاک کردن
+                      پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                    اعمال
+                      اعمال
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -770,11 +848,10 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
   const renderTabIsOnsale = () => {
     return (
       <div
-        className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none cursor-pointer select-none ${
-          isOnSale
-            ? "border-primary-500 bg-primary-50 text-primary-900"
-            : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
-        }`}
+        className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none cursor-pointer select-none ${isOnSale
+          ? "border-primary-500 bg-primary-50 text-primary-900"
+          : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
+          }`}
         onClick={() => setIsIsOnSale(!isOnSale)}
       >
         <svg
@@ -813,7 +890,7 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
           />
         </svg>
 
-        <span className="line-clamp-1  mr-2">On sale</span>
+        <span className="line-clamp-1  mr-2"> محصولات موجود</span>
         {isOnSale && renderXClear()}
       </div>
     );
@@ -904,7 +981,7 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
             />
           </svg>
 
-          <span className=" mr-2">Products filters (3)</span>
+          <span className=" mr-2">فیلتر محصولات (3)</span>
           {renderXClear()}
         </div>
 
@@ -949,7 +1026,7 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
                     >
-                      Products filters
+                      فیلتر محصولات
                     </DialogTitle>
                     <span className="absolute right-3 top-3">
                       <ButtonClose onClick={closeModalMoreFilter} />
@@ -960,22 +1037,22 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                     <div className="px-6 sm:px-8 md:px-10 divide-y divide-neutral-200 dark:divide-neutral-800">
                       {/* --------- */}
                       {/* ---- */}
-                        {
+                      {
 
-                        }
+                      }
 
                       {/* --------- */}
                       {/* ---- */}
-                        {
-                            filters.map((filter)=>(<>
-                                <div className="py-7">
-                                    <h3 className="text-xl font-medium">{filter.name}</h3>
-                                    <div className="mt-6 relative ">
-                                        {renderMoreFilterItem(filter.items.data)}
-                                    </div>
-                                </div>
-                            </>))
-                        }
+                      {
+                        filters && filters.map((filter) => (<>
+                          <div className="py-7">
+                            <h3 className="text-xl font-medium">{filter.name}</h3>
+                            <div className="mt-6 relative ">
+                              {renderMoreFilterItem(filter.items.data)}
+                            </div>
+                          </div>
+                        </>))
+                      }
 
                       {/* --------- */}
                       {/* ---- */}
@@ -1006,7 +1083,7 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                                   htmlFor="minPrice"
                                   className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                                 >
-                                  Min price
+                                  حداقل قیمت
                                 </label>
                                 <div className="mt-1 relative rounded-md">
                                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -1029,7 +1106,7 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                                   htmlFor="maxPrice"
                                   className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                                 >
-                                  Max price
+                                  حداکثر قیمت
                                 </label>
                                 <div className="mt-1 relative rounded-md">
                                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -1055,7 +1132,7 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                       {/* --------- */}
                       {/* ---- */}
                       <div className="py-7">
-                        <h3 className="text-xl font-medium">Sort Order</h3>
+                        <h3 className="text-xl font-medium">مرتب سازی</h3>
                         <div className="mt-6 relative ">
                           <div className="relative flex flex-col space-y-5">
                             {DATA_sortOrderRadios.map((item) => (
@@ -1075,10 +1152,10 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                       {/* --------- */}
                       {/* ---- */}
                       <div className="py-7">
-                        <h3 className="text-xl font-medium">On sale!</h3>
+                        <h3 className="text-xl font-medium">محصولات موجود</h3>
                         <div className="mt-6 relative ">
                           <MySwitch
-                            label="On sale!"
+                            label="محصولات موجود"
                             desc="Products currently on sale"
                             enabled={isOnSale}
                             onChange={setIsIsOnSale}
@@ -1099,13 +1176,13 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
                       }}
                       sizeClass="py-2.5 px-5"
                     >
-                     پاک کردن
+                      پاک کردن
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={closeModalMoreFilter}
                       sizeClass="py-2.5 px-5"
                     >
-                    اعمال
+                      اعمال
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -1122,9 +1199,7 @@ const TabFilters = ({filters}:{filters:FilterResponse[]}) => {
       {/* FOR DESKTOP */}
       <div className="hidden lg:flex flex-1 gap-x-4">
         {renderTabsPriceRage()}
-        {renderTabsCategories()}
-        {renderTabsColor()}
-        {renderTabsSize()}
+        {renderFilters()}
         {renderTabIsOnsale()}
         <div className="!mr-auto">{renderTabsSortOrder()}</div>
       </div>

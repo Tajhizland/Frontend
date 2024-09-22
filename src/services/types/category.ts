@@ -13,7 +13,7 @@ export type CategoryResponse = {
     updated_at:string ;
     minPrice:number ;
     maxPrice:number ;
-    filters:FilterResponse[] ;
+    filters:{data:FilterResponse[]} ;
 };
 
 export type CategoryListing = {
