@@ -15,41 +15,39 @@ import Image from "next/image";
 import Link from "next/link";
 import {useQuery} from "react-query";
 import {CartResponse} from "@/services/types/cart";
-import {reduxRemoveFromCart, setCart, useGlobalState} from "@/services/globalState/GlobalState";
+import {reduxRemoveFromCart, setCart, useGlobalState, useUser} from "@/services/globalState/GlobalState";
 import {toast} from "react-hot-toast";
 import {useEffect} from "react";
+import {getCookie} from "cookies-next";
 
 export default function CartDropdown() {
 
     const [cart] = useGlobalState('cart');
-     // درخواست cart از API
-    const {data, isSuccess} = useQuery({
-        queryKey: ['cart'],
-        queryFn: () => getCart(),
-        staleTime: 5000,
-    });
+    const token = getCookie("token")
 
-    useEffect(() => {
-        if (isSuccess && data) {
-            setCart(data); // به‌روزرسانی سبد خرید در global state
+    if (token!=undefined) {
+
+        // درخواست cart از API
+        const {data, isSuccess} = useQuery({
+            queryKey: ['cart'],
+            queryFn: () => getCart(),
+            staleTime: 5000,
+        });
+        if (isSuccess) {
+            setCart(data)
         }
-    }, [isSuccess, data]);
-
-    // اگر درخواست موفقیت‌آمیز بود، داده‌های cart را جایگزین state کنید
-    if (isSuccess && data) {
-        setCart(data); // جایگزین کردن cart با داده‌های جدید
     }
 
     async function removeFromCart(id: number) {
-         let response =await removeCartItem({productColorId: id});
-         reduxRemoveFromCart(id);
+        let response = await removeCartItem({productColorId: id});
+        reduxRemoveFromCart(id);
         toast.success(response.message as string)
     }
 
     const renderProduct = (item: CartResponse, index: number, close: () => void) => {
         const {product, count, color} = item;
         const {name, url, image} = product;
-        const {title, code, price,id} = color;
+        const {title, code, price, id} = color;
         return (
             <div key={index} className="flex py-5 last:pb-0">
                 <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -89,7 +87,9 @@ export default function CartDropdown() {
                             <button
                                 type="button"
                                 className="font-medium text-primary-6000 dark:text-primary-500 "
-                                 onClick={()=>{removeFromCart(id as number)}}
+                                onClick={() => {
+                                    removeFromCart(id as number)
+                                }}
                             >
                                 حذف
                             </button>

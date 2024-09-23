@@ -15,18 +15,26 @@ import Link from "next/link";
 import {useQuery} from "react-query";
 import {getCart} from "@/services/api/shop/cart";
 import {me} from "@/services/api/auth/me";
-import {setUser} from "@/services/globalState/GlobalState";
+import {setUser, useUser} from "@/services/globalState/GlobalState";
+import {getCookie} from "cookies-next";
 
 export default function AvatarDropdown() {
-    const {data, isSuccess} = useQuery({
-        queryKey: ['user'],
-        queryFn: () => me(),
-        staleTime: 5000,
-    });
-    if (isSuccess) {
-        setUser(data);
+
+    const [user]=useUser();
+    const token = getCookie("token")
+    console.log("TOKEN IS ",token)
+    if (token!=undefined) {
+        const {data, isSuccess} = useQuery({
+            queryKey: ['user'],
+            queryFn: () => me(),
+            staleTime: 5000,
+        });
+        if (isSuccess) {
+            setUser(data);
+        }
     }
-   if(isSuccess)
+
+   if(user)
        return (
         <div className="AvatarDropdown ">
             <Popover className="relative">
@@ -75,8 +83,8 @@ export default function AvatarDropdown() {
                                             <Avatar imgUrl={avatarImgs[7]} sizeClass="w-12 h-12"/>
 
                                             <div className="flex-grow">
-                                                <h4 className="font-semibold">{data?.name}</h4>
-                                                <p className="text-xs mt-0.5">{data?.username}</p>
+                                                <h4 className="font-semibold">{user?.name}</h4>
+                                                <p className="text-xs mt-0.5">{user?.username}</p>
                                             </div>
                                         </div>
 
