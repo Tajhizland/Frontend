@@ -1,4 +1,4 @@
-import React, {ReactNode} from "react";
+ import React, {ReactNode} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import LikeButton from "@/components/LikeButton";
 import {StarIcon} from "@heroicons/react/24/solid";
@@ -32,13 +32,13 @@ const LIST_IMAGES_DEMO = [detail1JPG, detail2JPG, detail3JPG];
 
 interface ProductPageProps {
     params: {
-        url: string;
+        url: [string];
     }
 }
 
 const ProductDetailPage = async ({params}: ProductPageProps) => {
     const {sizes, variants, status, allOfSizes, image} = PRODUCTS[0];
-    let product = await findProductByUrl(decodeURIComponent(params.url[0]));
+    let product = await findProductByUrl(decodeURIComponent(params.url.join("/")));
 
     const renderOption = () => {
         const options = product.productOptions.data

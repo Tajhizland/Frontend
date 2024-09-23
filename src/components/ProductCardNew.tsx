@@ -208,7 +208,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                     </Link>
 
                     <LikeButton liked={isLiked} className="absolute top-3 end-3 z-10" />
-                    {  renderGroupButtons()}
+                    {/*{  renderGroupButtons()}*/}
                 </div>
 
                 <div className="space-y-4 px-2.5 pt-5 pb-2.5">
@@ -216,7 +216,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                     <div>
                         <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
                             {data?.name}
-                        </h2> 
+                        </h2>
                     </div>
 
                     <div className="flex justify-between items-end ">

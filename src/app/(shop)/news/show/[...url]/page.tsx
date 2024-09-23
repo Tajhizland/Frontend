@@ -17,14 +17,14 @@ import { Content } from "next/font/google";
 
 interface ProductPageProps {
     params: {
-        url: string;
+        url: [string];
     }
 }
 const BlogSingle =  async ({params}: ProductPageProps) => {
 
-    const news= await findNewsByUrl(decodeURIComponent(params.url[0]));
+    const news= await findNewsByUrl(decodeURIComponent(params.url.join("/")));
     console.log("NewsIs",news);
-    
+
   const renderHeader = () => {
     return (
       <header className="container rounded-xl mb-5">
@@ -34,8 +34,8 @@ const BlogSingle =  async ({params}: ProductPageProps) => {
             title="Quiet ingenuity: 120,000 lunches and counting"
           >
             {news.title}
-          </h1> 
-          <span      
+          </h1>
+          <span
           style={{direction:"ltr"}}
                className=" text-neutral-500 font-semibold text-sm dark:text-neutral-100 "
 >
@@ -49,7 +49,7 @@ const BlogSingle =  async ({params}: ProductPageProps) => {
   const renderContent = () => {
     return (
         <div dangerouslySetInnerHTML={{ __html: news.content }} />
-   
+
     );
   };
 
@@ -179,12 +179,12 @@ const BlogSingle =  async ({params}: ProductPageProps) => {
         containerClassName="container my-10 sm:my-12 "
         src={"https://tajhizland.com/upload/"+news.img}
       /> */}
- 
+
       <div className="nc-SingleContent container space-y-10 text-center news mt-5">
-        {renderContent()} 
+        {renderContent()}
         <div className="max-w-screen-md mx-auto border-b border-t border-neutral-100 dark:border-neutral-700"></div>
-       
-      </div> 
+
+      </div>
     </div>
   );
 };
