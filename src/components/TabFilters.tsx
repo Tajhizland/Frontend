@@ -569,6 +569,7 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                 <div className="flex flex-col space-y-5">
                     {data.items.data.map((item) => (
                         <Checkbox
+                            key={item.id}
                             name={item.value}
                             label={item.value}
                             defaultChecked={selectedFilters[data.id]?.includes(item.id + "")}
@@ -711,7 +712,7 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                                             {/* ---- */}
                                             {
                                                 filters && filters.map((filter) => (<>
-                                                    <div className="py-7">
+                                                    <div className="py-7" key={filter.id}>
                                                         <h3 className="text-xl font-medium">{filter.name}</h3>
                                                         <div className="mt-6 relative ">
                                                             {renderMoreFilterItem(filter)}
