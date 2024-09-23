@@ -276,7 +276,7 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
         return (
 
             filters && filters.map((filter) => (<>
-                <Popover className="relative">
+                <Popover className="relative" key={filter.id}>
                     {({open, close}) => (
                         <>
                             <PopoverButton
