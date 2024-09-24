@@ -7,7 +7,7 @@ export type Column<T> = {
     hasFilter?: boolean;
     filterType?: "input" | "select" | "date";
     selectOptions?: optionType[]; // Only used if filterType is 'select'
-    render?: (value: T[keyof T], row: T, onEdit?: () => void) => ReactNode; // Custom rendering function
+    render?: (value: T[keyof T], row: T,onEdit?: () => void ) => ReactNode; // Custom rendering function
     editable?: boolean; // Flag for inline editing
 };
 export type optionType = {

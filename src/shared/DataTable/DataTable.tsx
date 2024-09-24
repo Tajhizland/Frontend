@@ -173,7 +173,7 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                             عملیات
                         </th>
                     </tr>
- 
+
                     <tr className={"text-slate-900 bg-white"}>
                         {columns.map((col) => (
                             <th key={col.key as string} className={"text-center p-3"}>
@@ -308,7 +308,7 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                             {onDelete && (
                                                 <button
                                                     className="px-3 py-1 bg-red-500 text-white rounded"
-                                                    onClick={() => onDelete(row)}
+                                                    onClick={() => onDelete(editedData[rowIndex].id)}
                                                 >
                                                     حذف
                                                 </button>
