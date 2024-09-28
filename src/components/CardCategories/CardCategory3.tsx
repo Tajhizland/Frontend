@@ -9,6 +9,7 @@ export interface CardCategory3Props {
   featuredImage?: StaticImageData | string;
   name?: string;
   desc?: string;
+  url?:string;
   color?: string;
 }
 
@@ -18,6 +19,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
   name = CATS_DISCOVER[2].name,
   desc = CATS_DISCOVER[2].desc,
   color = CATS_DISCOVER[2].color,
+  url=""
 }) => {
   return (
     <Link
@@ -31,7 +33,9 @@ const CardCategory3: FC<CardCategory3Props> = ({
           <div className="absolute inset-5 sm:inset-8">
             <Image
               alt=""
-              src={featuredImage || ""}
+              width={500}
+              height={100}
+              src={"https://tajhizland.com/upload/"+featuredImage || ""}
               className="absolute end-0 w-1/2 max-w-[260px] h-full object-contain drop-shadow-xl"
             />
           </div>
@@ -42,23 +46,25 @@ const CardCategory3: FC<CardCategory3Props> = ({
           <div className="absolute inset-5 sm:inset-8 flex flex-col">
             <div className="max-w-xs">
               <span className={`block mb-2 text-sm text-slate-700`}>
-                {name}
+                 دسته‌بندی های پرطرفدار
               </span>
-              {desc && (
+              {name && (
                 <h2
                   className={`text-xl md:text-2xl text-slate-900 font-semibold`}
-                  dangerouslySetInnerHTML={{ __html: desc }}
+                  dangerouslySetInnerHTML={{ __html: name }}
                 ></h2>
               )}
             </div>
             <div className="mt-auto">
+              <Link href={{pathname:"/category/"+url}}>
               <ButtonSecondary
                 sizeClass="py-3 px-4 sm:py-3.5 sm:px-6"
                 fontSize="text-sm font-medium"
                 className="nc-shadow-lg"
               >
-                Show me all
+               نمایش همه
               </ButtonSecondary>
+              </Link>
             </div>
           </div>
         </div>

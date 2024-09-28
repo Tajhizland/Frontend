@@ -25,8 +25,7 @@ export default function Page() {
         toast.success(response?.message as string)
     }
     async function add(id: any) {
-        let response = await store({ product_id: id });
-        revalidatePath("/admin/special_product")
+        let response = await store({ product_id: id }); 
         toast.success(response?.message as string)
     }
     const renderContent = () => {

@@ -51,3 +51,13 @@ export const update = async <T extends ServerResponse<unknown>>
     return axios.post<T, SuccessResponseType<T>>("admin/product/update",params)
         .then((res) => res?.data)
 };
+
+export const search = async <T extends ServerResponse<ProductResponse[]>>
+(
+    params: {
+        query: string, 
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/search/product",params)
+        .then((res) => res?.data?.result?.data)
+};

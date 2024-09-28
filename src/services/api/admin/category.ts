@@ -81,3 +81,12 @@ export const findById = async <T extends ServerResponse<CategoryResponse>>
     return axios.get<T, SuccessResponseType<T>>("admin/category/find/"+id )
         .then((res) => res?.data?.result?.data)
 };
+export const search = async <T extends ServerResponse<CategoryResponse[]>>
+(
+    params: {
+        query: string, 
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/search/category",params)
+        .then((res) => res?.data?.result?.data)
+};

@@ -6,6 +6,7 @@ import Heading from "@/components/Heading/Heading";
 import Glide from "@glidejs/glide/dist/glide.esm";
 import ProductCard2 from "./ProductCard";
 import { Product, PRODUCTS } from "@/data/data";
+import { ProductResponse } from "@/services/types/product";
 
 export interface SectionSliderProductCardProps {
   className?: string;
@@ -14,7 +15,7 @@ export interface SectionSliderProductCardProps {
   headingFontClassName?: string;
   headingClassName?: string;
   subHeading?: string;
-  data?: Product[];
+  data?: ProductResponse[];
 }
 
 const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
@@ -24,7 +25,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
   headingClassName,
   heading,
   subHeading = "REY backpacks & bags",
-  data = PRODUCTS.filter((_, i) => i < 8 && i > 2),
+  data 
 }) => {
   const sliderRef = useRef(null);
 
@@ -82,7 +83,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
         </Heading>
         <div className="glide__track" data-glide-el="track"  style={{direction:"ltr"}}>
           <ul className="glide__slides">
-            {data.map((item, index) => (
+            {data.data.data.map((item, index) => (
               <li key={index} className={`glide__slide ${itemClassName}`}>
                 <ProductCard2 data={item} />
               </li>

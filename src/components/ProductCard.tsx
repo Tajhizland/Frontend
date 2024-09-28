@@ -17,31 +17,20 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
+import { ProductResponse } from "@/services/types/product";
 
 export interface ProductCardProps {
   className?: string;
-  data?: Product;
+  data?: ProductResponse;
   isLiked?: boolean;
 }
 
 const ProductCard: FC<ProductCardProps> = ({
   className = "",
-  data = PRODUCTS[0],
+  data ,
   isLiked,
 }) => {
-  const {
-    name,
-    price,
-    description,
-    variants,
-    variantType,
-    status,
-    image,
-    rating,
-    id,
-    numberOfReviews,
-    sizes,
-  } = data;
+  
 
   const [variantActive, setVariantActive] = useState(0);
   const [showModalQuickView, setShowModalQuickView] = useState(false);
@@ -71,7 +60,7 @@ const ProductCard: FC<ProductCardProps> = ({
       ),
       {
         position: "top-right",
-        id: String(id) || "product-detail",
+        id: String(data?.id) || "product-detail",
         duration: 3000,
       }
     );
@@ -84,8 +73,8 @@ const ProductCard: FC<ProductCardProps> = ({
           <Image
             width={80}
             height={96}
-            src={image}
-            alt={name}
+            src={"https://tajhizland.com/upload/"+data?.images.data[0].url}
+            alt={data?.name as string}
             className="absolute object-cover object-center"
           />
         </div>
@@ -94,16 +83,15 @@ const ProductCard: FC<ProductCardProps> = ({
           <div>
             <div className="flex justify-between ">
               <div>
-                <h3 className="text-base font-medium ">{name}</h3>
+                <h3 className="text-base font-medium ">{data?.name}</h3>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   <span>
-                    {variants ? variants[variantActive].name : `Natural`}
+                    {/* {variants ? variants[variantActive].name : `Natural`} */}
                   </span>
                   <span className="mx-2 border-s border-slate-200 dark:border-slate-700 h-4"></span>
-                  <span>{size || "XL"}</span>
-                </p>
+                 </p>
               </div>
-              <Prices price={price} className="mt-0.5" />
+              <Prices price={data?.min_price} className="mt-0.5" />
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">
@@ -153,64 +141,27 @@ const ProductCard: FC<ProductCardProps> = ({
   };
 
   const renderVariants = () => {
-    if (!variants || !variants.length || !variantType) {
-      return null;
-    }
-
-    if (variantType === "color") {
+ 
       return (
         <div className="flex gap-1.5">
-          {variants.map((variant, index) => (
+          {data?.colors.data.map((color, index) => (
             <div
               key={index}
               onClick={() => setVariantActive(index)}
               className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
                 variantActive === index
-                  ? getBorderClass(variant.color)
+                  ? getBorderClass(color.color_code)
                   : "border-transparent"
               }`}
-              title={variant.name}
+              title={color.color_name}
             >
               <div
-                className={`absolute inset-0.5 rounded-full z-0 ${variant.color}`}
+                className={`absolute inset-0.5 rounded-full z-0 ${color.color_code}`}
               ></div>
             </div>
           ))}
         </div>
-      );
-    }
-
-    return (
-      <div className="flex ">
-        {variants.map((variant, index) => (
-          <div
-            key={index}
-            onClick={() => setVariantActive(index)}
-            className={`relative w-11 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
-              variantActive === index
-                ? "border-black dark:border-slate-300"
-                : "border-transparent"
-            }`}
-            title={variant.name}
-          >
-            <div
-              className="absolute inset-0.5 rounded-full overflow-hidden z-0 bg-cover"
-              style={{
-                backgroundImage: `url(${
-                  // @ts-ignore
-                  typeof variant.thumbnail?.src === "string"
-                    ? // @ts-ignore
-                      variant.thumbnail?.src
-                    : typeof variant.thumbnail === "string"
-                    ? variant.thumbnail
-                    : ""
-                })`,
-              }}
-            ></div>
-          </div>
-        ))}
-      </div>
-    );
+      ); 
   };
 
   const renderGroupButtons = () => {
@@ -238,28 +189,7 @@ const ProductCard: FC<ProductCardProps> = ({
     );
   };
 
-  const renderSizeList = () => {
-    if (!sizes || !sizes.length) {
-      return null;
-    }
-
-    return (
-      <div className="absolute bottom-0 inset-x-1 gap-2 flex flex-wrap justify-center opacity-0 invisible group-hover:bottom-4 group-hover:opacity-100 group-hover:visible transition-all">
-        {sizes.map((size, index) => {
-          return (
-            <div
-              key={index}
-              className="nc-shadow-lg w-10 h-10 rounded-xl bg-white hover:bg-slate-900 hover:text-white transition-colors cursor-pointer flex items-center justify-center uppercase font-semibold tracking-tight text-sm text-slate-900"
-              onClick={() => notifyAddTocart({ size })}
-            >
-              {size}
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
+ 
   return (
     <>
       <div
@@ -271,35 +201,34 @@ const ProductCard: FC<ProductCardProps> = ({
           <Link href={"/product-detail"} className="block">
             <NcImage
               containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
-              src={image}
+              src={"https://tajhizland.com/upload/"+data?.images.data[0].url}
               className="object-cover w-full h-full drop-shadow-xl"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
               alt="product"
             />
           </Link>
-          <ProductStatus status={status} />
+          <ProductStatus status={data?.status} />
           <LikeButton liked={isLiked} className="absolute top-3 end-3 z-10" />
-          {sizes ? renderSizeList() : renderGroupButtons()}
-        </div>
+         </div>
 
         <div className="space-y-4 px-2.5 pt-5 pb-2.5">
           {renderVariants()}
           <div>
             <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
-              {name}
+              {data?.name}
             </h2>
             <p className={`text-sm text-slate-500 dark:text-slate-400 mt-1 `}>
-              {description}
+              {data?.description}
             </p>
           </div>
 
           <div className="flex justify-between items-end ">
-            <Prices price={price} />
+            <Prices price={data?.min_price} />
             <div className="flex items-center mb-0.5">
               <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
               <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
-                {rating || ""} ({numberOfReviews || 0} reviews)
+                {data?.rating || ""} ({data?.review || 0} reviews)
               </span>
             </div>
           </div>
