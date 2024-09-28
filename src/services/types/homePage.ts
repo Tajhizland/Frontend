@@ -6,10 +6,10 @@ import {PopularCategoryResponse} from "@/services/types/popularCategory";
 import {PopularProductResponse} from "@/services/types/popularProduct";
 
 export type HomePageResponse = {
-    popularProducts:PopularProductResponse[];
-    popularCategories:PopularCategoryResponse[];
-    homepageCategories:HomepageCategoryResponse[];
-    sliders:SliderResponse[];
-    concepts:ConceptResponse[];
-    specialProducts:SpecialProductResponse[];
-  };
+    popularProducts: { data: PopularProductResponse[] };
+    popularCategories: { data: PopularCategoryResponse[] };
+    homepageCategories: { data: HomepageCategoryResponse[] };
+    sliders: { data: SliderResponse[] };
+    concepts: { data: ConceptResponse[] };
+    specialProducts: { data: SpecialProductResponse[] };
+};
