@@ -153,7 +153,8 @@ const ProductCard2: FC<ProductCardProps> = ({
                             title={color.color_name}
                         >
                             <div
-                                className={`absolute inset-0.5 rounded-full z-0 bg-[${color.color_code}]`}
+                                style={{ backgroundColor: color.color_code }}
+                                className={`absolute inset-0.5 rounded-full z-0 `}
                             ></div>
                         </div>
                     ))}

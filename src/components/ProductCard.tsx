@@ -30,7 +30,7 @@ const ProductCard: FC<ProductCardProps> = ({
   data ,
   isLiked,
 }) => {
-  
+
 
   const [variantActive, setVariantActive] = useState(0);
   const [showModalQuickView, setShowModalQuickView] = useState(false);
@@ -73,7 +73,7 @@ const ProductCard: FC<ProductCardProps> = ({
           <Image
             width={80}
             height={96}
-            src={"https://tajhizland.com/upload/"+data?.images.data[0].url}
+            src={"https://tajhizland.com/upload/"+data?.images?.data[0].url || ""}
             alt={data?.name as string}
             className="absolute object-cover object-center"
           />
@@ -141,40 +141,37 @@ const ProductCard: FC<ProductCardProps> = ({
   };
 
   const renderVariants = () => {
- 
+
       return (
         <div className="flex gap-1.5">
-          {data?.colors.data.map((color, index) => (
-            <div
-              key={index}
-              onClick={() => setVariantActive(index)}
-              className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
-                variantActive === index
-                  ? getBorderClass(color.color_code)
-                  : "border-transparent"
-              }`}
-              title={color.color_name}
-            >
+          {data  && data.colors && data?.colors.data.map((color, index) => (
               <div
-                className={`absolute inset-0.5 rounded-full z-0 ${color.color_code}`}
-              ></div>
-            </div>
+                  key={index}
+                  onClick={() => setVariantActive(index)}
+                  className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${variantActive==index?"shadow-lg":""}`}
+                  title={color.color_name}
+              >
+                  <div style={{ backgroundColor: color.color_code }}
+                      className={`absolute inset-0.5 rounded-full z-0  `}
+                  ></div>
+              </div>
           ))}
         </div>
-      ); 
+      );
   };
 
-  const renderGroupButtons = () => {
-    return (
-      <div className="absolute bottom-0 group-hover:bottom-4 inset-x-1 flex justify-center opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-        <ButtonPrimary
-          className="shadow-lg"
-          fontSize="text-xs"
-          sizeClass="py-2 px-4"
-          onClick={() => notifyAddTocart({ size: "XL" })}
-        >
-          <BagIcon className="w-3.5 h-3.5 mb-0.5" />
-          <span className="ms-1">Add to bag</span>
+    const renderGroupButtons = () => {
+        return (
+            <div
+                className="absolute bottom-0 group-hover:bottom-4 inset-x-1 flex justify-center opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                <ButtonPrimary
+                    className="shadow-lg"
+                    fontSize="text-xs"
+                    sizeClass="py-2 px-4"
+                    onClick={() => notifyAddTocart({size: "XL"})}
+                >
+                    <BagIcon className="w-3.5 h-3.5 mb-0.5"/>
+                    <span className="ms-1">Add to bag</span>
         </ButtonPrimary>
         <ButtonSecondary
           className="ms-1.5 bg-white hover:!bg-gray-100 hover:text-slate-900 transition-colors shadow-lg"
@@ -189,26 +186,25 @@ const ProductCard: FC<ProductCardProps> = ({
     );
   };
 
- 
+
   return (
     <>
       <div
         className={`nc-ProductCard relative flex flex-col bg-transparent ${className}`}
       >
-        <Link href={"/product-detail"} className="absolute inset-0"></Link>
+        <Link href={{pathname:data?.url}} className="absolute inset-0"></Link>
 
         <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
-          <Link href={"/product-detail"} className="block">
+          <Link href={{pathname:data?.url}} className="block">
             <NcImage
               containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
-              src={"https://tajhizland.com/upload/"+data?.images.data[0].url}
+              src={ data?.images?.data[0].url || ""}
               className="object-cover w-full h-full drop-shadow-xl"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
               alt="product"
             />
           </Link>
-          <ProductStatus status={data?.status} />
           <LikeButton liked={isLiked} className="absolute top-3 end-3 z-10" />
          </div>
 
@@ -218,9 +214,6 @@ const ProductCard: FC<ProductCardProps> = ({
             <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
               {data?.name}
             </h2>
-            <p className={`text-sm text-slate-500 dark:text-slate-400 mt-1 `}>
-              {data?.description}
-            </p>
           </div>
 
           <div className="flex justify-between items-end ">
@@ -228,7 +221,7 @@ const ProductCard: FC<ProductCardProps> = ({
             <div className="flex items-center mb-0.5">
               <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
               <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
-                {data?.rating || ""} ({data?.review || 0} reviews)
+                {data?.rating || ""} ({data?.review || 0} نظر)
               </span>
             </div>
           </div>

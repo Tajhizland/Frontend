@@ -12,7 +12,7 @@ export interface CardCategory4Props {
   name: string;
   desc: string;
   color?: string;
-  count?: number;
+  url?: string;
 }
 
 const CardCategory4: FC<CardCategory4Props> = ({
@@ -22,7 +22,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
   name,
   desc,
   color = "bg-rose-50",
-  count,
+  url,
 }) => {
   return (
     <div
@@ -42,9 +42,9 @@ const CardCategory4: FC<CardCategory4Props> = ({
               width={80}
               height={80}
             />
-            <span className="text-xs text-slate-700 dark:text-neutral-300 font-medium">
-              {count} products
-            </span>
+            {/*<span className="text-xs text-slate-700 dark:text-neutral-300 font-medium">*/}
+            {/*  {count} products*/}
+            {/*</span>*/}
           </div>
 
           <div className="">
@@ -62,12 +62,12 @@ const CardCategory4: FC<CardCategory4Props> = ({
           >
               <ArrowRightIcon className="w-4 h-4 ml-2.5" />
 
-              <span>See Collection</span>
+              <span>مشاهده محصولات</span>
           </Link>
         </div>
       </div>
 
-      <Link href={"/collection"}></Link>
+      <Link href={{pathname:"/category/"+url}}></Link>
     </div>
   );
 };

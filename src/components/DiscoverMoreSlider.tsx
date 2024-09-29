@@ -8,7 +8,7 @@ import Glide from "@glidejs/glide/dist/glide.esm";
 import { CATS_DISCOVER } from "./CardCategories/data";
 import { PopularCategoryResponse } from "@/services/types/popularCategory";
 
-const DiscoverMoreSlider = (data : PopularCategoryResponse[]) => {
+const DiscoverMoreSlider = ({data}:{data: PopularCategoryResponse[]}) => {
   const sliderRef = useRef(null);
 
   const [isShow, setIsShow] = useState(false);
@@ -66,22 +66,18 @@ const DiscoverMoreSlider = (data : PopularCategoryResponse[]) => {
         rightDescText=""
         hasNextPrev
       >
-        دسته‌بندی های پرطرفدار    
+        دسته‌بندی های پرطرفدار
           </Heading>
 
-      {
-        console.log("DATA" , data.data.data)
-      
-      }
       <div className="" data-glide-el="track"  style={{direction:"ltr"}}>
         <ul className="glide__slides">
-          { data.data.data.map((item, index) => (
+          { data.map((item, index) => (
             <li key={index} className={`glide__slide`}>
               <CardCategory3
                 name={item.category?.name}
                 url={item.category?.url}
                 desc={item.category?.description}
-                featuredImage={item.category?.image} 
+                featuredImage={item.category?.image}
                 color="bg-orange-50"
               />
             </li>

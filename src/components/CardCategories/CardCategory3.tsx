@@ -22,10 +22,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
   url=""
 }) => {
   return (
-    <Link
-      href={"/collection"}
-      className={`nc-CardCategory3 block ${className}`}
-    >
+
       <div
         className={`relative w-full aspect-w-16 aspect-h-11 sm:aspect-h-9 h-0 rounded-2xl overflow-hidden group ${color}`}
       >
@@ -56,20 +53,21 @@ const CardCategory3: FC<CardCategory3Props> = ({
               )}
             </div>
             <div className="mt-auto">
-              <Link href={{pathname:"/category/"+url}}>
               <ButtonSecondary
                 sizeClass="py-3 px-4 sm:py-3.5 sm:px-6"
                 fontSize="text-sm font-medium"
                 className="nc-shadow-lg"
               >
-               نمایش همه
+                  <Link href={{pathname:"/category/"+url}}>
+
+                  نمایش همه
+                  </Link>
+
               </ButtonSecondary>
-              </Link>
             </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </div> 
   );
 };
 

@@ -29,13 +29,15 @@ const CardCategory2: FC<CardCategory2Props> = ({
       <div
         className={`flex-1 relative w-full h-0 rounded-2xl overflow-hidden group ${ratioClass} ${bgClass}`}
       >
-        <div className="pt-14">
+        <div className=" ">
           <NcImage
             alt=""
             containerClassName="w-full h-full flex justify-center"
             src={featuredImage}
-            className="object-cover rounded-2xl"
-            sizes="400px"
+            className="object-cover rounded-2xl w-full h-full"
+
+            width={720}
+            height={720}
           />
         </div>
         <span className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity rounded-2xl"></span>

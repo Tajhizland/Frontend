@@ -5,21 +5,24 @@ import NcImage from "@/shared/NcImage/NcImage";
 import Prices from "./Prices";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
+import {ProductImageResponse} from "@/services/types/productImage";
 
 export interface CollectionCard2Props {
   className?: string;
-  imgs?: (string | StaticImageData)[];
+  imgs?: ProductImageResponse[]|undefined;
   name?: string;
   price?: number;
   description?: string;
+    url?: string;
 }
 
 const CollectionCard2: FC<CollectionCard2Props> = ({
   className,
-  imgs = [productImgs[9], productImgs[10], productImgs[11], productImgs[8]],
+  imgs ,
   name = "Product Name",
   description = "Product Description",
   price,
+  url,
 }) => {
   return (
     <div className={`CollectionCard2 group relative ${className}`}>
@@ -27,7 +30,9 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
         <NcImage
           containerClassName="aspect-w-8 aspect-h-5 bg-neutral-100 rounded-2xl overflow-hidden"
           className="object-contain w-full h-full rounded-2xl"
-          src={imgs[0]}
+          src={imgs  &&imgs[0]&& imgs[0].url || ""}
+          width={720}
+          height={450}
           alt=""
           sizes="400px"
         />
@@ -35,23 +40,29 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
           <NcImage
             containerClassName="w-full h-24 sm:h-28"
             className="object-cover w-full h-full rounded-2xl"
-            src={imgs[1]}
+            src={imgs  &&imgs[1]&& imgs[1].url || ""}
             alt=""
+            sizes="150px"
+            width={720}
+            height={450}
+          />
+          <NcImage
+            containerClassName="w-full h-24 sm:h-28"
+            className="object-cover w-full h-full rounded-2xl"
+            src={imgs &&imgs[2] && imgs[2].url || ""}
+            alt=""
+            width={720}
+            height={450}
             sizes="150px"
           />
           <NcImage
             containerClassName="w-full h-24 sm:h-28"
             className="object-cover w-full h-full rounded-2xl"
-            src={imgs[2]}
+            src={imgs &&imgs[3]&& imgs[3].url || ""}
             alt=""
             sizes="150px"
-          />
-          <NcImage
-            containerClassName="w-full h-24 sm:h-28"
-            className="object-cover w-full h-full rounded-2xl"
-            src={imgs[3]}
-            alt=""
-            sizes="150px"
+            width={720}
+            height={450}
           />
         </div>
       </div>
@@ -74,7 +85,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
         </div>
         <Prices className="mt-0.5 sm:mt-1 ml-4" price={price} />
       </div>
-      <Link href={"/product-detail-2"} className="absolute inset-0 "></Link>
+      <Link href={{pathname:"/product/"+url}} className="absolute inset-0 "></Link>
     </div>
   );
 };

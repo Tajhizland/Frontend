@@ -26,16 +26,18 @@ import { homePage } from "@/services/api/shop/homePage";
       <SectionHero2 />
 
       <div className="mt-24 lg:mt-32">
-        <DiscoverMoreSlider data={response.popularCategories} />
+        <DiscoverMoreSlider data={response.popularCategories.data} />
       </div>
 
         <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
             <SectionSliderProductCard
-                data={response.popularProducts}
+                data={response.popularProducts.data}
+                subHeading={""}
+                heading={"محصولات تخفیف دار"}
             />
             <div className="relative py-24 lg:py-32">
                 <BackgroundSection/>
-                <SectionGridMoreExplore/>
+                <SectionGridMoreExplore data={response.concepts.data}/>
             </div>
             <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
                 <SectionHowItWork/>
@@ -44,7 +46,7 @@ import { homePage } from "@/services/api/shop/homePage";
 
             <SectionGridFeatureItems/>
             <SectionPromo2/>
-            <SectionSliderLargeProduct cardStyle="style2"/>
+            <SectionSliderLargeProduct cardStyle="style2" data={response.specialProducts.data}/>
 
             <div className="relative py-24 lg:py-32">
                 <BackgroundSection/>
@@ -59,7 +61,7 @@ import { homePage } from "@/services/api/shop/homePage";
                 </div>
             </div>
 
-            <SectionSliderCategories/>
+            <SectionSliderCategories data={response.brands.data}/>
 
             {/*<SectionSliderProductCard*/}
             {/*    heading="Best Sellers"*/}
