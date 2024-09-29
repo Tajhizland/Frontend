@@ -1,11 +1,13 @@
 import React from "react";
 import NavigationItem from "./NavigationItem";
 import { NAVIGATION_DEMO_2 } from "@/data/navigation";
+import { menu } from "@/services/api/shop/menu";
 
-function Navigation() {
-  return (
+  async function Navigation() {
+    const response=await menu();
+   return (
     <ul className="nc-Navigation flex items-center">
-      {NAVIGATION_DEMO_2.map((item) => (
+      {response.map((item) => (
         <NavigationItem key={item.id} menuItem={item} />
       ))}
     </ul>

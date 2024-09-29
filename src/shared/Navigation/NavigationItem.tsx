@@ -11,6 +11,7 @@ import CardCategory3 from "@/components/CardCategories/CardCategory3";
 import React, { FC, Fragment, useState } from "react";
 import { Route } from "@/routers/types";
 import Link from "next/link";
+import { MenuResponse } from "@/services/types/menu";
 
 export interface NavItemType {
   id: string;
@@ -23,7 +24,7 @@ export interface NavItemType {
 }
 
 export interface NavigationItemProps {
-  menuItem: NavItemType;
+  menuItem: MenuResponse;
 }
 
 const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
@@ -41,9 +42,10 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
     });
   };
 
+   
   // ===================== MENU MEGAMENU =====================
-  const renderMegaMenu = (menu: NavItemType) => {
-    if (!menu.children) {
+  const renderMegaMenu = (menu: MenuResponse) => { 
+    if (!menu.children?.data) {
       return null;
     }
     return (
@@ -57,19 +59,17 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
             <div className="container">
               <div className="flex text-sm border-t border-slate-200 dark:border-slate-700 py-14">
                 <div className="flex-1 grid grid-cols-4 gap-6 xl:gap-8 pr-6 xl:pr-8">
-                  {menu.children.map((item, index) => (
+                  {menu.children.data.map((item, index) => (
                     <div key={index}>
-                      <p className="font-medium text-slate-900 dark:text-neutral-200">
-                        {item.name}
-                      </p>
+                
                       <ul className="grid space-y-4 mt-4">
-                        {item.children?.map(renderMegaMenuNavlink)}
+                        {renderMegaMenuNavlink(item)}
                       </ul>
                     </div>
                   ))}
                 </div>
                 <div className="w-[40%] xl:w-[35%]">
-                  <CardCategory3 />
+                  <CardCategory3 color="bg-orange-100" featuredImage={menu.banner_logo} name={menu.banner_title as string} url={menu.banner_link }/>
                 </div>
               </div>
             </div>
@@ -79,16 +79,18 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
     );
   };
 
-  const renderMegaMenuNavlink = (item: NavItemType) => {
+  const renderMegaMenuNavlink = (item: MenuResponse) => {
+    console.log("ITEM IS",item);
+    
     return (
-      <li key={item.id} className={`${item.isNew ? "menuIsNew" : ""}`}>
+      <li key={item.id} >
         <Link
           className="font-normal text-slate-600 hover:text-black dark:text-slate-400 dark:hover:text-white "
           href={{
-            pathname: item.href || undefined,
+            pathname: item.url || undefined,
           }}
         >
-          {item.name}
+          {item.title}
         </Link>
       </li>
     );
@@ -213,37 +215,27 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
   };
 
   // ===================== MENU MAIN MENU =====================
-  const renderMainItem = (item: NavItemType) => {
+  const renderMainItem = (item: MenuResponse) => {
     return (
       <div className="h-20 flex-shrink-0 flex items-center">
         <Link
           className="inline-flex items-center text-sm lg:text-[15px] font-medium text-slate-700 dark:text-slate-300 py-2.5 px-4 xl:px-5 rounded-full hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 dark:hover:text-slate-200"
           href={{
-            pathname: item.href || undefined,
+            pathname: item.url || undefined,
           }}
         >
-          {item.name}
-          {item.type && (
-            <ChevronDownIcon
+          {item.title}
+          <ChevronDownIcon
               className="mr-1 -ml-1 h-4 w-4 text-slate-400"
               aria-hidden="true"
             />
-          )}
         </Link>
       </div>
     );
   };
 
-  switch (menuItem.type) {
-    case "dropdown":
-      return renderDropdownMenu(menuItem);
-    case "megaMenu":
-      return renderMegaMenu(menuItem);
-    default:
-      return (
-        <li className="menu-item flex-shrink-0">{renderMainItem(menuItem)}</li>
-      );
-  }
+  return renderMegaMenu(menuItem);
+
 };
 
 export default NavigationItem;

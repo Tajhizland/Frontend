@@ -5,6 +5,7 @@ export type MenuResponse = {
     title: string;
     parent_id: number;
     parent?: MenuResponse;
+    children?:{data:MenuResponse[]};
     url: string;
     banner_title: string;
     banner_link: string;

@@ -3,6 +3,8 @@
 import React, { useState, Fragment } from "react";
 import { Transition, Dialog, TransitionChild } from "@/app/(shop)/headlessui";
 import NavMobile from "@/shared/Navigation/NavMobile";
+import { menu } from "@/services/api/shop/menu";
+import { useQuery } from "react-query";
 
 export interface MenuBarProps {}
 const MenuBar: React.FC<MenuBarProps> = () => {
@@ -10,6 +12,13 @@ const MenuBar: React.FC<MenuBarProps> = () => {
 
   const handleOpenMenu = () => setIsVisable(true);
   const handleCloseMenu = () => setIsVisable(false);
+
+  const {data, isSuccess} = useQuery({
+    queryKey: ['menu'],
+    queryFn: () => menu(),
+    staleTime: 5000,
+});
+
 
   const renderContent = () => {
     return (
@@ -30,7 +39,7 @@ const MenuBar: React.FC<MenuBarProps> = () => {
                 leaveTo="opacity-0 translate-x-14"
               >
                 <div className="z-20 relative">
-                  <NavMobile onClickClose={handleCloseMenu} />
+                  <NavMobile onClickClose={handleCloseMenu}  data={data}/>
                 </div>
               </TransitionChild>
 
