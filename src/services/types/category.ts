@@ -14,6 +14,7 @@ export type CategoryResponse = {
     minPrice: number;
     maxPrice: number;
     filters: { data: FilterResponse[] };
+    products?: { data: ProductResponse[] };
 };
 
 export type CategoryListing = {

@@ -1,4 +1,4 @@
-import React from "react";
+ import React from "react";
 import SectionHowItWork from "@/components/SectionHowItWork/SectionHowItWork";
 import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
 import SectionPromo1 from "@/components/SectionPromo1";
@@ -44,19 +44,19 @@ import { homePage } from "@/services/api/shop/homePage";
             </div>
             <SectionPromo1/>
 
-            <SectionGridFeatureItems/>
+            <SectionGridFeatureItems data={response.homepageCategories.data}/>
             <SectionPromo2/>
             <SectionSliderLargeProduct cardStyle="style2" data={response.specialProducts.data}/>
 
             <div className="relative py-24 lg:py-32">
                 <BackgroundSection/>
                 <div>
-                    <Heading rightDescText="From the Ciseco blog">
-                        The latest news
+                    <Heading >
+                        جدیدترین اخبار
                     </Heading>
-                    <SectionMagazine5/>
+                    <SectionMagazine5 data={response.news.data}/>
                     <div className="flex mt-16 justify-center">
-                        <ButtonSecondary>Show all blog articles</ButtonSecondary>
+                        <ButtonSecondary>مشاهده همه</ButtonSecondary>
                     </div>
                 </div>
             </div>

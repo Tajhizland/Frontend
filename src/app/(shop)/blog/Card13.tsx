@@ -3,32 +3,35 @@ import NcImage from "@/shared/NcImage/NcImage";
 import { _getImgRd, _getTitleRd } from "@/contains/fakeData";
 import PostCardMeta from "@/components/PostCardMeta/PostCardMeta";
 import Link from "next/link";
+import {NewsResponse} from "@/services/types/news";
 
 export interface Card13Props {
   className?: string;
+  data : NewsResponse;
 }
 
-const Card13: FC<Card13Props> = ({ className = "" }) => {
+const Card13: FC<Card13Props> = ({ className = "" , data }) => {
   return (
     <div className={`nc-Card13 relative flex ${className}`} data-nc-id="Card13">
       <div className="flex flex-col h-full py-2">
         <h2 className={`nc-card-title block font-semibold text-base`}>
           <Link
-            href={"/blog-single"}
+            href={{pathname:"/news/show/"+data.url}}
             className="line-clamp-2 capitalize"
             title={"title"}
           >
-            {_getTitleRd()}
+              {data.title}
+
           </Link>
         </h2>
         <span className="hidden sm:block my-3 text-slate-500 dark:text-slate-400 ">
           <span className="line-clamp-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-            dolorem voluptatibus numquam ut pariatur officiis?
+               <div dangerouslySetInnerHTML={{__html: data.content.replace(/<img[^>]*>/g, "")}}/>
+
           </span>
         </span>
-        <span className="mt-4 block sm:hidden text-sm text-slate-500 ">
-          May 20, 2021 · 2 min read
+          <span className="mt-4 block sm:hidden text-sm text-slate-500 ">
+          {data.created_at}
         </span>
         <div className="mt-auto hidden sm:block">
           <PostCardMeta />
@@ -41,7 +44,7 @@ const Card13: FC<Card13Props> = ({ className = "" }) => {
       >
         <NcImage
           alt=""
-          src={_getImgRd()}
+          src={"https://tajhizland.com/upload/"+data.img}
           containerClassName="absolute inset-0"
           className="object-cover w-full h-full rounded-xl sm:rounded-3xl"
           sizes="400px"
