@@ -35,7 +35,7 @@ export default function Page()
         ]}/>
         <Panel>
             <PageTitle>
-                ایجاد محصول جدید
+                ایجاد برند جدید
             </PageTitle>
             <div>
                 <Form submit={submit} />

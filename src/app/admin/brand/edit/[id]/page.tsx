@@ -34,13 +34,13 @@ export default async function Page()
                 href: "brand"
             },
             {
-                title: "افزودن برند جدید",
-                href: "product/create"
+                title: "ویرایش برند",
+                href: "product/edit/"+id
             }
         ]}/>
         <Panel>
             <PageTitle>
-               ویرایش محصول
+               ویرایش برند
             </PageTitle>
             <div>
                 <Form submit={submit}  data={data}/>
