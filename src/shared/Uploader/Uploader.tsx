@@ -13,7 +13,7 @@ export  default  function Uploader(props:any)
                     <p className="mb-2 text-xs text-gray-500 text-center">
                         <span className="font-semibold">برای آپلود عکس کلیک کنید</span> یا عکس را در اینجا بکشید</p>
                  </div>
-                <input id="dropzone-file" type="file" className="hidden" {...props}/>
+                <input id="dropzone-file" type="file" className="hidden" name={props.name} {...props}/>
             </label>
         </div>
 
