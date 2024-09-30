@@ -1,4 +1,4 @@
- import React from "react";
+import React from "react";
 import SectionHowItWork from "@/components/SectionHowItWork/SectionHowItWork";
 import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
 import SectionPromo1 from "@/components/SectionPromo1";
@@ -9,18 +9,14 @@ import DiscoverMoreSlider from "@/components/DiscoverMoreSlider";
 import SectionGridMoreExplore from "@/components/SectionGridMoreExplore/SectionGridMoreExplore";
 import SectionPromo2 from "@/components/SectionPromo2";
 import SectionSliderCategories from "@/components/SectionSliderCategories/SectionSliderCategories";
-import SectionPromo3 from "@/components/SectionPromo3";
-import SectionClientSay from "@/components/SectionClientSay/SectionClientSay";
 import Heading from "@/components/Heading/Heading";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import { PRODUCTS, SPORT_PRODUCTS } from "@/data/data";
 import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
 import SectionMagazine5 from "@/app/(shop)/blog/SectionMagazine5";
 import { homePage } from "@/services/api/shop/homePage";
 
  async function PageHome() {
     const response= await homePage();
-    console.log("homeResponse" , response)
   return (
     <div className="nc-PageHome relative overflow-hidden">
       <SectionHero2 />

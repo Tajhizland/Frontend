@@ -1,17 +1,25 @@
 "use client";
 
 import React from "react";
-import { usePathname } from "next/navigation";
+import {usePathname} from "next/navigation";
 import HeaderLogged from "@/components/Header/HeaderLogged";
 import Header from "@/components/Header/Header";
-import { useThemeMode } from "@/hooks/useThemeMode";
+import {useThemeMode} from "@/hooks/useThemeMode";
+import {QueryClient, QueryClientProvider} from "react-query";
 
 const SiteHeader = () => {
-  useThemeMode();
+    useThemeMode();
 
-  let pathname = usePathname();
+    let pathname = usePathname();
+    const queryClient = new QueryClient();
 
-  return pathname === "/home-2" ? <Header /> : <HeaderLogged />;
+    return (<>
+        <QueryClientProvider client={queryClient}>
+
+            <HeaderLogged/>
+        </QueryClientProvider>
+
+    </>);
 };
 
 export default SiteHeader;
