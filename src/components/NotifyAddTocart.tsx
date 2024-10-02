@@ -7,19 +7,20 @@ import Image, { StaticImageData } from "next/image";
 interface Props {
   show: boolean;
   productImage: string | StaticImageData;
-  variantActive: number;
-  sizeSelected: string;
-  qualitySelected: number;
+  color: string;
+  name: string;
+  price: number;
+   qualitySelected: number;
 }
 
 const NotifyAddTocart: FC<Props> = ({
   show,
   productImage,
-  variantActive,
+  color,
+  name,
+  price,
   qualitySelected,
-  sizeSelected,
-}) => {
-  const { name, price, variants } = PRODUCTS[0];
+ }) => { 
 
   const renderProductCartOnNotify = () => {
     return (
@@ -34,32 +35,31 @@ const NotifyAddTocart: FC<Props> = ({
           />
         </div>
 
-        <div className="ml-4 flex flex-1 flex-col">
+        <div className="mr-4 flex flex-1 flex-col">
           <div>
             <div className="flex justify-between ">
               <div>
                 <h3 className="text-base font-medium ">{name}</h3>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   <span>
-                    {variants ? variants[variantActive].name : `Natural`}
+                    {color}
                   </span>
                   <span className="mx-2 border-l border-slate-200 dark:border-slate-700 h-4"></span>
-                  <span>{sizeSelected || "XL"}</span>
-                </p>
+                 </p>
               </div>
               <Prices price={price} className="mt-0.5" />
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">
-            <p className="text-gray-500 dark:text-slate-400">{`Qty ${qualitySelected}`}</p>
+            <p className="text-gray-500 dark:text-slate-400">{`تعداد ${qualitySelected}`}</p>
 
             <div className="flex">
-              <button
+              {/* <button
                 type="button"
                 className="font-medium text-primary-6000 dark:text-primary-500 "
               >
                 View cart
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@ const NotifyAddTocart: FC<Props> = ({
       leaveTo="opacity-0 translate-x-20"
     >
       <p className="block text-base font-semibold leading-none">
-        Added to cart!
+        به سبد خرید اضافه شد  
       </p>
       <hr className=" border-slate-200 dark:border-slate-700 my-4" />
       {renderProductCartOnNotify()}

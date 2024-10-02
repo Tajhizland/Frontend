@@ -2,6 +2,7 @@ import { ProductResponse } from "@/services/types/product";
 import { CartResponse } from "@/services/types/cart";
 import { createGlobalState } from 'react-hooks-global-state';
 import {UserResponse} from "@/services/types/user";
+import { ColorResponse } from "../types/color";
 
 
 
@@ -30,10 +31,10 @@ export const setUser = (user: UserResponse) => {
 };
 
 // تابع افزودن محصول به سبد خرید
-export const reduxAddToCart = (product: ProductResponse, quantity: number, colorIndex: number) => {
+export const reduxAddToCart = (product: ProductResponse, quantity: number, color: ColorResponse) => {
     const cart = getGlobalState('cart');
 
-    const existingProductIndex = cart.findIndex(item => item.color.id === product.colors.data[colorIndex].id);
+    const existingProductIndex = cart.findIndex(item => item.color.id === color.id);
 
     const cartProduct: CartResponse = {
         id: product.id,
@@ -44,10 +45,10 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
             image: product.images.data[0]?.url || "",
         },
         color: {
-            id: product.colors.data[colorIndex]?.id || "",
-            title: product.colors.data[colorIndex]?.color_name || "",
-            code: product.colors.data[colorIndex]?.color_code || "",
-            price: product.colors.data[colorIndex]?.price || product.min_price,
+            id: color?.id || "",
+            title: color?.color_name || "",
+            code: color?.color_code || "",
+            price: color?.price || product.min_price,
         },
     };
 
@@ -63,8 +64,11 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
         // اگر محصول جدید است، آن را اضافه کنید
         newCart = [...cart, cartProduct];
     }
+    
+    console.log("NEW CART",newCart);
+    
 
-    setGlobalState('cart', newCart);
+    setCart(  newCart);
 };
 // سایر توابع
 export const reduxRemoveFromCart = (colorId: number) => {

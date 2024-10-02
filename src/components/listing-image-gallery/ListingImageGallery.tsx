@@ -16,6 +16,8 @@ import {
 } from "@headlessui/react";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
 import { Route } from "next";
+import { ProductImageResponse } from "@/services/types/productImage";
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
 export const getNewParam = ({
   paramName = "photoId",
@@ -30,7 +32,7 @@ export const getNewParam = ({
 };
 
 interface Props {
-  images: ListingGalleryImage[];
+  images: ProductImageResponse[];
   onClose?: () => void;
 }
 
@@ -72,7 +74,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose }) => {
         )}
 
         <div className="columns-1 gap-4 sm:columns-2 xl:columns-3">
-          {images.map(({ id, url }) => (
+          {images.map(({ url } , id) => (
             <div
               key={id}
               onClick={() => {
@@ -121,9 +123,8 @@ const ListingImageGallery: FC<Props> = ({ images, onClose }) => {
                 className="focus:outline-none focus:ring-0 w-10 h-10 rounded-full flex items-center justify-center hover:bg-neutral-100"
                 onClick={handleClose}
               >
-                <ArrowSmallLeftIcon className="w-6 h-6" />
-              </button>
-              <LikeSaveBtns />
+                <ArrowRightIcon className="w-6 h-6" />
+              </button> 
             </div>
 
             <div className="flex min-h-full items-center justify-center sm:p-4 pt-0 text-center">

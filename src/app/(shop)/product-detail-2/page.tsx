@@ -122,8 +122,8 @@ const ProductDetailPage2 = ({}) => {
           productImage={image}
           qualitySelected={qualitySelected}
           show={t.visible}
-          sizeSelected={sizeSelected}
-          variantActive={variantActive}
+          // sizeSelected={sizeSelected}
+          // variantActive={variantActive}
         />
       ),
       { position: "top-right", id: "nc-product-notify", duration: 3000 }

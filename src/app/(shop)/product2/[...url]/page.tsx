@@ -31,6 +31,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Route } from "next";
 import {findProductByUrl} from "@/services/api/shop/product";
 import ProductSidebar from "@/app/(shop)/product2/ProductSidebar";
+import ProductImage from "../ProductImage";
 
 const LIST_IMAGES_GALLERY_DEMO: (string | StaticImageData)[] = [
   detail21JPG,
@@ -292,7 +293,9 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
           </div>
         </div>
         {/*  */}
-        <div className="block lg:hidden">{
+        <div className="block lg:hidden">
+        <ProductSidebar product={product}  />
+          {
             // renderSectionSidebar()
         }</div>
 
@@ -342,7 +345,7 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
         {/* HEADING */}
         <h2 className="text-2xl font-semibold flex items-center">
           <StarIcon className="w-7 h-7 mb-0.5" />
-          <span className="mr-1.5"> 4,87 · 142 Reviews</span>
+          <span className="mr-1.5"> {product.comments.length} نظر </span>
         </h2>
 
         {/* comment */}
@@ -355,7 +358,7 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
                   If you’re unsure which hoodie to pick.`,
                 date: "December 22, 2021",
                 name: "Stiven Hokinhs",
-                starPoint: 5,
+                starPoint: 2,
               }}
             />
             <ReviewItem
@@ -390,94 +393,8 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
 
   return (
     <div className={`ListingDetailPage nc-ProductDetailPage2`}>
-      {/*<>*/}
-      {/*  <header className="container mt-8 sm:mt-10">*/}
-      {/*    <div className="relative ">*/}
-      {/*      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-6">*/}
-      {/*        <div*/}
-      {/*          className="md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer"*/}
-      {/*          onClick={handleOpenModalImageGallery}*/}
-      {/*        >*/}
-      {/*          <NcImage*/}
-      {/*            alt="firt"*/}
-      {/*            containerClassName="aspect-w-3 aspect-h-4 relative md:aspect-none md:absolute md:inset-0"*/}
-      {/*            className="object-cover rounded-md sm:rounded-xl"*/}
-      {/*            src={LIST_IMAGES_GALLERY_DEMO[0]}*/}
-      {/*            fill*/}
-      {/*            sizes="(max-width: 640px) 100vw, 50vw"*/}
-      {/*            priority*/}
-      {/*          />*/}
-      {/*          <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity rounded-md sm:rounded-xl"></div>*/}
-      {/*        </div>*/}
+         <ProductImage productImages={product.images.data} />
 
-      {/*        /!*  *!/*/}
-      {/*        <div*/}
-      {/*          className="col-span-1 row-span-2 relative rounded-md sm:rounded-xl overflow-hidden z-0 cursor-pointer"*/}
-      {/*          onClick={handleOpenModalImageGallery}*/}
-      {/*        >*/}
-      {/*          <NcImage*/}
-      {/*            alt=""*/}
-      {/*            fill*/}
-      {/*            sizes="(max-width: 640px) 100vw, 50vw"*/}
-      {/*            containerClassName="absolute inset-0"*/}
-      {/*            className="object-cover w-full h-full rounded-md sm:rounded-xl"*/}
-      {/*            src={LIST_IMAGES_GALLERY_DEMO[1]}*/}
-      {/*          />*/}
-      {/*          <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>*/}
-      {/*        </div>*/}
-
-      {/*        /!*  *!/*/}
-      {/*        {[LIST_IMAGES_GALLERY_DEMO[2], LIST_IMAGES_GALLERY_DEMO[3]].map(*/}
-      {/*          (item, index) => (*/}
-      {/*            <div*/}
-      {/*              key={index}*/}
-      {/*              className={`relative rounded-md sm:rounded-xl overflow-hidden z-0 ${*/}
-      {/*                index >= 2 ? "block" : ""*/}
-      {/*              }`}*/}
-      {/*            >*/}
-      {/*              <NcImage*/}
-      {/*                alt=""*/}
-      {/*                fill*/}
-      {/*                sizes="(max-width: 640px) 100vw, 33vw"*/}
-      {/*                containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"*/}
-      {/*                className="object-cover w-full h-full rounded-md sm:rounded-xl "*/}
-      {/*                src={item || ""}*/}
-      {/*              />*/}
-
-      {/*              /!* OVERLAY *!/*/}
-      {/*              <div*/}
-      {/*                className="absolute inset-0 bg-slate-900/20 opacity-0 hover:opacity-60 transition-opacity cursor-pointer"*/}
-      {/*                onClick={handleOpenModalImageGallery}*/}
-      {/*              />*/}
-      {/*            </div>*/}
-      {/*          )*/}
-      {/*        )}*/}
-      {/*      </div>*/}
-      {/*      <div*/}
-      {/*        className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"*/}
-      {/*        onClick={handleOpenModalImageGallery}*/}
-      {/*      >*/}
-      {/*        <svg*/}
-      {/*          xmlns="http://www.w3.org/2000/svg"*/}
-      {/*          className="h-5 w-5"*/}
-      {/*          fill="none"*/}
-      {/*          viewBox="0 0 24 24"*/}
-      {/*          stroke="currentColor"*/}
-      {/*        >*/}
-      {/*          <path*/}
-      {/*            strokeLinecap="round"*/}
-      {/*            strokeLinejoin="round"*/}
-      {/*            strokeWidth={1.5}*/}
-      {/*            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"*/}
-      {/*          />*/}
-      {/*        </svg>*/}
-      {/*        <span className="mr-2 text-neutral-800 text-sm font-medium">*/}
-      {/*         نمایش تمام تصاویر*/}
-      {/*        </span>*/}
-      {/*      </div>*/}
-      {/*    </div>*/}
-      {/*  </header>*/}
-      {/*</>*/}
 
       {/* MAIn */}
       <main className="container relative z-10 mt-9 sm:mt-11 flex ">
@@ -491,7 +408,7 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
         <div className="flex-grow">
           <div className="hidden lg:block sticky top-28">
             {/*{renderSectionSidebar()}*/}
-              <ProductSidebar colors={product.colors.data} />
+            <ProductSidebar product={product}  />
           </div>
         </div>
       </main>
@@ -514,21 +431,7 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
 
       {/* MODAL VIEW ALL REVIEW */}
 
-      {/*  */}
-      {/*<ModalViewAllReviews*/}
-      {/*/>*/}
-
-      <Suspense>
-        {/*<ListingImageGallery*/}
-        {/*  onClose={handleCloseModalImageGallery}*/}
-        {/*  images={LIST_IMAGES_GALLERY_DEMO.map((item, index) => {*/}
-        {/*    return {*/}
-        {/*      id: index,*/}
-        {/*      url: item,*/}
-        {/*    };*/}
-        {/*  })}*/}
-        {/*/>*/}
-      </Suspense>
+      
     </div>
   );
 };
