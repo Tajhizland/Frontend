@@ -1,4 +1,4 @@
-import axios, {ServerResponse} from "@/services/axios";
+import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {SearchResponse} from "@/services/types/serach";
 
 export const search = async <T extends ServerResponse<SearchResponse>>
@@ -7,6 +7,6 @@ export const search = async <T extends ServerResponse<SearchResponse>>
         query:string
     }
 ) => {
-    return axios.get("search" ,{params})
-        .then((res) => res?.data?.result)
+    return axios.get<T, SuccessResponseType<T>>("search" ,{params})
+        .then((res) => res?.data?.result.data)
 };

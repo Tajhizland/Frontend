@@ -32,6 +32,7 @@ import { Route } from "next";
 import {findProductByUrl} from "@/services/api/shop/product";
 import ProductSidebar from "@/app/(shop)/product2/ProductSidebar";
 import ProductImage from "../ProductImage";
+import ProductComment from "../ProductComment";
 
 const LIST_IMAGES_GALLERY_DEMO: (string | StaticImageData)[] = [
   detail21JPG,
@@ -280,7 +281,7 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
                 <span>{product.rating}</span>
                 <span className="mx-1.5">·</span>
                 <span className="text-slate-700 dark:text-slate-400 underline">
-                  {product.comments.length} نظر
+                  {product.comments.data.length} نظر
                 </span>
               </span>
             </a>
@@ -416,8 +417,9 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
       {/* OTHER SECTION */}
       <div className="container pb-24 lg:pb-28 pt-14 space-y-14">
         <hr className="border-slate-200 dark:border-slate-700" />
-
-        {renderReviews()}
+{/* 
+        {renderReviews()} */}
+        <ProductComment comments={product.comments.data} />
 
         <hr className="border-slate-200 dark:border-slate-700" />
 

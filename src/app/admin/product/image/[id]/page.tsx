@@ -19,10 +19,10 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    async function submit(e:FormData){
+    async function submit(e: FormData) {
         console.log(e.get("image"));
-        
-        await upload({product_id:Number(id) , image:e.get("image") as File})
+
+        await upload({ product_id: Number(id), image: e.get("image") as File })
     }
     return (<>
         <Breadcrump breadcrumb={[
@@ -42,12 +42,12 @@ export default function Page() {
         <Panel>
             <ProductTab id={id + ""} />
             <div className="flex flex-col gap-y-4">
-               <form action={submit}>
-            <Uploader name={"image"} />
-            <ButtonPrimary>
-                آپلود
-            </ButtonPrimary>
-            </form>
+                <form action={submit}>
+                    <Uploader name={"image"} />
+                    <ButtonPrimary>
+                        آپلود
+                    </ButtonPrimary>
+                </form>
             </div>
             <div className={"grid grid-cols-1 md:grid-cols-2  xl:grid-cols-5 gap-5 border rounded  mt-10"}>
 

@@ -1,7 +1,7 @@
-import {ColorResponse} from "./color";
-import {CommentResponse} from "./comment";
-import {ProductOptionResponse} from "@/services/types/productOption";
-import {ProductImageResponse} from "@/services/types/productImage";
+import { ColorResponse } from "./color";
+import { CommentResponse } from "./comment";
+import { ProductOptionResponse } from "@/services/types/productOption";
+import { ProductImageResponse } from "@/services/types/productImage";
 
 export type ProductResponse = {
     id: number;
@@ -24,13 +24,15 @@ export type ProductResponse = {
     created_at: string;
     updated_at: string;
     colors: {
-        data: ColorResponse []
+        data: ColorResponse[]
     };
     images: {
-        data: ProductImageResponse []
+        data: ProductImageResponse[]
     };
     productOptions: {
-        data: ProductOptionResponse []
+        data: ProductOptionResponse[]
     };
-    comments: CommentResponse[];
+    comments: {
+        data: CommentResponse[]
+    };
 };

@@ -20,6 +20,7 @@ export const upload = async <T extends ServerResponse<unknown>>
     formData.append('product_id', params.product_id + "");
     formData.append('image', params.image);
 
+
     return axios.post<T, SuccessResponseType<T>>("admin/product/image/set/", formData,
         {
             headers: {

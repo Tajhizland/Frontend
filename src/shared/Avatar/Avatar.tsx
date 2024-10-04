@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import { avatarImgs } from "@/contains/fakeData";
 import VerifyIcon from "@/components/VerifyIcon";
 import Image, { StaticImageData } from "next/image";
+import { FaUserCircle } from "react-icons/fa";
 
 export interface AvatarProps {
   containerClassName?: string;
@@ -38,13 +39,7 @@ const Avatar: FC<AvatarProps> = ({
       style={{ backgroundColor: url ? undefined : _setBgColor(name) }}
     >
       {url && (
-        <Image
-          fill
-          sizes="100px"
-          className={`absolute inset-0 w-full h-full object-cover ${radius}`}
-          src={url}
-          alt={name}
-        />
+        <FaUserCircle className={"text-black "} />
       )}
       <span className="wil-avatar__name">{name[0]}</span>
 

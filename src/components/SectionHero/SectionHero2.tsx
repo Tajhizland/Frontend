@@ -7,13 +7,16 @@ import Image from "next/image";
 import { HERO2_DEMO_DATA as DATA } from "./data";
 import useInterval from "beautiful-react-hooks/useInterval";
 import useHorizontalSwipe from "beautiful-react-hooks/useHorizontalSwipe";
+import { SliderResponse } from "@/services/types/slider";
+import { Route } from "next";
 export interface SectionHero2Props {
   className?: string;
+  data:SliderResponse[]
 }
 
 let TIME_OUT: NodeJS.Timeout | null = null;
 
-const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
+const SectionHero2: FC<SectionHero2Props> = ({ className = ""  , data }) => {
   // =================
 
   const ref = useRef<HTMLDivElement>(null);
@@ -51,7 +54,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
 
   const handleAutoNext = () => {
     setIndexActive((state) => {
-      if (state >= DATA.length - 1) {
+      if (state >= data.length - 1) {
         return 0;
       }
       return state + 1;
@@ -60,7 +63,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
 
   const handleClickNext = () => {
     setIndexActive((state) => {
-      if (state >= DATA.length - 1) {
+      if (state >= data.length - 1) {
         return 0;
       }
       return state + 1;
@@ -71,7 +74,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
   const handleClickPrev = () => {
     setIndexActive((state) => {
       if (state === 0) {
-        return DATA.length - 1;
+        return data.length - 1;
       }
       return state - 1;
     });
@@ -94,7 +97,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
   const renderDots = () => {
     return (
       <div className="absolute bottom-4 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 z-20 flex justify-center">
-        {DATA.map((_, index) => {
+        {data.map((_, index) => {
           const isActive = indexActive === index;
           return (
             <div
@@ -125,7 +128,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
 
   const renderItem = (index: number) => {
     const isActive = indexActive === index;
-    const item = DATA[index];
+    const item = data[index];
     if (!isActive) {
       return null;
     }
@@ -155,7 +158,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="w-full h-full object-contain object-right-bottom nc-SectionHero2Item__image"
                 src={item.image}
-                alt={item.heading}
+                alt={item.title}
                 priority
               />
             </div>
@@ -166,20 +169,20 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
               <div className="relative z-[1] w-full max-w-3xl space-y-8 sm:space-y-14 nc-SectionHero2Item__left">
                 <div className="space-y-5 sm:space-y-6">
                   <span className="nc-SectionHero2Item__subheading block text-base md:text-xl text-slate-700 font-medium">
-                    {item.subHeading}
-                  </span>
+                    {/* {item.subHeading} */}
+                   </span>
                   <h2
                     className="nc-SectionHero2Item__heading font-semibold text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[114%] text-slate-900"
-                    dangerouslySetInnerHTML={{ __html: item.heading }}
+                    dangerouslySetInnerHTML={{ __html: item.title }}
                   ></h2>
                 </div>
 
                 <ButtonPrimary
                   className="nc-SectionHero2Item__button dark:bg-slate-900"
                   sizeClass="py-3 px-6 sm:py-5 sm:px-9"
-                  href={item.btnLink}
+                  href={item.url as Route}
                 >
-                  <span>{item.btnText}</span>
+                  <span>مشاهده</span>
                   <span>
                     <svg
                       className="w-5 h-5 ms-2.5"
@@ -213,7 +216,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
 
   return (
     <div className="relative" ref={ref}>
-      {DATA.map((_, index) => renderItem(index))}
+      {data.map((_, index) => renderItem(index))}
 
       <button
         type="button"

@@ -8,14 +8,29 @@ import Navigation from "@/shared/Navigation/Navigation";
 import CartDropdown from "./CartDropdown";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import { search } from "@/services/api/shop/search";
+import { SearchResponse } from "@/services/types/serach";
+import Link from "next/link";
+import { Route } from "next";
+import Image from "next/image";
 
-export interface MainNav2LoggedProps {}
+export interface MainNav2LoggedProps { }
 
 const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
   const inputRef = createRef<HTMLInputElement>();
   const [showSearchForm, setShowSearchForm] = useState(false);
+  const [searchResponse, setSearchResponse] = useState<SearchResponse>()
   const router = useRouter();
 
+  async function searchHandle(e) {
+    let response = await search({ query: e.target.value });
+    if(response.products.data)
+    setSearchResponse(response);
+  else
+  setSearchResponse(undefined)
+    console.log("RESPONSE ", response);
+
+  }
   const renderMagnifyingGlassIcon = () => {
     return (
       <svg
@@ -45,29 +60,52 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
 
   const renderSearchForm = () => {
     return (
-      <form
-        className="flex-1 py-2 text-slate-900 dark:text-slate-100"
-        onSubmit={(e) => {
-          e.preventDefault();
-          router.push("/search");
-          inputRef.current?.blur();
-        }}
-      >
-        <div className="bg-slate-50 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded">
-          {renderMagnifyingGlassIcon()}
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="عبارت مورد نظر خود را تایپ کنید ...."
-            className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base"
-            autoFocus
-          />
-          <button type="button" onClick={() => setShowSearchForm(false)}>
-            <XMarkIcon className="w-5 h-5" />
-          </button>
-        </div>
-        <input type="submit" hidden value="" />
-      </form>
+      <div className="relative w-full">
+        <form
+          className="flex-1 py-2 text-slate-900 dark:text-slate-100"
+          onSubmit={(e) => {
+            e.preventDefault();
+            router.push("/search");
+            inputRef.current?.blur();
+          }}
+        >
+          <div className="bg-slate-50 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded">
+            {renderMagnifyingGlassIcon()}
+            <input
+              onChange={searchHandle}
+              ref={inputRef}
+              type="text"
+              placeholder="عبارت مورد نظر خود را تایپ کنید ...."
+              className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base"
+              autoFocus
+            />
+            <button type="button" onClick={() => setShowSearchForm(false)}>
+              <XMarkIcon className="w-5 h-5" />
+            </button>
+          </div>
+          <input type="submit" hidden value="" />
+        </form>
+        {searchResponse &&
+          <div className="absolute top-20 left-0 w-full h-96 bg-white  z-50 border rounded shadow border-t-0 overflow-y-scroll whitespace-nowrap ">
+            <div className="flex flex-col gap-y-1">
+              {
+                searchResponse.products.data.map((item) => (<>
+                  <Link href={"product/" + item.url as Route}>
+                    <div className="flex items-center gap-x-5 border-b">
+                      <div>
+                        <Image alt="product" src={item.images.data[0].url as string} width={100} height={100} />
+                      </div>
+                      <span>
+                        {item.name}
+                      </span>
+                    </div>
+
+                  </Link>
+                </>))
+              }
+            </div>
+          </div>}
+      </div>
     );
   };
 
