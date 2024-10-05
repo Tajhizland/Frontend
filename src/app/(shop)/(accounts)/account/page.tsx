@@ -1,3 +1,4 @@
+"use client"
 import Label from "@/components/Label/Label";
 import React, { FC } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -6,8 +7,30 @@ import Select from "@/shared/Select/Select";
 import Textarea from "@/shared/Textarea/Textarea";
 import { avatarImgs } from "@/contains/fakeData";
 import Image from "next/image";
+import { setUser, useUser } from "@/services/globalState/GlobalState";
+import { useQuery } from "react-query";
+import { me, update } from "@/services/api/auth/me";
+import { getCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 const AccountPage = () => {
+
+  const [user] = useUser();
+ 
+
+  async function submit(e: FormData) {
+    let response = await update({
+      name: e.get("name") as string,
+      email: e.get("email") as string,
+      gender: e.get("gender") as string,
+      address: e.get("address") as string,
+      profile: e.get("profile") as File,
+    })
+
+    toast.success(response.message as string);
+  }
+
   return (
     <div className={`nc-AccountPage `}>
       <div className="space-y-10 sm:space-y-12">
@@ -15,6 +38,8 @@ const AccountPage = () => {
         <h2 className="text-2xl sm:text-3xl font-semibold">
           اطلاعات حساب کاربری
         </h2>
+        <form action={submit}>
+
         <div className="flex flex-col md:flex-row">
           <div className="flex-shrink-0 flex items-start">
             {/* AVATAR */}
@@ -51,51 +76,37 @@ const AccountPage = () => {
               />
             </div>
           </div>
-          <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
+          <div className="flex-grow mt-10 md:mt-0 md:pr-16 max-w-3xl space-y-6">
             <div>
               <Label>نام کامل</Label>
-              <Input className="mt-1.5" defaultValue="Enrico Cole" />
+              <Input className="mt-1.5" defaultValue={user?.name} />
             </div>
 
             {/* ---- */}
 
             {/* ---- */}
             <div>
-              <Label>Email</Label>
+              <Label>ایمیل</Label>
               <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+                <span className="inline-flex items-center px-2.5 rounded-r-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-envelope"></i>
                 </span>
                 <Input
-                  className="!rounded-l-none"
+                  className="!rounded-r-none"
                   placeholder="example@email.com"
                 />
               </div>
             </div>
 
             {/* ---- */}
-            <div className="max-w-lg">
-              <Label>Date of birth</Label>
-              <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
-                  <i className="text-2xl las la-calendar"></i>
-                </span>
-                <Input
-                  className="!rounded-l-none"
-                  type="date"
-                  defaultValue="1990-07-22"
-                />
-              </div>
-            </div>
-            {/* ---- */}
             <div>
               <Label>آدرس</Label>
               <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+                <span className="inline-flex items-center px-2.5 rounded-r-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-map-signs"></i>
                 </span>
                 <Input
-                  className="!rounded-l-none"
+                  className="!rounded-r-none"
                   defaultValue="New york, USA"
                 />
               </div>
@@ -103,34 +114,35 @@ const AccountPage = () => {
 
             {/* ---- */}
             <div>
-              <Label>Gender</Label>
+              <Label>جنسیت</Label>
               <Select className="mt-1.5">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
+                <option value="Male">مرد</option>
+                <option value="Female">زن</option>
               </Select>
             </div>
 
             {/* ---- */}
             <div>
-              <Label>Phone number</Label>
+              <Label>شماره همراه</Label>
               <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+                <span className="inline-flex items-center px-2.5 rounded-r-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-phone-volume"></i>
                 </span>
-                <Input className="!rounded-l-none" defaultValue="003 888 232" />
+                <Input className="!rounded-r-none" defaultValue={user?.username} readOnly />
               </div>
             </div>
             {/* ---- */}
-            <div>
+            {/* <div>
               <Label>About you</Label>
               <Textarea className="mt-1.5" defaultValue="..." />
-            </div>
+            </div> */}
             <div className="pt-2">
               <ButtonPrimary>ویرایش</ButtonPrimary>
             </div>
           </div>
         </div>
+
+        </form>
       </div>
     </div>
   );

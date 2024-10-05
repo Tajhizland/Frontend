@@ -15,31 +15,27 @@ import Image from "next/image";
 import Link from "next/link";
 import {useQuery} from "react-query";
 import {CartResponse} from "@/services/types/cart";
-import {reduxRemoveFromCart, setCart, useGlobalState} from "@/services/globalState/GlobalState";
+import {reduxRemoveFromCart, setCart, useCart, useGlobalState, useUser} from "@/services/globalState/GlobalState";
 import {toast} from "react-hot-toast";
 import {useEffect} from "react";
+import { Route } from "next";
 
 export default function CartDropdown() {
+ 
+    const [cart] = useCart();
+    const [user] = useUser();
 
-    const [cart] = useGlobalState('cart');
-     // درخواست cart از API
     const {data, isSuccess} = useQuery({
         queryKey: ['cart'],
         queryFn: () => getCart(),
         staleTime: 5000,
+        enabled:!!user , 
+        onSuccess: (cartData) => { 
+            setCart(cartData);
+        }
     });
 
-    useEffect(() => {
-        if (isSuccess && data) {
-            setCart(data); // به‌روزرسانی سبد خرید در global state
-        }
-    }, [isSuccess, data]);
-
-    // اگر درخواست موفقیت‌آمیز بود، داده‌های cart را جایگزین state کنید
-    if (isSuccess && data) {
-        setCart(data); // جایگزین کردن cart با داده‌های جدید
-    }
-
+    
     async function removeFromCart(id: number) {
          let response =await removeCartItem({productColorId: id});
          reduxRemoveFromCart(id);
@@ -62,7 +58,7 @@ export default function CartDropdown() {
                     <Link
                         onClick={close}
                         className="absolute inset-0"
-                        href={"/product-detail"}
+                        href={"/product/"+item.product.url as Route}
                     />
                 </div>
 
@@ -71,7 +67,7 @@ export default function CartDropdown() {
                         <div className="flex justify-between ">
                             <div>
                                 <h3 className="text-base font-medium ">
-                                    <Link onClick={close} href={"/product-detail"}>
+                                    <Link onClick={close}  href={"/product/"+item.product.url as Route}>
                                         {name}
                                     </Link>
                                 </h3>
@@ -102,7 +98,7 @@ export default function CartDropdown() {
 
     const renderSumPrice = () => {
         let sumPrice = 0;
-        cart.map((item) => {
+        cart && cart.map((item) => {
             sumPrice += item.color.price;
         })
         return sumPrice;
@@ -119,7 +115,7 @@ export default function CartDropdown() {
                         <div
                             className="w-3.5 h-3.5 flex items-center justify-center bg-primary-500 absolute top-1.5 right-1.5 rounded-full text-[10px] leading-none text-white font-medium">
               <span className="mt-[1px]">
-                {cart.length ?? 0}
+                {cart?.length ?? 0}
               </span>
                         </div>
                         <svg
@@ -182,7 +178,7 @@ export default function CartDropdown() {
                                             سبد خرید
                                         </h3>
                                         <div className="divide-y divide-slate-100 dark:divide-slate-700">
-                                            {cart.map(
+                                            {cart && cart.map(
                                                 (item, index) => renderProduct(item, index, close)
                                             )}
                                         </div>

@@ -7,16 +7,46 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "react-query";
-import { getCart } from "@/services/api/shop/cart";
+import { decreaseCartItem, getCart, increaseCartItem, removeCartItem } from "@/services/api/shop/cart";
 import { CartResponse } from "@/services/types/cart";
+import { useGlobalState } from "@/services/globalState/CartGlobalState";
+import { reduxDecrementQuantity, reduxIncrementQuantity, reduxRemoveFromCart, setCart, useCart, useUser } from "@/services/globalState/GlobalState";
 
 const CartPage = () => {
+  const [cart] = useCart();
+  const [user] = useUser();
 
-  const { data: cart } = useQuery({
-    queryKey: [`get_cart`],
+  const { data, isSuccess } = useQuery({
+    queryKey: ['cart'],
     queryFn: () => getCart(),
     staleTime: 5000,
-});
+    enabled: !!user,
+    onSuccess: (cartData) => {
+      setCart(cartData);
+    }
+  });
+
+
+
+  async function increaseHandle(selectedColorId:number) {
+    let response = await increaseCartItem({ productColorId: selectedColorId });
+    if (response.success) {
+      reduxIncrementQuantity(selectedColorId)
+    }
+  }
+  async function decreaseHandle(selectedColorId:number) {
+    let response = await decreaseCartItem({ productColorId: selectedColorId });
+    if (response.success) {
+      reduxDecrementQuantity(selectedColorId)
+    }
+
+  }
+  async function removeHandle(selectedColorId:number) {
+    let response = await removeCartItem({ productColorId: selectedColorId });
+    if (response.success) {
+      reduxRemoveFromCart(selectedColorId)
+    }
+  }
 
   const renderStatusSoldout = () => {
     return (
@@ -37,7 +67,7 @@ const CartPage = () => {
   };
 
   const renderProduct = (item: CartResponse, index: number) => {
- 
+
     return (
       <div
         key={index}
@@ -51,7 +81,7 @@ const CartPage = () => {
             sizes="300px"
             className="h-full w-full object-contain object-center"
           />
-          <Link  href={{pathname:"/product/"+item.product.url}} className="absolute inset-0"></Link>
+          <Link href={{ pathname: "/product/" + item.product.url }} className="absolute inset-0"></Link>
         </div>
 
         <div className="mr-3 sm:ml-6 flex flex-1 flex-col">
@@ -59,7 +89,7 @@ const CartPage = () => {
             <div className="flex justify-between ">
               <div className="flex-[1.5] ">
                 <h3 className="text-base font-semibold">
-                  <Link href={{pathname:"/product/"+item.product.url}}>{item.product.name}</Link>
+                  <Link href={{ pathname: "/product/" + item.product.url }}>{item.product.name}</Link>
                 </h3>
                 <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
                   <div className="flex items-center gap-x-1.5">
@@ -108,7 +138,7 @@ const CartPage = () => {
                     <span>{item.color.title}</span>
                   </div>
                   <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>
-                 
+
                 </div>
 
                 <div className="mt-3 flex justify-between w-full sm:hidden relative">
@@ -134,7 +164,11 @@ const CartPage = () => {
 
               <div className="hidden sm:block text-center relative">
                 <NcInputNumber className="relative z-10"
-                defaultValue={item.count}
+                  defaultValue={item.count}
+                  increaseHandle={()=>{increaseHandle(item.color.id as number)}}
+                  decreaseHandel={()=>{decreaseHandle(item.color.id as number)}}
+                  removeHandle={()=>{removeHandle(item.color.id as number)}}
+                  
                 />
               </div>
 
@@ -161,10 +195,10 @@ const CartPage = () => {
     );
   };
 
-  const renderSumPrice=()=>{
-    let sumPrice:number=0;
-    cart?.map((item)=>{
-      sumPrice+=Number(item.color.price * item.count) ;
+  const renderSumPrice = () => {
+    let sumPrice: number = 0;
+    cart.map((item) => {
+      sumPrice += Number(item.color.price * item.count);
     })
     return sumPrice;
   }
@@ -173,7 +207,7 @@ const CartPage = () => {
       <main className="container py-16 lg:pb-28 lg:pt-20 ">
         <div className="mb-12 sm:mb-16">
           <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold ">
-           سبد حرید
+            سبد حرید
           </h2>
           <div className="block mt-3 sm:mt-5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-400">
             <Link href={"/"} className="">
@@ -188,7 +222,7 @@ const CartPage = () => {
 
         <div className="flex flex-col lg:flex-row">
           <div className="w-full lg:w-[60%] xl:w-[55%] divide-y divide-slate-200 dark:divide-slate-700 ">7
-     
+
             {cart && cart.map(renderProduct)}
           </div>
           <div className="border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 my-10 lg:my-0 lg:mx-10 xl:mx-16 2xl:mx-20 flex-shrink-0"></div>
@@ -199,7 +233,7 @@ const CartPage = () => {
                 <div className="flex justify-between pb-4">
                   <span>محصولات</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                   {renderSumPrice().toLocaleString()} تومان 
+                    {renderSumPrice().toLocaleString()} تومان
                   </span>
                 </div>
                 <div className="flex justify-between py-4">
@@ -208,11 +242,11 @@ const CartPage = () => {
                     0 تومان
                   </span>
                 </div>
-                
+
                 <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                   <span>مجموع</span>
                   <span>
-                  {renderSumPrice().toLocaleString()} تومان 
+                    {renderSumPrice().toLocaleString()} تومان
                   </span>
                 </div>
               </div>
@@ -257,7 +291,7 @@ const CartPage = () => {
                   >
                     قوانین
                   </a>
-                 
+
                   {` `} سایت
                 </p>
               </div>

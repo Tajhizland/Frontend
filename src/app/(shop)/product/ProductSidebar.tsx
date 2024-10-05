@@ -18,12 +18,15 @@ import NcInputNumber from "@/components/NcInputNumber";
 import { toast } from "react-hot-toast";
 import NotifyAddTocart from "@/components/NotifyAddTocart";
 import { ProductResponse } from "@/services/types/product";
+import { useQueryClient } from "react-query";
 
-export default function ProductSidebar({  product }: { product:ProductResponse }) {
-    const colors=product.colors.data;
+export default function ProductSidebar({ product }: { product: ProductResponse }) {
+    const colors = product.colors.data;
     const [selectedColor, setSelectedColor] = useState<ColorResponse>(colors[0])
     const [selectedCount, setSelectedCount] = useState<number>(0)
     const [cart, setCart] = useGlobalState('cart');
+    const queryClient = useQueryClient(); // درست است
+
 
     const notifyAddTocart = () => {
         toast.custom(
@@ -37,7 +40,7 @@ export default function ProductSidebar({  product }: { product:ProductResponse }
                     color={selectedColor.color_name}
                 />
             ),
-            { position: "top-right", id: "nc-product-notify", duration: 3000 }
+            { position: "top-left", id: "nc-product-notify", duration: 3000 }
         );
     };
     const renderVariants = () => {
@@ -70,8 +73,8 @@ export default function ProductSidebar({  product }: { product:ProductResponse }
                             key={index}
                             onClick={() => setSelectedColor(color)}
                             className={`relative flex-1 max-w-[75px] h-10 sm:h-11 rounded-full border-2 cursor-pointer ${color.id === selectedColor.id
-                                    ? "border-primary-6000 dark:border-primary-500"
-                                    : "border-transparent"
+                                ? "border-primary-6000 dark:border-primary-500"
+                                : "border-transparent"
                                 }`}
                         >
                             <div
@@ -88,35 +91,41 @@ export default function ProductSidebar({  product }: { product:ProductResponse }
     };
 
     const checkColorInCart = () => {
-        const item = cart.find(item => item.color.id === selectedColor.id);
+        const item = cart && cart.find(item => item.color.id === selectedColor.id);
         return item ? item.count : 0;
     };
     async function addToCartHandle() {
-        await addToCart({ productColorId: selectedColor.id, count: selectedCount });
-        reduxAddToCart(product , selectedCount ,selectedColor);
-         notifyAddTocart();
-     }
+        let response = await addToCart({ productColorId: selectedColor.id, count: selectedCount });
+        if (response.success) {
+            reduxAddToCart(product, selectedCount, selectedColor);
+            notifyAddTocart();
+        }
+    }
 
     async function increaseHandle() {
         if (checkColorInCart() > 0) {
-            await increaseCartItem({ productColorId: selectedColor.id });
-            reduxIncrementQuantity(selectedColor.id)
-
+            let response = await increaseCartItem({ productColorId: selectedColor.id });
+            if (response.success) {
+                reduxIncrementQuantity(selectedColor.id)
+            }
         }
     }
     async function decreaseHandle() {
         if (checkColorInCart() > 0) {
-            await decreaseCartItem({ productColorId: selectedColor.id });
-            reduxDecrementQuantity(selectedColor.id)
+            let response = await decreaseCartItem({ productColorId: selectedColor.id });
+            if (response.success) {
+                reduxDecrementQuantity(selectedColor.id)
+            }
 
         }
     }
     async function removeHandle() {
         if (checkColorInCart() > 0) {
-            await removeCartItem({ productColorId: selectedColor.id });
-            reduxRemoveFromCart(selectedColor.id)
+            let response = await removeCartItem({ productColorId: selectedColor.id });
+            if (response.success) {
+                reduxRemoveFromCart(selectedColor.id)
+            }
         }
-
     }
 
     return (<>
@@ -135,7 +144,7 @@ export default function ProductSidebar({  product }: { product:ProductResponse }
                             className="flex items-center text-sm font-medium"
                         >
                             <div className="">
-                                <StarIcon  className="w-5 h-5 pb-[1px] text-orange-400" />
+                                <StarIcon className="w-5 h-5 pb-[1px] text-orange-400" />
                             </div>
                             <span className="mr-1.5 flex">
                                 <span>{product.rating} </span>

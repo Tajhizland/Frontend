@@ -15,7 +15,7 @@ export const addToCart = async <T extends ServerResponse<unknown>>
     }
 ) => {
     return axios.post<T, SuccessResponseType<T>>("cart/add-to-cart", params)
-        .then((res) => res?.data?.result)
+        .then((res) => res?.data)
 };
 export const removeCartItem = async <T extends ServerResponse<unknown>>
 (params: {
@@ -29,14 +29,14 @@ export const increaseCartItem = async <T extends ServerResponse<unknown>>
     productColorId: number
 }) => {
     return axios.post<T, SuccessResponseType<T>>("cart/increase", params)
-        .then((res) => res?.data?.result)
+        .then((res) => res?.data)
 };
 export const decreaseCartItem = async <T extends ServerResponse<unknown>>
 (params: {
     productColorId: number
 }) => {
     return axios.post<T, SuccessResponseType<T>>("cart/decrease", params)
-        .then((res) => res?.data?.result)
+        .then((res) => res?.data)
 };
 export const clearCart = async <T extends ServerResponse<unknown>>
 (
