@@ -3,6 +3,10 @@ import { CommentResponse } from "./comment";
 import { ProductOptionResponse } from "@/services/types/productOption";
 import { ProductImageResponse } from "@/services/types/productImage";
 
+export type ProductPageResponse = {
+    product:ProductResponse;
+    relatedProduct:{data:ProductResponse[]};
+}
 export type ProductResponse = {
     id: number;
     name: string;

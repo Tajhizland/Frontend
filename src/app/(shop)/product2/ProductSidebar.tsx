@@ -135,13 +135,13 @@ export default function ProductSidebar({  product }: { product:ProductResponse }
                             className="flex items-center text-sm font-medium"
                         >
                             <div className="">
-                                <StarIcon className="w-5 h-5 pb-[1px] text-orange-400" />
+                                <StarIcon  className="w-5 h-5 pb-[1px] text-orange-400" />
                             </div>
                             <span className="mr-1.5 flex">
-                                <span>4.9 </span>
+                                <span>{product.rating} </span>
                                 <span className="mx-1.5">·</span>
                                 <span className="text-slate-700 dark:text-slate-400 underline">
-                                    142 reviews
+                                    {product.comments.data.length} نظر
                                 </span>
                             </span>
                         </a>

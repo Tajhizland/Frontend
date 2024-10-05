@@ -1,5 +1,4 @@
-
-import React, { Suspense } from "react";
+ import React, { Suspense } from "react";
 import {
   NoSymbolIcon,
   ClockIcon,
@@ -33,6 +32,8 @@ import {findProductByUrl} from "@/services/api/shop/product";
 import ProductSidebar from "@/app/(shop)/product2/ProductSidebar";
 import ProductImage from "../ProductImage";
 import ProductComment from "../ProductComment";
+import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
+import SectionSliderProductCard2 from "@/components/SectionSliderProductCard2";
 
 const LIST_IMAGES_GALLERY_DEMO: (string | StaticImageData)[] = [
   detail21JPG,
@@ -58,8 +59,9 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
   const { sizes, variants, status, allOfSizes, image } = PRODUCTS[0];
   //
 
-    let product = await findProductByUrl(decodeURIComponent(params.url.join("/")));
-
+    let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
+    let product=productResponse.product;
+    let relatedProduct=productResponse.relatedProduct.data;
 
   //
   // const handleCloseModalImageGallery = () => {
@@ -255,6 +257,19 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
   //     </div>
   //   );
   // };
+
+    async function likeHandle(like: boolean) {
+        if (like) {
+            let response =  await addToFavorite({productId: product?.id as number})
+            toast.success(response?.message as string)
+        } else {
+            let response =  await deleteFromFavorite({productId: product?.id as number})
+            toast.success(response?.message as string)
+
+        }
+    }
+
+
     const renderOption = () => {
         const options = product.productOptions.data
             .map((item) => `<li>${item.option_title}: ${item.value}</li>`)
@@ -289,7 +304,7 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
             {renderStatus()}
 
             <div className="mr-auto">
-              <LikeSaveBtns />
+              <LikeSaveBtns like={product.favorite} productId={product.id} />
             </div>
           </div>
         </div>
@@ -346,7 +361,7 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
         {/* HEADING */}
         <h2 className="text-2xl font-semibold flex items-center">
           <StarIcon className="w-7 h-7 mb-0.5" />
-          <span className="mr-1.5"> {product.comments.length} نظر </span>
+          <span className="mr-1.5"> {product.comments.data.length} نظر </span>
         </h2>
 
         {/* comment */}
@@ -417,23 +432,24 @@ const ProductDetailPage2 = async ({params}:ProductPageProps) => {
       {/* OTHER SECTION */}
       <div className="container pb-24 lg:pb-28 pt-14 space-y-14">
         <hr className="border-slate-200 dark:border-slate-700" />
-{/* 
+{/*
         {renderReviews()} */}
         <ProductComment comments={product.comments.data} />
 
         <hr className="border-slate-200 dark:border-slate-700" />
 
-        <SectionSliderProductCard
-          heading="Customers also purchased"
+        <SectionSliderProductCard2
+          heading="محصولات مرتبط"
           subHeading=""
           headingFontClassName="text-2xl font-semibold"
+          data={relatedProduct}
           headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
         />
       </div>
 
       {/* MODAL VIEW ALL REVIEW */}
 
-      
+
     </div>
   );
 };
