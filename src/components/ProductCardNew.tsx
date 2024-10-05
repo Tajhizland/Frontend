@@ -18,6 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
 import {ProductResponse} from "@/services/types/product";
+import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
 
 export interface ProductCardProps {
     className?: string;
@@ -187,6 +188,16 @@ const ProductCard2: FC<ProductCardProps> = ({
             </div>
         );
     };
+    async function likeHandle(like: boolean) {
+        if (like) {
+            let response =  await addToFavorite({productId: data?.id as number})
+            toast.success(response?.message as string)
+        } else {
+            let response =  await deleteFromFavorite({productId: data?.id as number})
+            toast.success(response?.message as string)
+
+        }
+    }
 
 
     return (
@@ -208,7 +219,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                         />
                     </Link>
 
-                    <LikeButton liked={isLiked} className="absolute top-3 end-3 z-10" />
+                    <LikeButton liked={data?.favorite} likeHandle={likeHandle} className="absolute top-3 end-3 z-10" />
                     {/*{  renderGroupButtons()}*/}
                 </div>
 
@@ -225,7 +236,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                         <div className="flex items-center mb-0.5">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
-                {data?.rating || ""} ({data?.comments.length || 0} نظر)
+                {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
               </span>
                         </div>
                     </div>
