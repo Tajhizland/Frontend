@@ -32,7 +32,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
               alt=""
               width={500}
               height={100}
-              src={"https://tajhizland.com/upload/"+featuredImage || ""}
+              src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${featuredImage}`}
               className="absolute end-0 w-1/2 max-w-[260px] h-full object-contain drop-shadow-xl"
             />
           </div>
@@ -67,7 +67,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
             </div>
           </div>
         </div>
-      </div> 
+      </div>
   );
 };
 

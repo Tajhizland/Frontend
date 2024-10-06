@@ -198,7 +198,7 @@ export default function SharedModal({
                             ? "brightness-110 hover:brightness-110"
                             : "brightness-50 contrast-125 hover:brightness-75"
                         } h-full transform object-cover transition`}
-                        src={url || ""}
+                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${url}`}
                       />
                     </motion.button>
                   ))}

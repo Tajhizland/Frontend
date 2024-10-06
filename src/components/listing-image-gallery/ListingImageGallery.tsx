@@ -90,7 +90,8 @@ const ListingImageGallery: FC<Props> = ({ images, onClose }) => {
                 style={{
                   transform: "translate3d(0, 0, 0)",
                 }}
-                src={url}
+                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${url}`}
+
                 width={720}
                 height={480}
                 sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 350px"
@@ -124,7 +125,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose }) => {
                 onClick={handleClose}
               >
                 <ArrowRightIcon className="w-6 h-6" />
-              </button> 
+              </button>
             </div>
 
             <div className="flex min-h-full items-center justify-center sm:p-4 pt-0 text-center">

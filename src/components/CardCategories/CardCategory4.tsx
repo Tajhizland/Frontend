@@ -35,7 +35,8 @@ const CardCategory4: FC<CardCategory4Props> = ({
                     <div className="flex justify-between items-center">
                         <NcImage
                             alt=""
-                            src={featuredImage}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${featuredImage}`}
+
                             containerClassName={`w-20 h-20 rounded-full overflow-hidden z-0 ${color}`}
                             width={80}
                             height={80}

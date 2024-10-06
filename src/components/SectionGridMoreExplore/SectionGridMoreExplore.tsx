@@ -143,7 +143,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
                         item.categories?.data.map((category , index2) => (<>
                             {
                                 tabActive==index ?   <CardCategory4
-                                    featuredImage={"https://tajhizland.com/upload/ddf1824c7c2a77b96dc14ba23f424586.jpg"}
+                                    featuredImage={`${category.image}`}
                                     name={category.name}
                                     key={category.id}
                                     url={category.url}

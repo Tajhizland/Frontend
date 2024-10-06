@@ -32,7 +32,8 @@ export default function ProductImage({ productImages }: { productImages: Product
                   alt="firt"
                   containerClassName="aspect-w-3 aspect-h-4 relative md:aspect-none md:absolute md:inset-0"
                   className="object-cover rounded-md sm:rounded-xl"
-                  src={productImages[2]?.url??""}
+                   src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${productImages[0]?.url}`}
+
                   fill
                   sizes="(max-width: 640px) 100vw, 50vw"
                   priority
@@ -51,7 +52,7 @@ export default function ProductImage({ productImages }: { productImages: Product
                   sizes="(max-width: 640px) 100vw, 50vw"
                   containerClassName="absolute inset-0"
                   className="object-cover w-full h-full rounded-md sm:rounded-xl"
-                  src={productImages[1]?.url??""}
+                  src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${productImages[1]?.url}`}
                 />
                 <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
               </div>
@@ -71,7 +72,7 @@ export default function ProductImage({ productImages }: { productImages: Product
                       sizes="(max-width: 640px) 100vw, 33vw"
                       containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"
                       className="object-cover w-full h-full rounded-md sm:rounded-xl "
-                      src={item || ""}
+                      src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item}`}
                     />
 
                     {/* /!* OVERLAY *!/ */}
@@ -107,7 +108,7 @@ export default function ProductImage({ productImages }: { productImages: Product
             </div>
           </div>
         </header>
-      </> 
+      </>
         <Suspense>
             <ListingImageGallery
                 onClose={handleCloseModalImageGallery}

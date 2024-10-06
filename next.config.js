@@ -4,7 +4,7 @@ const nextConfig = {
     typedRoutes: true,
   },
   images: {
-      domains: ['tajhizland.com'],
+      domains: ['tajhizland.com' , 'c778665.parspack.net'],
     remotePatterns: [
       {
         protocol: "https",

@@ -86,7 +86,8 @@ const ProductCard: FC<ProductCardProps> = ({
                     <Image
                         width={80}
                         height={96}
-                        src={"https://tajhizland.com/upload/" + data?.images?.data[0].url || ""}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0].url}`}
+
                         alt={data?.name as string}
                         className="absolute object-cover object-center"
                     />
@@ -212,7 +213,8 @@ const ProductCard: FC<ProductCardProps> = ({
                     <Link href={"/product/"+data?.url as Route} className="block">
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
-                            src={data?.images?.data[0].url || ""}
+                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0].url}`}
+
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
