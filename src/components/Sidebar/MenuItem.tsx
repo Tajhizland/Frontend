@@ -95,6 +95,43 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
 
             }
         ]
+    }, {
+        title: "منو ها",
+        url: "/",
+        icon: <NewspaperIcon className="h-6 w-6 text-gray-500" />,
+        sub: [
+            {
+                title: "مدیریت منو ها",
+                url: "/menu",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+
+            },
+            {
+                title: "افزودن منو",
+                url: "/menu/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
+
+            }
+        ]
+    },
+    {
+        title: "concept",
+        url: "/",
+        icon: <NewspaperIcon className="h-6 w-6 text-gray-500" />,
+        sub: [
+            {
+                title: "مدیریت concept",
+                url: "/concept",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+
+            },
+            {
+                title: "افزودن concept",
+                url: "/concept/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
+
+            }
+        ]
     },
     {
         title: "مدیریت کاربران",
@@ -152,6 +189,26 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 ]
             },
 
+            {
+                title: "محصولات ویژه",
+                url: "/special_product",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+             },
+            {
+                title: "محصولات تخفیف دار",
+                url: "/popular_product",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+             },
+            {
+                title: "دسته بندی های محبوب",
+                url: "/popular_category",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+             },
+            {
+                title: "دسته بندی های جدید",
+                url: "/homepage_category",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+             },
         ]
 
     },

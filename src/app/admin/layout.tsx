@@ -28,14 +28,16 @@ export default function AdminLayout({
         <>
             <html dir={"rtl"}>
             <body className={[myFont.className, myFont2.className].join(" ")}>
-            <Navbar sidebarControl={()=>{setSidebarOpen(!sidebarOpen)}}/>
+            <Navbar sidebarControl={() => {
+                setSidebarOpen(!sidebarOpen)
+            }}/>
             <Sidebar isOpen={sidebarOpen}/>
-            <div className={`py-2 bg-slate-100 min-h-screen mt-14 transition-all  ${sidebarOpen ?"md:mr-52 ":" "}`}>
+            <div className={`py-2 bg-slate-100 min-h-screen mt-14 transition-all  ${sidebarOpen ? "md:mr-52 " : " "}`}>
                 <QueryClientProvider client={queryClient}>
-                {children}
+                    {children}
                 </QueryClientProvider>
             </div>
-            <CommonClient />
+            <CommonClient/>
 
             </body>
             </html>

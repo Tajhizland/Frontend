@@ -5,8 +5,9 @@ export const store = async <T extends ServerResponse<unknown>>
 (
     params: {
         title: string,
-        parent_id: number,
+        parent_id: string,
         url: string|null,
+        status: string,
         banner_title: string | null,
         banner_logo: File | null,
         banner_link: string | null
@@ -16,6 +17,7 @@ export const store = async <T extends ServerResponse<unknown>>
     formData.append('title', params.title);
     formData.append('parent_id', params.parent_id +"");
     formData.append('url', params.url??"");
+    formData.append('status', params.status);
     formData.append('banner_title', params.banner_title??"");
     formData.append('banner_link', params.banner_link??"");
     if (params.banner_logo) {
@@ -30,13 +32,30 @@ export const store = async <T extends ServerResponse<unknown>>
         .then((res) => res?.data);
 };
 
-export const update = async <T extends ServerResponse<unknown>>
+export const fastUpdate = async <T extends ServerResponse<unknown>>
 (
     params: {
         id: number,
         title: string,
         parent_id: number,
         url: string|null,
+        status: string,
+    }
+) => {
+
+    return axios.post<T, SuccessResponseType<T>>("admin/menu/update", params)
+        .then((res) => res?.data);
+};
+
+
+export const update = async <T extends ServerResponse<unknown>>
+(
+    params: {
+        id: number,
+        title: string,
+        parent_id: string,
+        url: string|null,
+        status: string,
         banner_title: string | null,
         banner_logo: File | null,
         banner_link: string | null
@@ -46,6 +65,7 @@ export const update = async <T extends ServerResponse<unknown>>
     formData.append('title', params.title);
     formData.append('parent_id', params.parent_id +"");
     formData.append('url', params.url??"");
+    formData.append('status', params.status+"");
     formData.append('banner_title', params.banner_title??"");
     formData.append('banner_link', params.banner_link??"");
     if (params.banner_logo) {

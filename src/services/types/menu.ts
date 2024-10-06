@@ -4,6 +4,7 @@ export type MenuResponse = {
     id: number;
     title: string;
     parent_id: number;
+    status: string;
     parent?: MenuResponse;
     children?:{data:MenuResponse[]};
     url: string;
