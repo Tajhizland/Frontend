@@ -39,8 +39,8 @@ export default function RootLayout({
             <QueryClientProvider client={queryClient}>
                 <SiteHeader/>
                 <AutoLoading/>
-                <Suspense>
-                {children}
+                <Suspense fallback={<div>در حال بارگذاری...</div>}>
+                    {children}
                 </Suspense>
             </QueryClientProvider>
             <Footer/>
