@@ -12,6 +12,7 @@ import {NextFont} from "next/dist/compiled/@next/font";
 import localFont from "next/font/local";
 import {QueryClient, QueryClientProvider} from "react-query";
  import AutoLoading from "@/app/(shop)/AutoLoading";
+import {Suspense} from "react";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -38,7 +39,9 @@ export default function RootLayout({
             <QueryClientProvider client={queryClient}>
                 <SiteHeader/>
                 <AutoLoading/>
+                <Suspense>
                 {children}
+                </Suspense>
             </QueryClientProvider>
             <Footer/>
         </div>
