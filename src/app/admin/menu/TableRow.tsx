@@ -40,7 +40,7 @@ export const buttons: DataTableButtons[] = [
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
         href : (value: any): UrlObject => {
             return {
-                pathname: 'brand/edit/'+value,
+                pathname: 'menu/edit/'+value,
             };
         }
     },

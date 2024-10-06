@@ -46,14 +46,8 @@ export const buttons: DataTableButtons[] = [
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
         href : (value: any): UrlObject => {
             return {
-                pathname: 'brand/edit/'+value,
+                pathname: 'concept/edit/'+value,
             };
         }
-    },
-    {
-        label: <FaEye/>,
-        type: "action",
-        colorClass: "bg-slate-900 text-white",
-        action: (value: any) => console.log(value)
     },
 ]

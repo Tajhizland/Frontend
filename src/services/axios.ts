@@ -61,14 +61,18 @@ const axios: AxiosInstance = Axios.create({
         "Access-Control-Allow-Origin": "*",
     },
 });
-
 axios.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
-        const token = getCookie("token")
+        const token = getCookie("token");
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
-        config.headers['Content-Type']= 'application/json';
+
+        // حذف Content-Type برای FormData
+        if (config.data instanceof FormData) {
+            delete config.headers['Content-Type'];
+        }
+
         return config;
     },
     (error) => Promise.reject(error) // مدیریت خطا در درخواست

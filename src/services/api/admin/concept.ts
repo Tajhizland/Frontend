@@ -1,5 +1,6 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {ConceptResponse} from "@/services/types/concept";
+import {CategoryConceptResponse} from "@/services/types/categoryConcept";
 
 
 export const store = async <T extends ServerResponse<unknown>>(
@@ -74,4 +75,30 @@ export const findById = async <T extends ServerResponse<ConceptResponse>>
 ) => {
     return axios.get<T, SuccessResponseType<T>>("admin/concept/find/" + id)
         .then((res) => res?.data?.result?.data)
+};
+export const getItems = async <T extends ServerResponse<CategoryConceptResponse[]>>
+(
+    id: number | string
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/concept/items/get/" + id)
+        .then((res) => res?.data?.result?.data)
+};
+
+export const setItem = async <T extends ServerResponse<unknown>>
+(
+    params: {
+        category_id: number | string,
+        concept_id: number | string,
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/concept/items/set/",params)
+        .then((res) => res?.data)
+};
+
+export const deleteItem = async <T extends ServerResponse<unknown>>
+(
+    id: number | string
+) => {
+    return axios.delete<T, SuccessResponseType<T>>("admin/concept/items/delete/" + id)
+        .then((res) => res?.data)
 };
