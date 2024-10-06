@@ -23,7 +23,6 @@ interface ProductPageProps {
 const BlogSingle =  async ({params}: ProductPageProps) => {
 
     const news= await findNewsByUrl(decodeURIComponent(params.url.join("/")));
-    console.log("NewsIs",news);
 
   const renderHeader = () => {
     return (

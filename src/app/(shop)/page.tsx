@@ -52,7 +52,7 @@ import { homePage } from "@/services/api/shop/homePage";
                     </Heading>
                     <SectionMagazine5 data={response.news.data}/>
                     <div className="flex mt-16 justify-center">
-                        <ButtonSecondary>مشاهده همه</ButtonSecondary>
+                        <ButtonSecondary href={"/news"}>مشاهده همه</ButtonSecondary>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ import Prices from "./Prices";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
 import {ProductImageResponse} from "@/services/types/productImage";
+import {Route} from "next";
 
 export interface CollectionCard2Props {
   className?: string;
@@ -85,7 +86,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
         </div>
         <Prices className="mt-0.5 sm:mt-1 ml-4" price={price} />
       </div>
-      <Link href={{pathname:"/product/"+url}} className="absolute inset-0 "></Link>
+      <Link href={"/product/"+url as Route} className="absolute inset-0 "></Link>
     </div>
   );
 };

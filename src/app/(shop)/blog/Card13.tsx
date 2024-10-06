@@ -1,9 +1,10 @@
-import React, { FC } from "react";
+import React, {FC, ReactNode} from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import { _getImgRd, _getTitleRd } from "@/contains/fakeData";
 import PostCardMeta from "@/components/PostCardMeta/PostCardMeta";
 import Link from "next/link";
 import {NewsResponse} from "@/services/types/news";
+import {Route} from "next";
 
 export interface Card13Props {
   className?: string;
@@ -11,12 +12,18 @@ export interface Card13Props {
 }
 
 const Card13: FC<Card13Props> = ({ className = "" , data }) => {
+    const stripHTML = (html:string) => {
+        let text = html.replace(/<\/?[^>]+(>|$)/g, "");
+        text = text.replace(/&nbsp;/g, ' ');
+        text = text.replace(/&zwnj;/g, '');
+        return text;
+    };
   return (
     <div className={`nc-Card13 relative flex ${className}`} data-nc-id="Card13">
       <div className="flex flex-col h-full py-2">
         <h2 className={`nc-card-title block font-semibold text-base`}>
           <Link
-            href={{pathname:"/news/show/"+data.url}}
+              href={"/news/show/"+data.url as Route}
             className="line-clamp-2 capitalize"
             title={"title"}
           >
@@ -26,7 +33,7 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
         </h2>
         <span className="hidden sm:block my-3 text-slate-500 dark:text-slate-400 ">
           <span className="line-clamp-2">
-               <div dangerouslySetInnerHTML={{__html: data.content.replace(/<img[^>]*>/g, "")}}/>
+               <div dangerouslySetInnerHTML={{__html: stripHTML(data.content)}}/>
 
           </span>
         </span>
@@ -39,8 +46,8 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
       </div>
 
       <Link
-        href={"/blog-single"}
-        className={`block relative h-full flex-shrink-0 w-2/5 sm:w-1/3 ml-3 sm:ml-5`}
+        href={"/news/show/"+data.url as Route}
+        className={`block relative h-full flex-shrink-0 w-2/5 sm:w-1/3 mr-3 sm:mr-5`}
       >
         <NcImage
           alt=""

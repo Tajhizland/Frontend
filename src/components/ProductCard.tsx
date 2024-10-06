@@ -20,6 +20,7 @@ import NcImage from "@/shared/NcImage/NcImage";
 import {ProductResponse} from "@/services/types/product";
 import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
 import {useQueryClient} from "react-query";
+import {Route} from "next";
 
 export interface ProductCardProps {
     className?: string;
@@ -204,11 +205,11 @@ const ProductCard: FC<ProductCardProps> = ({
             <div
                 className={`nc-ProductCard relative flex flex-col bg-transparent ${className}`}
             >
-                <Link href={{pathname: data?.url}} className="absolute inset-0"></Link>
+                <Link href={"/product/"+data?.url as Route} className="absolute inset-0"></Link>
 
                 <div
                     className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
-                    <Link href={{pathname: data?.url}} className="block">
+                    <Link href={"/product/"+data?.url as Route} className="block">
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
                             src={data?.images?.data[0].url || ""}
