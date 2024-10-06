@@ -33,7 +33,8 @@ function PageHome2() {
         <SectionPromo2 />
 
         {/* SECTION 3 */}
-        <SectionSliderLargeProduct />
+
+        {/*<SectionSliderLargeProduct />*/}
 
         {/* SECTION */}
         <div className="relative py-24 lg:py-32">

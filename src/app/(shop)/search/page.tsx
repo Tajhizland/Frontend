@@ -89,7 +89,7 @@ const PageSearch = ({}) => {
 
         {/* === SECTION 5 === */}
         <hr className="border-slate-200 dark:border-slate-700" />
-        <SectionSliderCollections />
+        {/*<SectionSliderCollections />*/}
         <hr className="border-slate-200 dark:border-slate-700" />
 
         {/* SUBCRIBES */}

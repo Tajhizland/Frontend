@@ -17,7 +17,7 @@ const BlogPage: React.FC = () => {
       <div className="container relative">
         {/* === SECTION 1 === */}
         <div className="pt-12 pb-16 lg:pb-28">
-          <SectionMagazine5 />
+          {/*<SectionMagazine5 />*/}
         </div>
 
         {/* === SECTION 1 === */}
