@@ -6,7 +6,7 @@ export const getByProductId = async <T extends ServerResponse<ProductImageRespon
         id: number | string
     ) => {
     return axios.get<T, SuccessResponseType<T>>("admin/product/image/get/" + id)
-        .then((res) => res?.data?.result.data)
+        .then((res) => res?.data?.result)
 };
 
 export const upload = async <T extends ServerResponse<unknown>>

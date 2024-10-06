@@ -215,7 +215,8 @@ const ProductCard2: FC<ProductCardProps> = ({
                     <Link href={{pathname: "/product/" + data?.url}} className="block">
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
-                            src={data?.images?.data[0]?.url ?? ""}
+                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images.data[0].url}`}
+
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"

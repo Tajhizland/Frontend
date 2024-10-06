@@ -34,7 +34,8 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                 <NotifyAddTocart
                     name={product.name}
                     price={selectedColor.price}
-                    productImage={product.images.data[0].url}
+                    productImage={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
+                    
                     qualitySelected={selectedCount}
                     show={t.visible}
                     color={selectedColor.color_name}

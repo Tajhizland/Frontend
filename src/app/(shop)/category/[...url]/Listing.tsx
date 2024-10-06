@@ -1,15 +1,15 @@
 "use client"
-import React, {useState} from "react";
+import React, { useState } from "react";
 import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
 import SectionPromo1 from "@/components/SectionPromo1";
 import TabFilters from "@/components/TabFilters";
-import {findCategoryByUrl} from "@/services/api/shop/category";
+import { findCategoryByUrl } from "@/services/api/shop/category";
 import ProductCardNew from "@/components/ProductCardNew";
-import {CategoryListing} from "@/services/types/category";
+import { CategoryListing } from "@/services/types/category";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
-const PageCollection = ({response, url}: { response: CategoryListing, url: string }) => {
+const PageCollection = ({ response, url }: { response: CategoryListing, url: string }) => {
     const [newResponse, setNewResponse] = useState<CategoryListing | null>();
     const [filter, setFilter] = useState<string>("");
     const router = useRouter();
@@ -31,23 +31,23 @@ const PageCollection = ({response, url}: { response: CategoryListing, url: strin
                             {response.category.name}
                         </h2>
                         <span className="block mt-4 text-neutral-500 dark:text-neutral-400 text-sm sm:text-base">
-              {response.category.description}
-            </span>
+                            <div dangerouslySetInnerHTML={{ __html:  (response.category.description) }} />
+                        </span>
                     </div>
 
-                    <hr className="border-slate-200 dark:border-slate-700"/>
+                    <hr className="border-slate-200 dark:border-slate-700" />
                     <main>
                         {/* TABS FILTER */}
                         <TabFilters filters={response.category.filters.data} maxPrice={response.category.maxPrice}
-                                    minPrice={response.category.minPrice} changeFilter={fetchData}/>
+                            minPrice={response.category.minPrice} changeFilter={fetchData} />
 
                         {/* LOOP ITEMS */}
                         <div
                             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                             {newResponse ? newResponse.products.data.map((item, index) => (
-                                <ProductCardNew data={item} key={index}/>
+                                <ProductCardNew data={item} key={index} />
                             )) : response.products.data.map((item, index) => (
-                                <ProductCardNew data={item} key={index}/>
+                                <ProductCardNew data={item} key={index} />
                             ))}
                         </div>
 
@@ -60,19 +60,19 @@ const PageCollection = ({response, url}: { response: CategoryListing, url: strin
                                 totalPages={newResponse ? newResponse.products.meta?.last_page as number : response.products.meta?.last_page as number}
                                 onPageChange={(n) => {
                                     fetchData(filter, n)
-                                }}/>
+                                }} />
                         </div>
                     </main>
                 </div>
 
                 {/* === SECTION 5 === */}
-                <hr className="border-slate-200 dark:border-slate-700"/>
+                <hr className="border-slate-200 dark:border-slate-700" />
 
                 {/*<SectionSliderCollections />*/}
-                <hr className="border-slate-200 dark:border-slate-700"/>
+                <hr className="border-slate-200 dark:border-slate-700" />
 
                 {/* SUBCRIBES */}
-                <SectionPromo1/>
+                <SectionPromo1 />
             </div>
         </div>
     );

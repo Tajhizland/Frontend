@@ -19,11 +19,10 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    async function submit(e: FormData) {
-        console.log(e.get("image"));
-
+    async function submit(e: FormData) { 
         await upload({ product_id: Number(id), image: e.get("image") as File })
     }
+
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -50,11 +49,13 @@ export default function Page() {
                 </form>
             </div>
             <div className={"grid grid-cols-1 md:grid-cols-2  xl:grid-cols-5 gap-5 border rounded  mt-10"}>
-
                 {
-                    data?.map((item) => (<>
+                    data?.map((item) => (<> 
                         <div className="flex flex-col justify-center items-center gap-y-4 ">
-                            <Image src={item.url as string} alt={"image"} width={720} height={100} className="w-full h-full" />
+                            <Image  
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.url}`}
+
+                            alt={"image"} width={720} height={100} className="w-full h-full" />
                             <TrashIcon className="w-8 h-8 text-red-500" />
                         </div>
                     </>))

@@ -81,6 +81,8 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
                   imgs={product.product && product.product.images.data || undefined}
                   description={product.product && product.product.description || ""}
                   url={product.product && product.product.url || ""}
+                  review={product.product?.comments.data.length}
+                  rating={product.product?.rating??0}
                 />
               </li>
             ))}
