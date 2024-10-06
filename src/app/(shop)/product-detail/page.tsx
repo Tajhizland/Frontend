@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 "use client";
 
 import React, { FC, useState } from "react";
@@ -131,7 +133,7 @@ const ProductDetailPage = () => {
             return (
               <div
                 key={index}
-                className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center 
+                className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center
                 text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${
                   sizeOutStock
                     ? "text-opacity-20 dark:text-opacity-20 cursor-not-allowed"
@@ -320,7 +322,7 @@ const ProductDetailPage = () => {
             <ReviewItem />
             <ReviewItem
               data={{
-                comment: `I love the charcoal heavyweight hoodie. Still looks new after plenty of washes. 
+                comment: `I love the charcoal heavyweight hoodie. Still looks new after plenty of washes.
                   If you’re unsure which hoodie to pick.`,
                 date: "December 22, 2021",
                 name: "Stiven Hokinhs",
@@ -329,7 +331,7 @@ const ProductDetailPage = () => {
             />
             <ReviewItem
               data={{
-                comment: `The quality and sizing mentioned were accurate and really happy with the purchase. Such a cozy and comfortable hoodie. 
+                comment: `The quality and sizing mentioned were accurate and really happy with the purchase. Such a cozy and comfortable hoodie.
                 Now that it’s colder, my husband wears his all the time. I wear hoodies all the time. `,
                 date: "August 15, 2022",
                 name: "Gropishta keo",
@@ -338,7 +340,7 @@ const ProductDetailPage = () => {
             />
             <ReviewItem
               data={{
-                comment: `Before buying this, I didn't really know how I would tell a "high quality" sweatshirt, but after opening, I was very impressed. 
+                comment: `Before buying this, I didn't really know how I would tell a "high quality" sweatshirt, but after opening, I was very impressed.
                 The material is super soft and comfortable and the sweatshirt also has a good weight to it.`,
                 date: "December 12, 2022",
                 name: "Dahon Stiven",

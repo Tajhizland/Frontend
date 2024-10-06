@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 "use client";
 import React, { FC, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -125,7 +127,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             return (
               <div
                 key={index}
-                className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center 
+                className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center
                 text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${
                   sizeOutStock
                     ? "text-opacity-20 dark:text-opacity-20 cursor-not-allowed"

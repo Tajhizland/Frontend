@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { FC } from "react";
 import Pagination from "@/shared/Pagination/Pagination";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";

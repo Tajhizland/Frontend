@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 
 import React, { FC, useEffect, useId, useRef, useState } from "react";

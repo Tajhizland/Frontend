@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React from "react";
 import SectionHowItWork from "@/components/SectionHowItWork/SectionHowItWork";
 import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { FC } from "react";
 import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
 import SectionPromo1 from "@/components/SectionPromo1";

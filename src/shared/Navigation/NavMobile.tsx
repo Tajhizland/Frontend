@@ -20,7 +20,7 @@ export interface NavMobileProps {
 }
 
 const NavMobile: React.FC<NavMobileProps> =  ({
-  data = NAVIGATION_DEMO_2,
+  data  ,
   onClickClose,
 }) => {
 
@@ -170,7 +170,7 @@ const NavMobile: React.FC<NavMobileProps> =  ({
       <div className="py-6 px-5">
         <Logo />
         <div className="flex flex-col mt-5 text-slate-600 dark:text-slate-300 text-sm">
-         
+
           <div className="flex justify-between items-center mt-4">
             <SocialsList itemClass="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-xl" />
             <span className="block">
@@ -185,9 +185,9 @@ const NavMobile: React.FC<NavMobileProps> =  ({
         <div className="mt-5">{renderSearchForm()}</div>
       </div>
       <ul className="flex flex-col py-6 px-2 space-y-1">
-        {data.map(_renderItem)}
+        {data && data.map(_renderItem)}
       </ul>
-   
+
     </div>
   );
 };

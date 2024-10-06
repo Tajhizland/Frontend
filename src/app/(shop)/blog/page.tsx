@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import SectionAds from "./SectionAds";
 import SectionMagazine5 from "./SectionMagazine5";

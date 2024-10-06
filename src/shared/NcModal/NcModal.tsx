@@ -13,7 +13,7 @@ export interface NcModalProps {
   modalTitle?: ReactNode;
   isOpenProp?: boolean;
   onCloseModal?: () => void;
-  hasButton:boolean;
+  hasButton?:boolean;
 }
 
 const NcModal: FC<NcModalProps> = ({
