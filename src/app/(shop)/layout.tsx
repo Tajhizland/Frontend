@@ -11,7 +11,7 @@ import CommonClient from "./CommonClient";
 import {NextFont} from "next/dist/compiled/@next/font";
 import localFont from "next/font/local";
 import {QueryClient, QueryClientProvider} from "react-query";
- import AutoLoading from "@/app/(shop)/AutoLoading";
+import AutoLoading from "@/app/(shop)/AutoLoading";
 import {Suspense} from "react";
 
 const poppins = Poppins({
@@ -38,10 +38,10 @@ export default function RootLayout({
         <div>
             <QueryClientProvider client={queryClient}>
                 <SiteHeader/>
-                <AutoLoading/>
                 <Suspense fallback={<div>در حال بارگذاری...</div>}>
-                    {children}
+                    <AutoLoading/>
                 </Suspense>
+                {children}
             </QueryClientProvider>
             <Footer/>
         </div>
