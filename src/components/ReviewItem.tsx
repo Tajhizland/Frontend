@@ -52,8 +52,8 @@ const ReviewItem: FC<ReviewItemProps> = ({
 
           <div className="mt-0.5 flex text-yellow-500">
             {
-              Array.from({ length: data.starPoint }).map(() =>   <StarIcon className="w-5 h-5" /> )
-            } 
+              Array.from({ length: data.starPoint }).map((_,index) =>   <StarIcon key={index} className="w-5 h-5" /> )
+            }
           </div>
         </div>
       </div>
