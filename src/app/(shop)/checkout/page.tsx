@@ -4,7 +4,7 @@ import Label from "@/components/Label/Label";
 import NcInputNumber from "@/components/NcInputNumber";
 import Prices from "@/components/Prices";
 import {Product, PRODUCTS} from "@/data/data";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import ContactInfo from "./ContactInfo";
@@ -255,6 +255,7 @@ const CheckoutPage = () => {
         })
         return sumPrice;
     }
+    const sumPrice = useMemo(() => renderSumPrice(), [cart]);
 
     return (
         <div className="nc-CheckoutPage">
@@ -305,7 +306,7 @@ const CheckoutPage = () => {
                             <div className="mt-4 flex justify-between py-2.5">
                                 <span>محصولات</span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  {renderSumPrice().toLocaleString()} تومان
+                  {sumPrice.toLocaleString()} تومان
                 </span>
                             </div>
                             <div className="flex justify-between py-2.5">
@@ -318,7 +319,7 @@ const CheckoutPage = () => {
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                 <span> مجموع  </span>
                                 <span>
-                  {renderSumPrice().toLocaleString()} تومان
+                  {sumPrice.toLocaleString()} تومان
                 </span>
                             </div>
                         </div>
