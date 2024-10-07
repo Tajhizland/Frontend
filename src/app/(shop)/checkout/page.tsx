@@ -28,9 +28,12 @@ const CheckoutPage = () => {
     const router = useRouter();
     const [cart] = useCart();
     const [user] = useUser();
-    if (!user) {
-        router.push("/login");
-    }
+
+    console.log("USER IS",user);
+    
+    // if (!user) {
+    //     router.push("/login");
+    // }
     const {data, isSuccess} = useQuery({
         queryKey: ['cart'],
         queryFn: () => getCart(),
@@ -82,7 +85,7 @@ const CheckoutPage = () => {
             <div key={index} className="relative flex py-7 first:pt-0 last:pb-0">
                 <div className="relative h-36 w-24 sm:w-28 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
                     <Image
-                        src={item.product.image}
+                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`} 
                         fill
                         alt={item.product.name}
                         className="h-full w-full object-contain object-center"
@@ -206,7 +209,7 @@ const CheckoutPage = () => {
     const renderLeft = () => {
         return (
             <div className="space-y-8">
-                <div id="ContactInfo" className="scroll-mt-24">
+                {/* <div id="ContactInfo" className="scroll-mt-24">
                     <ContactInfo
                         isActive={tabActive === "ContactInfo"}
                         onOpenActive={() => {
@@ -218,7 +221,7 @@ const CheckoutPage = () => {
                             handleScrollToEl("ShippingAddress");
                         }}
                     />
-                </div>
+                </div> */}
 
                 <div id="ShippingAddress" className="scroll-mt-24">
                     <ShippingAddress
@@ -324,59 +327,7 @@ const CheckoutPage = () => {
                             </div>
                         </div>
                         <ButtonPrimary className="mt-8 w-full">پرداخت</ButtonPrimary>
-                        <div
-                            className="mt-5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">
-                            <p className="block relative pl-5">
-                                <svg
-                                    className="w-4 h-4 absolute -left-1 top-0.5"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                >
-                                    <path
-                                        d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
-                                        stroke="currentColor"
-                                        strokeWidth="1.5"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                    <path
-                                        d="M12 8V13"
-                                        stroke="currentColor"
-                                        strokeWidth="1.5"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                    <path
-                                        d="M11.9945 16H12.0035"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                </svg>
-                                Learn more{` `}
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href="##"
-                                    className="text-slate-900 dark:text-slate-200 underline font-medium"
-                                >
-                                    Taxes
-                                </a>
-                                <span>
-                  {` `}and{` `}
-                </span>
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href="##"
-                                    className="text-slate-900 dark:text-slate-200 underline font-medium"
-                                >
-                                    Shipping
-                                </a>
-                                {` `} infomation
-                            </p>
-                        </div>
+                   
                     </div>
                 </div>
             </main>
