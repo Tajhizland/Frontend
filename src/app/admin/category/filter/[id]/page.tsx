@@ -1,17 +1,19 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import CategoryTab from "@/components/CategoryTabs/CategoryTab";
-import { findByCategoryId } from "@/services/api/admin/filter";
+import { findByCategoryId , setToCategory } from "@/services/api/admin/filter";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import { useQuery } from "react-query";
+import {useQuery, useQueryClient} from "react-query";
 import FilterForm from "./FilterForm";
+import {toast} from "react-hot-toast";
 
 export default function Page() {
     const [extraFilter, setExtraFilter] = useState(0);
+    const queryClient = useQueryClient();
 
     const { id } = useParams();
     const { data: data } = useQuery({
@@ -61,7 +63,11 @@ export default function Page() {
             formDataObject[key] = value;
         });
         const formattedFilterData = convertFilterData(formDataObject);
-        console.log("Formatted Filter Data", formattedFilterData);
+        let response=await setToCategory(formattedFilterData)
+        if (response?.success) {
+            queryClient.refetchQueries(['filter-info']);
+            toast.success(response.message as string)
+        }
 
     }
 

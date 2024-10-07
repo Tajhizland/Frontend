@@ -3,15 +3,17 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import CategoryTab from "@/components/CategoryTabs/CategoryTab";
 import Panel from "@/shared/Panel/Panel";
 import { useParams } from "next/navigation";
-import { useQuery } from "react-query";
+import {useQuery, useQueryClient} from "react-query";
 import { findByCategoryId, setToCategory } from "@/services/api/admin/option";
 import { useState } from "react";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import OptionForm from "@/app/admin/category/option/[id]/OptionForm";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import {toast} from "react-hot-toast";
 
 export default function Page() {
     const [extraOption, setExtraOption] = useState(0);
+    const queryClient = useQueryClient();
 
     const { id } = useParams();
     const { data: data } = useQuery({
@@ -66,7 +68,11 @@ export default function Page() {
         });
 
         const formattedData = convertData(formDataObject);
-        await setToCategory(formattedData)
+       let response=await setToCategory(formattedData)
+        if (response?.success) {
+            queryClient.refetchQueries(['option-info']);
+            toast.success(response.message as string)
+        }
     }
     return (<>
         <Breadcrump breadcrumb={[

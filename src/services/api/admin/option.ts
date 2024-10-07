@@ -69,7 +69,7 @@ export const setToCategory = async <T extends ServerResponse<unknown>>
         params: {
             category_id: number | string,
             option: {
-                id?: number,
+                id?: number|undefined,
                 title: string,
                 status: number,
                 item: {
@@ -81,5 +81,5 @@ export const setToCategory = async <T extends ServerResponse<unknown>>
         }
     ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/category/option/set/", params)
-        .then((res) => res?.data?.result?.data)
+        .then((res) => res?.data)
 };

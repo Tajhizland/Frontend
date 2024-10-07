@@ -13,10 +13,11 @@ import Select from "@/shared/Select/Select";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useQuery } from "react-query";
+import {useQuery, useQueryClient} from "react-query";
 
 export default function Page() {
     const { id } = useParams();
+    const queryClient = useQueryClient();
 
     const { data: data, isLoading: isLoading } = useQuery({
         queryKey: [`option-info`],
@@ -43,8 +44,11 @@ export default function Page() {
             product_id: Number(id),
             option: options
         })
-        toast.success(response.message as string)
-    }
+        if (response?.success) {
+            queryClient.refetchQueries(['option-info']);
+            toast.success(response?.message as string);
+        }
+     }
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -101,4 +105,4 @@ export default function Page() {
         </Panel>
 
     </>)
-} 
+}

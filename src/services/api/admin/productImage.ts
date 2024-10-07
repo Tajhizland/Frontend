@@ -27,5 +27,12 @@ export const upload = async <T extends ServerResponse<unknown>>
                 'Content-Type': 'multipart/form-data',
             },
         })
-        .then((res) => res?.data?.result)
+        .then((res) => res?.data)
+};
+
+export const remove = async <T extends ServerResponse<unknown>>
+(id: number
+) => {
+    return axios.delete<T, SuccessResponseType<T>>("admin/product/image/delete/" + id)
+        .then((res) => res?.data)
 };

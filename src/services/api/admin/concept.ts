@@ -62,11 +62,7 @@ export const update = async <T extends ServerResponse<unknown>>
         formData.append('image', params.image);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/concept/update", formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    })
+    return axios.post<T, SuccessResponseType<T>>("admin/concept/update", formData )
         .then((res) => res?.data);
 };
 export const findById = async <T extends ServerResponse<ConceptResponse>>

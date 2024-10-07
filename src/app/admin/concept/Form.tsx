@@ -20,7 +20,7 @@ export default function Form({ data, submit  }: Form) {
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>عنوان</Label>
-                    <Input name={"name"} defaultValue={data?.title}/>
+                    <Input name={"title"} defaultValue={data?.title}/>
                 </div>
 
                 <div>
