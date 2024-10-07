@@ -21,6 +21,8 @@ export default  function Page()
             {
                 id:Number(id),
                 name: e.get("name") as string,
+                gender: e.get("gender") as string,
+                email: e.get("email") as string,
                 username: e.get("username") as string,
                 role: e.get("role") as string ,
             }

@@ -25,6 +25,17 @@ export default function Form({ data, submit  }: Form) {
                     <Input name={"username"} defaultValue={data?.username}/>
                 </div>
                 <div>
+                    <Label>جنسیت</Label>
+                    <Select name={"gender"} >
+                        <option value={1} selected={data?.gender==1}>مرد</option>
+                        <option value={0}  selected={data?.gender==0}>زن</option>
+                    </Select>
+                </div>
+                <div>
+                    <Label>ایمیل</Label>
+                    <Input name={"email"} defaultValue={data?.email}/>
+                </div>
+                <div>
                     <Label>نقش کاربر</Label>
                     <Select name={"role"}>
                         <option value={"user"} selected={data?.role == "user"}>

@@ -9,6 +9,8 @@ export const update = async <T extends ServerResponse<unknown>>
         id:number ;
         name:string ;
         username:string ;
+        email:string ;
+        gender:string ;
         role:string ;
     }
 ) => {
