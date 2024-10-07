@@ -26,7 +26,7 @@ export default function Form({ data, submit  }: Form) {
 
                 <div>
                     <Label>وضعیت درگاه</Label>
-                    <Select name={"published"}>
+                    <Select name={"status"}>
                         <option value={1} selected={data?.status == 1}>
                             فعال
                         </option>

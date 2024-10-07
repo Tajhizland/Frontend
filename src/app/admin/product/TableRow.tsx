@@ -7,8 +7,8 @@ import {ProductResponse} from "@/services/types/product";
 
 
 export const columns: Column<ProductResponse>[] = [
-    
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: true},
+
+    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'name', header: 'نام محصول', filterType: 'input', editable: true},
     {key: 'view', header: 'تعداد بازدید', filterType: 'input', editable: false},
     {key: 'url', header: 'آدرس محصول', filterType: 'input', editable: true},

@@ -29,15 +29,15 @@ export default function AdminLayout({
         <>
             <html dir={"rtl"}>
             <body className={[myFont.className, myFont2.className].join(" ")}>
-            <Suspense>
-                <AutoLoading/>
-            </Suspense>
+
             <Navbar sidebarControl={() => {
                 setSidebarOpen(!sidebarOpen)
             }}/>
             <Sidebar isOpen={sidebarOpen}/>
             <div className={`py-2 bg-slate-100 min-h-screen mt-14 transition-all  ${sidebarOpen ? "md:mr-52 " : " "}`}>
-
+                <Suspense>
+                    <AutoLoading/>
+                </Suspense>
                 <QueryClientProvider client={queryClient}>
                     {children}
                 </QueryClientProvider>

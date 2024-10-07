@@ -10,8 +10,8 @@ export default function Page()
 {
     async function submit(e: FormData) {
         let response=await store(
-            { 
-                name: e.get("title") as string,
+            {
+                name: e.get("name") as string,
                 description: e.get("description") as string,
                 status: e.get("status") as string,
             }

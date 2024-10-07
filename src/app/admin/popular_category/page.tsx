@@ -13,10 +13,13 @@ import { useState } from "react";
 import NcModal from "@/shared/NcModal/NcModal";
 import Image from "next/image";
 import Input from "@/shared/Input/Input";
+import {search} from "@/services/api/admin/category";
+import {CategoryResponse} from "@/services/types/category";
 
 
 export default function Page() {
     const [showModal, setShowModal] = useState(false);
+    const [serachResponse, setSearchResponse] = useState<CategoryResponse[]>();
 
     async function removeItem(id: any) {
         let response = await remove(id);
@@ -26,23 +29,36 @@ export default function Page() {
         let response = await store({ category_id: id });
         toast.success(response?.message as string)
     }
+    async function searchCategory(query : string) {
+        let response = await search({query:query});
+        setSearchResponse(response);
+    }
     const renderContent = () => {
         return (
             <div>
                 <div className="mt-8 relative rounded-md shadow-sm">
-                    <Input type={"text"} placeholder="جستجوی نام دسته بندی" />
+                    <Input type={"text"} placeholder="جستجوی نام دسته بندی" onChange={(e)=>{searchCategory(e.target.value)}} />
                 </div>
                 <div className=" mt-5 max-h-96 overflow-y-scroll ">
                     <div className="flex flex-col gap-y-5">
-                        <div className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
-                            onClick={() => { add(70) }}>
-                            <div className="w-[100px] h-[100px]">
-                                <Image src={"https://tajhizland.com/upload/881275ce56ffd388ec8cc2f5935e22d0.jpg"} alt={"image"} width={100} height={100} />
-                            </div>
-                            <span>
-                                اسپرسو ساز
-                            </span>
-                        </div>
+                        {
+                            serachResponse && serachResponse.map((item) => (<>
+                                <div
+                                    className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
+                                    onClick={() => {
+                                        add(item.id)
+                                    }}>
+                                    <div className="w-[100px] h-[100px]">
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${item.image}`}
+                                            alt={"image"} width={100} height={100}/>
+                                    </div>
+                                    <span>
+                                        {item.name}
+                                    </span>
+                                </div>
+                            </>))
+                        }
                     </div>
                 </div>
             </div>

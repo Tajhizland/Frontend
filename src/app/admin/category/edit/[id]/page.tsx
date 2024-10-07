@@ -8,10 +8,11 @@ import {findById, update} from "@/services/api/admin/category";
 import { useParams } from "next/navigation";
 import {useQuery} from "react-query";
 import CategoryTab from "@/components/CategoryTabs/CategoryTab";
+import Spinner from "@/shared/Loading/Spinner";
 
 export default   function Page() {
     const { id } = useParams();
-    const { data: data } = useQuery({
+    const { data: data , isLoading} = useQuery({
         queryKey: [`category-info`],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
@@ -45,6 +46,7 @@ export default   function Page() {
         ]}/>
         <Panel>
             <CategoryTab id={id + ""} />
+            {isLoading && <Spinner />}
 
             <PageTitle>
                 ویرایش دسته بندی

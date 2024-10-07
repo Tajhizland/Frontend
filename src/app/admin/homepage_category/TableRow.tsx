@@ -3,7 +3,7 @@ import {HomepageCategoryResponse} from "@/services/types/homepageCategory";
 import {CategoryResponse} from "@/services/types/category";
 
 export const columns: Column<HomepageCategoryResponse>[] = [
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: true},
+    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'category_id', header: 'شناسه دسته بندی', filterType: 'input', editable: true},
     {
         key: 'category',

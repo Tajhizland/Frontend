@@ -10,13 +10,14 @@ import ButtonCircle from "@/shared/Button/ButtonCircle";
 import OptionForm from "@/app/admin/category/option/[id]/OptionForm";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {toast} from "react-hot-toast";
+import Spinner from "@/shared/Loading/Spinner";
 
 export default function Page() {
     const [extraOption, setExtraOption] = useState(0);
     const queryClient = useQueryClient();
 
     const { id } = useParams();
-    const { data: data } = useQuery({
+    const { data: data  ,isLoading} = useQuery({
         queryKey: [`option-info`],
         queryFn: () => findByCategoryId(Number(id)),
         staleTime: 5000,
@@ -35,7 +36,7 @@ export default function Page() {
             const items = [];
             let itemIndex = 0;
 
-            while (data[`option[${optionIndex}][item][${itemIndex}][id]`]) {
+            while (data[`option[${optionIndex}][item][${itemIndex}][title]`]) {
                 items.push({
                     id: data[`option[${optionIndex}][item][${itemIndex}][id]`] ? parseInt(data[`option[${optionIndex}][item][${itemIndex}][id]`]) : undefined as number|undefined,
                     title: data[`option[${optionIndex}][item][${itemIndex}][title]`] as string,
@@ -90,7 +91,10 @@ export default function Page() {
             }
         ]} />
         <Panel>
+
             <CategoryTab id={id + ""} />
+            {isLoading && <Spinner />}
+
             <form action={submit}>
                 {
                     data && data.map((option, index) => (<>

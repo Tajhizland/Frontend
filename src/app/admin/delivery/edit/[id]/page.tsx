@@ -20,7 +20,7 @@ export default  function Page()
         let response=await update(
             {
                 id:Number(id),
-                name: e.get("title") as string,
+                name: e.get("name") as string,
                 description: e.get("description") as string,
                 status: e.get("status") as string,
                 logo: e.get("logo") as File,

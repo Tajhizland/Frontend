@@ -23,8 +23,6 @@ export default function Page() {
                 columns={columns}
                 buttons={buttons}
             />
-
-
         </Panel>
     </>)
 }

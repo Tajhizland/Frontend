@@ -6,7 +6,7 @@ import {UserResponse} from "@/services/types/user";
 
 export const columns: Column<UserResponse>[] = [
 
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: true},
+    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'name', header: 'نام کاربر', filterType: 'input', editable: true},
     {key: 'username', header: 'نام کاربری', filterType: 'input', editable: true},
     {

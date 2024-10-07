@@ -15,11 +15,12 @@ import Input from "@/shared/Input/Input";
 import { store, remove } from "@/services/api/admin/popularProduct";
 import { log } from "console";
 import { search } from "@/services/api/admin/product";
+import {ProductResponse} from "@/services/types/product";
 
 
 export default function Page() {
     const [showModal, setShowModal] = useState(false);
-    const [searchData, setSearchData] = useState([]);
+     const [serachResponse, setSearchResponse] = useState<ProductResponse[]>();
 
     async function removeItem(id: any) {
         let response = await remove(id);
@@ -31,7 +32,8 @@ export default function Page() {
     }
     async function searchProduct(query : string) {
         let response = await search({query:query});
-        console.log("response is ",response);
+        setSearchResponse(response);
+
     }
 
     const renderContent = () => {
@@ -42,15 +44,24 @@ export default function Page() {
                 </div>
                 <div className=" mt-5 max-h-96 overflow-y-scroll ">
                     <div className="flex flex-col gap-y-5">
-                        <div className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
-                            onClick={() => { add(70) }}>
-                            <div className="w-[100px] h-[100px]">
-                                <Image src={"https://tajhizland.com/upload/881275ce56ffd388ec8cc2f5935e22d0.jpg"} alt={"image"} width={100} height={100} />
-                            </div>
-                            <span>
-                                اسپرسو ساز
+                        {
+                            serachResponse && serachResponse.map((item) => (<>
+                                <div
+                                    className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
+                                    onClick={() => {
+                                        add(item.id)
+                                    }}>
+                                    <div className="w-[100px] h-[100px]">
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                            alt={"image"} width={100} height={100}/>
+                                    </div>
+                                    <span>
+                                        {item.name}
                             </span>
-                        </div>
+                                </div>
+                            </>))
+                        }
                     </div>
                 </div>
             </div>

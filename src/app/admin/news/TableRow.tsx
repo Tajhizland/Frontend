@@ -5,7 +5,7 @@ import Badge from "@/shared/Badge/Badge";
 import {NewsResponse} from "@/services/types/news";
 
 export const columns: Column<NewsResponse>[] = [
-    { key: 'id', header: 'شناسه', filterType: 'input', editable: true },
+    { key: 'id', header: 'شناسه', filterType: 'input', editable: false },
     { key: 'title', header: 'عنوان', filterType: 'input', editable: true },
     { key: 'url', header: 'آدرس محصول', filterType: 'input', editable: true },
     {

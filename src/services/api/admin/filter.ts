@@ -36,8 +36,10 @@ export const setToCategory = async <T extends ServerResponse<unknown>>
     (
         params: {
             category_id: number | string,
-            option: {
+            filter: {
                 id?: number,
+                name: string,
+                status: number,
                 item: {
                     id?: number,
                     value: string,

@@ -6,7 +6,7 @@ import {OptionResponse} from "@/services/types/option";
 
 
 export const columns: Column<OptionResponse>[] = [
-    { key: 'id', header: 'شناسه', filterType: 'input', editable: true },
+    { key: 'id', header: 'شناسه', filterType: 'input', editable: false },
     { key: 'title', header: 'نام', filterType: 'input', editable: true },
      {
         key: 'status',

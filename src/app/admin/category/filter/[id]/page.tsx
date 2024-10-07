@@ -10,13 +10,14 @@ import { useState } from "react";
 import {useQuery, useQueryClient} from "react-query";
 import FilterForm from "./FilterForm";
 import {toast} from "react-hot-toast";
+import Spinner from "@/shared/Loading/Spinner";
 
 export default function Page() {
     const [extraFilter, setExtraFilter] = useState(0);
     const queryClient = useQueryClient();
 
     const { id } = useParams();
-    const { data: data } = useQuery({
+    const { data: data ,isLoading } = useQuery({
         queryKey: [`filter-info`],
         queryFn: () => findByCategoryId(Number(id)),
         staleTime: 5000,
@@ -30,12 +31,12 @@ export default function Page() {
         let filterIndex = 0;
 
         // بررسی و پردازش هر filter
-        while (data[`filter[${filterIndex}][id]`]) {
+        while (data[`filter[${filterIndex}][name]`]) {
             const items = [];
             let itemIndex = 0;
 
             // پردازش آیتم‌های هر filter
-            while (data[`filter[${filterIndex}][item][${itemIndex}][id]`]) {
+            while (data[`filter[${filterIndex}][item][${itemIndex}][value]`]) {
                 items.push({
                     id: data[`filter[${filterIndex}][item][${itemIndex}][id]`] ? parseInt(data[`filter[${filterIndex}][item][${itemIndex}][id]`]) : undefined,
                     value: data[`filter[${filterIndex}][item][${itemIndex}][value]`],
@@ -46,6 +47,8 @@ export default function Page() {
 
             filters.push({
                 id: data[`filter[${filterIndex}][id]`] ? parseInt(data[`filter[${filterIndex}][id]`]) : undefined,
+                name: data[`filter[${filterIndex}][name]`] ,
+                status: data[`filter[${filterIndex}][status]`] ,
                 item: items,
             });
 
@@ -53,8 +56,8 @@ export default function Page() {
         }
 
         return {
-            category_id: 1, // مقدار دلخواه برای category_id
-            option: filters
+            category_id: Number(id),
+            filter: filters
         };
     };
     async function submit(e: FormData) {
@@ -88,6 +91,8 @@ export default function Page() {
         ]} />
         <Panel>
             <CategoryTab id={id + ""} />
+            {isLoading && <Spinner />}
+
             <form action={submit}>
 
                 {

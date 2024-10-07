@@ -2,6 +2,7 @@ import {Column, DataTableButtons} from "@/shared/DataTable/type";
 import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
+import {UrlObject} from "url";
 
 type DataRow = {
     id: number;
@@ -19,8 +20,7 @@ export const columns: Column<DataRow>[] = [
     {key: 'user', header: 'کاربر', filterType: 'input', editable: false},
     {key: 'product_id', header: 'شناسه محصول', filterType: 'input', editable: false},
     {key: 'rating', header: 'امتیاز', filterType: 'input', editable: false},
-    {key: 'text', header: 'متن', filterType: 'input', editable: false},
-    {key: 'status', header: 'وضعیت', filterType: 'input', editable: false},
+     {key: 'status', header: 'وضعیت', filterType: 'input', editable: false},
     {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
 
 ];
@@ -28,8 +28,12 @@ export const buttons: DataTableButtons[] = [
 
     {
         label: <FaEye/>,
-        type: "action",
-        colorClass: "bg-slate-900 text-white",
-        action: (value: any) => console.log(value)
+        type: "link",
+        colorClass: "bg-white   border border-slate-900 outline-none ",
+        href : (value: any): UrlObject => {
+            return {
+                pathname: 'comment/show/'+value,
+            };
+        }
     },
 ]

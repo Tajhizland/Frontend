@@ -6,7 +6,7 @@ import {UrlObject} from "node:url";
 import {GatewayResponse} from "@/services/types/gateway";
 
 export const columns: Column<GatewayResponse>[] = [
-    { key: 'id', header: 'شناسه', filterType: 'input', editable: true },
+    { key: 'id', header: 'شناسه', filterType: 'input', editable: false },
     { key: 'name', header: 'نام', filterType: 'input', editable: true },
      {
         key: 'status',

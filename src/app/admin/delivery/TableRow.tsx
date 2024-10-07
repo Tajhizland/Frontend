@@ -6,7 +6,7 @@ import {UrlObject} from "node:url";
 import {DeliveryResponse} from "@/services/types/delivery";
 
 export const columns: Column<DeliveryResponse>[] = [
-    { key: 'id', header: 'شناسه', filterType: 'input', editable: true },
+    { key: 'id', header: 'شناسه', filterType: 'input', editable: false },
     { key: 'name', header: 'نام', filterType: 'input', editable: true },
      {
         key: 'status',

@@ -8,7 +8,7 @@ import {CategoryResponse} from "@/services/types/category";
 
 export const columns: Column<CategoryResponse>[] = [
 
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: true},
+    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'name', header: 'نام دسته‌بندی', filterType: 'input', editable: true},
     {key: 'url', header: 'آدرس دسته‌بندی', filterType: 'input', editable: true},
     {

@@ -4,7 +4,7 @@ import {CategoryResponse} from "@/services/types/category";
 import {PopularCategoryResponse} from "@/services/types/popularCategory";
 
 export const columns: Column<PopularCategoryResponse>[] = [
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: true},
+    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'category_id', header: 'شناسه دسته بندی', filterType: 'input', editable: true},
     {
         key: 'category',
