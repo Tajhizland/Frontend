@@ -32,27 +32,27 @@ export default function Page() {
                 مشاهده سفارش
             </PageTitle>
             <div>
-                <div className="border rounded-2xl p-5">
-                    <div className="grid sm:grid-cols-4 grid-cols-2 gap-4">
-                        <div className="flex gap-x-2">
-                            <span className="text-slate-800">نام : </span>
-                            <span className="text-slate-600">{data?.orderInfo?.name}</span>
+                <div className="border rounded-2xl p-5  text-sm">
+                    <div className="grid sm:grid-cols-4 grid-cols-2 gap-4 text-gray-500">
+                        <div className="flex gap-x-2  justify-center">
+                            <span>نام : </span>
+                            <span>{data?.orderInfo?.name}</span>
                         </div>
-                        <div className="flex gap-x-2">
-                            <span className="text-slate-800">موبایل : </span>
-                            <span className="text-slate-700">{data?.orderInfo?.mobile}</span>
+                        <div className="flex gap-x-2  justify-center">
+                            <span>موبایل : </span>
+                            <span>{data?.orderInfo?.mobile}</span>
                         </div>
-                        <div className="flex gap-x-2">
-                            <span className="text-slate-800" >تلفن : </span>
-                            <span className="text-slate-700">{data?.orderInfo?.tell}</span>
+                        <div className="flex gap-x-2  justify-center">
+                            <span >تلفن : </span>
+                            <span>{data?.orderInfo?.tell}</span>
                         </div>
-                        <div className="flex gap-x-2">
-                            <span className="text-slate-800">کد پستی : </span>
-                            <span className="text-slate-700">{data?.orderInfo?.zip_code}</span>
+                        <div className="flex gap-x-2  justify-center">
+                            <span>کد پستی : </span>
+                            <span>{data?.orderInfo?.zip_code}</span>
                         </div>
-                        <div className="flex gap-x-2">
-                            <span className="text-slate-800">آدرس : </span>
-                            <span className="text-slate-700">{data?.orderInfo?.address}</span>
+                        <div className="flex gap-x-2  justify-center">
+                            <span>آدرس : </span>
+                            <span>{data?.orderInfo?.address}</span>
                         </div>
                     </div>
                 </div>
