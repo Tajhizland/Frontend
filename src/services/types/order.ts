@@ -1,3 +1,6 @@
+import { OrderInfoResponse } from "./orderInfo";
+import { OrderItemResponse } from "./orderItem";
+
 export type OrderResponse = {
     id: number;
     user_id: string;
@@ -8,4 +11,6 @@ export type OrderResponse = {
     payment_method: number;
     order_date: string;
     created_at: string;
+    orderInfo?:OrderInfoResponse;
+    orderItems?:{data:OrderItemResponse[]}
 };
