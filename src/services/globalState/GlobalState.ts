@@ -3,6 +3,7 @@ import { CartResponse } from "@/services/types/cart";
 import { createGlobalState } from 'react-hooks-global-state';
 import {UserResponse} from "@/services/types/user";
 import { ColorResponse } from "../types/color";
+import {MenuResponse} from "@/services/types/menu";
 
 
 
@@ -10,11 +11,13 @@ import { ColorResponse } from "../types/color";
 interface State {
     user: UserResponse | null;
     cart: CartResponse[];
+    menu: MenuResponse[];
 }
 
 const initialState: State = {
     user: null,
     cart: [],
+    menu: [],
 };
 
 // توابع تغییر دهنده state
@@ -22,9 +25,13 @@ export const { useGlobalState , getGlobalState, setGlobalState  } = createGlobal
 
 export const useUser = () => useGlobalState('user');
 export const useCart = () => useGlobalState('cart');
+export const useMenu = () => useGlobalState('menu');
 
 export const setCart = (cart: CartResponse[]) => {
     setGlobalState('cart', cart);
+};
+export const setMenu = (menu: MenuResponse[]) => {
+    setGlobalState('menu', menu);
 };
 export const setUser = (user: UserResponse) => {
     setGlobalState('user', user);
@@ -64,9 +71,9 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
         // اگر محصول جدید است، آن را اضافه کنید
         newCart = [...cart, cartProduct];
     }
-    
+
     console.log("NEW CART",newCart);
-    
+
 
     setCart(  newCart);
 };

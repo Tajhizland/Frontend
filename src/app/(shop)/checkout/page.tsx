@@ -23,14 +23,15 @@ import {
     useUser
 } from "@/services/globalState/GlobalState";
 import {useRouter} from "next/navigation";
+import {paymentRequest} from "@/services/api/shop/payment";
 
 const CheckoutPage = () => {
     const router = useRouter();
     const [cart] = useCart();
     const [user] = useUser();
 
-    console.log("USER IS",user);
-    
+    console.log("USER IS", user);
+
     // if (!user) {
     //     router.push("/login");
     // }
@@ -44,6 +45,10 @@ const CheckoutPage = () => {
         }
     });
 
+
+    async function payment() {
+        return await paymentRequest();
+    }
 
     async function increaseHandle(selectedColorId: number) {
         let response = await increaseCartItem({productColorId: selectedColorId});
@@ -85,7 +90,7 @@ const CheckoutPage = () => {
             <div key={index} className="relative flex py-7 first:pt-0 last:pb-0">
                 <div className="relative h-36 w-24 sm:w-28 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
                     <Image
-                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`} 
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`}
                         fill
                         alt={item.product.name}
                         className="h-full w-full object-contain object-center"
@@ -326,8 +331,8 @@ const CheckoutPage = () => {
                 </span>
                             </div>
                         </div>
-                        <ButtonPrimary className="mt-8 w-full">پرداخت</ButtonPrimary>
-                   
+                        <ButtonPrimary className="mt-8 w-full" onClick={payment}>پرداخت</ButtonPrimary>
+
                     </div>
                 </div>
             </main>
