@@ -15,6 +15,8 @@ export default function Page() {
                 id: e.id,
                 name: e.name,
                 username: e.username,
+                email: e.email,
+                gender:e.gender+"",
                 role:e.role
             }
         )
