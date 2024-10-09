@@ -3,13 +3,11 @@ import { OrderResponse } from "./order";
 import { ProductResponse } from "./product";
 
 export type OrderItemResponse = {
-    id: number;   
+    id: number;
     count:number;
     price:number;
-    dicount:number;
+    discount:number;
     final_price:number;
-    unit_price:number;
-    unit_discount:number;
     product_id:number;
     product_color_id:number;
     order_id:number;

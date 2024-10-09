@@ -8,6 +8,9 @@ import {useQuery} from "react-query";
 import NcImage from "@/shared/NcImage/NcImage";
 import Prices from "@/components/Prices";
 import {OrderStatus} from "@/app/admin/order/orderStatus";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import {toast} from "react-hot-toast";
+import {accept, reject} from "@/services/api/admin/onHoldOrder";
 
 export default function Page() {
     const {id} = useParams();
@@ -18,21 +21,35 @@ export default function Page() {
         staleTime: 5000,
     });
 
+    async function acceptHandle(){
+        let response = await accept({
+            id: Number(id)
+        })
+        toast.success(response?.message as string);
+    }
+    async function rejectHandle(){
+        let response = await reject({
+            id: Number(id)
+        })
+        toast.success(response?.message as string);
+    }
+
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "سفارشات",
-                href: "order"
+                title: "سفارشات معلق",
+                href: "onHoldOrder"
             },
             {
                 title: "مشاهده سفارش",
-                href: "order/view/" + id
+                href: "onHoldOrder/view/" + id
             }
         ]}/>
         <Panel>
             <PageTitle>
                 مشاهده سفارش
             </PageTitle>
+
             <div className={"grid grid-cols-1  lg:grid-cols-2 gap-5 "}>
                 <div className="border rounded-2xl px-5  text-sm">
                     <div className="flex flex-col divide-y   text-gray-500">
@@ -190,7 +207,14 @@ export default function Page() {
                     </tfoot>
                 </table>
             </div>
-
+            <div className={"flex mt-10  gap-x-5"}>
+            <ButtonPrimary onClick={accept}>
+                تایید سفارش
+            </ButtonPrimary>
+            <ButtonPrimary onClick={reject}>
+                رد سفارش
+            </ButtonPrimary>
+            </div>
         </Panel>
 
     </>)
