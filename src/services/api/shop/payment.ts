@@ -1,7 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
+import {PaymentResponse} from "@/services/types/payment";
 
-export const paymentRequest = async <T extends ServerResponse<unknown>>
+export const paymentRequest = async <T extends ServerResponse<PaymentResponse>>
 ( ) => {
     return axios.post<T, SuccessResponseType<T>>("payment/request" )
-        .then((res) => res)
+        .then((res) => res?.data?.result?.data)
 };

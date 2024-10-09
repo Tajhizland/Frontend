@@ -47,7 +47,8 @@ const CheckoutPage = () => {
 
 
     async function payment() {
-        return await paymentRequest();
+        let response = await paymentRequest();
+        window.location.href=response.path;
     }
 
     async function increaseHandle(selectedColorId: number) {
