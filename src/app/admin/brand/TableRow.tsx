@@ -4,6 +4,7 @@ import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
 import { UrlObject } from "url";
 import {BrandResponse} from "@/services/types/brand";
+import Image from "next/image";
 
 
 export const columns: Column<BrandResponse>[] = [
@@ -12,8 +13,9 @@ export const columns: Column<BrandResponse>[] = [
         header: 'تصویر',
         hasFilter: false,
         hasSort: false,
-        render: (value) => <img className={"w-10 h-10 mx-auto"} alt={"image"}
-                                src={"https://statics.honari.com/honarifiles/faq/" + value}/>
+        render: (value) => <Image className={"w-10 h-10 mx-auto"} alt={"image"} width={100} height={100}
+                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${value}`}
+                                />
     },
     {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'name', header: 'نام برند', filterType: 'input', editable: true},

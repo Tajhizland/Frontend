@@ -31,6 +31,10 @@ const pages: {
     link: "/account-order",
   },
   {
+    name: "سفارشات معلق من",
+    link: "/account-order-on-hold",
+  },
+  {
     name: "تغییر رمز عبور",
     link: "/account-password",
   }

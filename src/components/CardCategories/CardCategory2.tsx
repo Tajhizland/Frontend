@@ -33,7 +33,8 @@ const CardCategory2: FC<CardCategory2Props> = ({
           <NcImage
             alt=""
             containerClassName="w-full h-full flex justify-center"
-            src={featuredImage}
+             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${featuredImage}`}
+
             className="object-cover rounded-2xl w-full h-full"
 
             width={720}
