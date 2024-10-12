@@ -8,7 +8,7 @@ export const search = async <T extends ServerResponse<ProductResponse[]>>
         query: string
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("search", {params})
+    return axios.post<T, SuccessResponseType<T>>("search", params)
         .then((res) => res?.data?.result)
 };
 export const searchPaginate = async <T extends ServerResponse<ProductResponse[]>>

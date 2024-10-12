@@ -1,19 +1,20 @@
 "use client";
 
-import React, {createRef, FC, useState} from "react";
+import React, { createRef, FC, useEffect, useState } from "react";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 import AvatarDropdown from "./AvatarDropdown";
 import Navigation from "@/shared/Navigation/Navigation";
 import CartDropdown from "./CartDropdown";
-import {XMarkIcon} from "@heroicons/react/24/outline";
-import {useRouter} from "next/navigation";
-import {search} from "@/services/api/shop/search";
-import {SearchResponse} from "@/services/types/serach";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { usePathname } from "next/navigation";
+import { search } from "@/services/api/shop/search";
+import { SearchResponse } from "@/services/types/serach";
 import Link from "next/link";
-import {Route} from "next";
+import { Route } from "next";
 import Image from "next/image";
-import {ProductResponse} from "@/services/types/product";
+import { ProductResponse } from "@/services/types/product";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export interface MainNav2LoggedProps {
 }
@@ -22,10 +23,15 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const inputRef = createRef<HTMLInputElement>();
     const [showSearchForm, setShowSearchForm] = useState(false);
     const [searchResponse, setSearchResponse] = useState<ProductResponse[]>()
-    const router = useRouter();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setShowSearchForm(false);
+        setSearchResponse(undefined)
+    }, [pathname])
 
     async function searchHandle(e: any) {
-        let response = await search({query: e.target.value});
+        let response = await search({ query: e.target.value });
         if (response.data)
             setSearchResponse(response.data);
         else
@@ -62,13 +68,9 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const renderSearchForm = () => {
         return (
             <div className="relative w-full">
-                <form
+                <div
                     className="flex-1 py-2 text-slate-900 dark:text-slate-100"
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        router.push("/search");
-                        inputRef.current?.blur();
-                    }}
+
                 >
                     <div className="bg-slate-50 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded">
                         {renderMagnifyingGlassIcon()}
@@ -81,25 +83,25 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             autoFocus
                         />
                         <button type="button" onClick={() => setShowSearchForm(false)}>
-                            <XMarkIcon className="w-5 h-5"/>
+                            <XMarkIcon className="w-5 h-5" />
                         </button>
                     </div>
-                    <input type="submit" hidden value=""/>
-                </form>
+                    <input type="submit" hidden value="" />
+                </div>
                 {searchResponse &&
                     <div
                         className="absolute top-20 left-0 w-full h-96 bg-white  z-50 border rounded shadow border-t-0 overflow-y-scroll whitespace-nowrap ">
                         <div className="flex flex-col gap-y-1">
                             {
                                 searchResponse.map((item) => (<>
-                                    <Link href={"product/" + item.url as Route}
-                                          onChange={() => setSearchResponse(undefined)}>
+                                    <Link href={"/product/" + item.url as Route}
+                                        onChange={() => setSearchResponse(undefined)}>
                                         <div className="flex items-center gap-x-5 border-b">
                                             <div>
                                                 <Image alt="product"
-                                                       src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
-                                                       width={100}
-                                                       height={100}/>
+                                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                                    width={100}
+                                                    height={100} />
                                             </div>
                                             <span> {item.name}  </span>
                                         </div>
@@ -107,6 +109,11 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                     </Link>
                                 </>))
                             }
+                            <div className="flex justify-center my-4">
+                                <ButtonPrimary
+                                    className="cursor-pointer"
+                                    onClick={handleSearch}>مشاهده همه </ButtonPrimary>
+                            </div>
                         </div>
                     </div>}
             </div>
@@ -117,15 +124,15 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
         return (
             <div className="h-20 flex justify-between">
                 <div className="flex items-center lg:hidden flex-1">
-                    <MenuBar/>
+                    <MenuBar />
                 </div>
 
                 <div className="lg:flex-1 flex items-center">
-                    <Logo className="flex-shrink-0"/>
+                    <Logo className="flex-shrink-0" />
                 </div>
 
                 <div className="flex-[2] hidden lg:flex justify-center mx-4">
-                    {showSearchForm ? renderSearchForm() : <Navigation/>}
+                    {showSearchForm ? renderSearchForm() : <Navigation />}
                 </div>
 
                 <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
@@ -137,8 +144,8 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             {renderMagnifyingGlassIcon()}
                         </button>
                     )}
-                    <AvatarDropdown/>
-                    <CartDropdown/>
+                    <AvatarDropdown />
+                    <CartDropdown />
                 </div>
             </div>
         );

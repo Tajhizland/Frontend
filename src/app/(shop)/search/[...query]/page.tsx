@@ -9,6 +9,7 @@ import ProductCard2 from "@/components/ProductCard";
 import {searchPaginate} from "@/services/api/shop/search";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
 import {useQuery} from "react-query";
+import { useRouter } from "next/navigation";
 
 interface BrandPageProps {
     params: {
@@ -24,6 +25,8 @@ const PageSearch =   ({params , searchParams}: BrandPageProps) => {
     const [page, setPage] = useState(searchParams.page ? parseInt(searchParams.page, 10) : 1);
     const [query, setQuery] = useState(decodeURIComponent(params.query.join(" ")));
     const [searchQuery, setSearchQuery] = useState(decodeURIComponent(params.query.join(" ")));
+    const router = useRouter();
+
 
     const { data: products } = useQuery({
         queryKey: ['my-order' , page , searchQuery],
@@ -33,6 +36,8 @@ const PageSearch =   ({params , searchParams}: BrandPageProps) => {
 
     function changePageHandle(page: number) {
         setPage(page);
+        router.push(`?page=${page}`);
+
     }
     function changeQueryHandle( ) {
         setSearchQuery(query);
