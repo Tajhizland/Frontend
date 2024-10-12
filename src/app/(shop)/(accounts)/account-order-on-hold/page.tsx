@@ -11,18 +11,25 @@ import AdminPagination from "@/shared/Pagination/AdminPagination";
 import Image from "next/image";
 import { useState } from "react";
 import { useQuery } from "react-query";
+import {myOnHoldOrder, payment} from "@/services/api/shop/onHoldOrder";
+import {OnHoldOrderResponse} from "@/services/types/onHoldOrder";
 
 const AccountOrder = () => {
   const [page, setPage] = useState(1);
 
-  const { data: order } = useQuery({
-    queryKey: ['my-order' , page],
-    queryFn: () => myOrders(page),
+  const OnHoldOrderStatus=["در انتظار تایید","تایید شده","رد شده"];
+  const { data: data } = useQuery({
+    queryKey: ['my-on-hold-order' , page],
+    queryFn: () => myOnHoldOrder(page),
     staleTime: 5000,
   });
   function changePageHandle(page: number) {
     setPage(page);
 }
+  async function paymentHandle(id: number) {
+    let response =  await payment(id);
+      window.location.href=response.path;
+  }
 
   const renderProductItem = (orderItem: OrderItemResponse, index: number) => {
     return (
@@ -63,23 +70,23 @@ const AccountOrder = () => {
     );
   };
 
-  const renderOrder = (item: OrderResponse) => {
+  const renderOrder = (item: OnHoldOrderResponse) => {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 sm:p-8 bg-slate-50 dark:bg-slate-500/5">
           <div>
-            <p className="text-lg font-semibold">{item.id}</p>
+            <p className="text-lg font-semibold">{item.order_id}</p>
             <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 sm:mt-2">
-              <span>{item.order_date}</span>
+              <span>{item.created_at}</span>
               <span className="mx-2">·</span>
-              <span className="text-primary-500">{OrderStatus[Number(item.status)]}</span>
+              <span className="text-primary-500">{OnHoldOrderStatus[Number(item.status)]}</span>
             </p>
           </div>
 
         </div>
         <div className="border-t border-slate-200 dark:border-slate-700 p-2 sm:p-8 divide-y divide-y-slate-200 dark:divide-slate-700">
           {
-            item.orderItems?.data.map((orderItem, index) => (<>
+            item?.order?.orderItems?.data.map((orderItem, index) => (<>
               {renderProductItem(orderItem, index)}
             </>))
           }
@@ -92,13 +99,13 @@ const AccountOrder = () => {
     <div className="space-y-10 sm:space-y-12">
       {/* HEADING */}
       <h2 className="text-2xl sm:text-3xl font-semibold"> تاریخچه سفارشات معلق</h2>
-      {order?.data?.map((item) => (<>
-        {renderOrder(item)
+      {data?.data?.map((item) => (<>
+        {  renderOrder(item)
         }      </>))}
 
       <div className="flex !mt-20 justify-center items-center">
-        <AdminPagination currentPage={order?.meta?.current_page ?? 1}
-          totalPages={order?.meta?.last_page ?? 1} onPageChange={(p) => changePageHandle(p)} />
+        <AdminPagination currentPage={data?.meta?.current_page ?? 1}
+          totalPages={data?.meta?.last_page ?? 1} onPageChange={(p) => changePageHandle(p)} />
       </div>
     </div>
   );

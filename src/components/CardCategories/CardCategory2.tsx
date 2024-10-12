@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
+import {Route} from "next";
 
 export interface CardCategory2Props {
   className?: string;
@@ -10,6 +11,7 @@ export interface CardCategory2Props {
   featuredImage?: string | StaticImageData;
   name: string;
   desc: string;
+    url?: string;
 }
 
 const CardCategory2: FC<CardCategory2Props> = ({
@@ -19,10 +21,11 @@ const CardCategory2: FC<CardCategory2Props> = ({
   featuredImage = ".",
   name,
   desc,
+  url,
 }) => {
   return (
     <Link
-      href={"/collection"}
+      href={`/brand/${url}` as Route}
       className={`nc-CardCategory2 ${className}`}
       data-nc-id="CardCategory2"
     >

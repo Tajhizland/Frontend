@@ -13,6 +13,7 @@ import {SearchResponse} from "@/services/types/serach";
 import Link from "next/link";
 import {Route} from "next";
 import Image from "next/image";
+import {ProductResponse} from "@/services/types/product";
 
 export interface MainNav2LoggedProps {
 }
@@ -20,13 +21,13 @@ export interface MainNav2LoggedProps {
 const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const inputRef = createRef<HTMLInputElement>();
     const [showSearchForm, setShowSearchForm] = useState(false);
-    const [searchResponse, setSearchResponse] = useState<SearchResponse>()
+    const [searchResponse, setSearchResponse] = useState<ProductResponse[]>()
     const router = useRouter();
 
     async function searchHandle(e: any) {
         let response = await search({query: e.target.value});
-        if (response.products.data)
-            setSearchResponse(response);
+        if (response.data)
+            setSearchResponse(response.data);
         else
             setSearchResponse(undefined)
     }
@@ -90,16 +91,17 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                         className="absolute top-20 left-0 w-full h-96 bg-white  z-50 border rounded shadow border-t-0 overflow-y-scroll whitespace-nowrap ">
                         <div className="flex flex-col gap-y-1">
                             {
-                                searchResponse.products.data.map((item) => (<>
-                                    <Link href={"product/" + item.url as Route} onChange={()=>setSearchResponse(undefined)}>
+                                searchResponse.map((item) => (<>
+                                    <Link href={"product/" + item.url as Route}
+                                          onChange={() => setSearchResponse(undefined)}>
                                         <div className="flex items-center gap-x-5 border-b">
                                             <div>
-                                                <Image alt="product" src={item.images.data[0].url as string} width={100}
+                                                <Image alt="product"
+                                                       src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                                       width={100}
                                                        height={100}/>
                                             </div>
-                                            <span>
-                        {item.name}
-                      </span>
+                                            <span> {item.name}  </span>
                                         </div>
 
                                     </Link>

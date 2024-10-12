@@ -1,25 +1,52 @@
+"use client"
 //@ts-nocheck
 
-import React, { FC } from "react";
-import Pagination from "@/shared/Pagination/Pagination";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
+import React, {useState} from "react";
 import SectionPromo1 from "@/components/SectionPromo1";
-import HeaderFilterSearchPage from "@/components/HeaderFilterSearchPage";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import ProductCard2 from "@/components/ProductCard";
-import { PRODUCTS } from "@/data/data";
+import {searchPaginate} from "@/services/api/shop/search";
+import AdminPagination from "@/shared/Pagination/AdminPagination";
+import {useQuery} from "react-query";
 
-const PageSearch = ({}) => {
-  return (
+interface BrandPageProps {
+    params: {
+        query: [string];
+    },
+    searchParams: {
+        page?: string;
+    }
+}
+
+const PageSearch =   ({params , searchParams}: BrandPageProps) => {
+
+    const [page, setPage] = useState(searchParams.page ? parseInt(searchParams.page, 10) : 1);
+    const [query, setQuery] = useState(decodeURIComponent(params.query.join(" ")));
+    const [searchQuery, setSearchQuery] = useState(decodeURIComponent(params.query.join(" ")));
+
+    const { data: products } = useQuery({
+        queryKey: ['my-order' , page , searchQuery],
+        queryFn: () => searchPaginate(query , page),
+        staleTime: 5000,
+    });
+
+    function changePageHandle(page: number) {
+        setPage(page);
+    }
+    function changeQueryHandle( ) {
+        setSearchQuery(query);
+    }
+
+
+    return (
     <div className={`nc-PageSearch`} data-nc-id="PageSearch">
       <div
         className={`nc-HeadBackgroundCommon h-24 2xl:h-28 top-0 left-0 right-0 w-full bg-primary-50 dark:bg-neutral-800/20 `}
       />
       <div className="container">
         <header className="max-w-2xl mx-auto -mt-10 flex flex-col lg:-mt-7">
-          <form className="relative w-full " method="post">
+          <div className="relative w-full " >
             <label
               htmlFor="search-input"
               className="text-neutral-500 dark:text-neutral-300"
@@ -29,14 +56,17 @@ const PageSearch = ({}) => {
                 className="shadow-lg border-0 dark:border"
                 id="search-input"
                 type="search"
-                placeholder="Type your keywords"
-                sizeClass="pl-14 py-5 pr-5 md:pl-16"
+                defaultValue={query}
+                onChange={(e)=> setQuery(e.target.value)}
+                placeholder="عبارت مورد نظر خود را جستجو کنید"
+                sizeClass="pr-14 py-5 pl-5 md:pr-16"
                 rounded="rounded-full"
               />
               <ButtonCircle
                 className="absolute right-2.5 top-1/2 transform -translate-y-1/2"
                 size=" w-11 h-11"
                 type="submit"
+                onClick={changeQueryHandle}
               >
                 <i className="las la-arrow-right text-xl"></i>
               </ButtonCircle>
@@ -64,36 +94,36 @@ const PageSearch = ({}) => {
                 </svg>
               </span>
             </label>
-          </form>
+          </div>
         </header>
       </div>
 
       <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 lg:space-y-28">
         <main>
           {/* FILTER */}
-          <HeaderFilterSearchPage />
+
+          {/*<HeaderFilterSearchPage />*/}
 
           {/* LOOP ITEMS */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
-            {/*{PRODUCTS.map((item, index) => (*/}
-            {/*  <ProductCard2 data={item} key={index} />*/}
-            {/*))}*/}
+              {products?.data?.map((item, index) => (
+                  <ProductCard2 data={item} key={index} />
+              )
+              )
+              }
           </div>
 
           {/* PAGINATION */}
           <div className="flex flex-col mt-12 lg:mt-16 space-y-5 sm:space-y-0 sm:space-x-3 sm:flex-row sm:justify-between sm:items-center">
-            <Pagination />
-            <ButtonPrimary loading>Show me more</ButtonPrimary>
+              <AdminPagination
+                  currentPage={  products?.meta?.current_page as number}
+                  totalPages={ products?.meta?.last_page as number}
+                  onPageChange={(n) => {
+                      changePageHandle(  n)
+                  }} />
           </div>
         </main>
 
-        {/* === SECTION 5 === */}
-        <hr className="border-slate-200 dark:border-slate-700" />
-        {/*<SectionSliderCollections />*/}
-        <hr className="border-slate-200 dark:border-slate-700" />
-
-        {/* SUBCRIBES */}
-        <SectionPromo1 />
       </div>
     </div>
   );

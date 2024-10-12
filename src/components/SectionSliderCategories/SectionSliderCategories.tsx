@@ -114,6 +114,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
                 <CardCategory2
                   featuredImage={item.image}
                   name={item.name}
+                  url={item.url}
                   desc={item.description}
                 />
               </li>
