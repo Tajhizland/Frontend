@@ -2,6 +2,7 @@ import Logo from "@/shared/Logo/Logo";
 import SocialsList1 from "@/shared/SocialsList1/SocialsList1";
 import { CustomLink } from "@/data/types";
 import React from "react";
+import { Route } from "next";
 
 export interface WidgetFooterMenu {
   id: string;
@@ -12,51 +13,50 @@ export interface WidgetFooterMenu {
 const widgetMenus: WidgetFooterMenu[] = [
   {
     id: "5",
-    title: "Getting started",
+    title: " اطلاعات ",
     menus: [
-      { href: "/", label: "Release Notes" },
-      { href: "/", label: "Upgrade Guide" },
-      { href: "/", label: "Browser Support" },
-      { href: "/", label: "Dark Mode" },
+      { href: "/pages/راهنمای-خرید-از-تجهیزلند" as Route, label: "راهنمای خرید" },
+      { href: "/pages/نحوه-ثبت-سفارش" as Route, label: "نحوه ثبت سفارش" },
+      { href: "/pages/رویه-ارسال-سفارش" as Route, label: "رویه ارسال سفارش" },
+      { href: "/pages/شیوه-های-پرداخت" as Route, label: "شیوه های پرداخت" },
+      { href: "/pages/قوانین-تجهیزلند" as Route, label: "قوانین و مقررات" },
+      { href: "/pages/شرایط-بازگرداندن-کالا" as Route, label: "شرایط بازگرداندن سفارش" },
+
     ],
   },
   {
     id: "1",
-    title: "Explore",
+    title: "خدمات تجهیزلند",
     menus: [
-      { href: "/", label: "Prototyping" },
-      { href: "/", label: "Design systems" },
-      { href: "/", label: "Pricing" },
-      { href: "/", label: "Security" },
+      { href: "/", label: "فروشگاه اینترنتی" },
+      { href: "/pages/تجهیز-رستوران" as Route, label: "تجهیز رستوران" },
+      { href: "/pages/تجهیز-کافی-شاپ" as Route, label: "تجهیز کافی شاپ" },
+      { href: "/pages/تجهیز-فست-فود" as Route, label: "تجهیز فست فود" },
+      { href: "/pages/تجهیز-آشپزخانه-صنعتی" as Route, label: "تجهیز آشپزخانه صنعتی " },
+      { href: "/pages/تولید-انواع-یخچال-فروشگاهی" as Route, label: "تولید انواع یخچال فروشگاهی" },
+
     ],
   },
   {
     id: "2",
-    title: "Resources",
+    title: "دسترسی سریع",
     menus: [
-      { href: "/", label: "Best practices" },
-      { href: "/", label: "Support" },
-      { href: "/", label: "Developers" },
-      { href: "/", label: "Learn design" },
+      { href: "/pages/فروش-محصولات-در-تجهیزلند" as Route, label: "فروش محصولات در تجهیزلند" },
+      { href: "/pages/خدمات-پس-از-فروش" as Route, label: "خدمات پس از فروش" },
+      { href: "/pages/پرسش-های-متداول" as Route, label: "پرسش های متداول" },
+      { href: "/news" as Route, label: "مقالات" },
+      { href: "/pages/about" as Route, label: "درباره ما" },
+      { href: "/contact" as Route, label: "تماس با ما" },
+
     ],
-  },
-  {
-    id: "4",
-    title: "Community",
-    menus: [
-      { href: "/", label: "Discussion Forums" },
-      { href: "/", label: "Code of Conduct" },
-      { href: "/", label: "Contributing" },
-      { href: "/", label: "API Reference" },
-    ],
-  },
+  }
 ];
 
 const Footer: React.FC = () => {
   const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
     return (
       <div key={index} className="text-sm">
-        <h2 className="font-semibold text-neutral-700 dark:text-neutral-200">
+        <h2 className="font-semibold text-neutral-700 dark:text-neutral-200 text-base">
           {menu.title}
         </h2>
         <ul className="mt-5 space-y-4">
@@ -80,18 +80,21 @@ const Footer: React.FC = () => {
 
   return (
     <div className="nc-Footer relative py-20 lg:pt-28 lg:pb-24 border-t border-neutral-200 dark:border-neutral-700">
-      <div className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-5 lg:gap-x-10 ">
+      <div className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-4 lg:gap-x-10 ">
         <div className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
           <div className="col-span-2 md:col-span-1">
             <Logo />
           </div>
           <div className="col-span-2 flex items-center md:col-span-3">
-            <SocialsList1 className="flex items-center space-x-2 lg:space-x-0 lg:flex-col lg:space-y-3 lg:items-start" />
-          </div>
-        </div>
-        {widgetMenus.map(renderWidgetMenuItem)}
+            <div className="flex items-center space-x-2 lg:space-x-0 lg:flex-col lg:space-y-3 lg:items-start" />
+            <span className="text-xs text-gray-600">
+              تجهیز لند، فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...
+            </span>
+         </div>
       </div>
+      {widgetMenus.map(renderWidgetMenuItem)}
     </div>
+    </div >
   );
 };
 
