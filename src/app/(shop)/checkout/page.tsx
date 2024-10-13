@@ -157,35 +157,16 @@ const CheckoutPage = () => {
 
                                 </div>
 
-                                <div className="mt-3 flex justify-between w-full sm:hidden relative">
-                                    <select
-                                        name="qty"
-                                        id="qty"
-                                        className="form-select text-sm rounded-md py-1 border-slate-200 dark:border-slate-700 relative z-10 dark:bg-slate-800 "
-                                    >
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                    </select>
-                                    <Prices
-                                        contentClass="py-1 px-2 md:py-1.5 md:px-2.5 text-sm font-medium h-full"
-                                        price={item.color.price}
-                                    />
-                                </div>
-                            </div>
+                             </div>
 
-                            <div className="hidden flex-1 sm:flex justify-end">
+                            <div className="flex-1 sm:flex justify-end">
                                 <Prices price={item.color.price} className="mt-0.5"/>
                             </div>
                         </div>
                     </div>
 
                     <div className="flex mt-auto pt-4 items-end justify-between text-sm">
-                        <div className="hidden sm:block text-center relative">
+                        <div className=" sm:block text-center relative">
                             <NcInputNumber className="relative z-10"
                                            defaultValue={item.count}
                                            increaseHandle={() => {
