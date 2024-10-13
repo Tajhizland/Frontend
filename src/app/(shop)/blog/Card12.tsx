@@ -5,6 +5,7 @@ import { imgHigtQualitys, _getTitleRd } from "@/contains/fakeData";
 import PostCardMeta from "@/components/PostCardMeta/PostCardMeta";
 import Link from "next/link";
 import {NewsResponse} from "@/services/types/news";
+import {stripHTML} from "@/hooks/StripHtml";
 
 export interface Card12Props {
   className?: string;
@@ -42,7 +43,7 @@ const Card12: FC<Card12Props> = ({ className = "h-full" , data }) => {
         </h2>
         <span className="hidden sm:block mt-4 text-neutral-500 dark:text-neutral-400">
           <span className="line-clamp-2">
-               <div dangerouslySetInnerHTML={{__html: data.content.replace(/<img[^>]*>/g, "")}}/>
+               <div dangerouslySetInnerHTML={{__html: stripHTML(data.content)}}/>
 
           </span>
         </span>

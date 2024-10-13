@@ -5,6 +5,7 @@ import PostCardMeta from "@/components/PostCardMeta/PostCardMeta";
 import Link from "next/link";
 import {NewsResponse} from "@/services/types/news";
 import {Route} from "next";
+import {stripHTML} from "@/hooks/StripHtml";
 
 export interface Card13Props {
   className?: string;
@@ -12,12 +13,7 @@ export interface Card13Props {
 }
 
 const Card13: FC<Card13Props> = ({ className = "" , data }) => {
-    const stripHTML = (html:string) => {
-        let text = html.replace(/<\/?[^>]+(>|$)/g, "");
-        text = text.replace(/&nbsp;/g, ' ');
-        text = text.replace(/&zwnj;/g, '');
-        return text;
-    };
+
   return (
     <div className={`nc-Card13 relative flex ${className}`} data-nc-id="Card13">
       <div className="flex flex-col h-full py-2">
