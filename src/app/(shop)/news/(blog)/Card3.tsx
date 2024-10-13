@@ -5,22 +5,11 @@ import { _getImgRd, _getTagNameRd, _getTitleRd } from "@/contains/fakeData";
 import PostCardMeta from "@/components/PostCardMeta/PostCardMeta";
 import Link from "next/link";
 import { NewsResponse } from "@/services/types/news";
+import {stripHTML} from "@/hooks/StripHtml";
 
 export interface Card3Props {
   className?: string;
   item: NewsResponse;
-}
-function removeImagesFromHtml(htmlContent: string): string {
-  // ایجاد یک پارسر DOM
-  const parser = new DOMParser();
-  // تجزیه محتوای HTML
-  const doc = parser.parseFromString(htmlContent, 'text/html');
-
-  // حذف تگ‌های img از محتوای HTML
-  doc.querySelectorAll('img').forEach(img => img.remove());
-
-  // برگرداندن HTML جدید به صورت رشته
-  return doc.body.innerHTML;
 }
 const Card3: FC<Card3Props> = ({ className = "h-full", item }) => {
   return (
@@ -63,7 +52,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full", item }) => {
             </h2>
             <div className="hidden sm:block sm:mt-2">
               <span className="text-neutral-500 dark:text-neutral-400 text-base line-clamp-1">
-                <div dangerouslySetInnerHTML={{ __html: item.content.replace(/<img[^>]*>/g, "") }} />
+                <div dangerouslySetInnerHTML={{ __html: stripHTML(item.content) }} />
               </span>
             </div>
           </div>

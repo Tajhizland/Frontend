@@ -13,66 +13,67 @@ import Heading from "@/components/Heading/Heading";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
 import SectionMagazine5 from "@/app/(shop)/blog/SectionMagazine5";
-import { homePage } from "@/services/api/shop/homePage";
+import {homePage} from "@/services/api/shop/homePage";
+import MetaTag from "@/components/MetaTag/MetaTag";
 
- async function PageHome() {
-    const response= await homePage();
-  return (
-    <div className="nc-PageHome relative overflow-hidden">
-      <SectionHero2 data={response.sliders.data} />
+async function PageHome() {
+    const response = await homePage();
+    return (
+        <div className="nc-PageHome relative overflow-hidden">
+            <MetaTag description={"فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و..."} title={"تجهیزلند"}/>
+            <SectionHero2 data={response.sliders.data}/>
 
-      <div className="mt-24 lg:mt-32">
-        <DiscoverMoreSlider data={response.popularCategories.data} />
-      </div>
-
-        <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
-            <SectionSliderProductCard
-                data={response.popularProducts.data}
-                subHeading={""}
-                heading={"محصولات تخفیف دار"}
-            />
-            <div className="relative py-24 lg:py-32">
-                <BackgroundSection/>
-                <SectionGridMoreExplore data={response.concepts.data}/>
+            <div className="mt-24 lg:mt-32">
+                <DiscoverMoreSlider data={response.popularCategories.data}/>
             </div>
-            <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
-                <SectionHowItWork/>
-            </div>
-            <SectionPromo1/>
 
-            <SectionGridFeatureItems data={response.homepageCategories.data}/>
-            <SectionPromo2/>
-            <SectionSliderLargeProduct cardStyle="style2" data={response.specialProducts.data}/>
+            <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
+                <SectionSliderProductCard
+                    data={response.popularProducts.data}
+                    subHeading={""}
+                    heading={"محصولات تخفیف دار"}
+                />
+                <div className="relative py-24 lg:py-32">
+                    <BackgroundSection/>
+                    <SectionGridMoreExplore data={response.concepts.data}/>
+                </div>
+                <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
+                    <SectionHowItWork/>
+                </div>
+                <SectionPromo1/>
 
-            <div className="relative py-24 lg:py-32">
-                <BackgroundSection/>
-                <div>
-                    <Heading >
-                        جدیدترین اخبار
-                    </Heading>
-                    <SectionMagazine5 data={response.news.data}/>
-                    <div className="flex mt-16 justify-center">
-                        <ButtonSecondary href={"/news"}>مشاهده همه</ButtonSecondary>
+                <SectionGridFeatureItems data={response.homepageCategories.data}/>
+                <SectionPromo2/>
+                <SectionSliderLargeProduct cardStyle="style2" data={response.specialProducts.data}/>
+
+                <div className="relative py-24 lg:py-32">
+                    <BackgroundSection/>
+                    <div>
+                        <Heading>
+                            جدیدترین اخبار
+                        </Heading>
+                        <SectionMagazine5 data={response.news.data}/>
+                        <div className="flex mt-16 justify-center">
+                            <ButtonSecondary href={"/news"}>مشاهده همه</ButtonSecondary>
+                        </div>
                     </div>
                 </div>
+
+                <SectionSliderCategories data={response.brands.data}/>
+
+                {/*<SectionSliderProductCard*/}
+                {/*    heading="Best Sellers"*/}
+                {/*    subHeading="Best selling of the month"*/}
+                {/*/>*/}
+
+
+                {/*<SectionPromo3/>*/}
+
+
+                {/*<SectionClientSay/>*/}
             </div>
-
-            <SectionSliderCategories data={response.brands.data}/>
-
-            {/*<SectionSliderProductCard*/}
-            {/*    heading="Best Sellers"*/}
-            {/*    subHeading="Best selling of the month"*/}
-            {/*/>*/}
-
-
-
-            {/*<SectionPromo3/>*/}
-
-
-            {/*<SectionClientSay/>*/}
         </div>
-    </div>
-  );
+    );
 }
 
 export default PageHome;

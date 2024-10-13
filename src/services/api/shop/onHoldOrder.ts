@@ -13,7 +13,7 @@ export const myOnHoldOrder = async <T extends ServerResponse<OnHoldOrderResponse
 export const payment = async <T extends ServerResponse<PaymentResponse>>
 (id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("on-hold-order/payment/" + id)
+    return axios.post<T, SuccessResponseType<T>>("on-hold-order/payment/" + id)
         .then((res) => res?.data?.result?.data)
 };
 

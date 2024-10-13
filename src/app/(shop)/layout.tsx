@@ -23,6 +23,7 @@ const poppins = Poppins({
 const myFont: NextFont = localFont({src: '../../fonts/fa/IRANSansWeb.woff2'})
 const myFont2: NextFont = localFont({src: '../../fonts/fa/IRANSansWeb(FaNum).woff2'})
 
+
 export default function RootLayout({
                                        children,
                                        params,

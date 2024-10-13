@@ -6,6 +6,7 @@ export type OnHoldOrderResponse = {
     order_id: number;
     status: number;
     expire_date: string;
+    expire_date_time: number;
     review_date: string;
     created_at: string;
     updated_at: string;
