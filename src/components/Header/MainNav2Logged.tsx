@@ -7,7 +7,7 @@ import AvatarDropdown from "./AvatarDropdown";
 import Navigation from "@/shared/Navigation/Navigation";
 import CartDropdown from "./CartDropdown";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { usePathname } from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import { search } from "@/services/api/shop/search";
 import { SearchResponse } from "@/services/types/serach";
 import Link from "next/link";
@@ -24,6 +24,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const [showSearchForm, setShowSearchForm] = useState(false);
     const [searchResponse, setSearchResponse] = useState<ProductResponse[]>()
     const pathname = usePathname();
+    const router = useRouter();
 
     useEffect(() => {
         setShowSearchForm(false);
@@ -37,7 +38,9 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
         else
             setSearchResponse(undefined)
     }
-
+    const handleSearch = () => {
+        router.push("/search/"+inputRef.current?.value as Route);
+    }
     const renderMagnifyingGlassIcon = () => {
         return (
             <svg
