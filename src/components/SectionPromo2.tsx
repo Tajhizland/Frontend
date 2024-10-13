@@ -35,7 +35,7 @@ const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10" }) => {
           </span>
           <div className="flex space-x-2 sm:space-x-5 mt-6 sm:mt-12">
             <ButtonPrimary
-              href="/search"
+              href="/"
               className="dark:bg-slate-200 dark:text-slate-900"
             >
               Discover more
