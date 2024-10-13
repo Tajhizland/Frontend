@@ -43,6 +43,7 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
 
       <Link
         href={"/news/show/"+data.url as Route}
+        aria-label={"news"}
         className={`block relative h-full flex-shrink-0 w-2/5 sm:w-1/3 mr-3 sm:mr-5`}
       >
         <NcImage

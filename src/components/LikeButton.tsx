@@ -17,6 +17,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 
     return (
         <button
+            aria-label={"like button"}
             className={`w-9 h-9 flex items-center justify-center rounded-full bg-white dark:bg-slate-900 text-neutral-700 dark:text-slate-200 nc-shadow-lg ${className}`}
             onClick={() => {
                 likeHandle && likeHandle(isLiked ? false : true)

@@ -62,7 +62,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
                 </div>
             </div>
 
-            <Link href={{pathname: "/category/" + url}}></Link>
+            <Link aria-label={"category"} href={{pathname: "/category/" + url}}></Link>
         </div>
     );
 };

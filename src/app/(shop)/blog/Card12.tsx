@@ -16,6 +16,7 @@ const Card12: FC<Card12Props> = ({ className = "h-full" , data }) => {
   return (
     <div className={`nc-Card12 group relative flex flex-col ${className}`}>
       <Link
+          aria-label={"news"}
           href={{pathname:"/news/show/"+data.url}}
         className="block flex-shrink-0 flex-grow relative w-full h-0 aspect-w-4 aspect-h-3 rounded-3xl overflow-hidden"
       >
@@ -34,6 +35,8 @@ const Card12: FC<Card12Props> = ({ className = "h-full" , data }) => {
           className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors text-lg sm:text-2xl`}
         >
           <Link
+              aria-label={"news"}
+
               href={{pathname:"/news/show/"+data.url}}
             className="line-clamp-2 capitalize"
             title={"title"}

@@ -90,7 +90,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
                 </div>
                 <Prices className="mt-0.5 sm:mt-1 ml-4" price={price} />
             </div>
-            <Link href={"/product/" + url as Route} className="absolute inset-0 "></Link>
+            <Link href={"/product/" + url as Route} className="absolute inset-0 " aria-label={"product"}></Link>
         </div>
     );
 };

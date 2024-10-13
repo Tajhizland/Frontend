@@ -28,6 +28,8 @@ const CardCategory2: FC<CardCategory2Props> = ({
       href={`/brand/${url}` as Route}
       className={`nc-CardCategory2 ${className}`}
       data-nc-id="CardCategory2"
+      aria-label={"brand"}
+
     >
       <div
         className={`flex-1 relative w-full h-0 rounded-2xl overflow-hidden group ${ratioClass} ${bgClass}`}
