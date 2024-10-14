@@ -1,7 +1,7 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import ProductTab from "@/components/ProductTabs/ProductTab";
-import {getByProductId, remove, upload} from "@/services/api/admin/fileManager";
+import {getFiles, remove, upload} from "@/services/api/admin/fileManager";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
 import Uploader from "@/shared/Uploader/Uploader";
@@ -16,11 +16,11 @@ export default function Page() {
     const queryClient = useQueryClient();
     const {data: data, isLoading: isLoading} = useQuery({
         queryKey: [`files`],
-        queryFn: () => getByProductId(Number(id)),
+        queryFn: () => getFiles({model_id:Number(id) ,model_type:"news"}),
         staleTime: 5000,
     });
     async function submit(e: FormData) {
-       let response = await upload({product_id: Number(id), file: e.get("file") as File})
+        let response = await upload({model_id: Number(id), file: e.get("file") as File ,model_type:"news"})
         if (response?.success) {
             queryClient.refetchQueries(['files']);
             toast.success(response?.message as string);
