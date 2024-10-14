@@ -12,7 +12,7 @@ import { IoIosColorPalette, IoMdOptions } from "react-icons/io";
 import { FaFile, FaFilter, FaRegImage } from "react-icons/fa";
 import { MdOutlinePreview } from "react-icons/md";
 import { SiBasicattentiontoken } from "react-icons/si";
-import ProductTab from "@/components/ProductTabs/ProductTab";
+import ProductTab from "@/components/Tabs/ProductTab";
 export default function Page() {
     const [colorCount, setColorCount] = useState(1)
     const { id } = useParams();

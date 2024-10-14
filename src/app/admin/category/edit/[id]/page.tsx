@@ -7,7 +7,9 @@ import Form from "@/app/admin/category/Form";
 import {findById, update} from "@/services/api/admin/category";
 import { useParams } from "next/navigation";
 import {useQuery} from "react-query";
-import CategoryTab from "@/components/CategoryTabs/CategoryTab";
+import CategoryTab from "@/components/Tabs/CategoryTab";
+;
+
 import Spinner from "@/shared/Loading/Spinner";
 
 export default   function Page() {

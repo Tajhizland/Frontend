@@ -6,6 +6,7 @@ import Form from "@/app/admin/brand/Form";
 import {findById, update} from "@/services/api/admin/brand";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
+import BrandTab from "@/components/Tabs/BrandTab";
 
 export default async function Page()
 {
@@ -42,6 +43,7 @@ export default async function Page()
             <PageTitle>
                ویرایش برند
             </PageTitle>
+            <BrandTab id={id+""} />
             <div>
                 <Form submit={submit}  data={data}/>
             </div>

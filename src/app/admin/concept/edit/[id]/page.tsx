@@ -6,6 +6,7 @@ import Form from "@/app/admin/concept/Form";
 import {findById, update} from "@/services/api/admin/concept";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
+import ConceptTab from "@/components/Tabs/ConceptTab";
 
 export default async function Page()
 {
@@ -41,6 +42,7 @@ export default async function Page()
             <PageTitle>
                ویرایش concept
             </PageTitle>
+            <ConceptTab id={id+""} />
             <div>
                 <Form submit={submit}  data={data}/>
             </div>

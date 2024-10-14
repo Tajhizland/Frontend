@@ -1,6 +1,6 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import ProductTab from "@/components/ProductTabs/ProductTab";
+import ProductTab from "@/components/Tabs/ProductTab";
 import {deleteItem, findById, getItems, setItem} from "@/services/api/admin/concept";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";

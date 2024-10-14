@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 import {findById} from "@/services/api/admin/news";
 import {useQuery} from "react-query";
+import NewsTab from "@/components/Tabs/NewsTab";
 
 export default  function Page()
 {
@@ -46,6 +47,7 @@ export default  function Page()
             <PageTitle>
                 ویرایش بلاگ
             </PageTitle>
+            <NewsTab id={id+""} />
             <div>
                 <Form data={data} submit={submit} />
             </div>

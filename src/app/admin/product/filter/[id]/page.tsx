@@ -2,7 +2,7 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import FormComponent from "@/components/Form/Product/ColorForm";
 import Label from "@/components/Label/Label";
-import ProductTab from "@/components/ProductTabs/ProductTab";
+import ProductTab from "@/components/Tabs/ProductTab";
 import {findById, set} from "@/services/api/admin/filter";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";

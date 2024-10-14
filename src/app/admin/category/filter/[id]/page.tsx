@@ -1,6 +1,8 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import CategoryTab from "@/components/CategoryTabs/CategoryTab";
+import CategoryTab from "@/components/Tabs/CategoryTab";
+;
+
 import { findByCategoryId , setToCategory } from "@/services/api/admin/filter";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";

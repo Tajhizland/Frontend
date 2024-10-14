@@ -1,7 +1,7 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import FormComponent from "@/components/Form/Product/ColorForm";
-import ProductTab from "@/components/ProductTabs/ProductTab";
+import ProductTab from "@/components/Tabs/ProductTab";
 import { findById, set } from "@/services/api/admin/color";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";

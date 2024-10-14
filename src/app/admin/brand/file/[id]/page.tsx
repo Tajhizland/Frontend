@@ -1,6 +1,6 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import ProductTab from "@/components/ProductTabs/ProductTab";
+import ProductTab from "@/components/Tabs/ProductTab";
 import { getFiles, remove, upload} from "@/services/api/admin/fileManager";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
@@ -12,6 +12,7 @@ import {useQuery, useQueryClient} from "react-query";
 import {toast} from "react-hot-toast";
 import NcImage from "@/shared/NcImage/NcImage";
 import React from "react";
+import BrandTab from "@/components/Tabs/BrandTab";
 
 export default function Page() {
     const {id} = useParams();
@@ -46,12 +47,12 @@ export default function Page() {
                 href: "brand/edit/" + id
             },
             {
-                title: "ویرایش فایل برند",
+                title: "مدیریت فایل",
                 href: "brand/file/" + id
             }
         ]}/>
         <Panel>
-            <ProductTab id={id + ""}/>
+            <BrandTab id={id + ""}/>
             <div className="flex flex-col gap-y-4">
                 <form action={submit}>
                     <Uploader name={"file"}/>

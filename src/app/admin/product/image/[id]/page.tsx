@@ -1,6 +1,6 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import ProductTab from "@/components/ProductTabs/ProductTab";
+import ProductTab from "@/components/Tabs/ProductTab";
 import {getByProductId, remove, upload} from "@/services/api/admin/productImage";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";

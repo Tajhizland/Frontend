@@ -1,6 +1,8 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import CategoryTab from "@/components/CategoryTabs/CategoryTab";
+import CategoryTab from "@/components/Tabs/CategoryTab";
+;
+
 import Panel from "@/shared/Panel/Panel";
 import { useParams } from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
