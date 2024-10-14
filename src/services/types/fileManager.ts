@@ -1,5 +1,3 @@
-import {ProductResponse} from "@/services/types/product";
-
 export type FileManagerResponse = {
     id:number ;
     path:string ;

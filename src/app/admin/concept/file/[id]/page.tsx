@@ -16,11 +16,11 @@ export default function Page() {
     const queryClient = useQueryClient();
     const {data: data, isLoading: isLoading} = useQuery({
         queryKey: [`files`],
-        queryFn: () => getFiles({model_id:Number(id) ,model_type:"product"}),
+        queryFn: () => getFiles({model_id:Number(id) ,model_type:"concept"}),
         staleTime: 5000,
     });
     async function submit(e: FormData) {
-        let response = await upload({model_id: Number(id), file: e.get("file") as File ,model_type:"product"})
+        let response = await upload({model_id: Number(id), file: e.get("file") as File ,model_type:"concept"})
         if (response?.success) {
             queryClient.refetchQueries(['files']);
             toast.success(response?.message as string);
@@ -36,16 +36,16 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "محصولات",
-                href: "product"
+                title: "concept",
+                href: "concept"
             },
             {
-                title: "ویرایش محصول",
-                href: "product/edit/" + id
+                title: "ویرایش concept",
+                href: "concept/edit/" + id
             },
             {
-                title: "ویرایش رنگ محصول",
-                href: "product/color/" + id
+                title: "ویرایش فایل concept",
+                href: "concept/file/" + id
             }
         ]}/>
         <Panel>
