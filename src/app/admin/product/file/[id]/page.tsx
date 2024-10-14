@@ -10,6 +10,8 @@ import Image from "next/image";
 import {useParams} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
 import {toast} from "react-hot-toast";
+import NcImage from "@/shared/NcImage/NcImage";
+import React from "react";
 
 export default function Page() {
     const {id} = useParams();
@@ -62,8 +64,17 @@ export default function Page() {
                 {
                     data?.map((item) => (<>
                         <div className="flex flex-col justify-center items-center gap-y-4 ">
-                            <Image src={item.path as string} alt={"file"} width={720} height={100}
-                                   className="w-full h-full"/>
+                            <div
+                                className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group w-96 h-96">
+                                <NcImage
+                                    alt={"file"}
+                                    containerClassName="flex aspect-w-11 aspect-h-12 w-full h-full"
+                                    className="object-cover w-full h-full drop-shadow-xl"
+                                    fill
+                                    sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.path}`}
+                                />
+                            </div>
                             <span>
                                 {item.path}
                             </span>
