@@ -21,6 +21,7 @@ export type ProductResponse = {
     meta_title: string;
     category: string;
     min_price: number;
+    min_discounted_price: number;
     rating: number;
     favorite: boolean;
     study: string;

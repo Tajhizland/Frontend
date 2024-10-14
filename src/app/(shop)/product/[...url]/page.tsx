@@ -24,7 +24,6 @@ interface ProductPageProps {
 }
 
 const ProductDetailPage2 = async ({params}: ProductPageProps) => {
-    let status=""
 
     let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
     let product = productResponse.product;
@@ -54,32 +53,38 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
 
 
     const renderStatus = () => {
-        if (!status) {
+        let status="";
+        product.colors.data.map((item)=>{
+           if (item.statusLabel!=""){
+               status=item.statusLabel;
+           }
+        })
+         if (!status) {
             return null;
         }
         const CLASSES =
             "text-sm flex items-center text-slate-700 text-slate-900 dark:text-slate-300";
-        if (status === "New in") {
+        if (status == "new") {
             return (
                 <div className={CLASSES}>
                     <SparklesIcon className="w-3.5 h-3.5"/>
-                    <span className="mr-1 leading-none">{status}</span>
+                    <span className="mr-1 leading-none">محصول جدید</span>
                 </div>
             );
         }
-        if (status === "50% Discount") {
+        if (status == "discount") {
             return (
                 <div className={CLASSES}>
                     <IconDiscount className="w-3.5 h-3.5"/>
-                    <span className="mr-1 leading-none">{status}</span>
+                    <span className="mr-1 leading-none">{product.min_discounted_price} % تخفیف </span>
                 </div>
             );
         }
-        if (status === "Sold Out") {
+        if (status === "disable") {
             return (
                 <div className={CLASSES}>
                     <NoSymbolIcon className="w-3.5 h-3.5"/>
-                    <span className="mr-1 leading-none">{status}</span>
+                    <span className="mr-1 leading-none">نا‌موجود</span>
                 </div>
             );
         }

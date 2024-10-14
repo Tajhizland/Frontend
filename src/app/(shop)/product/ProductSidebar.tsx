@@ -19,6 +19,8 @@ import { toast } from "react-hot-toast";
 import NotifyAddTocart from "@/components/NotifyAddTocart";
 import { ProductResponse } from "@/services/types/product";
 import { useQueryClient } from "react-query";
+import {ClockIcon, NoSymbolIcon, SparklesIcon} from "@heroicons/react/24/outline";
+import IconDiscount from "@/components/IconDiscount";
 
 export default function ProductSidebar({ product }: { product: ProductResponse }) {
     const colors = product.colors.data;
@@ -35,7 +37,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                     name={product.name}
                     price={selectedColor.price}
                     productImage={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
-                    
+
                     qualitySelected={selectedCount}
                     show={t.visible}
                     color={selectedColor.color_name}
@@ -63,7 +65,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                         <div className={"flex mt-3"}>
                             <Prices
                                 contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold text-center"
-                                price={selectedColor.price}
+                                price={selectedColor.discountedPrice}
                             />
                         </div>
                     </div>
@@ -128,6 +130,48 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             }
         }
     }
+    const renderStatus = () => {
+
+        let status=selectedColor.statusLabel;
+        if (!status) {
+            return null;
+        }
+        const CLASSES =
+            "text-sm flex items-center text-slate-700 text-slate-900 dark:text-slate-300";
+        if (status == "new") {
+            return (
+                <div className={CLASSES}>
+                    <SparklesIcon className="w-3.5 h-3.5"/>
+                    <span className="mr-1 leading-none">محصول جدید</span>
+                </div>
+            );
+        }
+        if (status == "discount") {
+            return (
+                <div className={CLASSES}>
+                    <IconDiscount className="w-3.5 h-3.5"/>
+                    <span className="mr-1 leading-none">{selectedColor.discount} % تخفیف </span>
+                </div>
+            );
+        }
+        if (status === "disable") {
+            return (
+                <div className={CLASSES}>
+                    <NoSymbolIcon className="w-3.5 h-3.5"/>
+                    <span className="mr-1 leading-none">نا‌موجود</span>
+                </div>
+            );
+        }
+        if (status === "limited edition") {
+            return (
+                <div className={CLASSES}>
+                    <ClockIcon className="w-3.5 h-3.5"/>
+                    <span className="mr-1 leading-none">{status}</span>
+                </div>
+            );
+        }
+        return null;
+    };
 
     return (<>
         <div className="listingSectionSidebar__wrap lg:shadow-lg">
@@ -137,7 +181,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                     {/* ---------- 1 HEADING ----------  */}
                     <div className="flex items-center justify-between   gap-x-5">
                         <div className="flex text-2xl font-semibold">
-                            {selectedColor.price}
+                            {renderStatus()}
                         </div>
 
                         <a
@@ -164,7 +208,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                     </div>
                 </div>
                 {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
-                <div className="flex  gap-x-3.5">
+                {selectedColor.statusLabel!="disable"?<div className="flex  gap-x-3.5">
                     <div
                         className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
                         <NcInputNumber
@@ -180,11 +224,11 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                         onClick={addToCartHandle}
                         className="flex-1 flex-shrink-0"
                     >
-                        <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
+                        <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
                         <span className="mr-3">افزودن به سبد خرید</span>
                     </ButtonPrimary>
                     }
-                </div>
+                </div>:""}
 
                 {/* SUM */}
             </div>

@@ -3,7 +3,7 @@
 import React, {FC, useState} from "react";
 import LikeButton from "./LikeButton";
 import Prices from "./Prices";
-import {ArrowsPointingOutIcon} from "@heroicons/react/24/outline";
+import {ArrowsPointingOutIcon, ClockIcon, NoSymbolIcon, SparklesIcon} from "@heroicons/react/24/outline";
 import {Product, PRODUCTS} from "@/data/data";
 import {StarIcon} from "@heroicons/react/24/solid";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -19,6 +19,7 @@ import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
 import {ProductResponse} from "@/services/types/product";
 import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
+import IconDiscount from "@/components/IconDiscount";
 
 export interface ProductCardProps {
     className?: string;
@@ -118,31 +119,6 @@ const ProductCard2: FC<ProductCardProps> = ({
         );
     };
 
-    const getBorderClass = (Bgclass = "") => {
-        if (Bgclass.includes("red")) {
-            return "border-red-500";
-        }
-        if (Bgclass.includes("violet")) {
-            return "border-violet-500";
-        }
-        if (Bgclass.includes("orange")) {
-            return "border-orange-500";
-        }
-        if (Bgclass.includes("green")) {
-            return "border-green-500";
-        }
-        if (Bgclass.includes("blue")) {
-            return "border-blue-500";
-        }
-        if (Bgclass.includes("sky")) {
-            return "border-sky-500";
-        }
-        if (Bgclass.includes("yellow")) {
-            return "border-yellow-500";
-        }
-        return "border-transparent";
-    };
-
     const renderVariants = () => {
 
         return (
@@ -165,32 +141,6 @@ const ProductCard2: FC<ProductCardProps> = ({
     }
 
 
-    const renderGroupButtons = () => {
-        return (
-            <div
-                className="absolute bottom-0 group-hover:bottom-4 inset-x-1 flex justify-center opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                <ButtonPrimary
-                    className="shadow-lg"
-                    fontSize="text-xs"
-                    sizeClass="py-2 px-4"
-                    onClick={() => notifyAddTocart({size: "XL"})}
-                >
-                    <BagIcon className="w-3.5 h-3.5 mb-0.5"/>
-                    <span className="ms-1">Add to bag</span>
-                </ButtonPrimary>
-                <ButtonSecondary
-                    className="ms-1.5 bg-white hover:!bg-gray-100 hover:text-slate-900 transition-colors shadow-lg"
-                    fontSize="text-xs"
-                    sizeClass="py-2 px-4"
-                    onClick={() => setShowModalQuickView(true)}
-                >
-                    <ArrowsPointingOutIcon className="w-3.5 h-3.5"/>
-                    <span className="ms-1">Quick view</span>
-                </ButtonSecondary>
-            </div>
-        );
-    };
-
     async function likeHandle(like: boolean) {
         if (like) {
             let response = await addToFavorite({productId: data?.id as number})
@@ -201,6 +151,57 @@ const ProductCard2: FC<ProductCardProps> = ({
 
         }
     }
+    const renderStatus = () => {
+        let status="";
+        let discounted=0;
+        data?.colors.data.map((item)=>{
+            if (item.statusLabel!=""){
+                status=item.statusLabel;
+                if(item.discount>0)
+                {
+                    discounted=item.discount;
+                }
+            }
+        })
+        if (!status) {
+            return null;
+        }
+        const CLASSES =
+            " flex items-center text-slate-700 text-slate-900 dark:text-slate-300 absolute top-3 start-3 bg-white rounded-full p-2 text-xs";
+        if (status == "new") {
+            return (
+                <div className={CLASSES}>
+                    <SparklesIcon className="w-3.5 h-3.5"/>
+                    <span className="mr-1 leading-none">محصول جدید</span>
+                </div>
+            );
+        }
+        if (status == "discount") {
+            return (
+                <div className={CLASSES}>
+                    <IconDiscount className="w-3.5 h-3.5"/>
+                    <span className="mr-1 leading-none">{discounted}   تخفیف </span>
+                </div>
+            );
+        }
+        if (status === "disable") {
+            return (
+                <div className={CLASSES}>
+                    <NoSymbolIcon className="w-3.5 h-3.5"/>
+                    <span className="mr-1 leading-none">نا‌موجود</span>
+                </div>
+            );
+        }
+        if (status === "limited edition") {
+            return (
+                <div className={CLASSES}>
+                    <ClockIcon className="w-3.5 h-3.5"/>
+                    <span className="ml-1 leading-none">{status}</span>
+                </div>
+            );
+        }
+        return null;
+    };
 
 
     return (
@@ -225,6 +226,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                     </Link>
 
                     <LikeButton liked={data?.favorite} likeHandle={likeHandle} className="absolute top-3 end-3 z-10"/>
+                    {renderStatus()}
                     {/*{  renderGroupButtons()}*/}
                 </div>
 
@@ -237,7 +239,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                     </div>
 
                     <div className="flex justify-between items-end ">
-                        <Prices price={data?.min_price}/>
+                        <Prices price={data?.min_discounted_price}/>
                         <div className="flex items-center mb-0.5">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
