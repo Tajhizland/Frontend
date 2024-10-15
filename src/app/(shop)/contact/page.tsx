@@ -1,11 +1,11 @@
-import React, { FC } from "react";
-import SocialsList from "@/shared/SocialsList/SocialsList";
+"use client"
+import React, { FC } from "react"; 
 import Label from "@/components/Label/Label";
 import Input from "@/shared/Input/Input";
 import Textarea from "@/shared/Textarea/Textarea";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
-import SectionPromo1 from "@/components/SectionPromo1";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary"; 
+import { storeContact } from "@/services/api/admin/contact";
+import { toast } from "react-hot-toast";
 
 const info = [
   {
@@ -23,6 +23,16 @@ const info = [
 ];
 
 const PageContact = ({}) => {
+  async function submitHandle(e:FormData) {
+    let response = await storeContact(
+      {
+        name:e.get("name") as string,
+        email:e.get("email") as string,
+        message:e.get("message") as string
+      }
+    )
+    toast.success(response.message as string)
+  }
   return (
     <div className={`nc-PageContact overflow-hidden`}>
       <div className="">
@@ -44,7 +54,7 @@ const PageContact = ({}) => {
               ))} 
             </div>
             <div>
-              <form className="grid grid-cols-1 gap-6" action="#" method="post">
+              <form className="grid grid-cols-1 gap-6" action={submitHandle} method="post">
                 <label className="block">
                   <Label>نام</Label>
 
@@ -52,6 +62,7 @@ const PageContact = ({}) => {
                     placeholder="نام"
                     type="text"
                     className="mt-1"
+                    name="name"
                   />
                 </label>
                 <label className="block">
@@ -61,12 +72,14 @@ const PageContact = ({}) => {
                     type="email"
                     placeholder="ایمیل"
                     className="mt-1"
+                    name="email"
+
                   />
                 </label>
                 <label className="block">
                   <Label>پیام</Label>
 
-                  <Textarea className="mt-1" rows={6} />
+                  <Textarea name="message" className="mt-1" rows={6} />
                 </label>
                 <div>
                   <ButtonPrimary type="submit">ارسال پیام</ButtonPrimary>
