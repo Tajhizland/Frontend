@@ -72,7 +72,7 @@ const CartPage = () => {
             <div
                 className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                 <CheckIcon className="w-3.5 h-3.5" />
-                <span className="mr-1 leading-none">In Stock</span>
+                <span className="mr-1 leading-none">  موجود</span>
             </div>
         );
     };
@@ -177,16 +177,16 @@ const CartPage = () => {
                     </div>
 
                     <div className="flex mt-auto pt-4 items-end justify-between text-sm">
-                        {Math.random() > 0.6
+                        {!item.hasStock
                             ? renderStatusSoldout()
                             : renderStatusInstock()}
 
-                        <a
-                            href="##"
-                            className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "
-                        >
-                            <span>حذف</span>
-                        </a>
+                        {/*<a*/}
+                        {/*    href="##"*/}
+                        {/*    className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "*/}
+                        {/*>*/}
+                        {/*    <span>حذف</span>*/}
+                        {/*</a>*/}
                     </div>
                 </div>
             </div>

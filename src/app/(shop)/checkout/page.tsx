@@ -24,6 +24,7 @@ import {
 } from "@/services/globalState/GlobalState";
 import {useRouter} from "next/navigation";
 import {paymentRequest} from "@/services/api/shop/payment";
+import {CheckIcon, NoSymbolIcon} from "@heroicons/react/24/outline";
 
 const CheckoutPage = () => {
     const router = useRouter();
@@ -84,6 +85,25 @@ const CheckoutPage = () => {
         }, 80);
     };
 
+    const renderStatusSoldout = () => {
+        return (
+            <div
+                className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                <NoSymbolIcon className="w-3.5 h-3.5" />
+                <span className="mr-1 leading-none">ناموجود</span>
+            </div>
+        );
+    };
+
+    const renderStatusInstock = () => {
+        return (
+            <div
+                className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                <CheckIcon className="w-3.5 h-3.5" />
+                <span className="mr-1 leading-none">  موجود</span>
+            </div>
+        );
+    };
 
     const renderProduct = (item: CartResponse, index: number) => {
 
@@ -180,13 +200,15 @@ const CheckoutPage = () => {
                                            }}
                             />
                         </div>
-
-                        <a
-                            href="##"
-                            className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "
-                        >
-                            <span>حذف</span>
-                        </a>
+                        {!item.hasStock
+                            ? renderStatusSoldout()
+                            : renderStatusInstock()}
+                        {/*<a*/}
+                        {/*    href="##"*/}
+                        {/*    className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "*/}
+                        {/*>*/}
+                        {/*    <span>حذف</span>*/}
+                        {/*</a>*/}
                     </div>
                 </div>
             </div>
