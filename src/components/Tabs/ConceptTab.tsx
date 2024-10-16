@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FaFile } from "react-icons/fa"
+import { FaFile, FaTree} from "react-icons/fa"
  import { SiBasicattentiontoken } from "react-icons/si"
 
 export default function ConceptTab({id}:{id:string}) {
@@ -9,7 +9,11 @@ export default function ConceptTab({id}:{id:string}) {
             title: "concept",
             link: "/admin/concept/edit/"+id,
             icon: <SiBasicattentiontoken className="w-5 h-5" />
-        }, 
+        },         {
+            title: "آیتم ها",
+            link: "/admin/concept/items/"+id,
+            icon: <FaTree className="w-5 h-5" />
+        },
         {
             title: "مدیریت فایل",
             link: "/admin/concept/file/"+id,
@@ -31,7 +35,7 @@ export default function ConceptTab({id}:{id:string}) {
                         </li>
                     </>))
                 }
-                
+
             </ul>
         </div>
     </>)

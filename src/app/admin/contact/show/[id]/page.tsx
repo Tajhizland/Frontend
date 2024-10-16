@@ -21,7 +21,7 @@ export default function Page() {
     async function deleteHandle() {
         let response = await remove(Number(id));
         toast.success(response?.message as string)
-        queryClient.refetchQueries(['comment-info']);
+        queryClient.refetchQueries(['contact-info']);
     }
 
     return (<>
@@ -57,7 +57,7 @@ export default function Page() {
                         {data?.email}
                     </span>
                     </div>
-                   
+
                     <div className={"flex flex-col  py-5"}>
                     <span>
                         متن نظر :
@@ -68,7 +68,7 @@ export default function Page() {
                     </div>
                 </div>
                 <div className={"flex justify-between mt-10"}>
-                    <ButtonPrimary onClick={deleteHandle}>حذف</ButtonPrimary> 
+                    <ButtonPrimary onClick={deleteHandle}>حذف</ButtonPrimary>
                 </div>
             </div>
         </Panel>

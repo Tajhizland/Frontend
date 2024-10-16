@@ -3,7 +3,7 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/comment/TableRow";
+import {buttons, columns} from "@/app/admin/contact/TableRow";
 
 export default function Page() {
 

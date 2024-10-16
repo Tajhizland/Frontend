@@ -32,7 +32,7 @@ export default function Page()
         ]}/>
         <Panel>
             <PageTitle>
-                افزودن بلاگ جدید
+                افزودن درگاه پرداخت
             </PageTitle>
             <div>
                 <Form submit={submit} />

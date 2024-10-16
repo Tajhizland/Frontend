@@ -1,9 +1,7 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import ProductTab from "@/components/Tabs/ProductTab";
 import {deleteItem, findById, getItems, setItem} from "@/services/api/admin/concept";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Spinner from "@/shared/Loading/Spinner";
 import Panel from "@/shared/Panel/Panel";
 import {useParams} from "next/navigation";
@@ -13,6 +11,7 @@ import {useQuery, useQueryClient} from "react-query";
 import {categoryList} from "@/services/api/admin/category";
 import Select from "@/shared/Select/Select";
 import {TrashIcon} from "@heroicons/react/24/solid";
+import ConceptTab from "@/components/Tabs/ConceptTab";
 
 export default function Page() {
     const [selectedCategory, setSelectedCategory] = useState("0");
@@ -66,7 +65,7 @@ export default function Page() {
         ]}/>
         <Panel>
 
-            <ProductTab id={id + ""}/>
+            <ConceptTab id={id + ""}/>
             {
                 isLoading ? <Spinner/> : <>
                          {
