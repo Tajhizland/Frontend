@@ -46,6 +46,7 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
     const cartProduct: CartResponse = {
         id: product.id,
         count: quantity,
+        hasStock: true,
         product: {
             name: product.name,
             url: product.url,
@@ -73,10 +74,6 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
         // اگر محصول جدید است، آن را اضافه کنید
         newCart = [...cart, cartProduct];
     }
-
-    console.log("NEW CART",newCart);
-
-
     setCart(  newCart);
 };
 // سایر توابع

@@ -2,6 +2,7 @@
 export type CartResponse = {
     id:number ;
     count:number ;
+    hasStock:boolean ;
     product:{
         name:string ,
         url:string ,
