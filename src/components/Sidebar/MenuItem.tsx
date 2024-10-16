@@ -195,6 +195,11 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         url: "/user",
         icon: <NewspaperIcon className="h-6 w-6 text-gray-500" />,
 
+    },{
+        title: "مدیریت پیام ها",
+        url: "/contact",
+        icon: <NewspaperIcon className="h-6 w-6 text-gray-500" />,
+
     },
     {
         title: "سفارشات",

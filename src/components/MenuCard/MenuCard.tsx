@@ -1,11 +1,10 @@
 import React, { FC } from "react";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Link from "next/link";
-import Image, { StaticImageData } from "next/image";
-import {CATS_DISCOVER} from "@/components/CardCategories/data";
+import Image, { StaticImageData } from "next/image"; 
 import {Route} from "next";
 
-export interface CardCategory3Props {
+export interface MenuCardProps {
   className?: string;
   featuredImage?: StaticImageData | string;
   name?: string;
@@ -14,7 +13,7 @@ export interface CardCategory3Props {
   color?: string;
 }
 
-const Menu: FC<CardCategory3Props> = ({
+const MenuCard: FC<MenuCardProps> = ({
    featuredImage = "",
   name = "" ,
   color = "bg-red-50",
@@ -70,4 +69,4 @@ const Menu: FC<CardCategory3Props> = ({
   );
 };
 
-export default CardCategory3;
+export default MenuCard;
