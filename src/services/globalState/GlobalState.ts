@@ -56,6 +56,8 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
             title: color?.color_name || "",
             code: color?.color_code || "",
             price: color?.price || product.min_price,
+            discount: color?.discount || 0  ,
+            discountedPrice: color?.discountedPrice  || product.min_price,
         },
     };
 

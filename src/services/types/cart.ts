@@ -12,6 +12,8 @@ export type CartResponse = {
         title:string ,
         code:string ,
         price:number ,
+        discount:number ,
+        discountedPrice:number ,
     }
 
 };
