@@ -3,6 +3,7 @@ import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
 import {NewsResponse} from "@/services/types/news";
+import {UrlObject} from "node:url";
 
 export const columns: Column<NewsResponse>[] = [
     { key: 'id', header: 'شناسه', filterType: 'input', editable: false },
@@ -30,15 +31,13 @@ export const columns: Column<NewsResponse>[] = [
 ];
 export const buttons: DataTableButtons[] = [
     {
-        label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"} />,
-        type: "action",
+        label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
+        type: "link",
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        action: (value: any) => console.log(value)
-    },
-    {
-        label: <FaEye />,
-        type: "action",
-        colorClass: "bg-slate-900 text-white",
-        action: (value: any) => console.log(value)
+        href : (value: any): UrlObject => {
+            return {
+                pathname: 'news/edit/'+value,
+            };
+        }
     },
 ]

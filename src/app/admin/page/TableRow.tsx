@@ -2,24 +2,14 @@ import {Column, DataTableButtons} from "@/shared/DataTable/type";
 import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
-import { UrlObject } from "url";
-import {BrandResponse} from "@/services/types/brand";
-import Image from "next/image";
+import {NewsResponse} from "@/services/types/news";
+import {PageResponse} from "@/services/types/page";
+import {UrlObject} from "node:url";
 
-
-export const columns: Column<BrandResponse>[] = [
-    {
-        key: 'image',
-        header: 'تصویر',
-        hasFilter: false,
-        hasSort: false,
-        render: (value) => <Image className={"w-10 h-10 mx-auto"} alt={"image"} width={100} height={100}
-                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${value}`}
-                                />
-    },
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
-    {key: 'name', header: 'نام برند', filterType: 'input', editable: true},
-    {key: 'url', header: 'آدرس برند', filterType: 'input', editable: true},
+export const columns: Column<PageResponse>[] = [
+    { key: 'id', header: 'شناسه', filterType: 'input', editable: false },
+    { key: 'title', header: 'عنوان', filterType: 'input', editable: true },
+    { key: 'url', header: 'آدرس محصول', filterType: 'input', editable: true },
     {
         key: 'status',
         header: 'وضعیت',
@@ -39,7 +29,6 @@ export const columns: Column<BrandResponse>[] = [
 
     },
     { key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false },
-
 ];
 export const buttons: DataTableButtons[] = [
     {
@@ -48,8 +37,8 @@ export const buttons: DataTableButtons[] = [
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
         href : (value: any): UrlObject => {
             return {
-                pathname: 'brand/edit/'+value,
+                pathname: 'page/edit/'+value,
             };
         }
-    },
+    }
 ]

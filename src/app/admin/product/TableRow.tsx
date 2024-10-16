@@ -124,11 +124,4 @@ export const buttons: DataTableButtons[] = [
             };
         }
     },
-
-    {
-        label: <FaEye/>,
-        type: "action",
-        colorClass: "bg-slate-900 text-white",
-        action: (value: any) => console.log(value)
-    },
 ]

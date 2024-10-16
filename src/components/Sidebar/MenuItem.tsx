@@ -115,6 +115,44 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         ]
     },
     {
+        title: "صفحات",
+        url: "/",
+        icon: <NewspaperIcon className="h-6 w-6 text-gray-500" />,
+        sub: [
+            {
+                title: "مدیریت صفحات",
+                url: "/page",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+
+            },
+            {
+                title: "افزودن صفحه جدید",
+                url: "/page/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
+
+            }
+        ]
+    },
+    {
+        title: "پرسش های متداول",
+        url: "/",
+        icon: <NewspaperIcon className="h-6 w-6 text-gray-500" />,
+        sub: [
+            {
+                title: "مدیریت پرسش های متداول",
+                url: "/faq",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+
+            },
+            {
+                title: "افزودن پرسش های متداول",
+                url: "/faq/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
+
+            }
+        ]
+    },
+    {
         title: "concept",
         url: "/",
         icon: <NewspaperIcon className="h-6 w-6 text-gray-500" />,
@@ -128,6 +166,25 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
             {
                 title: "افزودن concept",
                 url: "/concept/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
+
+            }
+        ]
+    },
+    {
+        title: "اسلابدر",
+        url: "/slider",
+        icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+        sub: [
+            {
+                title: "مدیریت اسلابدر",
+                url: "/slider",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
+
+            },
+            {
+                title: "افزودن اسلابدر",
+                url: "/slider/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
 
             }
@@ -169,25 +226,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         url: "/",
         icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
         sub: [
-            {
-                title: "اسلابدر",
-                url: "/slider",
-                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
-                sub: [
-                    {
-                        title: "مدیریت اسلابدر",
-                        url: "/slider",
-                        icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
 
-                    },
-                    {
-                        title: "افزودن اسلابدر",
-                        url: "/slider/create",
-                        icon: <PencilIcon className="h-6 w-6 text-gray-500" />,
-
-                    }
-                ]
-            },
 
             {
                 title: "محصولات ویژه",
