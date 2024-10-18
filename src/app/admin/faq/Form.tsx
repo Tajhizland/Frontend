@@ -22,7 +22,7 @@ export default function Form({ data, submit  }: Form) {
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>پرسش</Label>
-                    <Input name={"name"} defaultValue={data?.question}/>
+                    <Input name={"question"} defaultValue={data?.question}/>
                 </div>
 
                 <div>
@@ -44,7 +44,7 @@ export default function Form({ data, submit  }: Form) {
 
                 <div>
                     <Label>پاسخ</Label>
-                    <Textarea name={"description"} defaultValue={data?.answer}/>
+                    <Textarea name={"answer"} defaultValue={data?.answer}/>
                 </div>
 
             </div>

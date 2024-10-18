@@ -212,7 +212,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                     <hr className="border-slate-200 dark:border-slate-700"/>
                     {/*
         {renderReviews()} */}
-                    <ProductComment comments={product.comments.data}/>
+                    <ProductComment comments={product.comments.data} productId={product.id}/>
 
                     <hr className="border-slate-200 dark:border-slate-700"/>
 
