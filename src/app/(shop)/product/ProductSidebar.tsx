@@ -8,7 +8,7 @@ import {
     reduxDecrementQuantity,
     reduxIncrementQuantity,
     reduxRemoveFromCart,
-    useGlobalState
+    useGlobalState, useUser
 } from "@/services/globalState/GlobalState";
 import BagIcon from "@/components/BagIcon";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -28,6 +28,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
     const [selectedCount, setSelectedCount] = useState<number>(0)
     const [cart, setCart] = useGlobalState('cart');
     const queryClient = useQueryClient(); // درست است
+    const [user] = useUser();
 
 
     const notifyAddTocart = () => {
@@ -98,6 +99,11 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
         return item ? item.count : 0;
     };
     async function addToCartHandle() {
+        if(!user)
+        {
+            toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
+            return;
+        }
         let response = await addToCart({ productColorId: selectedColor.id, count: selectedCount });
         if (response.success) {
             reduxAddToCart(product, selectedCount, selectedColor);
@@ -106,6 +112,11 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
     }
 
     async function increaseHandle() {
+        if(!user)
+        {
+            toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
+            return;
+        }
         if (checkColorInCart() > 0) {
             let response = await increaseCartItem({ productColorId: selectedColor.id });
             if (response.success) {
@@ -114,6 +125,11 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
         }
     }
     async function decreaseHandle() {
+        if(!user)
+        {
+            toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
+            return;
+        }
         if (checkColorInCart() > 0) {
             let response = await decreaseCartItem({ productColorId: selectedColor.id });
             if (response.success) {
@@ -123,6 +139,11 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
         }
     }
     async function removeHandle() {
+        if(!user)
+        {
+            toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
+            return;
+        }
         if (checkColorInCart() > 0) {
             let response = await removeCartItem({ productColorId: selectedColor.id });
             if (response.success) {
