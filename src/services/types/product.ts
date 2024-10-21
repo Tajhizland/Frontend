@@ -26,6 +26,9 @@ export type ProductResponse = {
     favorite: boolean;
     study: string;
     review: string;
+    unboxing_video: string;
+    intro_video: string;
+    usage_video: string;
     created_at: string;
     updated_at: string;
     colors: {

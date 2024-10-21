@@ -24,7 +24,7 @@ export const store = async <T extends ServerResponse<unknown>>
         meta_description: string,
         meta_title: string,
         study: string,
-        categoryId: string, 
+        categoryId: string,
     }
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/product/store",params)
@@ -44,7 +44,7 @@ export const update = async <T extends ServerResponse<unknown>>
         meta_title: string,
         study: string,
         categoryId: string,
-       
+
     }
 
 ) => {
@@ -55,9 +55,25 @@ export const update = async <T extends ServerResponse<unknown>>
 export const search = async <T extends ServerResponse<ProductResponse[]>>
 (
     params: {
-        query: string, 
+        query: string,
     }
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/search/product",params)
         .then((res) => res?.data?.result?.data)
+};
+
+export const setVideo = async <T extends ServerResponse<unknown>>
+(
+    params: {
+        file: File,
+        productId: number,
+        type: string,
+    }
+) => {
+    const formData = new FormData();
+    formData.append('productId', params.productId + "");
+    formData.append('type', params.type);
+    formData.append('file', params.file);
+    return axios.post<T, SuccessResponseType<T>>("admin/product/video/set",formData)
+        .then((res) => res?.data)
 };

@@ -160,6 +160,27 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                             content: renderOption()
 
                         },
+                        {
+                            name: "معرفی محصول",
+                            content:` <video controls className={"w-full"}>
+                                    <source src=${product.intro_video} type="video/mp4"/>
+                                </video>`
+
+                        },
+
+                        {
+                            name: "آنباکس محصول",
+                            content:` <video controls className={"w-full"}>
+                                    <source src=${product.unboxing_video} type="video/mp4"/>
+                                </video>`
+                        },
+
+                        {
+                            name: "طریقه استفاده از محصول",
+                            content:` <video controls className={"w-full"}>
+                                    <source src=${product.usage_video} type="video/mp4"/>
+                                </video>`
+                        },
 
                     ]}/>
             </div>
