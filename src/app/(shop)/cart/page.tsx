@@ -340,7 +340,7 @@ const CartPage = () => {
                                     <a
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        href="#"
+                                        href="/page/rule"
                                         className="text-slate-900 dark:text-slate-200  font-medium"
                                     >
                                         قوانین
