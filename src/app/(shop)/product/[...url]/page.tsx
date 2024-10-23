@@ -227,7 +227,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
 
     return (
         <>
-            <Script type="application/ld+json">
+            <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
             <div className={`ListingDetailPage nc-ProductDetailPage2`}>

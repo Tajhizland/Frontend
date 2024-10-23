@@ -83,7 +83,7 @@ const BlogSingle = async ({params}: ProductPageProps) => {
 
     return (
         <>
-            <Script type="application/ld+json">
+            <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
             <div className="nc-PageSingle pt-8 lg:pt-16 ">

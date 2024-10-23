@@ -70,7 +70,7 @@ const BlogSingle = async ({params}: ProductPageProps) => {
     const renderHeader = () => {
         return (
             <>
-                <Script type="application/ld+json">
+                <Script type="application/ld+json" id="schema">
                     {JSON.stringify(structuredData)}
                 </Script>
             <header className="container rounded-xl mb-5">

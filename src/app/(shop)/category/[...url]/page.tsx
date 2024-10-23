@@ -66,7 +66,7 @@ const PageCollection = async ({params, searchParams}: CategoryPageProps) => {
         }))
     };
     return (<>
-            <Script type="application/ld+json">
+            <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
             <Listing response={response} url={decodeURIComponent(params.url.join("/"))}/>

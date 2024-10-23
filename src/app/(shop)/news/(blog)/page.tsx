@@ -63,7 +63,7 @@ const BlogPage = async ({searchParams}: BlogPageProps) => {
     };
     return (
         <>
-            <Script type="application/ld+json">
+            <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
             <div className="nc-BlogPage overflow-hidden relative">
