@@ -321,6 +321,9 @@ const CheckoutPage = () => {
 
     return (
         <div className="nc-CheckoutPage">
+            <head>
+                <title>پرداخت</title>
+            </head>
             <main className="container py-16 lg:pb-28 lg:pt-20 ">
                 <div className="mb-16">
                     <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold ">
@@ -399,7 +402,9 @@ const CheckoutPage = () => {
                             <Alert containerClassName={"justify-center mt-4"} type={"error"}>محصول غیرفعال یا ناموجود در
                                 سبد خرید موجود میباشد </Alert>
                         } {
-                        limit && <Alert containerClassName={" justify-center mt-4"} type={"warning"}>محصول محدود کننده در سبد خرید موجود میباشد . پس از تایید مدیریت امکان پرداخت وجود دارد </Alert>
+                        limit &&
+                        <Alert containerClassName={" justify-center mt-4"} type={"warning"}>محصول محدود کننده در سبد
+                            خرید موجود میباشد . پس از تایید مدیریت امکان پرداخت وجود دارد </Alert>
                     }
 
                     </div>

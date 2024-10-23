@@ -2,14 +2,12 @@
 import {NoSymbolIcon, CheckIcon} from "@heroicons/react/24/outline";
 import NcInputNumber from "@/components/NcInputNumber";
 import Prices from "@/components/Prices";
-import {Product, PRODUCTS} from "@/data/data";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import {useQuery} from "react-query";
 import {decreaseCartItem, getCart, increaseCartItem, removeCartItem} from "@/services/api/shop/cart";
 import {CartResponse} from "@/services/types/cart";
-import {useGlobalState} from "@/services/globalState/CartGlobalState";
 import {
     reduxDecrementQuantity,
     reduxIncrementQuantity,
@@ -81,116 +79,122 @@ const CartPage = () => {
     const renderProduct = (item: CartResponse, index: number) => {
 
         return (
-            <div
-                key={index}
-                className="relative flex py-8 sm:py-10 xl:py-12 first:pt-0 last:pb-0"
-            >
-                <div className="relative h-36 w-24 sm:w-32 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
-                    <Image
-                        fill
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`}
-                        alt={item.product.name}
-                        sizes="300px"
-                        className="h-full w-full object-contain object-center"
-                    />
-                    <Link href={{pathname: "/product/" + item.product.url}} className="absolute inset-0"></Link>
-                </div>
+            <>
+                <head>
+                    <title>سبد خرید</title>
+                </head>
+                <div
+                    key={index}
+                    className="relative flex py-8 sm:py-10 xl:py-12 first:pt-0 last:pb-0"
+                >
+                    <div className="relative h-36 w-24 sm:w-32 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                        <Image
+                            fill
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`}
+                            alt={item.product.name}
+                            sizes="300px"
+                            className="h-full w-full object-contain object-center"
+                        />
+                        <Link href={{pathname: "/product/" + item.product.url}} className="absolute inset-0"></Link>
+                    </div>
 
-                <div className="mr-3 sm:ml-6 flex flex-1 flex-col">
-                    <div>
-                        <div className="flex justify-between ">
-                            <div className="flex-[1.5] ">
-                                <h3 className="text-base font-semibold">
-                                    <Link href={{pathname: "/product/" + item.product.url}}>{item.product.name}</Link>
-                                </h3>
-                                <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
-                                    <div className="flex items-center gap-x-1.5">
-                                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-                                            <path
-                                                d="M7.01 18.0001L3 13.9901C1.66 12.6501 1.66 11.32 3 9.98004L9.68 3.30005L17.03 10.6501C17.4 11.0201 17.4 11.6201 17.03 11.9901L11.01 18.0101C9.69 19.3301 8.35 19.3301 7.01 18.0001Z"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M8.35 1.94995L9.69 3.28992"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M2.07 11.92L17.19 11.26"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M3 22H16"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M18.85 15C18.85 15 17 17.01 17 18.24C17 19.26 17.83 20.09 18.85 20.09C19.87 20.09 20.7 19.26 20.7 18.24C20.7 17.01 18.85 15 18.85 15Z"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                        </svg>
+                    <div className="mr-3 sm:ml-6 flex flex-1 flex-col">
+                        <div>
+                            <div className="flex justify-between ">
+                                <div className="flex-[1.5] ">
+                                    <h3 className="text-base font-semibold">
+                                        <Link
+                                            href={{pathname: "/product/" + item.product.url}}>{item.product.name}</Link>
+                                    </h3>
+                                    <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
+                                        <div className="flex items-center gap-x-1.5">
+                                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
+                                                <path
+                                                    d="M7.01 18.0001L3 13.9901C1.66 12.6501 1.66 11.32 3 9.98004L9.68 3.30005L17.03 10.6501C17.4 11.0201 17.4 11.6201 17.03 11.9901L11.01 18.0101C9.69 19.3301 8.35 19.3301 7.01 18.0001Z"
+                                                    stroke="currentColor"
+                                                    strokeWidth="1.5"
+                                                    strokeMiterlimit="10"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                                <path
+                                                    d="M8.35 1.94995L9.69 3.28992"
+                                                    stroke="currentColor"
+                                                    strokeWidth="1.5"
+                                                    strokeMiterlimit="10"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                                <path
+                                                    d="M2.07 11.92L17.19 11.26"
+                                                    stroke="currentColor"
+                                                    strokeWidth="1.5"
+                                                    strokeMiterlimit="10"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                                <path
+                                                    d="M3 22H16"
+                                                    stroke="currentColor"
+                                                    strokeWidth="1.5"
+                                                    strokeMiterlimit="10"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                                <path
+                                                    d="M18.85 15C18.85 15 17 17.01 17 18.24C17 19.26 17.83 20.09 18.85 20.09C19.87 20.09 20.7 19.26 20.7 18.24C20.7 17.01 18.85 15 18.85 15Z"
+                                                    stroke="currentColor"
+                                                    strokeWidth="1.5"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
 
-                                        <span>{item.color.title}</span>
+                                            <span>{item.color.title}</span>
+                                        </div>
+                                        <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>
+
                                     </div>
-                                    <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>
 
                                 </div>
 
-                            </div>
+                                <div className=" block text-center relative">
+                                    <NcInputNumber className="relative z-10"
+                                                   defaultValue={item.count}
+                                                   increaseHandle={() => {
+                                                       increaseHandle(item.color.id as number)
+                                                   }}
+                                                   decreaseHandel={() => {
+                                                       decreaseHandle(item.color.id as number)
+                                                   }}
+                                                   removeHandle={() => {
+                                                       removeHandle(item.color.id as number)
+                                                   }}
 
-                            <div className=" block text-center relative">
-                                <NcInputNumber className="relative z-10"
-                                               defaultValue={item.count}
-                                               increaseHandle={() => {
-                                                   increaseHandle(item.color.id as number)
-                                               }}
-                                               decreaseHandel={() => {
-                                                   decreaseHandle(item.color.id as number)
-                                               }}
-                                               removeHandle={() => {
-                                                   removeHandle(item.color.id as number)
-                                               }}
+                                    />
+                                </div>
 
-                                />
-                            </div>
-
-                            <div className="hidden flex-1 sm:flex justify-end">
-                                <Prices price={item.color.price * item.count} className="mt-0.5"/>
+                                <div className="hidden flex-1 sm:flex justify-end">
+                                    <Prices price={item.color.price * item.count} className="mt-0.5"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="flex mt-auto pt-4 items-end justify-between text-sm">
-                        {!item.hasStock
-                            ? renderStatusSoldout()
-                            : renderStatusInstock()}
+                        <div className="flex mt-auto pt-4 items-end justify-between text-sm">
+                            {!item.hasStock
+                                ? renderStatusSoldout()
+                                : renderStatusInstock()}
 
-                        {/*<a*/}
-                        {/*    href="##"*/}
-                        {/*    className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "*/}
-                        {/*>*/}
-                        {/*    <span>حذف</span>*/}
-                        {/*</a>*/}
+                            {/*<a*/}
+                            {/*    href="##"*/}
+                            {/*    className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "*/}
+                            {/*>*/}
+                            {/*    <span>حذف</span>*/}
+                            {/*</a>*/}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </>
         );
     };
 
@@ -229,7 +233,7 @@ const CartPage = () => {
     const renderDiscount = () => {
         let sumDiscount: number = 0;
         cart.map((item) => {
-            sumDiscount += Number((item.color.price-item.color.discountedPrice) * item.count);
+            sumDiscount += Number((item.color.price - item.color.discountedPrice) * item.count);
         })
         return sumDiscount;
     }

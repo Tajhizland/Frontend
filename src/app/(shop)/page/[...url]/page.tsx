@@ -2,6 +2,9 @@ import React from "react";
 import MetaTag from "@/components/MetaTag/MetaTag";
 import {stripHTML} from "@/hooks/StripHtml";
 import {findPageByUrl} from "@/services/api/shop/page";
+import {Metadata} from "next";
+import {findNewsByUrl} from "@/services/api/shop/news";
+import Script from "next/script";
 
 interface ProductPageProps {
     params: {
@@ -9,11 +12,30 @@ interface ProductPageProps {
     }
 }
 
+export async function generateMetadata({params}: ProductPageProps): Promise<Metadata> {
+    const page = await findPageByUrl(decodeURIComponent(params.url.join("/")));
+    return {
+        title: page.title,
+        description: stripHTML(page.content),
+        twitter: {
+            title: page.title,
+            description: stripHTML(page.content),
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/page/${page.image}`,
+        },
+        openGraph: {
+            title: page.title,
+            description: stripHTML(page.content),
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/page/${page.image}`,
+            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/page/${page.url}`,
+            type: "website",
+        },
+        robots: "index , follow",
+    }
+}
+
 const BlogSingle = async ({params}: ProductPageProps) => {
 
     const page = await findPageByUrl(decodeURIComponent(params.url.join("/")));
-
-
 
     const structuredData = {
         "@context": "https://schema.org/",
@@ -31,6 +53,8 @@ const BlogSingle = async ({params}: ProductPageProps) => {
 
     const renderHeader = () => {
         return (
+            <>
+
             <header className="container rounded-xl mb-5">
                 <div className="max-w-screen-md mx-auto space-y-5 flex justify-between">
                     <h1
@@ -47,6 +71,7 @@ const BlogSingle = async ({params}: ProductPageProps) => {
           </span>
                 </div>
             </header>
+            </>
         );
     };
 
@@ -58,7 +83,9 @@ const BlogSingle = async ({params}: ProductPageProps) => {
 
     return (
         <>
-            <MetaTag description={stripHTML(page.content)} title={page.title} structuredData={JSON.stringify(structuredData)}/>
+            <Script type="application/ld+json">
+                {JSON.stringify(structuredData)}
+            </Script>
             <div className="nc-PageSingle pt-8 lg:pt-16 ">
 
                 {renderHeader()}

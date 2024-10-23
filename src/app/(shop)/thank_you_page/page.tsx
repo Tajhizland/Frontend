@@ -7,6 +7,9 @@ const ThankYouPage = () => {
 
     return (
         <>
+            <head>
+                <title>پرداخت موفق</title>
+            </head>
             <div className="nc-Page404">
                 <div className="container relative pt-5 pb-16 lg:pb-20 lg:pt-5">
                     {/* HEADER */}
@@ -17,7 +20,7 @@ const ThankYouPage = () => {
                             تبریک
                         </strong>
                         <span
-                        className="block text-sm text-neutral-800 sm:text-base dark:text-neutral-200 tracking-wider font-medium">
+                            className="block text-sm text-neutral-800 sm:text-base dark:text-neutral-200 tracking-wider font-medium">
                         سفارش شما با موفقیت ثبت گردید
                         </span>
                         <div className="pt-8">

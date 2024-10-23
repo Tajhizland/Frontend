@@ -1,7 +1,11 @@
 import React from "react";
-import { findBrandByUrl } from "@/services/api/shop/brand";
+import {findBrandByUrl} from "@/services/api/shop/brand";
 import Listing from "@/app/(shop)/brand/[...url]/Listing";
 import MetaTag from "@/components/MetaTag/MetaTag";
+import {Metadata} from "next";
+import {findPageByUrl} from "@/services/api/shop/page";
+import {stripHTML} from "@/hooks/StripHtml";
+import Script from "next/script";
 
 interface CategoryPageProps {
     params: {
@@ -12,7 +16,34 @@ interface CategoryPageProps {
     }
 }
 
-const PageCollection = async ({ params, searchParams }: CategoryPageProps) => {
+
+export async function generateMetadata({params, searchParams}: CategoryPageProps): Promise<Metadata> {
+    const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
+    let response = await findBrandByUrl(decodeURIComponent(params.url.join("/")), "", page)
+
+    return {
+        title: response.brand.name,
+        description: stripHTML(response.brand.description),
+        twitter: {
+            title: response.brand.name,
+            description: stripHTML(response.brand.description),
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${response.brand.image}`,
+        },
+        openGraph: {
+            title: response.brand.name,
+            description: stripHTML(response.brand.description),
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${response.brand.image}`,
+            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/brand/${response.brand.url}`,
+            type: "website",
+        },
+        robots: "index , follow",
+        alternates: {
+            canonical: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/brand/${response.brand.url}`,
+        }
+    }
+}
+
+const PageCollection = async ({params, searchParams}: CategoryPageProps) => {
     const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
     let response = await findBrandByUrl(decodeURIComponent(params.url.join("/")), "", page)
 
@@ -41,16 +72,12 @@ const PageCollection = async ({ params, searchParams }: CategoryPageProps) => {
             }
         }))
     };
-
-    console.log("SD",structuredData);
-    
     return (<>
-        <MetaTag description={response.brand.description}
-            title={response.brand.name}
-            canonical={"https://tajhizland/brand/" + response.brand.url}
-            structuredData={JSON.stringify(structuredData)} />
-        <Listing response={response} url={decodeURIComponent(params.url.join("/"))} />
-    </>
+            <Script type="application/ld+json">
+                {JSON.stringify(structuredData)}
+            </Script>
+            <Listing response={response} url={decodeURIComponent(params.url.join("/"))}/>
+        </>
     );
 };
 

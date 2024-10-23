@@ -14,13 +14,34 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
 import SectionMagazine5 from "@/app/(shop)/blog/SectionMagazine5";
 import {homePage} from "@/services/api/shop/homePage";
-import MetaTag from "@/components/MetaTag/MetaTag";
+import logo from "@/images/tajhizland/logo.png";
+import {Metadata} from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+    return {
+        title: "تجهیزلند",
+        description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+        twitter: {
+            title: "تجهیزلند",
+            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+            images: logo.src,
+        },
+        openGraph: {
+            title: "تجهیزلند",
+            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+            images: logo.src,
+            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}`,
+            type: "website",
+        },
+        robots: "index , follow",
+    }
+}
 
 async function PageHome() {
     const response = await homePage();
     return (
         <div className="nc-PageHome relative overflow-hidden">
-            <MetaTag description={"فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و..."} title={"تجهیزلند"}/>
+
             <SectionHero2 data={response.sliders.data}/>
 
             <div className="mt-24 lg:mt-32">

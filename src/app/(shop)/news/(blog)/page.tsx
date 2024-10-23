@@ -1,22 +1,45 @@
 import React from "react";
-import {getNewsPaginated} from "@/services/api/shop/news";
+import {findNewsByUrl, getNewsPaginated} from "@/services/api/shop/news";
 import Heading from "@/components/Heading/Heading";
 import Card3 from "./Card3";
-import Pagination from "@/shared/Pagination/Pagination";
-import AdminPagination from "@/shared/Pagination/AdminPagination";
 import ShopPagination from "@/shared/Pagination/ShopPagination";
 import {stripHTML} from "@/hooks/StripHtml";
 import MetaTag from "@/components/MetaTag/MetaTag";
+import {Metadata} from "next";
+import logo from "@/images/tajhizland/logo.png";
+import Script from "next/script";
 
 interface BlogPageProps {
     searchParams: { page?: string };
 }
 
+
+export async function generateMetadata(): Promise<Metadata> {
+    return {
+        title: "اخبار و مقالات",
+        description: "اخبار و مقالات",
+        twitter: {
+            title: "اخبار و مقالات",
+            description: "اخبار و مقالات",
+            images: logo.src,
+        },
+        openGraph: {
+            title: "اخبار و مقالات",
+            description: "اخبار و مقالات",
+            images: logo.src,
+            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/news`,
+            type: "website",
+        },
+        robots: "index , follow",
+        alternates: {
+            canonical: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/news`,
+        }
+    }
+}
+
 const BlogPage = async ({searchParams}: BlogPageProps) => {
     const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
     const data = await getNewsPaginated(page);
-
-
     const structuredData = {
         "@context": "https://schema.org/",
         "@type": "ItemList",
@@ -38,10 +61,11 @@ const BlogPage = async ({searchParams}: BlogPageProps) => {
             }
         }))
     };
-
     return (
         <>
-            <MetaTag description={"اخبار تجهیزلند"} title={"اخبار تجهیزلند"} structuredData={JSON.stringify(structuredData)} />
+            <Script type="application/ld+json">
+                {JSON.stringify(structuredData)}
+            </Script>
             <div className="nc-BlogPage overflow-hidden relative">
                 <div className="container relative">
                     <div className={`nc-SectionLatestPosts relative py-16 lg:py-28`}>
