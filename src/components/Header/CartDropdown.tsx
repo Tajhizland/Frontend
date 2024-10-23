@@ -21,7 +21,7 @@ import {useEffect} from "react";
 import { Route } from "next";
 
 export default function CartDropdown() {
- 
+
     const [cart] = useCart();
     const [user] = useUser();
 
@@ -29,13 +29,13 @@ export default function CartDropdown() {
         queryKey: ['cart'],
         queryFn: () => getCart(),
         staleTime: 5000,
-        enabled:!!user , 
-        onSuccess: (cartData) => { 
+        enabled:!!user ,
+        onSuccess: (cartData) => {
             setCart(cartData);
         }
     });
 
-    
+
     async function removeFromCart(id: number) {
          let response =await removeCartItem({productColorId: id});
          reduxRemoveFromCart(id);
@@ -51,7 +51,7 @@ export default function CartDropdown() {
                 <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
                     <Image
                         fill
-                        src={image}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`}
                         alt={name}
                         className="h-full w-full object-contain object-center"
                     />

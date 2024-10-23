@@ -3,7 +3,7 @@ export type ColorResponse = {
     product_id: number,
     color_name: string,
     color_code: string,
-    status: string,
+    status: number,
     statusLabel: string,
     price: number,
     discountedPrice: number,

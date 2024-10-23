@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.1.0",
+    "@dnd-kit/sortable": "^8.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@glidejs/glide": "^3.6.0",
     "@headlessui/react": "^2.0.3",
     "@heroicons/react": "^2.1.3",

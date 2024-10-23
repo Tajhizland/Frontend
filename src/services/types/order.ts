@@ -9,7 +9,7 @@ export type OrderResponse = {
     price: number;
     delivery_price: number;
     final_price: number;
-    status: string;
+    status: number;
     payment_method: number;
     order_date: string;
     delivery_date: string;

@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FaFile, FaFilter, FaRegImage } from "react-icons/fa"
+import {FaFile, FaFilter, FaRegImage, FaSort} from "react-icons/fa"
 import { IoIosColorPalette, IoMdOptions } from "react-icons/io"
 import { SiBasicattentiontoken } from "react-icons/si"
 
@@ -10,7 +10,7 @@ export default function CategoryTab({id}:{id:string}) {
             title: "دسته بندی",
             link: "/admin/category/edit/"+id,
             icon: <SiBasicattentiontoken className="w-5 h-5" />
-        }, 
+        },
         {
             title: "فیلتر",
             link: "/admin/category/filter/"+id,
@@ -20,7 +20,12 @@ export default function CategoryTab({id}:{id:string}) {
             title: "ویژگی",
             link: "/admin/category/option/"+id,
             icon: <IoMdOptions className="w-5 h-5" />
-        }, 
+        },
+        {
+            title: "سورت",
+            link: "/admin/category/sort/"+id,
+            icon: <FaSort className="w-5 h-5" />
+        },
     ]
     const pathname = usePathname();
 
@@ -37,7 +42,7 @@ export default function CategoryTab({id}:{id:string}) {
                         </li>
                     </>))
                 }
-                
+
             </ul>
         </div>
     </>)

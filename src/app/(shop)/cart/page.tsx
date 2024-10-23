@@ -1,15 +1,15 @@
 "use client"
-import { NoSymbolIcon, CheckIcon } from "@heroicons/react/24/outline";
+import {NoSymbolIcon, CheckIcon} from "@heroicons/react/24/outline";
 import NcInputNumber from "@/components/NcInputNumber";
 import Prices from "@/components/Prices";
-import { Product, PRODUCTS } from "@/data/data";
+import {Product, PRODUCTS} from "@/data/data";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
-import { useQuery } from "react-query";
-import { decreaseCartItem, getCart, increaseCartItem, removeCartItem } from "@/services/api/shop/cart";
-import { CartResponse } from "@/services/types/cart";
-import { useGlobalState } from "@/services/globalState/CartGlobalState";
+import {useQuery} from "react-query";
+import {decreaseCartItem, getCart, increaseCartItem, removeCartItem} from "@/services/api/shop/cart";
+import {CartResponse} from "@/services/types/cart";
+import {useGlobalState} from "@/services/globalState/CartGlobalState";
 import {
     reduxDecrementQuantity,
     reduxIncrementQuantity,
@@ -18,13 +18,14 @@ import {
     useCart,
     useUser
 } from "@/services/globalState/GlobalState";
-import { useMemo } from "react";
+import {useMemo} from "react";
+import {Alert} from "@/shared/Alert/Alert";
 
 const CartPage = () => {
     const [cart] = useCart();
     const [user] = useUser();
 
-    const { data, isSuccess } = useQuery({
+    const {data, isSuccess} = useQuery({
         queryKey: ['cart'],
         queryFn: () => getCart(),
         staleTime: 5000,
@@ -36,14 +37,14 @@ const CartPage = () => {
 
 
     async function increaseHandle(selectedColorId: number) {
-        let response = await increaseCartItem({ productColorId: selectedColorId });
+        let response = await increaseCartItem({productColorId: selectedColorId});
         if (response.success) {
             reduxIncrementQuantity(selectedColorId)
         }
     }
 
     async function decreaseHandle(selectedColorId: number) {
-        let response = await decreaseCartItem({ productColorId: selectedColorId });
+        let response = await decreaseCartItem({productColorId: selectedColorId});
         if (response.success) {
             reduxDecrementQuantity(selectedColorId)
         }
@@ -51,7 +52,7 @@ const CartPage = () => {
     }
 
     async function removeHandle(selectedColorId: number) {
-        let response = await removeCartItem({ productColorId: selectedColorId });
+        let response = await removeCartItem({productColorId: selectedColorId});
         if (response.success) {
             reduxRemoveFromCart(selectedColorId)
         }
@@ -61,7 +62,7 @@ const CartPage = () => {
         return (
             <div
                 className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                <NoSymbolIcon className="w-3.5 h-3.5" />
+                <NoSymbolIcon className="w-3.5 h-3.5"/>
                 <span className="mr-1 leading-none">ناموجود</span>
             </div>
         );
@@ -71,7 +72,7 @@ const CartPage = () => {
         return (
             <div
                 className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                <CheckIcon className="w-3.5 h-3.5" />
+                <CheckIcon className="w-3.5 h-3.5"/>
                 <span className="mr-1 leading-none">  موجود</span>
             </div>
         );
@@ -92,7 +93,7 @@ const CartPage = () => {
                         sizes="300px"
                         className="h-full w-full object-contain object-center"
                     />
-                    <Link href={{ pathname: "/product/" + item.product.url }} className="absolute inset-0"></Link>
+                    <Link href={{pathname: "/product/" + item.product.url}} className="absolute inset-0"></Link>
                 </div>
 
                 <div className="mr-3 sm:ml-6 flex flex-1 flex-col">
@@ -100,7 +101,7 @@ const CartPage = () => {
                         <div className="flex justify-between ">
                             <div className="flex-[1.5] ">
                                 <h3 className="text-base font-semibold">
-                                    <Link href={{ pathname: "/product/" + item.product.url }}>{item.product.name}</Link>
+                                    <Link href={{pathname: "/product/" + item.product.url}}>{item.product.name}</Link>
                                 </h3>
                                 <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
                                     <div className="flex items-center gap-x-1.5">
@@ -152,26 +153,26 @@ const CartPage = () => {
 
                                 </div>
 
-                             </div>
+                            </div>
 
                             <div className=" block text-center relative">
                                 <NcInputNumber className="relative z-10"
-                                    defaultValue={item.count}
-                                    increaseHandle={() => {
-                                        increaseHandle(item.color.id as number)
-                                    }}
-                                    decreaseHandel={() => {
-                                        decreaseHandle(item.color.id as number)
-                                    }}
-                                    removeHandle={() => {
-                                        removeHandle(item.color.id as number)
-                                    }}
+                                               defaultValue={item.count}
+                                               increaseHandle={() => {
+                                                   increaseHandle(item.color.id as number)
+                                               }}
+                                               decreaseHandel={() => {
+                                                   decreaseHandle(item.color.id as number)
+                                               }}
+                                               removeHandle={() => {
+                                                   removeHandle(item.color.id as number)
+                                               }}
 
                                 />
                             </div>
 
                             <div className="hidden flex-1 sm:flex justify-end">
-                                <Prices price={item.color.price * item.count} className="mt-0.5" />
+                                <Prices price={item.color.price * item.count} className="mt-0.5"/>
                             </div>
                         </div>
                     </div>
@@ -200,8 +201,44 @@ const CartPage = () => {
         })
         return sumPrice;
     }
+    const renderDiscountedPrice = () => {
+        let sumPrice: number = 0;
+        cart.map((item) => {
+            sumPrice += Number(item.color.discountedPrice * item.count);
+        })
+        return sumPrice;
+    }
+    const renderAllow = () => {
+        let allow: boolean = true;
+        cart.map((item) => {
+            if (item.color.status == 0 || !item.hasStock) {
+                allow = false
+            }
+        })
+        return allow;
+    }
+    const renderLimit = () => {
+        let limit: boolean = false;
+        cart.map((item) => {
+            if (item.color.status == 2) {
+                limit = true
+            }
+        })
+        return limit;
+    }
+    const renderDiscount = () => {
+        let sumDiscount: number = 0;
+        cart.map((item) => {
+            sumDiscount += Number((item.color.price-item.color.discountedPrice) * item.count);
+        })
+        return sumDiscount;
+    }
 
     const sumPrice = useMemo(() => renderSumPrice(), [cart]);
+    const allow = useMemo(() => renderAllow(), [cart]);
+    const limit = useMemo(() => renderLimit(), [cart]);
+    const sumDiscount = useMemo(() => renderDiscount(), [cart]);
+    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart]);
     return (
         <div className="nc-CartPage">
             <main className="container py-16 lg:pb-28 lg:pt-20 ">
@@ -219,11 +256,10 @@ const CartPage = () => {
                     </div>
                 </div>
 
-                <hr className="border-slate-200 dark:border-slate-700 my-10 xl:my-12" />
+                <hr className="border-slate-200 dark:border-slate-700 my-10 xl:my-12"/>
 
                 <div className="flex flex-col lg:flex-row">
-                    <div className="w-full lg:w-[60%] xl:w-[55%] divide-y divide-slate-200 dark:divide-slate-700 ">7
-
+                    <div className="w-full lg:w-[60%] xl:w-[55%] divide-y divide-slate-200 dark:divide-slate-700 ">
                         {cart && cart.map(renderProduct)}
                     </div>
                     <div
@@ -242,7 +278,7 @@ const CartPage = () => {
                                 <div className="flex justify-between py-4">
                                     <span>تخفیف</span>
                                     <span className="font-semibold text-slate-900 dark:text-slate-200">
-                                        0 تومان
+                                        {sumDiscount.toLocaleString()} تومان
                                     </span>
                                 </div>
 
@@ -250,13 +286,26 @@ const CartPage = () => {
                                     className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                     <span>مجموع</span>
                                     <span>
-                                        {sumPrice.toLocaleString()} تومان
+                                        {sumDiscountedPrice.toLocaleString()} تومان
                                     </span>
                                 </div>
                             </div>
-                            <ButtonPrimary href="/checkout" className="mt-8 w-full">
-                                پرداخت
+
+
+                            <ButtonPrimary href="/checkout" className="mt-8 w-full" disabled={!allow}>
+                                {
+                                    limit ? "ثبت درخواست" : "پرداخت"
+                                }
                             </ButtonPrimary>
+                            {
+                                !allow &&
+                                <Alert containerClassName={"justify-center mt-4"} type={"error"}>محصول غیرفعال در سبد
+                                    خرید موجود میباشد </Alert>
+                            } {
+                            limit &&
+                            <Alert containerClassName={" justify-center mt-4"} type={"warning"}>محصول محدود کننده در سبد
+                                خرید موجود میباشد . پس از تایید مدیریت امکان پرداخت وجود دارد </Alert>
+                        }
                             <div
                                 className="mt-5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">
                                 <p className="block relative pl-5">
@@ -291,8 +340,8 @@ const CartPage = () => {
                                     <a
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        href="##"
-                                        className="text-slate-900 dark:text-slate-200 underline font-medium"
+                                        href="#"
+                                        className="text-slate-900 dark:text-slate-200  font-medium"
                                     >
                                         قوانین
                                     </a>

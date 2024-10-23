@@ -25,6 +25,7 @@ import {
 import {useRouter} from "next/navigation";
 import {paymentRequest} from "@/services/api/shop/payment";
 import {CheckIcon, NoSymbolIcon} from "@heroicons/react/24/outline";
+import {Alert} from "@/shared/Alert/Alert";
 
 const CheckoutPage = () => {
     const router = useRouter();
@@ -49,7 +50,10 @@ const CheckoutPage = () => {
 
     async function payment() {
         let response = await paymentRequest();
-        window.location.href=response.path;
+        if (response.type == "payment")
+            window.location.href = response.path;
+        else
+            router.push("/thank_you_page")
     }
 
     async function increaseHandle(selectedColorId: number) {
@@ -89,7 +93,7 @@ const CheckoutPage = () => {
         return (
             <div
                 className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                <NoSymbolIcon className="w-3.5 h-3.5" />
+                <NoSymbolIcon className="w-3.5 h-3.5"/>
                 <span className="mr-1 leading-none">ناموجود</span>
             </div>
         );
@@ -99,7 +103,7 @@ const CheckoutPage = () => {
         return (
             <div
                 className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                <CheckIcon className="w-3.5 h-3.5" />
+                <CheckIcon className="w-3.5 h-3.5"/>
                 <span className="mr-1 leading-none">  موجود</span>
             </div>
         );
@@ -177,7 +181,7 @@ const CheckoutPage = () => {
 
                                 </div>
 
-                             </div>
+                            </div>
 
                             <div className="flex-1 sm:flex justify-end">
                                 <Prices price={item.color.price} className="mt-0.5"/>
@@ -267,7 +271,53 @@ const CheckoutPage = () => {
         })
         return sumPrice;
     }
+    const renderDiscount = () => {
+        let sumDiscount: number = 0;
+        cart.map((item) => {
+            sumDiscount += Number((item.color.price-item.color.discountedPrice) * item.count);
+        })
+        return sumDiscount;
+    }
+    const renderDiscountedPrice = () => {
+        let sumPrice: number = 0;
+        cart.map((item) => {
+            sumPrice += Number(item.color.discountedPrice * item.count);
+        })
+        return sumPrice;
+    }
+    const renderAllow = () => {
+        let allow: boolean = true;
+        cart.map((item) => {
+            if (item.color.status == 0 || !item.hasStock) {
+                allow = false
+            }
+        })
+        return allow;
+    }
+    const renderLimit = () => {
+        let limit: boolean = false;
+        cart.map((item) => {
+            if (item.color.status == 2) {
+                limit = true
+            }
+        })
+        return limit;
+    }
+    const renderMaxDeliveryDelay = () => {
+        let maxDeliveryDelay: number = 0;
+        cart.map((item) => {
+            if(item.color.delivery_delay>maxDeliveryDelay)
+                maxDeliveryDelay=item.color.delivery_delay
+        })
+        return maxDeliveryDelay;
+    }
+
     const sumPrice = useMemo(() => renderSumPrice(), [cart]);
+    const allow = useMemo(() => renderAllow(), [cart]);
+    const limit = useMemo(() => renderLimit(), [cart]);
+    const sumDiscount = useMemo(() => renderDiscount(), [cart]);
+    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart]);
+    const maxDeliveryDelay = useMemo(() => renderMaxDeliveryDelay(), [cart]);
 
     return (
         <div className="nc-CheckoutPage">
@@ -314,28 +364,43 @@ const CheckoutPage = () => {
                                     </button>
                                 </div>
                             </div>
-
-                            <div className="mt-4 flex justify-between py-2.5">
+                            <div className="mt-4  flex justify-between py-2.5">
+                                <span>زمان آماده سازی</span>
+                                <span className="font-semibold text-slate-900 dark:text-slate-200">
+                  {maxDeliveryDelay} روز
+                </span>
+                            </div>
+                            <div className="flex justify-between py-2.5">
                                 <span>محصولات</span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">
                   {sumPrice.toLocaleString()} تومان
                 </span>
                             </div>
+
                             <div className="flex justify-between py-2.5">
                                 <span> تخفیف  </span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  0
+                  {sumDiscount.toLocaleString()} تومان
                 </span>
                             </div>
                             <div
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                 <span> مجموع  </span>
                                 <span>
-                  {sumPrice.toLocaleString()} تومان
+                  {sumDiscountedPrice.toLocaleString()} تومان
                 </span>
                             </div>
                         </div>
-                        <ButtonPrimary className="mt-8 w-full" onClick={payment}>پرداخت</ButtonPrimary>
+                        <ButtonPrimary className="mt-8 w-full" onClick={payment}
+                                       disabled={!allow}>پرداخت</ButtonPrimary>
+
+                        {
+                            !allow &&
+                            <Alert containerClassName={"justify-center mt-4"} type={"error"}>محصول غیرفعال یا ناموجود در
+                                سبد خرید موجود میباشد </Alert>
+                        } {
+                        limit && <Alert containerClassName={" justify-center mt-4"} type={"warning"}>محصول محدود کننده در سبد خرید موجود میباشد . پس از تایید مدیریت امکان پرداخت وجود دارد </Alert>
+                    }
 
                     </div>
                 </div>

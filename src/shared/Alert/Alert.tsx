@@ -18,16 +18,20 @@ export const Alert: React.FC<AlertProps> = ({
       classes += " text-black bg-neutral-900";
       break;
     case "info":
-      classes += " bg-status-infoBg text-status-info";
+      // classes += " bg-status-infoBg text-status-info";
+      classes += " text-indigo-800 bg-indigo-100";
       break;
     case "success":
-      classes += " bg-status-successBg text-status-success";
+      // classes += " bg-status-successBg text-status-success";
+      classes += " text-green-800 bg-green-100";
       break;
     case "error":
-      classes += " bg-status-errorBg text-status-error";
+      // classes += " bg-status-errorBg text-status-error";
+      classes += " text-red-800 bg-red-100";
       break;
     case "warning":
-      classes += " bg-status-warningBg text-status-warning";
+      // classes += " bg-status-warningBg text-status-warning";
+      classes += " text-yellow-800 bg-yellow-100";
       break;
     default:
       break;
@@ -35,11 +39,9 @@ export const Alert: React.FC<AlertProps> = ({
 
   return (
     <div
-      className={`ttnc-alert relative flex items-center text-paragraph-base px-6 pt-4 pb-3 rounded-lg ${classes}`}
+      className={`ttnc-alert relative flex items-center text-paragraph-base px-2 py-3 rounded-lg ${classes}`}
     >
       <i className="pe-7s-info text-2xl mr-2"></i>
-        <ButtonClose className="absolute top-4 right-6" />
-
         {children}
     </div>
   );

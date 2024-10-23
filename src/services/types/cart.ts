@@ -12,6 +12,8 @@ export type CartResponse = {
         id:number|string ,
         title:string ,
         code:string ,
+        status:number ,
+        delivery_delay:number ,
         price:number ,
         discount:number ,
         discountedPrice:number ,
