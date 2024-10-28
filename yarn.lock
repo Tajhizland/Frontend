@@ -7,7 +7,11 @@
   "resolved" "https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz"
   "version" "5.2.0"
 
+<<<<<<< HEAD
 "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.1", "@babel/runtime@^7.15.4", "@babel/runtime@^7.18.3", "@babel/runtime@^7.23.8", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.7.2", "@babel/runtime@^7.9.2":
+=======
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.10.1", "@babel/runtime@^7.18.3", "@babel/runtime@^7.23.8", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.7.2":
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
   "integrity" "sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw=="
   "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.25.0.tgz"
   "version" "7.25.0"
@@ -287,6 +291,7 @@
     "@react-types/shared" "^3.24.1"
     "@swc/helpers" "^0.5.0"
     "clsx" "^2.0.0"
+<<<<<<< HEAD
 
 "@react-dnd/asap@^5.0.1":
   "integrity" "sha512-WLyfoHvxhs0V9U+GTsGilGgf2QsPl6ZZ44fnv0/b8T3nQyvzxidxsg/ZltbWssbsRDlYW8UKSQMTGotuTotZ6A=="
@@ -302,6 +307,8 @@
   "integrity" "sha512-/RVXdLvJxLg4QKvMoM5WlwNR9ViO9z8B/qPcc+C0Sa/teJY7QG7kJ441DwzOjMYEY7GmU4dj5EcGHIkKZiQZCA=="
   "resolved" "https://registry.npmjs.org/@react-dnd/shallowequal/-/shallowequal-4.0.2.tgz"
   "version" "4.0.2"
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 
 "@react-stately/utils@^3.10.2":
   "integrity" "sha512-fh6OTQtbeQC0ywp6LJuuKs6tKIgFvt/DlIZEcIpGho6/oZG229UnIk6TUekwxnDbumuYyan6D9EgUtEMmT8UIg=="
@@ -401,6 +408,7 @@
   "integrity" "sha512-OUjzveIu+tiK5VvyPh6jTBJ/vH6+vC+XWzC2KJzpgUW8uancMJBa7R+BlXuvtSPdLw/pQForVasy0fm1D7JWOQ=="
   "resolved" "https://registry.npmjs.org/@types/glidejs__glide/-/glidejs__glide-3.6.5.tgz"
   "version" "3.6.5"
+<<<<<<< HEAD
 
 "@types/hoist-non-react-statics@^3.3.0":
   "integrity" "sha512-SbcrWzkKBw2cdwRTwQAswfpB9g9LJWfjtUeW/jvNwbhC8cpmmNYVePa+ncbUe0rGTQ7G3Ff6mYUN2VMfLVr+Sg=="
@@ -409,6 +417,8 @@
   dependencies:
     "@types/react" "*"
     "hoist-non-react-statics" "^3.3.0"
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 
 "@types/js-cookie@^2.2.6":
   "integrity" "sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA=="
@@ -1000,6 +1010,7 @@
     "shebang-command" "^2.0.0"
     "which" "^2.0.1"
 
+<<<<<<< HEAD
 "css-box-model@^1.2.0":
   "integrity" "sha512-a7Vr4Q/kd/aw96bnJG332W9V9LkJO69JRcaCYDUqjp6/z0w6VcZjgAcTbgFxEPfBgdnAwlh3iwu+hLopa+flJw=="
   "resolved" "https://registry.npmjs.org/css-box-model/-/css-box-model-1.2.1.tgz"
@@ -1007,6 +1018,8 @@
   dependencies:
     "tiny-invariant" "^1.0.6"
 
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 "css-in-js-utils@^3.1.0":
   "integrity" "sha512-fJAcud6B3rRu+KHYk+Bwf+WFL2MDCJJ1XG9x137tJQ0xYxor7XziQtuGFbWNdqrvF4Tk26O3H73nfVqXt/fW1A=="
   "resolved" "https://registry.npmjs.org/css-in-js-utils/-/css-in-js-utils-3.1.0.tgz"
@@ -1159,6 +1172,7 @@
   "resolved" "https://registry.npmjs.org/dlv/-/dlv-1.1.3.tgz"
   "version" "1.1.3"
 
+<<<<<<< HEAD
 "dnd-core@^16.0.1":
   "integrity" "sha512-HK294sl7tbw6F6IeuK16YSBUoorvHpY8RHO+9yFfaJyCDVb6n7PRcezrOEOa2SBCqiYpemh5Jx20ZcjKdFAVng=="
   "resolved" "https://registry.npmjs.org/dnd-core/-/dnd-core-16.0.1.tgz"
@@ -1168,6 +1182,8 @@
     "@react-dnd/invariant" "^4.0.1"
     "redux" "^4.2.0"
 
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 "doctrine@^2.1.0":
   "integrity" "sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw=="
   "resolved" "https://registry.npmjs.org/doctrine/-/doctrine-2.1.0.tgz"
@@ -1898,6 +1914,7 @@
   dependencies:
     "function-bind" "^1.1.2"
 
+<<<<<<< HEAD
 "hoist-non-react-statics@^3.3.0", "hoist-non-react-statics@^3.3.2":
   "integrity" "sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw=="
   "resolved" "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
@@ -1905,6 +1922,8 @@
   dependencies:
     "react-is" "^16.7.0"
 
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 "hyphenate-style-name@^1.0.3":
   "integrity" "sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw=="
   "resolved" "https://registry.npmjs.org/hyphenate-style-name/-/hyphenate-style-name-1.1.0.tgz"
@@ -2404,6 +2423,7 @@
   dependencies:
     "@babel/runtime" "^7.23.8"
     "remove-accents" "0.5.0"
+<<<<<<< HEAD
 
 "mdn-data@2.0.14":
   "integrity" "sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow=="
@@ -2414,6 +2434,13 @@
   "integrity" "sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q=="
   "resolved" "https://registry.npmjs.org/memoize-one/-/memoize-one-5.2.1.tgz"
   "version" "5.2.1"
+=======
+
+"mdn-data@2.0.14":
+  "integrity" "sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow=="
+  "resolved" "https://registry.npmjs.org/mdn-data/-/mdn-data-2.0.14.tgz"
+  "version" "2.0.14"
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 
 "merge2@^1.3.0", "merge2@^1.4.1":
   "integrity" "sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg=="
@@ -2867,7 +2894,11 @@
   "resolved" "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
   "version" "1.2.1"
 
+<<<<<<< HEAD
 "prop-types@^15", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.1":
+=======
+"prop-types@^15", "prop-types@^15.6.2", "prop-types@^15.8.1":
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -2891,11 +2922,14 @@
   "resolved" "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   "version" "1.2.3"
 
+<<<<<<< HEAD
 "raf-schd@^4.0.2":
   "integrity" "sha512-tQkJl2GRWh83ui2DiPTJz9wEiMN20syf+5oKfB03yYP7ioZcJwsIK8FjrtLwH1m7C7e+Tt2yYBlrOpdT+dyeIQ=="
   "resolved" "https://registry.npmjs.org/raf-schd/-/raf-schd-4.0.3.tgz"
   "version" "4.0.3"
 
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 "rc-slider@^10.6.2":
   "integrity" "sha512-FjkoFjyvUQWcBo1F3RgSglky3ar0+qHLM41PlFVYB4Bj3RD8E/Mv7kqMouLFBU+3aFglMzzctAIWRwajEuueSw=="
   "resolved" "https://registry.npmjs.org/rc-slider/-/rc-slider-10.6.2.tgz"
@@ -2913,6 +2947,7 @@
     "@babel/runtime" "^7.18.3"
     "react-is" "^18.2.0"
 
+<<<<<<< HEAD
 "react-beautiful-dnd@^13.1.1":
   "integrity" "sha512-0Lvs4tq2VcrEjEgDXHjT98r+63drkKEgqyxdA7qD3mvKwga6a5SscbdLPO2IExotU1jW8L0Ksdl0Cj2AF67nPQ=="
   "resolved" "https://registry.npmjs.org/react-beautiful-dnd/-/react-beautiful-dnd-13.1.1.tgz"
@@ -2926,11 +2961,14 @@
     "redux" "^4.0.4"
     "use-memo-one" "^1.1.1"
 
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 "react-chartjs-2@^5.2.0":
   "integrity" "sha512-98iN5aguJyVSxp5U3CblRLH67J8gkfyGNbiK3c+l1QI/G4irHMPQw44aEPmjVag+YKTyQ260NcF82GTQ3bdscA=="
   "resolved" "https://registry.npmjs.org/react-chartjs-2/-/react-chartjs-2-5.2.0.tgz"
   "version" "5.2.0"
 
+<<<<<<< HEAD
 "react-dnd-html5-backend@^16.0.1":
   "integrity" "sha512-Wu3dw5aDJmOGw8WjH1I1/yTH+vlXEL4vmjk5p+MHxP8HuHJS1lAGeIdG/hze1AvNeXWo/JgULV87LyQOr+r5jw=="
   "resolved" "https://registry.npmjs.org/react-dnd-html5-backend/-/react-dnd-html5-backend-16.0.1.tgz"
@@ -2949,6 +2987,8 @@
     "fast-deep-equal" "^3.1.3"
     "hoist-non-react-statics" "^3.3.2"
 
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 "react-dom@18.3.1":
   "integrity" "sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.3.1.tgz"
@@ -2981,6 +3021,7 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
+<<<<<<< HEAD
 "react-is@^16.7.0":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -2991,6 +3032,8 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 "react-is@^18.2.0":
   "integrity" "sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-18.3.1.tgz"
@@ -3012,6 +3055,7 @@
     "broadcast-channel" "^3.4.1"
     "match-sorter" "^6.0.2"
 
+<<<<<<< HEAD
 "react-redux@^7.2.0":
   "integrity" "sha512-Gx4L3uM182jEEayZfRbI/G11ZpYdNAnBs70lFVMNdHJI76XYtR+7m0MN+eAs7UHBPhWXcnFPaS+9owSCJQHNpQ=="
   "resolved" "https://registry.npmjs.org/react-redux/-/react-redux-7.2.9.tgz"
@@ -3024,6 +3068,8 @@
     "prop-types" "^15.7.2"
     "react-is" "^17.0.2"
 
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 "react-spinners@^0.14.1":
   "integrity" "sha512-2Izq+qgQ08HTofCVEdcAQCXFEYfqTDdfeDQJeo/HHQiQJD4imOicNLhkfN2eh1NYEWVOX4D9ok2lhuDB0z3Aag=="
   "resolved" "https://registry.npmjs.org/react-spinners/-/react-spinners-0.14.1.tgz"
@@ -3101,6 +3147,7 @@
   "resolved" "https://registry.npmjs.org/redux-thunk/-/redux-thunk-3.1.0.tgz"
   "version" "3.1.0"
 
+<<<<<<< HEAD
 "redux@^4.0.0":
   "integrity" "sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w=="
   "resolved" "https://registry.npmjs.org/redux/-/redux-4.2.1.tgz"
@@ -3122,6 +3169,8 @@
   dependencies:
     "@babel/runtime" "^7.9.2"
 
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 "redux@^5.0.1":
   "integrity" "sha512-M9/ELqF6fy8FwmkpnF0S3YKOqMyoWJ4+CS5Efg2ct3oY9daQvd/Pc71FpGZsVsbl3Cpb+IIcjBDUnnyBdQbq4w=="
   "resolved" "https://registry.npmjs.org/redux/-/redux-5.0.1.tgz"
@@ -3655,7 +3704,11 @@
   "resolved" "https://registry.npmjs.org/through/-/through-2.3.8.tgz"
   "version" "2.3.8"
 
+<<<<<<< HEAD
 "tiny-invariant@^1.0.6", "tiny-invariant@^1.2.0":
+=======
+"tiny-invariant@^1.2.0":
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
   "integrity" "sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg=="
   "resolved" "https://registry.npmjs.org/tiny-invariant/-/tiny-invariant-1.3.3.tgz"
   "version" "1.3.3"
@@ -3818,11 +3871,14 @@
   dependencies:
     "punycode" "^2.1.0"
 
+<<<<<<< HEAD
 "use-memo-one@^1.1.1":
   "integrity" "sha512-g66/K7ZQGYrI6dy8GLpVcMsBp4s17xNkYJVSMvTEevGy3nDxHOfE6z8BVE22+5G5x7t3+bhzrlTDB7ObrEE0cQ=="
   "resolved" "https://registry.npmjs.org/use-memo-one/-/use-memo-one-1.1.3.tgz"
   "version" "1.1.3"
 
+=======
+>>>>>>> b71a5263754ad2d13abb67cd03ab425997589104
 "use-sync-external-store@1.2.0":
   "integrity" "sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA=="
   "resolved" "https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz"

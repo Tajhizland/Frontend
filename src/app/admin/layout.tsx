@@ -29,6 +29,7 @@ export default function AdminLayout({
         <>
             <html dir={"rtl"}>
             <body className={[myFont.className, myFont2.className].join(" ")}>
+            <QueryClientProvider client={queryClient}>
 
             <Navbar sidebarControl={() => {
                 setSidebarOpen(!sidebarOpen)
@@ -38,10 +39,10 @@ export default function AdminLayout({
                 <Suspense>
                     <AutoLoading/>
                 </Suspense>
-                <QueryClientProvider client={queryClient}>
                     {children}
-                </QueryClientProvider>
             </div>
+            </QueryClientProvider>
+
             <CommonClient/>
 
             </body>

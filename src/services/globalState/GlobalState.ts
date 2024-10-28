@@ -56,6 +56,8 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
             id: color?.id || "",
             title: color?.color_name || "",
             code: color?.color_code || "",
+            status: color?.status || 1,
+            delivery_delay: color?.delivery_delay || 0,
             price: color?.price || product.min_price,
             discount: color?.discount || 0  ,
             discountedPrice: color?.discountedPrice  || product.min_price,

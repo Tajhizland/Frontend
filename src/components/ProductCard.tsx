@@ -133,7 +133,7 @@ const ProductCard: FC<ProductCardProps> = ({
                     <Link href={"/product/"+data?.url as Route} className="block" aria-label={"product"}>
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
-                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0].url}`}
+                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0]?.url}`}
 
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill

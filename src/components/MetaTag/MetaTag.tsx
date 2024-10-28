@@ -39,7 +39,7 @@ export default function MetaTag(
         <meta property="og:country_name" content="iran"/>
         <meta property="og:phone_numbers" content="02166477790,02166477791"/>
 
-        {structuredData && <script type="application/ld+json">
+        {structuredData && <script type="application/ld+json" id="schema">
             {structuredData}
         </script>}
 

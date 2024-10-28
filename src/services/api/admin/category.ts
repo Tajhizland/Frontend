@@ -109,3 +109,24 @@ export const search = async <T extends ServerResponse<CategoryResponse[]>>
     return axios.post<T, SuccessResponseType<T>>("admin/search/category",params)
         .then((res) => res?.data?.result?.data)
 };
+
+
+export const productOfCategory = async <T extends ServerResponse<ProductResponse[]>>
+(
+    id:number
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/category/product/list/"+id)
+        .then((res) => res?.data?.result.data)
+};
+export const sort = async <T extends ServerResponse<unknown>>
+(param:{
+     product: {
+         id: number
+         sort: number
+     }[]
+ }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/category/sort",param)
+        .then((res) => res?.data)
+};
+

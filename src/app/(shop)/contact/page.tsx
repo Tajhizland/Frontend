@@ -1,12 +1,11 @@
 "use client"
-import React, { FC } from "react"; 
+import React, { FC } from "react";
 import Label from "@/components/Label/Label";
 import Input from "@/shared/Input/Input";
 import Textarea from "@/shared/Textarea/Textarea";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary"; 
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import { storeContact } from "@/services/api/admin/contact";
 import { toast } from "react-hot-toast";
-
 const info = [
   {
     title: "🗺 آدرس",
@@ -21,7 +20,6 @@ const info = [
     desc: "021-66477790-1",
   },
 ];
-
 const PageContact = ({}) => {
   async function submitHandle(e:FormData) {
     let response = await storeContact(
@@ -51,7 +49,7 @@ const PageContact = ({}) => {
                     {item.desc}
                   </span>
                 </div>
-              ))} 
+              ))}
             </div>
             <div>
               <form className="grid grid-cols-1 gap-6" action={submitHandle} method="post">
@@ -90,9 +88,8 @@ const PageContact = ({}) => {
         </div>
       </div>
 
-   
+
     </div>
   );
 };
-
 export default PageContact;

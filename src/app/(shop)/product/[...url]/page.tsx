@@ -15,6 +15,9 @@ import ProductImage from "../ProductImage";
 import ProductComment from "../ProductComment";
 import SectionSliderProductCard2 from "@/components/SectionSliderProductCard2";
 import MetaTag from "@/components/MetaTag/MetaTag";
+import {Metadata} from "next";
+import Script from "next/script";
+import {stripHTML} from "@/hooks/StripHtml";
 
 
 interface ProductPageProps {
@@ -22,19 +25,41 @@ interface ProductPageProps {
         url: [string];
     }
 }
+export async function generateMetadata({params}: ProductPageProps): Promise<Metadata> {
+    let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
+    let product = productResponse.product;
+
+    return {
+        title: product.meta_title??product.name,
+        description: product.meta_description??stripHTML(product.description),
+        twitter:{
+            title: product.meta_title??product.name,
+            description: product.meta_description??stripHTML(product.description),
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
+
+        },
+        openGraph:{
+            title: product.meta_title??product.name,
+            description: product.meta_description??stripHTML(product.description),
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
+            url:`${process.env.NEXT_PUBLIC_WEBSITE_URL}/product/${product.url}`,
+             type:"website",
+         },
+        robots:"index , follow",
+
+    }
+}
 
 const ProductDetailPage2 = async ({params}: ProductPageProps) => {
-
     let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
     let product = productResponse.product;
     let relatedProduct = productResponse.relatedProduct.data;
-
 
     const structuredData = {
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": product.name,
-        "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`,
+        "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
         "description": product.description,
         "sku": product.id,
         "offers": {
@@ -50,7 +75,6 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
             "name": product.brand
         }
     };
-
 
     const renderStatus = () => {
         let status="";
@@ -186,7 +210,6 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
             </div>
         );
     };
-
     const renderSection2 = () => {
         return (
             <div className="listingSection__wrap !border-b-0 !pb-0">
@@ -202,15 +225,13 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
         );
     };
 
-
     return (
         <>
-            <MetaTag description={product.meta_description} title={product.meta_title}
-                     structuredData={JSON.stringify(structuredData)}/>
+            <Script type="application/ld+json" id="schema">
+                {JSON.stringify(structuredData)}
+            </Script>
             <div className={`ListingDetailPage nc-ProductDetailPage2`}>
                 <ProductImage productImages={product.images.data}/>
-
-
                 {/* MAIn */}
                 <main className="container relative z-10 mt-9 sm:mt-11 flex ">
                     {/* CONTENT */}

@@ -48,10 +48,9 @@ const PageSearch = ({params, searchParams}: BrandPageProps) => {
 
     return (
         <>
-            <MetaTag description={"جستجوی محصولات"}
-                     title={"جستجوی محصولات"}
-                     robots={"noindex"}
-            />
+            <head>
+                <title>جستجو</title>
+            </head>
             <div className={`nc-PageSearch`} data-nc-id="PageSearch">
                 <div
                     className={`nc-HeadBackgroundCommon h-24 2xl:h-28 top-0 left-0 right-0 w-full bg-primary-50 dark:bg-neutral-800/20 `}

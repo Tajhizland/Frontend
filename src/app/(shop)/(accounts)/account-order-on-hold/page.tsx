@@ -16,6 +16,8 @@ import {OnHoldOrderResponse} from "@/services/types/onHoldOrder";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Counter from "@/components/Counter/Counter";
 import Counter2 from "@/components/Counter/Counter2";
+import {Alert} from "@/shared/Alert/Alert";
+import Badge from "@/shared/Badge/Badge";
 
 const AccountOrder = () => {
     const [page, setPage] = useState(1);
@@ -82,6 +84,7 @@ const AccountOrder = () => {
         );
     };
 
+
     const renderOrder = (item: OnHoldOrderResponse) => {
         return (
             <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
@@ -92,7 +95,13 @@ const AccountOrder = () => {
                         <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 sm:mt-2">
                             <span>{item.created_at}</span>
                             <span className="mx-2">·</span>
-                            <span className="text-primary-500">{OnHoldOrderStatus[Number(item.status)]}</span>
+                            <Badge color={"blue"} name={OnHoldOrderStatus[Number(item.status)]} />
+                            {
+                                (item.status == 1 && item?.order &&item?.order?.status < 3 && item.expire_date_time*1000<Date.now() )? <Badge color={"red"} name={"زمان پرداخت منقضی شده"} />:""
+                            }
+                            {
+                                (item.status == 1 && item?.order && item?.order?.status > 5 && item.expire_date_time*1000<Date.now() )? <Badge color={"green"} name={"پرداخت شده"} />:""
+                            }
 
                         </p>
                     </div>

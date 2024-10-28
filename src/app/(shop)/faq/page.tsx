@@ -1,6 +1,30 @@
 import AccordionInfo from "@/components/AccordionInfo";
-import CommentModal from "@/components/CommentModal/CommentModal";
 import { getFaq } from "@/services/api/shop/faq";
+import {Metadata} from "next";
+import logo from "@/images/tajhizland/logo.png";
+
+
+export async function generateMetadata(): Promise<Metadata> {
+
+    return {
+        title: "پرسش های متداول",
+        description: "سایت رسمی تجهیزلند با هدف ایجاد فضایی  جهت خرید امن و مطمئن طراحی شده است و با دریافت نماد اعتماد تجارت الکترونیکی روند ارائه و ارسال خود را به صورت کاملا قانونی ثبت نموده و اطمینان و رضایت خاطر کاربران را برای خریدی موفق فراهم ساخته است",
+        twitter: {
+            title: "پرسش های متداول",
+            description: "سایت رسمی تجهیزلند با هدف ایجاد فضایی  جهت خرید امن و مطمئن طراحی شده است و با دریافت نماد اعتماد تجارت الکترونیکی روند ارائه و ارسال خود را به صورت کاملا قانونی ثبت نموده و اطمینان و رضایت خاطر کاربران را برای خریدی موفق فراهم ساخته است",
+            images:logo.src,
+        },
+        openGraph: {
+            title: "پرسش های متداول",
+            description: "سایت رسمی تجهیزلند با هدف ایجاد فضایی  جهت خرید امن و مطمئن طراحی شده است و با دریافت نماد اعتماد تجارت الکترونیکی روند ارائه و ارسال خود را به صورت کاملا قانونی ثبت نموده و اطمینان و رضایت خاطر کاربران را برای خریدی موفق فراهم ساخته است",
+            images: logo.src,
+            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/faq`,
+            type: "website",
+        },
+        robots: "index , follow",
+
+    }
+}
 
 export default async function page() {
     let faq = await getFaq();
