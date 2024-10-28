@@ -5,7 +5,6 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import LineChart from "@/components/Chart/LineChart";
 import {FaComment, FaFileInvoiceDollar} from "react-icons/fa";
 import {MdOutlinePendingActions} from "react-icons/md";
-import {TbTruckReturn} from "react-icons/tb";
 import {useQuery} from "react-query";
 import {dashboard} from "@/services/api/admin/dashboard";
 import {UserPlusIcon} from "@heroicons/react/24/solid";
@@ -59,7 +58,7 @@ export default function Page() {
                         نمودار تعداد فروش
                     </PageTitle>
                     {isSuccess && <LineChart data={data.totalCount} XLabel={"تاریخ"} YLabel={"تعداد فروش "} label={"تعداد"}
-                                borderColor={"rgb(75, 192, 192)"} backgroundColor={"rgba(75, 192, 192,0.5)"}/>}
+                                             borderColor={"rgb(75, 192, 192)"} backgroundColor={"rgba(75, 192, 192,0.5)"}/>}
                 </div>
             </Panel>
             <Panel>
@@ -68,7 +67,7 @@ export default function Page() {
                         نمودار مقدار فروش
                     </PageTitle>
                     {isSuccess && <LineChart data={data.totalPrice} XLabel={"تاریخ"} YLabel={"فروش (تومان)"} label={"تومان"}
-                                borderColor={"rgb(250, 50, 192)"} backgroundColor={"rgba(250, 50, 192,0.5)"}/>}
+                                             borderColor={"rgb(250, 50, 192)"} backgroundColor={"rgba(250, 50, 192,0.5)"}/>}
                 </div>
             </Panel>
 
