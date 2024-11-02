@@ -2,8 +2,8 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import Form from "@/app/admin/faq/Form";
-import {update ,findById} from "@/services/api/admin/faq";
+import Form from "@/app/admin/guaranty/Form";
+import {update ,findById} from "@/services/api/admin/guaranty";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
  import {useQuery} from "react-query";
@@ -12,7 +12,7 @@ export default  function Page()
 {
     const { id } = useParams();
      const { data: data } = useQuery({
-        queryKey: [`faq-info`],
+        queryKey: [`guaranty-info`],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
@@ -20,9 +20,10 @@ export default  function Page()
         let response=await update(
             {
                 id:Number(id),
-                question: e.get("question") as string,
+                name: e.get("name") as string,
                 status: e.get("status") as string,
-                answer: e.get("answer") as string,
+                description: e.get("description") as string,
+                icon: e.get("icon") as File,
 
             }
         )
@@ -32,17 +33,17 @@ export default  function Page()
     return(<>
         <Breadcrump breadcrumb={[
             {
-                title: "تنظیمات پرسش های متداول",
-                href: "faq"
+                title: "  گارانتی",
+                href: "guaranty"
             },
             {
-                title: "ویرایش پرسش های متداول",
-                href: "faq/update/"+id
+                title: "ویرایش گارانتی",
+                href: "guaranty/update/"+id
             }
         ]}/>
         <Panel>
             <PageTitle>
-                ویرایش بلاگ
+                ویرایش گارانتی
             </PageTitle>
             <div>
                 <Form data={data} submit={submit} />
