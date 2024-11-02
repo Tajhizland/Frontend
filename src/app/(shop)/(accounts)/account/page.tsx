@@ -127,8 +127,8 @@ const AccountPage = () => {
                             <div>
                                 <Label>جنسیت</Label>
                                 <Select className="mt-1.5" name={"gender"}>
-                                    <option value="1" selected={user.gender == 1}>مرد</option>
-                                    <option value="0" selected={user.gender == 0}>زن</option>
+                                    <option value="1" selected={user?.gender == 1}>مرد</option>
+                                    <option value="0" selected={user?.gender == 0}>زن</option>
                                 </Select>
                             </div>
 

@@ -20,6 +20,7 @@ export type ProductResponse = {
     meta_description: string;
     meta_title: string;
     category: string;
+    guaranty_id: number;
     min_price: number;
     min_discounted_price: number;
     rating: number;

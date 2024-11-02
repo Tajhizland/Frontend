@@ -12,6 +12,7 @@ import FormComponent from "@/components/Form/Product/ColorForm";
 import { ProductResponse } from "@/services/types/product";
 import TinyEditor from "@/shared/Editor/TinyEditor";
 import Uploader from "@/shared/Uploader/Uploader";
+import {guarantyLists} from "@/services/api/admin/guaranty";
 
 interface productForm {
     data?: ProductResponse;
@@ -34,6 +35,12 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
     const { data: brandLists } = useQuery({
         queryKey: [`brand-list`],
         queryFn: () => brandList(),
+        staleTime: 5000,
+
+    });
+    const { data: guarantyList } = useQuery({
+        queryKey: [`guaranty-list`],
+        queryFn: () => guarantyLists(),
         staleTime: 5000,
     });
 
@@ -77,6 +84,19 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                     </Select>
                 </div>
                 <div>
+                    <Label>گارانتی</Label>
+                    <Select name={"guaranty_id"}>
+                        {
+                            guarantyList?.map((item) => (<>
+                                <option value={item.id} selected={item.id==data?.guaranty_id}>
+                                    {item.name}
+                                </option>
+                            </>))
+                        }
+
+                    </Select>
+                </div>
+                <div>
                     <Label>برند محصول</Label>
                     <Select name={"brand_id"}>
                         {
@@ -107,13 +127,13 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                 </div>
                 <div>
                     <Label>توضیحات سئو</Label>
-                    <TinyEditor name={"description"} value={data?.meta_description} />
+                    <Textarea name={"description"} >{data?.meta_description}</Textarea>
 
                 </div>
 
             </div>
             <hr className={"my-5"} />
-      
+
             <div className={"flex justify-center my-5"}>
                 <ButtonPrimary type={"submit"}>
                     ذخیره
