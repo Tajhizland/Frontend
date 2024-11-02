@@ -44,7 +44,11 @@ const AccountPage = () => {
                             {/* AVATAR */}
                             <div className="relative rounded-full overflow-hidden flex">
                                 <Image
-                                    src={avatarImgs[2]}
+                                    src={(user?.avatar) ?
+                                        `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/avatar/${user?.avatar}`
+                                        : avatarImgs[2]
+                                    }
+
                                     alt="avatar"
                                     width={128}
                                     height={128}
@@ -97,6 +101,7 @@ const AccountPage = () => {
                                         className="!rounded-r-none"
                                         placeholder="example@email.com"
                                         name={"email"}
+                                        defaultValue={user?.email}
                                     />
                                 </div>
                             </div>
@@ -122,8 +127,8 @@ const AccountPage = () => {
                             <div>
                                 <Label>جنسیت</Label>
                                 <Select className="mt-1.5" name={"gender"}>
-                                    <option value="1">مرد</option>
-                                    <option value="0">زن</option>
+                                    <option value="1" selected={user.gender == 1}>مرد</option>
+                                    <option value="0" selected={user.gender == 0}>زن</option>
                                 </Select>
                             </div>
 
