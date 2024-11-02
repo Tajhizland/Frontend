@@ -26,8 +26,8 @@ const AccountPage = () => {
             gender: e.get("gender") as string,
             avatar: e.get("avatar") as File,
         })
-
-        toast.success(response.message as string);
+        if (response.success)
+            toast.success(response?.message as string);
     }
 
     return (
@@ -103,20 +103,20 @@ const AccountPage = () => {
 
                             {/* ---- */}
 
-                {/*            <div>*/}
-                {/*                <Label>آدرس</Label>*/}
-                {/*                <div className="mt-1.5 flex">*/}
-                {/*<span*/}
-                {/*    className="inline-flex items-center px-2.5 rounded-r-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">*/}
-                {/*  <i className="text-2xl las la-map-signs"></i>*/}
-                {/*</span>*/}
-                {/*                    <Input*/}
-                {/*                        className="!rounded-r-none"*/}
-                {/*                        defaultValue="New york, USA"*/}
-                {/*                        name={"address"}*/}
-                {/*                    />*/}
-                {/*                </div>*/}
-                {/*            </div>*/}
+                            {/*            <div>*/}
+                            {/*                <Label>آدرس</Label>*/}
+                            {/*                <div className="mt-1.5 flex">*/}
+                            {/*<span*/}
+                            {/*    className="inline-flex items-center px-2.5 rounded-r-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">*/}
+                            {/*  <i className="text-2xl las la-map-signs"></i>*/}
+                            {/*</span>*/}
+                            {/*                    <Input*/}
+                            {/*                        className="!rounded-r-none"*/}
+                            {/*                        defaultValue="New york, USA"*/}
+                            {/*                        name={"address"}*/}
+                            {/*                    />*/}
+                            {/*                </div>*/}
+                            {/*            </div>*/}
 
                             {/* ---- */}
                             <div>
@@ -135,7 +135,8 @@ const AccountPage = () => {
                     className="inline-flex items-center px-2.5 rounded-r-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-phone-volume"></i>
                 </span>
-                                    <Input name={"mobile"} className="!rounded-r-none" defaultValue={user?.username} readOnly/>
+                                    <Input name={"mobile"} className="!rounded-r-none" defaultValue={user?.username}
+                                           readOnly/>
                                 </div>
                             </div>
                             {/* ---- */}
