@@ -26,7 +26,7 @@ const AccountPage = () => {
             gender: e.get("gender") as string,
             avatar: e.get("avatar") as File,
         })
-        if (response.success)
+        if (response?.success)
             toast.success(response?.message as string);
     }
 
@@ -122,8 +122,8 @@ const AccountPage = () => {
                             <div>
                                 <Label>جنسیت</Label>
                                 <Select className="mt-1.5" name={"gender"}>
-                                    <option value="Male">مرد</option>
-                                    <option value="Female">زن</option>
+                                    <option value="1">مرد</option>
+                                    <option value="0">زن</option>
                                 </Select>
                             </div>
 
