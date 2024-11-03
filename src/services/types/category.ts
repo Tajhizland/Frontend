@@ -15,7 +15,7 @@ export type CategoryResponse = {
     minPrice: number;
     maxPrice: number;
     pivot?: CategoryConceptResponse;
-    filters?: { data: FilterResponse[] };
+    filters: { data: FilterResponse[] };
     products?: { data: ProductResponse[] };
 };
 
