@@ -144,7 +144,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
                             {
                                 tabActive==index ?   <CardCategory4
                                     featuredImage={`${category.image}`}
-                                    name={category.name}
+                                    name={category?.pivot?.display ?? category.name}
                                     key={category.id}
                                     url={category.url}
                                     bgSVG={svg[index2%9]}

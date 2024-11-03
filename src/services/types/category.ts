@@ -1,5 +1,6 @@
 import {FilterResponse} from "@/services/types/filter";
 import {ProductResponse} from "@/services/types/product";
+import {CategoryConceptResponse} from "@/services/types/categoryConcept";
 
 export type CategoryResponse = {
     id: number;
@@ -13,7 +14,8 @@ export type CategoryResponse = {
     updated_at: string;
     minPrice: number;
     maxPrice: number;
-    filters: { data: FilterResponse[] };
+    pivot?: CategoryConceptResponse;
+    filters?: { data: FilterResponse[] };
     products?: { data: ProductResponse[] };
 };
 
