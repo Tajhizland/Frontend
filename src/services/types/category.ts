@@ -14,7 +14,7 @@ export type CategoryResponse = {
     updated_at: string;
     minPrice: number;
     maxPrice: number;
-    pivot?: CategoryConceptResponse;
+    display_name?: string;
     filters: { data: FilterResponse[] };
     products?: { data: ProductResponse[] };
 };
