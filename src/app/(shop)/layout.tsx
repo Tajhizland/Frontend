@@ -13,6 +13,7 @@ import localFont from "next/font/local";
 import {QueryClient, QueryClientProvider} from "react-query";
 import AutoLoading from "@/app/(shop)/AutoLoading";
 import {Suspense} from "react";
+import BottomNavigation from "@/components/BottomNavigation/BottomNavigation";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -43,6 +44,7 @@ export default function RootLayout({
                     <AutoLoading/>
                 </Suspense>
                 {children}
+                <BottomNavigation />
             </QueryClientProvider>
             <Footer/>
         </div>
