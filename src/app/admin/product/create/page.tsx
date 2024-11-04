@@ -16,7 +16,7 @@ export default function Page() {
             {
                 name: e.get("name") as string,
                 url: e.get("url") as string,
-                status: e.get("status") as string,
+                status: Number(e.get("status")) ,
                 brand_id: "1" as string,
                 description: e.get("description") as string,
                 meta_description: e.get("meta_description") as string,
