@@ -10,7 +10,7 @@ import { useState } from "react";
 export default function Page() {
     const [colorCount, setColorCount] = useState(1)
      async function submit(e: FormData) {
- 
+
 
         let response = await store(
             {
@@ -22,7 +22,8 @@ export default function Page() {
                 meta_description: e.get("meta_description") as string,
                 meta_title: e.get("meta_title") as string,
                 study: e.get("study") as string,
-                categoryId: e.get("category_id") as string, 
+                categoryId: e.get("category_id") as string,
+                guaranty_id:Number(e.get("guaranty_id"))
             }
         )
         toast.success(response?.message as string)
@@ -42,7 +43,7 @@ export default function Page() {
         <Panel>
             <PageTitle>
                 ایجاد محصول جدید
-            </PageTitle> 
+            </PageTitle>
             <div>
                 <Form submit={submit} colorCount={colorCount} setColorCount={setColorCount} />
             </div>

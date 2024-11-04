@@ -13,6 +13,7 @@ import { FaFile, FaFilter, FaRegImage } from "react-icons/fa";
 import { MdOutlinePreview } from "react-icons/md";
 import { SiBasicattentiontoken } from "react-icons/si";
 import ProductTab from "@/components/Tabs/ProductTab";
+import {number} from "prop-types";
 export default function Page() {
     const [colorCount, setColorCount] = useState(1)
     const { id } = useParams();
@@ -25,7 +26,7 @@ export default function Page() {
 
     async function submit(e: FormData) {
 
-        
+
 
         let response = await update(
             {
@@ -38,7 +39,8 @@ export default function Page() {
                 meta_description: e.get("meta_description") as string,
                 meta_title: e.get("meta_title") as string,
                 study: e.get("study") as string,
-                categoryId: e.get("category_id") as string, 
+                categoryId: e.get("category_id") as string,
+                guaranty_id:Number(e.get("guaranty_id"))
             }
         )
         toast.success(response?.message as string)
