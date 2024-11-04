@@ -13,7 +13,7 @@ import {ProductResponse} from "@/services/types/product";
 
 export default function Page() {
     async function submit(e: ProductResponse) {
- 
+
         let response = await update(
             {
                 id: e.id,
@@ -24,8 +24,9 @@ export default function Page() {
                 description:  e.description,
                 meta_description: e.meta_description,
                 meta_title:  e.meta_title,
+                guaranty_id:e.guaranty_id,
                 study:  e.study,
-                categoryId: e.category_id +"" as string, 
+                categoryId: e.category_id +"" as string,
             }
         )
         toast.success(response?.message as string)
