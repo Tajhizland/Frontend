@@ -85,10 +85,11 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                 </div>
                 <div>
                     <Label>گارانتی</Label>
-                    <option value={undefined} selected={data?.guaranty_id==null}>
-                        بدون گارانتی
-                    </option>
+
                     <Select name={"guaranty_id"}>
+                        <option value={undefined} selected={data?.guaranty_id == null}>
+                            بدون گارانتی
+                        </option>
                         {
                             guarantyList?.map((item) => (<>
                                 <option value={item.id} selected={item.id == data?.guaranty_id}>
