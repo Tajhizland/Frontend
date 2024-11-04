@@ -23,9 +23,9 @@ const PageLogin = () => {
 
     return (
         <>
-            <head>
-                <title>ورود</title>
-            </head>
+            {/*<head>*/}
+            {/*    <title>ورود</title>*/}
+            {/*</head>*/}
 
             <div className={`nc-PageLogin`} data-nc-id="PageLogin">
 

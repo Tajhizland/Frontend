@@ -57,9 +57,9 @@ const PageSignUp = () => {
 
     return (
         <>
-            <head>
-                <title>ثبت‌نام</title>
-            </head>
+            {/*<head>*/}
+            {/*    <title>ثبت‌نام</title>*/}
+            {/*</head>*/}
 
             <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
 

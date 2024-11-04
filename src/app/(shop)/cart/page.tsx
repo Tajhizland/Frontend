@@ -80,9 +80,9 @@ const CartPage = () => {
 
         return (
             <>
-                <head>
-                    <title>سبد خرید</title>
-                </head>
+                {/*<head>*/}
+                {/*    <title>سبد خرید</title>*/}
+                {/*</head>*/}
                 <div
                     key={index}
                     className="relative flex py-8 sm:py-10 xl:py-12 first:pt-0 last:pb-0"

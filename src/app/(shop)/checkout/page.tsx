@@ -321,9 +321,9 @@ const CheckoutPage = () => {
 
     return (
         <div className="nc-CheckoutPage">
-            <head>
-                <title>پرداخت</title>
-            </head>
+            {/*<head>*/}
+            {/*    <title>پرداخت</title>*/}
+            {/*</head>*/}
             <main className="container py-16 lg:pb-28 lg:pt-20 ">
                 <div className="mb-16">
                     <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold ">
