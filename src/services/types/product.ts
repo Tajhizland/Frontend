@@ -2,6 +2,7 @@ import { ColorResponse } from "./color";
 import { CommentResponse } from "./comment";
 import { ProductOptionResponse } from "@/services/types/productOption";
 import { ProductImageResponse } from "@/services/types/productImage";
+import {GuarantyResponse} from "@/services/types/guaranty";
 
 export type ProductPageResponse = {
     product:ProductResponse;
@@ -21,6 +22,7 @@ export type ProductResponse = {
     meta_title: string;
     category: string;
     guaranty_id: number;
+    guaranty: GuarantyResponse;
     min_price: number;
     min_discounted_price: number;
     rating: number;

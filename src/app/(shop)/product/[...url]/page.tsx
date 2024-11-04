@@ -124,10 +124,11 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
     };
     const renderOption = () => {
         const options = product.productOptions.data
-            .map((item) => `<li>${item.option_title}: ${item.value}</li>`)
+            .map((item) => `<tr class="border "><td class="border ">${item.option_title}</td><td> ${item.value}</td></tr>`)
             .join("");
 
-        return `<ul>${options}</ul>`;
+        return `<div class="relative  ">
+    <table class="w-full text-sm text-center text-gray-500  border">${options}</table></div>`;
     };
     const renderSection1 = () => {
         return (
@@ -185,27 +186,28 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
 
                         },
                         {
-                            name: "معرفی محصول",
-                            content:` <video controls className={"w-full"}>
+                            name: "ویدیو ها",
+                            content:`<div class="flex flex-row gap-x-2">
+<div>
+                                <video controls >
                                     <source src=${product.intro_video} type="video/mp4"/>
-                                </video>`
-
-                        },
-
-                        {
-                            name: "آنباکس محصول",
-                            content:` <video controls className={"w-full"}>
+                                </video>
+                                </div>
+                                <div>
+                                <video controls >
                                     <source src=${product.unboxing_video} type="video/mp4"/>
-                                </video>`
-                        },
+                                </video>
+                                                                </div>
+                                <div>
 
-                        {
-                            name: "طریقه استفاده از محصول",
-                            content:` <video controls className={"w-full"}>
+                                <video controls >
                                     <source src=${product.usage_video} type="video/mp4"/>
-                                </video>`
-                        },
+                                </video>
+                                    <div>
 
+                                <div>`
+
+                        },
                     ]}/>
             </div>
         );

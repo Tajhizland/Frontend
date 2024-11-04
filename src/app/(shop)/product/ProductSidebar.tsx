@@ -1,7 +1,7 @@
 "use client"
 import Prices from "@/components/Prices";
-import React, { useState } from "react";
-import { ColorResponse } from "@/services/types/color";
+import React, {useState} from "react";
+import {ColorResponse} from "@/services/types/color";
 import {
     getGlobalState,
     reduxAddToCart,
@@ -12,17 +12,18 @@ import {
 } from "@/services/globalState/GlobalState";
 import BagIcon from "@/components/BagIcon";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import { addToCart, decreaseCartItem, increaseCartItem, removeCartItem } from "@/services/api/shop/cart";
-import { StarIcon } from "@heroicons/react/24/solid";
+import {addToCart, decreaseCartItem, increaseCartItem, removeCartItem} from "@/services/api/shop/cart";
+import {StarIcon} from "@heroicons/react/24/solid";
 import NcInputNumber from "@/components/NcInputNumber";
-import { toast } from "react-hot-toast";
+import {toast} from "react-hot-toast";
 import NotifyAddTocart from "@/components/NotifyAddTocart";
-import { ProductResponse } from "@/services/types/product";
-import { useQueryClient } from "react-query";
+import {ProductResponse} from "@/services/types/product";
+import {useQueryClient} from "react-query";
 import {ClockIcon, NoSymbolIcon, SparklesIcon} from "@heroicons/react/24/outline";
 import IconDiscount from "@/components/IconDiscount";
+import NcImage from "@/shared/NcImage/NcImage";
 
-export default function ProductSidebar({ product }: { product: ProductResponse }) {
+export default function ProductSidebar({product}: { product: ProductResponse }) {
     const colors = product.colors.data;
     const [selectedColor, setSelectedColor] = useState<ColorResponse>(colors[0])
     const [selectedCount, setSelectedCount] = useState<number>(0)
@@ -44,7 +45,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                     color={selectedColor.color_name}
                 />
             ),
-            { position: "top-left", id: "nc-product-notify", duration: 3000 }
+            {position: "top-left", id: "nc-product-notify", duration: 3000}
         );
     };
     const renderVariants = () => {
@@ -79,10 +80,10 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                             className={`relative flex-1 max-w-[75px] h-10 sm:h-11 rounded-full border-2 cursor-pointer ${color.id === selectedColor.id
                                 ? "border-primary-6000 dark:border-primary-500"
                                 : "border-transparent"
-                                }`}
+                            }`}
                         >
                             <div
-                                style={{ backgroundColor: color.color_code }}
+                                style={{backgroundColor: color.color_code}}
                                 className={`absolute inset-0.5 rounded-full overflow-hidden z-0 object-cover `}
 
                             ></div>
@@ -93,18 +94,33 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             </div>
         );
     };
+    const renderGuaranty = () => {
+        if (product?.guaranty) {
+            return <div
+                className={"w-12"}
+            ><NcImage
+                containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
+                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${product?.guaranty?.icon}`}
+                className="object-cover w-full h-full drop-shadow-xl"
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                alt="guaranty"
+            /></div>
+        }
+        return null;
+    };
 
     const checkColorInCart = () => {
         const item = cart && cart.find(item => item.color.id === selectedColor.id);
         return item ? item.count : 0;
     };
+
     async function addToCartHandle() {
-        if(!user)
-        {
+        if (!user) {
             toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
             return;
         }
-        let response = await addToCart({ productColorId: selectedColor.id, count: selectedCount });
+        let response = await addToCart({productColorId: selectedColor.id, count: selectedCount});
         if (response.success) {
             reduxAddToCart(product, selectedCount, selectedColor);
             notifyAddTocart();
@@ -112,48 +128,48 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
     }
 
     async function increaseHandle() {
-        if(!user)
-        {
+        if (!user) {
             toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await increaseCartItem({ productColorId: selectedColor.id });
+            let response = await increaseCartItem({productColorId: selectedColor.id});
             if (response.success) {
                 reduxIncrementQuantity(selectedColor.id)
             }
         }
     }
+
     async function decreaseHandle() {
-        if(!user)
-        {
+        if (!user) {
             toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await decreaseCartItem({ productColorId: selectedColor.id });
+            let response = await decreaseCartItem({productColorId: selectedColor.id});
             if (response.success) {
                 reduxDecrementQuantity(selectedColor.id)
             }
 
         }
     }
+
     async function removeHandle() {
-        if(!user)
-        {
+        if (!user) {
             toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await removeCartItem({ productColorId: selectedColor.id });
+            let response = await removeCartItem({productColorId: selectedColor.id});
             if (response.success) {
                 reduxRemoveFromCart(selectedColor.id)
             }
         }
     }
+
     const renderStatus = () => {
 
-        let status=selectedColor.statusLabel;
+        let status = selectedColor.statusLabel;
         if (!status) {
             return null;
         }
@@ -210,7 +226,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                             className="flex items-center text-sm font-medium"
                         >
                             <div className="">
-                                <StarIcon className="w-5 h-5 pb-[1px] text-orange-400" />
+                                <StarIcon className="w-5 h-5 pb-[1px] text-orange-400"/>
                             </div>
                             <span className="mr-1.5 flex">
                                 <span>{product.rating} </span>
@@ -225,11 +241,12 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                     {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
                     <div className="mt-6 space-y-7 lg:space-y-8">
                         <div className="">{renderVariants()}</div>
+                        <div className="">{renderGuaranty()}</div>
                         {/*<div className="">{renderSizeList()}</div>*/}
                     </div>
                 </div>
                 {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
-                {selectedColor.statusLabel!="disable"?<div className="flex  gap-x-3.5">
+                {selectedColor.statusLabel != "disable" ? <div className="flex  gap-x-3.5">
                     <div
                         className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
                         <NcInputNumber
@@ -249,7 +266,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                         <span className="mr-3">افزودن به سبد خرید</span>
                     </ButtonPrimary>
                     }
-                </div>:""}
+                </div> : ""}
 
                 {/* SUM */}
             </div>

@@ -100,6 +100,22 @@ const ProductCard: FC<ProductCardProps> = ({
         }
         return null;
     };
+    const renderGuaranty = () => {
+        if(data?.guaranty)
+        {
+            return <div
+                className={  " flex items-center  dark:text-slate-300 absolute top-10 start-3 bg-white rounded-full p-2 text-xs"}
+            ><NcImage
+                containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
+                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${data?.guaranty?.icon}`}
+                className="object-cover w-full h-full drop-shadow-xl"
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                alt="guaranty"
+            /></div>
+        }
+        return null;
+    };
 
     const renderVariants = () => {
 
@@ -144,6 +160,7 @@ const ProductCard: FC<ProductCardProps> = ({
                     </Link>
                     <LikeButton likeHandle={likeHandle} liked={data?.favorite} className="absolute top-3 end-3 z-10"/>
                     {renderStatus()}
+                    {renderGuaranty()}
 
                 </div>
 
