@@ -35,7 +35,7 @@ export default function AdminLayout({
                 setSidebarOpen(!sidebarOpen)
             }}/>
             <Sidebar isOpen={sidebarOpen}/>
-            <div className={`py-2 bg-slate-100 min-h-screen mt-14 transition-all  ${sidebarOpen ? "md:mr-52 " : " "}`}>
+            <div className={`pb-2 pt-4 bg-slate-100 min-h-screen mt-14 transition-all  ${sidebarOpen ? "md:mr-52 " : " "}`}>
                 <Suspense>
                     <AutoLoading/>
                 </Suspense>
