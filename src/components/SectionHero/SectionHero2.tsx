@@ -46,12 +46,12 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [swipeState.direction, swipeState.swiping, swipeState.count]);
 
-    useInterval(
-        () => {
-            handleAutoNext();
-        },
-        isRunning ? 5000 : 999999
-    );
+    // useInterval(
+    //     () => {
+    //         handleAutoNext();
+    //     },
+    //     isRunning ? 5000 : 999999
+    // );
 
     const handleAutoNext = () => {
         setIndexActive((state) => {
@@ -135,90 +135,29 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
         }
         return (
             <div
-                className={`nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden ${className}`}
+                className={`nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full h-96 ${className}`}
                 key={index}
             >
-                <div
-                    className="aspect-h-16 aspect-w-10 relative flex flex-col-reverse overflow-hidden sm:aspect-h-16 sm:aspect-w-13 lg:aspect-h-7 lg:aspect-w-16 2xl:aspect-h-[5.75] 2xl:aspect-w-16 lg:flex-col bg-slate-100">
+                <div className="relative w-full h-full flex flex-col-reverse overflow-hidden lg:flex-col bg-slate-100">
                     <div>{renderDots()}</div>
-
+    
                     {/* BG */}
-                    <div className="absolute inset-0 bg-[#E3FFE6]">
+                    <div className="absolute inset-0 w-full h-full">
                         <Image
                             fill
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                            className="absolute w-full h-full object-contain"
-                            src={backgroundLineSvg}
-                            alt="hero"
+                            layout="fill"
+                            className="object-cover"
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`} 
+                            alt={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}  
+                            priority
                         />
-                    </div>
-
-                    <div className="container">
-                        <div
-                            className="absolute end-0 rtl:-end-28 bottom-0 top-0 w-full max-w-2xl xl:max-w-3xl 2xl:max-w-4xl">
-                            <Image
-                                fill
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                className="w-full h-full object-contain object-right-bottom nc-SectionHero2Item__image"
-                                src={item.image}
-                                alt={item.title}
-                                priority
-                            />
-                        </div>
-                    </div>
-
-                    <div className="flex py-12 sm:py-14 lg:items-center">
-                        <div className="container relative">
-                            <div
-                                className="relative z-[1] w-full max-w-3xl space-y-8 sm:space-y-14 nc-SectionHero2Item__left">
-                                <div className="space-y-5 sm:space-y-6">
-                  <span
-                      className="nc-SectionHero2Item__subheading block text-base md:text-xl text-slate-700 font-medium">
-                    {/* {item.subHeading} */}
-                   </span>
-                                    <h2
-                                        className="nc-SectionHero2Item__heading font-semibold text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[114%] text-slate-900"
-                                        dangerouslySetInnerHTML={{__html: item.title}}
-                                    ></h2>
-                                </div>
-
-                                <ButtonPrimary
-                                    className="nc-SectionHero2Item__button dark:bg-slate-900"
-                                    sizeClass="py-3 px-6 sm:py-5 sm:px-9"
-                                    href={item.url as Route}
-                                >
-                                    <span>مشاهده</span>
-                                    <span>
-                    <svg
-                        className="w-5 h-5 ms-2.5"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                    >
-                      <path
-                          d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                      />
-                      <path
-                          d="M22 22L20 20"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                                </ButtonPrimary>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         );
     };
-
+    
+    
     return (
         <div className="relative" ref={ref}>
             {data.map((_, index) => renderItem(index))}
