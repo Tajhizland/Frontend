@@ -46,12 +46,12 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [swipeState.direction, swipeState.swiping, swipeState.count]);
 
-    // useInterval(
-    //     () => {
-    //         handleAutoNext();
-    //     },
-    //     isRunning ? 5000 : 999999
-    // );
+    useInterval(
+        () => {
+            handleAutoNext();
+        },
+        isRunning ? 5000 : 999999
+    );
 
     const handleAutoNext = () => {
         setIndexActive((state) => {
@@ -140,15 +140,15 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
             >
                 <div className="relative w-full h-full flex flex-col-reverse overflow-hidden lg:flex-col bg-slate-100">
                     <div>{renderDots()}</div>
-    
+
                     {/* BG */}
                     <div className="absolute inset-0 w-full h-full">
                         <Image
                             fill
                             layout="fill"
                             className="object-cover"
-                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`} 
-                            alt={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}  
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}
+                            alt={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}
                             priority
                         />
                     </div>
@@ -156,8 +156,8 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
             </div>
         );
     };
-    
-    
+
+
     return (
         <div className="relative" ref={ref}>
             {data.map((_, index) => renderItem(index))}
