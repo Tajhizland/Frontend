@@ -168,12 +168,12 @@ const ProductCard: FC<ProductCardProps> = ({
                     {renderVariants()}
 
                     <div>
-                        <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
+                        <h2 className="nc-ProductCard__title text-xs sm:text-base font-semibold transition-colors text-right">
                             {data?.name}
                         </h2>
                     </div>
 
-                    <div className="flex justify-between items-end ">
+                    <div className="flex flex-col gap-y-2 sm:flex-row justify-between items-start  text-xs sm:text-base ">
                         <Prices price={data?.min_discounted_price}/>
                         <div className="flex items-center mb-0.5">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>

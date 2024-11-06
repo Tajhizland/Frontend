@@ -24,10 +24,10 @@ const CardCategory4: FC<CardCategory4Props> = ({
                                                }) => {
     return (
         <div
-            className={`nc-CardCategory4 relative w-full aspect-w-12 aspect-h-11 h-0 rounded-3xl overflow-hidden bg-white dark:bg-neutral-900 group hover:nc-shadow-lg transition-shadow ${className}`}
+            className={`nc-CardCategory4 relative w-full aspect-w-12 aspect-h-16 sm:aspect-h-11 h-0 rounded-3xl overflow-hidden bg-white dark:bg-neutral-900 group hover:nc-shadow-lg transition-shadow ${className}`}
         >
             <div>
-                <div className="absolute bottom-0 -left-40 max-w-[280px] opacity-80">
+                <div className="hidden md:block absolute bottom-0 -left-40 max-w-[280px] opacity-80">
                     <Image src={bgSVG} alt=""/>
                 </div>
 
@@ -36,8 +36,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
                         <NcImage
                             alt=""
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${featuredImage}`}
-
-                            containerClassName={`w-20 h-20 rounded-full overflow-hidden z-0 ${color}`}
+                            containerClassName={`w-10 h-10 sm:w-20 sm:h-20 rounded-full overflow-hidden z-0 ${color}`}
                             width={80}
                             height={80}
                         />
@@ -48,16 +47,16 @@ const CardCategory4: FC<CardCategory4Props> = ({
 
                     <div className="">
 
-                        <h2 className={`text-2xl sm:text-3xl font-semibold`}>{name}</h2>
+                        <h2 className={`text-xs md:text-3xl md:font-semibold`}>{name}</h2>
                     </div>
 
                     <Link
                         href={"/collection"}
-                        className="flex items-center text-sm font-medium group-hover:text-primary-500 transition-colors"
+                        className="flex items-center text-xs font-medium group-hover:text-primary-500 transition-colors"
                     >
-                        <ArrowRightIcon className="w-4 h-4 ml-2.5"/>
+                        <ArrowRightIcon className="w-4 h-4 ml-1 sm:ml-2.5"/>
 
-                        <span>مشاهده محصولات</span>
+                        <span>مشاهده  </span>
                     </Link>
                 </div>
             </div>

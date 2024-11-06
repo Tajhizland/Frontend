@@ -72,10 +72,10 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
                 </div>
             </div>
 
-            <div className="relative mt-5 flex justify-between">
+            <div className="relative mt-5 flex flex-col-reverse sm:flex-row gap-y-2 ">
                 {/* TITLE */}
                 <div className="flex-1">
-                    <h2 className="font-semibold text-lg sm:text-xl ">{name}</h2>
+                    <h2 className="font-semibold text-xs  sm:text-xl text-right">{name}</h2>
                     {/* AUTHOR */}
                     <div className="mt-3 flex items-center text-slate-500 dark:text-slate-400">
                         {/* <span className="text-sm ">
@@ -88,7 +88,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
                         </span>
                     </div>
                 </div>
-                <Prices className="mt-0.5 sm:mt-1 ml-4" price={price} />
+                <Prices className="mt-0.5 sm:mt-1 sm:ml-4 text-center" priceClass={"mx-auto"} price={price} />
             </div>
             <Link href={"/product/" + url as Route} className="absolute inset-0 " aria-label={"product"}></Link>
         </div>

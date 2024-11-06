@@ -82,11 +82,11 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
         },
         640: {
           gap: 20,
-          perView: 2.3,
+          perView:3,
         },
         500: {
-          gap: 20,
-          perView: 1.4,
+          gap: 10,
+          perView: 3
         },
       },
     };
@@ -115,7 +115,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
                   featuredImage={item.image}
                   name={item.name}
                   url={item.url}
-                  desc={item.description}
+                  desc={""}
                 />
               </li>
             ))}

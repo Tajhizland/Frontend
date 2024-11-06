@@ -52,7 +52,7 @@ async function PageHome() {
                 <SectionSliderProductCard
                     data={response.popularProducts.data}
                     subHeading={""}
-                    heading={"محصولات تخفیف دار"}
+                    heading={"تخفیفی های تجهیزلند"}
                 />
                 <div className="relative py-24 lg:py-32">
                     <BackgroundSection/>

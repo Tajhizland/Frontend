@@ -39,16 +39,16 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
         },
         1024: {
           gap: 20,
-          perView: 2.15,
+          perView: 2.5,
         },
         768: {
-          gap: 20,
-          perView: 1.5,
+          gap: 10,
+          perView: 2.3,
         },
 
         500: {
-          gap: 20,
-          perView: 1,
+          gap: 10,
+          perView: 2.0,
         },
       },
     };
@@ -69,7 +69,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
     <div className={`nc-SectionSliderLargeProduct ${className}`}>
       <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
         <Heading isCenter={false} hasNextPrev>
-          محصولات ویژه
+          محصولات خاص پسند ها
         </Heading>
         <div className="glide__track" data-glide-el="track"  style={{direction:"ltr"}}>
           <ul className="glide__slides">
