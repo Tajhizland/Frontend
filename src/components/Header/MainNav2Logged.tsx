@@ -7,7 +7,7 @@ import AvatarDropdown from "./AvatarDropdown";
 import Navigation from "@/shared/Navigation/Navigation";
 import CartDropdown from "./CartDropdown";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {usePathname, useRouter} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { search } from "@/services/api/shop/search";
 import { SearchResponse } from "@/services/types/serach";
 import Link from "next/link";
@@ -25,7 +25,30 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const [searchResponse, setSearchResponse] = useState<ProductResponse[]>()
     const pathname = usePathname();
     const router = useRouter();
+ 
+    const [showNavigation, setShowNavigation] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > lastScrollY) {
+                // اسکرول به پایین - منو را پنهان کن
+                setShowNavigation(false);
+            } else {
+                // اسکرول به بالا - منو را نمایش بده
+                setShowNavigation(true);
+            }
+            setLastScrollY(window.scrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
+
+    
     useEffect(() => {
         setShowSearchForm(false);
         setSearchResponse(undefined)
@@ -39,7 +62,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
             setSearchResponse(undefined)
     }
     const handleSearch = () => {
-        router.push("/search/"+inputRef.current?.value as Route);
+        router.push("/search/" + inputRef.current?.value as Route);
     }
     const renderMagnifyingGlassIcon = () => {
         return (
@@ -125,42 +148,55 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
 
     const renderContent = () => {
         return (
-            <div className="h-20 flex justify-between">
-                <div className="flex items-center lg:hidden flex-1">
-                    <MenuBar />
-                </div>
+            <div>
+                <div className="h-20 flex justify-between">
+                    <div className="flex items-center lg:hidden flex-1">
+                        <MenuBar />
+                    </div>
 
-                <div className="lg:flex-1 flex items-center">
-                    <Logo className="flex-shrink-0" />
-                </div>
+                    <div className="lg:flex-1 flex items-center">
+                        <Logo className="flex-shrink-0" />
+                    </div>
 
-                <div className="flex-[2] hidden lg:flex justify-center mx-4">
-                    {showSearchForm ? renderSearchForm() : <Navigation />}
-                </div>
+                    <div className="flex-[2] hidden lg:flex justify-center mx-4">
+                        {showSearchForm ? renderSearchForm() : <></>}
+                    </div>
 
-                <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
-                    {!showSearchForm && (
-                        <button
-                            aria-label={"search"}
-                            className="hidden lg:flex w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none items-center justify-center"
-                            onClick={() => setShowSearchForm(!showSearchForm)}
-                        >
-                            {renderMagnifyingGlassIcon()}
-                        </button>
-                    )}
-                    <AvatarDropdown />
-                    <CartDropdown />
+                    <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
+                        {!showSearchForm && (
+                            <button
+                                aria-label={"search"}
+                                className="hidden lg:flex w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none items-center justify-center"
+                                onClick={() => setShowSearchForm(!showSearchForm)}
+                            >
+                                {renderMagnifyingGlassIcon()}
+                            </button>
+                        )}
+                        <AvatarDropdown />
+                        <CartDropdown />
+                    </div>
                 </div>
+               
             </div>
         );
     };
 
     return (
-        <div
-            className="nc-MainNav2Logged relative z-10 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
-            <div className="container ">{renderContent()}</div>
+    <div className="nc-MainNav2Logged relative z-40 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
+        <div className="container z-50">{renderContent()}</div> {/* z-index بالا برای محتوا */}
+        <div className="relative z-40 hidden lg:block">
+            <div
+                className={`bg-stone-50 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 ${
+                    showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
+                }`}
+                style={{ top: '100%' }}
+            >
+                <Navigation />
+            </div>
         </div>
-    );
+    </div>
+);
+
 };
 
 export default MainNav2Logged;
