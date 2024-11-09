@@ -13,12 +13,18 @@ export const update = async <T extends ServerResponse<unknown>>
         name: string,
         email: string,
         gender: string,
+        province: string,
+        city: string,
+        address: string,
         avatar: File | undefined
     }) => {
     const formData = new FormData();
     formData.append("name", params.name);
     formData.append("email", params.email);
     formData.append("gender", params.gender);
+    formData.append("province", params.province);
+    formData.append("city", params.city);
+    formData.append("address", params.address);
     if (params.avatar)
         formData.append("avatar", params.avatar);
     return axios.post<T, SuccessResponseType<T>>("auth/update", formData)

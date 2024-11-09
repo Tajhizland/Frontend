@@ -8,23 +8,54 @@ import Textarea from "@/shared/Textarea/Textarea";
 import {avatarImgs} from "@/contains/fakeData";
 import Image from "next/image";
 import {setUser, useUser} from "@/services/globalState/GlobalState";
-import {useQuery} from "react-query";
+import {useMutation, useQuery} from "react-query";
 import {me, update} from "@/services/api/auth/me";
 import {getCookie} from "cookies-next";
 import {useRouter} from "next/navigation";
 import {toast} from "react-hot-toast";
+import {find} from "@/services/api/shop/address";
+import {getProvince} from "@/services/api/shop/province";
+import {getCity} from "@/services/api/shop/city";
 
 const AccountPage = () => {
 
     const [user] = useUser();
 
+    const {data: address} = useQuery({
+        queryKey: ['address'],
+        queryFn: () => find(),
+        staleTime: 5000,
+        onSuccess: data => {
+            changeProvince(data.province_id);
+        }
+    });
 
+
+    const {data: provinces} = useQuery({
+        queryKey: ['province'],
+        queryFn: () => getProvince(),
+        staleTime: 5000,
+    });
+
+    const {
+        data: citys,
+        mutateAsync: changeProvince,
+        isLoading: notifyStockSubmitting,
+        isSuccess: notifyStockSuccess,
+    } = useMutation({
+        mutationKey: [`city`],
+        mutationFn: (id: number) =>
+            getCity(id),
+    });
     async function submit(e: FormData) {
         let response = await update({
             name: e.get("name") as string,
             email: e.get("email") as string,
             gender: e.get("gender") as string,
             avatar: e.get("avatar") as File,
+            province: e.get("province") as string,
+            city: e.get("city") as string,
+            address: e.get("address") as string,
         })
         if (response?.success)
             toast.success(response?.message as string);
@@ -46,7 +77,7 @@ const AccountPage = () => {
                                 <Image
                                     src={(user?.avatar) ?
                                         `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/avatar/${user?.avatar}`
-                                        : avatarImgs[2]
+                                        : avatarImgs[9]
                                     }
 
                                     alt="avatar"
@@ -143,6 +174,46 @@ const AccountPage = () => {
                                     <Input name={"mobile"} className="!rounded-r-none" defaultValue={user?.username}
                                            readOnly/>
                                 </div>
+                            </div>
+
+                            <div>
+                                <Label className="text-sm">استان</Label>
+                                <Select name={"province"} onChange={(e) => {
+                                    changeProvince(Number(e.target.value))
+                                }}>
+                                    {
+                                        provinces && provinces?.map((item) => (<>
+                                            <option value={item.id as number}
+                                                    selected={address?.province_id == item.id}>
+                                                {item.name}
+                                            </option>
+                                        </>))
+                                    }
+                                </Select>
+                            </div>
+                            <div>
+                                <Label className="text-sm">شهر</Label>
+
+                                <Select name={"city"}>
+                                    {
+                                        citys && citys?.map((item) => (<>
+                                            <option value={item.id} selected={address?.city_id == item.id}>
+                                                {item.name}
+                                            </option>
+                                        </>))
+                                    }
+                                </Select>
+                            </div>
+                            <div>
+                                <Label className="text-sm">آدرس</Label>
+                                <Input
+                                    className="mt-1.5"
+                                    placeholder=""
+                                    name={"address"}
+                                    type={"text"}
+                                    defaultValue={address?.address}
+
+                                />
                             </div>
                             {/* ---- */}
                             {/* <div>
