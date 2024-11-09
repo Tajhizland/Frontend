@@ -81,7 +81,7 @@ const AdminPagination: React.FC<PaginationProps> = ({ currentPage, totalPages, o
                                 onClick={() => handlePageChange(page as number)}
                                 className={`flex items-center justify-center px-4 h-10 leading-tight  border  ${
                                     page === currentPage
-                                        ? 'z-10 text-orange-600 border-orange-300 bg-orange-50 border-x'
+                                        ? 'z-10 text-blue-600 border-blue-300 bg-blue-50 border-x'
                                         : 'text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700'
                                 }`}
                                 aria-current={page === currentPage ? 'page' : undefined}
