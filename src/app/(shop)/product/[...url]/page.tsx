@@ -18,6 +18,7 @@ import MetaTag from "@/components/MetaTag/MetaTag";
 import {Metadata} from "next";
 import Script from "next/script";
 import {stripHTML} from "@/hooks/StripHtml";
+import VideoSlider from "@/components/VideoSlider";
 
 
 interface ProductPageProps {
@@ -187,26 +188,8 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                         },
                         {
                             name: "ویدیو ها",
-                            content:`<div class="flex flex-row gap-x-2">
-<div>
-                                <video controls >
-                                    <source src=${product.intro_video} type="video/mp4"/>
-                                </video>
-                                </div>
-                                <div>
-                                <video controls >
-                                    <source src=${product.unboxing_video} type="video/mp4"/>
-                                </video>
-                                                                </div>
-                                <div>
-
-                                <video controls >
-                                    <source src=${product.usage_video} type="video/mp4"/>
-                                </video>
-                                    <div>
-
-                                <div>`
-
+                            content: <VideoSlider intro_video={product.intro_video} unboxing_video={product.unboxing_video}  usage_video={product.usage_video} />,
+                            render:true
                         },
                     ]}/>
             </div>
@@ -259,7 +242,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                     <ProductComment comments={product.comments.data} productId={product.id}/>
 
                     <hr className="border-slate-200 dark:border-slate-700"/>
-
+                    <VideoSlider intro_video={product.intro_video} unboxing_video={product.unboxing_video}  usage_video={product.usage_video} />
                     <SectionSliderProductCard2
                         heading="محصولات مرتبط"
                         subHeading=""
