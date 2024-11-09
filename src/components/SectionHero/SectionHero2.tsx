@@ -46,12 +46,12 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [swipeState.direction, swipeState.swiping, swipeState.count]);
 
-    // useInterval(
-    //     () => {
-    //         handleAutoNext();
-    //     },
-    //     isRunning ? 5000 : 999999
-    // );
+    useInterval(
+        () => {
+            handleAutoNext();
+        },
+        isRunning ? 5000 : 999999
+    );
 
     const handleAutoNext = () => {
         setIndexActive((state) => {
@@ -135,7 +135,7 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
         }
         return (
             <div
-                className={`mt-0 lg:mt-20 nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full h-48 lg:h-96 ${className}`}
+                className={`mt-0 lg:mt-10 nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full h-48 lg:h-[50vh] ${className}`}
                 key={index}
             >
                 <div className=" w-full h-full">

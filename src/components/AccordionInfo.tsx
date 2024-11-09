@@ -69,7 +69,7 @@ const AccordionInfo: FC<Props> = ({
             {/* ============ */}
             {data.map((item, index) => {
                 return (
-                    <Disclosure key={index} defaultOpen={index < 2}>
+                    <Disclosure key={index} defaultOpen={index < 3}>
                         {({open}) => (
                             <>
                                 <Disclosure.Button

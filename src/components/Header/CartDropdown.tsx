@@ -104,7 +104,7 @@ export default function CartDropdown() {
         return sumPrice;
     }
     return (
-        <Popover className="relative">
+        <Popover className="relative z-50">
             {({open, close}) => (
                 <>
                     <PopoverButton

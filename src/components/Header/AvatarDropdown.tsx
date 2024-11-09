@@ -33,7 +33,7 @@ export default function AvatarDropdown() {
     });
     if (isSuccess)
         return (
-            <div className="AvatarDropdown ">
+            <div className="AvatarDropdown z-50">
                 <Popover className="relative">
                     {({ open, close }) => (
                         <>

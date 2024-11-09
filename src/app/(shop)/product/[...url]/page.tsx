@@ -19,6 +19,7 @@ import {Metadata} from "next";
 import Script from "next/script";
 import {stripHTML} from "@/hooks/StripHtml";
 import VideoSlider from "@/components/VideoSlider";
+import TextExpander from "@/shared/TextExpander/TextExpander";
 
 
 interface ProductPageProps {
@@ -170,12 +171,10 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                 {/*  */}
                 <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
                 {/*  */}
+                <TextExpander text={product.description} />
                 <AccordionInfo
                     data={[
-                        {
-                            name: "توضیحات",
-                            content: product.description
-                        },
+                       
                         {
                             name: "بررسی اجمالی",
                             content: product.study
@@ -242,8 +241,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                     <ProductComment comments={product.comments.data} productId={product.id}/>
 
                     <hr className="border-slate-200 dark:border-slate-700"/>
-                    <VideoSlider intro_video={product.intro_video} unboxing_video={product.unboxing_video}  usage_video={product.usage_video} />
-                    <SectionSliderProductCard2
+                     <SectionSliderProductCard2
                         heading="محصولات مرتبط"
                         subHeading=""
                         headingFontClassName="text-2xl font-semibold"

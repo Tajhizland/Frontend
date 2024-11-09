@@ -25,7 +25,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const [searchResponse, setSearchResponse] = useState<ProductResponse[]>()
     const pathname = usePathname();
     const router = useRouter();
- 
+
     const [showNavigation, setShowNavigation] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -48,17 +48,22 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
         };
     }, [lastScrollY]);
 
-    
+
     useEffect(() => {
         setShowSearchForm(false);
         setSearchResponse(undefined)
     }, [pathname])
 
     async function searchHandle(e: any) {
+        if (e.target.value == "") {
+            setShowSearchForm(false);
+            return;
+        }
         let response = await search({ query: e.target.value });
-        if (response.data)
+        if (response.data) {
             setSearchResponse(response.data);
-        else
+            setShowSearchForm(true);
+        } else
             setSearchResponse(undefined)
     }
     const handleSearch = () => {
@@ -104,8 +109,8 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             onChange={searchHandle}
                             ref={inputRef}
                             type="text"
-                            placeholder="عبارت مورد نظر خود را تایپ کنید ...."
-                            className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base"
+                            placeholder="جستجو"
+                            className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-sm"
                             autoFocus
                         />
                         <button type="button" onClick={() => setShowSearchForm(false)}>
@@ -114,9 +119,9 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     </div>
                     <input type="submit" hidden value="" />
                 </div>
-                {searchResponse &&
+                {searchResponse && showSearchForm &&
                     <div
-                        className="absolute top-20 left-0 w-full h-96 bg-white  z-50 border rounded shadow border-t-0 overflow-y-scroll whitespace-nowrap ">
+                        className="absolute top-14 left-0 w-full h-96 bg-white  z-50 border rounded shadow border-t-0 overflow-y-scroll whitespace-nowrap ">
                         <div className="flex flex-col gap-y-1">
                             {
                                 searchResponse.map((item) => (<>
@@ -158,12 +163,12 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                         <Logo className="flex-shrink-0" />
                     </div>
 
-                    <div className="flex-[2] hidden lg:flex justify-center mx-4">
-                        {showSearchForm ? renderSearchForm() : <></>}
+                    <div className="flex-[2] hidden lg:flex items-center justify-center mx-4">
+                        {renderSearchForm()}
                     </div>
 
                     <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
-                        {!showSearchForm && (
+                        {/* {!showSearchForm && (
                             <button
                                 aria-label={"search"}
                                 className="hidden lg:flex w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none items-center justify-center"
@@ -171,31 +176,30 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             >
                                 {renderMagnifyingGlassIcon()}
                             </button>
-                        )}
+                        )} */}
                         <AvatarDropdown />
                         <CartDropdown />
                     </div>
                 </div>
-               
+
             </div>
         );
     };
 
     return (
-    <div className="nc-MainNav2Logged relative z-40 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
-        <div className="container z-50">{renderContent()}</div> {/* z-index بالا برای محتوا */}
-        <div className="relative z-40 hidden lg:block">
-            <div
-                className={`bg-stone-50 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 ${
-                    showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
-                }`}
-                style={{ top: '100%' }}
-            >
-                <Navigation />
+        <div className="nc-MainNav2Logged relative z-40 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
+            <div className="container z-50">{renderContent()}</div> {/* z-index بالا برای محتوا */}
+            <div className="relative z-40 hidden lg:block">
+                <div
+                    className={`bg-stone-50 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 h-10 ${showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
+                        }`}
+                    style={{ top: '100%' }}
+                >
+                    <Navigation />
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
 
 };
 
