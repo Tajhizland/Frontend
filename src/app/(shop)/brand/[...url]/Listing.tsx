@@ -1,22 +1,32 @@
 "use client"
-import React, { useState } from "react";
- import SectionPromo1 from "@/components/SectionPromo1";
+import React, {useState} from "react";
+import SectionPromo1 from "@/components/SectionPromo1";
 import ProductCardNew from "@/components/ProductCardNew";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 import {BrandListingResponse} from "@/services/types/brand";
 import {findBrandByUrl} from "@/services/api/shop/brand";
+import CategoryCircleCard from "@/components/CircleCard/CategoryCircleCard";
 
-const PageCollection = ({ response, url }: { response: BrandListingResponse, url: string }) => {
+const PageCollection = ({response, url}: { response: BrandListingResponse, url: string }) => {
     const [newResponse, setNewResponse] = useState<BrandListingResponse | null>();
-    const [filter, setFilter] = useState<string>("");
+    const [filter, setFilter] = useState<number>();
     const router = useRouter();
 
     async function fetchData(filters: string, page: number = 1) {
         router.push(`?page=${page}`);
-        setFilter(filters);
         let data = await findBrandByUrl(url, filters, page)
         setNewResponse(data);
+    }
+
+    async function changeFilter(value: number) {
+        if (filter == value) {
+            setFilter(undefined)
+            await fetchData(``, 1);
+        } else {
+            setFilter(value);
+            await fetchData(`filter[category]=${value}`, 1);
+        }
     }
 
     return (
@@ -29,11 +39,22 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
                             {response.brand.name}
                         </h2>
                         <span className="block mt-4 text-neutral-500 dark:text-neutral-400 text-sm sm:text-base">
-                            <div dangerouslySetInnerHTML={{ __html:  (response.brand.description) }} />
+                            <div dangerouslySetInnerHTML={{__html: (response.brand.description)}}/>
                         </span>
                     </div>
+                    <div className="flex">
+                        <div
+                            className={"grid justify-items-center items-center justify-center grid-cols-2  sm:grid-cols-4  lg:grid-cols-8  xl:grid-cols-10 gap-5  text-center"}>
+                            {
+                                response?.categories?.data?.map((item, index) => (
+                                    <CategoryCircleCard category={item} active={item.id == filter} key={index}
+                                                        onClick={changeFilter}/>
+                                ))
+                            }
+                        </div>
+                    </div>
 
-                    <hr className="border-slate-200 dark:border-slate-700" />
+                    <hr className="border-slate-200 dark:border-slate-700"/>
                     <main>
                         {/* TABS FILTER */}
                         {/*<TabFilters filters={response.category.filters.data} maxPrice={response.category.maxPrice}*/}
@@ -43,9 +64,9 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
                         <div
                             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                             {newResponse ? newResponse.products.data.map((item, index) => (
-                                <ProductCardNew data={item} key={index} />
+                                <ProductCardNew data={item} key={index}/>
                             )) : response.products.data.map((item, index) => (
-                                <ProductCardNew data={item} key={index} />
+                                <ProductCardNew data={item} key={index}/>
                             ))}
                         </div>
 
@@ -57,20 +78,20 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
                                 currentPage={newResponse ? newResponse.products.meta?.current_page as number : response.products.meta?.current_page as number}
                                 totalPages={newResponse ? newResponse.products.meta?.last_page as number : response.products.meta?.last_page as number}
                                 onPageChange={(n) => {
-                                    fetchData(filter, n)
-                                }} />
+                                    fetchData(filter ? `filter[category]=${filter}` : "", n)
+                                }}/>
                         </div>
                     </main>
                 </div>
 
                 {/* === SECTION 5 === */}
-                <hr className="border-slate-200 dark:border-slate-700" />
+                <hr className="border-slate-200 dark:border-slate-700"/>
 
                 {/*<SectionSliderCollections />*/}
-                <hr className="border-slate-200 dark:border-slate-700" />
+                <hr className="border-slate-200 dark:border-slate-700"/>
 
                 {/* SUBCRIBES */}
-                <SectionPromo1 />
+                <SectionPromo1/>
             </div>
         </div>
     );

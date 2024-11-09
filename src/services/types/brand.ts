@@ -1,4 +1,5 @@
 import {ProductResponse} from "@/services/types/product";
+import {CategoryResponse} from "@/services/types/category";
 
 export type BrandResponse = {
     id:number ;
@@ -21,5 +22,8 @@ export type BrandListingResponse = {
             last_page: number;
             per_page: number;
         };
+    };
+    categories: {
+        data: CategoryResponse[];
     };
 };
