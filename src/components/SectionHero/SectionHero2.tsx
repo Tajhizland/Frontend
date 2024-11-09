@@ -46,12 +46,12 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [swipeState.direction, swipeState.swiping, swipeState.count]);
 
-    useInterval(
-        () => {
-            handleAutoNext();
-        },
-        isRunning ? 5000 : 999999
-    );
+    // useInterval(
+    //     () => {
+    //         handleAutoNext();
+    //     },
+    //     isRunning ? 5000 : 999999
+    // );
 
     const handleAutoNext = () => {
         setIndexActive((state) => {
@@ -97,7 +97,7 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
 
     const renderDots = () => {
         return (
-            <div className="absolute bottom-4 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 z-20 flex justify-center">
+            <div className="absolute bottom-0 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 z-20 flex justify-center">
                 {data.map((_, index) => {
                     const isActive = indexActive === index;
                     return (
@@ -110,7 +110,7 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
                             className={`relative px-1 py-1.5 cursor-pointer`}
                         >
                             <div
-                                className={`relative w-20 h-1 shadow-sm rounded-md bg-white`}
+                                className={`relative w-8 lg:w-20 h-1 shadow-sm rounded-md bg-stone-200`}
                             >
                                 {isActive && (
                                     <div
@@ -135,23 +135,20 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
         }
         return (
             <div
-                className={`nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full h-96 ${className}`}
+                className={`mt-0 lg:mt-20 nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full h-48 lg:h-96 ${className}`}
                 key={index}
             >
-                <div className="relative w-full h-full flex flex-col-reverse overflow-hidden lg:flex-col bg-slate-100">
-                    <div>{renderDots()}</div>
+                <div className=" w-full h-full">
+                    <Image
+                        width={1000}
+                        height={1000}
+                        className=" w-full h-full object-fill"
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}
+                        alt={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}
+                        priority
+                    />
 
-                    {/* BG */}
-                    <div className="absolute inset-0 w-full h-full">
-                        <Image
-                            fill
-                            layout="fill"
-                            className="object-cover"
-                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}
-                            alt={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}
-                            priority
-                        />
-                    </div>
+                    <div>{renderDots()}</div>
                 </div>
             </div>
         );
