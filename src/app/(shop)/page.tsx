@@ -41,9 +41,7 @@ async function PageHome() {
     const response = await homePage();
     return (
         <div className="nc-PageHome relative overflow-hidden">
-
             <SectionHero2 data={response.sliders.data}/>
-
             <div className="mt-24 lg:mt-32">
                 <DiscoverMoreSlider data={response.popularCategories.data}/>
             </div>

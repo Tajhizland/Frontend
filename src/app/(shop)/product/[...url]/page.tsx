@@ -14,12 +14,11 @@ import ProductSidebar from "@/app/(shop)/product/ProductSidebar";
 import ProductImage from "../ProductImage";
 import ProductComment from "../ProductComment";
 import SectionSliderProductCard2 from "@/components/SectionSliderProductCard2";
-import MetaTag from "@/components/MetaTag/MetaTag";
 import {Metadata} from "next";
 import Script from "next/script";
 import {stripHTML} from "@/hooks/StripHtml";
-import VideoSlider from "@/components/VideoSlider";
 import TextExpander from "@/shared/TextExpander/TextExpander";
+import VideoSlider from "@/components/VideoSlider";
 
 
 interface ProductPageProps {
@@ -174,7 +173,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                 <TextExpander text={product.description} />
                 <AccordionInfo
                     data={[
-                       
+
                         {
                             name: "بررسی اجمالی",
                             content: product.study
@@ -187,7 +186,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                         },
                         {
                             name: "ویدیو ها",
-                            content: <VideoSlider intro_video={product.intro_video} unboxing_video={product.unboxing_video}  usage_video={product.usage_video} />,
+                            content: <VideoSlider intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} />,
                             render:true
                         },
                     ]}/>
