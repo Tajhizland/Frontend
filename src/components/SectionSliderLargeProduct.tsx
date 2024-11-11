@@ -93,7 +93,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
                   <div className="h-[410px] bg-black/5 dark:bg-neutral-800"></div>
                   <div className="absolute inset-y-6 inset-x-10  flex flex-col items-center justify-center">
                     <div className="flex items-center justify-center relative">
-                      <span className="text-xl font-semibold">نمایش همه </span>
+                      <span className="text-xs  lg:text-xl font-semibold whitespace-nowrap">نمایش همه </span>
                       <svg
                         className="absolute left-full w-5 h-5 ml-2 rotate-45 group-hover:scale-110 transition-transform"
                         viewBox="0 0 24 24"
@@ -118,7 +118,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
                         />
                       </svg>
                     </div>
-                    <span className="text-sm mt-1">نمایش همه‌ی محصولات خاص پسند ها  </span>
+                    <span className="text-xs  lg:text-sm mt-1 whitespace-nowrap">نمایش همه‌ی محصولات        </span>
                   </div>
                 </div>
               </Link>

@@ -104,9 +104,9 @@ const ProductCard: FC<ProductCardProps> = ({
         if(data?.guaranty)
         {
             return <div
-                className={  " flex items-center  dark:text-slate-300 absolute top-10 start-3 bg-white rounded-full p-2 text-xs"}
+                className={  " flex items-center  dark:text-slate-300 absolute top-12 start-3 bg-white rounded-full p-2 text-xs"}
             ><NcImage
-                containerClassName="flex aspect-w-11 aspect-h-12 w-8 h-8"
+                containerClassName="flex aspect-w-11 aspect-h-12 w-4 h-4  lg:w-8 lg:h-8"
                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${data?.guaranty?.icon}`}
                 className="object-cover w-full h-full drop-shadow-xl"
                 fill
