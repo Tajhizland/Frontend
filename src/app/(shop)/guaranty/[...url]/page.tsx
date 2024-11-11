@@ -2,6 +2,7 @@ import React from "react";
 import {Metadata} from "next";
 import {stripHTML} from "@/hooks/StripHtml";
 import {findByUrl} from "@/services/api/shop/guaranty";
+import NcImage from "@/shared/NcImage/NcImage";
 
 interface PageProps {
     params: {
@@ -34,7 +35,27 @@ export async function generateMetadata({params}: PageProps): Promise<Metadata> {
 const PageCollection = async ({params}: PageProps) => {
     let response = await findByUrl(decodeURIComponent(params.url.join("/")))
     return (<>
-            <div dangerouslySetInnerHTML={{__html: (response.description)}}/>
+            <div className={"container mt-12"}>
+                <div className={"flex justify-center items-center gap-x-5"}>
+                    <div>
+                        <NcImage
+                            containerClassName="flex aspect-w-11 aspect-h-12 w-8 h-8"
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${response?.icon}`}
+                            className="object-cover w-full h-full drop-shadow-xl"
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                            alt="guaranty"
+                        />
+                    </div>
+                <h1 className={"text-center font-bold text-xl"}>
+                    {response.name}
+                </h1>
+                </div>
+                <hr/>
+                <div className={"text-neutral-800 my-5"}>
+                    <div dangerouslySetInnerHTML={{__html: (response.description)}}/>
+                </div>
+            </div>
         </>
     );
 };

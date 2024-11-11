@@ -22,6 +22,8 @@ import {useQueryClient} from "react-query";
 import {ClockIcon, NoSymbolIcon, SparklesIcon} from "@heroicons/react/24/outline";
 import IconDiscount from "@/components/IconDiscount";
 import NcImage from "@/shared/NcImage/NcImage";
+import Link from "next/link";
+import {Route} from "next";
 
 export default function ProductSidebar({product}: { product: ProductResponse }) {
     const colors = product.colors.data;
@@ -96,7 +98,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
     };
     const renderGuaranty = () => {
         if (product?.guaranty) {
-            return <div
+            return <Link href={"/guaranty/"+product.guaranty.url as Route}><div
                 className={"w-12"}
             ><NcImage
                 containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
@@ -105,7 +107,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
                 alt="guaranty"
-            /></div>
+            /></div></Link>
         }
         return null;
     };
