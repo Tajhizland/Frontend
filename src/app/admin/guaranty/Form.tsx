@@ -7,6 +7,7 @@ import Textarea from "@/shared/Textarea/Textarea";
 import React from "react";
 import {GuarantyResponse} from "@/services/types/guaranty";
 import Uploader from "@/shared/Uploader/Uploader";
+import TinyEditor from "@/shared/Editor/TinyEditor";
 
 interface Form {
     data?: GuarantyResponse;
@@ -21,6 +22,11 @@ export default function Form({ data, submit  }: Form) {
                 <div>
                     <Label>نام</Label>
                     <Input name={"name"} defaultValue={data?.name}/>
+                </div>
+
+                <div>
+                    <Label>آدرس</Label>
+                    <Input name={"url"} defaultValue={data?.url}/>
                 </div>
 
                 <div>
@@ -42,7 +48,7 @@ export default function Form({ data, submit  }: Form) {
 
                 <div>
                     <Label>توضیحات</Label>
-                    <Textarea name={"description"} defaultValue={data?.description}/>
+                    <TinyEditor name={"description"} value={data?.description} />
                 </div>
 
             </div>

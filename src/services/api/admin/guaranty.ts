@@ -12,6 +12,7 @@ export const store = async <T extends ServerResponse<unknown>>
 (
     params: {
         name:string,
+        url:string,
         status:number|string,
         icon:File|undefined,
         description:string,
@@ -19,6 +20,7 @@ export const store = async <T extends ServerResponse<unknown>>
 ) => {
     const formData = new FormData();
     formData.append('name', params.name);
+    formData.append('name', params.url);
     formData.append('status', params.status.toString());
     formData.append('description', params.description);
     if (params.icon) {
@@ -32,6 +34,7 @@ export const update = async <T extends ServerResponse<unknown>>
     params: {
         id:number,
         name:string,
+        url:string,
         status:number|string,
         icon?:File|undefined,
         description:string,
@@ -40,6 +43,7 @@ export const update = async <T extends ServerResponse<unknown>>
     const formData = new FormData();
     formData.append('id', params.id +"");
     formData.append('name', params.name);
+    formData.append('url', params.url);
     formData.append('status', params.status.toString());
     formData.append('description', params.description);
     if (params.icon) {

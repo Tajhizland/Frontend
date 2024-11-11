@@ -12,6 +12,7 @@ export default function Page()
         let response=await store(
             {
                 name: e.get("name") as string,
+                url: e.get("url") as string,
                 status: e.get("status") as string,
                 icon: e.get("icon") as File,
                 description: e.get("description") as string,
