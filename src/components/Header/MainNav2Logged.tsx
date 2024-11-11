@@ -1,20 +1,23 @@
 "use client";
 
-import React, { createRef, FC, useEffect, useState } from "react";
+import React, {createRef, FC, useEffect, useState} from "react";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 import AvatarDropdown from "./AvatarDropdown";
 import Navigation from "@/shared/Navigation/Navigation";
 import CartDropdown from "./CartDropdown";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { usePathname, useRouter } from "next/navigation";
-import { search } from "@/services/api/shop/search";
-import { SearchResponse } from "@/services/types/serach";
+import {XMarkIcon} from "@heroicons/react/24/outline";
+import {usePathname, useRouter} from "next/navigation";
+import {search} from "@/services/api/shop/search";
+import {SearchResponse} from "@/services/types/serach";
 import Link from "next/link";
-import { Route } from "next";
+import {Route} from "next";
 import Image from "next/image";
-import { ProductResponse } from "@/services/types/product";
+import {ProductResponse} from "@/services/types/product";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import {FaMagnifyingGlass} from "react-icons/fa6";
+import {FaBorderAll, FaExternalLinkAlt} from "react-icons/fa";
+import {PiSmileySad} from "react-icons/pi";
 
 export interface MainNav2LoggedProps {
 }
@@ -59,13 +62,14 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
             setShowSearchForm(false);
             return;
         }
-        let response = await search({ query: e.target.value });
+        let response = await search({query: e.target.value});
         if (response.data) {
             setSearchResponse(response.data);
             setShowSearchForm(true);
         } else
             setSearchResponse(undefined)
     }
+
     const handleSearch = () => {
         router.push("/search/" + inputRef.current?.value as Route);
     }
@@ -114,37 +118,57 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             autoFocus
                         />
                         <button type="button" onClick={() => setShowSearchForm(false)}>
-                            <XMarkIcon className="w-5 h-5" />
+                            <XMarkIcon className="w-5 h-5"/>
                         </button>
                     </div>
-                    <input type="submit" hidden value="" />
+                    <input type="submit" hidden value=""/>
                 </div>
                 {searchResponse && showSearchForm &&
                     <div
                         className="absolute top-14 left-0 w-full h-96 bg-white  z-50 border rounded shadow border-t-0 overflow-y-scroll whitespace-nowrap ">
-                        <div className="flex flex-col gap-y-1">
+                        <div className="flex flex-col  ">
                             {
-                                searchResponse.map((item) => (<>
-                                    <Link href={"/product/" + item.url as Route}
-                                        onChange={() => setSearchResponse(undefined)}>
-                                        <div className="flex items-center gap-x-5 border-b">
-                                            <div>
-                                                <Image alt="product"
-                                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
-                                                    width={100}
-                                                    height={100} />
+                                searchResponse.length > 0 ? searchResponse.map((item) => (<>
+                                        <Link href={"/product/" + item.url as Route}
+                                              onChange={() => setSearchResponse(undefined)}>
+                                            <div
+                                                className="flex items-center justify-between  py-5 px-5 hover:bg-stone-100 ">
+                                                <div className="flex items-center gap-x-5  ">
+                                                    <div className={""}>
+                                                        <FaMagnifyingGlass className={" text-neutral-400"}/>
+                                                    </div>
+                                                    <span
+                                                        className={"text-sm text-neutral-800 font-bold "}> {item.name}  </span>
+                                                </div>
+                                                <div>
+                                                    <FaExternalLinkAlt className={" text-neutral-400"}/>
+                                                </div>
                                             </div>
-                                            <span> {item.name}  </span>
-                                        </div>
 
-                                    </Link>
-                                </>))
+                                        </Link>
+                                    </>))
+                                    :
+                                    <div
+                                        className="flex items-center gap-x-5 border-t p-5 bg-stone-100  text-center "
+                                        onClick={handleSearch}>
+                                        <div>
+                                            <PiSmileySad className={"text-neutral-500"}/>
+                                        </div>
+                                        <span className={"text-sm text-neutral-800 font-bold"}>
+                                   موردی یافت نشد !
+                                    </span>
+                                    </div>
                             }
-                            <div className="flex justify-center my-4">
-                                <ButtonPrimary
-                                    className="cursor-pointer"
-                                    onClick={handleSearch}>مشاهده همه </ButtonPrimary>
-                            </div>
+                            {searchResponse.length > 0 && <div
+                                className="flex items-center gap-x-5 border-t p-5 bg-stone-100 hover:bg-stone-200 text-center cursor-pointer"
+                                onClick={handleSearch}>
+                                <div>
+                                    <FaBorderAll className={"text-neutral-500"}/>
+                                </div>
+                                <span className={"text-sm text-neutral-800 font-bold"}>
+                                مشاهده همه
+                                    </span>
+                            </div>}
                         </div>
                     </div>}
             </div>
@@ -156,11 +180,11 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
             <div>
                 <div className="h-20 flex justify-between">
                     <div className="flex items-center lg:hidden flex-1">
-                        <MenuBar />
+                        <MenuBar/>
                     </div>
 
                     <div className="lg:flex-1 flex items-center">
-                        <Logo className="flex-shrink-0" />
+                        <Logo className="flex-shrink-0"/>
                     </div>
 
                     <div className="flex-[2] hidden lg:flex items-center justify-center mx-4">
@@ -177,8 +201,8 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                 {renderMagnifyingGlassIcon()}
                             </button>
                         )} */}
-                        <AvatarDropdown />
-                        <CartDropdown />
+                        <AvatarDropdown/>
+                        <CartDropdown/>
                     </div>
                 </div>
 
@@ -187,15 +211,17 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     };
 
     return (
-        <div className="nc-MainNav2Logged relative z-40 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
-            <div className="container z-50">{renderContent()}</div> {/* z-index بالا برای محتوا */}
+        <div
+            className="nc-MainNav2Logged relative z-40 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
+            <div className="container z-50">{renderContent()}</div>
+            {/* z-index بالا برای محتوا */}
             <div className="relative z-40 hidden lg:block">
                 <div
                     className={`bg-stone-50 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 h-10 ${showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
-                        }`}
-                    style={{ top: '100%' }}
+                    }`}
+                    style={{top: '100%'}}
                 >
-                    <Navigation />
+                    <Navigation/>
                 </div>
             </div>
         </div>

@@ -135,13 +135,12 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
         }
         return (
             <div
-                className={`mt-0 lg:mt-10 nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full h-48 lg:h-[50vh] ${className}`}
+                className={`mt-0 lg:mt-10 nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full h-[40vh] lg:h-[50vh] ${className}`}
                 key={index}
             >
                 <div className=" w-full h-full">
                     <Image
-                        width={1000}
-                        height={1000}
+                        fill
                         className=" w-full h-full object-fill"
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}
                         alt={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}

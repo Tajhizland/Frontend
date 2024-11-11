@@ -61,7 +61,7 @@ const DiscoverMoreSlider = ({data}: { data: PopularCategoryResponse[] }) => {
             }`}
         >
             <Heading
-                className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50 nc-p-r-container "
+                className="mb-3 lg:mb-5 text-neutral-900 dark:text-neutral-50 nc-p-r-container "
                 desc=""
                 rightDescText=""
                 hasNextPrev
