@@ -54,7 +54,7 @@ export default function Form({data, submit}: Form) {
                             بدون والد
                         </option>
                         {
-                            list && list.map((item)=> (<option value={item.id} selected={data?.parent_id == item.id}>
+                            list && list.map((item , index)=> (<option key={index} value={item.id} selected={data?.parent_id == item.id}>
                                 {item.title}
                             </option>))
                         }
