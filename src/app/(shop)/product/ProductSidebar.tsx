@@ -111,6 +111,15 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
         }
         return null;
     };
+    const renderDelay = () => {
+        if (selectedColor.delivery_delay > 0) {
+            return <div className={"text-neutral-500 text-xs font-bold"}>
+                <span>زمان اماده سازی : </span>
+                <span>{selectedColor.delivery_delay}</span>
+                <span>روز</span>
+            </div>
+        }
+    };
 
     const checkColorInCart = () => {
         const item = cart && cart.find(item => item.color.id === selectedColor.id);
@@ -243,7 +252,10 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                     {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
                     <div className="mt-6 space-y-7 lg:space-y-8">
                         <div className="">{renderVariants()}</div>
-                        <div className="">{renderGuaranty()}</div>
+                        <div className="flex justify-between items-center">
+                            {renderGuaranty()}
+                            {renderDelay()}
+                        </div>
                         {/*<div className="">{renderSizeList()}</div>*/}
                     </div>
                 </div>

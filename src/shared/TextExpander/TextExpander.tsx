@@ -32,12 +32,14 @@ const TextExpander: React.FC<TextExpanderProps> = ({ text }) => {
       </div>
 
       {/* دکمه برای مشاهده همه یا نمایش کمتر */}
-      <ButtonCircle
-        onClick={toggleExpanded}
-        className="mt-2"
-      >
-        {isExpanded ? <FaMinus />: <FaPlus />}
-      </ButtonCircle>
+         <div  onClick={toggleExpanded}
+               className="mt-5 cursor-pointer "
+        >
+             <span className="  text-sm font-bold text-green-500">
+              {isExpanded ? "مشاهده کمتر":  "مشاهده بیشتر"}
+                 </span>
+        </div>
+
     </div>
   );
 };
