@@ -7,6 +7,9 @@ import CardCategory3 from "./CardCategories/CardCategory3";
 import Glide from "@glidejs/glide/dist/glide.esm";
 import {CATS_DISCOVER} from "./CardCategories/data";
 import {PopularCategoryResponse} from "@/services/types/popularCategory";
+import Image from "next/image";
+import Link from "next/link";
+import {Route} from "next";
 
 const DiscoverMoreSlider = ({data}: { data: PopularCategoryResponse[] }) => {
     const sliderRef = useRef(null);
@@ -34,7 +37,7 @@ const DiscoverMoreSlider = ({data}: { data: PopularCategoryResponse[] }) => {
                 },
                 768: {
                     gap: 10,
-                    perView:2.2,
+                    perView: 2.2,
                 },
                 500: {
                     gap: 10,
@@ -73,14 +76,27 @@ const DiscoverMoreSlider = ({data}: { data: PopularCategoryResponse[] }) => {
                 <ul className="glide__slides">
                     {data.map((item, index) => (
                         <li key={index} className={`glide__slide`}>
-                            <CardCategory3
-                                name={item.category?.name}
-                                url={item.category?.url}
-                                desc={item.category?.description}
-                                featuredImage={item.category?.image}
-                                index={index}
-                                color="bg-blue-50"
-                            />
+                            {/*<CardCategory3*/}
+                            {/*    name={item.category?.name}*/}
+                            {/*    url={item.category?.url}*/}
+                            {/*    desc={item.category?.description}*/}
+                            {/*    featuredImage={item.category?.image}*/}
+                            {/*    index={index}*/}
+                            {/*    color="bg-blue-50"*/}
+                            {/*/>*/}
+                            <div
+                                className={`relative w-full aspect-w-16 aspect-h-11 lg:aspect-h-9  rounded-2xl overflow-hidden group border`}
+                            >
+                                <Link href={item.category?.url as Route} title={"link"}>
+                                    <Image
+                                        alt=""
+                                        fill
+                                        className="w-full h-full object-cover"
+                                        src={`https://tajhizland.com/upload/1715089972.jpg`}
+                                    />
+                                </Link>
+                            </div>
+
                         </li>
                     ))}
                 </ul>
