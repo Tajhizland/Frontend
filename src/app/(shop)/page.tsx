@@ -16,6 +16,7 @@ import SectionMagazine5 from "@/app/(shop)/blog/SectionMagazine5";
 import {homePage} from "@/services/api/shop/homePage";
 import logo from "@/images/tajhizland/logo.png";
 import {Metadata} from "next";
+import VideoSwiper from "@/components/VideoSwiper";
 
 export async function generateMetadata(): Promise<Metadata> {
     return {
@@ -42,6 +43,9 @@ async function PageHome() {
     return (
         <div className="nc-PageHome relative overflow-hidden">
             <SectionHero2 data={response.sliders.data}/>
+            <div className="w-96 h-64">
+            <VideoSwiper />
+            </div>
             <div className="mt-5 ">
                 <DiscoverMoreSlider data={response.banners.data}/>
             </div>

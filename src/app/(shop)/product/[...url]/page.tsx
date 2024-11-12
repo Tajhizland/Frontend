@@ -19,6 +19,7 @@ import Script from "next/script";
 import {stripHTML} from "@/hooks/StripHtml";
 import TextExpander from "@/shared/TextExpander/TextExpander";
 import VideoSlider from "@/components/VideoSlider";
+import VideoSwiper from "@/components/VideoSwiper";
 
 
 interface ProductPageProps {
@@ -180,7 +181,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                         },
                         {
                             name: "ویدیو ها",
-                            content: <VideoSlider intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} />,
+                            content: <VideoSwiper intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} />,
                             render:true
                         },
                     ]}/>
