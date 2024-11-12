@@ -1,18 +1,15 @@
 "use client";
 
-import React from "react";
+import React, {Fragment} from "react";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 import Logo from "@/shared/Logo/Logo";
 import {Disclosure} from "@/app/(shop)/headlessui";
-import {NAVIGATION_DEMO_2} from "@/data/navigation";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import SocialsList from "@/shared/SocialsList/SocialsList";
 import {ChevronDownIcon} from "@heroicons/react/24/solid";
 import SwitchDarkMode from "@/shared/SwitchDarkMode/SwitchDarkMode";
 import Link from "next/link";
 import {MenuResponse} from "@/services/types/menu";
-import {menu} from "@/services/api/shop/menu";
-import {useQuery} from "react-query";
+import Image from "next/image";
 
 export interface NavMobileProps {
     data?: MenuResponse[];
@@ -24,56 +21,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
                                                  onClickClose,
                                              }) => {
 
-    // const _renderMenuChild = (
-    //   item: MenuResponse,
-    //   itemClass = " pr-3 text-neutral-900 dark:text-neutral-200 font-medium "
-    // ) => {
-    //   return (
-    //     <ul className="nav-mobile-sub-menu pl-6 pb-1 text-base">
-    //       {item.children?.data?.map((i, index) => (
-    //         <Disclosure key={index} as="li">
-    //           <Link
-    //             href={{
-    //               pathname: i.url || undefined,
-    //             }}
-    //             className={`flex text-sm rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5 pr-4 ${itemClass}`}
-    //           >
-    //             <span
-    //               className={`py-2.5 ${!i.children ? "block w-full" : ""}`}
-    //               onClick={onClickClose}
-    //             >
-    //               {i.title}
-    //             </span>
-    //             {i.children && (
-    //               <span
-    //                 className="flex items-center flex-grow"
-    //                 onClick={(e) => e.preventDefault()}
-    //               >
-    //                 <Disclosure.Button
-    //                   as="span"
-    //                   className="flex justify-end flex-grow"
-    //                 >
-    //                   <ChevronDownIcon
-    //                     className="ml-2 h-4 w-4 text-slate-500"
-    //                     aria-hidden="true"
-    //                   />
-    //                 </Disclosure.Button>
-    //               </span>
-    //             )}
-    //           </Link>
-    //           {i.children && (
-    //             <Disclosure.Panel>
-    //               {_renderMenuChild(
-    //                 i,
-    //                 "pl-3 text-slate-600 dark:text-slate-400 "
-    //               )}
-    //             </Disclosure.Panel>
-    //           )}
-    //         </Disclosure>
-    //       ))}
-    //     </ul>
-    //   );
-    // };
+
     const _renderMenuChild = (
         item: MenuResponse,
         itemClass = "  text-neutral-900 dark:text-neutral-200 font-medium "
@@ -81,14 +29,26 @@ const NavMobile: React.FC<NavMobileProps> = ({
         return (
             <>
                 <div className={"grid grid-cols-3 gap-2"}>
-                    {item.children?.data?.map((i, index) => (
-                        <Disclosure key={index} as="li">
+                    {item.children?.data?.map((item, index) => (
+                        <Fragment key={index} >
+                            {item.children?.data?.map((i, index) => (
+
+                                <Disclosure key={index} as="li">
                             <Link
                                 href={{
                                     pathname: i.url || undefined,
                                 }}
-                                className={`border justify-center text-center items-center flex text-sm rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5 ${itemClass}`}
+                                className={`  justify-center text-center items-center flex flex-col text-sm rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5 ${itemClass}`}
                             >
+                                <div className={"border rounded-full overflow-x-hidden w-16 h-16"}>
+                                    <Image
+                                        alt=""
+                                        width={500}
+                                        height={100}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/menu/${item.banner_logo}`}
+                                        className="   w-full  h-full "
+                                    />
+                                </div>
               <span
                   className={`py-2.5 text-center text-xs ${!i.children ? "block w-full" : ""}`}
                   onClick={onClickClose}
@@ -99,6 +59,9 @@ const NavMobile: React.FC<NavMobileProps> = ({
                             </Link>
 
                         </Disclosure>
+                            ))}
+
+                        </Fragment>
                     ))}
                 </div>
             </>
@@ -217,7 +180,6 @@ const NavMobile: React.FC<NavMobileProps> = ({
           <ButtonClose onClick={onClickClose}/>
         </span>
 
-                <div className="mt-5">{renderSearchForm()}</div>
             </div>
             <ul className="flex flex-col py-6 px-2 space-y-1">
                 {data && data.map(_renderItem)}

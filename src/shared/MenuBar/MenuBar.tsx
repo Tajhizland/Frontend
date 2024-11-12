@@ -4,6 +4,8 @@ import { Transition, Dialog, TransitionChild } from "@/app/(shop)/headlessui";
 import NavMobile from "@/shared/Navigation/NavMobile";
 import { menu } from "@/services/api/shop/menu";
 import { useQuery } from "react-query";
+import {BsSignStopFill} from "react-icons/bs";
+import {BiCategoryAlt} from "react-icons/bi";
 
 export interface MenuBarProps {}
 const MenuBar: React.FC<MenuBarProps> = () => {
@@ -61,25 +63,19 @@ const MenuBar: React.FC<MenuBarProps> = () => {
 
   return (
     <>
-      <button
-        onClick={handleOpenMenu}
-        className="p-2.5 rounded-lg text-neutral-700 dark:text-neutral-300 focus:outline-none flex items-center justify-center"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-7 w-7"
-          viewBox="0 0 20 20"
-          fill="currentColor"
+        <button
+            onClick={handleOpenMenu}
+            className="p-2.5 rounded-lg text-neutral-700 dark:text-neutral-300 focus:outline-none flex items-center justify-center"
         >
-          <path
-            fillRule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
+            <div className={"flex flex-col justify-center items-center gap-y-2 cursor-pointer"}>
+                <BiCategoryAlt  className={"w-5 h-5 text-neutral-500"}/>
+                <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap"}>
+                       دسته بندی
+                        </span>
+            </div>
+        </button>
 
-      {renderContent()}
+        {renderContent()}
     </>
   );
 };

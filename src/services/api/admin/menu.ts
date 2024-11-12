@@ -62,6 +62,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
+    formData.append('id', params.id+"");
     formData.append('title', params.title);
     formData.append('parent_id', params.parent_id +"");
     formData.append('url', params.url??"");
@@ -84,5 +85,11 @@ export const findById = async <T extends ServerResponse<MenuResponse>>
     id: number | string
 ) => {
     return axios.get<T, SuccessResponseType<T>>("admin/menu/find/" + id)
+        .then((res) => res?.data?.result?.data)
+};
+
+export const menuList = async <T extends ServerResponse<MenuResponse[]>>
+( ) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/menu/list")
         .then((res) => res?.data?.result?.data)
 };

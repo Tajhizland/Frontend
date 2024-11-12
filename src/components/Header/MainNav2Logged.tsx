@@ -18,6 +18,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {FaMagnifyingGlass} from "react-icons/fa6";
 import {FaBorderAll, FaExternalLinkAlt} from "react-icons/fa";
 import {PiSmileySad} from "react-icons/pi";
+import SearchBar from "@/components/Header/SearchBar";
 
 export interface MainNav2LoggedProps {
 }
@@ -73,32 +74,6 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const handleSearch = () => {
         router.push("/search/" + inputRef.current?.value as Route);
     }
-    const renderMagnifyingGlassIcon = () => {
-        return (
-            <svg
-                width={22}
-                height={22}
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                />
-                <path
-                    d="M22 22L20 20"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                />
-            </svg>
-        );
-    };
 
     const renderSearchForm = () => {
         return (
@@ -107,8 +82,8 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     className="flex-1 py-2 text-slate-900 dark:text-slate-100"
 
                 >
-                    <div className="bg-slate-50 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded">
-                        {renderMagnifyingGlassIcon()}
+                    <div className="bg-neutral-100 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded  ">
+                         <FaMagnifyingGlass  className={"text-neutral-500 w-4 h-4"}/>
                         <input
                             onChange={searchHandle}
                             ref={inputRef}
@@ -117,15 +92,16 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-sm"
                             autoFocus
                         />
-                        <button type="button" onClick={() => setShowSearchForm(false)}>
-                            <XMarkIcon className="w-5 h-5"/>
-                        </button>
+
                     </div>
                     <input type="submit" hidden value=""/>
                 </div>
                 {searchResponse && showSearchForm &&
                     <div
                         className="absolute top-14 left-0 w-full h-96 bg-white  z-50 border rounded shadow border-t-0 overflow-y-scroll whitespace-nowrap ">
+                        <button type="button" onClick={() => setShowSearchForm(false)}>
+                            <XMarkIcon className="w-5 h-5 mr-5"/>
+                        </button>
                         <div className="flex flex-col  ">
                             {
                                 searchResponse.length > 0 ? searchResponse.map((item) => (<>
@@ -178,20 +154,24 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const renderContent = () => {
         return (
             <div>
-                <div className="h-20 flex justify-between">
-                    <div className="flex items-center lg:hidden flex-1">
-                        <MenuBar/>
-                    </div>
+                <div className="h-16 lg:h-20 flex justify-between">
+                    {/*<div className="flex items-center lg:hidden flex-1">*/}
+                    {/*    <MenuBar/>*/}
+                    {/*</div>*/}
 
-                    <div className="lg:flex-1 flex items-center">
+                    <div className="hidden lg:flex-1 lg:flex items-center">
                         <Logo className="flex-shrink-0"/>
                     </div>
 
-                    <div className="flex-[2] hidden lg:flex items-center justify-center mx-4">
+                    <div className="lg:flex-[2] hidden lg:flex items-center justify-center mx-4">
                         {renderSearchForm()}
                     </div>
 
-                    <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
+                    <div className="lg:hidden flex items-center justify-center mx-4 w-full">
+                       <SearchBar />
+                    </div>
+
+                    <div className="lg:flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
                         {/* {!showSearchForm && (
                             <button
                                 aria-label={"search"}

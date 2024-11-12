@@ -9,14 +9,22 @@ import Uploader from "@/shared/Uploader/Uploader";
 import {BrandResponse} from "@/services/types/brand";
 import TinyEditor from "@/shared/Editor/TinyEditor";
 import {MenuResponse} from "@/services/types/menu";
+import {useQuery} from "react-query";
+import {findById} from "@/services/api/admin/faq";
+import {menuList} from "@/services/api/admin/menu";
 
 interface Form {
     data?: MenuResponse;
     submit: (e: FormData) => void;
 }
 
-export default function Form({ data, submit  }: Form) {
+export default function Form({data, submit}: Form) {
 
+    const {data: list} = useQuery({
+        queryKey: [`menu-list`],
+        queryFn: () => menuList(),
+        staleTime: 5000,
+    });
     return (<>
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
@@ -41,11 +49,15 @@ export default function Form({ data, submit  }: Form) {
                 </div>
                 <div>
                     <Label>والد</Label>
-                    <Select name={"status"}>
+                    <Select name={"parent_id"}>
                         <option value={0} selected={data?.parent_id == 0}>
                             بدون والد
                         </option>
-
+                        {
+                            list && list.map((item)=> (<option value={item.id} selected={data?.parent_id == item.id}>
+                                {item.title}
+                            </option>))
+                        }
                     </Select>
                 </div>
                 <div>
