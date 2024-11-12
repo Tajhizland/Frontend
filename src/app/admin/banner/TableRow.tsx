@@ -15,9 +15,10 @@ export const columns: Column<SliderResponse>[] = [
         header: 'تصویر',
         hasFilter: false,
         hasSort: false,
-        render: (value) => <Image className={"w-10 h-10 mx-auto"} fill alt={"image"}
+        render: (value) =><div className={"w-10 h-10"}><Image className={"w-10 h-10 mx-auto"}  width={50} height={50} alt={"image"}
                                   src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${value}`}
         />
+        </div>
     },
     {key: 'url', header: 'آدرس ', filterType: 'input', editable: false},
     {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},

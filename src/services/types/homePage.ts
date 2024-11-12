@@ -6,10 +6,11 @@ import {PopularCategoryResponse} from "@/services/types/popularCategory";
 import {PopularProductResponse} from "@/services/types/popularProduct";
 import {BrandResponse} from "@/services/types/brand";
 import {NewsResponse} from "@/services/types/news";
+import {BannerResponse} from "@/services/types/banner";
 
 export type HomePageResponse = {
     popularProducts: { data: PopularProductResponse[] };
-    popularCategories: { data: PopularCategoryResponse[] };
+     banners: { data: BannerResponse[] };
     homepageCategories: { data: HomepageCategoryResponse[] };
     sliders: { data: SliderResponse[] };
     brands: { data: BrandResponse[] };

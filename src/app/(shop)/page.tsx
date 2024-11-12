@@ -43,7 +43,7 @@ async function PageHome() {
         <div className="nc-PageHome relative overflow-hidden">
             <SectionHero2 data={response.sliders.data}/>
             <div className="mt-5 ">
-                <DiscoverMoreSlider data={response.popularCategories.data}/>
+                <DiscoverMoreSlider data={response.banners.data}/>
             </div>
 
             <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">

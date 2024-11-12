@@ -10,8 +10,9 @@ import {PopularCategoryResponse} from "@/services/types/popularCategory";
 import Image from "next/image";
 import Link from "next/link";
 import {Route} from "next";
+import {BannerResponse} from "@/services/types/banner";
 
-const DiscoverMoreSlider = ({data}: { data: PopularCategoryResponse[] }) => {
+const DiscoverMoreSlider = ({data}: { data: BannerResponse[] }) => {
     const sliderRef = useRef(null);
 
     const [isShow, setIsShow] = useState(false);
@@ -87,12 +88,12 @@ const DiscoverMoreSlider = ({data}: { data: PopularCategoryResponse[] }) => {
                             <div
                                 className={`relative w-full aspect-w-16 aspect-h-11 lg:aspect-h-9  rounded-2xl overflow-hidden group border`}
                             >
-                                <Link href={item.category?.url as Route} title={"link"}>
+                                <Link href={item.url as Route} title={"link"}>
                                     <Image
                                         alt=""
                                         fill
                                         className="w-full h-full object-cover"
-                                        src={`https://tajhizland.com/upload/1715089972.jpg`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${item.image}`}
                                     />
                                 </Link>
                             </div>
