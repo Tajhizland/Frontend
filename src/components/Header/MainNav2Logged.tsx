@@ -167,7 +167,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                         {renderSearchForm()}
                     </div>
 
-                    <div className="lg:hidden flex items-center justify-center mx-4 w-full">
+                    <div className="lg:hidden flex items-center justify-center ml-1 w-full">
                        <SearchBar />
                     </div>
 

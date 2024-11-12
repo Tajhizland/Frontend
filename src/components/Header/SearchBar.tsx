@@ -10,7 +10,7 @@ import logoImg from "@/images/tajhizland/logo.png";
 export interface MenuBarProps {
 }
 
-const SearchBoxBar: React.FC<MenuBarProps> = () => {
+const SearchBar: React.FC<MenuBarProps> = () => {
     const [isVisable, setIsVisable] = useState(false);
     const handleOpenMenu = () => setIsVisable(true);
     const handleCloseMenu = () => setIsVisable(false);
@@ -104,7 +104,7 @@ const SearchBoxBar: React.FC<MenuBarProps> = () => {
                                 className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-xs font-bold text-neutral-500"
                                 autoFocus
                             />
-                                <div className={"absolute text-rose-500 right-20 top-2 h-5  w-ful opacity-70"}>
+                                <div className={"absolute text-rose-500 right-16 top-2 h-5  w-ful opacity-70"}>
                                     <Image
                                         className={`block h-5 w-auto  `}
                                         src={logoImg}
@@ -125,4 +125,4 @@ const SearchBoxBar: React.FC<MenuBarProps> = () => {
         </>
     );
 };
-export default SearchBoxBar;
+export default SearchBar;
