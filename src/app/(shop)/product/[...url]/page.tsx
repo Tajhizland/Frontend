@@ -172,13 +172,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                 {/*  */}
                 <TextExpander text={product.description} />
                 <AccordionInfo
-                    data={[
-
-                        {
-                            name: "بررسی اجمالی",
-                            content: product.study
-
-                        },
+                    data={[ 
                         {
                             name: "مشخصات محصول",
                             content: renderOption()
