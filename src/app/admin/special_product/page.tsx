@@ -7,13 +7,14 @@ import PageLink from "@/shared/PageLink/PageLink";
 import DataTable from "@/shared/DataTable/DataTable";
 import {columns} from "@/app/admin/special_product/TableRow";
 import {toast} from "react-hot-toast";
-import {remove, store} from "@/services/api/admin/specialProduct";
+import {remove, store, updateHomepage} from "@/services/api/admin/specialProduct";
 import NcModal from "@/shared/NcModal/NcModal";
 import {useState} from "react";
 import Input from "@/shared/Input/Input";
 import Image from "next/image";
 import {search} from "@/services/api/admin/product";
 import {ProductResponse} from "@/services/types/product";
+import {SpecialProductResponse} from "@/services/types/specialProduct";
 
 
 export default function Page() {
@@ -60,7 +61,7 @@ export default function Page() {
                                     </div>
                                     <span>
                                         {item.name}
-                            </span>
+                                    </span>
                                 </div>
                             </>))
                         }
@@ -70,6 +71,11 @@ export default function Page() {
             </>
         );
     };
+
+    async function submit(e: SpecialProductResponse) {
+        let response = await updateHomepage({homepage: e.homepage, id: e.id});
+        toast.success(response?.message as string)
+    }
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -103,6 +109,7 @@ export default function Page() {
 
             <DataTable
                 onDelete={removeItem}
+                onEdit={submit}
                 apiUrl={"admin/special_product/dataTable"}
                 columns={columns}
                 buttons={[]}
