@@ -11,6 +11,7 @@ export const columns: Column<SpecialProductResponse>[] = [
         header: 'نام محصول',
         editable: false,
         filterType: 'input',
+        hasFilter:false,
         //@ts-ignore
         render: (value:ProductResponse) => value?.name,
     },

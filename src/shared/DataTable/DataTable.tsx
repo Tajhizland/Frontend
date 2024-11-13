@@ -271,7 +271,7 @@ const DataTable = <T,>({ columns, apiUrl, buttons, onEdit, onDelete }: DataTable
                                             </td>
                                         );
                                     })}
-                                    <td className={"text-center p-3 border-b"}>
+                                    <td className={"text-center p-3 border-b flex"}>
                                         {editingRow === rowIndex ? (
                                             <>
                                                 <div className={"flex gap-x-2 justify-center"}>
