@@ -24,7 +24,7 @@ export default function Page() {
                 id: Number(id),
                 title: e.get("title") as string,
                 url: e.get("url") as string,
-                status: e.get("published") as string,
+                status: e.get("status") as string,
                 video: e.get("video") as File,
                 description: e.get("description") as string,
             }
