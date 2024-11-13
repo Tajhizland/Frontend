@@ -8,12 +8,21 @@ import {GiSevenPointedStar} from "react-icons/gi";
 import {VscLayoutMenubar} from "react-icons/vsc";
 import {TbAlignBoxCenterTop, TbBrandApple} from "react-icons/tb";
 import {SiPagespeedinsights} from "react-icons/si";
-import {FaBell, FaCcPaypal, FaCommentDots, FaHome, FaQuestionCircle, FaTruckMoving, FaUsers} from "react-icons/fa";
+import {
+    FaBell,
+    FaCcPaypal,
+    FaCommentDots,
+    FaFileVideo,
+    FaHome,
+    FaQuestionCircle,
+    FaTruckMoving,
+    FaUsers
+} from "react-icons/fa";
 import {MdCoffeeMaker, MdFolderSpecial, MdOutlineDashboardCustomize, MdOutlineWaterfallChart} from "react-icons/md";
 import {TfiLayoutSlider} from "react-icons/tfi";
 import {FaMessage} from "react-icons/fa6";
 import {PiShippingContainerDuotone} from "react-icons/pi";
-import {ImCoinDollar} from "react-icons/im";
+import {ImCoinDollar, ImImages} from "react-icons/im";
 import {IoMdSettings} from "react-icons/io";
 import {RiDiscountPercentFill} from "react-icons/ri";
 
@@ -88,6 +97,42 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         ]
     },
     {
+        title: "بنر ها",
+        url: "/",
+        icon: <ImImages  className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت بنر ها",
+                url: "/banner",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن بنر",
+                url: "/banner/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }
+        ]
+    },{
+        title: "ولاگ ها",
+        url: "/",
+        icon: <FaFileVideo  className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت ولاگ ها",
+                url: "/vlog",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن ولاگ",
+                url: "/vlog/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }
+        ]
+    }, {
         title: "بلاگ ها",
         url: "/",
         icon: <NewspaperIcon className="h-6 w-6 text-gray-500"/>,

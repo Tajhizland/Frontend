@@ -6,10 +6,10 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import TinyEditor from "@/shared/Editor/TinyEditor";
-import {PageResponse} from "@/services/types/page";
+import {VlogResponse} from "@/services/types/vlog";
 
 interface Form {
-    data?: PageResponse;
+    data?: VlogResponse;
     submit: (e: FormData) => void;
 }
 
@@ -19,15 +19,15 @@ export default function Form({ data, submit  }: Form) {
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
-                    <Label>عنوان صفحه</Label>
+                    <Label>عنوان ولاگ</Label>
                     <Input name={"title"} defaultValue={data?.title}/>
                 </div>
                 <div>
-                    <Label>ادرس صفحه</Label>
+                    <Label>ادرس ولاگ</Label>
                     <Input name={"url"} defaultValue={data?.url}/>
                 </div>
                 <div>
-                    <Label>وضعیت صفحه</Label>
+                    <Label>وضعیت ولاگ</Label>
                     <Select name={"status"}>
                         <option value={1} selected={data?.status == 1}>
                             فعال
@@ -44,14 +44,14 @@ export default function Form({ data, submit  }: Form) {
             <div className={"grid grid-cols-1 gap-5"}>
 
                 <div>
-                    <Label>محتوا صفحه</Label>
-                    <TinyEditor name={"content"} value={data?.content} />
+                    <Label>توضیحات ولاگ</Label>
+                    <TinyEditor name={"description"} value={data?.description} />
                 </div>
 
             </div>
             <div>
-                <Label>تصویر صفحه</Label>
-                <Uploader  name={"image"}/>
+                <Label>ویدیو  </Label>
+                <Uploader  name={"video"}/>
             </div>
             <hr className={"my-5"}/>
             <div className={"flex justify-center my-5"}>
