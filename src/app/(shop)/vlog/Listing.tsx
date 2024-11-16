@@ -21,7 +21,7 @@ export default function Listing({response} )
 
     const renderItem = (item: VlogResponse) => {
         return <div>
-            <Link href={item.url as Route}>
+            <Link href={("/vlog/"+item.url) as Route}>
                 <video
                     className="w-full h-auto"
                     muted
