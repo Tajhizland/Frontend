@@ -10,6 +10,7 @@ import {useMutation, useQuery} from "react-query";
 import {getProvince} from "@/services/api/shop/province";
 import {getCity} from "@/services/api/shop/city";
 import Select from "@/shared/Select/Select";
+import Maps from "@/components/Map";
 
 const info = [
     {
@@ -27,6 +28,10 @@ const info = [
         >
             021-66477790-1
         </a>,
+    },
+    {
+        title: "📍 لوکیشن",
+        desc: <Maps />,
     },
 ];
 const PageContact = ({}) => {
@@ -76,7 +81,7 @@ const PageContact = ({}) => {
                     {item.desc}
                   </span>
                                 </div>
-                            ))}
+                            ))} 
                         </div>
                         <div>
                             <form className="grid grid-cols-1 gap-6" action={submitHandle} method="post">
