@@ -14,6 +14,6 @@ export const findBrandByUrl = async <T extends ServerResponse<BrandListingRespon
 export const getBrandList = async <T extends ServerResponse<BrandResponse[]>>
 (
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("brand/list")
+    return axios.get<T, SuccessResponseType<T>>("brand/list")
         .then((res) => res?.data?.result?.data)
 };
