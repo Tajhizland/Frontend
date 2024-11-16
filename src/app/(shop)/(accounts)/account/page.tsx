@@ -4,16 +4,13 @@ import React, {FC} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
-import Textarea from "@/shared/Textarea/Textarea";
 import {avatarImgs} from "@/contains/fakeData";
 import Image from "next/image";
 import {setUser, useUser} from "@/services/globalState/GlobalState";
 import {useMutation, useQuery} from "react-query";
-import {me, update} from "@/services/api/auth/me";
-import {getCookie} from "cookies-next";
-import {useRouter} from "next/navigation";
+import {update} from "@/services/api/auth/me";
 import {toast} from "react-hot-toast";
-import {find} from "@/services/api/shop/address";
+import {findActive} from "@/services/api/shop/address";
 import {getProvince} from "@/services/api/shop/province";
 import {getCity} from "@/services/api/shop/city";
 
@@ -23,7 +20,7 @@ const AccountPage = () => {
 
     const {data: address} = useQuery({
         queryKey: ['address'],
-        queryFn: () => find(),
+        queryFn: () => findActive(),
         staleTime: 5000,
         onSuccess: data => {
             changeProvince(data.province_id);
