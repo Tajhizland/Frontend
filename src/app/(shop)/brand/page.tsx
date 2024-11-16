@@ -1,8 +1,9 @@
-import { getBrandList } from "@/services/api/shop/brand"
 import React, {Fragment} from "react";
+import {getBrandList} from "@/services/api/shop/brand";
 import CardCategory2 from "@/components/CardCategories/CardCategory2";
 
-export default async function Page() {
+
+const Page = async () => {
     let response = await getBrandList();
     return (<>
         <div className={`nc-PageCollection`}>
@@ -35,4 +36,6 @@ export default async function Page() {
         </div>
 
     </>)
-}
+};
+
+export default Page;
