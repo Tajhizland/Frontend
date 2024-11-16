@@ -1,5 +1,5 @@
-import Listing from "@/app/(shop)/vlog/Listing";
-import {getSpecialProductsPaginate} from "@/services/api/shop/product";
+ import {getSpecialProductsPaginate} from "@/services/api/shop/product";
+ import Listing from "@/app/(shop)/special/Listing";
 
 interface PageProps {
     searchParams: {
