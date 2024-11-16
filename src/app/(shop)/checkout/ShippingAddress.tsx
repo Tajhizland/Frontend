@@ -10,8 +10,9 @@ import Select from "@/shared/Select/Select";
 import {useMutation, useQuery} from "react-query";
 import {getProvince} from "@/services/api/shop/province";
 import {getCity} from "@/services/api/shop/city";
-import {find, update} from "@/services/api/shop/address";
+import { findActive, update} from "@/services/api/shop/address";
 import {toast} from "react-hot-toast";
+import Link from "next/link";
 
 interface Props {
     isActive: boolean;
@@ -28,10 +29,10 @@ const ShippingAddress: FC<Props> = ({
 
     const {data: address} = useQuery({
         queryKey: ['address'],
-        queryFn: () => find(),
+        queryFn: () => findActive(),
         staleTime: 5000,
         onSuccess: data => {
-            changeProvince(data.province_id);
+            changeProvince(data?.province_id);
         }
     });
 
@@ -55,6 +56,7 @@ const ShippingAddress: FC<Props> = ({
 
     async function saveAddress(e: FormData) {
         let response = await update({
+            id: address?.id as number,
             city_id: e.get("city_id") as string,
             province_id: e.get("province_id") as string,
             tell: e.get("tell") as string,
@@ -147,6 +149,11 @@ const ShippingAddress: FC<Props> = ({
                     }`}
                 >
 
+                    <Link href={"/account-address"}>
+                        <ButtonPrimary>
+                            آدرس های من
+                        </ButtonPrimary>
+                    </Link>
                     <form action={saveAddress}>
                         {/* ============ */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">

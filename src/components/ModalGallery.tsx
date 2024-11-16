@@ -21,9 +21,7 @@ const Modal: FC<ModalProps> = ({
     function closeModal() {
         CloseModal && CloseModal();
     }
-    {
-        console.log(isOpenProp)
-    }
+
 
     return (
         <div className="nc-Modal">

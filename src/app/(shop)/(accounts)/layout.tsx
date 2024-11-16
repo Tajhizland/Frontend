@@ -27,6 +27,9 @@ const pages: {
     link: "/account-savelists",
   },
   {
+    name: "آدرس های من",
+    link: "/account-address",
+  },{
     name: "سفارشات من",
     link: "/account-order",
   },
@@ -67,7 +70,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
         <div className="max-w-4xl mx-auto">
           <div className="max-w-2xl">
             <h2 className="text-3xl xl:text-4xl font-semibold">حساب کاربری</h2>
-        
+
           </div>
           <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
 
