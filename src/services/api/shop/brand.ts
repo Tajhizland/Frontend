@@ -1,5 +1,5 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
-import {BrandListingResponse} from "@/services/types/brand";
+import {BrandListingResponse, BrandResponse} from "@/services/types/brand";
 
 export const findBrandByUrl = async <T extends ServerResponse<BrandListingResponse>>
 (
@@ -11,8 +11,8 @@ export const findBrandByUrl = async <T extends ServerResponse<BrandListingRespon
         .then((res) => res?.data?.result?.data)
 };
 
-export const getBrandList = async <T extends ServerResponse<BrandListingResponse>>
-( 
+export const getBrandList = async <T extends ServerResponse<BrandResponse[]>>
+(
 ) => {
     return axios.post<T, SuccessResponseType<T>>("brand/list")
         .then((res) => res?.data?.result?.data)
