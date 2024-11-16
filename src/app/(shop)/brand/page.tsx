@@ -2,6 +2,10 @@ import { getBrandList } from "@/services/api/shop/brand"
 import React, {Fragment} from "react";
 import CardCategory2 from "@/components/CardCategories/CardCategory2";
 
+export const generateStaticParams = () => {
+    return [];
+};
+
 export default async function Page() {
     let response = await getBrandList();
     return (<>
