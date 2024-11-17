@@ -6,10 +6,11 @@ import Link from "next/link";
 import {NewsResponse} from "@/services/types/news";
 import {Route} from "next";
 import {stripHTML} from "@/hooks/StripHtml";
+import {VlogResponse} from "@/services/types/vlog";
 
 export interface Card13Props {
   className?: string;
-  data : NewsResponse;
+  data : VlogResponse;
 }
 
 const Card13: FC<Card13Props> = ({ className = "" , data }) => {
@@ -19,7 +20,7 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
       <div className="flex flex-col h-full py-2">
         <h2 className={`nc-card-title block font-semibold text-base`}>
           <Link
-              href={"/news/show/"+data.url as Route}
+              href={"/vlog/"+data.url as Route}
             className="line-clamp-2 capitalize"
             title={"title"}
           >
@@ -29,7 +30,7 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
         </h2>
         <span className="hidden sm:block my-3 text-slate-500 dark:text-slate-400 ">
           <span className="line-clamp-2">
-               <div dangerouslySetInnerHTML={{__html: stripHTML(data.content)}}/>
+               <div dangerouslySetInnerHTML={{__html: stripHTML(data.description)}}/>
 
           </span>
         </span>
@@ -42,13 +43,14 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
       </div>
 
       <Link
-        href={"/news/show/"+data.url as Route}
+        href={"/vlog/"+data.url as Route}
         aria-label={"news"}
         className={`block relative h-full flex-shrink-0 w-2/5 sm:w-1/3 mr-3 sm:mr-5`}
       >
         <NcImage
           alt=""
-          src={"https://tajhizland.com/upload/"+data.img}
+          src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`}
+
           containerClassName="absolute inset-0"
           className="object-cover w-full h-full rounded-xl sm:rounded-3xl"
           sizes="400px"

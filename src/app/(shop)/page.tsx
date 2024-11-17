@@ -70,9 +70,10 @@ async function PageHome() {
                     <BackgroundSection/>
                     <div>
                         <Heading>
-                            جدیدترین اخبار
+                            جدیدترین ولاگ
                         </Heading>
-                        <SectionMagazine5 data={response.news.data}/>
+                        {/*<SectionMagazine5 data={response.news.data}/>*/}
+                        <SectionMagazine5 data={response.vlogs.data}/>
                         <div className="flex mt-16 justify-center">
                             <ButtonSecondary href={"/news"}>مشاهده همه</ButtonSecondary>
                         </div>

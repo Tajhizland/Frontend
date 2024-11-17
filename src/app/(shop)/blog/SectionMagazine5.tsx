@@ -2,9 +2,10 @@ import React, {FC} from "react";
 import Card12 from "./Card12";
 import Card13 from "./Card13";
 import {NewsResponse} from "@/services/types/news";
+import {VlogResponse} from "@/services/types/vlog";
 
 export interface SectionMagazine5Props {
-    data:NewsResponse[]
+    data:VlogResponse[]
 }
 
 const SectionMagazine5: FC<SectionMagazine5Props> = ({data}) => {
