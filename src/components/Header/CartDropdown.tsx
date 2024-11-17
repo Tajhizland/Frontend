@@ -104,7 +104,7 @@ export default function CartDropdown() {
         return sumPrice;
     }
     return (
-        <Popover className="relative z-50">
+        <Popover className="relative z-50 hidden lg:block">
             {({open, close}) => (
                 <>
                     <PopoverButton

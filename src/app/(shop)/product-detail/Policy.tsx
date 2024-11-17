@@ -2,7 +2,7 @@ import React from "react";
 const A_FEATURES = [
   {
     color: "bg-red-50",
-    name: "Free shipping",
+    name: "ارسال به سراسر کشور",
     desc: "On orders over $50.00",
     svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 14H13C14.1 14 15 13.1 15 12V2H6C4.5 2 3.19001 2.82999 2.51001 4.04999" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -18,7 +18,7 @@ const A_FEATURES = [
   },
   {
     color: "bg-sky-50",
-    name: "Very easy to return",
+    name: "ضمانت اصالت کالا",
     desc: "Just phone number.",
     svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M22 15C22 18.87 18.87 22 15 22L16.05 20.25" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -34,7 +34,7 @@ const A_FEATURES = [
   },
   {
     color: "bg-green-50",
-    name: "Nationwide Delivery",
+    name: "گارانتی معتبر",
     desc: "Fast delivery nationwide.",
     svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -47,7 +47,7 @@ const A_FEATURES = [
   },
   {
     color: "bg-amber-50",
-    name: "Refunds policy",
+    name: "امکان خرید حضوری",
     desc: "60 days return for any reason",
     svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -72,8 +72,7 @@ const Policy = () => {
             <div dangerouslySetInnerHTML={{ __html: item.svg }}></div>
             <div className="mt-2.5">
               <p className="font-semibold text-slate-900">{item.name}</p>
-              <p className="text-slate-500 mt-0.5 text-sm">{item.desc}</p>
-            </div>
+             </div>
           </div>
         );
       })}

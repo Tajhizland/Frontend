@@ -135,7 +135,7 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
         }
         return (
             <div
-                className={`mt-0 lg:mt-10 nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full  aspect-w-16 aspect-h-7 md:aspect-h-5 ${className}`}
+                className={`mt-0 lg:mt-10 nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full  aspect-w-16 aspect-h-7 md:aspect-h-4 ${className}`}
                 key={index}
             >
                 <div className=" w-full h-full">

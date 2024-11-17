@@ -6,6 +6,8 @@ export const storeContact = async <T extends ServerResponse<unknown>>
     params:{
         name:string;
         email:string;
+        city_id:number;
+        province_id:number;
         message:string;
     }
 ) => {

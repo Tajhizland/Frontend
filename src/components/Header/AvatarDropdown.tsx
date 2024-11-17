@@ -173,7 +173,7 @@ export default function AvatarDropdown() {
                                                     </svg>
                                                 </div>
                                                 <div className="mr-4">
-                                                    <p className="text-sm font-medium ">{"سفارشات من"}</p>
+                                                    <p className="text-sm font-medium ">{"سفارش ها"}</p>
                                                 </div>
                                             </Link>
 
@@ -200,7 +200,7 @@ export default function AvatarDropdown() {
                                                     </svg>
                                                 </div>
                                                 <div className="mr-4">
-                                                    <p className="text-sm font-medium ">{"لیست سفارشات معلق"}</p>
+                                                    <p className="text-sm font-medium ">{"سفارش های معلق"}</p>
                                                 </div>
                                             </Link>
 

@@ -40,7 +40,9 @@ const PageContact = ({}) => {
             {
                 name: e.get("name") as string,
                 email: e.get("email") as string,
-                message: e.get("message") as string
+                message: e.get("message") as string,
+                city_id: Number(e.get("city_id")),
+                province_id: Number(e.get("province_id"))
             }
         )
         toast.success(response.message as string)

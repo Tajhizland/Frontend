@@ -30,11 +30,11 @@ const pages: {
     name: "آدرس های من",
     link: "/account-address",
   },{
-    name: "سفارشات من",
+    name: "سفارش ها",
     link: "/account-order",
   },
   {
-    name: "سفارشات معلق من",
+    name: "سفارش های معلق",
     link: "/account-order-on-hold",
   },
   {
