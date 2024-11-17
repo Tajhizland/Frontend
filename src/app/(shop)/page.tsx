@@ -75,7 +75,7 @@ async function PageHome() {
                         {/*<SectionMagazine5 data={response.news.data}/>*/}
                         <SectionMagazine5 data={response.vlogs.data}/>
                         <div className="flex mt-16 justify-center">
-                            <ButtonSecondary href={"/news"}>مشاهده همه</ButtonSecondary>
+                            <ButtonSecondary href={"/vlog"}>مشاهده همه</ButtonSecondary>
                         </div>
                     </div>
                 </div>
