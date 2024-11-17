@@ -75,9 +75,9 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
             <div className="relative mt-5 flex flex-col-reverse sm:flex-row gap-y-2 ">
                 {/* TITLE */}
                 <div className="flex-1">
-                    <h2 className="font-semibold text-xs  sm:text-xl text-right">{name}</h2>
+                    <h2 className="font-semibold text-xs  sm:text-sm lg:text-lg text-right">{name}</h2>
                     {/* AUTHOR */}
-                    <div className="mt-3 flex items-center text-slate-500 dark:text-slate-400">
+                    <div className="mt-3 lg:flex items-center text-slate-500 dark:text-slate-400 hidden">
                         {/* <span className="text-sm ">
               <span className="line-clamp-1">{description}</span>
             </span> */}

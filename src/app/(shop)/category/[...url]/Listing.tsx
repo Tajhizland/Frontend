@@ -1,25 +1,83 @@
+//@ts-nocheck
 "use client"
-import React, { useState } from "react";
-import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import SectionPromo1 from "@/components/SectionPromo1";
 import TabFilters from "@/components/TabFilters";
-import { findCategoryByUrl } from "@/services/api/shop/category";
+import {findCategoryByUrl} from "@/services/api/shop/category";
 import ProductCardNew from "@/components/ProductCardNew";
-import { CategoryListing } from "@/services/types/category";
-import AdminPagination from "@/shared/Pagination/AdminPagination";
-import { useRouter } from "next/navigation";
+import {CategoryListing} from "@/services/types/category";
+import {useRouter} from "next/navigation";
+import {ProductResponse} from "@/services/types/product";
+import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 
-const PageCollection = ({ response, url }: { response: CategoryListing, url: string }) => {
-    const [newResponse, setNewResponse] = useState<CategoryListing | null>();
+const PageCollection = ({response, url}: { response: CategoryListing, url: string }) => {
+    const [newResponseProduct, setNewResponseProduct] = useState<ProductResponse[] | null>(response.products.data);
     const [filter, setFilter] = useState<string>("");
+    const [page, setPage] = useState<number>(1);
     const router = useRouter();
+    const [hasMore, setHasMore] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    async function fetchData(filters: string, page: number = 1) {
+    const observer = useRef<IntersectionObserver | null>(null);
+    const lastElementRef = useRef<HTMLDivElement>(null);
+
+    async function fetchMain(filters: string, page: number = 1) {
         router.push(`?page=${page}`);
         setFilter(filters);
+        setPage(page)
         let data = await findCategoryByUrl(url, filters, page)
-        setNewResponse(data);
+        setNewResponseProduct(data.products.data);
+        if (data?.products?.meta?.last_page >= page + 1) {
+            setHasMore(true);
+        }
+        setLoading(false)
     }
+
+    const fetchData = useCallback(async (filters: string, page = 1) => {
+        if (loading || !hasMore) return;
+        setLoading(true);
+        try {
+            router.replace(`?page=${page}`, {scroll: false});
+            const data = await findCategoryByUrl(url, filters, page)
+            if (data?.products?.meta?.last_page < page + 1) {
+                setHasMore(false);
+            }
+            setNewResponseProduct((prevResponse) => [
+                ...(prevResponse || []),
+                ...data.products.data
+            ]);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        } finally {
+            setLoading(false);
+        }
+    }, [router]);
+
+    useEffect(() => {
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && hasMore && !loading) {
+                setPage((prevPage) => prevPage + 1);
+            }
+        }, {
+            rootMargin: '2000px',
+        });
+
+        if (lastElementRef.current) {
+            observer.current.observe(lastElementRef.current);
+        }
+
+        return () => {
+            if (observer.current) observer.current.disconnect();
+        };
+    }, [loading, hasMore]);
+
+
+    useEffect(() => {
+        if (page > 1) {
+            fetchData(filter, page);
+        }
+    }, [page, fetchData]);
 
     return (
         <div className={`nc-PageCollection`}>
@@ -31,48 +89,50 @@ const PageCollection = ({ response, url }: { response: CategoryListing, url: str
                             {response.category.name}
                         </h2>
                         <span className="block mt-4 text-neutral-500 dark:text-neutral-400 text-sm sm:text-base">
-                            <div dangerouslySetInnerHTML={{ __html:  (response.category.description) }} />
+                            <div dangerouslySetInnerHTML={{__html: (response.category.description)}}/>
                         </span>
                     </div>
 
-                    <hr className="border-slate-200 dark:border-slate-700" />
+                    <hr className="border-slate-200 dark:border-slate-700"/>
                     <main>
                         {/* TABS FILTER */}
                         <TabFilters filters={response.category.filters.data} maxPrice={response.category.maxPrice}
-                            minPrice={response.category.minPrice} changeFilter={fetchData} />
+                                    minPrice={response.category.minPrice} changeFilter={fetchMain}/>
 
                         {/* LOOP ITEMS */}
                         <div
-                            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
-                            {newResponse ? newResponse.products.data.map((item, index) => (
-                                <ProductCardNew data={item} key={index} />
-                            )) : response.products.data.map((item, index) => (
-                                <ProductCardNew data={item} key={index} />
+                            className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
+                            {newResponseProduct && newResponseProduct.map((item, index) => (
+                                <ProductCardNew data={item} key={index}/>
                             ))}
+                        </div>
+                        <div ref={lastElementRef}
+                             className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
+                            {hasMore && <ProductCardSkeleton/>}
                         </div>
 
 
                         {/* PAGINATION */}
-                        <div
-                            className="flex flex-col mt-12 lg:mt-16 space-y-5 sm:space-y-0 sm:space-x-3 sm:flex-row sm:justify-between sm:items-center">
-                            <AdminPagination
-                                currentPage={newResponse ? newResponse.products.meta?.current_page as number : response.products.meta?.current_page as number}
-                                totalPages={newResponse ? newResponse.products.meta?.last_page as number : response.products.meta?.last_page as number}
-                                onPageChange={(n) => {
-                                    fetchData(filter, n)
-                                }} />
-                        </div>
+                        {/*<div*/}
+                        {/*    className="flex flex-col mt-12 lg:mt-16 space-y-5 sm:space-y-0 sm:space-x-3 sm:flex-row sm:justify-between sm:items-center">*/}
+                        {/*    <AdminPagination*/}
+                        {/*        currentPage={newResponse ? newResponse.products.meta?.current_page as number : response.products.meta?.current_page as number}*/}
+                        {/*        totalPages={newResponse ? newResponse.products.meta?.last_page as number : response.products.meta?.last_page as number}*/}
+                        {/*        onPageChange={(n) => {*/}
+                        {/*            fetchData(filter, n)*/}
+                        {/*        }}/>*/}
+                        {/*</div>*/}
                     </main>
                 </div>
 
                 {/* === SECTION 5 === */}
-                <hr className="border-slate-200 dark:border-slate-700" />
+                <hr className="border-slate-200 dark:border-slate-700"/>
 
                 {/*<SectionSliderCollections />*/}
-                <hr className="border-slate-200 dark:border-slate-700" />
+                <hr className="border-slate-200 dark:border-slate-700"/>
 
                 {/* SUBCRIBES */}
-                <SectionPromo1 />
+                <SectionPromo1/>
             </div>
         </div>
     );

@@ -166,12 +166,12 @@ const ProductCard2: FC<ProductCardProps> = ({
             return null;
         }
         const CLASSES =
-            " flex items-center text-slate-700 text-slate-900 dark:text-slate-300 absolute top-3 start-3 bg-white rounded-full p-2 text-xs";
+            " flex items-center text-slate-700 text-slate-900 dark:text-slate-300 absolute top-3 start-3 bg-white rounded-full p-1 lg:p-2 text-xs";
         if (status == "new") {
             return (
                 <div className={CLASSES}>
                     <SparklesIcon className="w-3.5 h-3.5" />
-                    <span className="mr-1 leading-none">محصول جدید</span>
+                    <span className="mr-1 leading-none text-xs">محصول جدید</span>
                 </div>
             );
         }
@@ -179,7 +179,7 @@ const ProductCard2: FC<ProductCardProps> = ({
             return (
                 <div className={CLASSES}>
                     <IconDiscount className="w-3.5 h-3.5" />
-                    <span className="mr-1 leading-none">{discounted}   تخفیف </span>
+                    <span className="mr-1 leading-none text-xs">{discounted}   تخفیف </span>
                 </div>
             );
         }
@@ -187,7 +187,7 @@ const ProductCard2: FC<ProductCardProps> = ({
             return (
                 <div className={CLASSES}>
                     <NoSymbolIcon className="w-3.5 h-3.5" />
-                    <span className="mr-1 leading-none">نا‌موجود</span>
+                    <span className="mr-1 leading-none text-xs">نا‌موجود</span>
                 </div>
             );
         }
@@ -195,7 +195,7 @@ const ProductCard2: FC<ProductCardProps> = ({
             return (
                 <div className={CLASSES}>
                     <ClockIcon className="w-3.5 h-3.5" />
-                    <span className="ml-1 leading-none">{status}</span>
+                    <span className="ml-1 leading-none text-xs">{status}</span>
                 </div>
             );
         }
@@ -232,14 +232,14 @@ const ProductCard2: FC<ProductCardProps> = ({
                 <div className="space-y-4 px-2.5 pt-5 pb-2.5">
                     {renderVariants()}
                     <div>
-                        <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
+                        <h2 className="nc-ProductCard__title text-xs lg:text-base font-semibold transition-colors">
                             {data?.name}
                         </h2>
                     </div>
 
                     <div className="flex justify-between items-end ">
                         <Prices price={data?.min_discounted_price} />
-                        <div className="flex items-center mb-0.5">
+                        <div className="hidden lg:flex items-center mb-0.5 ">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
                                 {data?.rating || ""} ({data?.comments.data.length || 0} نظر)

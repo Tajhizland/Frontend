@@ -65,7 +65,7 @@ const ProductCard: FC<ProductCardProps> = ({
             return null;
         }
          const CLASSES =
-            " flex items-center text-slate-700 text-slate-900 dark:text-slate-300 absolute top-3 start-3 bg-white rounded-full p-2 text-xs";
+            " flex items-center text-slate-700 text-slate-900 dark:text-slate-300 absolute top-3 start-3 bg-white rounded-full p-1 lg:p-2 text-xs";
         if (status == "new") {
             return (
                 <div className={CLASSES}>
@@ -175,7 +175,7 @@ const ProductCard: FC<ProductCardProps> = ({
 
                     <div className="flex flex-col gap-y-2 sm:flex-row justify-between items-start  text-xs sm:text-base ">
                         <Prices price={data?.min_discounted_price}/>
-                        <div className="flex items-center mb-0.5">
+                        <div className="hidden lg:flex items-center mb-0.5">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
                 {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
