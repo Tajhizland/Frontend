@@ -43,11 +43,11 @@ const Listing = async ({response}: { response: ProductResponse[] }) => {
 
 
                     {/* LOOP ITEMS */}
-                    <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                         {newResponse ? newResponse.data.map((item, index) => (
                             <ProductCardNew data={item} key={index}/>
                         )) : response.data.map((item, index) => (
-                            <ProductCard2 data={item} key={index}/>
+                            <ProductCardNew data={item} key={index}/>
                         ))}
                     </div>
 

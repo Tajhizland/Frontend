@@ -1,24 +1,24 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, {FC, useState} from "react";
 import LikeButton from "./LikeButton";
 import Prices from "./Prices";
-import { ArrowsPointingOutIcon, ClockIcon, NoSymbolIcon, SparklesIcon } from "@heroicons/react/24/outline";
-import { Product, PRODUCTS } from "@/data/data";
-import { StarIcon } from "@heroicons/react/24/solid";
+import {ArrowsPointingOutIcon, ClockIcon, NoSymbolIcon, SparklesIcon} from "@heroicons/react/24/outline";
+import {Product, PRODUCTS} from "@/data/data";
+import {StarIcon} from "@heroicons/react/24/solid";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import BagIcon from "./BagIcon";
 import toast from "react-hot-toast";
-import { Transition } from "@/app/(shop)/headlessui";
+import {Transition} from "@/app/(shop)/headlessui";
 import ModalQuickView from "./ModalQuickView";
 import ProductStatus from "./ProductStatus";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
-import { ProductResponse } from "@/services/types/product";
-import { addToFavorite, deleteFromFavorite } from "@/services/api/shop/favorite";
+import {ProductResponse} from "@/services/types/product";
+import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
 import IconDiscount from "@/components/IconDiscount";
 
 export interface ProductCardProps {
@@ -28,17 +28,17 @@ export interface ProductCardProps {
 }
 
 const ProductCard2: FC<ProductCardProps> = ({
-    className = "",
-    data,
-    isLiked,
-}) => {
+                                                className = "",
+                                                data,
+                                                isLiked,
+                                            }) => {
 
 
     const [variantActive, setVariantActive] = useState(0);
     const [showModalQuickView, setShowModalQuickView] = useState(false);
     const router = useRouter();
 
-    const notifyAddTocart = ({ size }: { size?: string }) => {
+    const notifyAddTocart = ({size}: { size?: string }) => {
         toast.custom(
             (t) => (
                 <Transition
@@ -56,8 +56,8 @@ const ProductCard2: FC<ProductCardProps> = ({
                     <p className="block text-base font-semibold leading-none">
                         Added to cart!
                     </p>
-                    <div className="border-t border-slate-200 dark:border-slate-700 my-4" />
-                    {renderProductCartOnNotify({ size })}
+                    <div className="border-t border-slate-200 dark:border-slate-700 my-4"/>
+                    {renderProductCartOnNotify({size})}
                 </Transition>
             ),
             {
@@ -68,7 +68,7 @@ const ProductCard2: FC<ProductCardProps> = ({
         );
     };
 
-    const renderProductCartOnNotify = ({ size }: { size?: string }) => {
+    const renderProductCartOnNotify = ({size}: { size?: string }) => {
         return (
             <div className="flex ">
                 <div className="h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -95,7 +95,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                                     <span>{size || "XL"}</span>
                                 </p>
                             </div>
-                            <Prices price={data?.min_price} className="mt-0.5" />
+                            <Prices price={data?.min_price} className="mt-0.5"/>
                         </div>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-sm">
@@ -131,7 +131,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                         title={color.color_name}
                     >
                         <div
-                            style={{ backgroundColor: color.color_code }}
+                            style={{backgroundColor: color.color_code}}
                             className={`absolute inset-0.5 rounded-full z-0 `}
                         ></div>
                     </div>
@@ -143,14 +143,15 @@ const ProductCard2: FC<ProductCardProps> = ({
 
     async function likeHandle(like: boolean) {
         if (like) {
-            let response = await addToFavorite({ productId: data?.id as number })
+            let response = await addToFavorite({productId: data?.id as number})
             toast.success(response?.message as string)
         } else {
-            let response = await deleteFromFavorite({ productId: data?.id as number })
+            let response = await deleteFromFavorite({productId: data?.id as number})
             toast.success(response?.message as string)
 
         }
     }
+
     const renderStatus = () => {
         let status = "";
         let discounted = 0;
@@ -170,7 +171,7 @@ const ProductCard2: FC<ProductCardProps> = ({
         if (status == "new") {
             return (
                 <div className={CLASSES}>
-                    <SparklesIcon className="w-3.5 h-3.5" />
+                    <SparklesIcon className="w-3.5 h-3.5"/>
                     <span className="mr-1 leading-none text-xs">محصول جدید</span>
                 </div>
             );
@@ -178,15 +179,15 @@ const ProductCard2: FC<ProductCardProps> = ({
         if (status == "discount") {
             return (
                 <div className={CLASSES}>
-                    <IconDiscount className="w-3.5 h-3.5" />
-                    <span className="mr-1 leading-none text-xs">{discounted}   تخفیف </span>
+                    <IconDiscount className="w-3.5 h-3.5"/>
+                    <span className="mr-1 leading-none text-xs">{discounted} تخفیف </span>
                 </div>
             );
         }
         if (status === "disable") {
             return (
                 <div className={CLASSES}>
-                    <NoSymbolIcon className="w-3.5 h-3.5" />
+                    <NoSymbolIcon className="w-3.5 h-3.5"/>
                     <span className="mr-1 leading-none text-xs">نا‌موجود</span>
                 </div>
             );
@@ -194,7 +195,7 @@ const ProductCard2: FC<ProductCardProps> = ({
         if (status === "limited edition") {
             return (
                 <div className={CLASSES}>
-                    <ClockIcon className="w-3.5 h-3.5" />
+                    <ClockIcon className="w-3.5 h-3.5"/>
                     <span className="ml-1 leading-none text-xs">{status}</span>
                 </div>
             );
@@ -206,13 +207,13 @@ const ProductCard2: FC<ProductCardProps> = ({
     return (
         <>
             <div
-                className={`nc-ProductCard relative flex flex-col bg-transparent ${className}`}
+                className={`nc-ProductCard relative flex flex-row items-center sm:flex-col bg-transparent ${className}`}
             >
-                <Link href={{ pathname: "/product/" + data?.url }} className="absolute inset-0"></Link>
+                <Link href={{pathname: "/product/" + data?.url}} className="absolute inset-0"></Link>
 
                 <div
-                    className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
-                    <Link href={{ pathname: "/product/" + data?.url }} className="block">
+                    className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded sm:rounded-3xl overflow-hidden z-1 group w-28 sm:w-full">
+                    <Link href={{pathname: "/product/" + data?.url}} className="block">
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0]?.url}`}
@@ -224,13 +225,19 @@ const ProductCard2: FC<ProductCardProps> = ({
                         />
                     </Link>
 
-                    <LikeButton liked={data?.favorite} likeHandle={likeHandle} className="absolute top-3 end-3 z-10" />
-                    {renderStatus()}
+                    <LikeButton liked={data?.favorite} likeHandle={likeHandle}
+                                className="absolute top-3 end-3 z-10 hidden sm:flex"/>
+                    <div className={" "}>
+                        {renderStatus()}
+                    </div>
                     {/*{  renderGroupButtons()}*/}
                 </div>
 
-                <div className="space-y-4 px-2.5 pt-5 pb-2.5">
-                    {renderVariants()}
+                <div className="space-y-4 px-2.5 sm:pt-5 sm:pb-2.5">
+
+                    <LikeButton liked={data?.favorite} likeHandle={likeHandle}
+                                className="absolute top-3 end-3 z-10 sm:hidden flex"/>
+
                     <div>
                         <h2 className="nc-ProductCard__title text-xs lg:text-base font-semibold transition-colors">
                             {data?.name}
@@ -238,14 +245,15 @@ const ProductCard2: FC<ProductCardProps> = ({
                     </div>
 
                     <div className="flex justify-between items-end ">
-                        <Prices price={data?.min_discounted_price} />
+                        <Prices price={data?.min_discounted_price}/>
                         <div className="hidden lg:flex items-center mb-0.5 ">
-                            <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
+                            <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
                                 {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
                             </span>
                         </div>
                     </div>
+                    {renderVariants()}
                 </div>
             </div>
 

@@ -101,13 +101,13 @@ const PageCollection = ({response, url}: { response: CategoryListing, url: strin
 
                         {/* LOOP ITEMS */}
                         <div
-                            className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
+                            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
                             {newResponseProduct && newResponseProduct.map((item, index) => (
                                 <ProductCardNew data={item} key={index}/>
                             ))}
                         </div>
                         <div ref={lastElementRef}
-                             className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
+                             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
                             {hasMore && <ProductCardSkeleton/>}
                         </div>
 
