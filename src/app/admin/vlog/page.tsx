@@ -21,6 +21,7 @@ export default function Page() {
                 url: e.url,
                 status: e.status,
                 video: null ,
+                poster: null ,
                 description:e.description
             }
         )

@@ -53,6 +53,10 @@ export default function Form({ data, submit  }: Form) {
                 <Label>ویدیو  </Label>
                 <Uploader  name={"video"}/>
             </div>
+            <div>
+                <Label>پوستر  </Label>
+                <Uploader  name={"poster"}/>
+            </div>
             <hr className={"my-5"}/>
             <div className={"flex justify-center my-5"}>
                 <ButtonPrimary type={"submit"}>

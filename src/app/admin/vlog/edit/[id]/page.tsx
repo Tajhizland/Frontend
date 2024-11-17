@@ -26,6 +26,7 @@ export default function Page() {
                 url: e.get("url") as string,
                 status: e.get("status") as string,
                 video: e.get("video") as File,
+                poster: e.get("poster") as File,
                 description: e.get("description") as string,
             }
         )
