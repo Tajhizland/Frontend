@@ -1,10 +1,9 @@
 import {Column, DataTableButtons} from "@/shared/DataTable/type";
 import {HiMiniPencil} from "react-icons/hi2";
-import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
 import {UrlObject} from "node:url";
 import {ProductResponse} from "@/services/types/product";
-
+import {BsCoin} from "react-icons/bs";
 
 export const columns: Column<ProductResponse>[] = [
 
@@ -12,8 +11,6 @@ export const columns: Column<ProductResponse>[] = [
     {key: 'name', header: 'نام محصول', filterType: 'input', editable: true},
     {key: 'view', header: 'تعداد بازدید', filterType: 'input', editable: false},
     {key: 'url', header: 'آدرس محصول', filterType: 'input', editable: true},
-
-    {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
     {
         key: 'status',
         header: 'وضعیت',
@@ -32,6 +29,10 @@ export const columns: Column<ProductResponse>[] = [
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },
+    {key: 'category', header: 'دسته محصول', filterType: 'input', editable: true},
+    {key: 'brand', header: 'برند محصول', filterType: 'input', editable: true},
+    {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
+
 
     // {
     //     key: 'value',
@@ -118,9 +119,18 @@ export const buttons: DataTableButtons[] = [
         label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
         type: "link",
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        href : (value: any): UrlObject => {
+        href: (value: any): UrlObject => {
             return {
-                pathname: 'product/edit/'+value,
+                pathname: 'product/edit/' + value,
+            };
+        }
+    }, {
+        label: <BsCoin   className={"text-black w-5 h-5"} title={"ویرایش قیمت"}/>,
+        type: "link",
+        colorClass: "bg-white text-white border border-slate-900 outline-none ",
+        href: (value: any): UrlObject => {
+            return {
+                pathname: 'product/color/' + value,
             };
         }
     },
