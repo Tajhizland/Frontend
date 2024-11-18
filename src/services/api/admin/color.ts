@@ -14,11 +14,29 @@ export const set = async <T extends ServerResponse<unknown>>(
             status:number|string,
             delivery_delay:number|string,
         }[]
-    
+
     }
 ) => {
-  
+
     return axios.post<T, SuccessResponseType<T>>("admin/product/color/set", params, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
+        .then((res) => res?.data);
+};
+export const updateColorPrice = async <T extends ServerResponse<unknown>>(
+    params: {
+        color:{
+            id:number,
+            price:number,
+            discount:number,
+        }[]
+
+    }
+) => {
+
+    return axios.post<T, SuccessResponseType<T>>("admin/product/color/fast-update", params, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },

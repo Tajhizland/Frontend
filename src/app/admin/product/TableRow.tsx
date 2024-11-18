@@ -4,6 +4,7 @@ import Badge from "@/shared/Badge/Badge";
 import {UrlObject} from "node:url";
 import {ProductResponse} from "@/services/types/product";
 import {BsCoin} from "react-icons/bs";
+import {useState} from "react";
 
 export const columns: Column<ProductResponse>[] = [
 
@@ -132,6 +133,13 @@ export const buttons: DataTableButtons[] = [
             return {
                 pathname: 'product/color/' + value,
             };
+        }
+    }, {
+        label: <BsCoin   className={"text-black w-5 h-5"} title={"ویرایش قیمت"}/>,
+        type: "action",
+        colorClass: "bg-white text-white border border-slate-900 outline-none ",
+        action:(id:number)=>{
+             console.log(id);
         }
     },
 ]
