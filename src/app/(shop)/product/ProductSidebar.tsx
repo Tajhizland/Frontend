@@ -99,7 +99,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
     const renderGuaranty = () => {
         if (product?.guaranty) {
             return <Link href={"/guaranty/"+product.guaranty.url as Route}><div
-                className={"w-12"}
+                className={"w-8"}
             ><NcImage
                 containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${product?.guaranty?.icon}`}
