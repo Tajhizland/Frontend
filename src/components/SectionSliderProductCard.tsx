@@ -121,8 +121,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
                                         />
                                     </svg>
                                 </div>
-                                <span className="text-xs  lg:text-sm mt-1 whitespace-nowrap">نمایش همه‌ی محصولات        </span>
-                            </div>
+                             </div>
                         </div>
                     </Link>
                 </li>
