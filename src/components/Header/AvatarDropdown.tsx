@@ -12,12 +12,15 @@ import {Fragment, useEffect} from "react";
 import Avatar from "@/shared/Avatar/Avatar";
 import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
 import Link from "next/link";
-import { useQuery } from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import { getCart } from "@/services/api/shop/cart";
 import { me } from "@/services/api/auth/me";
 import { setUser, useUser } from "@/services/globalState/GlobalState";
-import { getCookie } from "cookies-next";
+import {deleteCookie, getCookie} from "cookies-next";
 import {MdLogin} from "react-icons/md";
+import {getCity} from "@/services/api/shop/city";
+import {logout} from "@/services/api/auth/logout";
+import {toast} from "react-hot-toast";
 
 export default function AvatarDropdown() {
 
@@ -32,6 +35,24 @@ export default function AvatarDropdown() {
             setUser(user);
         }
     });
+
+
+    const {
+        mutateAsync: logoutHandle,
+    } = useMutation({
+        mutationKey: [`logout`],
+        mutationFn: () =>
+            logout(),
+        onSuccess: data => {
+            deleteCookie("token")
+            toast.success(data.message as string)
+            window.location.reload()
+        }
+
+    });
+
+
+
     useEffect(() => {
         const handleScroll = () => {
             const popover = document.querySelector('.AvatarDropdown');
@@ -363,10 +384,9 @@ export default function AvatarDropdown() {
                                             </Link>
 
                                             {/* ------------------ 2 --------------------- */}
-                                            <Link
-                                                href={"/#"}
+                                            <div
                                                 className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                                                onClick={() => close()}
+                                                onClick={()=>{logoutHandle();close()}}
                                             >
                                                 <div
                                                     className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
@@ -403,7 +423,7 @@ export default function AvatarDropdown() {
                                                 <div className="mr-4">
                                                     <p className="text-sm font-medium ">{"خروج"}</p>
                                                 </div>
-                                            </Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </PopoverPanel>
