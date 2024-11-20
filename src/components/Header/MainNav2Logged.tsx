@@ -1,6 +1,6 @@
 "use client";
 
-import React, {createRef, FC, useEffect, useState} from "react";
+import React, {createRef, FC, useEffect, useRef, useState} from "react";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 import AvatarDropdown from "./AvatarDropdown";
@@ -32,6 +32,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
 
     const [showNavigation, setShowNavigation] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -52,6 +53,17 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
         };
     }, [lastScrollY]);
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setShowSearchForm(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     useEffect(() => {
         setShowSearchForm(false);
@@ -98,7 +110,8 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                 </div>
                 {searchResponse && showSearchForm &&
                     <div
-                        className="absolute top-14 left-0 w-full h-96 bg-white  z-50 border rounded shadow border-t-0 overflow-y-scroll whitespace-nowrap ">
+                        ref={dropdownRef}
+                        className="absolute top-14 left-0 w-full h-96 bg-white  z-50 border rounded shadow border-t-0 overflow-y-auto whitespace-nowrap ">
                         <button type="button" onClick={() => setShowSearchForm(false)}>
                             <XMarkIcon className="w-5 h-5 mr-5"/>
                         </button>
@@ -197,7 +210,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
             {/* z-index بالا برای محتوا */}
             <div className="relative z-40 hidden lg:block">
                 <div
-                    className={`bg-stone-50 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 h-10 ${showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
+                    className={`bg-stone-50   dark:bg-neutral-800 border-b border-slate-100 dark:border-slate-700 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 h-10 ${showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
                     }`}
                     style={{top: '100%'}}
                 >

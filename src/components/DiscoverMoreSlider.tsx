@@ -21,6 +21,7 @@ const DiscoverMoreSlider = ({data}: { data: BannerResponse[] }) => {
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
             perView: 3.8,
+            autoplay: 3000,
             gap: 25,
             bound: true,
             breakpoints: {

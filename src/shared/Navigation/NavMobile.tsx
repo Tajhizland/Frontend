@@ -165,7 +165,9 @@ const NavMobile: React.FC<NavMobileProps> = ({
         <div
             className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
             <div className="py-6 px-5">
+                <div className={"flex justify-center"}>
                 <Logo/>
+                </div>
                 <div className="flex flex-col mt-5 text-slate-600 dark:text-slate-300 text-sm">
 
                     <div className="flex justify-between items-center mt-4">

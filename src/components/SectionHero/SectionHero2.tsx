@@ -110,7 +110,7 @@ const SectionHero2: FC<SectionHero2Props> = ({className = "", data}) => {
                             className={`relative px-1 py-1.5 cursor-pointer`}
                         >
                             <div
-                                className={`relative w-8 lg:w-20 h-1 shadow-sm rounded-md bg-stone-200`}
+                                className={`relative w-4 lg:w-8 h-1 shadow-sm rounded-md bg-stone-200`}
                             >
                                 {isActive && (
                                     <div

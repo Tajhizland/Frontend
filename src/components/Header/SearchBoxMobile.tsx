@@ -11,6 +11,7 @@ import {PiSmileySad} from "react-icons/pi";
 import {search} from "@/services/api/shop/search";
 import {useRouter} from "next/navigation";
 import Logo from "@/shared/Logo/Logo";
+import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 
 export interface NavMobileProps {
     onClickClose?: () => void;
@@ -103,12 +104,13 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
         <div
             className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1  bg-white divide-y-2 divide-neutral-100 ">
             <div className="py-6 px-5">
-                 <span className="absolute right-2 top-2 p-1">
-          <button onClick={onClickClose}>
-                            <FaTimes/>
-          </button>
+
+                <span className="absolute right-2 top-2 p-1">
+          <ButtonClose onClick={onClickClose}/>
         </span>
-                <Logo />
+                <div className={"flex justify-center"}>
+                    <Logo/>
+                </div>
                 <div className="mt-5">{renderSearchForm()}</div>
                 {isSuccess && data &&
                     <div
@@ -117,7 +119,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                         <div className="flex flex-col relative  ">
                             {
                                 data.data.length > 0 ? data.data.map((item) => (<>
-                                        <Link href={"/product/" + item.url as Route} >
+                                        <Link href={"/product/" + item.url as Route}>
                                             <div
                                                 className="flex items-center justify-between  py-5 px-5 hover:bg-stone-100 ">
                                                 <div className="flex items-center gap-x-5  ">
@@ -136,7 +138,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                     </>))
                                     :
                                     <div
-                                        className="flex flex-col w-full h-full   items-center gap-y-5 p-5 bg-stone-100  text-center " >
+                                        className="flex flex-col w-full h-full   items-center gap-y-5 p-5 bg-stone-100  text-center ">
                                         <div>
                                             <PiSmileySad className={"text-neutral-500 w-14 h-14"}/>
                                         </div>

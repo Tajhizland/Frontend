@@ -52,7 +52,7 @@ const PageForgotPass = ({}) => {
 
 
   return (
-    <div className="container mb-24 lg:mb-32">
+    <div className="container w-full">
       <header className="text-center max-w-2xl mx-auto - mb-14 sm:mb-16 lg:mb-20">
         <h2 className="mt-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
             فراموشی کلمه عبور

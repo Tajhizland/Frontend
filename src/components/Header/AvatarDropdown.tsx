@@ -8,7 +8,7 @@ import {
     Transition,
 } from "@/app/(shop)/headlessui";
 import { avatarImgs } from "@/contains/fakeData";
-import { Fragment } from "react";
+import {Fragment, useEffect} from "react";
 import Avatar from "@/shared/Avatar/Avatar";
 import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
 import Link from "next/link";
@@ -32,6 +32,27 @@ export default function AvatarDropdown() {
             setUser(user);
         }
     });
+    useEffect(() => {
+        const handleScroll = () => {
+            const popover = document.querySelector('.AvatarDropdown');
+            if (popover) {
+                const popoverInstance = popover.querySelector('[data-headlessui-state="open"]');
+                if (popoverInstance) {
+                    const popoverButton = popover.querySelector('button');
+                    if (popoverButton) popoverButton.click(); // بستن Popover
+                }
+            }
+        };
+
+        // اضافه کردن Listener
+        window.addEventListener("scroll", handleScroll);
+
+        // حذف Listener هنگام unmount
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     if (isSuccess)
         return (
             <div className="AvatarDropdown z-50">
@@ -73,7 +94,7 @@ export default function AvatarDropdown() {
                                 leaveTo="opacity-0 translate-y-1"
                             >
                                 <PopoverPanel
-                                    className="absolute z-10 w-screen max-w-[260px] px-4 mt-3.5 -left-10 sm:left-0 sm:px-0">
+                                    className="absolute z-10 w-screen max-w-[260px] mt-3.5 -left-4 sm:left-0 sm:px-0">
                                     <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                                         <div
                                             className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
@@ -394,7 +415,7 @@ export default function AvatarDropdown() {
         );
     else
         return (<Link href={"/login"} aria-label={"login"}
-            className={`rounded bg-white hidden border px-3 py-2 ml-4 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none lg:flex items-center justify-center gap-x-1`}
+            className={`rounded bg-white flex whitespace-nowrap border px-3 py-1 lg:py-2 lg:ml-4 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none lg:flex items-center justify-center gap-x-1`}
         >
               <div>
                   <MdLogin className={"w-5 h-5"} />
