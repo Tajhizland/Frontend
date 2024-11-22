@@ -129,14 +129,12 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
                                                         width={50}
                                                         height={50} />
+
+                                                </div>
+                                                <div>
                                                     <span
                                                         className={"text-sm text-neutral-800 font-bold "}> {item.name}  </span>
                                                 </div>
-                                                <div>
-                                                    <FaExternalLinkAlt className={" text-neutral-400"} />
-                                                </div>
-                                                <span
-                                                    className={"text-xs text-neutral-800 font-bold "}> {item.name}  </span>
                                             </div>
                                             <div>
                                                 <FaExternalLinkAlt className={" text-neutral-400"} />
