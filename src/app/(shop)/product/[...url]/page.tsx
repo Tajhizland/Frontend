@@ -178,13 +178,9 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                             name: "مشخصات محصول",
                             content: renderOption()
 
-                        },
-                        {
-                            name: "ویدیو ها",
-                            content: <VideoSwiper intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} />,
-                            render:true
-                        },
+                        }, 
                     ]}/>
+                    <VideoSwiper intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} />
             </div>
         );
     };
@@ -198,7 +194,9 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
 
                 </div>
                 {/* ---------- 6 ----------  */}
-                <Policy/>
+                <div className="lg:hidden flex">
+                    <Policy />
+                </div> 
             </div>
         );
     };

@@ -1,23 +1,23 @@
 "use client";
 
-import React, {createRef, FC, useEffect, useState} from "react";
+import React, { createRef, FC, useEffect, useState } from "react";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 import AvatarDropdown from "./AvatarDropdown";
 import Navigation from "@/shared/Navigation/Navigation";
 import CartDropdown from "./CartDropdown";
-import {XMarkIcon} from "@heroicons/react/24/outline";
-import {usePathname, useRouter} from "next/navigation";
-import {search} from "@/services/api/shop/search";
-import {SearchResponse} from "@/services/types/serach";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { usePathname, useRouter } from "next/navigation";
+import { search } from "@/services/api/shop/search";
+import { SearchResponse } from "@/services/types/serach";
 import Link from "next/link";
-import {Route} from "next";
+import { Route } from "next";
 import Image from "next/image";
-import {ProductResponse} from "@/services/types/product";
+import { ProductResponse } from "@/services/types/product";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {FaMagnifyingGlass} from "react-icons/fa6";
-import {FaBorderAll, FaExternalLinkAlt} from "react-icons/fa";
-import {PiSmileySad} from "react-icons/pi";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaBorderAll, FaExternalLinkAlt } from "react-icons/fa";
+import { PiSmileySad } from "react-icons/pi";
 import SearchBar from "@/components/Header/SearchBar";
 
 export interface MainNav2LoggedProps {
@@ -63,7 +63,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
             setShowSearchForm(false);
             return;
         }
-        let response = await search({query: e.target.value});
+        let response = await search({ query: e.target.value });
         if (response.data) {
             setSearchResponse(response.data);
             setShowSearchForm(true);
@@ -83,7 +83,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
 
                 >
                     <div className="bg-neutral-100 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded  ">
-                         <FaMagnifyingGlass  className={"text-neutral-500 w-4 h-4"}/>
+                        <FaMagnifyingGlass className={"text-neutral-500 w-4 h-4"} />
                         <input
                             onChange={searchHandle}
                             ref={inputRef}
@@ -94,56 +94,62 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                         />
 
                     </div>
-                    <input type="submit" hidden value=""/>
+                    <input type="submit" hidden value="" />
                 </div>
                 {searchResponse && showSearchForm &&
                     <div
                         className="absolute top-14 left-0 w-full h-96 bg-white  z-50 border rounded shadow border-t-0 overflow-y-scroll whitespace-nowrap ">
                         <button type="button" onClick={() => setShowSearchForm(false)}>
-                            <XMarkIcon className="w-5 h-5 mr-5"/>
+                            <XMarkIcon className="w-5 h-5 mr-5" />
                         </button>
                         <div className="flex flex-col  ">
                             {
                                 searchResponse.length > 0 ? searchResponse.map((item) => (<>
-                                        <Link href={"/product/" + item.url as Route}
-                                              onChange={() => setSearchResponse(undefined)}>
-                                            <div
-                                                className="flex items-center justify-between  py-5 px-5 hover:bg-stone-100 ">
-                                                <div className="flex items-center gap-x-5  ">
-                                                    <div className={""}>
-                                                        <FaMagnifyingGlass className={" text-neutral-400"}/>
-                                                    </div>
-                                                    <span
-                                                        className={"text-sm text-neutral-800 font-bold "}> {item.name}  </span>
+                                    <Link href={"/product/" + item.url as Route}
+                                        onChange={() => setSearchResponse(undefined)}>
+                                        <div
+                                            className="flex items-center justify-between  py-2 px-5 hover:bg-stone-100 ">
+                                            <div className="flex items-center gap-x-5  ">
+                                                <div className={""}>
+                                                    <FaMagnifyingGlass className={" text-neutral-400"} />
                                                 </div>
-                                                <div>
-                                                    <FaExternalLinkAlt className={" text-neutral-400"}/>
+                                                <div className={""}>
+                                                    <Image alt="productImage" 
+                                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`} 
+                                                     width={50}
+                                                      height={50}/>
                                                 </div>
+                                                <span
+                                                    className={"text-sm text-neutral-800 font-bold "}> {item.name}  </span>
                                             </div>
+                                            <div>
+                                                <FaExternalLinkAlt className={" text-neutral-400"} />
+                                            </div>
+                                        </div>
 
-                                        </Link>
-                                    </>))
+                                    </Link>
+                                </>))
                                     :
                                     <div
                                         className="flex items-center gap-x-5 border-t p-5 bg-stone-100  text-center "
                                         onClick={handleSearch}>
                                         <div>
-                                            <PiSmileySad className={"text-neutral-500"}/>
+                                            <PiSmileySad className={"text-neutral-500"} />
                                         </div>
                                         <span className={"text-sm text-neutral-800 font-bold"}>
-                                   موردی یافت نشد !
-                                    </span>
+                                            موردی یافت نشد !
+                                        </span>
                                     </div>
                             }
                             {searchResponse.length > 0 && <div
                                 className="flex items-center gap-x-5 border-t p-5 bg-stone-100 hover:bg-stone-200 text-center cursor-pointer"
                                 onClick={handleSearch}>
                                 <div>
-                                    <FaBorderAll className={"text-neutral-500"}/>
+                                    <FaBorderAll className={"text-neutral-500"} />
                                 </div>
                                 <span className={"text-sm text-neutral-800 font-bold"}>
-                                مشاهده همه
-                                    </span>
+                                    مشاهده همه
+                                </span>
                             </div>}
                         </div>
                     </div>}
@@ -160,7 +166,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     {/*</div>*/}
 
                     <div className="hidden lg:flex-1 lg:flex items-center">
-                        <Logo className="flex-shrink-0"/>
+                        <Logo className="flex-shrink-0" />
                     </div>
 
                     <div className="lg:flex-[2] hidden lg:flex items-center justify-center mx-4">
@@ -168,7 +174,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     </div>
 
                     <div className="lg:hidden flex items-center justify-center ml-1 w-full">
-                       <SearchBar />
+                        <SearchBar />
                     </div>
 
                     <div className="lg:flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
@@ -181,8 +187,8 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                 {renderMagnifyingGlassIcon()}
                             </button>
                         )} */}
-                        <AvatarDropdown/>
-                        <CartDropdown/>
+                        <AvatarDropdown />
+                        <CartDropdown />
                     </div>
                 </div>
 
@@ -198,10 +204,10 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
             <div className="relative z-40 hidden lg:block">
                 <div
                     className={`bg-stone-50 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 h-10 ${showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
-                    }`}
-                    style={{top: '100%'}}
+                        }`}
+                    style={{ top: '100%' }}
                 >
-                    <Navigation/>
+                    <Navigation />
                 </div>
             </div>
         </div>

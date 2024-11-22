@@ -35,7 +35,7 @@ const TextExpander: React.FC<TextExpanderProps> = ({ text }) => {
          <div  onClick={toggleExpanded}
                className="mt-5 cursor-pointer "
         >
-             <span className="  text-sm font-bold text-green-500">
+             <span className="  text-sm font-bold text-neutral-700">
               {isExpanded ? "مشاهده کمتر":  "مشاهده بیشتر"}
                  </span>
         </div>

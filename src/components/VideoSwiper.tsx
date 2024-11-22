@@ -65,7 +65,7 @@ const VideoSwiper = ({
                 className="mySwiper"
             >
                 <SwiperSlide>
-                    <div className="relative">
+                    <div className="relative flex justify-center">
 
                         <div className="cursor-auto w-full max-w-lg">
                             <video className="w-full h-auto">
@@ -80,7 +80,7 @@ const VideoSwiper = ({
                             setOpenVideo(unboxing_video);
                             setOpenModal(true)
                         }}
-                             className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-85 flex flex-col gap-y-2 justify-center items-center rounded">
+                             className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-65 flex flex-col gap-y-2 justify-center items-center rounded">
                             <FaPlay className="text-white w-5 h-5 lg:w-12 lg:h-12"/>
                             <span className={"text-xs lg:text-lg text-white"}>آنباکس</span>
 
@@ -88,7 +88,7 @@ const VideoSwiper = ({
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="relative">
+                    <div className="relative flex justify-center">
 
                         <div className="cursor-auto w-full max-w-lg">
                             <video className="w-full h-auto">
@@ -103,7 +103,7 @@ const VideoSwiper = ({
                             setOpenVideo(intro_video);
                             setOpenModal(true)
                         }}
-                             className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-85 flex flex-col gap-y-2 justify-center items-center rounded">
+                             className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-65 flex flex-col gap-y-2 justify-center items-center rounded">
                             <FaPlay className="text-white w-5 h-5 lg:w-12 lg:h-12"/>
                             <span className={"text-xs lg:text-lg text-white"}>معرفی محصول</span>
 
@@ -111,7 +111,7 @@ const VideoSwiper = ({
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="relative">
+                    <div className="relative flex justify-center">
                         <div className="cursor-auto w-full max-w-lg">
                             <video className="w-full h-auto">
                                 <source src={usage_video} type="video/mp4"/>
@@ -123,7 +123,7 @@ const VideoSwiper = ({
                             setOpenVideo(usage_video);
                             setOpenModal(true)
                         }}
-                             className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-85 flex flex-col gap-y-2 justify-center items-center rounded">
+                             className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-65 flex flex-col gap-y-2 justify-center items-center rounded">
                             <FaPlay className="text-white w-5 h-5 lg:w-12 lg:h-12"/>
                             <span className={"text-xs lg:text-lg text-white"}>طریقه استفاده</span>
 

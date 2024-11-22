@@ -104,9 +104,9 @@ const SearchBar: React.FC<MenuBarProps> = () => {
                                 className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-xs font-bold text-neutral-500"
                                 autoFocus
                             />
-                                <div className={"absolute text-rose-500 right-16 top-2 h-5  w-ful opacity-70"}>
+                                <div className={"absolute text-rose-500 right-16 top-2.5 h-4  w-ful opacity-70"}>
                                     <Image
-                                        className={`block h-5 w-auto  `}
+                                        className={`block h-4 w-auto  `}
                                         src={logoImg}
                                         alt="Logo"
                                         sizes="200px"
