@@ -8,16 +8,19 @@ import {
     Transition,
 } from "@/app/(shop)/headlessui";
 import { avatarImgs } from "@/contains/fakeData";
-import { Fragment } from "react";
+import {Fragment, useEffect} from "react";
 import Avatar from "@/shared/Avatar/Avatar";
 import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
 import Link from "next/link";
-import { useQuery } from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import { getCart } from "@/services/api/shop/cart";
 import { me } from "@/services/api/auth/me";
 import { setUser, useUser } from "@/services/globalState/GlobalState";
-import { getCookie } from "cookies-next";
+import {deleteCookie, getCookie} from "cookies-next";
 import {MdLogin} from "react-icons/md";
+import {getCity} from "@/services/api/shop/city";
+import {logout} from "@/services/api/auth/logout";
+import {toast} from "react-hot-toast";
 
 export default function AvatarDropdown() {
 
@@ -32,6 +35,45 @@ export default function AvatarDropdown() {
             setUser(user);
         }
     });
+
+
+    const {
+        mutateAsync: logoutHandle,
+    } = useMutation({
+        mutationKey: [`logout`],
+        mutationFn: () =>
+            logout(),
+        onSuccess: data => {
+            deleteCookie("token")
+            toast.success(data.message as string)
+            window.location.reload()
+        }
+
+    });
+
+
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const popover = document.querySelector('.AvatarDropdown');
+            if (popover) {
+                const popoverInstance = popover.querySelector('[data-headlessui-state="open"]');
+                if (popoverInstance) {
+                    const popoverButton = popover.querySelector('button');
+                    if (popoverButton) popoverButton.click(); // بستن Popover
+                }
+            }
+        };
+
+        // اضافه کردن Listener
+        window.addEventListener("scroll", handleScroll);
+
+        // حذف Listener هنگام unmount
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     if (isSuccess)
         return (
             <div className="AvatarDropdown z-50">
@@ -73,7 +115,7 @@ export default function AvatarDropdown() {
                                 leaveTo="opacity-0 translate-y-1"
                             >
                                 <PopoverPanel
-                                    className="absolute z-10 w-screen max-w-[260px] px-4 mt-3.5 -left-10 sm:left-0 sm:px-0">
+                                    className="absolute z-10 w-screen max-w-[260px] mt-3.5 -left-4 sm:left-0 sm:px-0">
                                     <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                                         <div
                                             className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
@@ -342,10 +384,9 @@ export default function AvatarDropdown() {
                                             </Link>
 
                                             {/* ------------------ 2 --------------------- */}
-                                            <Link
-                                                href={"/#"}
+                                            <div
                                                 className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                                                onClick={() => close()}
+                                                onClick={()=>{logoutHandle();close()}}
                                             >
                                                 <div
                                                     className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
@@ -382,7 +423,7 @@ export default function AvatarDropdown() {
                                                 <div className="mr-4">
                                                     <p className="text-sm font-medium ">{"خروج"}</p>
                                                 </div>
-                                            </Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </PopoverPanel>
@@ -394,7 +435,7 @@ export default function AvatarDropdown() {
         );
     else
         return (<Link href={"/login"} aria-label={"login"}
-            className={`rounded bg-white hidden border px-3 py-2 ml-4 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none lg:flex items-center justify-center gap-x-1`}
+            className={`rounded bg-white flex whitespace-nowrap border px-3 py-1 lg:py-2 lg:ml-4 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none lg:flex items-center justify-center gap-x-1`}
         >
               <div>
                   <MdLogin className={"w-5 h-5"} />

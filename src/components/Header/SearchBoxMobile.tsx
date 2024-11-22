@@ -12,6 +12,7 @@ import { search } from "@/services/api/shop/search";
 import { useRouter } from "next/navigation";
 import Logo from "@/shared/Logo/Logo";
 import Image from "next/image";
+import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 
 export interface NavMobileProps {
     onClickClose?: () => void;
@@ -104,12 +105,14 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
         <div
             className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1  bg-white divide-y-2 divide-neutral-100 ">
             <div className="py-6 px-5">
+
+
                 <span className="absolute right-2 top-2 p-1">
-                    <button onClick={onClickClose}>
-                        <FaTimes />
-                    </button>
+                    <ButtonClose onClick={onClickClose} />
                 </span>
-                <Logo />
+                <div className={"flex justify-center"}>
+                    <Logo />
+                </div>
                 <div className="mt-5">{renderSearchForm()}</div>
                 {isSuccess && data &&
                     <div
@@ -121,12 +124,16 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                     <Link href={"/product/" + item.url as Route} >
                                         <div className="flex items-center justify-between  py-2 px-1 hover:bg-stone-100 ">
                                             <div className="flex items-center gap-x-5  ">
-                                                
                                                 <div className={""}>
                                                     <Image alt="productImage"
                                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
                                                         width={50}
                                                         height={50} />
+                                                    <span
+                                                        className={"text-sm text-neutral-800 font-bold "}> {item.name}  </span>
+                                                </div>
+                                                <div>
+                                                    <FaExternalLinkAlt className={" text-neutral-400"} />
                                                 </div>
                                                 <span
                                                     className={"text-xs text-neutral-800 font-bold "}> {item.name}  </span>
@@ -140,7 +147,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                 </>))
                                     :
                                     <div
-                                        className="flex flex-col w-full h-full   items-center gap-y-5 p-5 bg-stone-100  text-center " >
+                                        className="flex flex-col w-full h-full   items-center gap-y-5 p-5 bg-stone-100  text-center ">
                                         <div>
                                             <PiSmileySad className={"text-neutral-500 w-14 h-14"} />
                                         </div>

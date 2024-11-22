@@ -61,7 +61,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                 <div className="flex-1 grid grid-cols-4 gap-6 xl:gap-8 pr-6 xl:pr-8">
                   {menu.children.data.map((item, index) => (
                     <div key={index}>
-                        <strong>
+                        <strong className={"dark:text-white text-black "}>
                             {item.title}
                         </strong>
                       <ul className="grid space-y-4 mt-4">

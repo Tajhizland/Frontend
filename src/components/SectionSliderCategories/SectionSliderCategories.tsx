@@ -12,6 +12,7 @@ import department4Png from "@/images/collections/department4.png";
 import {StaticImageData} from "next/image";
 import Link from "next/link";
 import {BrandResponse} from "@/services/types/brand";
+import {IoIosArrowDroprightCircle} from "react-icons/io";
 
 export interface CardCategoryData {
     name: string;
@@ -67,28 +68,28 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
 
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
-            perView: 4,
+            perView: 5.4,
             gap: 32,
             bound: true,
             breakpoints: {
                 1280: {
-                    perView: 4,
+                    perView:  5.4,
                 },
                 1024: {
                     gap: 20,
-                    perView: 3.4,
+                    perView: 4,
                 },
                 768: {
                     gap: 20,
-                    perView: 3,
+                    perView: 3.9,
                 },
                 640: {
                     gap: 20,
-                    perView: 3,
+                    perView: 3.8,
                 },
                 500: {
                     gap: 10,
-                    perView: 3
+                    perView: 3.5
                 },
             },
         };
@@ -129,33 +130,10 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
                                 <div>
                                     <div
                                         className="absolute inset-y-6 inset-x-10 flex flex-col sm:items-center justify-center">
-                                        <div className="flex relative text-slate-900">
-                      <span className="text-xs lg:text-lg font-semibold  text-center">
-نمایش همه
-                      </span>
-                                            <svg
-                                                className="absolute left-full w-5 h-5 ml-2 rotate-45 group-hover:scale-110 transition-transform"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    d="M18.0701 9.57L12.0001 3.5L5.93005 9.57"
-                                                    stroke="currentColor"
-                                                    strokeWidth="1.5"
-                                                    strokeMiterlimit="10"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                ></path>
-                                                <path
-                                                    d="M12 20.4999V3.66992"
-                                                    stroke="currentColor"
-                                                    strokeWidth="1.5"
-                                                    strokeMiterlimit="10"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                ></path>
-                                            </svg>
+                                        <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">
+                                            <IoIosArrowDroprightCircle className={"w-10 h-10 text-green-500"}/>
+                                            <span
+                                                className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800">نمایش همه  </span>
                                         </div>
 
                                     </div>

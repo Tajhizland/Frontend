@@ -9,6 +9,7 @@ import { Product, PRODUCTS } from "@/data/data";
 import { ProductResponse } from "@/services/types/product";
 import {PopularProductResponse} from "@/services/types/popularProduct";
 import Link from "next/link";
+import {IoIosArrowDroprightCircle} from "react-icons/io";
 
 export interface SectionSliderProductCardProps {
   className?: string;
@@ -93,33 +94,11 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
                 <li className={`glide__slide   `}>
                     <Link href={"/product/discounted"} className="block relative group">
                         <div className="relative rounded-2xl overflow-hidden h-[410px]">
-                            <div className="h-[410px] bg-black/5 dark:bg-neutral-800"></div>
+                            <div className="h-[410px] bg-neutral-100/70 dark:bg-neutral-800"></div>
                             <div className="absolute inset-y-6 inset-x-10  flex flex-col items-center justify-center">
-                                <div className="flex items-center justify-center relative">
-                                    <span className="text-xs  lg:text-xl font-semibold whitespace-nowrap">نمایش همه  </span>
-                                    <svg
-                                        className="absolute left-full w-5 h-5 ml-2 rotate-45 group-hover:scale-110 transition-transform"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M18.0701 9.57L12.0001 3.5L5.93005 9.57"
-                                            stroke="currentColor"
-                                            strokeWidth="1.5"
-                                            strokeMiterlimit="10"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                        <path
-                                            d="M12 20.4999V3.66992"
-                                            stroke="currentColor"
-                                            strokeWidth="1.5"
-                                            strokeMiterlimit="10"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
+                                <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">
+                                    <IoIosArrowDroprightCircle className={"w-10 h-10 text-green-500"} />
+                                    <span className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800">نمایش همه  </span>
                                 </div>
                              </div>
                         </div>

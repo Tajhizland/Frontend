@@ -149,7 +149,7 @@ button.gm-control-active.gm-fullscreen-control {
     @apply text-neutral-300;
   }
 }
-/* 
+/*
  */
 .nc-shadow-lg {
   box-shadow: 2px 8px 40px rgba(0, 0, 0, 0.08);
@@ -292,11 +292,11 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 @keyframes SectionHero2ItemDot {
   from {
-    width: 30px;
+    //width: 30px;
     opacity: 0;
   }
   to {
-    width: 80px;
+    //width: 80px;
     opacity: 1;
   }
 }

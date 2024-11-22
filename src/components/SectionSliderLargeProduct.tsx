@@ -10,6 +10,7 @@ import { DEMO_LARGE_PRODUCTS } from "./SectionSliderLargeProduct2";
 import Link from "next/link";
 import {ProductResponse} from "@/services/types/product";
 import {SpecialProductResponse} from "@/services/types/specialProduct";
+import {IoIosArrowDroprightCircle} from "react-icons/io";
 
 export interface SectionSliderLargeProductProps {
   className?: string;
@@ -91,43 +92,20 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
                     <Link href={"/special"} className="block relative group">
                         <div className="relative flex flex-col rounded-2xl overflow-hidden">
                             <div className="relative">
-                                <div className="aspect-w-8 aspect-h-5 bg-black/5 dark:bg-neutral-800"></div>
+                                <div className="aspect-w-8 aspect-h-5 bg-neutral-100/70  dark:bg-neutral-800"></div>
                                 <div
                                     className="absolute inset-y-6 inset-x-10  flex flex-col items-center justify-center">
-                                    <div className="flex items-center justify-center relative">
-                        <span className="text-xs lg:text-xl font-semibold">
-                        نمایش همه
-                        </span>
-                                        <svg
-                                            className="absolute left-full w-5 h-5 ml-2 rotate-45 group-hover:scale-110 transition-transform"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M18.0701 9.57L12.0001 3.5L5.93005 9.57"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M12 20.4999V3.66992"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                        </svg>
+                                    <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">
+                                        <IoIosArrowDroprightCircle className={"w-10 h-10 text-green-500"}/>
+                                        <span
+                                            className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800">نمایش همه  </span>
                                     </div>
                                 </div>
                             </div>
                             <div className="grid grid-cols-3 gap-1.5 mt-1.5">
-                                <div className="w-full h-28 bg-black/5 dark:bg-neutral-800"></div>
-                                <div className="w-full h-28 bg-black/5 dark:bg-neutral-800"></div>
-                                <div className="w-full h-28 bg-black/5 dark:bg-neutral-800"></div>
+                                <div className="w-full h-28 bg-neutral-100/70  dark:bg-neutral-800"></div>
+                                <div className="w-full h-28 bg-neutral-100/70  dark:bg-neutral-800"></div>
+                                <div className="w-full h-28 bg-neutral-100/70  dark:bg-neutral-800"></div>
                             </div>
                         </div>
                     </Link>
