@@ -6,6 +6,7 @@ export type VlogResponse = {
     video: string;
     poster: string;
     status: number;
+    categoryId: number;
     view: number;
     created_at: string,
     updated_at: string,

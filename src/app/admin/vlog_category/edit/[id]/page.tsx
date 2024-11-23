@@ -2,18 +2,17 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import Form from "@/app/admin/vlog/Form";
-import {update} from "@/services/api/admin/vlog";
+import Form from "@/app/admin/vlog_category/Form";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {findById} from "@/services/api/admin/vlog";
+import {findById , update} from "@/services/api/admin/vlogCategory";
 import {useQuery} from "react-query";
 import PageTab from "@/components/Tabs/PageTab";
 
 export default function Page() {
     const {id} = useParams();
     const {data: data} = useQuery({
-        queryKey: [`vlog-info`],
+        queryKey: [`vlog_category-info`],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
@@ -22,13 +21,8 @@ export default function Page() {
         let response = await update(
             {
                 id: Number(id),
-                title: e.get("title") as string,
-                categoryId: e.get("categoryId") as string,
-                url: e.get("url") as string,
-                status: e.get("status") as string,
-                video: e.get("video") as File,
-                poster: e.get("poster") as File,
-                description: e.get("description") as string,
+                name: e.get("name") as string,
+                status: Number(e.get("status")) ,
             }
         )
         toast.success(response?.message as string)
@@ -37,17 +31,17 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "ولاگ",
-                href: "vlog"
+                title: "دسته بندی ولاگ",
+                href: "vlog_category"
             },
             {
-                title: "ویرایش ولاگ",
-                href: "vlog/edit/" + id
+                title: "ویرایش دسته بندی ولاگ",
+                href: "vlog_category/edit/" + id
             }
         ]}/>
         <Panel>
             <PageTitle>
-                ویرایش ولاگ
+                ویرایش دسته بندی ولاگ
             </PageTitle>
             <PageTab id={id + ""}/>
             <div>

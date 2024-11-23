@@ -13,6 +13,7 @@ export default function Page()
             {
                 title: e.get("title") as string,
                 url: e.get("url") as string,
+                categoryId: e.get("categoryId") as string,
                 status: e.get("status") as string,
                 video: e.get("video") as File,
                 poster: e.get("poster") as File,

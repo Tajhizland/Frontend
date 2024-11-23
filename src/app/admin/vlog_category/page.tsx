@@ -6,24 +6,19 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/page/TableRow";
- import {update} from "@/services/api/admin/vlog";
+import {buttons, columns} from "@/app/admin/vlog_category/TableRow";
+ import {update} from "@/services/api/admin/vlogCategory";
 import {toast} from "react-hot-toast";
-import {VlogResponse} from "@/services/types/vlog";
+import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 
 
 export default function Page() {
-    async function submit(e: VlogResponse) {
+    async function submit(e: VlogCategoryResponse) {
         let response=await update(
             {
                 id: e.id,
-                title: e.title,
-                url: e.url,
-                categoryId: e.categoryId,
-                status: e.status,
-                video: null ,
-                poster: null ,
-                description:e.description
+                name: e.name as string,
+                status: Number(e.status) ,
             }
         )
         toast.success(response?.message as string)
@@ -31,22 +26,22 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "ولاگ",
-                href: "vlog"
+                title: "دسته بندی ولاگ",
+                href: "vlog_category"
             }
         ]}/>
         <Panel>
             <PageTitle>
-                مدیریت ولاگ
+                مدیریت دسته بندی ولاگ
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/vlog/create"}}>
+                <Link href={{pathname: "/admin/vlog_category/create"}}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
             <DataTable
                 onEdit={submit}
-                apiUrl={"admin/vlog/dataTable"}
+                apiUrl={"admin/vlog_category/dataTable"}
                 columns={columns}
                 buttons={buttons}
             />

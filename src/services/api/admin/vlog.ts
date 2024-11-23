@@ -7,6 +7,7 @@ export const store = async <T extends ServerResponse<unknown>>
         title: string,
         url: string,
         status: number | string,
+        categoryId: number | string,
         video: File,
         poster: File,
         description: string
@@ -18,6 +19,7 @@ export const store = async <T extends ServerResponse<unknown>>
     formData.append('url', params.url);
     formData.append('status', params.status.toString());
     formData.append('video', params.video);
+    formData.append('categoryId', params.categoryId.toString());
     formData.append('poster', params.poster);
     return axios.post<T, SuccessResponseType<T>>("admin/vlog/store", formData)
         .then((res) => res?.data);
@@ -30,6 +32,7 @@ export const update = async <T extends ServerResponse<unknown>>
         title: string,
         url: string,
         status: number | string,
+        categoryId: number | string,
         video: File | null,
         poster: File | null,
         description: string
@@ -40,6 +43,7 @@ export const update = async <T extends ServerResponse<unknown>>
     formData.append('title', params.title);
     formData.append('description', params.title);
     formData.append('url', params.url);
+    formData.append('categoryId', params.categoryId.toString());
     formData.append('status', params.status.toString());
     if (params.video)
         formData.append('video', params.video);

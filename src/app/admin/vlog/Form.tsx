@@ -7,6 +7,8 @@ import React from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import TinyEditor from "@/shared/Editor/TinyEditor";
 import {VlogResponse} from "@/services/types/vlog";
+import {useQuery} from "react-query";
+import {findById, getList} from "@/services/api/admin/vlogCategory";
 
 interface Form {
     data?: VlogResponse;
@@ -14,6 +16,12 @@ interface Form {
 }
 
 export default function Form({ data, submit  }: Form) {
+
+    const {data: categoryList} = useQuery({
+        queryKey: [`vlog_category-list`],
+        queryFn: () => getList(),
+        staleTime: 5000,
+    });
 
     return (<>
         <form action={submit}>
@@ -35,6 +43,18 @@ export default function Form({ data, submit  }: Form) {
                         <option value={0} selected={data?.status == 0}>
                             غیر فعال
                         </option>
+                    </Select>
+                </div>
+                <div>
+                    <Label>دسته ولاگ</Label>
+                    <Select name={"categoryId"}>
+                        {
+                            categoryList && categoryList.map((item,index)=>(<>
+                                <option key={index}  value={item.id} selected={data?.status == 1}>
+                                    {item.name}
+                                </option>
+                            </>))
+                        }
                     </Select>
                 </div>
 
