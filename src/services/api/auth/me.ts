@@ -13,9 +13,6 @@ export const update = async <T extends ServerResponse<unknown>>
         name: string,
         email: string,
         gender: string,
-        province: string,
-        city: string,
-        address: string,
         avatar: File | undefined
     }) => {
     const formData = new FormData();
