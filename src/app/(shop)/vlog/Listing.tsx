@@ -86,7 +86,7 @@ export default function Listing({response}) {
                     {/* HEADING */}
                     <div className="max-w-screen-sm">
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold">
-                            ولاگ تجهیزلند
+                             تجهیزلند ولاگ
                         </h2>
 
                     </div>
