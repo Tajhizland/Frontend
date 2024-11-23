@@ -239,6 +239,7 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                                             onClick={() => {
                                                 close();
                                                 setSortOrderStates("");
+                                                setSelectedFilters({});
                                             }}
                                             sizeClass="px-4 py-2 sm:px-5"
                                         >
@@ -645,7 +646,7 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                         />
                     </svg>
 
-                    <span className=" mr-2">فیلتر محصولات (3)</span>
+                    <span className=" mr-2">فیلتر محصولات  </span>
                     {renderXClear()}
                 </div>
 

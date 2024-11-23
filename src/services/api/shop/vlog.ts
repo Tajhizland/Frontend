@@ -7,7 +7,7 @@ export const findVlogByUrl = async <T extends ServerResponse<VlogResponse>>
         .then((res) => res?.data?.result.data)
 };
 export const getVlogPaginated = async <T extends ServerResponse<VlogResponse[]>>
-(page:number) => {
-    return axios.get<T, SuccessResponseType<T>>("vlog/listing?page="+page)
+(page:number , filters?:string) => {
+    return axios.get<T, SuccessResponseType<T>>("vlog/listing?"+ "page=" + page+"&"+  filters)
         .then((res) => res?.data?.result)
 };

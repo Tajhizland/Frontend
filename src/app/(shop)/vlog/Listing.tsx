@@ -10,10 +10,28 @@ import {Route} from "next";
 import NcImage from "@/shared/NcImage/NcImage";
 import Image from "next/image";
 import {FaEye} from "react-icons/fa";
+import VlogFilter from "@/app/(shop)/vlog/VlogFilter";
+import {findCategoryByUrl} from "@/services/api/shop/category";
+import Input from "@/shared/Input/Input";
+import ButtonCircle from "@/shared/Button/ButtonCircle";
 
 export default function Listing({response}) {
     const [newResponse, setNewResponse] = useState();
     const router = useRouter();
+    const [filter, setFilter] = useState<string>("");
+    const [page, setPage] = useState<number>(1);
+
+    async function fetchMain(filters: string, page: number = 1) {
+        router.push(`?page=${page}`);
+        setFilter(filters);
+        setPage(page)
+        let data = await getVlogPaginated(page, filters)
+        setNewResponse(data.data);
+        // if (data?.meta?.last_page >= page + 1) {
+        //     setHasMore(true);
+        // }
+        // setLoading(false)
+    }
 
     async function fetchData(page: number = 1) {
         router.push(`?page=${page}`);
@@ -72,20 +90,25 @@ export default function Listing({response}) {
                         </h2>
 
                     </div>
-
-                    <hr className="border-slate-200 dark:border-slate-700"/>
-                    <main>
+                     <main>
                         {/* TABS FILTER */}
-
+                        <VlogFilter changeFilter={fetchMain}/>
                         {/* LOOP ITEMS */}
                         <div
                             className="grid  grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                             {
-                                response.data.map((item: VlogResponse, index: number) => (<Fragment key={index}>
-                                    {
-                                        renderItem(item)
-                                    }
-                                </Fragment>))
+                                newResponse ?
+                                    newResponse.map((item: VlogResponse, index: number) => (<Fragment key={index}>
+                                        {
+                                            renderItem(item)
+                                        }
+                                    </Fragment>))
+                                    :
+                                    response.data.map((item: VlogResponse, index: number) => (<Fragment key={index}>
+                                        {
+                                            renderItem(item)
+                                        }
+                                    </Fragment>))
                             }
                         </div>
 
