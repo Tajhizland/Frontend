@@ -49,10 +49,7 @@ const AccountPage = () => {
             name: e.get("name") as string,
             email: e.get("email") as string,
             gender: e.get("gender") as string,
-            avatar: e.get("avatar") as File,
-            province: e.get("province") as string,
-            city: e.get("city") as string,
-            address: e.get("address") as string,
+            avatar: e.get("avatar") as File
         })
         if (response?.success)
             toast.success(response?.message as string);
@@ -173,50 +170,6 @@ const AccountPage = () => {
                                 </div>
                             </div>
 
-                            <div>
-                                <Label className="text-sm">استان</Label>
-                                <Select name={"province"} onChange={(e) => {
-                                    changeProvince(Number(e.target.value))
-                                }}>
-                                    {
-                                        provinces && provinces?.map((item) => (<>
-                                            <option value={item.id as number}
-                                                    selected={address?.province_id == item.id}>
-                                                {item.name}
-                                            </option>
-                                        </>))
-                                    }
-                                </Select>
-                            </div>
-                            <div>
-                                <Label className="text-sm">شهر</Label>
-
-                                <Select name={"city"}>
-                                    {
-                                        citys && citys?.map((item) => (<>
-                                            <option value={item.id} selected={address?.city_id == item.id}>
-                                                {item.name}
-                                            </option>
-                                        </>))
-                                    }
-                                </Select>
-                            </div>
-                            <div>
-                                <Label className="text-sm">آدرس</Label>
-                                <Input
-                                    className="mt-1.5"
-                                    placeholder=""
-                                    name={"address"}
-                                    type={"text"}
-                                    defaultValue={address?.address}
-
-                                />
-                            </div>
-                            {/* ---- */}
-                            {/* <div>
-              <Label>About you</Label>
-              <Textarea className="mt-1.5" defaultValue="..." />
-            </div> */}
                             <div className="pt-2">
                                 <ButtonPrimary>ویرایش</ButtonPrimary>
                             </div>

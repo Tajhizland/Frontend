@@ -132,6 +132,24 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
 
             }
         ]
+    },{
+        title: "دسته بندی ولاگ",
+        url: "/",
+        icon: <FaFileVideo  className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت دسته بندی ولاگ ها",
+                url: "/vlog_category",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن دسته بندی ولاگ",
+                url: "/vlog_category/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }
+        ]
     }, {
         title: "بلاگ ها",
         url: "/",

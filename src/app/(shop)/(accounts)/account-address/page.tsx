@@ -86,12 +86,13 @@ const AccountOrder = () => {
                         />
                     </Switch>
                 </div>
-                <div className={"cursor-pointer"} onClick={() => {
-                    setEditAddress(item);
-                    setShowEditModal(true)
-                }}>
-                    <FaPencil className={"w-8 h-8 text-black"}/>
-                </div>
+                <ButtonPrimary
+                    onClick={() => {
+                        setEditAddress(item);
+                        setShowEditModal(true)
+                    }}>
+                    ویرایش
+                </ButtonPrimary>
             </div>
         </div>
     }
