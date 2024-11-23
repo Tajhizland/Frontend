@@ -37,6 +37,6 @@ export const findById = async <T extends ServerResponse<VlogCategoryResponse>>
 export const getList = async <T extends ServerResponse<VlogCategoryResponse[]>>
 (
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/vlog_category/list/")
+    return axios.get<T, SuccessResponseType<T>>("admin/vlog_category/list")
         .then((res) => res?.data?.result?.data)
 };
