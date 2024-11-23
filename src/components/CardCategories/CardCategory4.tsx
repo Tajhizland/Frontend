@@ -4,6 +4,7 @@ import explore1Svg from "@/images/collections/explore1.svg";
 import {ArrowRightIcon} from "@heroicons/react/24/outline";
 import Image, {StaticImageData} from "next/image";
 import Link from "next/link";
+import {Route} from "next";
 
 export interface CardCategory4Props {
     className?: string;
@@ -32,11 +33,11 @@ const CardCategory4: FC<CardCategory4Props> = ({
                 </div>
 
                 <div className="absolute inset-5 sm:inset-8 flex flex-col justify-between">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-center md:justify-between items-center">
                         <NcImage
                             alt=""
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${featuredImage}`}
-                            containerClassName={`w-10 h-10 sm:w-20 sm:h-20 rounded-full overflow-hidden z-0 ${color}`}
+                            containerClassName={`w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden z-0 ${color}`}
                             width={80}
                             height={80}
                         />
@@ -47,12 +48,12 @@ const CardCategory4: FC<CardCategory4Props> = ({
 
                     <div className="">
 
-                        <h2 className={`text-xs md:text-3xl md:font-semibold`}>{name}</h2>
+                        <h2 className={`text-xs md:text-3xl md:font-semibold text-center md:text-right`}>{name}</h2>
                     </div>
 
                     <Link
-                        href={"/collection"}
-                        className="flex items-center text-xs font-medium group-hover:text-primary-500 transition-colors"
+                        href={"/category/" + url as Route}
+                        className="flex items-center text-xs font-medium group-hover:text-primary-500 transition-colors justify-center md:justify-start"
                     >
                         <ArrowRightIcon className="w-4 h-4 ml-1 sm:ml-2.5"/>
 
@@ -61,7 +62,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
                 </div>
             </div>
 
-            <Link aria-label={"category"} href={{pathname: "/category/" + url}}></Link>
+            <Link aria-label={"category"}  href={"/category/" + url as Route} ></Link>
         </div>
     );
 };

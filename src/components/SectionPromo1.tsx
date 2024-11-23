@@ -139,13 +139,13 @@ const SectionPromo1: FC<SectionPromo1Props> = ({ className = "" }) => {
         {/* <span className="block mt-6 text-slate-500 dark:text-slate-400 ">
           With Ciseco you will get freeship & savings combo...
         </span> */}
-        <div className="flex space-x-2 sm:space-x-5 mt-6 sm:mt-12">
-          <ButtonPrimary onClick={()=>{setModal(true)}} className="">
+        <div className="flex gap-x-5 sm:gap-x-10 mt-6 sm:mt-12">
+          <ButtonPrimary onClick={()=>{setModal(true)}} className=" text-xs sm:text-sm">
             دریافت نوبت مشاوره
           </ButtonPrimary>
           <ButtonSecondary
             href="/"
-            className="border border-slate-100 dark:border-slate-700"
+            className="border border-slate-100 dark:border-slate-700 text-xs sm:text-sm"
           >
             نمونه پروژه های تجهیز شده
           </ButtonSecondary>

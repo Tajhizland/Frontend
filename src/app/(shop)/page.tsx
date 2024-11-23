@@ -47,17 +47,17 @@ async function PageHome() {
                 <DiscoverMoreSlider data={response.banners.data}/>
             </div>
 
-            <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
+            <div className="container relative space-y-5 my-5 lg:space-y-10 lg:my-10">
                 <SectionSliderProductCard
                     data={response.popularProducts.data}
                     subHeading={""}
                     heading={"تخفیفی های تجهیزلند"}
                 />
-                <div className="relative py-24 lg:py-32">
+                <div className="relative py-5 lg:py-10">
                     <BackgroundSection/>
                     <SectionGridMoreExplore data={response.concepts.data}/>
                 </div>
-                <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
+                <div className="py-5 lg:py-10 border-t border-b border-slate-200 dark:border-slate-700">
                     <SectionHowItWork/>
                 </div>
                 <SectionPromo1/>
@@ -66,7 +66,7 @@ async function PageHome() {
                 <SectionPromo2/>
                 <SectionSliderLargeProduct cardStyle="style2" data={response.specialProducts.data}/>
 
-                <div className="relative py-24 lg:py-32">
+                <div className="relative py-5 lg:py-10">
                     <BackgroundSection/>
                     <div>
                         <Heading>
