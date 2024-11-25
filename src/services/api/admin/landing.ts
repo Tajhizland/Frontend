@@ -2,6 +2,7 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {LandingResponse} from "@/services/types/landing";
 import {LandingCategoryResponse} from "@/services/types/landingCategory";
 import {LandingProductResponse} from "@/services/types/landingProduct";
+import {LandingBannerResponse} from "@/services/types/landingBanner";
 
 export const storeLanding = async <T extends ServerResponse<unknown>>
 (
@@ -72,16 +73,47 @@ export const getLandingCategory = async <T extends ServerResponse<LandingCategor
     return axios.get<T, SuccessResponseType<T>>("admin/landing/category/get/" + id)
         .then((res) => res?.data?.result?.data)
 };
-export const deleteLandingProducts = async <T extends ServerResponse<LandingProductResponse[]>>
+export const deleteLandingProducts = async <T extends ServerResponse<unknown>>
 (id: number
 ) => {
     return axios.delete<T, SuccessResponseType<T>>("admin/landing/product/delete/" + id)
         .then((res) => res?.data)
 };
 
-export const deleteLandingCategory = async <T extends ServerResponse<LandingCategoryResponse[]>>
+export const deleteLandingCategory = async <T extends ServerResponse<unknown>>
 (id: number
 ) => {
     return axios.delete<T, SuccessResponseType<T>>("admin/landing/category/delete/" + id)
+        .then((res) => res?.data)
+};
+
+export const deleteLandingBanner = async <T extends ServerResponse<unknown>>
+(id: number
+) => {
+    return axios.delete<T, SuccessResponseType<T>>("admin/landing/banner/delete/" + id)
+        .then((res) => res?.data)
+};
+
+export const getLandingBanner = async <T extends ServerResponse<LandingBannerResponse[]>>
+(id: number
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/landing/banner/get/" + id)
+        .then((res) => res?.data?.result?.data)
+};
+export const setLandingBanner = async <T extends ServerResponse<unknown>>
+(
+    params: {
+        landing_id: number,
+        slider: number,
+        url: string,
+        image: File,
+    }
+) => {
+    const formData = new FormData();
+    formData.append('landing_id', params.landing_id+"");
+    formData.append('slider', params.slider+"");
+    formData.append('url', params.url);
+    formData.append('image', params.image);
+    return axios.post<T, SuccessResponseType<T>>("admin/landing/banner/set" ,formData)
         .then((res) => res?.data)
 };

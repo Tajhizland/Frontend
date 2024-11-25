@@ -41,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
 async function PageHome() {
     const response = await homePage();
     return (
-        <div className="nc-PageHome relative overflow-hidden">
+        <div className="nc-PageHome relative overflow-hidden lg:mt-10">
             <SectionHero2 data={response.sliders.data}/>
             <div className="mt-5 ">
                 <DiscoverMoreSlider data={response.banners.data}/>

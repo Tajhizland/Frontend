@@ -1,7 +1,8 @@
 import {SiBasicattentiontoken} from "react-icons/si";
-import {FaBox, FaFile, FaProductHunt, FaTree} from "react-icons/fa";
+import {FaBox, FaFile, FaFilm, FaProductHunt, FaTree} from "react-icons/fa";
 import {usePathname} from "next/navigation";
 import Link from "next/link";
+import {FaSliders} from "react-icons/fa6";
 
 export default function LandingTab({id}:{id:string}) {
     const TABS = [
@@ -17,6 +18,10 @@ export default function LandingTab({id}:{id:string}) {
             title: "دسته بندی ها",
             link: "/admin/landing/category/"+id,
             icon: <FaBox className="w-5 h-5" />
+        },   {
+            title: "بنر ها",
+            link: "/admin/landing/banner/"+id,
+            icon: <FaFilm className="w-5 h-5" />
         },
         {
             title: "مدیریت فایل",
