@@ -7,11 +7,18 @@ import {findById, update} from "@/services/api/admin/brand";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 import BrandTab from "@/components/Tabs/BrandTab";
+import {useQuery} from "react-query";
+import {findLandingById} from "@/services/api/admin/landing";
 
-export default async function Page()
+export default   function Page()
 {
     const { id } = useParams();
-    const data=await findById(Number(id))
+
+    const {data: data } = useQuery({
+        queryKey: [`brand_info`],
+        queryFn: () =>findById(Number(id)),
+        staleTime: 5000,
+    });
 
     async function submit(e: FormData) {
 

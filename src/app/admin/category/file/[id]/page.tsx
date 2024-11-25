@@ -75,7 +75,7 @@ export default function Page() {
                                         className="object-cover w-full h-full drop-shadow-xl"
                                         fill
                                         sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${item.path}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/file/${item.path}`}
                                     />
                                 </div>
                                 <span>

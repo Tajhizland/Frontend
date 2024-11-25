@@ -1,27 +1,27 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import {getFiles, remove, upload} from "@/services/api/admin/fileManager";
+import { getFiles, remove, upload} from "@/services/api/admin/fileManager";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
 import Uploader from "@/shared/Uploader/Uploader";
 import {TrashIcon} from "@heroicons/react/24/solid";
- import {useParams} from "next/navigation";
+import {useParams} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
 import {toast} from "react-hot-toast";
 import NcImage from "@/shared/NcImage/NcImage";
 import React from "react";
-import PageTab from "@/components/Tabs/PageTab";
+import LandingTab from "@/components/Tabs/LandingTab";
 
 export default function Page() {
     const {id} = useParams();
     const queryClient = useQueryClient();
     const {data: data, isLoading: isLoading} = useQuery({
         queryKey: [`files`],
-        queryFn: () => getFiles({model_id:Number(id) ,model_type:"page"}),
+        queryFn: () => getFiles({model_id:Number(id) ,model_type:"landing"}),
         staleTime: 5000,
     });
     async function submit(e: FormData) {
-        let response = await upload({model_id: Number(id), file: e.get("file") as File ,model_type:"page"})
+        let response = await upload({model_id: Number(id), file: e.get("file") as File ,model_type:"landing"})
         if (response?.success) {
             queryClient.refetchQueries(['files']);
             toast.success(response?.message as string);
@@ -36,21 +36,21 @@ export default function Page() {
     }
     return (<>
         <Breadcrump breadcrumb={[
-           {
-            title: "صفحه",
-            href: "page"
-        },
-        {
-            title: "ویرایش صفحه",
-            href: "page/edit/"+id
-        },
-        {
-            title: "مدیریت فایل",
-            href: "page/file/"+id
-        }
+            {
+                title: "لندینگ",
+                href: "landing"
+            },
+            {
+                title: "ویرایش لندینگ",
+                href: "landing/edit/" + id
+            },
+            {
+                title: "ویرایش فایل",
+                href: "landing/file/" + id
+            }
         ]}/>
         <Panel>
-        <PageTab id={id+""} />
+            <LandingTab id={id + ""}/>
             <div className="flex flex-col gap-y-4">
                 <form action={submit}>
                     <Uploader name={"file"}/>
@@ -71,7 +71,7 @@ export default function Page() {
                                     className="object-cover w-full h-full drop-shadow-xl"
                                     fill
                                     sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/page/file/${item.path}`}
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/landing/file/${item.path}`}
                                 />
                             </div>
                             <span>

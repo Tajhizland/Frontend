@@ -7,11 +7,16 @@ import {findById, update} from "@/services/api/admin/concept";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 import ConceptTab from "@/components/Tabs/ConceptTab";
+import {useQuery} from "react-query";
 
-export default async function Page()
+export default   function Page()
 {
     const { id } = useParams();
-    const data=await findById(Number(id))
+    const {data: data } = useQuery({
+        queryKey: [`concept_info`],
+        queryFn: () =>findById(Number(id)),
+        staleTime: 5000,
+    });
 
     async function submit(e: FormData) {
 

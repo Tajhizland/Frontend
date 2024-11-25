@@ -6,11 +6,16 @@ import Form from "@/app/admin/menu/Form";
 import {findById, update} from "@/services/api/admin/menu";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
+import {useQuery} from "react-query";
 
-export default async function Page()
+export default   function Page()
 {
     const { id } = useParams();
-    const data=await findById(Number(id))
+    const {data: data } = useQuery({
+        queryKey: [`menu_info`],
+        queryFn: () =>findById(Number(id)),
+        staleTime: 5000,
+    });
 
     async function submit(e: FormData) {
 
