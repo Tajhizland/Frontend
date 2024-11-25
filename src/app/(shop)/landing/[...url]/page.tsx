@@ -3,6 +3,7 @@ import React from "react";
 import {findLandingByUrl} from "@/services/api/shop/landing";
 import {homePage} from "@/services/api/shop/homePage";
 import SectionHero2 from "@/components/SectionHero/SectionHero2";
+import SectionHeroLanding from "@/components/SectionHero/SectionHeroLanding";
 
 interface ProductPageProps {
     params: {
@@ -12,7 +13,6 @@ interface ProductPageProps {
 
 export default async function page({params}: ProductPageProps) {
       let response = await findLandingByUrl(decodeURIComponent(params.url.join("/")))
-    const response2 = await homePage();
 
 
     const renderHeader=()=> {
@@ -37,7 +37,9 @@ export default async function page({params}: ProductPageProps) {
     return (<>
             <div className={`nc-ProductDetailPage mt-9 sm:mt-16`}>
                 <div className={"max-w-5xl mx-auto whitespace-nowrap overflow-hidden rounded-2xl"}>
-                    <SectionHero2 data={response2.sliders.data}/>
+                    {response?.landingBannerSlider?.data &&
+                        <SectionHeroLanding  data={response.landingBannerSlider.data}/>
+                    }
                 </div>
                 <main className="container mt-5 ">
                     <h2>خرید بر اساس دسته بندی</h2>

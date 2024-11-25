@@ -48,12 +48,12 @@ const CardCategory4: FC<CardCategory4Props> = ({
 
                     <div className="">
 
-                        <h2 className={`text-xs md:text-3xl md:font-semibold text-center md:text-right`}>{name}</h2>
+                        <h2 className={`text-xs md:text-3xl md:font-semibold text-center md:text-right dark:text-white`}>{name}</h2>
                     </div>
 
                     <Link
                         href={"/category/" + url as Route}
-                        className="flex items-center text-xs font-medium group-hover:text-primary-500 transition-colors justify-center md:justify-start"
+                        className="flex items-center text-xs font-medium group-hover:text-primary-500 transition-colors justify-center md:justify-start dark:text-white"
                     >
                         <ArrowRightIcon className="w-4 h-4 ml-1 sm:ml-2.5"/>
 
