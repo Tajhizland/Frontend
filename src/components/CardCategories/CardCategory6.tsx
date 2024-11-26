@@ -4,6 +4,7 @@ import explore1Svg from "@/images/collections/explore1.svg";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
+import { Route } from "next";
 
 export interface CardCategory6Props {
   className?: string;
@@ -11,6 +12,7 @@ export interface CardCategory6Props {
   bgSVG?: string;
   name: string;
   desc: string;
+  url: string;
   color?: string;
 }
 
@@ -19,6 +21,7 @@ const CardCategory6: FC<CardCategory6Props> = ({
   featuredImage = ".",
   bgSVG = explore1Svg,
   name,
+  url,
   desc,
   color = "bg-rose-50",
 }) => {
@@ -32,10 +35,12 @@ const CardCategory6: FC<CardCategory6Props> = ({
         </div>
 
         <div className="absolute inset-5 flex flex-col justify-between items-center">
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center w-64 h-64">
             <NcImage
               alt=""
-              src={featuredImage}
+              width={480}
+              height={480}
+              src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${featuredImage}`}
               containerClassName={`w-20 h-20 rounded-full overflow-hidden z-0 ${color}`}
             />
           </div>
@@ -50,16 +55,18 @@ const CardCategory6: FC<CardCategory6Props> = ({
           </div>
 
           <Link
-            href={"/collection"}
+            href={("/category/" + url) as Route}
             className="flex items-center text-sm font-medium group-hover:text-primary-500 transition-colors"
           >
-            <span>See Collection</span>
+            <span>مشاهده محصولات</span>
             <ArrowRightIcon className="w-4 h-4 ml-2.5" />
           </Link>
         </div>
       </div>
 
-      <Link href={"/collection"}></Link>
+      <Link
+        href={("/category/" + url) as Route}
+      ></Link>
     </div>
   );
 };

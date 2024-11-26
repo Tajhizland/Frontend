@@ -1,9 +1,13 @@
 
 import React from "react";
-import {findLandingByUrl} from "@/services/api/shop/landing";
-import {homePage} from "@/services/api/shop/homePage";
+import { findLandingByUrl } from "@/services/api/shop/landing";
+import { homePage } from "@/services/api/shop/homePage";
 import SectionHero2 from "@/components/SectionHero/SectionHero2";
 import SectionHeroLanding from "@/components/SectionHero/SectionHeroLanding";
+import DiscoverMoreSlider from "@/components/DiscoverMoreSlider";
+import LandingBannerSlider from "@/components/LandingBannerSlider";
+import LandingCategorySlider from "@/components/LandingCategorySlider";
+import LandingProductSlider from "@/components/LandingProductSlider";
 
 interface ProductPageProps {
     params: {
@@ -11,11 +15,11 @@ interface ProductPageProps {
     }
 }
 
-export default async function page({params}: ProductPageProps) {
-      let response = await findLandingByUrl(decodeURIComponent(params.url.join("/")))
+export default async function page({ params }: ProductPageProps) {
+    let response = await findLandingByUrl(decodeURIComponent(params.url.join("/")))
 
 
-    const renderHeader=()=> {
+    const renderHeader = () => {
         return <header className="container rounded-xl">
             <div className="max-w-screen-md mx-auto space-y-5">
                 <h1
@@ -27,29 +31,38 @@ export default async function page({params}: ProductPageProps) {
                 <span
                     className=" text-neutral-900 font-semibold   md:!leading-[120%]   dark:text-neutral-100 max-w-4xl "
                 >
-                          {
-                              response.description
-                          }
-                        </span>
+                    {
+                        response.description
+                    }
+                </span>
             </div>
         </header>
     }
     return (<>
-            <div className={`nc-ProductDetailPage mt-9 sm:mt-16`}>
-                <div className={"max-w-5xl mx-auto whitespace-nowrap overflow-hidden rounded-2xl"}>
-                    {response?.landingBannerSlider?.data &&
-                        <SectionHeroLanding  data={response.landingBannerSlider.data}/>
-                    }
-                </div>
-                <main className="container mt-5 ">
-                    <h2>خرید بر اساس دسته بندی</h2>
-                </main>
-                <hr className="border-slate-200 dark:border-slate-700"/>
-
-                <footer>
-                    {renderHeader()}
-                </footer>
+        <div className={`nc-ProductDetailPage mt-9 sm:mt-16`}>
+            <div className={"max-w-5xl mx-auto whitespace-nowrap overflow-hidden rounded-2xl"}>
+                {response?.landingBannerSlider?.data &&
+                    <SectionHeroLanding data={response.landingBannerSlider.data} />
+                }
             </div>
-        </>
+            <main className="container mt-5 ">
+
+            <div className="py-5 dark:bg-neutral-900">
+                <LandingBannerSlider data={response.landingBannerImage?.data} />
+            </div>
+            <div className="py-5 dark:bg-neutral-900">
+                <LandingCategorySlider data={response.category?.data} />
+            </div>
+            <div className="py-5 dark:bg-neutral-900">
+                <LandingProductSlider data={response.product?.data} />
+            </div>
+             </main>
+            <hr className="border-slate-200 dark:border-slate-700" />
+
+            <footer>
+                {renderHeader()}
+            </footer>
+        </div>
+    </>
     )
 }
