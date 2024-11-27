@@ -4,7 +4,7 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import Heading from "./Heading/Heading";
 import CardCategory3 from "./CardCategories/CardCategory3";
 // @ts-ignore
-import Glide from "@glidejs/glide/dist/glide.esm"; 
+import Glide from "@glidejs/glide/dist/glide.esm";
 import ProductCard2 from "./ProductCardNew";
 import { ProductResponse } from "@/services/types/product";
 
@@ -17,7 +17,6 @@ const LandingProductSlider = ({ data }: { data: ProductResponse[] }) => {
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
             perView: 4.2,
-            autoplay: 3000,
             gap: 25,
             bound: true,
             breakpoints: {
@@ -75,7 +74,7 @@ const LandingProductSlider = ({ data }: { data: ProductResponse[] }) => {
                         <li key={index} className={`glide__slide`}>
 
                             <div
-                                className={`relative w-full aspect-w-16 aspect-h-11 lg:aspect-h-9  rounded-2xl overflow-hidden group border`}
+                                className={`relative w-full  rounded-2xl overflow-hidden group border`}
                             >
                                 <ProductCard2 data={item} key={index} />
                             </div>

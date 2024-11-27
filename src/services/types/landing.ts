@@ -10,8 +10,8 @@ export type LandingResponse = {
     status: string;
     created_at: string;
     updated_at: string;
-    product?: { data: ProductResponse };
-    category?: { data: CategoryResponse };
+    product?: { data: ProductResponse[] };
+    category?: { data: CategoryResponse[] };
     landingBannerImage?: { data: LandingBannerResponse[] };
     landingBannerSlider?: { data: LandingBannerResponse[] };
 };

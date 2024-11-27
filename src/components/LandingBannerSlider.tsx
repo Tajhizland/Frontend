@@ -22,7 +22,6 @@ const LandingBannerSlider = ({data}: { data: LandingBannerResponse[] }) => {
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
             perView: 3.8,
-            autoplay: 3000,
             gap: 25,
             bound: true,
             breakpoints: {
@@ -79,7 +78,7 @@ const LandingBannerSlider = ({data}: { data: LandingBannerResponse[] }) => {
                 <ul className="glide__slides">
                     {data.map((item, index) => (
                         <li key={index} className={`glide__slide`}>
-                        
+
                             <div
                                 className={`relative w-full aspect-w-16 aspect-h-11 lg:aspect-h-9  rounded-2xl overflow-hidden group border`}
                             >

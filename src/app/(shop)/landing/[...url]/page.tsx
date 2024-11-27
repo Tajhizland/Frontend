@@ -1,7 +1,6 @@
-
 import React from "react";
-import { findLandingByUrl } from "@/services/api/shop/landing";
-import { homePage } from "@/services/api/shop/homePage";
+import {findLandingByUrl} from "@/services/api/shop/landing";
+import {homePage} from "@/services/api/shop/homePage";
 import SectionHero2 from "@/components/SectionHero/SectionHero2";
 import SectionHeroLanding from "@/components/SectionHero/SectionHeroLanding";
 import DiscoverMoreSlider from "@/components/DiscoverMoreSlider";
@@ -15,7 +14,7 @@ interface ProductPageProps {
     }
 }
 
-export default async function page({ params }: ProductPageProps) {
+export default async function page({params}: ProductPageProps) {
     let response = await findLandingByUrl(decodeURIComponent(params.url.join("/")))
 
 
@@ -39,30 +38,33 @@ export default async function page({ params }: ProductPageProps) {
         </header>
     }
     return (<>
-        <div className={`nc-ProductDetailPage mt-9 sm:mt-16`}>
-            <div className={"max-w-5xl mx-auto whitespace-nowrap overflow-hidden rounded-2xl"}>
-                {response?.landingBannerSlider?.data &&
-                    <SectionHeroLanding data={response.landingBannerSlider.data} />
-                }
-            </div>
-            <main className="container mt-5 ">
+            <div className={`nc-ProductDetailPage mt-9 sm:mt-16`}>
+                <main className="container mt-5 overflow-hidden whitespace-nowrap">
 
-            <div className="py-5 dark:bg-neutral-900">
-                <LandingBannerSlider data={response.landingBannerImage?.data} />
-            </div>
-            <div className="py-5 dark:bg-neutral-900">
-                <LandingCategorySlider data={response.category?.data} />
-            </div>
-            <div className="py-5 dark:bg-neutral-900">
-                <LandingProductSlider data={response.product?.data} />
-            </div>
-             </main>
-            <hr className="border-slate-200 dark:border-slate-700" />
+                    <div className={" mx-auto whitespace-nowrap overflow-hidden rounded-2xl"}>
+                        {response?.landingBannerSlider?.data &&
+                            <SectionHeroLanding data={response.landingBannerSlider.data}/>
+                        }
+                    </div>
+                    {response?.category?.data && <div className="py-5 dark:bg-neutral-900 overflow-hidden my-5">
+                        <LandingCategorySlider data={response.category.data}/>
+                    </div>}
 
-            <footer>
-                {renderHeader()}
-            </footer>
-        </div>
-    </>
+                    {response?.landingBannerImage?.data &&
+                        <div className="py-5 dark:bg-neutral-900 overflow-hidden my-5">
+                            <LandingBannerSlider data={response.landingBannerImage.data}/>
+                        </div>}
+
+                    {response?.product?.data && <div className="py-5 dark:bg-neutral-900 overflow-hidden my-5">
+                        <LandingProductSlider data={response.product.data}/>
+                    </div>}
+                </main>
+                <hr className="border-slate-200 dark:border-slate-700"/>
+
+                <footer>
+                    {renderHeader()}
+                </footer>
+            </div>
+        </>
     )
 }

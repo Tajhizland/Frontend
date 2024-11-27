@@ -24,30 +24,29 @@ const LandingCategorySlider = ({ data }: { data: CategoryResponse[] }) => {
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
-            perView: 5.8,
-            autoplay: 3000,
+            perView: 4.8,
             gap: 25,
             bound: true,
             breakpoints: {
                 1280: {
                     gap: 20,
-                    perView: 5.5,
+                    perView: 4.5,
                 },
                 1279: {
                     gap: 10,
-                    perView: 7.15,
+                    perView: 4.15,
                 },
                 1023: {
                     gap: 10,
-                    perView: 5.6,
+                    perView: 3,
                 },
                 768: {
                     gap: 10,
-                    perView: 5.2,
+                    perView: 2.5,
                 },
                 500: {
                     gap: 10,
-                    perView: 4.5,
+                    perView: 2.5,
                 },
             },
         };
@@ -83,12 +82,12 @@ const LandingCategorySlider = ({ data }: { data: CategoryResponse[] }) => {
                         <li key={index} className={`glide__slide`}>
 
                             <div
-                                className={`relative w-full aspect-w-16 aspect-h-11 lg:aspect-h-9  rounded-2xl overflow-hidden group border`}
+                                className={`relative w-full  rounded-2xl overflow-hidden group border`}
                             >
                                 <CardCategory6
+                                    url={item.url}
                                     key={index}
                                     name={item.name}
-                                    desc={""}
                                     featuredImage={item.image}
                                 />
                             </div>
