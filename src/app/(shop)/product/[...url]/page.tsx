@@ -194,7 +194,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
 
                 </div>
                 {/* ---------- 6 ----------  */}
-                <div className="lg:hidden flex">
+                <div className="lg:hidden  ">
                     <Policy />
                 </div> 
             </div>
