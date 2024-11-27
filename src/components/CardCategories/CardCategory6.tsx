@@ -11,7 +11,7 @@ export interface CardCategory6Props {
   featuredImage?: string | StaticImageData;
   bgSVG?: string;
   name: string;
-  url: string;
+  url?: string;
   color?: string;
 }
 
