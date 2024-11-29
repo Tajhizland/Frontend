@@ -5,7 +5,7 @@ import Heading from "./Heading/Heading";
 import CardCategory3 from "./CardCategories/CardCategory3";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
-import ProductCard2 from "./ProductCardNew";
+import ProductCard2 from "./ProductCard";
 import { ProductResponse } from "@/services/types/product";
 
 const LandingProductSlider = ({ data }: { data: ProductResponse[] }) => {
@@ -16,30 +16,29 @@ const LandingProductSlider = ({ data }: { data: ProductResponse[] }) => {
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
-            perView: 4.2,
-            gap: 25,
+            perView: 4,
+            gap: 32,
             bound: true,
             breakpoints: {
-                1280: {
-                    gap: 20,
-                    perView: 3.8,
-                },
-                1279: {
-                    gap: 10,
-                    perView: 3.5,
-                },
-                1023: {
-                    gap: 10,
-                    perView: 3.3,
-                },
-                768: {
-                    gap: 10,
-                    perView: 2.8,
-                },
-                500: {
-                    gap: 10,
-                    perView: 2.5,
-                },
+              1280: {
+                perView: 4 - 1,
+              },
+              1024: {
+                gap: 20,
+                perView: 4 - 1,
+              },
+              768: {
+                gap: 20,
+                perView: 4 - 2,
+              },
+              640: {
+                gap: 10,
+                perView: 2.2,
+              },
+              500: {
+                gap: 10,
+                perView: 2,
+              },
             },
         };
         if (!sliderRef.current) return;

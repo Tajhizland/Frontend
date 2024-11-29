@@ -21,7 +21,7 @@ const LandingBannerSlider = ({data}: { data: LandingBannerResponse[] }) => {
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
-            perView: 3.8,
+            perView: 3.8, 
             gap: 25,
             bound: true,
             breakpoints: {

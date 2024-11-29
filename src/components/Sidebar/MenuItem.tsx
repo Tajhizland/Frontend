@@ -78,6 +78,25 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         ]
     },
     {
+        title: "لندینگ ها",
+        url: "/",
+        icon: <InboxIcon className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت لندینگ",
+                url: "/landing",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن لندینگ ",
+                url: "/landinf/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }
+        ]
+    },
+    {
         title: "برند ها",
         url: "/product",
         icon: <TbBrandApple className="h-6 w-6 text-gray-500"/>,
