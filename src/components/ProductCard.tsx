@@ -65,7 +65,7 @@ const ProductCard: FC<ProductCardProps> = ({
             return null;
         }
          const CLASSES =
-            " flex items-center text-slate-700 text-slate-900 dark:text-slate-300 absolute top-3 start-3 bg-white rounded-full p-1 lg:p-2 text-xs";
+            " flex items-center text-slate-700 text-slate-900 dark:text-slate-300  dark:bg-slate-900 absolute top-3 start-3 bg-white rounded-full p-1 lg:p-2 text-xs";
         if (status == "new") {
             return (
                 <div className={CLASSES}>
@@ -140,7 +140,7 @@ const ProductCard: FC<ProductCardProps> = ({
         <>
             <div
                 style={{direction:"rtl"}}
-                className={`nc-ProductCard relative flex flex-col bg-transparent ${className}`}
+                className={`nc-ProductCard relative flex flex-col  bg-transparent ${className}`}
             >
                 <Link href={"/product/"+data?.url as Route} className="absolute inset-0" aria-label={"product"}></Link>
                 <div
@@ -168,7 +168,7 @@ const ProductCard: FC<ProductCardProps> = ({
                     {renderVariants()}
 
                     <div>
-                        <h2 className="nc-ProductCard__title text-xs sm:text-base font-semibold transition-colors text-right">
+                        <h2 className="nc-ProductCard__title text-xs sm:text-base font-semibold transition-colors text-right dark:text-white">
                             {data?.name}
                         </h2>
                     </div>

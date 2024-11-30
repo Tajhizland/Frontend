@@ -14,6 +14,7 @@ import VlogFilter from "@/app/(shop)/vlog/VlogFilter";
 import {findCategoryByUrl} from "@/services/api/shop/category";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
+import WidgetFilter from "./WidgetFilter";
 
 export default function Listing({response}) {
     const [newResponse, setNewResponse] = useState();
@@ -40,7 +41,7 @@ export default function Listing({response}) {
     }
 
     const renderItem = (item: VlogResponse) => {
-        return <div className={"w-full h-full rounded-xl overflow-hidden border bg-white"}>
+        return <div className={"w-full h-full rounded-xl overflow-hidden border bg-white dark:bg-transparent"}>
             <Link
                 href={"/vlog/" + item.url as Route}
                 aria-label={"news"}
@@ -53,11 +54,11 @@ export default function Listing({response}) {
                     fill
                     alt="vlog"
                 />
-                <span className={"py-2.5 px-2"}>
+                <span className={"py-2.5 px-2 dark:text-white"}>
                     {item.title}
                 </span>
 
-                <div className={"flex justify-between items-center py-1 px-2 text-neutral-500"}>
+                <div className={"flex justify-between items-center py-1 px-2 text-neutral-500 dark:text-white"}>
                     <div className={"flex items-center gap-x-2 "}>
                         <FaEye/>
                         <span className={""}>
@@ -80,12 +81,12 @@ export default function Listing({response}) {
         </div>
     }
     return (<>
-        <div className={`nc-PageCollection`}>
+        <div className={`nc-PageCollection dark:bg-neutral-900`}>
             <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
                 <div className="space-y-10 lg:space-y-14">
                     {/* HEADING */}
                     <div className="max-w-screen-sm">
-                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold">
+                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                              تجهیزلند ولاگ
                         </h2>
 
@@ -94,8 +95,14 @@ export default function Listing({response}) {
                         {/* TABS FILTER */}
                         <VlogFilter changeFilter={fetchMain}/>
                         {/* LOOP ITEMS */}
+                        <div className="grid grid-cols-1 lg:grid-cols-12  mt-8 lg:mt-10 gap-10">
+
+                        <div className="hidden lg:block lg:col-span-3">
+                            <WidgetFilter changeFilter={fetchMain} /> 
+                        </div>
+
                         <div
-                            className="grid  grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
+                            className="grid lg:col-span-9  grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10">
                             {
                                 newResponse ?
                                     newResponse.map((item: VlogResponse, index: number) => (<Fragment key={index}>
@@ -111,7 +118,8 @@ export default function Listing({response}) {
                                     </Fragment>))
                             }
                         </div>
-
+                     
+                        </div>
                         <div
                             className="flex flex-col mt-12 lg:mt-16 space-y-5 sm:space-y-0 sm:space-x-3 sm:flex-row sm:justify-between sm:items-center">
                             <AdminPagination

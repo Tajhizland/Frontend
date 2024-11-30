@@ -111,17 +111,17 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                 {searchResponse && showSearchForm &&
                     <div
                         ref={dropdownRef}
-                        className="absolute top-14 left-0 w-full h-[425px] bg-white  z-50 border rounded shadow border-t-0 overflow-y-auto whitespace-nowrap ">
+                        className="absolute top-14 left-0 w-full h-[425px] bg-white  dark:bg-neutral-900  z-50 border rounded shadow border-t-0 overflow-y-auto whitespace-nowrap ">
                         <button type="button" onClick={() => setShowSearchForm(false)}>
-                            <XMarkIcon className="w-5 h-5 mr-5" />
+                            <XMarkIcon className="w-5 h-5 mr-5 dark:text-white" />
                         </button>
-                        <div className="flex flex-col  ">
+                        <div className="flex flex-col   ">
                             {
                                 searchResponse.length > 0 ? searchResponse.map((item) => (<>
                                     <Link href={"/product/" + item.url as Route}
                                         onChange={() => setSearchResponse(undefined)}>
                                         <div
-                                            className="flex items-center justify-between  py-2 px-5 hover:bg-stone-100 ">
+                                            className="flex items-center justify-between  py-2 px-5 hover:bg-stone-100 dark:hover:bg-neutral-800 ">
                                             <div className="flex items-center gap-x-5  ">
                                                 <div className={""}>
                                                     <FaMagnifyingGlass className={" text-neutral-400"} />
@@ -133,7 +133,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                                       height={50}/>
                                                 </div>
                                                 <span
-                                                    className={"text-sm text-neutral-800 font-bold "}> {item.name}  </span>
+                                                    className={"text-sm text-neutral-800 font-bold dark:text-white "}> {item.name}  </span>
                                             </div>
                                             <div>
                                                 <FaExternalLinkAlt className={" text-neutral-400"} />
@@ -155,12 +155,12 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                     </div>
                             }
                             {searchResponse.length > 0 && <div
-                                className="flex items-center gap-x-5 border-t p-5 bg-stone-100 hover:bg-stone-200 text-center cursor-pointer"
+                                className="flex items-center gap-x-5 border-t p-5 bg-stone-100 dark:bg-slate-900 dark:hover:bg-slate-800  hover:bg-stone-200 text-center cursor-pointer"
                                 onClick={handleSearch}>
                                 <div>
-                                    <FaBorderAll className={"text-neutral-500"} />
+                                    <FaBorderAll className={"text-neutral-500 dark:text-white"} />
                                 </div>
-                                <span className={"text-sm text-neutral-800 font-bold"}>
+                                <span className={"text-sm text-neutral-800 font-bold dark:text-white"}>
                                     مشاهده همه
                                 </span>
                             </div>}

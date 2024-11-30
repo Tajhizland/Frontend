@@ -30,15 +30,15 @@ const PageCollection = ({response, url}: { response: BrandListingResponse, url: 
     }
 
     return (
-        <div className={`nc-PageCollection`}>
+        <div className={`nc-PageCollection dark:bg-neutral-900`}>
             <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
                 <div className="space-y-10 lg:space-y-14">
                     {/* HEADING */}
                     <div className="max-w-screen-sm">
-                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold">
+                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             {response.brand.name}
                         </h2>
-                        <span className="block mt-4 text-neutral-500 dark:text-neutral-400 text-sm sm:text-base">
+                        <span className="block mt-4 text-neutral-500 dark:text-white text-sm sm:text-base">
                             <div dangerouslySetInnerHTML={{__html: (response.brand.description)}}/>
                         </span>
                     </div>

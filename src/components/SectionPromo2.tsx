@@ -25,7 +25,7 @@ const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10" }) => {
 
         <div className="lg:w-[45%] max-w-lg relative">
           <Logo className="w-28" />
-          <h2 className="font-semibold text-3xl sm:text-4xl xl:text-5xl 2xl:text-6xl mt-6 sm:mt-10 !leading-[1.13] tracking-tight">
+          <h2 className="font-semibold text-3xl sm:text-4xl xl:text-5xl 2xl:text-6xl mt-6 sm:mt-10 !leading-[1.13] tracking-tight dark:text-white">
             Special offer <br />
             in kids products
           </h2>

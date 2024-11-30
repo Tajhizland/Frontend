@@ -61,7 +61,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             <div>
                 <label htmlFor="">
                     <div className={"flex justify-between items-center"}>
-                        <span className="text-sm font-medium">
+                        <span className="text-sm font-medium dark:text-white">
                             رنگ :
                             <span className="ml-1 font-semibold">
                                 {selectedColor.color_name}
@@ -263,7 +263,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                 {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
                 {selectedColor.statusLabel != "disable" ? <div className="flex  gap-x-3.5">
                     <div
-                        className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
+                        className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full dark:text-white">
                         <NcInputNumber
                             defaultValue={checkColorInCart()}
                             onChange={setSelectedCount}

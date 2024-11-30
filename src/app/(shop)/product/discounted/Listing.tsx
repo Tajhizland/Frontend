@@ -28,12 +28,12 @@ const Listing = async ({response}: { response: ProductResponse[] }) => {
     }
 
     return (
-        <div className={`nc-PageSearch`} data-nc-id="PageSearch">
-            <div className="container mt-20">
-                <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold">
+        <div className={`nc-PageSearch dark:bg-neutral-900  mt-9  py-5`} data-nc-id="PageSearch">
+            <div className="container">
+                <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                     تخفیفی های تجهیزلند
                 </h2>
-                <span className="block mt-4 text-neutral-500 dark:text-neutral-400 text-sm sm:text-base">
+                <span className="block mt-4 text-neutral-500 dark:text-white text-sm sm:text-base">
                         تمام محصولات تخفیفی تجهیزلند رو میتونید در این صفحه مشاهده کنید
                 </span>
             </div>

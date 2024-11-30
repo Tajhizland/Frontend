@@ -15,14 +15,14 @@ export default function BottomNavigation() {
 
 
         <div
-            className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 lg:hidden">
+            className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 lg:hidden dark:bg-neutral-900">
             <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
                 <Link
                     href={"/"}
                     className="inline-flex flex-col items-center justify-center  hover:bg-gray-50 group">
                     <div className={"flex flex-col justify-center items-center gap-y-2"}>
                         <HiOutlineHome className={"w-5 h-5 text-neutral-500"}/>
-                        <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap"}>
+                        <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap dark:text-white"}>
                            خانه
                         </span>
                     </div>
@@ -35,7 +35,7 @@ export default function BottomNavigation() {
                     className="inline-flex flex-col items-center justify-center  hover:bg-gray-50 group">
                     <div className={"flex flex-col justify-center items-center gap-y-2"}>
                         <SlBasket className={"w-5 h-5 text-neutral-500"}/>
-                        <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap"}>
+                        <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap dark:text-white"}>
                              سبد خرید
                         </span>
                     </div>
@@ -45,7 +45,7 @@ export default function BottomNavigation() {
                     className="inline-flex flex-col items-center justify-center  hover:bg-gray-50 group">
                     <div className={"flex flex-col justify-center items-center gap-y-2"}>
                         <MdOutlineOndemandVideo className={"w-5 h-5 text-neutral-500"}/>
-                        <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap"}>
+                        <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap dark:text-white"}>
                          ولاگ
                         </span>
                     </div>
@@ -55,7 +55,7 @@ export default function BottomNavigation() {
                     className="inline-flex flex-col items-center justify-center  hover:bg-gray-50 group">
                     <div className={"flex flex-col justify-center items-center gap-y-2"}>
                         <FaRegUser className={"w-5 h-5 text-neutral-500"}/>
-                        <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap"}>
+                        <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap dark:text-white"}>
                             حساب کاربری
                         </span>
                     </div>

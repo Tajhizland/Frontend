@@ -17,7 +17,7 @@ export default function ProductComment({ comments ,productId }: { comments: Comm
     return (<>
 
         <div id="reviews" className="scroll-mt-[150px]">
-            <h2 className="text-2xl font-semibold flex items-center">
+            <h2 className="text-2xl font-semibold flex items-center  dark:text-white">
                 <StarIcon className="w-7 h-7 mb-0.5" />
                 <span className="mr-1.5"> {comments.length} نظر </span>
             </h2>

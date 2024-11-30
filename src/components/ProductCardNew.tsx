@@ -239,7 +239,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                                 className="absolute top-3 end-3 z-10 sm:hidden flex"/>
 
                     <div>
-                        <h2 className="nc-ProductCard__title text-xs lg:text-base font-semibold transition-colors">
+                        <h2 className="nc-ProductCard__title text-xs lg:text-base font-semibold transition-colors dark:text-white">
                             {data?.name}
                         </h2>
                     </div>

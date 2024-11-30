@@ -19,7 +19,7 @@ const TextExpander: React.FC<TextExpanderProps> = ({ text }) => {
   return (
     <div className="mx-auto">
       <div
-        className={`relative text-gray-800 transition-all duration-300 ${
+        className={`relative text-gray-800  dark:text-white transition-all duration-300 ${
           isExpanded ? 'line-clamp-none' : 'line-clamp-3'
         }`}
       >
@@ -35,7 +35,7 @@ const TextExpander: React.FC<TextExpanderProps> = ({ text }) => {
          <div  onClick={toggleExpanded}
                className="mt-5 cursor-pointer "
         >
-             <span className="  text-sm font-bold text-neutral-700">
+             <span className="  text-sm font-bold text-neutral-700  dark:text-white">
               {isExpanded ? "مشاهده کمتر":  "مشاهده بیشتر"}
                  </span>
         </div>

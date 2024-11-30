@@ -30,7 +30,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
     review,
 }) => {
     return (
-        <div className={`CollectionCard2 group relative ${className}`}>
+        <div className={`CollectionCard2 group relative   ${className}`}>
             <div className="relative flex flex-col">
                 <NcImage
                     containerClassName="aspect-w-8 aspect-h-5 bg-neutral-100 rounded-2xl overflow-hidden"
@@ -75,7 +75,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
             <div className="relative mt-5 flex flex-col-reverse sm:flex-row gap-y-2 ">
                 {/* TITLE */}
                 <div className="flex-1">
-                    <h2 className="font-semibold text-xs  sm:text-sm lg:text-lg text-right">{name}</h2>
+                    <h2 className="font-semibold text-xs  sm:text-sm lg:text-lg text-right dark:text-white">{name}</h2>
                     {/* AUTHOR */}
                     <div className="mt-3 lg:flex items-center text-slate-500 dark:text-slate-400 hidden">
                         {/* <span className="text-sm ">

@@ -125,15 +125,15 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
 
                         <li className={`glide__slide ${itemClassName}`}>
                             <div
-                                className={`flex-1 relative w-full h-0 rounded-2xl overflow-hidden group aspect-w-1 aspect-h-1 bg-slate-100`}
+                                className={`flex-1 relative w-full h-0 rounded-2xl overflow-hidden group aspect-w-1 aspect-h-1 bg-slate-100  dark:bg-black/20`}
                             >
                                 <div>
                                     <div
                                         className="absolute inset-y-6 inset-x-10 flex flex-col sm:items-center justify-center">
                                         <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">
-                                            <IoIosArrowDroprightCircle className={"w-10 h-10 text-slate-900"}/>
+                                            <IoIosArrowDroprightCircle className={"w-10 h-10 text-slate-900 dark:text-white"}/>
                                             <span
-                                                className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800">نمایش همه  </span>
+                                                className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
                                         </div>
 
                                     </div>

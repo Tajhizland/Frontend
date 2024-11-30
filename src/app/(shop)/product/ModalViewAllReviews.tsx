@@ -55,7 +55,7 @@ const ModalViewAllReviews: FC<ModalViewAllReviewsProps> = ({
               <div className="inline-flex pb-2 flex-col w-full text-left align-middle transition-all transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 shadow-xl h-full">
                 <div className="relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
                   <h3
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-medium leading-6 text-gray-900  dark:text-white"
                     id="headlessui-dialog-title-70"
                   >
                     مشاهده همه نظرات

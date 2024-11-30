@@ -92,20 +92,20 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
                     <Link href={"/special"} className="block relative group">
                         <div className="relative flex flex-col rounded-2xl overflow-hidden">
                             <div className="relative">
-                                <div className="aspect-w-8 aspect-h-5 bg-neutral-100/70  dark:bg-neutral-800"></div>
+                                <div className="aspect-w-8 aspect-h-5 bg-neutral-100/70   dark:bg-black/20"></div>
                                 <div
                                     className="absolute inset-y-6 inset-x-10  flex flex-col items-center justify-center">
                                     <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">
-                                        <IoIosArrowDroprightCircle className={"w-10 h-10 text-slate-900"}/>
+                                        <IoIosArrowDroprightCircle className={"w-10 h-10 text-slate-900 dark:text-white"}/>
                                         <span
-                                            className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800">نمایش همه  </span>
+                                            className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
                                     </div>
                                 </div>
                             </div>
                             <div className="grid grid-cols-3 gap-1.5 mt-1.5">
-                                <div className="w-full h-28 bg-neutral-100/70  dark:bg-neutral-800"></div>
-                                <div className="w-full h-28 bg-neutral-100/70  dark:bg-neutral-800"></div>
-                                <div className="w-full h-28 bg-neutral-100/70  dark:bg-neutral-800"></div>
+                                <div className="w-full h-28 bg-neutral-100/70   dark:bg-black/20"></div>
+                                <div className="w-full h-28 bg-neutral-100/70   dark:bg-black/20"></div>
+                                <div className="w-full h-28 bg-neutral-100/70   dark:bg-black/20"></div>
                             </div>
                         </div>
                     </Link>

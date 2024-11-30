@@ -602,7 +602,7 @@ export default function VlogFilter({changeFilter}: { changeFilter: (filters: str
         <div className="flex lg:space-x-4">
             {/* FOR DESKTOP */}
             <div className="hidden lg:flex flex-1 gap-x-4">
-                {renderFilters()}
+                {/* {renderFilters()} */}
                 <div className="!mr-auto">{renderTabsSortOrder()}</div>
             </div>
 

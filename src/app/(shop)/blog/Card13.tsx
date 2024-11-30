@@ -18,7 +18,7 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
   return (
     <div className={`nc-Card13 relative flex ${className}`} data-nc-id="Card13">
       <div className="flex flex-col h-full py-2">
-        <h2 className={`nc-card-title block font-semibold text-base`}>
+        <h2 className={`nc-card-title block font-semibold text-base dark:text-white`}>
           <Link
               href={"/vlog/"+data.url as Route}
             className="line-clamp-2 capitalize"

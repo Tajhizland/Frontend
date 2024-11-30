@@ -65,11 +65,11 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   });
 
   return (
-    <div className="nc-AccountCommonLayout container">
-      <div className="mt-14 sm:mt-20">
+    <div className="nc-AccountCommonLayout  dark:bg-neutral-900">
+      <div className="pt-14 sm:pt-20">
         <div className="max-w-4xl mx-auto">
           <div className="max-w-2xl">
-            <h2 className="text-3xl xl:text-4xl font-semibold">حساب کاربری</h2>
+            <h2 className="text-3xl xl:text-4xl font-semibold dark:text-white">حساب کاربری</h2>
 
           </div>
           <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>

@@ -37,14 +37,14 @@ export default async function page() {
     }
     return (<>
 
-        <div className={`nc-PageCollection`}>
+        <div className={`nc-PageCollection dark:bg-neutral-900`}>
             <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
                 <div className="space-y-10 lg:space-y-14">
                     <div className="">
-                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold">
+                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             پرسش های متداول
                         </h2>
-                        <span className="block mt-5 text-neutral-500 dark:text-neutral-400 text-sm sm:text-base">
+                        <span className="block mt-5 text-neutral-500 dark:text-white text-sm sm:text-base">
                         سایت رسمی تجهیزلند با هدف ایجاد فضایی  جهت خرید امن و مطمئن طراحی شده است و با دریافت نماد اعتماد تجارت الکترونیکی روند ارائه و ارسال خود را به صورت کاملا قانونی ثبت نموده و اطمینان و رضایت خاطر کاربران را برای خریدی موفق فراهم ساخته است ،
                         </span>
                     </div>

@@ -41,13 +41,13 @@ export async function generateMetadata(): Promise<Metadata> {
 async function PageHome() {
     const response = await homePage();
     return (
-        <div className="nc-PageHome relative overflow-hidden lg:mt-10">
+        <div className="nc-PageHome relative overflow-hidden lg:mt-10  dark:bg-neutral-900">
             <SectionHero2 data={response.sliders.data}/>
             <div className="py-5 dark:bg-neutral-900">
                 <DiscoverMoreSlider data={response.banners.data}/>
             </div>
 
-            <div className="container relative space-y-5 my-5 lg:space-y-10 lg:my-10">
+            <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10  dark:bg-neutral-900">
                 <SectionSliderProductCard
                     data={response.popularProducts.data}
                     subHeading={""}

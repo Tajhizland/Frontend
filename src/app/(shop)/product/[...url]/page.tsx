@@ -136,7 +136,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
         return (
             <div className="listingSection__wrap !space-y-6">
                 <div>
-                    <h2 className="text-2xl md:text-3xl font-semibold">
+                    <h2 className="text-2xl md:text-3xl font-semibold dark:text-white">
                         {product.name}
                     </h2>
                     <div className="flex items-center mt-4 sm:mt-5">
@@ -186,10 +186,10 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
     };
     const renderSection2 = () => {
         return (
-            <div className="listingSection__wrap !border-b-0 !pb-0">
+            <div className="listingSection__wrap !border-b-0 !pb-0 dark:text-white">
                 <h2 className="text-2xl font-semibold">بررسی تخصصی</h2>
                 {/* <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div> */}
-                <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl">
+                <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white">
                     <div dangerouslySetInnerHTML={{__html: product.review}}/>
 
                 </div>
@@ -206,7 +206,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
             <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
-            <div className={`ListingDetailPage nc-ProductDetailPage2`}>
+            <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
                 <ProductImage productImages={product.images.data}/>
                 {/* MAIn */}
                 <main className="container relative z-10 mt-9 sm:mt-11 flex ">
@@ -218,7 +218,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
 
                     {/* SIDEBAR */}
                     <div className="flex-grow">
-                        <div className="hidden lg:block sticky top-28">
+                        <div className="hidden lg:block sticky top-28 dark:bg-black/20">
                             {/*{renderSectionSidebar()}*/}
                             <ProductSidebar product={product}/>
                         </div>

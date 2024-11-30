@@ -35,7 +35,7 @@ export default async function Page({params}: PageProps) {
 
     const renderContent = () => {
         return (
-            <div className={"flex flex-col gap-y-10 text-right"}>
+            <div className={"flex flex-col gap-y-10 text-right dark:text-white"}>
                 <video
                     className="w-full h-auto"
                     controls
@@ -48,7 +48,7 @@ export default async function Page({params}: PageProps) {
         );
     };
     return (<>
-        <div className="nc-PageSingle pt-8 lg:pt-16 ">
+        <div className="nc-PageSingle pt-8 lg:pt-16 dark:bg-neutral-900">
 
             {renderHeader()}
             <hr/>
