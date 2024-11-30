@@ -6,7 +6,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/concept/TableRow";
+import {buttons, columns} from "@/app/admin/landing/TableRow";
  import { toast } from "react-hot-toast";
 import {Route} from "next";
 import {updateLanding} from "@/services/api/admin/landing";

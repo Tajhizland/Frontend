@@ -7,7 +7,7 @@ import {
 import {GiSevenPointedStar} from "react-icons/gi";
 import {VscLayoutMenubar} from "react-icons/vsc";
 import {TbAlignBoxCenterTop, TbBrandApple} from "react-icons/tb";
-import {SiPagespeedinsights} from "react-icons/si";
+import {SiPagespeedinsights, SiWayland} from "react-icons/si";
 import {
     FaBell,
     FaCcPaypal,
@@ -80,7 +80,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
     {
         title: "لندینگ ها",
         url: "/",
-        icon: <InboxIcon className="h-6 w-6 text-gray-500"/>,
+        icon: <SiWayland className="h-6 w-6 text-gray-500"/>,
         sub: [
             {
                 title: "مدیریت لندینگ",

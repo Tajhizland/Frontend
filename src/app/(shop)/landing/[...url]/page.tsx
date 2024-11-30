@@ -19,7 +19,7 @@ export default async function page({params}: ProductPageProps) {
 
 
     const renderHeader = () => {
-        return <header className="container rounded-xl">
+        return <header className="container rounded-xl py-10">
             <div className="max-w-screen-md mx-auto space-y-5">
                 <h1
                     className=" text-neutral-900 font-semibold text-3xl md:text-4xl md:!leading-[120%] lg:text-4xl dark:text-neutral-100 max-w-4xl "
@@ -28,7 +28,7 @@ export default async function page({params}: ProductPageProps) {
                     {response.title}
                 </h1>
                 <span
-                    className=" text-neutral-900 font-semibold   md:!leading-[120%] mt-4   dark:text-neutral-100 max-w-4xl "
+                    className=" text-neutral-900 font-semibold   md:!leading-[120%] mt-10   dark:text-neutral-100 max-w-4xl "
                 >
                     <div dangerouslySetInnerHTML={{__html: (response.description)}}/>
                 </span>
