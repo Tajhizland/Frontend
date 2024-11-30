@@ -111,7 +111,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                 {searchResponse && showSearchForm &&
                     <div
                         ref={dropdownRef}
-                        className="absolute top-14 left-0 w-full h-96 bg-white  z-50 border rounded shadow border-t-0 overflow-y-auto whitespace-nowrap ">
+                        className="absolute top-14 left-0 w-full h-[425px] bg-white  z-50 border rounded shadow border-t-0 overflow-y-auto whitespace-nowrap ">
                         <button type="button" onClick={() => setShowSearchForm(false)}>
                             <XMarkIcon className="w-5 h-5 mr-5" />
                         </button>
@@ -127,8 +127,8 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                                     <FaMagnifyingGlass className={" text-neutral-400"} />
                                                 </div>
                                                 <div className={""}>
-                                                    <Image alt="productImage" 
-                                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`} 
+                                                    <Image alt="productImage"
+                                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
                                                      width={50}
                                                       height={50}/>
                                                 </div>
@@ -216,7 +216,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
             {/* z-index بالا برای محتوا */}
             <div className="relative z-40 hidden lg:block">
                 <div
- 
+
                     className={`bg-stone-50   dark:bg-neutral-800 border-b border-slate-100 dark:border-slate-700 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 h-10 ${showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
                     }`}
                     style={{top: '100%'}}
