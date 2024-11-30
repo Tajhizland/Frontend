@@ -79,7 +79,6 @@ async function PageHome() {
                         </div>
                     </div>
                 </div>
-
                 <SectionSliderCategories data={response.brands.data}/>
 
                 {/*<SectionSliderProductCard*/}
