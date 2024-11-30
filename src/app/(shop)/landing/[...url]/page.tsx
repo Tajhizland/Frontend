@@ -28,11 +28,9 @@ export default async function page({params}: ProductPageProps) {
                     {response.title}
                 </h1>
                 <span
-                    className=" text-neutral-900 font-semibold   md:!leading-[120%]   dark:text-neutral-100 max-w-4xl "
+                    className=" text-neutral-900 font-semibold   md:!leading-[120%] mt-4   dark:text-neutral-100 max-w-4xl "
                 >
-                    {
-                        response.description
-                    }
+                    <div dangerouslySetInnerHTML={{__html: (response.description)}}/>
                 </span>
             </div>
         </header>
