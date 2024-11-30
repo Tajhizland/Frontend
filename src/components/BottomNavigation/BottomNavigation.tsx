@@ -41,7 +41,7 @@ export default function BottomNavigation() {
                     </div>
                 </Link>
                 <Link
-                    href={user ? "/account-order-on-hold" : "/login"}
+                    href={"/vlog"}
                     className="inline-flex flex-col items-center justify-center  hover:bg-gray-50 group">
                     <div className={"flex flex-col justify-center items-center gap-y-2"}>
                         <MdOutlineOndemandVideo className={"w-5 h-5 text-neutral-500"}/>
