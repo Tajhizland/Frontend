@@ -352,7 +352,7 @@ const DataTable = <T,>({ columns, apiUrl, buttons, onEdit, onDelete }: DataTable
             <div className={"mt-5 mx-auto"}>
                 <AdminPagination
                     currentPage={meta.current_page}
-                    totalPages={meta.total / meta.per_page}
+                    totalPages={Math.ceil(meta.total / meta.per_page)}
                     onPageChange={(n) => {
                         fetchData(n);
                     }}
