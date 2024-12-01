@@ -70,7 +70,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
     <div className={`nc-SectionSliderLargeProduct ${className}`}>
       <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
         <Heading isCenter={false} hasNextPrev>
-          محصولات خاص پسند ها
+          محصولات منحصر به فرد
         </Heading>
         <div className="glide__track" data-glide-el="track"  style={{direction:"ltr"}}>
             <ul className="glide__slides">
@@ -88,7 +88,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
                     </li>
                 ))}
 
-                <li className={`glide__slide   `}>
+                <li className={`glide__slide  h-auto `}>
                     <Link href={"/special"} className="block relative group">
                         <div className="relative flex flex-col rounded-2xl overflow-hidden">
                             <div className="relative">
@@ -101,12 +101,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
                                             className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="grid grid-cols-3 gap-1.5 mt-1.5">
-                                <div className="w-full h-28 bg-neutral-100/70   dark:bg-black/20"></div>
-                                <div className="w-full h-28 bg-neutral-100/70   dark:bg-black/20"></div>
-                                <div className="w-full h-28 bg-neutral-100/70   dark:bg-black/20"></div>
-                            </div>
+                            </div> 
                         </div>
                     </Link>
                 </li>

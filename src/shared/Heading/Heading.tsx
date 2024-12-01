@@ -25,7 +25,7 @@ const Heading: React.FC<HeadingProps> = ({
           isCenter ? "text-center w-full max-w-2xl mx-auto mb-4" : "max-w-2xl"
         }
       >
-        <h2 className={`text-3xl md:text-4xl font-semibold`} {...args}>
+        <h2 className={`text-xl md:text-2xl font-semibold`} {...args}>
           {children || `Section Heading`}
         </h2>
         {desc && (

@@ -18,29 +18,29 @@ const DEMO_DATA = [
     id: 1,
     img: HIW1img,
     imgDark: HIW1img,
-    title: "Filter & Discover",
-    desc: "Smart filtering and suggestions make it easy to find",
+    title: "تجهیز و راه اندازی",
+    desc: "صفر تا صد راه اندازی کافه , رستوران و فست فود",
   },
   {
     id: 2,
     img: HIW2img,
     imgDark: HIW2img,
-    title: "Add to bag",
-    desc: "Easily select the correct items and add them to the cart",
+    title: "مشاوره و آموزش",
+    desc: "مشاوره در انتخاب کانسپت تا تجهیزات و آموزش و راه اندازی و استفاده در تجهیزات",
   },
   {
     id: 3,
     img: HIW3img,
     imgDark: HIW3img,
-    title: "Fast shipping",
-    desc: "The carrier will confirm and ship quickly to you",
+    title: "ضمانت اصالت کالا",
+    desc: "تضمین اصالت کلیه کالاهای موجود در تجهیزلند",
   },
   {
     id: 4,
     img: HIW4img,
     imgDark: HIW4img,
-    title: "Enjoy the product",
-    desc: "Have fun and enjoy your 5-star quality products",
+    title: "ارسال به سراسر کشور",
+    desc: "امکان ارسال کلیه کالا ها به سراسر کشور با کمترین هزینه",
   },
 ];
 
@@ -59,7 +59,7 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
         {data.map((item: typeof DEMO_DATA[number], index: number) => (
           <div
             key={item.id}
-            className="relative flex flex-col items-center max-w-xs mx-auto"
+            className="relative flex flex-col items-start max-w-xs mx-auto"
           >
             <NcImage
               containerClassName="mb-4 sm:mb-10 max-w-[140px] mx-auto"
@@ -68,8 +68,8 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
               sizes="150px"
               alt="HIW"
             />
-            <div className="text-center mt-auto space-y-5">
-              <Badge
+            <div className="text-center  space-y-5">
+              {/* <Badge
                 name={`Step ${index + 1}`}
                 color={
                   !index
@@ -80,7 +80,7 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
                     ? "yellow"
                     : "purple"
                 }
-              />
+              /> */}
               <h3 className="text-base font-semibold dark:text-white">{item.title}</h3>
               <span className="block text-slate-600 dark:text-slate-400 text-sm leading-6">
                 {item.desc}

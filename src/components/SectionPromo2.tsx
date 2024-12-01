@@ -24,21 +24,20 @@ const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10" }) => {
         </div>
 
         <div className="lg:w-[45%] max-w-lg relative">
-          <Logo className="w-28" />
+          {/* <Logo className="w-28" /> */}
           <h2 className="font-semibold text-3xl sm:text-4xl xl:text-5xl 2xl:text-6xl mt-6 sm:mt-10 !leading-[1.13] tracking-tight dark:text-white">
-            Special offer <br />
-            in kids products
+               مشاوره تخصصی و <br />
+                 آموزش کاربردی
           </h2>
           <span className="block mt-6 text-slate-500 dark:text-slate-400">
-            Fashion is a form of self-expression and autonomy at a particular
-            period and place.
+            مشاوره از انتخاب کانسپت تا انتخاب بهترین تجهیزات . همچنین آموزش کاربردی نصب و راه اندازی و استفاده از تجهیزات
           </span>
           <div className="flex space-x-2 sm:space-x-5 mt-6 sm:mt-12">
             <ButtonPrimary
               href="/"
               className="dark:bg-slate-200 dark:text-slate-900"
             >
-              Discover more
+              اطلاعات بیشتر
             </ButtonPrimary>
           </div>
         </div>
