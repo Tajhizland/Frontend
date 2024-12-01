@@ -35,7 +35,7 @@ const AccountOrder = () => {
     });
 
     const renderItem = (item: AddressResponse) => {
-        return <div className={"border rounded-lg flex flex-col p-5 text-neutral-600 text-sm md:text-base gap-y-10"}>
+        return <div className={"border rounded-lg flex flex-col p-5 text-neutral-600   dark:text-white dark:bg-black/20 text-sm md:text-base gap-y-10"}>
             <div className={"flex items-center justify-between flex-col md:flex-row gap-y-5"}>
               <span>
                   استان :
@@ -97,7 +97,7 @@ const AccountOrder = () => {
         </div>
     }
     const renderContent = () => {
-        return <div className={"text-right"}>
+        return <div className={"text-right "}>
             {editAddress && <AddressForm address={editAddress}/>}
         </div>
     }
@@ -141,7 +141,7 @@ const AccountOrder = () => {
             {/*        {editAddress && <AddressForm address={editAddress}/>}*/}
             {/*    </div>*/}
             {/*</ModalGallery>*/}
-            <div className="space-y-10 sm:space-y-12">
+            <div className="space-y-10 sm:space-y-12  dark:text-white">
                 {/* HEADING */}
                 <h2 className="text-2xl sm:text-3xl font-semibold">لیست آدرس ها</h2>
                 <div>

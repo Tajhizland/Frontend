@@ -53,9 +53,9 @@ export default function AddressForm({address}: { address?: AddressResponse }) {
     return (<>
         <form action={saveAddress}>
             {/* ============ */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3 ">
                 <div>
-                    <Label className="text-sm">استان</Label>
+                    <Label className="text-sm  dark:text-white">استان</Label>
                     <Select name={"province_id"} onChange={(e) => {
                         changeProvince(Number(e.target.value))
                     }}>
@@ -69,7 +69,7 @@ export default function AddressForm({address}: { address?: AddressResponse }) {
                     </Select>
                 </div>
                 <div>
-                    <Label className="text-sm">شهر</Label>
+                    <Label className="text-sm  dark:text-white">شهر</Label>
 
                     <Select name={"city_id"}>
                         {
@@ -86,7 +86,7 @@ export default function AddressForm({address}: { address?: AddressResponse }) {
             {/* ============ */}
             <div className="sm:flex space-y-4 sm:space-y-0 sm:gap-x-3">
                 <div className="flex-1">
-                    <Label className="text-sm">آدرس</Label>
+                    <Label className="text-sm  dark:text-white">آدرس</Label>
                     <Input
                         className="mt-1.5"
                         placeholder=""
@@ -96,7 +96,7 @@ export default function AddressForm({address}: { address?: AddressResponse }) {
                     />
                 </div>
                 <div className="sm:w-1/3">
-                    <Label className="text-sm">تلفن</Label>
+                    <Label className="text-sm  dark:text-white">تلفن</Label>
                     <Input className="mt-1.5" defaultValue={address?.tell} name={"tell"}/>
                 </div>
             </div>
@@ -104,11 +104,11 @@ export default function AddressForm({address}: { address?: AddressResponse }) {
             {/* ============ */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
                 <div>
-                    <Label className="text-sm">کد پستی</Label>
+                    <Label className="text-sm  dark:text-white">کد پستی</Label>
                     <Input className="mt-1.5" defaultValue={address?.zip_code} name={"zip_code"}/>
                 </div>
                 <div>
-                    <Label className="text-sm">شماره همراه</Label>
+                    <Label className="text-sm  dark:text-white">شماره همراه</Label>
                     <Input className="mt-1.5" defaultValue={address?.mobile} name={"mobile"}/>
                 </div>
 

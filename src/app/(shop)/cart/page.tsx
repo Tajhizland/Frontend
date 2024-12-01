@@ -244,7 +244,7 @@ const CartPage = () => {
     const sumDiscount = useMemo(() => renderDiscount(), [cart]);
     const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart]);
     return (
-        <div className="nc-CartPage">
+        <div className="nc-CartPage dark:bg-slate-900 dark:text-white">
             <main className="container py-16 lg:pb-28 lg:pt-20 ">
                 <div className="mb-12 sm:mb-16">
                     <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold ">

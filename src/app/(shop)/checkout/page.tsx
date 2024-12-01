@@ -320,7 +320,7 @@ const CheckoutPage = () => {
     const maxDeliveryDelay = useMemo(() => renderMaxDeliveryDelay(), [cart]);
 
     return (
-        <div className="nc-CheckoutPage">
+        <div className="nc-CheckoutPage  dark:text-white dark:bg-slate-900">
             {/*<head>*/}
             {/*    <title>پرداخت</title>*/}
             {/*</head>*/}
@@ -357,16 +357,16 @@ const CheckoutPage = () => {
 
                         <div
                             className="mt-10 pt-6 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-200/70 dark:border-slate-700 ">
-                            <div>
-                                <Label className="text-sm">کد تخفیف</Label>
-                                <div className="flex mt-1.5">
-                                    <Input sizeClass="h-10 px-4 py-3" className="flex-1"/>
-                                    <button
-                                        className="text-neutral-700 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 rounded-2xl px-4 ml-3 font-medium text-sm bg-neutral-200/70 dark:bg-neutral-700 dark:hover:bg-neutral-800 w-24 flex justify-center items-center transition-colors">
-                                        اعمال
-                                    </button>
-                                </div>
-                            </div>
+                            {/*<div>*/}
+                            {/*    <Label className="text-sm">کد تخفیف</Label>*/}
+                            {/*    <div className="flex mt-1.5">*/}
+                            {/*        <Input sizeClass="h-10 px-4 py-3" className="flex-1"/>*/}
+                            {/*        <button*/}
+                            {/*            className="text-neutral-700 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 rounded-2xl px-4 ml-3 font-medium text-sm bg-neutral-200/70 dark:bg-neutral-700 dark:hover:bg-neutral-800 w-24 flex justify-center items-center transition-colors">*/}
+                            {/*            اعمال*/}
+                            {/*        </button>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                             <div className="mt-4  flex justify-between py-2.5">
                                 <span>زمان آماده سازی</span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">

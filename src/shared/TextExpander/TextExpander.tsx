@@ -27,7 +27,7 @@ const TextExpander: React.FC<TextExpanderProps> = ({ text }) => {
 
         {/* افکت فید برای خط سوم */}
         {!isExpanded && (
-          <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+          <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t   from-white  dark:from-neutral-900 to-transparent pointer-events-none"></div>
         )}
       </div>
 

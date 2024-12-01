@@ -89,7 +89,7 @@ const AccountOrder = () => {
   };
 
   return (
-    <div className="space-y-10 sm:space-y-12">
+    <div className="space-y-10 sm:space-y-12  dark:text-white">
       {/* HEADING */}
       <h2 className="text-2xl sm:text-3xl font-semibold">تاریخچه سفارشات</h2>
       {order?.data?.map((item) => (<>
