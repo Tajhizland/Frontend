@@ -104,7 +104,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
     return (
         <div
             className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1  bg-white dark:bg-slate-900 divide-y-2 divide-neutral-100 ">
-            <div className="py-6 px-5">
+            <div className="py-6 px-1">
 
 
                 <span className="absolute right-2 top-2 p-1">
@@ -116,13 +116,13 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                 <div className="mt-5">{renderSearchForm()}</div>
                 {isSuccess && data &&
                     <div
-                        className="  w-full bg-white  z-50   rounded     overflow-y-scroll whitespace-nowrap overflow-x-hidden">
+                        className="  w-full bg-white  dark:bg-slate-900 z-50   rounded     overflow-y-scroll whitespace-nowrap overflow-x-hidden">
 
                         <div className="flex flex-col relative  ">
                             {
                                 data.data.length > 0 ? data.data.map((item) => (<>
                                     <Link href={"/product/" + item.url as Route} >
-                                        <div className="flex items-center justify-between  py-2 px-1 hover:bg-stone-100 ">
+                                        <div className="flex items-center justify-between  py-2 px-1 hover:bg-stone-100 dark:bg-black/30 dark:hover:bg-black/20 ">
                                             <div className="flex items-center gap-x-5  ">
                                                 <div className={""}>
                                                     <Image alt="productImage"
@@ -133,11 +133,11 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                                 </div>
                                                 <div>
                                                     <span
-                                                        className={"text-sm text-neutral-800 font-bold "}> {item.name}  </span>
+                                                        className={"text-sm text-neutral-800 font-bold  dark:text-white"}> {item.name}  </span>
                                                 </div>
                                             </div>
                                             <div>
-                                                <FaExternalLinkAlt className={" text-neutral-400"} />
+                                                <FaExternalLinkAlt className={" text-neutral-400 dark:text-white"} />
                                             </div>
                                         </div>
 
@@ -145,22 +145,22 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                 </>))
                                     :
                                     <div
-                                        className="flex flex-col w-full h-full   items-center gap-y-5 p-5 bg-stone-100  text-center ">
+                                        className="flex flex-col w-full h-full   items-center gap-y-5 p-5 bg-stone-100 dark:bg-slate-800  text-center ">
                                         <div>
-                                            <PiSmileySad className={"text-neutral-500 w-14 h-14"} />
+                                            <PiSmileySad className={"text-neutral-500 dark:text-white w-14 h-14"} />
                                         </div>
-                                        <span className={"text-sm text-neutral-800 font-bold"}>
+                                        <span className={"text-sm text-neutral-800 dark:text-white font-bold"}>
                                             موردی یافت نشد !
                                         </span>
                                     </div>
                             }
                             {data.data.length > 0 && <div
-                                className="flex items-center gap-x-5 border-t p-5 bg-stone-100 hover:bg-stone-200 text-center cursor-pointer"
+                                className="flex items-center gap-x-5 border-t p-5 bg-stone-100  dark:bg-slate-800  dark:hover:bg-slate-700 hover:bg-stone-200 text-center cursor-pointer"
                                 onClick={handleSearch}>
                                 <div>
-                                    <FaBorderAll className={"text-neutral-500"} />
+                                    <FaBorderAll className={"text-neutral-500 dark:text-white"} />
                                 </div>
-                                <span className={"text-sm text-neutral-800 font-bold"}>
+                                <span className={"text-sm text-neutral-800 dark:text-white font-bold"}>
                                     مشاهده همه
                                 </span>
                             </div>}
