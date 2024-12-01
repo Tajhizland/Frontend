@@ -36,7 +36,7 @@ export default async function page({params}: ProductPageProps) {
         </header>
     }
     return (<>
-            <div className={`nc-ProductDetailPage mt-9 sm:mt-16`}>
+            <div className={`nc-ProductDetailPage mt-9 sm:mt-16 dark:bg-slate-900 dark:text-white`}>
                 <main className="container mt-5 overflow-hidden whitespace-nowrap">
 
                     <div className={" mx-auto whitespace-nowrap overflow-hidden rounded-2xl"}>
