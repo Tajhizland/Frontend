@@ -40,6 +40,7 @@ const PageContact = ({}) => {
             {
                 name: e.get("name") as string,
                 email: e.get("email") as string,
+                concept: e.get("concept") as string,
                 message: e.get("message") as string,
                 city_id: Number(e.get("city_id")),
                 province_id: Number(e.get("province_id"))
@@ -64,7 +65,17 @@ const PageContact = ({}) => {
         mutationFn: (id: number) =>
             getCity(id),
     });
-
+    const concepts = [
+        "کافه"
+        , "فست فود"
+        , "کافه رستوران"
+        , "رستوران ایرانی"
+        , "آبمیوه بستنی"
+        , "سوخاری"
+        , "سیب زمینی بلژیکی"
+        , "هایپر مارکت"
+        , "سایر"
+    ]
     return (
         <div className={`nc-PageContact overflow-hidden dark:bg-slate-900 dark:text-white`}>
             <div className="">
@@ -126,7 +137,8 @@ const PageContact = ({}) => {
                                 </label>
                                 <label className="block">
                                     <Label>شهر</Label>
-                                    <Select name={"city_id"} className={"disabled:cursor-not-allowed"} disabled={!citys}>
+                                    <Select name={"city_id"} className={"disabled:cursor-not-allowed"}
+                                            disabled={!citys}>
                                         {
                                             citys && citys?.map((item) => (<>
                                                 <option value={item.id}>
@@ -134,6 +146,19 @@ const PageContact = ({}) => {
                                                 </option>
                                             </>))
                                         }
+                                    </Select>
+                                </label>
+                                <label className="block">
+                                    <Label>کانسپت</Label>
+                                    <Select name={"concept"}>
+                                        {
+                                            concepts.map((item, index) => (
+                                                <option value={item} key={index}>
+                                                    {item}
+                                                </option>
+                                            ))
+                                        }
+
                                     </Select>
                                 </label>
                                 <label className="block">

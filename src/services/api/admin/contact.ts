@@ -1,4 +1,4 @@
-import axios, {ServerResponse, SuccessResponseType} from "@/services/axios"; 
+import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import { ContactResponse } from "@/services/types/contact";
 
 export const storeContact = async <T extends ServerResponse<unknown>>
@@ -6,6 +6,7 @@ export const storeContact = async <T extends ServerResponse<unknown>>
     params:{
         name:string;
         email:string;
+        concept:string;
         city_id:number;
         province_id:number;
         message:string;
