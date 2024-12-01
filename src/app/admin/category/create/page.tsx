@@ -6,8 +6,11 @@ import toast from "react-hot-toast";
 import Form from "@/app/admin/category/Form";
 import {store} from "@/services/api/admin/category";
 import { useState } from "react";
+import {useRouter} from "next/navigation";
 
 export default function Page() {
+        const router = useRouter();
+
     async function submit(e: FormData) {
         let response=await store(
             {
@@ -20,6 +23,8 @@ export default function Page() {
             }
         )
         toast.success(response?.message as string)
+                router.push("/admin/category");
+
     }
 
     return (<>

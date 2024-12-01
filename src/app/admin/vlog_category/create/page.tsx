@@ -5,16 +5,21 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form from "@/app/admin/vlog_category/Form";
 import {store} from "@/services/api/admin/vlogCategory";
 import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
 export default function Page() {
+
+    const router = useRouter();
+
     async function submit(e: FormData) {
         let response = await store(
             {
                 name: e.get("name") as string,
-                status: Number(e.get("status")) ,
+                status: Number(e.get("status")),
             }
         )
         toast.success(response?.message as string)
+        router.push("/admin/vlog_category");
     }
 
     return (<>

@@ -5,11 +5,13 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form from "@/app/admin/slider/Form";
 import {store} from "@/services/api/admin/slider";
 import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
-export default function Page()
-{
+export default function Page() {
+    const router = useRouter();
+
     async function submit(e: FormData) {
-        let response=await store(
+        let response = await store(
             {
                 title: e.get("title") as string,
                 url: e.get("url") as string,
@@ -18,9 +20,11 @@ export default function Page()
             }
         )
         toast.success(response?.message as string)
+        router.push("/admin/slider");
+
     }
 
-    return(<>
+    return (<>
         <Breadcrump breadcrumb={[
             {
                 title: "اسلایدر",
@@ -36,7 +40,7 @@ export default function Page()
                 افزودن اسلایدر
             </PageTitle>
             <div>
-                <Form submit={submit} />
+                <Form submit={submit}/>
             </div>
         </Panel>
     </>)

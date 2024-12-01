@@ -5,9 +5,11 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form from "@/app/admin/vlog/Form";
 import {store} from "@/services/api/admin/vlog";
 import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
-export default function Page()
-{
+export default function Page() {
+    const router = useRouter();
+
     async function submit(e: FormData) {
         let response = await store(
             {
@@ -21,9 +23,10 @@ export default function Page()
             }
         )
         toast.success(response?.message as string)
+        router.push("/admin/vlog");
     }
 
-    return(<>
+    return (<>
         <Breadcrump breadcrumb={[
             {
                 title: "ولاگ",
@@ -39,7 +42,7 @@ export default function Page()
                 افزودن ولاگ جدید
             </PageTitle>
             <div>
-                <Form submit={submit} />
+                <Form submit={submit}/>
             </div>
         </Panel>
     </>)

@@ -5,11 +5,13 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form from "@/app/admin/gateway/Form";
 import {store} from "@/services/api/admin/gateway";
 import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
-export default function Page()
-{
+export default function Page() {
+    const router = useRouter();
+
     async function submit(e: FormData) {
-        let response=await store(
+        let response = await store(
             {
                 name: e.get("name") as string,
                 description: e.get("description") as string,
@@ -17,9 +19,11 @@ export default function Page()
             }
         )
         toast.success(response?.message as string)
+        router.push("/admin/gateway");
+
     }
 
-    return(<>
+    return (<>
         <Breadcrump breadcrumb={[
             {
                 title: "تنظیمات درگاه پرداخت",
@@ -35,7 +39,7 @@ export default function Page()
                 افزودن درگاه پرداخت
             </PageTitle>
             <div>
-                <Form submit={submit} />
+                <Form submit={submit}/>
             </div>
         </Panel>
     </>)

@@ -5,9 +5,12 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form from "@/app/admin/guaranty/Form";
 import {store} from "@/services/api/admin/guaranty";
 import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
 export default function Page()
 {
+        const router = useRouter();
+
     async function submit(e: FormData) {
         let response=await store(
             {
@@ -19,6 +22,8 @@ export default function Page()
             }
         )
         toast.success(response?.message as string)
+                router.push("/admin/guaranty");
+
     }
 
     return(<>

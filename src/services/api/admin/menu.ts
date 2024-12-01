@@ -93,3 +93,11 @@ export const menuList = async <T extends ServerResponse<MenuResponse[]>>
     return axios.get<T, SuccessResponseType<T>>("admin/menu/list")
         .then((res) => res?.data?.result?.data)
 };
+
+export const removeMenuItem = async <T extends ServerResponse<unknown>>
+(
+    id: number
+) => {
+    return axios.delete<T, SuccessResponseType<T>>("admin/menu/delete/" + id)
+        .then((res) => res?.data)
+};

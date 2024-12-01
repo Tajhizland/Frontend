@@ -5,20 +5,24 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form from "@/app/admin/banner/Form";
 import {store} from "@/services/api/admin/banner";
 import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
-export default function Page()
-{
+export default function Page() {
+    const router = useRouter();
+
     async function submit(e: FormData) {
-        let response=await store(
+        let response = await store(
             {
                 url: e.get("url") as string,
                 image: e.get("image") as File,
             }
         )
         toast.success(response?.message as string)
+        router.push("/admin/banner");
+
     }
 
-    return(<>
+    return (<>
         <Breadcrump breadcrumb={[
             {
                 title: "بنر",
@@ -34,7 +38,7 @@ export default function Page()
                 افزودن بنر
             </PageTitle>
             <div>
-                <Form submit={submit} />
+                <Form submit={submit}/>
             </div>
         </Panel>
     </>)
