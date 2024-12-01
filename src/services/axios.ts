@@ -55,9 +55,11 @@ const errorHandler = (error: FailedResponseType<ServerResponse>) => {
 
 const axios: AxiosInstance = Axios.create({
     baseURL: API_URL,
-    timeout: 10000,
+    timeout: 120000,
     headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
         "Access-Control-Allow-Origin": "*",
     },
 });
