@@ -103,7 +103,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
     }
     return (
         <div
-            className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1  bg-white divide-y-2 divide-neutral-100 ">
+            className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1  bg-white dark:bg-slate-900 divide-y-2 divide-neutral-100 ">
             <div className="py-6 px-5">
 
 

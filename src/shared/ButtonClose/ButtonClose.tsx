@@ -10,7 +10,7 @@ export interface ButtonCloseProps {
 
 const ButtonClose: React.FC<ButtonCloseProps> = ({
   className = "",
-  IconclassName = "w-8 h-8 text-black",
+  IconclassName = "w-8 h-8 text-black dark:text-white",
   onClick = () => {},
 }) => {
   return (
