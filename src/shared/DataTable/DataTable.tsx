@@ -304,7 +304,6 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                                 className="px-3 py-1  rounded"
                                                 onClick={() => {
                                                     handleEditClick(rowIndex);
-                                                    fetchData(meta.current_page)
                                                 }}
                                             >
                                                 <FaEdit className={"w-6 h-6"}/>
