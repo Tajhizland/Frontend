@@ -308,17 +308,18 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                             >
                                                 <FaEdit className={"w-6 h-6"}/>
                                             </button>}
-                                                {onDelete && (
-                                                    <button
-                                                        className="px-3 py-1 bg-red-500 text-white rounded"
-                                                        onClick={() => {
-                                                            onDelete(editedData[rowIndex].id);
-                                                            fetchData(meta.current_page)
-                                                        }}
-                                                    >
-                                                        حذف
-                                                    </button>
-                                                )}
+                                            {onDelete && (
+                                                <button
+                                                    className="px-3 py-1 bg-red-500 text-white rounded"
+                                                    onClick={async () => {
+                                                        await onDelete(editedData[rowIndex].id);
+                                                        fetchData(meta.current_page);
+                                                    }
+                                                    }
+                                                >
+                                                    حذف
+                                                </button>
+                                            )}
                                         </>
                                     )}
                                 </td>
