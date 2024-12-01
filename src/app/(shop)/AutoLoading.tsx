@@ -17,7 +17,9 @@ const AutoLoading = () => {
         //@ts-ignore
         const handleLinkClick = (e) => {
             const target = e.target.closest('a');
-            if (target && target.getAttribute('href')?.startsWith('/')) {
+            const href = target?.getAttribute('href');
+            // بررسی آدرس لینک و جلوگیری از نمایش لودینگ در صورتی که لینک به صفحه فعلی باشد
+            if (target && href?.startsWith('/') && href !== pathname) {
                 handleStart();
             }
         };
@@ -27,7 +29,7 @@ const AutoLoading = () => {
         return () => {
             document.removeEventListener('click', handleLinkClick);
         };
-    }, []);
+    }, [pathname]);
 
     useEffect(() => {
         setIsLoading(false);

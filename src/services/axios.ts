@@ -1,4 +1,4 @@
-import Axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import Axios, {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 import toast from "react-hot-toast";
 import {getCookie} from "cookies-next";
 
@@ -47,8 +47,8 @@ const errorHandler = (error: FailedResponseType<ServerResponse>) => {
     } catch (caughtError) {
         if (caughtError instanceof AxiosError) {
             const message = caughtError.response?.data?.message || "خطای ناشناخته";
-           // console.log(message);
-             toast.error(message, { position: "top-left" });
+            // console.log(message);
+            toast.error(message, {position: "top-left"});
         }
     }
 };
@@ -58,8 +58,9 @@ const axios: AxiosInstance = Axios.create({
     timeout: 120000,
     headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
         'Pragma': 'no-cache',
+        "Cache-Control": "no-cache",
+        'Expires': "0",
         "Access-Control-Allow-Origin": "*",
     },
 });
