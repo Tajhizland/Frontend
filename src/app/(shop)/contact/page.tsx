@@ -66,7 +66,7 @@ const PageContact = ({}) => {
     });
 
     return (
-        <div className={`nc-PageContact overflow-hidden`}>
+        <div className={`nc-PageContact overflow-hidden dark:bg-slate-900 dark:text-white`}>
             <div className="">
                 <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
                     تماس با ما
@@ -83,7 +83,7 @@ const PageContact = ({}) => {
                     {item.desc}
                   </span>
                                 </div>
-                            ))} 
+                            ))}
                         </div>
                         <div>
                             <form className="grid grid-cols-1 gap-6" action={submitHandle} method="post">
