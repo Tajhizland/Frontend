@@ -18,6 +18,7 @@ import logo from "@/images/tajhizland/logo.png";
 import {Metadata} from "next";
 import VideoSwiper from "@/components/VideoSwiper";
 
+export const dynamic = 'force-dynamic';
 export async function generateMetadata(): Promise<Metadata> {
     return {
         title: "تجهیزلند",
