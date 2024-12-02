@@ -178,8 +178,11 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     {/*    <MenuBar/>*/}
                     {/*</div>*/}
 
-                    <div className="hidden lg:flex-1 lg:flex items-center">
+                    <div className="hidden lg:flex-1 lg:flex items-center flex-col justify-center">
                         <Logo className="flex-shrink-0" />
+                        <small className="text-slate-600 dark:text-slate-100 text-xs hidden lg:block">
+                            مرکز تخصصی تجهیزات کافه و رستوران
+                        </small>
                     </div>
 
                     <div className="lg:flex-[2] hidden lg:flex items-center justify-center mx-4">

@@ -158,10 +158,14 @@ const SectionPromo1: FC<SectionPromo1Props> = ({className = ""}) => {
 
             />
             <div className="relative flex-shrink-0 mb-16 lg:mb-0 lg:mr-10 lg:w-2/5">
-                <Logo className="w-28"/>
-                <h2 className="font-semibold text-3xl sm:text-4xl xl:text-5xl 2xl:text-6xl mt-6 sm:mt-10 !leading-[1.2] tracking-tight dark:text-white">
-                    تجهیزلند <br/>راه اندازی میکند
+                 <h2 className="font-semibold text-3xl sm:text-4xl xl:text-5xl 2xl:text-6xl mt-6 sm:mt-10 !leading-[1.2] tracking-tight dark:text-white">
+                    راه اندازی مجموعتو <br/>به تجهیزلند بسپار    
                 </h2>
+                <div className="mt-6 sm:mt-12">
+                <span className="font-semibold  sm:text-lg xl:text-xl  !leading-[1.2] tracking-tight text-slate-700 dark:text-white ">
+                    مشاوره و راه اندازی صفر تا صد کافه , رستوران و فست فود
+                </span>
+                </div>
                 {/* <span className="block mt-6 text-slate-500 dark:text-slate-400 ">
           With Ciseco you will get freeship & savings combo...
         </span> */}
