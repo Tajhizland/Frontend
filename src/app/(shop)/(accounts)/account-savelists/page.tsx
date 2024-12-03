@@ -1,48 +1,79 @@
-"use client"
+"use client";
 import ProductCard2 from "@/components/ProductCard";
-import {PRODUCTS} from "@/data/data";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import {useQuery} from "react-query";
-import {getCart} from "@/services/api/shop/cart";
+import {useInfiniteQuery} from "react-query";
 import {getFavorite} from "@/services/api/shop/favorite";
-import AdminPagination from "@/shared/Pagination/AdminPagination";
-import {useState} from "react";
+import React, {useRef, useEffect} from "react";
+import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 
 const AccountSavelists = () => {
-    const [page, setPage] = useState(1);
-    const {data: favorite} = useQuery({
-        queryKey: ['get_favorite', page],
-        queryFn: () => getFavorite(page),
-        staleTime: 5000,
-    });
+    const observer = useRef<IntersectionObserver | null>(null);
+    const lastElementRef = useRef<HTMLDivElement>(null);
 
-    function changePageHandle(page: number) {
-        setPage(page);
-    }
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isLoading,
+    } = useInfiniteQuery(
+        ["get_favorite"],
+        async ({pageParam = 1}) => {
+            const result = await getFavorite(pageParam);
+            return result;
+        },
+        {
+            //@ts-ignore
+            getNextPageParam: (lastPage) =>
+                //@ts-ignore
+                lastPage?.meta?.current_page < lastPage?.meta?.last_page
+                    //@ts-ignore
+                    ? lastPage?.meta?.current_page + 1
+                    : undefined,
+        }
+    );
 
-    const renderSection1 = () => {
-        return (
-            <div className="space-y-10 sm:space-y-12  dark:text-white">
-                <div>
-                    <h2 className="text-2xl sm:text-3xl font-semibold">
-                        لیست علاقه مندی ها
-                    </h2>
-                </div>
-
-                <div className="grid grid-cols-2 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 ">
-                    {favorite && favorite.data.map((item) => (
-                        <ProductCard2 key={item.id} data={item}/>
-                    ))}
-                </div>
-                <div className="flex !mt-20 justify-center items-center">
-                    <AdminPagination currentPage={favorite?.meta?.current_page ?? 1}
-                                     totalPages={favorite?.meta?.last_page ?? 1} onPageChange={(p)=>changePageHandle(p)}/>
-                </div>
-            </div>
+    useEffect(() => {
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+                    fetchNextPage();
+                }
+            },
+            {
+                rootMargin: "200px",
+            }
         );
-    };
 
-    return renderSection1();
+        if (lastElementRef.current) {
+            observer.current.observe(lastElementRef.current);
+        }
+
+        return () => {
+            if (observer.current) observer.current.disconnect();
+        };
+    }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+    const allFavorites = data?.pages.flatMap((page) => page.data) || [];
+
+    return (
+        <div className="space-y-10 sm:space-y-12 dark:text-white">
+            <div>
+                <h2 className="text-2xl sm:text-3xl font-semibold">لیست علاقه مندی ها</h2>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {allFavorites.map((item) => (
+                    <ProductCard2 key={item.id} data={item} />
+                ))}
+            </div>
+
+            <div ref={lastElementRef}
+                 className="grid sm:grid-cols-2 lg:grid-cols-3  gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
+                {isFetchingNextPage && <ProductCardSkeleton/>}
+            </div>
+        </div>
+    );
 };
 
 export default AccountSavelists;
