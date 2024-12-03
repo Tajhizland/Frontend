@@ -58,11 +58,36 @@ export default function Page() {
                     </span>
                     </div>
 
+                    <div className={"flex justify-between items-center  py-5"}>
+                    <span>
+                        استان :
+                    </span>
+                        <span>
+                        {data?.province.name}
+                    </span>
+                    </div>
+                    <div className={"flex justify-between items-center  py-5"}>
+                    <span>
+                        شهر :
+                    </span>
+                        <span>
+                        {data?.city.name}
+                    </span>
+                    </div>
+                    <div className={"flex justify-between items-center  py-5"}>
+                    <span>
+                        کانسپت :
+                    </span>
+                        <span>
+                        {data?.concept}
+                    </span>
+                    </div>
+
                     <div className={"flex flex-col  py-5"}>
                     <span>
                         متن نظر :
                     </span>
-                        <span >
+                        <span>
                         {data?.message}
                     </span>
                     </div>
