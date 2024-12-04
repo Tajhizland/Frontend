@@ -53,6 +53,9 @@ export default function Form({ data, submit}: productForm) {
                 <div>
                     <Label>والد</Label>
                     <Select name={"parent_id"}>
+                        <option value={0}>
+                            بدون والد
+                        </option>
                         {
                             categoryLists?.data.map((item) => (<>
                                 <option value={item.id} selected={item.id==data?.parent_id} >
