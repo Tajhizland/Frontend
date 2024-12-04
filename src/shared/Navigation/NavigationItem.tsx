@@ -12,6 +12,8 @@ import { Route } from "@/routers/types";
 import Link from "next/link";
 import { MenuResponse } from "@/services/types/menu";
 import MenuCard from "@/components/MenuCard/MenuCard";
+import { FaCircle, FaGripLinesVertical, FaRegCircleDot } from "react-icons/fa6";
+import { PiDotFill } from "react-icons/pi";
 
 export interface NavItemType {
   id: string;
@@ -58,29 +60,30 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
           <div className="bg-white dark:bg-neutral-900 shadow-lg">
             <div className="container">
               <div className="flex text-sm border-t border-slate-200 dark:border-slate-700 py-5 ">
-                <div className="flex-1 grid grid-cols-5 gap-6 xl:gap-8 pr-6 xl:pr-8">
+                <div className="flex-1 flex">
                   {menu.children.data.map((item, index) => (
-                    <div key={index}>
-                      <Link href={item.url as Route}>
-                        <strong className={"dark:text-white text-black "}>
-                            {item.title}
+                    <div key={index} className="border-l  px-4">
+                      <Link href={item.url as Route} className="flex justify-center items-center gap-x-1">
+                      <FaCircle className="text-orange-500 w-2 h-2" />
+                        <strong className={"dark:text-white text-black  text-xs  whitespace-nowrap"}>
+                          {item.title}
                         </strong>
-                        </Link>
-                      <ul className="grid space-y-0 mt-2">
-                          {item?.children?.data.map((item, index) => (
-                              <div key={index}>
+                      </Link>
+                      <div className=" grid grid-rows-8 grid-flow-col gap-x-8 gap-y-2 mt-5">
 
-                                  <ul className="grid space-y-0 mt-2">
-                                      {renderMegaMenuNavlink(item)}
-                                  </ul>
-                              </div>
-                          ))}
-                      </ul>
+                      {item?.children?.data.map((item, index) => (
+                        <div key={index}>
+
+                          {renderMegaMenuNavlink(item)}
+                        </div>
+                      ))}
+                        </div>
+
                     </div>
                   ))}
                 </div>
-                <div className="w-[40%] xl:w-[35%]">
-                  <MenuCard color="bg-orange-100" featuredImage={menu.banner_logo} name={menu.banner_title as string} url={menu.banner_link }/>
+                <div className="w-[30%] xl:w-[35%]">
+                  <MenuCard color="bg-orange-100" featuredImage={menu.banner_logo} name={menu.banner_title as string} url={menu.banner_link} />
                 </div>
               </div>
             </div>
@@ -95,7 +98,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
     return (
       <li key={item.id} >
         <Link
-          className="font-normal text-slate-600 hover:text-black dark:text-slate-400 dark:hover:text-white "
+          className="font-normal text-slate-600 hover:text-black dark:text-slate-400 dark:hover:text-white text-xs whitespace-nowrap"
           href={{
             pathname: item.url || undefined,
           }}
@@ -189,9 +192,9 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
         >
           {item.title}
           <ChevronDownIcon
-              className="mr-1 -ml-1 h-4 w-4 text-slate-400"
-              aria-hidden="true"
-            />
+            className="mr-1 -ml-1 h-4 w-4 text-slate-400"
+            aria-hidden="true"
+          />
         </Link>
       </div>
     );
