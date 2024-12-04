@@ -18,7 +18,7 @@ const Page = async () => {
                     <hr className="border-slate-200 dark:border-slate-700"/>
                     <main>
                         <div
-                            className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
+                            className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10  items-center"   style={{ gridAutoRows: "1fr" }} >
                             {
                                 response.map((item, index) => (<Fragment key={index}>
                                     <CardCategory2

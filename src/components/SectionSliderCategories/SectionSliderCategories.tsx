@@ -13,6 +13,8 @@ import {StaticImageData} from "next/image";
 import Link from "next/link";
 import {BrandResponse} from "@/services/types/brand";
 import {IoIosArrowDroprightCircle} from "react-icons/io";
+import NcImage from "@/shared/NcImage/NcImage";
+import {Route} from "next";
 
 export interface CardCategoryData {
     name: string;
@@ -68,28 +70,28 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
 
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
-            perView: 5.4,
+            perView: 6.4,
             gap: 32,
             bound: true,
             breakpoints: {
                 1280: {
-                    perView:  5.4,
+                    perView:  6.4,
                 },
                 1024: {
                     gap: 20,
-                    perView: 4,
+                    perView: 5,
                 },
                 768: {
                     gap: 20,
-                    perView: 3.9,
+                    perView: 4.9,
                 },
                 640: {
                     gap: 20,
-                    perView: 3.8,
+                    perView: 4.8,
                 },
                 500: {
                     gap: 10,
-                    perView: 3.5
+                    perView: 3.8
                 },
             },
         };
@@ -111,15 +113,19 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
                     {heading}
                 </Heading>
                 <div className="glide__track" data-glide-el="track" style={{direction: "ltr"}}>
-                    <ul className="glide__slides">
+                    <ul className="glide__slides items-center">
                         {data.map((item, index) => (
                             <li key={index} className={`glide__slide ${itemClassName}`}>
-                                <CardCategory2
-                                    featuredImage={item.image}
-                                    name={item.name}
-                                    url={item.url}
-                                    desc={""}
-                                />
+                                <Link href={"/brand/"+item.url as Route} title={item.name}>
+                                    <NcImage
+                                        alt={item.name}
+                                        containerClassName="w-full h-full flex justify-center"
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${item.image}`}
+                                        className="object-cover rounded-2xl w-full h-full"
+                                        width={720}
+                                        height={720}
+                                    />
+                                </Link>
                             </li>
                         ))}
 
