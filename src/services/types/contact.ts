@@ -4,7 +4,7 @@ import {ProviceResponse} from "@/services/types/province";
 export type ContactResponse = {
     id: number;
     name: string;
-    email: string;
+    mobile: string;
     message: string;
     city_id:number,
     province_id:number,

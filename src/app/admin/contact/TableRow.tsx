@@ -7,7 +7,7 @@ export const columns: Column<ContactResponse>[] = [
 
     {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'name', header: 'نام', filterType: 'input', editable: false},
-    {key: 'email', header: 'ایمیل', filterType: 'input', editable: false},
+    {key: 'mobile', header: 'موبایل', filterType: 'input', editable: false},
     {key: 'concept', header: 'کانسپت', filterType: 'input', editable: false},
     {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
 

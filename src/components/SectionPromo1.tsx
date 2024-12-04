@@ -28,7 +28,7 @@ const SectionPromo1: FC<SectionPromo1Props> = ({className = ""}) => {
         let response = await storeContact(
             {
                 name: e.get("name") as string,
-                email: e.get("email") as string,
+                mobile: e.get("mobile") as string,
                 concept: e.get("concept") as string,
                 message: e.get("message") as string,
                 city_id: Number(e.get("city_id")),
@@ -79,13 +79,13 @@ const SectionPromo1: FC<SectionPromo1Props> = ({className = ""}) => {
                     />
                 </label>
                 <label className="block">
-                    <Label>ایمیل</Label>
+                    <Label>موبایل</Label>
 
                     <Input
-                        type="email"
-                        placeholder="ایمیل"
+                        type="text"
+                        placeholder="موبایل"
                         className="mt-1"
-                        name="email"
+                        name="mobile"
 
                     />
                 </label>
@@ -159,7 +159,7 @@ const SectionPromo1: FC<SectionPromo1Props> = ({className = ""}) => {
             />
             <div className="relative flex-shrink-0 mb-16 lg:mb-0 lg:mr-10 lg:w-2/5">
                  <h2 className="font-semibold text-3xl sm:text-4xl xl:text-5xl 2xl:text-6xl mt-6 sm:mt-10 !leading-[1.2] tracking-tight dark:text-white">
-                    راه اندازی مجموعتو <br/>به تجهیزلند بسپار    
+                    راه اندازی مجموعتو <br/>به تجهیزلند بسپار
                 </h2>
                 <div className="mt-6 sm:mt-12">
                 <span className="font-semibold  sm:text-lg xl:text-xl  !leading-[1.2] tracking-tight text-slate-700 dark:text-white ">

@@ -51,10 +51,10 @@ export default function Page() {
                     </div>
                     <div className={"flex justify-between items-center  py-5"}>
                     <span>
-                        ایمیل :
+                        شماره موبایل :
                     </span>
                         <span>
-                        {data?.email}
+                        {data?.mobile}
                     </span>
                     </div>
 

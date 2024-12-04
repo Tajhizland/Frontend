@@ -39,7 +39,7 @@ const PageContact = ({}) => {
         let response = await storeContact(
             {
                 name: e.get("name") as string,
-                email: e.get("email") as string,
+                mobile: e.get("mobile") as string,
                 concept: e.get("concept") as string,
                 message: e.get("message") as string,
                 city_id: Number(e.get("city_id")),
@@ -109,13 +109,13 @@ const PageContact = ({}) => {
                                     />
                                 </label>
                                 <label className="block">
-                                    <Label>ایمیل</Label>
+                                    <Label>موبایل</Label>
 
                                     <Input
-                                        type="email"
-                                        placeholder="ایمیل"
+                                        type="text"
+                                        placeholder="موبایل"
                                         className="mt-1"
-                                        name="email"
+                                        name="mobile"
 
                                     />
                                 </label>
