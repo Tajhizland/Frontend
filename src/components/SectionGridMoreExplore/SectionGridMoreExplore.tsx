@@ -32,7 +32,7 @@ export interface SectionGridMoreExploreProps {
 const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
                                                                      className = "",
                                                                      boxCard = "box4",
-                                                                     gridClassName = "grid-cols-3 md:grid-cols-2 xl:grid-cols-3",
+                                                                     gridClassName = "grid-cols-3 md:grid-cols-3 xl:grid-cols-4",
                                                                      data,
                                                                  }) => {
     const [tabActive, setTabActive] = useState(0);
@@ -147,8 +147,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
                                     name={category?.display_name ?? category.name}
                                     key={category.id}
                                     url={category.url}
-                                    bgSVG={svg[index2%9]}
-                                    color={"bg-orange-50"}
+                                     color={"bg-orange-50"}
                                     {...item}
                                 />
                                     :""
