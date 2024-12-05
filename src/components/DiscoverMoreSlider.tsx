@@ -20,6 +20,7 @@ const DiscoverMoreSlider = ({data}: { data: BannerResponse[] }) => {
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
+            direction:"rtl",
             perView: 3.8,
             autoplay: 3000,
             gap: 25,
@@ -74,7 +75,7 @@ const DiscoverMoreSlider = ({data}: { data: BannerResponse[] }) => {
                 {/*دسته‌بندی های پرطرفدار*/}
             </Heading>
 
-            <div className="" data-glide-el="track" style={{direction: "ltr"}}>
+            <div className="" data-glide-el="track" style={{direction: "rtl"}}>
                 <ul className="glide__slides">
                     {data.map((item, index) => (
                         <li key={index} className={`glide__slide`}>

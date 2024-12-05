@@ -21,6 +21,8 @@ const LandingBannerSlider = ({data}: { data: LandingBannerResponse[] }) => {
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
+            direction:"rtl",
+
             perView: 3.8, 
             gap: 25,
             bound: true,
@@ -74,7 +76,7 @@ const LandingBannerSlider = ({data}: { data: LandingBannerResponse[] }) => {
                 {/*دسته‌بندی های پرطرفدار*/}
             </Heading>
 
-            <div className="" data-glide-el="track" style={{direction: "ltr"}}>
+            <div className="" data-glide-el="track" style={{direction: "rtl"}}>
                 <ul className="glide__slides">
                     {data.map((item, index) => (
                         <li key={index} className={`glide__slide`}>

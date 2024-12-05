@@ -12,7 +12,7 @@ import department4Png from "@/images/collections/department4.png";
 import {StaticImageData} from "next/image";
 import Link from "next/link";
 import {BrandResponse} from "@/services/types/brand";
-import {IoIosArrowDroprightCircle} from "react-icons/io";
+import {IoIosArrowDropleftCircle, IoIosArrowDroprightCircle} from "react-icons/io";
 import NcImage from "@/shared/NcImage/NcImage";
 import {Route} from "next";
 
@@ -70,6 +70,8 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
 
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
+            direction:"rtl",
+
             perView: 6.4,
             gap: 32,
             bound: true,
@@ -112,7 +114,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
                 <Heading desc={subHeading} hasNextPrev>
                     {heading}
                 </Heading>
-                <div className="glide__track" data-glide-el="track" style={{direction: "ltr"}}>
+                <div className="glide__track" data-glide-el="track" style={{direction: "rtl"}}>
                     <ul className="glide__slides items-center">
                         {data.map((item, index) => (
                             <li key={index} className={`glide__slide ${itemClassName}`}>
@@ -136,10 +138,10 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
                                 <div>
                                     <div
                                         className="absolute inset-y-6 inset-x-10 flex flex-col sm:items-center justify-center">
-                                        <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">
-                                            <IoIosArrowDroprightCircle className={"w-10 h-10 text-slate-900 dark:text-white"}/>
+                                        <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-5">
+                                            <IoIosArrowDropleftCircle className={"w-10 h-10 text-slate-900 dark:text-white"}/>
                                             <span
-                                                className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
+                                                className="text-sm  lg:text-base font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
                                         </div>
 
                                     </div>

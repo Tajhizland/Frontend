@@ -15,6 +15,8 @@ const LandingProductSlider = ({ data }: { data: ProductResponse[] }) => {
 
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
+            direction:"rtl",
+
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
             perView: 4,
             gap: 32,
@@ -67,7 +69,7 @@ const LandingProductSlider = ({ data }: { data: ProductResponse[] }) => {
                 {/*دسته‌بندی های پرطرفدار*/}
             </Heading>
 
-            <div className="" data-glide-el="track" style={{ direction: "ltr" }}>
+            <div className="" data-glide-el="track" style={{ direction: "rtl" }}>
                 <ul className="glide__slides">
                     {data.map((item, index) => (
                         <li key={index} className={`glide__slide`}>

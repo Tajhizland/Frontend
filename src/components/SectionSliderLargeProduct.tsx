@@ -10,7 +10,7 @@ import { DEMO_LARGE_PRODUCTS } from "./SectionSliderLargeProduct2";
 import Link from "next/link";
 import {ProductResponse} from "@/services/types/product";
 import {SpecialProductResponse} from "@/services/types/specialProduct";
-import {IoIosArrowDroprightCircle} from "react-icons/io";
+import {IoIosArrowDropleftCircle, IoIosArrowDroprightCircle} from "react-icons/io";
 
 export interface SectionSliderLargeProductProps {
   className?: string;
@@ -30,6 +30,8 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
 
   useEffect(() => {
     const OPTIONS: Partial<Glide.Options> = {
+      direction:"rtl",
+
       perView: 3,
       gap: 32,
       bound: true,
@@ -72,7 +74,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
         <Heading isCenter={false} hasNextPrev>
           محصولات منحصر به فرد
         </Heading>
-        <div className="glide__track" data-glide-el="track"  style={{direction:"ltr"}}>
+        <div className="glide__track" data-glide-el="track"  style={{direction:"rtl"}}>
             <ul className="glide__slides">
                 {data.map((product, index) => (
                     <li className={`glide__slide`} key={index}>
@@ -96,7 +98,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
                                 <div
                                     className="absolute inset-y-6 inset-x-10  flex flex-col items-center justify-center">
                                     <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">
-                                        <IoIosArrowDroprightCircle className={"w-10 h-10 text-slate-900 dark:text-white"}/>
+                                        <IoIosArrowDropleftCircle className={"w-10 h-10 text-slate-900 dark:text-white"}/>
                                         <span
                                             className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
                                     </div>
