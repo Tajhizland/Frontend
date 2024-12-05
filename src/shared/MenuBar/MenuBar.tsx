@@ -68,7 +68,7 @@ const MenuBar: React.FC<MenuBarProps> = () => {
             className="p-2.5 rounded-lg text-neutral-700 dark:text-neutral-300 focus:outline-none flex items-center justify-center"
         >
             <div className={"flex flex-col justify-center items-center gap-y-2 cursor-pointer"}>
-                <BiCategoryAlt  className={"w-5 h-5 text-neutral-500"}/>
+                <BiCategoryAlt  className={"w-5 h-5 text-[#fcb415]"}/>
                 <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap  dark:text-white"}>
                        دسته بندی
                         </span>

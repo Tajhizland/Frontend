@@ -60,7 +60,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
           <div className="bg-white dark:bg-neutral-900 shadow-lg">
             <div className="mx-5">
               <div className="flex text-sm border-t border-slate-200 dark:border-slate-700 py-5 ">
-                <div className="flex-1 flex">
+                <div className="flex-1 flex  justify-center">
                   {menu.children.data.map((item, index) => (
                     <div key={index} className="border-l  px-4">
                       <Link href={item.url as Route} className="flex justify-center items-center gap-x-1 border-b border-[#fcb415] pb-2">

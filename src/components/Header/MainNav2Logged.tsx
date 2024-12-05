@@ -173,12 +173,12 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const renderContent = () => {
         return (
             <div>
-                <div className="h-16 lg:h-20 flex justify-between">
+                <div className="h-16 lg:h-20 flex justify-between items-center gap-x-1">
                     {/*<div className="flex items-center lg:hidden flex-1">*/}
                     {/*    <MenuBar/>*/}
                     {/*</div>*/}
 
-                    <div className="hidden lg:flex-1 lg:flex items-center flex-col justify-center gap-1">
+                    <div className="hidden  lg:flex-1 lg:flex items-center flex-col justify-center gap-1">
                         <Logo className="flex-shrink-0" />
                         <small className="text-slate-600 dark:text-slate-100 text-xs hidden lg:block">
                             مرکز تخصصی تجهیزات کافه و رستوران
@@ -187,6 +187,9 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
 
                     <div className="lg:flex-[2] hidden lg:flex items-center justify-center mx-4">
                         {renderSearchForm()}
+                    </div> 
+                    <div className="lg:hidden flex items-center justify-center mx-1 w-full ">
+                    <Logo className="flex-shrink-0 " imageClassName={"!w-full"} />
                     </div>
 
                     <div className="lg:hidden flex items-center justify-center ml-1 w-full">
@@ -219,7 +222,6 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
             {/* z-index بالا برای محتوا */}
             <div className="relative z-40 hidden lg:block">
                 <div
-
                     className={`bg-neutral-100   dark:bg-neutral-800 border-b border-slate-100 dark:border-slate-700 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 h-10 ${showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
                     }`}
                     style={{top: '100%'}}

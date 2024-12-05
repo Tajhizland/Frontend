@@ -21,14 +21,16 @@ const DiscoverMoreSlider = ({data}: { data: BannerResponse[] }) => {
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
             direction:"rtl",
-            perView: 3.8,
+            perView: 4,
             autoplay: 3000,
             gap: 25,
             bound: true,
+            peek: { before: 50, after: 0 },  
+
             breakpoints: {
                 1280: {
                     gap: 20,
-                    perView: 3.5,
+                    perView:4.6,
                 },
                 1279: {
                     gap: 10,
@@ -62,7 +64,7 @@ const DiscoverMoreSlider = ({data}: { data: BannerResponse[] }) => {
         <div
             ref={sliderRef}
 
-            className={`nc-DiscoverMoreSlider nc-p-l-container ${
+            className={`nc-DiscoverMoreSlider nc-p-l-container mr-52 ${
                 isShow ? "" : "invisible"
             }`}
         >

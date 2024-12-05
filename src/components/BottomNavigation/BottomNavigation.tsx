@@ -21,7 +21,7 @@ export default function BottomNavigation() {
                     href={"/"}
                     className="inline-flex flex-col items-center justify-center  hover:bg-gray-50 group">
                     <div className={"flex flex-col justify-center items-center gap-y-2"}>
-                        <HiOutlineHome className={"w-5 h-5 text-neutral-500"}/>
+                        <HiOutlineHome className={"w-5 h-5 text-[#fcb415]"}/>
                         <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap dark:text-white"}>
                            خانه
                         </span>
@@ -34,7 +34,7 @@ export default function BottomNavigation() {
                     href={"/cart"}
                     className="inline-flex flex-col items-center justify-center  hover:bg-gray-50 group">
                     <div className={"flex flex-col justify-center items-center gap-y-2"}>
-                        <SlBasket className={"w-5 h-5 text-neutral-500"}/>
+                        <SlBasket className={"w-5 h-5 text-[#fcb415]"}/>
                         <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap dark:text-white"}>
                              سبد خرید
                         </span>
@@ -44,7 +44,7 @@ export default function BottomNavigation() {
                     href={"/vlog"}
                     className="inline-flex flex-col items-center justify-center  hover:bg-gray-50 group">
                     <div className={"flex flex-col justify-center items-center gap-y-2"}>
-                        <MdOutlineOndemandVideo className={"w-5 h-5 text-neutral-500"}/>
+                        <MdOutlineOndemandVideo className={"w-5 h-5 text-[#fcb415]"}/>
                         <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap dark:text-white"}>
                          ولاگ
                         </span>
@@ -54,7 +54,7 @@ export default function BottomNavigation() {
                     href={user ? "/account" : "/login"}
                     className="inline-flex flex-col items-center justify-center  hover:bg-gray-50 group">
                     <div className={"flex flex-col justify-center items-center gap-y-2"}>
-                        <FaRegUser className={"w-5 h-5 text-neutral-500"}/>
+                        <FaRegUser className={"w-5 h-5 text-[#fcb415]"}/>
                         <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap dark:text-white"}>
                             حساب کاربری
                         </span>
@@ -66,7 +66,7 @@ export default function BottomNavigation() {
                     href={"/news"}
                     className="inline-flex flex-col items-center justify-center  hover:bg-gray-50 group">
                     <div className={"flex flex-col justify-center items-center gap-y-2"}>
-                        <FaNewspaper className={"w-5 h-5 text-neutral-500"}/>
+                        <FaNewspaper className={"w-5 h-5 text-[#fcb415]"}/>
                         <span className={"text-xs text-neutral-500 font-bold whitespace-nowrap"}>
                              اخبار
                         </span>

@@ -1,5 +1,5 @@
 import React from "react";
- import logoImg from "@/images/tajhizland/logo.png";
+ import logoImg from "@/images/tajhizland/logoDark.png";
 import logoLightImg from "@/images/tajhizland/logo.png";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,12 +8,14 @@ export interface LogoProps {
   img?: string;
   imgLight?: string;
   className?: string;
+  imageClassName?: string;
 }
 
 const Logo: React.FC<LogoProps> = ({
   img = logoImg,
   imgLight = logoLightImg,
   className = "flex-shrink-0",
+  imageClassName=""
 }) => {
   return (
     <Link
@@ -22,12 +24,12 @@ const Logo: React.FC<LogoProps> = ({
     >
       {/* THIS USE FOR MY CLIENT */}
       {/* PLEASE UN COMMENT BELLOW CODE AND USE IT */}
-      {img ? (
+      {logoLightImg ? (
         <Image
           className={`block h-8 sm:h-10 w-auto ${
             imgLight ? "dark:hidden" : ""
-          }`}
-          src={img}
+          }  ${imageClassName}`}
+          src={logoLightImg}
           alt="Logo"
           sizes="200px"
           priority
@@ -35,10 +37,10 @@ const Logo: React.FC<LogoProps> = ({
       ) : (
         "Logo Here"
       )}
-      {imgLight && (
+      {logoImg && (
         <Image
-          className="hidden h-8 sm:h-10 w-auto dark:block"
-          src={imgLight}
+          className={`hidden h-8 sm:h-10 w-auto dark:block ${imageClassName}`}
+          src={logoImg}
           alt="Logo-Light"
           sizes="200px"
           priority
