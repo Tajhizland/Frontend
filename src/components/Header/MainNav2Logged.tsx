@@ -178,7 +178,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     {/*    <MenuBar/>*/}
                     {/*</div>*/}
 
-                    <div className="hidden lg:flex-1 lg:flex items-center flex-col justify-center">
+                    <div className="hidden lg:flex-1 lg:flex items-center flex-col justify-center gap-1">
                         <Logo className="flex-shrink-0" />
                         <small className="text-slate-600 dark:text-slate-100 text-xs hidden lg:block">
                             مرکز تخصصی تجهیزات کافه و رستوران
@@ -220,7 +220,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
             <div className="relative z-40 hidden lg:block">
                 <div
 
-                    className={`bg-stone-50   dark:bg-neutral-800 border-b border-slate-100 dark:border-slate-700 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 h-10 ${showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
+                    className={`bg-neutral-100   dark:bg-neutral-800 border-b border-slate-100 dark:border-slate-700 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 h-10 ${showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
                     }`}
                     style={{top: '100%'}}
                 >

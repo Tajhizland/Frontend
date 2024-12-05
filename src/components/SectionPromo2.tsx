@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import NcImage from "@/shared/NcImage/NcImage";
-import rightImgDemo from "@/images/promo2.png";
+import rightImgDemo from "@/images/tajhizland/banner1.png";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Logo from "@/shared/Logo/Logo";
 import backgroundLineSvg from "@/images/Moon.svg";
@@ -44,7 +44,7 @@ const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10" }) => {
 
         <NcImage
           alt=""
-          containerClassName="relative block lg:absolute lg:start-0 lg:bottom-0 mt-10 lg:mt-0 max-w-xl lg:max-w-[calc(55%-40px)]"
+          containerClassName="relative block lg:absolute lg:start-0 lg:bottom-0 mt-10 lg:mt-0 max-w-xl lg:max-w-[calc(45%-40px)]"
           src={rightImgDemo}
           sizes="(max-width: 768px) 100vw, 50vw"
           className=""

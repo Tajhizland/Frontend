@@ -58,21 +58,21 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
 
         <div className="invisible sub-menu absolute top-full inset-x-0 transform z-50">
           <div className="bg-white dark:bg-neutral-900 shadow-lg">
-            <div className="container">
+            <div className="mx-5">
               <div className="flex text-sm border-t border-slate-200 dark:border-slate-700 py-5 ">
                 <div className="flex-1 flex">
                   {menu.children.data.map((item, index) => (
                     <div key={index} className="border-l  px-4">
-                      <Link href={item.url as Route} className="flex justify-center items-center gap-x-1">
-                      <FaCircle className="text-orange-500 w-2 h-2" />
+                      <Link href={item.url as Route} className="flex justify-center items-center gap-x-1 border-b border-[#fcb415] pb-2">
+                      <FaCircle className="text-[#fcb415] w-2 h-2" />
                         <strong className={"dark:text-white text-black  text-xs  whitespace-nowrap"}>
                           {item.title}
                         </strong>
                       </Link>
-                      <div className=" grid grid-rows-8 grid-flow-col gap-x-8 gap-y-2 mt-5">
+                      <div className=" grid grid-rows-8 grid-flow-col gap-x-8 gap-y-2 mt-5 ">
 
                       {item?.children?.data.map((item, index) => (
-                        <div key={index}>
+                        <div key={index} className=" min-w-24">
 
                           {renderMegaMenuNavlink(item)}
                         </div>
@@ -185,7 +185,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
     return (
       <div className="h-10 flex-shrink-0 flex items-center">
         <Link
-          className="inline-flex items-center text-xs  font-medium text-slate-700 dark:text-slate-300 py-2.5 px-4 xl:px-5 rounded-full hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+          className="inline-flex items-center text-xs  font-medium text-slate-700 dark:text-slate-300 py-2.5 px-4 xl:px-5 rounded-full hover:text-slate-900 hover:bg-neutral-200 dark:hover:bg-slate-800 dark:hover:text-slate-200"
           href={{
             pathname: item.url || undefined,
           }}
