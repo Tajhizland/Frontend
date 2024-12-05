@@ -158,7 +158,7 @@ const SectionPromo1: FC<SectionPromo1Props> = ({className = ""}) => {
 
             />
             <div className="relative flex-shrink-0 mb-16 lg:mb-0 lg:mr-10 lg:w-2/5">
-                 <h2 className="font-semibold text-3xl sm:text-4xl xl:text-5xl 2xl:text-6xl mt-6 sm:mt-10 !leading-[1.2] tracking-tight dark:text-white">
+                 <h2 className="font-semibold text-3xl sm:text-4xl xl:text-5xl mt-6 sm:mt-10 !leading-[1.2] tracking-tight dark:text-white">
                     راه اندازی مجموعتو <br/>به تجهیزلند بسپار
                 </h2>
                 <div className="mt-6 sm:mt-12">
