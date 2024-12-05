@@ -64,7 +64,7 @@ const DiscoverMoreSlider = ({data}: { data: BannerResponse[] }) => {
         <div
             ref={sliderRef}
 
-            className={`nc-DiscoverMoreSlider nc-p-l-container mr-52 ${
+            className={`nc-DiscoverMoreSlider nc-p-l-container lg:mr-52 ${
                 isShow ? "" : "invisible"
             }`}
         >
