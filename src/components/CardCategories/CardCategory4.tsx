@@ -25,17 +25,17 @@ const CardCategory4: FC<CardCategory4Props> = ({
                                                }) => {
     return (
         <div
-            className={`nc-CardCategory4 relative w-full aspect-w-12 aspect-h-16 sm:aspect-h-13 h-0 rounded-3xl overflow-hidden bg-white dark:bg-neutral-900 group hover:nc-shadow-lg transition-shadow ${className}`}
+            className={`nc-CardCategory4 relative w-full aspect-w-11 aspect-h-16 sm:aspect-w-11 sm:aspect-h-13 h-0 rounded-3xl overflow-hidden bg-white dark:bg-neutral-900 group hover:nc-shadow-lg transition-shadow ${className}`}
         >
             <div>
                 <div className="hidden  absolute bottom-0 -left-40 max-w-[280px] opacity-80">
                     <Image src={bgSVG} alt=""/>
                 </div>
 
-                <div className="absolute inset-5 sm:inset-8 flex flex-col justify-between md:gap-10">
+                <div className="absolute inset-0 sm:inset-8 flex flex-col justify-between md:gap-10">
                     <div className="flex justify-center md:justify-center items-center">
                         <NcImage
-                            alt=""
+                            alt="" 
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${featuredImage}`}
                             containerClassName={`w-24 h-24 sm:w-36 sm:h-36 rounded-full overflow-hidden z-0 ${color}`}
                             width={80}

@@ -188,8 +188,8 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     <div className="lg:flex-[2] hidden lg:flex items-center justify-center mx-4">
                         {renderSearchForm()}
                     </div> 
-                    <div className="lg:hidden flex items-center justify-center mx-1 w-full ">
-                    <Logo className="flex-shrink-0 " imageClassName={"!w-full"} />
+                    <div className="lg:hidden flex items-center justify-center ml-1 w-16">
+                    <Logo className="flex-shrink-0  w-16" imageClassName={"!w-full"} />
                     </div>
 
                     <div className="lg:hidden flex items-center justify-center ml-1 w-full">

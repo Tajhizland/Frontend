@@ -50,7 +50,7 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
 }) => {
   return (
     <div className={`nc-SectionHowItWork ${className}`}>
-      <div className="relative grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-16 xl:gap-20">
+      <div className="relative grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-16 xl:gap-20">
         <Image
           className="hidden md:block absolute inset-x-0 top-5"
           src={VectorImg}
@@ -81,8 +81,8 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
                     : "purple"
                 }
               /> */}
-              <h3 className="text-base font-semibold dark:text-white">{item.title}</h3>
-              <span className="block text-slate-600 dark:text-slate-400 text-sm leading-6">
+              <h3 className="text-sm font-semibold dark:text-white">{item.title}</h3>
+              <span className="block text-slate-600 dark:text-slate-400 text-xs leading-6">
                 {item.desc}
               </span>
             </div>

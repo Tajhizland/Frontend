@@ -34,6 +34,7 @@ const SectionSliderProductCard2: FC<SectionSliderProductCardProps> = ({
   useEffect(() => {
     const OPTIONS: Partial<Glide.Options> = {
       // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
+      direction:"rtl",
       perView: 4,
       gap: 32,
       bound: true,
@@ -82,7 +83,7 @@ const SectionSliderProductCard2: FC<SectionSliderProductCardProps> = ({
         >
           {heading || `New Arrivals`}
         </Heading>
-        <div className="glide__track" data-glide-el="track"  style={{direction:"ltr"}}>
+        <div className="glide__track" data-glide-el="track"  style={{direction:"rtl"}}>
           <ul className="glide__slides">
              {data && data.map((item, index) => (
               <li key={index} className={`glide__slide ${itemClassName}`}>
