@@ -30,6 +30,9 @@ export type ProductResponse = {
     study: string;
     review: string;
     unboxing_video: string;
+    intro_video_description: string;
+    unboxing_video_description: string;
+    usage_video_description: string;
     intro_video: string;
     usage_video: string;
     created_at: string;

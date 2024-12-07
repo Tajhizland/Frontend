@@ -70,12 +70,14 @@ export const setVideo = async <T extends ServerResponse<unknown>>
         file: File,
         productId: number,
         type: string,
+        description: string,
     }
 ) => {
     const formData = new FormData();
     formData.append('productId', params.productId + "");
     formData.append('type', params.type);
     formData.append('file', params.file);
+    formData.append('description', params.description);
     return axios.post<T, SuccessResponseType<T>>("admin/product/video/set",formData)
         .then((res) => res?.data)
 };

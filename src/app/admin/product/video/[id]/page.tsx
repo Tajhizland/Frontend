@@ -9,6 +9,7 @@ import {TrashIcon} from "@heroicons/react/24/solid";
 import {useParams} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
 import {toast} from "react-hot-toast";
+import Input from "@/shared/Input/Input";
 
 export default function Page() {
     const {id} = useParams();
@@ -21,7 +22,12 @@ export default function Page() {
     });
 
     async function uploadIntro(e: FormData) {
-        let response = await setVideo({productId: Number(id), file: e.get("introFile") as File, type: "intro"})
+        let response = await setVideo({
+            productId: Number(id),
+            file: e.get("introFile") as File,
+            description: e.get("description") as string,
+            type: "intro"
+        })
         if (response?.success) {
             queryClient.refetchQueries(['product_info']);
             toast.success(response?.message as string);
@@ -29,7 +35,12 @@ export default function Page() {
     }
 
     async function uploadUnBoxing(e: FormData) {
-        let response = await setVideo({productId: Number(id), file: e.get("unboxingFile") as File, type: "unboxing"})
+        let response = await setVideo({
+            productId: Number(id),
+            file: e.get("unboxingFile") as File,
+            description: e.get("description") as string,
+            type: "unboxing"
+        })
         if (response?.success) {
             queryClient.refetchQueries(['product_info']);
             toast.success(response?.message as string);
@@ -37,7 +48,12 @@ export default function Page() {
     }
 
     async function uploadUsage(e: FormData) {
-        let response = await setVideo({productId: Number(id), file: e.get("usageFile") as File, type: "usage"})
+        let response = await setVideo({
+            productId: Number(id),
+            file: e.get("usageFile") as File,
+            description: e.get("description") as string,
+            type: "usage"
+        })
         if (response?.success) {
             queryClient.refetchQueries(['product_info']);
             toast.success(response?.message as string);
@@ -67,7 +83,8 @@ export default function Page() {
                 <div>
                     <div className="flex flex-col gap-y-4">
                         <form action={uploadIntro}>
-                            <Uploader  name={"introFile"}/>
+                            <Uploader name={"introFile"}/>
+                            <Input name={"description"} placeholder={"توضیحات ویدیو"}/>
                             <ButtonPrimary>
                                 آپلود
                             </ButtonPrimary>
@@ -93,7 +110,8 @@ export default function Page() {
                 <div>
                     <div className="flex flex-col gap-y-4">
                         <form action={uploadUsage}>
-                            <Uploader  name={"usageFile"}/>
+                            <Uploader name={"usageFile"}/>
+                            <Input name={"description"} placeholder={"توضیحات ویدیو"}/>
                             <ButtonPrimary>
                                 آپلود
                             </ButtonPrimary>
@@ -119,7 +137,8 @@ export default function Page() {
                 <div>
                     <div className="flex flex-col gap-y-4">
                         <form action={uploadUnBoxing}>
-                            <Uploader  name={"unboxingFile"}/>
+                            <Uploader name={"unboxingFile"}/>
+                            <Input name={"description"} placeholder={"توضیحات ویدیو"}/>
                             <ButtonPrimary>
                                 آپلود
                             </ButtonPrimary>
