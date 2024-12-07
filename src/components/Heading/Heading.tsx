@@ -38,7 +38,7 @@ const Heading: React.FC<HeadingProps> = ({
 }) => {
   return (
     <div
-      className={`nc-Section-Heading relative flex flex-col sm:flex-row sm:items-end justify-between ${className}`}
+      className={`nc-Section-Heading relative flex   flex-row items-end justify-between ${className}`}
     >
       <div
         className={

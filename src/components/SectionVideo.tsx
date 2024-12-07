@@ -64,7 +64,7 @@ export default function SectionVideo({
                     </div>))
                 }
             </div>
-            <div className={"w-full bg-red-400"}>
+            <div className={"w-full "}>
                 <div className="relative w-full ">
                     <div
                         className={`mt-0   nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full  aspect-w-16 aspect-h-9 `}>

@@ -139,9 +139,9 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
                                     <div
                                         className="absolute inset-y-6 inset-x-10 flex flex-col sm:items-center justify-center">
                                         <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-5">
-                                            <IoIosArrowDropleftCircle className={"w-10 h-10 text-slate-900 dark:text-white"}/>
+                                            <IoIosArrowDropleftCircle className={"w-5 h-5 md:w-10 md:h-10 text-slate-900 dark:text-white"}/>
                                             <span
-                                                className="text-sm  lg:text-base font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
+                                                className="text-xs lg:text-base font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
                                         </div>
 
                                     </div>

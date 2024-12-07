@@ -28,8 +28,8 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
 
           </Link>
         </h2>
-        <span className="hidden sm:block my-3 text-slate-500 dark:text-slate-400 ">
-          <span className="line-clamp-2">
+        <span className="  sm:block my-3 text-slate-500 dark:text-slate-400 ">
+          <span className="line-clamp-2 text-xs">
                <div dangerouslySetInnerHTML={{__html: stripHTML(data.description)}}/>
 
           </span>

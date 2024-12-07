@@ -95,7 +95,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
                 ))}
                 <li className={`glide__slide   `}>
                     <Link href={"/product/discounted"} className="block relative group">
-                        <div className="relative rounded-2xl overflow-hidden h-[410px]">
+                        <div className="relative rounded-2xl overflow-hidden h-[310px] md:h-[410px]">
                             <div className="h-[410px] bg-neutral-100/70  dark:bg-black/20"></div>
                             <div className="absolute inset-y-6 inset-x-10  flex flex-col items-center justify-center">
                                 <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">
