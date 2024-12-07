@@ -435,13 +435,13 @@ export default function AvatarDropdown() {
         );
     else
         return (<Link href={"/login"} aria-label={"login"}
-            className={`rounded bg-white flex whitespace-nowrap border px-3 py-1 lg:py-2 lg:ml-4 text-slate-700 dark:text-white  hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-900 focus:outline-none lg:flex items-center justify-center gap-x-1`}
+            className={`rounded bg-white flex whitespace-nowrap border px-1 sm:px-3 py-1 lg:py-2 lg:ml-4 text-slate-700 dark:text-white  hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-900 focus:outline-none lg:flex items-center justify-center gap-x-1`}
         >
               <div>
-                  <MdLogin className={"w-5 h-5"} />
+                  <MdLogin className={"w-3 h-3 sm:w-5 sm:h-5"} />
               </div>
               <div>
-                  <span className={"text-xs font-bold whitespace-nowrap"}>ورود | ثبت نام</span>
+                  <span className={"text-[10px] sm:text-xs font-bold whitespace-nowrap"}>ورود | ثبت نام</span>
               </div>
         </Link>)
 }
