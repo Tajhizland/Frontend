@@ -20,6 +20,7 @@ import {stripHTML} from "@/hooks/StripHtml";
 import TextExpander from "@/shared/TextExpander/TextExpander";
 import VideoSlider from "@/components/VideoSlider";
 import VideoSwiper from "@/components/VideoSwiper";
+import SectionVideo from "@/components/SectionVideo";
 
 
 interface ProductPageProps {
@@ -173,14 +174,16 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                 {/*  */}
                 <TextExpander text={product.description} />
                 <AccordionInfo
-                    data={[ 
+                    data={[
                         {
                             name: "مشخصات محصول",
                             content: renderOption()
 
-                        }, 
+                        },
                     ]}/>
-                    <VideoSwiper intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} />
+                <SectionVideo intro_video={"https://tajhizland.com/video/intro_video.mp4"} unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />
+                {/*<SectionVideo intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
+                    {/*<VideoSwiper intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} />*/}
             </div>
         );
     };
@@ -196,7 +199,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                 {/* ---------- 6 ----------  */}
                 <div className="lg:hidden  ">
                     <Policy />
-                </div> 
+                </div>
             </div>
         );
     };
