@@ -41,7 +41,7 @@ export default function SectionVideo({
         <div className={"flex flex-col-reverse xl:flex-row gap-5"}>
             <div className={"flex flex-col md:flex-row lg:flex-col justify-between gap-5"}>
                 {
-                    videos.map((item, index) => (<div
+                    videos.map((item, index) => (<div key={index}
                         onClick={() => {
                             setOpenVideo(intro_video);
                         }}
