@@ -5,6 +5,7 @@ import Image from "next/image";
 import {BellAlertIcon} from "@heroicons/react/24/solid";
 import Profile from "@/components/Navbar/Profile";
 import Bell from "@/components/Navbar/Bell";
+import Logo from "@/shared/Logo/Logo";
 export default function Navbar({sidebarControl}:{sidebarControl:any}) {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
 
@@ -18,12 +19,7 @@ export default function Navbar({sidebarControl}:{sidebarControl:any}) {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center justify-start rtl:justify-end">
 
-                        <Image
-                            sizes={"responsive"}
-                            src={logo}
-                            className="h-8 me-3"
-                            alt="FlowBite Logo"
-                        />
+                       <Logo />
                         <button
                             data-drawer-target="logo-sidebar"
                             data-drawer-toggle="logo-sidebar"
