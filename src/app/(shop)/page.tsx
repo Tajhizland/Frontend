@@ -17,6 +17,7 @@ import {homePage} from "@/services/api/shop/homePage";
 import logo from "@/images/tajhizland/logo.png";
 import {Metadata} from "next";
 import VideoSwiper from "@/components/VideoSwiper";
+import SectionSliderNews from "@/components/SectionSliderNews";
 
 export const dynamic = 'force-dynamic';
 export async function generateMetadata(): Promise<Metadata> {
@@ -81,6 +82,7 @@ async function PageHome() {
                     </div>
                 </div>
                 <SectionSliderCategories data={response.brands.data}/>
+                <SectionSliderNews heading={"جدید ترین اخبار"} data={response.news.data}/>
 
                 {/*<SectionSliderProductCard*/}
                 {/*    heading="Best Sellers"*/}
