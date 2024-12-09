@@ -43,12 +43,12 @@ export default function SectionVideo({
                 {
                     videos.map((item, index) => (<div key={index}
                         onClick={() => {
-                            setOpenVideo(intro_video);
+                            setOpenVideo(item.src);
                         }}
-                        className={"bg-neutral-100 dark:bg-black/20 rounded flex gap-x-2 w-full xl:w-64 cursor-pointer"}>
+                        className={"bg-neutral-100 hover:bg-neutral-200 dark:bg-black/20 dark:hover:bg-black/30 rounded flex gap-x-2 w-full xl:w-64 cursor-pointer overflow-hidden"}>
 
                         <div className="flex-shrink-0 w-32 h-20">
-                            <video className="w-full h-auto">
+                            <video className="w-full h-full">
                                 <source src={intro_video} type="video/mp4"/>
                             </video>
                         </div>

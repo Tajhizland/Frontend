@@ -58,7 +58,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
 
         <div className="invisible sub-menu absolute top-full inset-x-0 transform z-50">
           <div className="bg-white dark:bg-neutral-900 shadow-lg">
-            <div className="mx-5">
+            <div className=" container">
               <div className="flex text-sm border-t border-slate-200 dark:border-slate-700 py-5 ">
                 <div className="flex-1 flex  justify-center">
                   {menu.children.data.map((item, index) => (
@@ -82,9 +82,10 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                     </div>
                   ))}
                 </div>
-                <div className="w-[20%] xl:w-[25%]">
-                  <MenuCard color="bg-orange-100" featuredImage={menu.banner_logo} name={menu.banner_title as string} url={menu.banner_link} />
-                </div>
+                  {menu.banner_logo && menu.banner_logo!=null&& menu.banner_logo!="" && <div className="w-[20%] xl:w-[25%] ">
+                      <MenuCard color="bg-orange-100" featuredImage={menu.banner_logo}
+                                name={menu.banner_title as string} url={menu.banner_link}/>
+                  </div>}
               </div>
             </div>
           </div>
