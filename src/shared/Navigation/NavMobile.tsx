@@ -45,7 +45,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
                                         alt=""
                                         width={500}
                                         height={100}
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/menu/${item.banner_logo}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/menu/${i.banner_logo}`}
                                         className="   w-full  h-full "
                                     />
                                 </div>
