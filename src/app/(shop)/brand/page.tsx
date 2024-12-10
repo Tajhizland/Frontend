@@ -2,6 +2,7 @@ import React, {Fragment} from "react";
 import {getBrandList} from "@/services/api/shop/brand";
 import CardCategory2 from "@/components/CardCategories/CardCategory2";
 
+export const dynamic = 'force-dynamic';
 
 const Page = async () => {
     let response = await getBrandList();

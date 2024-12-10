@@ -20,6 +20,7 @@ import explore6Png from "@/images/collections/explore6.svg";
 import explore7Png from "@/images/collections/explore7.svg";
 import explore8Png from "@/images/collections/explore8.svg";
 import explore9Png from "@/images/collections/explore9.svg";
+import NcImage from "@/shared/NcImage/NcImage";
 
 
 export interface SectionGridMoreExploreProps {
@@ -105,6 +106,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
                     containerClassName="mb-12 lg:mb-14 relative flex justify-center w-full text-sm md:text-base"
                 >
                     {data.map((item, index) => (
+
                         <NavItem2
                             key={index}
                             isActive={tabActive === index}
@@ -112,19 +114,31 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
                         >
                             <div
                                 className="flex items-center justify-center gap-x-1.5 sm:gap-x-2.5  text-xs sm:text-sm ">
-                                <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M16.7 18.98H7.30002C6.88002 18.98 6.41002 18.65 6.27002 18.25L2.13002 6.66999C1.54002 5.00999 2.23002 4.49999 3.65002 5.51999L7.55002 8.30999C8.20002 8.75999 8.94002 8.52999 9.22002 7.79999L10.98 3.10999C11.54 1.60999 12.47 1.60999 13.03 3.10999L14.79 7.79999C15.07 8.52999 15.81 8.75999 16.45 8.30999L20.11 5.69999C21.67 4.57999 22.42 5.14999 21.78 6.95999L17.74 18.27C17.59 18.65 17.12 18.98 16.7 18.98Z"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"/>
-                                    <path d="M6.5 22H17.5" stroke="currentColor" stroke-width="1.5"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"/>
-                                    <path d="M9.5 14H14.5" stroke="currentColor" stroke-width="1.5"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"/>
-                                </svg>
+                                {/*<svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none"*/}
+                                {/*     xmlns="http://www.w3.org/2000/svg">*/}
+                                {/*    <path*/}
+                                {/*        d="M16.7 18.98H7.30002C6.88002 18.98 6.41002 18.65 6.27002 18.25L2.13002 6.66999C1.54002 5.00999 2.23002 4.49999 3.65002 5.51999L7.55002 8.30999C8.20002 8.75999 8.94002 8.52999 9.22002 7.79999L10.98 3.10999C11.54 1.60999 12.47 1.60999 13.03 3.10999L14.79 7.79999C15.07 8.52999 15.81 8.75999 16.45 8.30999L20.11 5.69999C21.67 4.57999 22.42 5.14999 21.78 6.95999L17.74 18.27C17.59 18.65 17.12 18.98 16.7 18.98Z"*/}
+                                {/*        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"*/}
+                                {/*        stroke-linejoin="round"/>*/}
+                                {/*    <path d="M6.5 22H17.5" stroke="currentColor" stroke-width="1.5"*/}
+                                {/*          stroke-linecap="round"*/}
+                                {/*          stroke-linejoin="round"/>*/}
+                                {/*    <path d="M9.5 14H14.5" stroke="currentColor" stroke-width="1.5"*/}
+                                {/*          stroke-linecap="round"*/}
+                                {/*          stroke-linejoin="round"/>*/}
+                                {/*</svg>*/}
+
+                                <div
+                                    className={" flex items-center  dark:text-slate-300 bg-white rounded-full p-2 text-xs"}
+                                ><NcImage
+                                    containerClassName="flex aspect-w-1 aspect-h-1 w-4 h-4  "
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/concept/${item.icon}`}
+                                    className="object-cover w-full h-full drop-shadow-xl"
+                                    fill
+                                    sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                                    alt="guaranty"
+                                /></div>
+
                                 <span>{item.title}</span>
                             </div>
                         </NavItem2>
@@ -138,12 +152,12 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
         <div className={`nc-SectionGridMoreExplore relative ${className}`}>
             {renderHeading()}
             <div className={`grid gap-1 md:gap-7 ${gridClassName}`}>
-                {data.map((item , index) => (<>
+                {data.map((item, index) => (<>
                     {
-                        item.categories?.data.map((category , index2) => (<>
+                        item.categories?.data.map((category, index2) => (<>
                             {
-                                tabActive==index ?   <CardCategory4
-                                    featuredImage={`${category.image}`}
+                                tabActive == index ? <CardCategory4
+                                        featuredImage={`${category.image}`}
                                     name={category?.display_name ?? category.name}
                                     key={category.id}
                                     url={category.url}

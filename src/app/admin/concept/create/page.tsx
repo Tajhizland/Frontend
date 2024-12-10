@@ -16,7 +16,7 @@ export default function Page() {
             {
                 title: e.get("title") as string,
                 status: e.get("status") as string,
-                image: e.get("image") as File,
+                icon: e.get("icon") as File,
                 description: e.get("description") as string,
             }
         )

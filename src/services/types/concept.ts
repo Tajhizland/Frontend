@@ -6,7 +6,7 @@ export type ConceptResponse = {
     description: number;
     categories?: { data: CategoryResponse[] };
     status: string;
-    image: string;
+    icon: string;
     created_at: string;
     updated_at: string;
 }

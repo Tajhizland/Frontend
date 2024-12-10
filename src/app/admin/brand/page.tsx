@@ -42,6 +42,9 @@ export default function Page() {
                 <Link href={{pathname: "/admin/brand/create"}}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
+                <Link href={{pathname: "/admin/brand/sort"}}>
+                    <ButtonPrimary> سورت کردن</ButtonPrimary>
+                </Link>
             </PageLink>
             <DataTable
             onEdit={submit}
