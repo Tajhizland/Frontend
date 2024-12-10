@@ -48,8 +48,8 @@ export default function Form({ data, submit  }: Form) {
 
             </div>
             <div>
-                <Label>تصویر  </Label>
-                <Uploader name={"image"}/>
+                <Label>آیکن  </Label>
+                <Uploader name={"icon"}/>
             </div>
             <hr className={"my-5"}/>
             <div className={"flex justify-center my-5"}>

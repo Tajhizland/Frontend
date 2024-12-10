@@ -8,7 +8,7 @@ export const store = async <T extends ServerResponse<unknown>>(
         title: string,
         description: string,
         status: number | string,
-        image: File | null,
+        icon: File | null,
     }
 ) => {
     const formData = new FormData();
@@ -16,8 +16,8 @@ export const store = async <T extends ServerResponse<unknown>>(
     formData.append('status', params.status.toString());
     formData.append('description', params.description);
 
-    if (params.image) {
-        formData.append('image', params.image);
+    if (params.icon) {
+        formData.append('icon', params.icon);
     }
 
     return axios.post<T, SuccessResponseType<T>>("admin/concept/store", formData, {
@@ -49,7 +49,7 @@ export const update = async <T extends ServerResponse<unknown>>
             title: string,
             description: string,
             status: number | string,
-            image: File | null,
+            icon: File | null,
         }
     ) => {
     const formData = new FormData();
@@ -58,8 +58,8 @@ export const update = async <T extends ServerResponse<unknown>>
     formData.append('status', params.status.toString());
     formData.append('description', params.description);
 
-    if (params.image) {
-        formData.append('image', params.image);
+    if (params.icon) {
+        formData.append('icon', params.icon);
     }
 
     return axios.post<T, SuccessResponseType<T>>("admin/concept/update", formData)
