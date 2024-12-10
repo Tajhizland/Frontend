@@ -43,6 +43,11 @@ export default function Page() {
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
+            <PageLink>
+                <Link href={{pathname: "/admin/sort"}}>
+                    <ButtonPrimary> سورت کردن</ButtonPrimary>
+                </Link>
+            </PageLink>
             <DataTable
             onEdit={submit}
                 apiUrl={"admin/brand/dataTable"}

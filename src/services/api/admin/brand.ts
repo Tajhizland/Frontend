@@ -69,3 +69,15 @@ export const findById = async <T extends ServerResponse<BrandResponse>>
     return axios.get<T, SuccessResponseType<T>>("admin/brand/find/" + id)
         .then((res) => res?.data?.result?.data)
 };
+export const sortBrands = async <T extends ServerResponse<unknown>>
+(
+    param:{
+        brand: {
+            id: number
+            sort: number
+        }[]
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/brand/sort",param)
+        .then((res) => res?.data)
+};
