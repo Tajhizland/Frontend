@@ -13,6 +13,11 @@ import Pagination from "@/shared/Pagination/Pagination";
 import ReactPaginate from "react-paginate";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
 import Spinner from "@/shared/Loading/Spinner";
+import NcModal from "@/shared/NcModal/NcModal";
+import Image from "next/image";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import {IoIosWarning} from "react-icons/io";
 
 type optionType = {
     label: string;
@@ -34,6 +39,8 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
     const [loading, setLoading] = useState<boolean>(false);
     const [editingRow, setEditingRow] = useState<number | null>(null); // Track which row is being edited
     const [editedData, setEditedData] = useState<any[]>([]); // Editable data state
+    const [confirmDeleteModal, setConfirmDeleteModal] = useState<boolean>(false); // Editable data state
+    const [rowIndexId, setRowIndexId] = useState<number>(0); // Editable data state
 
     useEffect(() => {
         // Fetch data when filter values or sort config changes
@@ -130,8 +137,48 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
         return (button as DataTableAction).action !== undefined;
     }
 
+    const renderContent = () => {
+        return (
+            <div className={"flex flex-col gap-y-10 text-right"}>
+                <div className={"flex justify-between items-center"}>
+                         <span className={"font-bold"}>
+                     آیا از حذف این آیتم اطمینان دارید ؟
+                 </span>
+                    <IoIosWarning className={"text-rose-500 w-10 h-10"}/>
+                </div>
+
+                <div className={"flex gap-x-2"}>
+                    <ButtonPrimary
+                        onClick={async () => {
+                            onDelete && await onDelete(editedData[rowIndexId].id);
+                            fetchData(meta.current_page);
+                            setConfirmDeleteModal(false);
+                        }
+                        }>بله</ButtonPrimary>
+                    <ButtonSecondary onClick={() => {
+                        setConfirmDeleteModal(false)
+                    }}>خیر</ButtonSecondary>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <>
+            {
+                confirmDeleteModal &&
+                <NcModal
+                    isOpenProp={confirmDeleteModal}
+                    onCloseModal={() => {
+                        setConfirmDeleteModal(false)
+                    }}
+                    contentExtraClass="max-w-4xl"
+                    renderContent={renderContent}
+                    triggerText={""}
+                    modalTitle={"هشدار"}
+                    hasButton={false}
+                />
+            }
             <div className="relative overflow-x-scroll shadow-md sm:rounded-lg w-full">
                 <table className="w-full text-sm rtl:text-right text-slate-900 text-center border">
                     <thead className="text-xs uppercase bg-slate-50 border-b border-slate-400 ">
@@ -311,11 +358,10 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                             {onDelete && (
                                                 <button
                                                     className="px-3 py-1 bg-red-500 text-white rounded"
-                                                    onClick={async () => {
-                                                        await onDelete(editedData[rowIndex].id);
-                                                        fetchData(meta.current_page);
-                                                    }
-                                                    }
+                                                    onClick={() => {
+                                                        setConfirmDeleteModal(true);
+                                                        setRowIndexId(rowIndex)
+                                                    }}
                                                 >
                                                     حذف
                                                 </button>
