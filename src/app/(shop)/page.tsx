@@ -82,18 +82,8 @@ async function PageHome() {
                     </div>
                 </div>
                 <SectionSliderCategories data={response.brands.data}/>
-                <SectionSliderNews heading={"جدید ترین اخبار"} data={response.news.data}/>
-
-                {/*<SectionSliderProductCard*/}
-                {/*    heading="Best Sellers"*/}
-                {/*    subHeading="Best selling of the month"*/}
-                {/*/>*/}
-
-
-                {/*<SectionPromo3/>*/}
-
-
-                {/*<SectionClientSay/>*/}
+                <SectionSliderNews  data={response.news.data}/>
+ 
             </div>
         </div>
     );
