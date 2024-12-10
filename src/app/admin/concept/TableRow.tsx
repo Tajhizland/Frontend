@@ -10,8 +10,8 @@ import Image from "next/image";
 
 export const columns: Column<ConceptResponse>[] = [
     {
-        key: 'image',
-        header: 'تصویر',
+        key: 'icon',
+        header: 'آیکن',
         hasFilter: false,
         hasSort: false,
         render: (value) =><div className={"w-10 h-10"}><Image className={"w-10 h-10 mx-auto"} width={50} height={50} alt={"image"}
