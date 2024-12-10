@@ -22,14 +22,15 @@ const LandingBannerSlider = ({data}: { data: LandingBannerResponse[] }) => {
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
             direction:"rtl",
-
             perView: 3.8, 
             gap: 25,
             bound: true,
+            peek: { before: 50, after: 0 },  
+
             breakpoints: {
                 1280: {
                     gap: 20,
-                    perView: 3.5,
+                    perView:3.8,
                 },
                 1279: {
                     gap: 10,
@@ -63,7 +64,7 @@ const LandingBannerSlider = ({data}: { data: LandingBannerResponse[] }) => {
         <div
             ref={sliderRef}
 
-            className={`nc-DiscoverMoreSlider nc-p-l-container ${
+            className={`nc-DiscoverMoreSlider ${
                 isShow ? "" : "invisible"
             }`}
         >

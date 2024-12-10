@@ -16,31 +16,32 @@ const LandingProductSlider = ({ data }: { data: ProductResponse[] }) => {
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
             direction:"rtl",
-
-            // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
-            perView: 4,
-            gap: 32,
+            perView: 4.5, 
+            gap: 25,
             bound: true,
+            peek: { before: 50, after: 0 },  
+
             breakpoints: {
-              1280: {
-                perView: 4 - 1,
-              },
-              1024: {
-                gap: 20,
-                perView: 4 - 1,
-              },
-              768: {
-                gap: 20,
-                perView: 4 - 2,
-              },
-              640: {
-                gap: 10,
-                perView: 2.2,
-              },
-              500: {
-                gap: 10,
-                perView: 2,
-              },
+                1280: {
+                    gap: 20,
+                    perView:4.6,
+                },
+                1279: {
+                    gap: 10,
+                    perView: 3.15,
+                },
+                1023: {
+                    gap: 10,
+                    perView: 2.6,
+                },
+                768: {
+                    gap: 10,
+                    perView: 2.2,
+                },
+                500: {
+                    gap: 10,
+                    perView: 1.5,
+                },
             },
         };
         if (!sliderRef.current) return;
@@ -57,7 +58,7 @@ const LandingProductSlider = ({ data }: { data: ProductResponse[] }) => {
         <div
             ref={sliderRef}
 
-            className={`nc-DiscoverMoreSlider nc-p-l-container ${isShow ? "" : "invisible"
+            className={`nc-DiscoverMoreSlider ${isShow ? "" : "invisible"
                 }`}
         >
             <Heading

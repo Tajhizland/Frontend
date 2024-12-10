@@ -25,30 +25,31 @@ const LandingCategorySlider = ({ data }: { data: CategoryResponse[] }) => {
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
             direction:"rtl",
-
-            perView: 4.8,
+            perView: 4.5, 
             gap: 25,
             bound: true,
+            peek: { before: 50, after: 0 },  
+
             breakpoints: {
                 1280: {
                     gap: 20,
-                    perView: 4.5,
+                    perView:4.6,
                 },
                 1279: {
                     gap: 10,
-                    perView: 4.15,
+                    perView: 3.15,
                 },
                 1023: {
                     gap: 10,
-                    perView: 3,
+                    perView: 2.6,
                 },
                 768: {
                     gap: 10,
-                    perView: 2.5,
+                    perView: 2.2,
                 },
                 500: {
                     gap: 10,
-                    perView: 2.5,
+                    perView: 1.5,
                 },
             },
         };
@@ -66,7 +67,7 @@ const LandingCategorySlider = ({ data }: { data: CategoryResponse[] }) => {
         <div
             ref={sliderRef}
 
-            className={`nc-DiscoverMoreSlider nc-p-l-container ${isShow ? "" : "invisible"
+            className={`nc-DiscoverMoreSlider  ${isShow ? "" : "invisible"
                 }`}
         >
             <Heading
