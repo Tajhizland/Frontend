@@ -42,9 +42,7 @@ export default function Page() {
                 <Link href={{pathname: "/admin/brand/create"}}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
-            </PageLink>
-            <PageLink>
-                <Link href={{pathname: "/admin/sort"}}>
+                <Link href={{pathname: "/admin/brand/sort"}}>
                     <ButtonPrimary> سورت کردن</ButtonPrimary>
                 </Link>
             </PageLink>
