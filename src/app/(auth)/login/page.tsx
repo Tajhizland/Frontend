@@ -30,7 +30,7 @@ const PageLogin = () => {
             <div className={`nc-PageLogin w-full`} data-nc-id="PageLogin">
 
                 <div className="container">
-                    <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
+                    <h2 className="my-1 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
                         ورود
                     </h2>
                     <div className="max-w-md mx-auto space-y-6">

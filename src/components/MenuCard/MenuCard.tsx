@@ -21,7 +21,7 @@ const MenuCard: FC<MenuCardProps> = ({
                                      }) => {
     return (
         <>
-            {featuredImage && url &&
+            {featuredImage &&  
                 <div
                     className={`relative w-full aspect-w-16 aspect-h-11 sm:aspect-h-9 h-0 rounded-2xl overflow-hidden group bg-white`}
                 >
