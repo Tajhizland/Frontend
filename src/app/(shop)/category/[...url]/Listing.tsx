@@ -88,13 +88,7 @@ const PageCollection = ({ response, url }: { response: any, url: string }) => {
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             {response.category.name}
                         </h2>
-                        <span className="block mt-4 text-neutral-500 text-sm sm:text-base dark:text-white">
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html: response.category.description,
-                                }}
-                            />
-                        </span>
+                       
                     </div>
 
                     <hr className="border-slate-200 dark:border-slate-700" />
@@ -125,6 +119,14 @@ const PageCollection = ({ response, url }: { response: any, url: string }) => {
                 <hr className="border-slate-200 dark:border-slate-700" />
 
                 <SectionPromo1 />
+
+                <span className="block mt-4 text-neutral-500 text-sm sm:text-base dark:text-white">
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: response.category.description,
+                                }}
+                            />
+                        </span>
             </div>
         </div>
     );

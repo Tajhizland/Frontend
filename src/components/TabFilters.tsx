@@ -422,7 +422,7 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                                                 range
                                                 min={minPrice}
                                                 max={maxPrice}
-                                                step={100000}
+                                                step={500000}
                                                 defaultValue={[rangePrices[0],rangePrices[1]]}
                                                 allowCross={false}
                                                 onChange={(_input: number | number[]) =>
@@ -737,7 +737,7 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                                                                 className="text-red-400"
                                                                 min={minPrice}
                                                                 max={maxPrice}
-                                                                step={100000}
+                                                                step={500000}
                                                                 defaultValue={[rangePrices[0],rangePrices[1]]}
                                                                 allowCross={false}
                                                                 onChange={(_input: number | number[]) =>

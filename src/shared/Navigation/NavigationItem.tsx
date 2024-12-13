@@ -82,7 +82,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                     </div>
                   ))}
                 </div>
-                  {menu.banner_logo && menu.banner_logo!=null&& menu.banner_logo!="" && <div className="w-[20%] xl:w-[25%] ">
+                  {menu.banner_logo && menu.banner_logo!=null&& menu.banner_logo!="" && <div className="w-[20%] xl:w-[25%] flex items-center justify-center">
                       <MenuCard color="bg-orange-100" featuredImage={menu.banner_logo}
                                 name={menu.banner_title as string} url={menu.banner_link}/>
                   </div>}
