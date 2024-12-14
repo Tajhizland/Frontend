@@ -41,6 +41,7 @@ export default function Page() {
                 meta_title: e.meta_title,
                 guaranty_id: e.guaranty_id,
                 study: e.study,
+                guaranty_time:e.guaranty_time,
                 categoryId: e.category_id + "" as string,
             }
         )
