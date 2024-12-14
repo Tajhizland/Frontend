@@ -15,3 +15,17 @@ export const remove = async <T extends ServerResponse<unknown>>
     return axios.delete<T, SuccessResponseType<T>>("admin/homepage_category/delete/"+id)
         .then((res) => res?.data)
 };
+export const setIcon = async <T extends ServerResponse<unknown>>
+(
+    params: {
+        id: number,
+        icon: File,
+    }
+) => {
+    const formData = new FormData();
+    formData.append('id', params.id + "");
+    formData.append('icon', params.icon);
+
+    return axios.post<T, SuccessResponseType<T>>("admin/homepage_category/setIcon",formData)
+        .then((res) => res?.data)
+};
