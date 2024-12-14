@@ -24,11 +24,11 @@ import {FaFilter} from "react-icons/fa";
 
 
 const DATA_sortOrderRadios = [
-    {name: "Most Popular", id: "Most-Popular"},
-    {name: "Best Rating", id: "Best-Rating"},
-    {name: "Newest", id: "Newest"},
-    {name: "Price Low - Hight", id: "Price-low-hight"},
-    {name: "Price Hight - Low", id: "Price-hight-low"},
+    {name: "جدید ترین", id: "Most-Popular"},
+    {name: "قدیمی ترین", id: "Best-Rating"},
+    {name: "ارزان ترین", id: "Newest"},
+    {name: "گران ترین", id: "Price-low-hight"},
+    {name: "محبوب ترین", id: "Price-hight-low"},
 ];
 type SelectedFilters = Record<string, string[]|string>;
 
