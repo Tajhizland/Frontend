@@ -49,11 +49,11 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
 
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
-            <Input type="hidden" name={"id"} value={data?.id} />
+                <Input type="hidden" name={"id"} value={data?.id}/>
 
                 <div>
                     <Label>نام محصول</Label>
-                    <Input name={"name"} defaultValue={data?.name} />
+                    <Input name={"name"} defaultValue={data?.name}/>
                 </div>
                 <div>
                     <Label>وضعیت محصول</Label>
@@ -68,14 +68,14 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                 </div>
                 <div>
                     <Label>ادرس محصول</Label>
-                    <Input name={"url"} defaultValue={data?.url} />
+                    <Input name={"url"} defaultValue={data?.url}/>
                 </div>
                 <div>
                     <Label>دسته بندی محصول</Label>
                     <Select name={"category_id"}>
                         {
                             categoryLists?.data.map((item) => (<>
-                                <option value={item.id} selected={item.id==data?.category_id}>
+                                <option value={item.id} selected={item.id == data?.category_id}>
                                     {item.name}
                                 </option>
                             </>))
@@ -101,6 +101,10 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                     </Select>
                 </div>
                 <div>
+                    <Label>مدت زمان گارانتی</Label>
+                    <Input name={"guaranty_time"} defaultValue={data?.guaranty_time}/>
+                </div>
+                <div>
                     <Label>برند محصول</Label>
                     <Select name={"brand_id"}>
                         {
@@ -114,7 +118,7 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                 </div>
             </div>
 
-            <hr className={"my-5"} />
+            <hr className={"my-5"}/>
             <div className={"grid grid-cols-1 gap-5"}>
                 <div>
                     <Label>بررسی اجمالی</Label>

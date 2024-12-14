@@ -24,6 +24,7 @@ export const store = async <T extends ServerResponse<unknown>>
         meta_description: string,
         meta_title: string,
         guaranty_id: number|undefined,
+        guaranty_time: number,
         study: string,
         categoryId: string,
     }
@@ -44,6 +45,7 @@ export const update = async <T extends ServerResponse<unknown>>
         meta_description: string,
         meta_title: string,
         guaranty_id: number|undefined,
+        guaranty_time: number,
         study: string,
         categoryId: string,
 

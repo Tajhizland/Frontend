@@ -25,7 +25,8 @@ export default function Page() {
                 meta_title: e.get("meta_title") as string,
                 study: e.get("study") as string,
                 categoryId: e.get("category_id") as string,
-                guaranty_id: Number(e.get("guaranty_id"))
+                guaranty_id: Number(e.get("guaranty_id")),
+                guaranty_time: Number(e.get("guaranty_time")),
             }
         )
         toast.success(response?.message as string)
