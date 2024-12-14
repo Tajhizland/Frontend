@@ -99,7 +99,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
     };
     const renderGuaranty = () => {
         if (product?.guaranty) {
-            return <Link href={"/guaranty/" + product.guaranty.url as Route}><div
+            return <div className="flex gap-x-2 items-center"><Link href={"/guaranty/" + product.guaranty.url as Route}><div
                 className={"w-8"}
             ><NcImage
                     containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
@@ -109,6 +109,21 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                     sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
                     alt="guaranty"
                 /></div></Link>
+                <div className="text-xs">
+                    <span>
+                        {product.guaranty_time}
+                    </span>
+                    {" "}
+
+                    <span>
+                        ماه
+                    </span>
+                    {" "}
+                    <span>
+                        {product.guaranty.name}
+                    </span>
+                </div>
+            </div>
         }
         return null;
     };
