@@ -7,8 +7,11 @@ import ProductCardNew from "@/components/ProductCardNew";
 import { useRouter } from "next/navigation";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import { useInfiniteQuery } from "react-query";
+import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
+import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 
-const PageCollection = ({ response, url }: { response: any, url: string }) => {
+const PageCollection = ({ response, url ,breadcrump }: { response: any, url: string ,breadcrump:BreadcrumbType[]}) => {
     const router = useRouter();
     const [filter, setFilter] = useState<string>("");
     const observer = useRef<IntersectionObserver | null>(null);
@@ -81,14 +84,19 @@ const PageCollection = ({ response, url }: { response: any, url: string }) => {
 
     return (
         <div className={`nc-PageCollection dark:bg-neutral-900`}>
-            <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
+
+            <div className="container py-5 lg:pb-28 lg:pt-14 space-y-16 sm:space-y-20 lg:space-y-28">
+
                 <div className="space-y-10 lg:space-y-14">
+                    <ShopBreadcrump breadcrumb={breadcrump} />
+
                     {/* HEADING */}
                     <div className="max-w-screen-sm">
+
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             {response.category.name}
                         </h2>
-                       
+
                     </div>
 
                     <hr className="border-slate-200 dark:border-slate-700" />

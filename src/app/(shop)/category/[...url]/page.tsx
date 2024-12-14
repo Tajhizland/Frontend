@@ -5,6 +5,8 @@ import MetaTag from "@/components/MetaTag/MetaTag";
 import {Metadata} from "next";
 import {stripHTML} from "@/hooks/StripHtml";
 import Script from "next/script";
+import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 
 interface CategoryPageProps {
     params: {
@@ -65,11 +67,18 @@ const PageCollection = async ({params, searchParams}: CategoryPageProps) => {
             }
         }))
     };
+    const renderBreadcrump=()=>{
+        let breadcrumbs:BreadcrumbType[]=[];
+        response.breadcrumb.data.map((breadcrumb)=>{
+            breadcrumbs.push({title:breadcrumb.name,href:breadcrumb.url});
+        })
+        return breadcrumbs;
+    }
     return (<>
             <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
-            <Listing response={response} url={decodeURIComponent(params.url.join("/"))}/>
+            <Listing response={response} breadcrump={renderBreadcrump()} url={decodeURIComponent(params.url.join("/"))}/>
         </>
     );
 };

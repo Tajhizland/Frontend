@@ -19,8 +19,15 @@ export type CategoryResponse = {
     products?: { data: ProductResponse[] };
 };
 
+export type breadcrumbResponse = {
+    id: number;
+    name: string;
+    url: string;
+};
+
 export type CategoryListing = {
     category: CategoryResponse;
+    breadcrumb: { data:breadcrumbResponse[] };
     products: {
         data: ProductResponse[];
         meta?: {
@@ -32,3 +39,4 @@ export type CategoryListing = {
     };
 
 };
+
