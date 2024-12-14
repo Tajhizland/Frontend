@@ -32,6 +32,9 @@ export default function Page() {
                 <Link href={"/admin/banner/create" as Route}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
+                <Link href={{pathname: "/admin/banner/sort"}}>
+                    <ButtonPrimary> سورت کردن</ButtonPrimary>
+                </Link>
             </PageLink>
             <DataTable
                 onDelete={removeItem}

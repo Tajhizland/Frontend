@@ -58,3 +58,21 @@ export const findById = async <T extends ServerResponse<BannerResponse>>
     return axios.get<T, SuccessResponseType<T>>("admin/banner/find/" + id)
         .then((res) => res?.data?.result?.data)
 };
+
+export const getBannerList = async <T extends ServerResponse<BannerResponse[]>>
+( ) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/banner/list")
+        .then((res) => res?.data?.result)
+};
+export const sortBanner = async <T extends ServerResponse<unknown>>
+(
+    param:{
+        banner: {
+            id: number
+            sort: number
+        }[]
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/banner/sort",param)
+        .then((res) => res?.data)
+};
