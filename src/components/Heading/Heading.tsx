@@ -1,5 +1,7 @@
 import React, { HTMLAttributes, ReactNode } from "react";
 import NextPrev from "@/shared/NextPrev/NextPrev";
+import Link from "next/link";
+import { Route } from "next";
 
 export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   fontClass?: string;
@@ -8,6 +10,7 @@ export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   desc?: ReactNode;
   hasNextPrev?: boolean;
   isCenter?: boolean;
+  href?:string;
 }
 
 const solutions = [
@@ -34,6 +37,7 @@ const Heading: React.FC<HeadingProps> = ({
   fontClass = "text-xl md:text-2xl font-semibold",
   rightDescText,
   rightPopoverOptions = solutions,
+  href ,
   ...args
 }) => {
   return (
@@ -47,6 +51,7 @@ const Heading: React.FC<HeadingProps> = ({
             : ""
         }
       >
+       {href ? <Link href={href as Route} >
         <h2
           className={`${isCenter ? "justify-center" : ""} ${fontClass}`}
           {...args}
@@ -61,6 +66,23 @@ const Heading: React.FC<HeadingProps> = ({
             </>
           )}
         </h2>
+        </Link>
+        :
+        <h2
+        className={`${isCenter ? "justify-center" : ""} ${fontClass}`}
+        {...args}
+      >
+        {children }
+        {rightDescText && (
+          <>
+            <span className="">{`. `}</span>
+            <span className="text-neutral-500 dark:text-neutral-400">
+              {rightDescText}
+            </span>
+          </>
+        )}
+      </h2>
+        }
         {!!desc && (
           <span className="mt-3 md:mt-4 font-normal block text-base sm:text-xl text-neutral-500 dark:text-neutral-400">
             {desc}

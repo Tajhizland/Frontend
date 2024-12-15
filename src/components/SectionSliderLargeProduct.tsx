@@ -71,7 +71,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
   return (
     <div className={`nc-SectionSliderLargeProduct ${className}`}>
       <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
-        <Heading isCenter={false} hasNextPrev>
+        <Heading isCenter={false} href="/special" hasNextPrev>
           محصولات منحصر به فرد
         </Heading>
         <div className="glide__track" data-glide-el="track"  style={{direction:"rtl"}}>
