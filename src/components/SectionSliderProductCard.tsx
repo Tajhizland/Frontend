@@ -83,6 +83,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
           fontClass={headingFontClassName}
           rightDescText={subHeading}
           hasNextPrev
+          href={"/product/discounted"}
         >
           {heading || `New Arrivals`}
         </Heading>

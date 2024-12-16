@@ -111,7 +111,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
     return (
         <div className={`nc-SectionSliderCategories ${className}`}>
             <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
-                <Heading desc={subHeading} hasNextPrev>
+                <Heading desc={subHeading} href="/brand" hasNextPrev>
                     {heading}
                 </Heading>
                 <div className="glide__track" data-glide-el="track" style={{direction: "rtl"}}>
