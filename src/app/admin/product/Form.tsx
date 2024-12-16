@@ -13,6 +13,7 @@ import { ProductResponse } from "@/services/types/product";
 import TinyEditor from "@/shared/Editor/TinyEditor";
 import Uploader from "@/shared/Uploader/Uploader";
 import {guarantyLists} from "@/services/api/admin/guaranty";
+import MultiSelect from "@/shared/Select/MultiSelect";
 
 interface productForm {
     data?: ProductResponse;
@@ -43,7 +44,11 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
         queryFn: () => guarantyLists(),
         staleTime: 5000,
     });
-
+    const options = categoryLists?.data.map((item) => ({
+        value: item.id,
+        label: item.name,
+    }));
+    const defaultValue = options?.filter((option) => data?.category_ids.includes(option.value));
 
     return (<>
 
@@ -72,16 +77,10 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                 </div>
                 <div>
                     <Label>دسته بندی محصول</Label>
-                    <Select name={"category_id"}>
-                        {
-                            categoryLists?.data.map((item) => (<>
-                                <option value={item.id} selected={item.id == data?.category_id}>
-                                    {item.name}
-                                </option>
-                            </>))
-                        }
 
-                    </Select>
+                    {//@ts-nocheck
+                        options &&<MultiSelect name={"category_id"} options={options} defaultValue={defaultValue}/>}
+
                 </div>
                 <div>
                     <Label>گارانتی</Label>

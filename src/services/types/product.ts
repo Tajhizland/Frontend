@@ -18,6 +18,7 @@ export type ProductResponse = {
     brand_id: string;
     brand: string;
     category_id: number;
+    category_ids: number[];
     meta_description: string;
     meta_title: string;
     category: string;
