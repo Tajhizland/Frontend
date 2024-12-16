@@ -4,22 +4,24 @@ import CategoryTab from "@/components/Tabs/CategoryTab";
 ;
 
 import Panel from "@/shared/Panel/Panel";
-import { useParams } from "next/navigation";
-import {useQuery, useQueryClient} from "react-query";
+import { useParams, useRouter } from "next/navigation";
+import { useQuery, useQueryClient } from "react-query";
 import { findByCategoryId, setToCategory } from "@/services/api/admin/option";
 import { useState } from "react";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import OptionForm from "@/app/admin/category/option/[id]/OptionForm";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import Spinner from "@/shared/Loading/Spinner";
+import { Route } from "next";
 
 export default function Page() {
     const [extraOption, setExtraOption] = useState(0);
     const queryClient = useQueryClient();
+    const router = useRouter();
 
     const { id } = useParams();
-    const { data: data  ,isLoading} = useQuery({
+    const { data: data, isLoading } = useQuery({
         queryKey: [`option-info`],
         queryFn: () => findByCategoryId(Number(id)),
         staleTime: 5000,
@@ -40,15 +42,15 @@ export default function Page() {
 
             while (data[`option[${optionIndex}][item][${itemIndex}][title]`]) {
                 items.push({
-                    id: data[`option[${optionIndex}][item][${itemIndex}][id]`] ? parseInt(data[`option[${optionIndex}][item][${itemIndex}][id]`]) : undefined as number|undefined,
+                    id: data[`option[${optionIndex}][item][${itemIndex}][id]`] ? parseInt(data[`option[${optionIndex}][item][${itemIndex}][id]`]) : undefined as number | undefined,
                     title: data[`option[${optionIndex}][item][${itemIndex}][title]`] as string,
-                    status: data[`option[${optionIndex}][item][${itemIndex}][status]`] === "فعال" ? 1 : 0  as number,
+                    status: data[`option[${optionIndex}][item][${itemIndex}][status]`] === "فعال" ? 1 : 0 as number,
                 });
                 itemIndex++;
             }
 
             options.push({
-                id: data[`option[${optionIndex}][id]`] ? parseInt(data[`option[${optionIndex}][id]`]) : undefined as number|undefined,
+                id: data[`option[${optionIndex}][id]`] ? parseInt(data[`option[${optionIndex}][id]`]) : undefined as number | undefined,
                 title: data[`option[${optionIndex}][title]`] as string,
                 status: data[`option[${optionIndex}][item][0][status]`] === "فعال" ? 1 : 0 as number,
                 item: items,
@@ -58,7 +60,7 @@ export default function Page() {
         }
 
         return {
-            category_id: Number(id) ,
+            category_id: Number(id),
             option: options
         };
     };
@@ -71,10 +73,11 @@ export default function Page() {
         });
 
         const formattedData = convertData(formDataObject);
-       let response=await setToCategory(formattedData)
+        let response = await setToCategory(formattedData)
         if (response?.success) {
             queryClient.refetchQueries(['option-info']);
-            toast.success(response.message as string)
+            toast.success(response.message as string);
+            router.push(("/admin/category/option/"+id) as Route)
         }
     }
     return (<>
