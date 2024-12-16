@@ -77,7 +77,7 @@ export default function Page() {
         if (response?.success) {
             queryClient.refetchQueries(['option-info']);
             toast.success(response.message as string);
-            router.push(("/admin/category/option/"+id) as Route)
+            window.location.reload()
         }
     }
     return (<>
