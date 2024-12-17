@@ -72,6 +72,7 @@ export default function Page() {
         if (response?.success) {
             queryClient.refetchQueries(['filter-info']);
             toast.success(response.message as string)
+            window.location.reload();
         }
 
     }

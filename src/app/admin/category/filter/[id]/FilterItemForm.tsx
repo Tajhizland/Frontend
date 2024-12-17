@@ -17,12 +17,13 @@ export default function FilterItemForm({ filterIndex, itemIndex, itemId, status,
         </div>
         <div>
             <Select name={`filter[${filterIndex}][item][${itemIndex}][status]`}  >
-                <option selected={status == 0}>
-                    غیر‌فعال
-                </option>
                 <option selected={status == 1}>
                     فعال
                 </option>
+                <option selected={status == 0}>
+                    غیر‌فعال
+                </option>
+
             </Select>
         </div>
     </>)

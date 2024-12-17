@@ -23,13 +23,14 @@ export default function FilterForm({ filter, index }: { filter?: FilterResponse,
                 </div>
                 <div>
                     <Label>وضعیت فیلتر</Label>
-                     <Select name={`filter[${index}][status]`}   >
+                    <Select name={`filter[${index}][status]`}   >
+                        <option selected={filter?.status == 1} value={1}>
+                            فعال
+                        </option>
                         <option selected={filter?.status == 0} value={0}>
                             غیر‌فعال
                         </option>
-                        <option selected={filter?.status== 1} value={1}>
-                            فعال
-                        </option>
+
                     </Select>
                 </div>
             </div>
