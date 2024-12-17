@@ -34,7 +34,7 @@ export default function Page() {
                 name: e.get("name") as string,
                 url: e.get("url") as string,
                 status: Number(e.get("status")) ,
-                brand_id: "1" as string,
+                brand_id: Number(e.get("brand_id"))  ,
                 description: e.get("description") as string,
                 meta_description: e.get("meta_description") as string,
                 meta_title: e.get("meta_title") as string,

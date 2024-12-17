@@ -108,7 +108,7 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                     <Select name={"brand_id"}>
                         {
                             brandLists?.data.map((item) => (<>
-                                <option value={item.id}>
+                                <option value={item.id} selected={item.id==data?.brand_id}>
                                     {item.name}
                                 </option>
                             </>))
