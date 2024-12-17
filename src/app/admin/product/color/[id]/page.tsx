@@ -10,11 +10,12 @@ import Panel from "@/shared/Panel/Panel";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 export default function Page() {
     const [extraColor, setExtraColor] = useState(0);
     const { id } = useParams();
+    const queryClient = useQueryClient();
 
     const { data: data, isLoading: isLoading } = useQuery({
         queryKey: [`color-info`],
@@ -48,6 +49,8 @@ export default function Page() {
             color: colors
         }) 
         toast.success(response.message as string)
+        setExtraColor(0);
+        queryClient.invalidateQueries(['color-info']);
 
     }
     return (<>
