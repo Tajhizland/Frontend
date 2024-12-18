@@ -87,6 +87,13 @@ export const findById = async <T extends ServerResponse<MenuResponse>>
     return axios.get<T, SuccessResponseType<T>>("admin/menu/find/" + id)
         .then((res) => res?.data?.result?.data)
 };
+export const deleteBanner = async <T extends ServerResponse<unknown>>
+(
+    id: number | string
+) => {
+    return axios.delete<T, SuccessResponseType<T>>("admin/menu/banner/delete/" + id)
+        .then((res) => res?.data)
+};
 
 export const menuList = async <T extends ServerResponse<MenuResponse[]>>
 ( ) => {

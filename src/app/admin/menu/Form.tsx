@@ -11,7 +11,11 @@ import TinyEditor from "@/shared/Editor/TinyEditor";
 import {MenuResponse} from "@/services/types/menu";
 import {useQuery} from "react-query";
 import {findById} from "@/services/api/admin/faq";
-import {menuList} from "@/services/api/admin/menu";
+import {deleteBanner, menuList} from "@/services/api/admin/menu";
+import Image from "next/image";
+import MenuCard from "@/components/MenuCard/MenuCard";
+import {TrashIcon} from "@heroicons/react/24/solid";
+import {toast} from "react-hot-toast";
 
 interface Form {
     data?: MenuResponse;
@@ -25,6 +29,15 @@ export default function Form({data, submit}: Form) {
         queryFn: () => menuList(),
         staleTime: 5000,
     });
+    const deleteBannerHandle = async () => {
+        if (data?.id) {
+            let response = await deleteBanner(data.id)
+            if (response?.success) {
+                toast.success(response?.message as string);
+                window.location.reload()
+            }
+        }
+    }
     return (<>
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
@@ -54,9 +67,10 @@ export default function Form({data, submit}: Form) {
                             بدون والد
                         </option>
                         {
-                            list && list.map((item , index)=> (<option key={index} value={item.id} selected={data?.parent_id == item.id}>
-                                {item.title}
-                            </option>))
+                            list && list.map((item, index) => (
+                                <option key={index} value={item.id} selected={data?.parent_id == item.id}>
+                                    {item.title}
+                                </option>))
                         }
                     </Select>
                 </div>
@@ -71,6 +85,16 @@ export default function Form({data, submit}: Form) {
                 <div>
                     <Label>تصویر بنر</Label>
                     <Uploader name={"banner_logo"}/>
+                </div>
+                <div className={'flex items-center'}>
+                    {data?.banner_logo && <div className="w-[30%] xl:w-[35%] flex items-center justify-center flex-col">
+                        <MenuCard color="bg-orange-100" featuredImage={data.banner_logo}
+                                  name={data.banner_title as string} url={data.banner_link}/>
+                        <span>
+                                    <TrashIcon className={"w-8 h-8 text-red-500"}
+                                               onClick={() => deleteBannerHandle()}/>
+                                </span>
+                    </div>}
                 </div>
             </div>
 

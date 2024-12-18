@@ -1,6 +1,7 @@
 import Axios, {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 import toast from "react-hot-toast";
 import {getCookie} from "cookies-next";
+import {notFound, redirect} from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
@@ -27,30 +28,27 @@ export type ServerResponse<T = unknown> =
 export type FailedResponseType<T> = AxiosError<Extract<T, { success: false }>>;
 export type SuccessResponseType<T> = AxiosResponse<Extract<T, { success: true }>>;
 
-const errorHandler = (error: FailedResponseType<ServerResponse>) => {
-    try {
-        switch (error.code) {
-            case "ERR_CANCELED":
-                break;
-            case "ERR_BAD_REQUEST":
-                if (error.response?.status === 401) {
-                    toast.error("خطای دسترسی: دوباره وارد شوید");
-                    // اگر نیاز است، می‌توانید کاربر را به صفحه ورود هدایت کنید
-                    // window.location.href = '/login';
-                }
-                throw error;
-            case "ERR_BAD_RESPONSE":
-                throw error;
-            default:
-                throw error;
-        }
-    } catch (caughtError) {
-        if (caughtError instanceof AxiosError) {
-            const message = caughtError.response?.data?.message || "خطای ناشناخته";
-            // console.log(message);
-            toast.error(message, {position: "top-left"});
-        }
+
+const errorHandler = (error: AxiosError) => {
+    if (error.response?.status === 404) {
+        notFound(); // اجرای صفحه not-found.tsx
     }
+    // مدیریت خطای 500
+    if (error.response?.status === 500) {
+        throw new Error("500"); //   خطا برای رندر صفحه خطای 500
+    }
+
+    if (error.response?.status === 301) {
+        //@ts-ignore
+        const redirectUrl = encodeURI(error.response?.data?.result?.destination || "/");
+        return redirect(redirectUrl);
+    }
+
+    // مدیریت سایر خطاها
+    if (error.response?.status === 401) {
+        toast.error("خطای دسترسی: دوباره وارد شوید");
+    }
+    throw error;
 };
 
 const axios: AxiosInstance = Axios.create({

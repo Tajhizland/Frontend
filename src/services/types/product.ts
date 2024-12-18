@@ -3,6 +3,7 @@ import { CommentResponse } from "./comment";
 import { ProductOptionResponse } from "@/services/types/productOption";
 import { ProductImageResponse } from "@/services/types/productImage";
 import {GuarantyResponse} from "@/services/types/guaranty";
+import {BrandResponse} from "@/services/types/brand";
 
 export type ProductPageResponse = {
     product:ProductResponse;
@@ -16,7 +17,7 @@ export type ProductResponse = {
     view: number;
     description: string;
     brand_id: number;
-    brand: string;
+    brand: BrandResponse;
     category_id: number;
     category_ids: number[];
     meta_description: string;
