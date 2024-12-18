@@ -31,7 +31,7 @@ export const columns: Column<ProductResponse>[] = [
 
     },
     {key: 'category', header: 'دسته محصول', filterType: 'input', editable: true},
-    {key: 'brand', header: 'برند محصول', filterType: 'input', editable: true},
+    {key: 'brand_name', header: 'برند محصول', filterType: 'input', editable: true},
     {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
 
 

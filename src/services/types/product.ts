@@ -17,6 +17,7 @@ export type ProductResponse = {
     view: number;
     description: string;
     brand_id: number;
+    brand_name: string;
     brand: BrandResponse;
     category_id: number;
     category_ids: number[];
