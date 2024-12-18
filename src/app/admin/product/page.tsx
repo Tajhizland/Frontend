@@ -42,7 +42,7 @@ export default function Page() {
                 guaranty_id: e.guaranty_id,
                 study: e.study,
                 guaranty_time:e.guaranty_time,
-                categoryId: e.category_id + "" as string,
+                categoryId: e.category_ids + "" as string,
             }
         )
         toast.success(response?.message as string)
