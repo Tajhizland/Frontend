@@ -7,25 +7,25 @@ import {
     Transition,
 } from "@/app/(shop)/headlessui";
 import Prices from "@/components/Prices";
-import {Product, PRODUCTS} from "@/data/data";
-import {getCart, removeCartItem} from "@/services/api/shop/cart";
+import { Product, PRODUCTS } from "@/data/data";
+import { getCart, removeCartItem } from "@/services/api/shop/cart";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";
 import Link from "next/link";
-import {useQuery} from "react-query";
-import {CartResponse} from "@/services/types/cart";
-import {reduxRemoveFromCart, setCart, useCart, useGlobalState, useUser} from "@/services/globalState/GlobalState";
-import {toast} from "react-hot-toast";
-import {useEffect} from "react";
-import {Route} from "next";
+import { useQuery } from "react-query";
+import { CartResponse } from "@/services/types/cart";
+import { reduxRemoveFromCart, setCart, useCart, useGlobalState, useUser } from "@/services/globalState/GlobalState";
+import { toast } from "react-hot-toast";
+import { useEffect } from "react";
+import { Route } from "next";
 
 export default function CartDropdown() {
 
     const [cart] = useCart();
     const [user] = useUser();
 
-    const {data, isSuccess} = useQuery({
+    const { data, isSuccess } = useQuery({
         queryKey: ['cart'],
         queryFn: () => getCart(),
         staleTime: 5000,
@@ -37,15 +37,15 @@ export default function CartDropdown() {
 
 
     async function removeFromCart(id: number, guarantyId: number | undefined) {
-        let response = await removeCartItem({productColorId: id, guaranty_id: guarantyId});
+        let response = await removeCartItem({ productColorId: id, guaranty_id: guarantyId });
         reduxRemoveFromCart(id, guarantyId);
         toast.success(response.message as string)
     }
 
     const renderProduct = (item: CartResponse, index: number, close: () => void) => {
-        const {product, count, color} = item;
-        const {name, url, image} = product;
-        const {title, code, price, id} = color;
+        const { product, count, color } = item;
+        const { name, url, image } = product;
+        const { title, code, price, id } = color;
         return (
             <div key={index} className="flex py-5 last:pb-0">
                 <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -66,7 +66,7 @@ export default function CartDropdown() {
                     <div>
                         <div className="flex justify-between ">
                             <div>
-                                <h3 className="text-base font-medium ">
+                                <h3 className="text-sm font-medium ">
                                     <Link onClick={close} href={"/product/" + item.product.url as Route}>
                                         {name}
                                     </Link>
@@ -74,8 +74,11 @@ export default function CartDropdown() {
                                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                                     <span>{title}</span>
                                 </p>
+                                <span className="text-sm text-slate-500 dark:text-slate-400">
+                                    {item.guaranty.name}
+                                </span>
                             </div>
-                            <Prices price={price} className="mt-0.5"/>
+                            <Prices price={price} className="mt-0.5" />
                         </div>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-sm">
@@ -93,6 +96,7 @@ export default function CartDropdown() {
                             </button>
                         </div>
                     </div>
+
                 </div>
             </div>
         );
@@ -107,7 +111,7 @@ export default function CartDropdown() {
     }
     return (
         <Popover className="relative z-50 hidden lg:block">
-            {({open, close}) => (
+            {({ open, close }) => (
                 <>
                     <PopoverButton
                         className={`
@@ -116,9 +120,9 @@ export default function CartDropdown() {
                     >
                         <div
                             className="w-3.5 h-3.5 flex items-center justify-center bg-primary-500 absolute top-1.5 right-1.5 rounded-full text-[10px] leading-none text-white font-medium">
-              <span className="mt-[1px]">
-                {cart?.length ?? 0}
-              </span>
+                            <span className="mt-[1px]">
+                                {cart?.length ?? 0}
+                            </span>
                         </div>
                         <svg
                             className="w-6 h-6"
@@ -160,7 +164,7 @@ export default function CartDropdown() {
                             />
                         </svg>
 
-                        <Link className="block md:hidden absolute inset-0" href={"/cart"}/>
+                        <Link className="block md:hidden absolute inset-0" href={"/cart"} />
                     </PopoverButton>
                     <Transition
                         enter="transition ease-out duration-200"
@@ -171,7 +175,7 @@ export default function CartDropdown() {
                         leaveTo="opacity-0 translate-y-1"
                     >
                         <PopoverPanel
-                            className="hidden md:block absolute z-10 w-screen max-w-xs sm:max-w-md px-4 mt-3.5 -left-28 sm:left-0 sm:px-0">
+                            className="hidden md:block absolute z-10 w-screen max-w-sm sm:max-w-lg px-4 mt-3.5 -left-28 sm:left-0 sm:px-0">
                             <div
                                 className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/10">
                                 <div className="relative bg-white dark:bg-neutral-800">
@@ -188,7 +192,7 @@ export default function CartDropdown() {
                                     <div className="bg-neutral-50 dark:bg-slate-900 p-5">
                                         <p className="flex justify-between font-semibold text-slate-900 dark:text-slate-100">
                                             <span>قیمت کل</span>
-                                            <span className="">{renderSumPrice()} تومان </span>
+                                            <span className={`text-slate-900 !leading-none `}>{new Intl.NumberFormat('en-US').format(renderSumPrice())} تومان </span>
                                         </p>
                                         <div className="flex gap-x-2 mt-5">
                                             <ButtonSecondary
