@@ -63,7 +63,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
     ];
 
     const renderCategoryDefaultValue=()=>{
-      return   guarantyOptions?.filter((option) => data?.category_ids.includes(option.value))
+      return   options?.filter((option) => data?.category_ids.includes(option.value))
     }
     const renderGuarantyDefaultValue=()=>{
       return   guarantyOptions?.filter((option) => data?.guaranty_ids.includes(option.value))
