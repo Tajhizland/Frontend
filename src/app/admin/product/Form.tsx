@@ -93,13 +93,13 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                 <div>
                     <Label>دسته بندی محصول</Label>
 
-                    {options &&
+                    {options && defaultValue &&
                         <MultiSelect name={"category_id"} options={options} defaultValue={defaultValue}/>}
 
                 </div>
                 <div>
                     <Label>گارانتی</Label>
-                    {guarantyOptions &&
+                    {guarantyOptions && guarantyDefaultValue &&
                         <MultiSelect name={"guaranty_id"} options={guarantyOptions} defaultValue={guarantyDefaultValue}/>}
 
                 </div>
