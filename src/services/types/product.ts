@@ -25,6 +25,7 @@ export type ProductResponse = {
     meta_title: string;
     category: string;
     guaranty_id: number;
+    guaranty_ids: number[];
     guaranty_time: number;
     guaranty: GuarantyResponse;
     min_price: number;

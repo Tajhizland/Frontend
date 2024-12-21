@@ -4,12 +4,12 @@ import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Textarea from "@/shared/Textarea/Textarea";
-import React, { useState } from "react";
-import { categoryList } from "@/services/api/admin/category"
-import { useQuery } from "react-query";
-import { brandList } from "@/services/api/admin/brand";
+import React, {useState} from "react";
+import {categoryList} from "@/services/api/admin/category"
+import {useQuery} from "react-query";
+import {brandList} from "@/services/api/admin/brand";
 import FormComponent from "@/components/Form/Product/ColorForm";
-import { ProductResponse } from "@/services/types/product";
+import {ProductResponse} from "@/services/types/product";
 import TinyEditor from "@/shared/Editor/TinyEditor";
 import Uploader from "@/shared/Uploader/Uploader";
 import {guarantyLists} from "@/services/api/admin/guaranty";
@@ -22,24 +22,29 @@ interface productForm {
     colorCount: number
 }
 
-export default function Form({ data, submit, setColorCount, colorCount }: productForm) {
+type optionType = {
+    value: number | undefined;
+    label: string;
+};
+export default function Form({data, submit, setColorCount, colorCount}: productForm) {
+
 
     const handleAddForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setColorCount(colorCount + 1);
     };
-    const { data: categoryLists } = useQuery({
+    const {data: categoryLists} = useQuery({
         queryKey: [`category-list`],
         queryFn: () => categoryList(),
         staleTime: 5000,
     });
-    const { data: brandLists } = useQuery({
+    const {data: brandLists} = useQuery({
         queryKey: [`brand-list`],
         queryFn: () => brandList(),
         staleTime: 5000,
 
     });
-    const { data: guarantyList } = useQuery({
+    const {data: guarantyList} = useQuery({
         queryKey: [`guaranty-list`],
         queryFn: () => guarantyLists(),
         staleTime: 5000,
@@ -48,8 +53,20 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
         value: item.id,
         label: item.name,
     }));
-    const defaultValue = options?.filter((option) => data?.category_ids.includes(option.value));
 
+
+    const guarantyOptions: optionType[] = [
+        {value: undefined, label: "بدون گارانتی"},
+        ...(guarantyList?.map((item) => ({
+            value: item.id,
+            label: item.name,
+        })) || []),
+    ];
+
+    const defaultValue = options?.filter((option) => data?.category_ids.includes(option.value));
+    const guarantyDefaultValue = guarantyOptions?.filter(
+        (option) => option.value !== undefined && data?.guaranty_ids.includes(option.value)
+    );
     return (<>
 
         <form action={submit}>
@@ -78,26 +95,15 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                 <div>
                     <Label>دسته بندی محصول</Label>
 
-                    {//@ts-nocheck
-                        options &&<MultiSelect name={"category_id"} options={options} defaultValue={defaultValue}/>}
+                    {options &&
+                        <MultiSelect name={"category_id"} options={options} defaultValue={defaultValue}/>}
 
                 </div>
                 <div>
                     <Label>گارانتی</Label>
+                    {guarantyOptions &&
+                        <MultiSelect name={"guaranty_id"} options={options} defaultValue={guarantyDefaultValue}/>}
 
-                    <Select name={"guaranty_id"}>
-                        <option value={undefined} selected={data?.guaranty_id == null}>
-                            بدون گارانتی
-                        </option>
-                        {
-                            guarantyList?.map((item) => (<>
-                                <option value={item.id} selected={item.id == data?.guaranty_id}>
-                                    {item.name}
-                                </option>
-                            </>))
-                        }
-
-                    </Select>
                 </div>
                 <div>
                     <Label>مدت زمان گارانتی</Label>
@@ -106,9 +112,12 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
                 <div>
                     <Label>برند محصول</Label>
                     <Select name={"brand_id"}>
+                        <option value={undefined} selected={data?.guaranty_id == null}>
+                            بدون برند
+                        </option>
                         {
                             brandLists?.data.map((item) => (<>
-                                <option value={item.id} selected={item.id==data?.brand_id}>
+                                <option value={item.id} selected={item.id == data?.brand_id}>
                                     {item.name}
                                 </option>
                             </>))
@@ -121,25 +130,25 @@ export default function Form({ data, submit, setColorCount, colorCount }: produc
             <div className={"grid grid-cols-1 gap-5"}>
                 <div>
                     <Label>بررسی اجمالی</Label>
-                    <TinyEditor name={"study"} value={data?.study} />
+                    <TinyEditor name={"study"} value={data?.study}/>
 
                 </div>
                 <div>
                     <Label>توضیحات محصول</Label>
-                    <TinyEditor name={"description"} value={data?.description} />
+                    <TinyEditor name={"description"} value={data?.description}/>
                 </div>
                 <div>
                     <Label>عنوان سئو</Label>
-                    <Textarea name={"seo_title"} defaultValue={data?.meta_title} />
+                    <Textarea name={"seo_title"} defaultValue={data?.meta_title}/>
                 </div>
                 <div>
                     <Label>توضیحات سئو</Label>
-                    <Textarea name={"description"} >{data?.meta_description}</Textarea>
+                    <Textarea name={"description"}>{data?.meta_description}</Textarea>
 
                 </div>
 
             </div>
-            <hr className={"my-5"} />
+            <hr className={"my-5"}/>
 
             <div className={"flex justify-center my-5"}>
                 <ButtonPrimary type={"submit"}>
