@@ -23,7 +23,7 @@ interface productForm {
 }
 
 type optionType = {
-    value: number | undefined;
+    value: number ;
     label: string;
 };
 export default function Form({data, submit, setColorCount, colorCount}: productForm) {
@@ -56,7 +56,6 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
 
 
     const guarantyOptions: optionType[] = [
-        {value: undefined, label: "بدون گارانتی"},
         ...(guarantyList?.map((item) => ({
             value: item.id,
             label: item.name,
@@ -64,9 +63,8 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
     ];
 
     const defaultValue = options?.filter((option) => data?.category_ids.includes(option.value));
-    const guarantyDefaultValue = guarantyOptions?.filter(
-        (option) => option.value !== undefined && data?.guaranty_ids.includes(option.value)
-    );
+    const guarantyDefaultValue = guarantyOptions?.filter((option) => data?.category_ids.includes(option.value));
+
     return (<>
 
         <form action={submit}>
