@@ -22,7 +22,7 @@ export const store = async <T extends ServerResponse<unknown>>
     const formData = new FormData();
     formData.append('name', params.name);
     formData.append('free', params.free.toString());
-    formData.append('name', params.url);
+    formData.append('url', params.url);
     formData.append('status', params.status.toString());
     formData.append('description', params.description);
     if (params.icon) {

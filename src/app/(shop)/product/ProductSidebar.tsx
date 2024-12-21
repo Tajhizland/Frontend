@@ -25,10 +25,13 @@ import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
 import {Route} from "next";
 import Policy from "../product-detail/Policy";
+import {GuarantyResponse} from "@/services/types/guaranty";
 
 export default function ProductSidebar({product}: { product: ProductResponse }) {
     const colors = product.colors.data;
+    const guaranty = product.guaranties.data;
     const [selectedColor, setSelectedColor] = useState<ColorResponse>(colors[0])
+    const [selectedGuaranty, setSelectedGuaranty] = useState<GuarantyResponse>(guaranty[0]??null)
     const [selectedCount, setSelectedCount] = useState<number>(0)
     const [cart, setCart] = useGlobalState('cart');
     const queryClient = useQueryClient(); // درست است
@@ -98,33 +101,25 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
         );
     };
     const renderGuaranty = () => {
-        if (product?.guaranty) {
-            return <div className="flex gap-x-2 items-center"><Link href={"/guaranty/" + product.guaranty.url as Route}>
-                <div
-                    className={"w-8"}
-                ><NcImage
-                    containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
-                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${product?.guaranty?.icon}`}
-                    className="object-cover w-full h-full drop-shadow-xl"
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                    alt="guaranty"
-                /></div>
-            </Link>
-                <div className="text-xs">
-                    <span>
-                        {product.guaranty_time}
-                    </span>
-                    {" "}
-
-                    <span>
-                        ماه
-                    </span>
-                    {" "}
-                    <span>
-                        {product.guaranty.name}
-                    </span>
-                </div>
+        if (product?.guaranties) {
+            return <div className={"flex items-center gap-2"}>
+                {product?.guaranties.data.map((item, index) => (
+                    <div onClick={()=>{setSelectedGuaranty(item)}}
+                        key={index} className={`flex gap-1 items-center flex-col justify-center rounded border p-2 cursor-pointer hover:bg-slate-50 dark:hover:bg-black/20 ${selectedGuaranty==item?"border-[#fcb415]":""}`}>
+                        <div
+                            className={"w-8"}
+                        ><NcImage
+                            containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${item?.icon}`}
+                            className="object-cover w-full h-full drop-shadow-xl"
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                            alt="guaranty"
+                        /></div>
+                        <small className={"text-xs text-slate-600 dark:text-white"}>
+                            {item.name}
+                        </small>
+                    </div>))}
             </div>
         }
         return null;
@@ -159,18 +154,19 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
     };
 
     const checkColorInCart = () => {
-        const item = cart && cart.find(item => item.color.id === selectedColor.id);
+        const item = cart && cart.find(item => item.color.id === selectedColor.id && item.guaranty.id==selectedGuaranty.id);
         return item ? item.count : 0;
     };
+    console.log("checkColorInCart",checkColorInCart())
 
     async function addToCartHandle() {
         if (!user) {
             toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
             return;
         }
-        let response = await addToCart({productColorId: selectedColor.id, count: selectedCount});
+        let response = await addToCart({productColorId: selectedColor.id, count: selectedCount ,guaranty_id:selectedGuaranty?.id??undefined});
         if (response.success) {
-            reduxAddToCart(product, selectedCount, selectedColor);
+            reduxAddToCart(product, selectedCount, selectedColor ,selectedGuaranty);
             notifyAddTocart();
         }
     }
@@ -181,9 +177,9 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await increaseCartItem({productColorId: selectedColor.id});
+            let response = await increaseCartItem({productColorId: selectedColor.id , guaranty_id:selectedGuaranty.id??undefined});
             if (response.success) {
-                reduxIncrementQuantity(selectedColor.id)
+                reduxIncrementQuantity(selectedColor.id ,selectedGuaranty?.id)
             }
         }
     }
@@ -194,9 +190,9 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await decreaseCartItem({productColorId: selectedColor.id});
+            let response = await decreaseCartItem({productColorId: selectedColor.id, guaranty_id:selectedGuaranty.id??undefined});
             if (response.success) {
-                reduxDecrementQuantity(selectedColor.id)
+                reduxDecrementQuantity(selectedColor.id ,selectedGuaranty?.id)
             }
 
         }
@@ -208,9 +204,9 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await removeCartItem({productColorId: selectedColor.id});
+            let response = await removeCartItem({productColorId: selectedColor.id, guaranty_id:selectedGuaranty.id??undefined});
             if (response.success) {
-                reduxRemoveFromCart(selectedColor.id)
+                reduxRemoveFromCart(selectedColor.id ,selectedGuaranty?.id)
             }
         }
     }
@@ -291,6 +287,8 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                         <div className="">{renderVariants()}</div>
                         <div className="flex justify-between items-center">
                             {renderGuaranty()}
+                        </div>
+                        <div className="flex justify-between items-center">
                             {renderDelay()}
                         </div>
                         <div className="flex  items-center max-h-24">

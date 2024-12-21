@@ -42,6 +42,9 @@ export type ProductResponse = {
     usage_video: string;
     created_at: string;
     updated_at: string;
+    guaranties: {
+        data: GuarantyResponse[]
+    };
     colors: {
         data: ColorResponse[]
     };

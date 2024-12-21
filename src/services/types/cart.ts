@@ -17,6 +17,11 @@ export type CartResponse = {
         price:number ,
         discount:number ,
         discountedPrice:number ,
+    },
+    guaranty:{
+        id:number|null,
+        name:string|null,
+        free:number|null
     }
 
 };

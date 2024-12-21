@@ -29,7 +29,10 @@ export default  function Page()
 
             }
         )
-        toast.success(response?.message as string)
+        if(response?.success) {
+
+            toast.success(response?.message as string)
+    }
     }
 
     return(<>

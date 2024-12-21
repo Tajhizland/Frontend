@@ -18,7 +18,7 @@ import {CartResponse} from "@/services/types/cart";
 import {reduxRemoveFromCart, setCart, useCart, useGlobalState, useUser} from "@/services/globalState/GlobalState";
 import {toast} from "react-hot-toast";
 import {useEffect} from "react";
-import { Route } from "next";
+import {Route} from "next";
 
 export default function CartDropdown() {
 
@@ -29,23 +29,23 @@ export default function CartDropdown() {
         queryKey: ['cart'],
         queryFn: () => getCart(),
         staleTime: 5000,
-        enabled:!!user ,
+        enabled: !!user,
         onSuccess: (cartData) => {
             setCart(cartData);
         }
     });
 
 
-    async function removeFromCart(id: number) {
-         let response =await removeCartItem({productColorId: id});
-         reduxRemoveFromCart(id);
+    async function removeFromCart(id: number, guarantyId: number | undefined) {
+        let response = await removeCartItem({productColorId: id, guaranty_id: guarantyId});
+        reduxRemoveFromCart(id, guarantyId);
         toast.success(response.message as string)
     }
 
     const renderProduct = (item: CartResponse, index: number, close: () => void) => {
         const {product, count, color} = item;
         const {name, url, image} = product;
-        const {title, code, price,id} = color;
+        const {title, code, price, id} = color;
         return (
             <div key={index} className="flex py-5 last:pb-0">
                 <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -58,7 +58,7 @@ export default function CartDropdown() {
                     <Link
                         onClick={close}
                         className="absolute inset-0"
-                        href={"/product/"+item.product.url as Route}
+                        href={"/product/" + item.product.url as Route}
                     />
                 </div>
 
@@ -67,7 +67,7 @@ export default function CartDropdown() {
                         <div className="flex justify-between ">
                             <div>
                                 <h3 className="text-base font-medium ">
-                                    <Link onClick={close}  href={"/product/"+item.product.url as Route}>
+                                    <Link onClick={close} href={"/product/" + item.product.url as Route}>
                                         {name}
                                     </Link>
                                 </h3>
@@ -85,7 +85,9 @@ export default function CartDropdown() {
                             <button
                                 type="button"
                                 className="font-medium text-primary-6000 dark:text-primary-500 "
-                                 onClick={()=>{removeFromCart(id as number)}}
+                                onClick={() => {
+                                    removeFromCart(id as number, item.guaranty.id as number)
+                                }}
                             >
                                 حذف
                             </button>

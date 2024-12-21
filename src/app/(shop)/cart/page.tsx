@@ -34,25 +34,25 @@ const CartPage = () => {
     });
 
 
-    async function increaseHandle(selectedColorId: number) {
-        let response = await increaseCartItem({productColorId: selectedColorId});
+    async function increaseHandle(selectedColorId: number, guarantyId: number | undefined) {
+        let response = await increaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
         if (response.success) {
-            reduxIncrementQuantity(selectedColorId)
+            reduxIncrementQuantity(selectedColorId, guarantyId)
         }
     }
 
-    async function decreaseHandle(selectedColorId: number) {
-        let response = await decreaseCartItem({productColorId: selectedColorId});
+    async function decreaseHandle(selectedColorId: number, guarantyId: number | undefined) {
+        let response = await decreaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
         if (response.success) {
-            reduxDecrementQuantity(selectedColorId)
+            reduxDecrementQuantity(selectedColorId, guarantyId)
         }
 
     }
 
-    async function removeHandle(selectedColorId: number) {
-        let response = await removeCartItem({productColorId: selectedColorId});
+    async function removeHandle(selectedColorId: number, guarantyId: number | undefined) {
+        let response = await removeCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
         if (response.success) {
-            reduxRemoveFromCart(selectedColorId)
+            reduxRemoveFromCart(selectedColorId, guarantyId)
         }
     }
 
@@ -162,13 +162,13 @@ const CartPage = () => {
                                     <NcInputNumber className="relative z-10"
                                                    defaultValue={item.count}
                                                    increaseHandle={() => {
-                                                       increaseHandle(item.color.id as number)
+                                                       increaseHandle(item.color.id as number, item.guaranty.id as number)
                                                    }}
                                                    decreaseHandel={() => {
-                                                       decreaseHandle(item.color.id as number)
+                                                       decreaseHandle(item.color.id as number, item.guaranty.id as number)
                                                    }}
                                                    removeHandle={() => {
-                                                       removeHandle(item.color.id as number)
+                                                       removeHandle(item.color.id as number, item.guaranty.id as number)
                                                    }}
 
                                     />

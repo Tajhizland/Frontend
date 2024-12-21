@@ -22,9 +22,10 @@ export default function Page()
                 description: e.get("description") as string,
             }
         )
-        toast.success(response?.message as string)
-                router.push("/admin/guaranty");
-
+        if(response?.success) {
+            toast.success(response?.message as string)
+            router.push("/admin/guaranty");
+        }
     }
 
     return(<>
