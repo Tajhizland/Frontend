@@ -21,6 +21,7 @@ export default  function Page()
             {
                 id:Number(id),
                 name: e.get("name") as string,
+                free: Number(e.get("free")) ,
                 url: e.get("url") as string,
                 status: e.get("status") as string,
                 description: e.get("description") as string,

@@ -18,6 +18,7 @@ export default function Page() {
             {
                 id: e.id,
                 name: e.name,
+                free:e.free,
                 url: e.url,
                 status: e.status,
                 description: e.description,

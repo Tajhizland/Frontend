@@ -28,6 +28,17 @@ export default function Form({ data, submit  }: Form) {
                     <Label>آدرس</Label>
                     <Input name={"url"} defaultValue={data?.url}/>
                 </div>
+                <div>
+                    <Label>رایگان</Label>
+                    <Select name={"free"}>
+                        <option value={1} selected={data?.status == 1}>
+                           بله
+                        </option>
+                        <option value={0} selected={data?.status == 0}>
+                            خیر
+                        </option>
+                    </Select>
+                </div>
 
                 <div>
                     <Label>وضعیت  </Label>
