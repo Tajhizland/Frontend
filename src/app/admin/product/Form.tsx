@@ -127,12 +127,8 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             </div>
 
             <hr className={"my-5"}/>
-            <div className={"grid grid-cols-1 gap-5"}>
-                <div>
-                    <Label>بررسی اجمالی</Label>
-                    <TinyEditor name={"study"} value={data?.study}/>
+            <div className={"grid grid-cols-1 gap-5 z-0 relative"}>
 
-                </div>
                 <div>
                     <Label>توضیحات محصول</Label>
                     <TinyEditor name={"description"} value={data?.description}/>
