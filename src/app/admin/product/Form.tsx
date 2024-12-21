@@ -62,6 +62,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
         })) || []),
     ];
 
+
     const renderCategoryDefaultValue=()=>{
       return   options?.filter((option) => data?.category_ids.includes(option.value))
     }
@@ -70,8 +71,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
     }
     const categoryDefaultValue = useMemo(() => renderCategoryDefaultValue(), [options]);
     const guarantyDefaultValue = useMemo(() => renderGuarantyDefaultValue(), [guarantyOptions]);
-
-    return (<>
+     return (<>
 
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
@@ -105,7 +105,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                 </div>
                 <div>
                     <Label>گارانتی</Label>
-                    {guarantyOptions && guarantyDefaultValue &&
+                    {guarantyOptions && guarantyDefaultValue != undefined &&
                         <MultiSelect name={"guaranty_id"} options={guarantyOptions} defaultValue={guarantyDefaultValue}/>}
 
                 </div>
