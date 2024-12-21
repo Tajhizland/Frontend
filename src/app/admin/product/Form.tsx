@@ -4,7 +4,7 @@ import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Textarea from "@/shared/Textarea/Textarea";
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {categoryList} from "@/services/api/admin/category"
 import {useQuery} from "react-query";
 import {brandList} from "@/services/api/admin/brand";
@@ -62,8 +62,14 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
         })) || []),
     ];
 
-    const defaultValue = options?.filter((option) => data?.category_ids.includes(option.value));
-    const guarantyDefaultValue = guarantyOptions?.filter((option) => data?.category_ids.includes(option.value));
+    const renderCategoryDefaultValue=()=>{
+      return   guarantyOptions?.filter((option) => data?.category_ids.includes(option.value))
+    }
+    const renderGuarantyDefaultValue=()=>{
+      return   guarantyOptions?.filter((option) => data?.guaranty_ids.includes(option.value))
+    }
+    const categoryDefaultValue = useMemo(() => renderCategoryDefaultValue(), [options]);
+    const guarantyDefaultValue = useMemo(() => renderGuarantyDefaultValue(), [guarantyOptions]);
 
     return (<>
 
@@ -93,8 +99,8 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                 <div>
                     <Label>دسته بندی محصول</Label>
 
-                    {options && defaultValue &&
-                        <MultiSelect name={"category_id"} options={options} defaultValue={defaultValue}/>}
+                    {options && categoryDefaultValue &&
+                        <MultiSelect name={"category_id"} options={options} defaultValue={categoryDefaultValue}/>}
 
                 </div>
                 <div>
