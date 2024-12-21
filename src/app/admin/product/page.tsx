@@ -39,7 +39,7 @@ export default function Page() {
                 description: e.description,
                 meta_description: e.meta_description,
                 meta_title: e.meta_title,
-                guaranty_id: e.guaranty_id,
+                guaranty_id: JSON.stringify(e.guaranty_id,)  as string,
                 study: e.study,
                 guaranty_time:e.guaranty_time,
                 categoryId: JSON.stringify(e.category_ids)  as string,
