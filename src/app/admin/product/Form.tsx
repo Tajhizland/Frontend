@@ -102,7 +102,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                 <div>
                     <Label>گارانتی</Label>
                     {guarantyOptions &&
-                        <MultiSelect name={"guaranty_id"} options={options} defaultValue={guarantyDefaultValue}/>}
+                        <MultiSelect name={"guaranty_id"} options={guarantyOptions} defaultValue={guarantyDefaultValue}/>}
 
                 </div>
                 <div>
