@@ -22,6 +22,7 @@ import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
 import {useQueryClient} from "react-query";
 import {Route} from "next";
 import IconDiscount from "@/components/IconDiscount";
+import Badge from "@/shared/Badge/Badge";
 
 export interface ProductCardProps {
     className?: string;
@@ -82,14 +83,7 @@ const ProductCard: FC<ProductCardProps> = ({
                 </div>
             );
         }
-        if (status === "disable") {
-            return (
-                <div className={CLASSES}>
-                    <NoSymbolIcon className="w-3.5 h-3.5"/>
-                    <span className="mr-1 leading-none">نا‌موجود</span>
-                </div>
-            );
-        }
+
         if (status === "limited edition") {
             return (
                 <div className={CLASSES}>
@@ -174,7 +168,7 @@ const ProductCard: FC<ProductCardProps> = ({
                     </div>
 
                     <div className="flex flex-col gap-y-2 sm:flex-row justify-between items-start  text-xs sm:text-base ">
-                        <Prices price={data?.min_discounted_price}/>
+                        {data && data.min_discounted_price>0?<Prices price={data?.min_discounted_price}/>:<Badge color={"red"} name={"ناموجود"} />}
                         <div className="hidden lg:flex items-center mb-0.5">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">

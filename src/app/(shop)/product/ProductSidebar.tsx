@@ -26,6 +26,7 @@ import Link from "next/link";
 import {Route} from "next";
 import Policy from "../product-detail/Policy";
 import {GuarantyResponse} from "@/services/types/guaranty";
+import Badge from "@/shared/Badge/Badge";
 
 export default function ProductSidebar({product}: { product: ProductResponse }) {
     const colors = product.colors.data;
@@ -71,10 +72,11 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                             </span>
                         </span>
                         <div className={"flex mt-3"}>
-                            <Prices
+                            {selectedColor.discountedPrice ? <Prices
                                 contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold text-center"
                                 price={selectedColor.discountedPrice}
-                            />
+                            />:
+                            <Badge name={"ناموجود"} color={"red"} />}
                         </div>
                     </div>
                 </label>
@@ -126,7 +128,9 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
     };
     const renderBrand = () => {
         if (product?.brand) {
-            return <div
+            return <div className={"flex items-center justify-between w-full"}>
+
+            <Link href={"/brand/"+product.brand.url as Route}
                 className={`relative h-0 w-32 rounded-2xl overflow-hidden group aspect-w-3 aspect-h-1 `}
             >
                 <div className="flex justify-center items-center">
@@ -139,6 +143,12 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                         height={720}
                     />
                 </div>
+            </Link>
+                <span>
+                    {
+                        product?.brand.name
+                    }
+                </span>
             </div>
         }
         return null;
@@ -274,7 +284,6 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                             </div>
                             <span className="mr-1.5 flex">
                                 <span>{product.rating} </span>
-                                <span className="mx-1.5">·</span>
                                 <span className="text-slate-700 dark:text-slate-400 underline">
                                     {product.comments.data.length} نظر
                                 </span>

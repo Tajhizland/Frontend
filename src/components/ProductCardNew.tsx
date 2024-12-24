@@ -20,6 +20,7 @@ import NcImage from "@/shared/NcImage/NcImage";
 import {ProductResponse} from "@/services/types/product";
 import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
 import IconDiscount from "@/components/IconDiscount";
+import Badge from "@/shared/Badge/Badge";
 
 export interface ProductCardProps {
     className?: string;
@@ -34,99 +35,15 @@ const ProductCard2: FC<ProductCardProps> = ({
                                             }) => {
 
 
-    const [variantActive, setVariantActive] = useState(0);
     const [showModalQuickView, setShowModalQuickView] = useState(false);
-    const router = useRouter();
 
-    const notifyAddTocart = ({size}: { size?: string }) => {
-        toast.custom(
-            (t) => (
-                <Transition
-                    as={"div"}
-                    appear
-                    show={t.visible}
-                    className="p-4 max-w-md w-full bg-white dark:bg-slate-800 shadow-lg rounded-2xl pointer-events-auto ring-1 ring-black/5 dark:ring-white/10 text-slate-900 dark:text-slate-200"
-                    enter="transition-all duration-150"
-                    enterFrom="opacity-0 translate-x-20"
-                    enterTo="opacity-100 translate-x-0"
-                    leave="transition-all duration-150"
-                    leaveFrom="opacity-100 translate-x-0"
-                    leaveTo="opacity-0 translate-x-20"
-                >
-                    <p className="block text-base font-semibold leading-none">
-                        Added to cart!
-                    </p>
-                    <div className="border-t border-slate-200 dark:border-slate-700 my-4"/>
-                    {renderProductCartOnNotify({size})}
-                </Transition>
-            ),
-            {
-                position: "top-right",
-                id: String(data?.id) || "product-detail",
-                duration: 3000,
-            }
-        );
-    };
-
-    const renderProductCartOnNotify = ({size}: { size?: string }) => {
-        return (
-            <div className="flex ">
-                <div className="h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
-                    <Image
-                        width={80}
-                        height={96}
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0]?.url}`}
-
-                        alt={"Product Image"}
-                        className="absolute object-cover object-center"
-                    />
-                </div>
-
-                <div className="ms-4 flex flex-1 flex-col">
-                    <div>
-                        <div className="flex justify-between ">
-                            <div>
-                                <h3 className="text-base font-medium ">{data?.name}</h3>
-                                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                                    <span>
-                                        {data?.colors ? data?.colors.data[variantActive].color_name : `بی رنگ`}
-                                    </span>
-                                    <span className="mx-2 border-s border-slate-200 dark:border-slate-700 h-4"></span>
-                                    <span>{size || "XL"}</span>
-                                </p>
-                            </div>
-                            <Prices price={data?.min_price} className="mt-0.5"/>
-                        </div>
-                    </div>
-                    <div className="flex flex-1 items-end justify-between text-sm">
-                        <p className="text-gray-500 dark:text-slate-400">Qty 1</p>
-
-                        <div className="flex">
-                            <button
-                                type="button"
-                                className="font-medium text-primary-6000 dark:text-primary-500 "
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    router.push("/cart");
-                                }}
-                            >
-                                مشاهده سبد خرید
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    };
 
     const renderVariants = () => {
-
         return (
             <div className="flex gap-1.5">
                 {data?.colors.data.map((color, index) => (
                     <div
                         key={index}
-                        onClick={() => setVariantActive(index)}
                         className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer`}
                         title={color.color_name}
                     >
@@ -139,8 +56,6 @@ const ProductCard2: FC<ProductCardProps> = ({
             </div>
         );
     }
-
-
     async function likeHandle(like: boolean) {
         if (like) {
             let response = await addToFavorite({productId: data?.id as number})
@@ -184,14 +99,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                 </div>
             );
         }
-        if (status === "disable") {
-            return (
-                <div className={CLASSES}>
-                    <NoSymbolIcon className="w-3.5 h-3.5"/>
-                    <span className="mr-1 leading-none text-xs">نا‌موجود</span>
-                </div>
-            );
-        }
+
         if (status === "limited edition") {
             return (
                 <div className={CLASSES}>
@@ -202,7 +110,6 @@ const ProductCard2: FC<ProductCardProps> = ({
         }
         return null;
     };
-
 
     return (
         <>
@@ -233,7 +140,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                     {/*{  renderGroupButtons()}*/}
                 </div>
 
-                <div className="space-y-4 px-2.5 sm:pt-5 sm:pb-2.5">
+                <div className="space-y-4 px-2.5 sm:pt-5 sm:pb-2.5  w-full">
 
                     <LikeButton liked={data?.favorite} likeHandle={likeHandle}
                                 className="absolute top-3 end-3 z-10 sm:hidden flex"/>
@@ -244,8 +151,8 @@ const ProductCard2: FC<ProductCardProps> = ({
                         </h2>
                     </div>
 
-                    <div className="flex justify-between items-end ">
-                        <Prices price={data?.min_discounted_price}/>
+                    <div className="flex justify-between items-end">
+                        {data && data.min_discounted_price>0?<Prices price={data?.min_discounted_price}/>:<Badge color={"red"} name={"ناموجود"} />}
                         <div className="hidden lg:flex items-center mb-0.5 ">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">

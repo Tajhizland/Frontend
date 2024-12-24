@@ -107,14 +107,6 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                 </div>
             );
         }
-        if (status === "disable") {
-            return (
-                <div className={CLASSES}>
-                    <NoSymbolIcon className="w-3.5 h-3.5"/>
-                    <span className="mr-1 leading-none">نا‌موجود</span>
-                </div>
-            );
-        }
         if (status === "limited edition") {
             return (
                 <div className={CLASSES}>
@@ -141,24 +133,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                         {product.name}
                     </h2>
                     <div className="flex items-center mt-4 sm:mt-5">
-                        <a
-                            href="#reviews"
-                            className="hidden sm:flex items-center text-sm font-medium "
-                        >
-                            <div className="">
-                                <StarIcon className="w-5 h-5 pb-[1px] text-slate-800 dark:text-slate-200"/>
-                            </div>
-                            <span className="mr-1.5">
-                <span>{product.rating}</span>
-                <span className="mx-1.5">·</span>
-                <span className="text-slate-700 dark:text-slate-400 underline">
-                  {product.comments.data.length} نظر
-                </span>
-              </span>
-                        </a>
-                        <span className="hidden sm:block mx-2.5">·</span>
-                        {renderStatus()}
-
+                         {renderStatus()}
                         <div className="mr-auto">
                             <LikeSaveBtns like={product.favorite} productId={product.id}/>
                         </div>
@@ -221,7 +196,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
 
                     {/* SIDEBAR */}
                     <div className="flex-grow">
-                        <div className="hidden lg:block sticky top-28 dark:bg-black/20">
+                        <div className="hidden lg:block sticky top-36 dark:bg-black/20">
                             {/*{renderSectionSidebar()}*/}
                             <ProductSidebar product={product}/>
                         </div>
