@@ -1,7 +1,7 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
-import {VlogResponse} from "@/services/types/vlog";
+import {VlogPageResponse, VlogResponse} from "@/services/types/vlog";
 
-export const findVlogByUrl = async <T extends ServerResponse<VlogResponse>>
+export const findVlogByUrl = async <T extends ServerResponse<VlogPageResponse>>
 (url:string) => {
     return axios.post<T, SuccessResponseType<T>>("vlog/find",{url:url})
         .then((res) => res?.data?.result.data)

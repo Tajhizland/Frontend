@@ -1,3 +1,7 @@
+export type VlogPageResponse = {
+    relatedVlogs: { data : VlogResponse[] };
+    vlog:VlogResponse;
+}
 export type VlogResponse = {
     id: number,
     title: string;

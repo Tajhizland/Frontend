@@ -81,7 +81,7 @@ export default function Listing({ response }:{response:any}) {
                 className="flex flex-col"
             >
                 <NcImage
-                    containerClassName="flex aspect-w-1 aspect-h-1 w-full h-0"
+                    containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
                     className="object-cover w-full h-full drop-shadow-xl"
                     fill
@@ -124,13 +124,16 @@ export default function Listing({ response }:{response:any}) {
                             </div>
 
                             <div
-                                className="grid lg:col-span-9 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10">
+                                className="  lg:col-span-9  ">
+                                <div
+                                className="grid   grid-cols-2 lg:grid-cols-3 gap-10">
                                 {allVlogs.map((item: VlogResponse) => renderItem(item))}
 
                                 <div ref={lastElementRef}
-                                     className="col-span-2  lg:col-span-3   xl:col-span-4 sm:grid-cols-2  grid grid-cols-2 lg:grid-cols-3  xl:grid-cols-4  gap-x-8 gap-y-5 sm:gap-y-10 ">
+                                     className="grid   grid-cols-2 lg:grid-cols-3 gap-10">
                                     {isFetchingNextPage && <VlogCardSkeleton/>}
 
+                                </div>
                                 </div>
                             </div>
                         </div>
