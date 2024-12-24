@@ -24,7 +24,15 @@ export default function AdminLayout({
     params: any;
 }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const queryClient = new QueryClient();
+    const queryClient = new QueryClient(
+        {
+            defaultOptions: {
+                queries: {
+                    refetchOnWindowFocus: false,
+                },
+            },
+        }
+    );
     return (
         <>
             <html dir={"rtl"}>
