@@ -112,3 +112,10 @@ export const sort = async <T extends ServerResponse<unknown>>
         .then((res) => res?.data)
 };
 
+export const deleteImage = async <T extends ServerResponse<unknown>>
+(
+    id: number | string
+) => {
+    return axios.delete<T, SuccessResponseType<T>>("admin/category/image/delete/" + id)
+        .then((res) => res?.data)
+};

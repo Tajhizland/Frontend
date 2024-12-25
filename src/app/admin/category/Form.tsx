@@ -3,37 +3,45 @@ import Label from "@/components/Label/Label";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Textarea from "@/shared/Textarea/Textarea";
-import React, { useState } from "react";
-import { categoryList } from "@/services/api/admin/category"
-import { useQuery } from "react-query";
-import { brandList } from "@/services/api/admin/brand";
-import FormComponent from "@/components/Form/Product/ColorForm";
-import { ProductResponse } from "@/services/types/product";
+import React from "react";
+import {categoryList, deleteImage} from "@/services/api/admin/category"
+import {useQuery} from "react-query";
 import Uploader from "@/shared/Uploader/Uploader";
 import {CategoryResponse} from "@/services/types/category";
 import TinyEditor from "@/shared/Editor/TinyEditor";
+import MenuCard from "@/components/MenuCard/MenuCard";
+import {TrashIcon} from "@heroicons/react/24/solid";
+import {toast} from "react-hot-toast";
+import Image from "next/image";
 
 interface productForm {
     data?: CategoryResponse;
     submit: (e: FormData) => void;
 }
 
-export default function Form({ data, submit}: productForm) {
+export default function Form({data, submit}: productForm) {
 
-    const { data: categoryLists } = useQuery({
+    const {data: categoryLists} = useQuery({
         queryKey: [`category-list`],
         queryFn: () => categoryList(),
         staleTime: 5000,
     });
 
+    async function deleteImageHandle() {
+        if (!data)
+            return;
+        let response = await deleteImage(data?.id)
+        if (response?.success) {
+            toast.success(response.message as string);
+        }
+    }
 
     return (<>
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>نام دسته‌بندی</Label>
-                    <Input name={"name"} defaultValue={data?.name} />
+                    <Input name={"name"} defaultValue={data?.name}/>
                 </div>
                 <div>
                     <Label>وضعیت دسته‌بندی</Label>
@@ -48,7 +56,7 @@ export default function Form({ data, submit}: productForm) {
                 </div>
                 <div>
                     <Label>ادرس دسته‌بندی</Label>
-                    <Input name={"url"} defaultValue={data?.url} />
+                    <Input name={"url"} defaultValue={data?.url}/>
                 </div>
                 <div>
                     <Label>والد</Label>
@@ -58,7 +66,7 @@ export default function Form({ data, submit}: productForm) {
                         </option>
                         {
                             categoryLists?.data.map((item) => (<>
-                                <option value={item.id} selected={item.id==data?.parent_id} >
+                                <option value={item.id} selected={item.id == data?.parent_id}>
                                     {item.name}
                                 </option>
                             </>))
@@ -72,13 +80,23 @@ export default function Form({ data, submit}: productForm) {
             <div className={"grid grid-cols-1 gap-5 mt-5"}>
                 <div>
                     <Label>توضیحات</Label>
-                    <TinyEditor name={"description"} value={data?.description} />
+                    <TinyEditor name={"description"} value={data?.description}/>
                 </div>
                 <div>
                     <Label>تصویر دسته‌بندی</Label>
-                    <Uploader  name={"image"} />
+                    <Uploader name={"image"}/>
                 </div>
-            </div>
+                     {data?.image && <div className="flex items-center justify-center flex-col  ">
+                        <div className="w-[100px] h-[100px]">
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${data.image}`}
+                                alt={"image"} width={100} height={100}/>
+                        </div>
+                        <span>
+                            <TrashIcon className={"w-8 h-8 text-red-500 cursor-pointer"} onClick={() => deleteImageHandle()}/>
+                        </span>
+                    </div>}
+             </div>
 
             <div className={"flex justify-center my-5"}>
                 <ButtonPrimary type={"submit"}>
