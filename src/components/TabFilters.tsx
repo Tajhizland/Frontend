@@ -391,7 +391,7 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                                 />
                             </svg>
 
-                            <span className="mr-2 min-w-[90px]">{`${rangePrices[0]}  - ${rangePrices[1]} `}</span>
+                            <span className="mr-2 min-w-[90px]">فیلتر قیمت</span>
                             {rangePrices[0] == minPrice &&
                             rangePrices[1] == maxPrice ? null : (
                                 <span onClick={() => {

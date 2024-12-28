@@ -4,7 +4,7 @@ import {
     InboxIcon,
     NewspaperIcon, PencilIcon,
 } from "@heroicons/react/24/outline";
-import {GiSevenPointedStar} from "react-icons/gi";
+import {GiSevenPointedStar, GiTargetPoster} from "react-icons/gi";
 import {VscLayoutMenubar} from "react-icons/vsc";
 import {TbAlignBoxCenterTop, TbBrandApple} from "react-icons/tb";
 import {SiPagespeedinsights, SiWayland} from "react-icons/si";
@@ -345,6 +345,11 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         sub: [
 
 
+            {
+                title: "مدیریت پوستر ها",
+                url: "/poster",
+                icon: <GiTargetPoster className="h-6 w-6 text-gray-500"/>,
+            },
             {
                 title: "محصولات ویژه",
                 url: "/special_product",
