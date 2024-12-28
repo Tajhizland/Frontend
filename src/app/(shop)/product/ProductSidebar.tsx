@@ -104,10 +104,10 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
     };
     const renderGuaranty = () => {
         if (product?.guaranties) {
-            return <div className={"flex items-center gap-2"}>
+            return <div className={"flex flex-col items-center gap-1"}>
                 {product?.guaranties.data.map((item, index) => (
                     <div onClick={()=>{setSelectedGuaranty(item)}}
-                        key={index} className={`flex gap-1 items-center flex-col justify-center rounded border p-2 cursor-pointer hover:bg-slate-50 dark:hover:bg-black/20 ${selectedGuaranty==item?"border-[#fcb415]":""}`}>
+                        key={index} className={`flex gap-1 items-center  justify-between rounded border p-1 pl-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-black/20 ${selectedGuaranty==item?"border-[#fcb415]":""}`}>
                         <div
                             className={"w-8"}
                         ><NcImage
@@ -167,7 +167,6 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
         const item = cart && cart.find(item => item.color.id === selectedColor.id && item.guaranty.id==selectedGuaranty.id);
         return item ? item.count : 0;
     };
-    console.log("checkColorInCart",checkColorInCart())
 
     async function addToCartHandle() {
         if (!user) {

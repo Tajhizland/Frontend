@@ -8,6 +8,7 @@ import React from "react";
 import {GuarantyResponse} from "@/services/types/guaranty";
 import Uploader from "@/shared/Uploader/Uploader";
 import TinyEditor from "@/shared/Editor/TinyEditor";
+import NcImage from "@/shared/NcImage/NcImage";
 
 interface Form {
     data?: GuarantyResponse;
@@ -70,7 +71,19 @@ export default function Form({ data, submit  }: Form) {
                     <Label>آیکن</Label>
                     <Uploader name={"icon"}  />
                 </div>
-
+                {data?.icon?<div className={"flex justify-center items-center"}>
+                    <div
+                        className={"w-32"}
+                    ><NcImage
+                        containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${data?.icon}`}
+                        className="object-cover w-full h-full drop-shadow-xl"
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                        alt="guaranty"
+                    /></div>
+                </div>:""
+                }
             </div>
             <hr className={"my-5"}/>
             <div className={"flex justify-center my-5"}>

@@ -1,11 +1,8 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
-import {useParams} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
 import React, {useEffect, useState} from "react";
-import {productOfCategory, sort} from "@/services/api/admin/category";
-import {ProductResponse} from "@/services/types/product";
 import {toast} from "react-hot-toast";
 import {
     DndContext,
@@ -24,17 +21,11 @@ import {
     useSortable,
 } from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
-import CategoryTab from "@/components/Tabs/CategoryTab";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Spinner from "@/shared/Loading/Spinner";
-import {BrandResponse} from "@/services/types/brand";
-import {brandList, sortBrands} from "@/services/api/admin/brand";
 import {getBannerList, sortBanner} from "@/services/api/admin/banner";
 import {BannerResponse} from "@/services/types/banner";
 import Image from "next/image";
-import NcImage from "@/shared/NcImage/NcImage";
-import Link from "next/link";
-import {Route} from "next";
 
 interface SortableItemProps {
     id: string;

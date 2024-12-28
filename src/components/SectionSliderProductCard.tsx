@@ -39,7 +39,6 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
     const OPTIONS: Partial<Glide.Options> = {
       // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
       direction:"rtl",
-
       perView: 4,
       gap: 32,
       bound: true,
@@ -61,7 +60,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
         },
         500: {
           gap: 10,
-          perView: 2,
+          perView: 2.1,
         },
       },
     };

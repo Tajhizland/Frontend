@@ -34,31 +34,31 @@ const SectionSliderProductCard2: FC<SectionSliderProductCardProps> = ({
   useEffect(() => {
     const OPTIONS: Partial<Glide.Options> = {
       // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
-      direction:"rtl",
-      perView: 4,
-      gap: 32,
-      bound: true,
-      breakpoints: {
-        1280: {
-          perView: 4 - 1,
+        direction:"rtl",
+        perView: 4,
+        gap: 32,
+        bound: true,
+        breakpoints: {
+            1280: {
+                perView: 4 - 1,
+            },
+            1024: {
+                gap: 20,
+                perView: 4 - 1,
+            },
+            768: {
+                gap: 20,
+                perView: 4 - 2,
+            },
+            640: {
+                gap: 10,
+                perView: 2.2,
+            },
+            500: {
+                gap: 10,
+                perView: 2.1,
+            },
         },
-        1024: {
-          gap: 20,
-          perView: 4 - 1,
-        },
-        768: {
-          gap: 20,
-          perView: 4 - 2,
-        },
-        640: {
-          gap: 20,
-          perView: 1.5,
-        },
-        500: {
-          gap: 20,
-          perView: 1.3,
-        },
-      },
     };
     if (!sliderRef.current) return;
 

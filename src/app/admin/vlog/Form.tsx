@@ -9,6 +9,7 @@ import TinyEditor from "@/shared/Editor/TinyEditor";
 import {VlogResponse} from "@/services/types/vlog";
 import {useQuery} from "react-query";
 import {findById, getList} from "@/services/api/admin/vlogCategory";
+import NcImage from "@/shared/NcImage/NcImage";
 
 interface Form {
     data?: VlogResponse;
@@ -68,7 +69,6 @@ export default function Form({ data, submit  }: Form) {
                     <TinyEditor name={"description"} value={data?.description} />
                 </div>
 
-            </div>
             <div>
                 <Label>ویدیو  </Label>
                 <Uploader  name={"video"}/>
@@ -76,6 +76,18 @@ export default function Form({ data, submit  }: Form) {
             <div>
                 <Label>پوستر  </Label>
                 <Uploader  name={"poster"}/>
+            </div>
+            {data?.poster ? <div className={"max-w-lg flex justify-center"}>
+
+                    <NcImage
+                        containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`}
+                        className="object-cover w-full h-full drop-shadow-xl"
+                        fill
+                        alt="vlog"
+                    />
+            </div> :""}
+
             </div>
             <hr className={"my-5"}/>
             <div className={"flex justify-center my-5"}>
