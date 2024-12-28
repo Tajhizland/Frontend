@@ -46,7 +46,7 @@ const SectionGridFeatureItems: FC<SectionGridFeatureItemsProps> = ({ data }) => 
     return (
         <div className="nc-SectionGridFeatureItems relative">
             <div className="flex flex-col relative mb-12">
-                <Heading>انواع اکسسوری</Heading>
+                <Heading>دسته بندی های پرطرفدار</Heading>
 
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between space-y-6 lg:space-y-0">
                     <div

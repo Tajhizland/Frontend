@@ -8,6 +8,7 @@ import {BrandResponse} from "@/services/types/brand";
 import {NewsResponse} from "@/services/types/news";
 import {BannerResponse} from "@/services/types/banner";
 import {VlogResponse} from "@/services/types/vlog";
+import {PosterResponse} from "@/services/types/poster";
 
 export type HomePageResponse = {
     popularProducts: { data: PopularProductResponse[] };
@@ -17,6 +18,7 @@ export type HomePageResponse = {
     brands: { data: BrandResponse[] };
     news: { data: NewsResponse[] };
     vlogs: { data: VlogResponse[] };
+    posters: { data: PosterResponse[] };
     concepts: { data: ConceptResponse[] };
     specialProducts: { data: SpecialProductResponse[] };
 };
