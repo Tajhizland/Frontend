@@ -8,9 +8,10 @@ import Image from "next/image";
 
 export interface SectionPromo2Props {
   className?: string;
+    logo: string;
 }
 
-const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10" }) => {
+const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10",logo }) => {
   return (
     <div className={`nc-SectionPromo2 ${className}`}>
       <div className="relative flex flex-col lg:flex-row lg:justify-end bg-yellow-50 dark:bg-slate-800 rounded-2xl sm:rounded-[40px] p-4 pb-0 sm:p-5 sm:pb-0 lg:p-24">
@@ -44,8 +45,10 @@ const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10" }) => {
 
         <NcImage
           alt=""
+          width={1080}
+          height={1080}
           containerClassName="relative block lg:absolute lg:start-0 lg:bottom-0 mt-10 lg:mt-0 max-w-xl lg:max-w-[calc(45%-40px)]"
-          src={rightImgDemo}
+          src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/poster/${logo}`}
           sizes="(max-width: 768px) 100vw, 50vw"
           className=""
         />

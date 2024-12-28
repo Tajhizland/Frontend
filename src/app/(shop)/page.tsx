@@ -62,10 +62,10 @@ async function PageHome() {
                 <div className="py-5 lg:py-10 border-t border-b border-slate-200 dark:border-slate-700">
                     <SectionHowItWork/>
                 </div>
-                <SectionPromo1/>
+                <SectionPromo1 logo={response.posters.data[0].image}/>
 
                 <SectionGridFeatureItems data={response.homepageCategories.data}/>
-                <SectionPromo2/>
+                <SectionPromo2 logo={response.posters.data[1].image}/>
                 <SectionSliderLargeProduct cardStyle="style2" data={response.specialProducts.data}/>
 
                 <div className="relative py-5 lg:py-10">
@@ -83,7 +83,7 @@ async function PageHome() {
                 </div>
                 <SectionSliderCategories data={response.brands.data}/>
                 <SectionSliderNews  data={response.news.data}/>
- 
+
             </div>
         </div>
     );

@@ -4,7 +4,6 @@ import NcImage from "@/shared/NcImage/NcImage";
 import rightImgDemo from "@/images/tajhizland/banner2.png";
 import rightLargeImgDark from "@/images/rightLargeImgDark.png";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Logo from "@/shared/Logo/Logo";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Label from "./Label/Label";
 import Input from "@/shared/Input/Input";
@@ -19,9 +18,10 @@ import NcModal from "@/shared/NcModal/NcModal";
 
 export interface SectionPromo1Props {
     className?: string;
+    logo?: string;
 }
 
-const SectionPromo1: FC<SectionPromo1Props> = ({className = ""}) => {
+const SectionPromo1: FC<SectionPromo1Props> = ({className = "" , logo}) => {
     const [modal, setModal] = useState(false);
 
     async function submitHandle(e: FormData) {
@@ -186,15 +186,19 @@ const SectionPromo1: FC<SectionPromo1Props> = ({className = ""}) => {
             <div className="relative flex-1 max-w-xl lg:max-w-none">
                 <NcImage
                     alt=""
+                    width={1080}
+                    height={1080}
                     containerClassName="block dark:hidden"
-                    src={rightImgDemo}
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/poster/${logo}`}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className=""
                 />
                 <NcImage
                     alt=""
+                    width={1080}
+                    height={1080}
                     containerClassName="hidden dark:block"
-                    src={rightLargeImgDark}
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/poster/${logo}`}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className=""
                 />
