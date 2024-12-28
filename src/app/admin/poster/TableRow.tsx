@@ -13,7 +13,7 @@ export const columns: Column<SliderResponse>[] = [
         hasFilter: false,
         hasSort: false,
         render: (value) =><div className={"w-10 h-10"}><Image className={"w-10 h-10 mx-auto"}  width={50} height={50} alt={"image"}
-                                  src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${value}`}
+                                  src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/poster/${value}`}
         />
         </div>
     },
