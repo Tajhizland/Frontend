@@ -104,10 +104,11 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
     };
     const renderGuaranty = () => {
         if (product?.guaranties) {
-            return <div className={"flex flex-col items-center gap-1"}>
+            return <div className={"flex flex-col gap-1 w-full"}>
                 {product?.guaranties.data.map((item, index) => (
                     <div onClick={()=>{setSelectedGuaranty(item)}}
-                        key={index} className={`flex gap-1 items-center  justify-between rounded border p-1 pl-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-black/20 ${selectedGuaranty==item?"border-[#fcb415]":""}`}>
+                        key={index} className={`flex gap-1 items-center  justify-between rounded border p-1 pl-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-black/20 ${selectedGuaranty==item?"border-[#fcb415]":""}`}>      <div onClick={()=>{setSelectedGuaranty(item)}}
+                        key={index} className={`flex gap-1 items-center  `}>
                         <div
                             className={"w-8"}
                         ><NcImage
@@ -121,6 +122,10 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                         <small className={"text-xs text-slate-600 dark:text-white"}>
                             {item.name}
                         </small>
+                    </div>
+                        <span className={"text-xs text-slate-600 dark:text-white"}>
+                            رایگان
+                        </span>
                     </div>))}
             </div>
         }
@@ -293,14 +298,15 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                     {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
                     <div className="mt-6 space-y-7 lg:space-y-8">
                         <div className="">{renderVariants()}</div>
-                        <div className="flex justify-between items-center">
-                            {renderGuaranty()}
-                        </div>
+
                         <div className="flex justify-between items-center">
                             {renderDelay()}
                         </div>
                         <div className="flex  items-center max-h-24">
                             {renderBrand()}
+                        </div>
+                        <div className="flex justify-between items-center">
+                            {renderGuaranty()}
                         </div>
                         {/*<div className="">{renderSizeList()}</div>*/}
                     </div>
