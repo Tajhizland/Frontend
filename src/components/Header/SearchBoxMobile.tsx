@@ -110,8 +110,8 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                 <span className="absolute right-2 top-2 p-1">
                     <ButtonClose onClick={onClickClose} />
                 </span>
-                <div className={"flex justify-center"}>
-                    <Logo />
+                <div className={"flex justify-center "}>
+                    <Logo imageClassName={"h-8"}/>
                 </div>
                 <div className="mt-5">{renderSearchForm()}</div>
                 {isSuccess && data &&

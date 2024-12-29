@@ -15,7 +15,7 @@ const Logo: React.FC<LogoProps> = ({
   img = logoImg,
   imgLight = logoLightImg,
   className = "flex-shrink-0",
-  imageClassName=""
+  imageClassName="flex-shrink-0",
 }) => {
   return (
     <Link
@@ -26,24 +26,22 @@ const Logo: React.FC<LogoProps> = ({
       {/* PLEASE UN COMMENT BELLOW CODE AND USE IT */}
       {logoLightImg ? (
         <Image
-          className={`block h-8 sm:h-10 w-auto ${
+          className={`block  lg:h-10 w-auto ${
             imgLight ? "dark:hidden" : ""
           }  ${imageClassName}`}
           src={logoLightImg}
           alt="Logo"
-          sizes="200px"
-          priority
+           priority
         />
       ) : (
         "Logo Here"
       )}
       {logoImg && (
         <Image
-          className={`hidden h-8 sm:h-10 w-auto dark:block ${imageClassName}`}
+          className={`hidden  lg:h-10 w-auto dark:block ${imageClassName}`}
           src={logoImg}
           alt="Logo-Light"
-          sizes="200px"
-          priority
+           priority
         />
       )}
     </Link>

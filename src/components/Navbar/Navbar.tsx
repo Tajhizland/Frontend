@@ -19,7 +19,7 @@ export default function Navbar({sidebarControl}:{sidebarControl:any}) {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center justify-start rtl:justify-end">
 
-                       <Logo />
+                       <Logo imageClassName={"h-8 lg:h-10"} />
                         <button
                             data-drawer-target="logo-sidebar"
                             data-drawer-toggle="logo-sidebar"
