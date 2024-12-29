@@ -9,10 +9,11 @@ import NcImage from "@/shared/NcImage/NcImage";
 import { FaEye } from "react-icons/fa";
 import VlogFilter from "@/app/(shop)/vlog/VlogFilter";
 import WidgetFilter from "./WidgetFilter";
-import {Route} from "next";
+import { Route } from "next";
 import VlogCardSkeleton from "@/components/Skeleton/VlogCardSkeleton";
+import { FaCirclePlay } from "react-icons/fa6";
 
-export default function Listing({ response }:{response:any}) {
+export default function Listing({ response }: { response: any }) {
     const router = useRouter();
     const observer = useRef<IntersectionObserver | null>(null);
     const lastElementRef = useRef<HTMLDivElement>(null);
@@ -74,19 +75,25 @@ export default function Listing({ response }:{response:any}) {
     const allVlogs = data?.pages.flatMap((page) => page.data) || [];
 
     const renderItem = (item: VlogResponse) => (
-        <div className="w-full h-full rounded-xl overflow-hidden   bg-white dark:bg-transparent" key={item.id}>
+        <div className="w-full h-full  overflow-hidden   bg-white dark:bg-transparent" key={item.id}>
             <Link
                 href={"/vlog/" + item.url as Route}
                 aria-label={"vlog"}
                 className="flex flex-col"
             >
-                <NcImage
-                    containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
-                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
-                    className="object-cover w-full h-full "
-                    fill
-                    alt="vlog"
-                />
+                <div className="relative rounded-xl overflow-hidden group">
+
+                    <NcImage
+                        containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
+                        className="object-cover w-full h-full "
+                        fill
+                        alt="vlog"
+                    />
+                    <div className="absolute top-0 left-0 bg-black/70 w-full h-full group-hover:flex justify-center items-center hidden">
+                        <FaCirclePlay className="text-white w-8 h-8 animate-pulse" />
+                    </div>
+                </div>
                 <span className="py-2.5 px-2 dark:text-white">{item.title}</span>
                 <div className="flex justify-between items-center py-1 px-2 text-neutral-500 dark:text-white">
                     <div className="flex items-center gap-x-2">
@@ -116,11 +123,11 @@ export default function Listing({ response }:{response:any}) {
 
                     <main>
                         {/* TABS FILTER */}
-                        <VlogFilter changeFilter={handleFilterChange}/>
+                        <VlogFilter changeFilter={handleFilterChange} />
                         {/* LOOP ITEMS */}
                         <div className="grid grid-cols-1 lg:grid-cols-12 mt-8 lg:mt-10 gap-10">
                             <div className="hidden lg:block lg:col-span-3">
-                                <WidgetFilter changeFilter={handleFilterChange}/>
+                                <WidgetFilter changeFilter={handleFilterChange} />
                             </div>
 
                             <div
@@ -132,8 +139,8 @@ export default function Listing({ response }:{response:any}) {
 
                                 </div>
                                 <div ref={lastElementRef}
-                                     className="grid   grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
-                                    {isFetchingNextPage && <VlogCardSkeleton/>}
+                                    className="grid   grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
+                                    {isFetchingNextPage && <VlogCardSkeleton />}
                                 </div>
                             </div>
                         </div>

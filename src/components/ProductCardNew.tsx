@@ -1,24 +1,24 @@
 "use client";
 
-import React, {FC, useState} from "react";
+import React, { FC, useState } from "react";
 import LikeButton from "./LikeButton";
 import Prices from "./Prices";
-import {ArrowsPointingOutIcon, ClockIcon, NoSymbolIcon, SparklesIcon} from "@heroicons/react/24/outline";
-import {Product, PRODUCTS} from "@/data/data";
-import {StarIcon} from "@heroicons/react/24/solid";
+import { ArrowsPointingOutIcon, ClockIcon, NoSymbolIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { Product, PRODUCTS } from "@/data/data";
+import { StarIcon } from "@heroicons/react/24/solid";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import BagIcon from "./BagIcon";
 import toast from "react-hot-toast";
-import {Transition} from "@/app/(shop)/headlessui";
+import { Transition } from "@/app/(shop)/headlessui";
 import ModalQuickView from "./ModalQuickView";
 import ProductStatus from "./ProductStatus";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
-import {ProductResponse} from "@/services/types/product";
-import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
+import { ProductResponse } from "@/services/types/product";
+import { addToFavorite, deleteFromFavorite } from "@/services/api/shop/favorite";
 import IconDiscount from "@/components/IconDiscount";
 import Badge from "@/shared/Badge/Badge";
 
@@ -29,10 +29,10 @@ export interface ProductCardProps {
 }
 
 const ProductCard2: FC<ProductCardProps> = ({
-                                                className = "",
-                                                data,
-                                                isLiked,
-                                            }) => {
+    className = "",
+    data,
+    isLiked,
+}) => {
 
 
     const [showModalQuickView, setShowModalQuickView] = useState(false);
@@ -48,7 +48,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                         title={color.color_name}
                     >
                         <div
-                            style={{backgroundColor: color.color_code}}
+                            style={{ backgroundColor: color.color_code }}
                             className={`absolute inset-0.5 rounded-full z-0 `}
                         ></div>
                     </div>
@@ -58,10 +58,10 @@ const ProductCard2: FC<ProductCardProps> = ({
     }
     async function likeHandle(like: boolean) {
         if (like) {
-            let response = await addToFavorite({productId: data?.id as number})
+            let response = await addToFavorite({ productId: data?.id as number })
             toast.success(response?.message as string)
         } else {
-            let response = await deleteFromFavorite({productId: data?.id as number})
+            let response = await deleteFromFavorite({ productId: data?.id as number })
             toast.success(response?.message as string)
 
         }
@@ -86,7 +86,7 @@ const ProductCard2: FC<ProductCardProps> = ({
         if (status == "new") {
             return (
                 <div className={CLASSES}>
-                    <SparklesIcon className="w-3.5 h-3.5"/>
+                    <SparklesIcon className="w-3.5 h-3.5" />
                     <span className="mr-1 leading-none text-xs">محصول جدید</span>
                 </div>
             );
@@ -94,7 +94,7 @@ const ProductCard2: FC<ProductCardProps> = ({
         if (status == "discount") {
             return (
                 <div className={CLASSES}>
-                    <IconDiscount className="w-3.5 h-3.5"/>
+                    <IconDiscount className="w-3.5 h-3.5" />
                     <span className="mr-1 leading-none text-xs">{discounted} تخفیف </span>
                 </div>
             );
@@ -103,7 +103,7 @@ const ProductCard2: FC<ProductCardProps> = ({
         if (status === "limited edition") {
             return (
                 <div className={CLASSES}>
-                    <ClockIcon className="w-3.5 h-3.5"/>
+                    <ClockIcon className="w-3.5 h-3.5" />
                     <span className="ml-1 leading-none text-xs">{status}</span>
                 </div>
             );
@@ -111,23 +111,21 @@ const ProductCard2: FC<ProductCardProps> = ({
         return null;
     };
 
-    const checkStock=(product:ProductResponse)=>{
-        let hasStock=false;
-        product.colors.data.map((item)=>{
-            if(item.stock>0 && item.status==1)
-            {
-                hasStock =true;
+    const checkStock = (product: ProductResponse) => {
+        let hasStock = false;
+        product.colors.data.map((item) => {
+            if (item.stock > 0 && item.status == 1) {
+                hasStock = true;
                 return hasStock;
             }
         })
         return hasStock;
     }
-    const renderMinPrice=(product:ProductResponse)=>{
-        let minPrice=product.colors.data[0].discountedPrice;
-        product.colors.data.map((item)=>{
-            if(item.discountedPrice<minPrice && item.status==1 && item.discountedPrice!=0)
-            {
-                minPrice =item.discountedPrice;
+    const renderMinPrice = (product: ProductResponse) => {
+        let minPrice = product.colors.data[0].discountedPrice;
+        product.colors.data.map((item) => {
+            if (item.discountedPrice < minPrice && item.status == 1 && item.discountedPrice != 0) {
+                minPrice = item.discountedPrice;
             }
         })
         return minPrice;
@@ -137,11 +135,11 @@ const ProductCard2: FC<ProductCardProps> = ({
             <div
                 className={`nc-ProductCard relative flex flex-row items-center sm:flex-col bg-transparent ${className}`}
             >
-                <Link href={{pathname: "/product/" + data?.url}} className="absolute inset-0"></Link>
+                <Link href={{ pathname: "/product/" + data?.url }} className="absolute inset-0"></Link>
 
                 <div
                     className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded sm:rounded-3xl overflow-hidden z-1 group w-28 sm:w-full">
-                    <Link href={{pathname: "/product/" + data?.url}} className="block">
+                    <Link href={{ pathname: "/product/" + data?.url }} className="block">
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0]?.url}`}
@@ -154,42 +152,46 @@ const ProductCard2: FC<ProductCardProps> = ({
                     </Link>
 
                     <LikeButton liked={data?.favorite} likeHandle={likeHandle}
-                                className="absolute top-3 end-3 z-10 hidden sm:flex"/>
+                        className="absolute top-3 end-3 z-10 hidden sm:flex" />
                     <div className={" "}>
                         {renderStatus()}
                     </div>
                     {/*{  renderGroupButtons()}*/}
                 </div>
 
-                <div className="space-y-4 px-2.5 sm:pt-5 sm:pb-2.5  w-full">
-
+                <div className="space-y-1 px-2.5 sm:pt-5 sm:pb-2.5  w-full flex flex-col">
                     <LikeButton liked={data?.favorite} likeHandle={likeHandle}
-                                className="absolute top-3 end-3 z-10 sm:hidden flex"/>
-
+                        className="  z-10 sm:hidden flex" />
                     <div>
                         <h2 className="nc-ProductCard__title text-xs lg:text-base font-semibold transition-colors dark:text-white">
                             {data?.name}
                         </h2>
                     </div>
-
+                    <div className="flex sm:hidden items-center mb-0.5 ">
+                        <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
+                        <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
+                            {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
+                        </span>
+                    </div>
                     <div className="flex justify-between items-end">
-                        {data && checkStock(data)?<Prices price={renderMinPrice(data)}/>:<Badge color={"red"} name={"ناموجود"} />}
-                        <div className="hidden lg:flex items-center mb-0.5 ">
-                            <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
+                        <div className="block sm:hidden">
+                            {renderVariants()}
+                        </div>
+                        {data && checkStock(data) ? <Prices price={renderMinPrice(data)} /> : <Badge color={"red"} name={"ناموجود"} />}
+                        <div className="hidden sm:flex items-center mb-0.5 ">
+                            <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
                                 {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
                             </span>
                         </div>
                     </div>
-                    {renderVariants()}
+                    <div className="hidden sm:block">
+                        {renderVariants()}
+                    </div>
                 </div>
             </div>
 
-            {/* QUICKVIEW */}
-            <ModalQuickView
-                show={showModalQuickView}
-                onCloseModalQuickView={() => setShowModalQuickView(false)}
-            />
+        
         </>
     );
 };
