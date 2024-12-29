@@ -11,6 +11,7 @@ import AdminPagination from "@/shared/Pagination/AdminPagination";
 import {useQuery} from "react-query";
 import {useRouter} from "next/navigation";
 import MetaTag from "@/components/MetaTag/MetaTag";
+import ProductCardNew from "@/components/ProductCardNew";
 
 interface BrandPageProps {
     params: {
@@ -119,7 +120,7 @@ const PageSearch = ({params, searchParams}: BrandPageProps) => {
                         <div
                             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                             {products?.data?.map((item, index) => (
-                                    <ProductCard2 data={item} key={index}/>
+                                    <ProductCardNew data={item} key={index}/>
                                 )
                             )
                             }

@@ -5,7 +5,6 @@ import React, {FC, useState} from "react";
 import SectionPromo1 from "@/components/SectionPromo1";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
-import ProductCard2 from "@/components/ProductCard";
 import {searchPaginate} from "@/services/api/shop/search";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
 import ProductCardNew from "@/components/ProductCardNew";
@@ -97,7 +96,7 @@ const Listing = async ({response , query}:  { response: ProductResponse[], query
                     {/*<HeaderFilterSearchPage />*/}
 
                     {/* LOOP ITEMS */}
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
                         {newResponse ? newResponse.products.data.map((item, index) => (
                             <ProductCardNew data={item} key={index} />
                         )) : response.data.map((item, index) => (

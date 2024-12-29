@@ -244,7 +244,7 @@ const SidebarFilters = () => {
       <div className="py-8 pr-2">
         <MySwitch
           label="On sale!"
-          desc="Products currently on sale"
+          desc="فقط نمایش محصولات موجود"
           enabled={isOnSale}
           onChange={setIsIsOnSale}
         />

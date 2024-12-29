@@ -130,6 +130,27 @@ const ProductCard: FC<ProductCardProps> = ({
             </div>
         );
     };
+    const checkStock=(product:ProductResponse)=>{
+        let hasStock=false;
+        product.colors.data.map((item)=>{
+            if(item.stock>0 && item.status==1)
+            {
+                hasStock =true;
+                return hasStock;
+            }
+        })
+        return hasStock;
+    }
+    const renderMinPrice=(product:ProductResponse)=>{
+        let minPrice=product.colors.data[0].discountedPrice;
+        product.colors.data.map((item)=>{
+            if(item.discountedPrice<minPrice && item.status==1 && item.discountedPrice!=0)
+            {
+                minPrice =item.discountedPrice;
+            }
+        })
+        return minPrice;
+    }
     return (
         <>
             <div
@@ -168,7 +189,7 @@ const ProductCard: FC<ProductCardProps> = ({
                     </div>
 
                     <div className="flex flex-col gap-y-2 sm:flex-row justify-between items-start  text-xs sm:text-base ">
-                        {data && data.min_discounted_price>0?<Prices price={data?.min_discounted_price}/>:<Badge color={"red"} name={"ناموجود"} />}
+                        {data && checkStock(data)?<Prices price={renderMinPrice(data)}/>:<Badge color={"red"} name={"ناموجود"} />}
                         <div className="hidden lg:flex items-center mb-0.5">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">

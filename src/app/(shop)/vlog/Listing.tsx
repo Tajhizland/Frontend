@@ -74,7 +74,7 @@ export default function Listing({ response }:{response:any}) {
     const allVlogs = data?.pages.flatMap((page) => page.data) || [];
 
     const renderItem = (item: VlogResponse) => (
-        <div className="w-full h-full rounded-xl overflow-hidden border bg-white dark:bg-transparent" key={item.id}>
+        <div className="w-full h-full rounded-xl overflow-hidden   bg-white dark:bg-transparent" key={item.id}>
             <Link
                 href={"/vlog/" + item.url as Route}
                 aria-label={"vlog"}
@@ -83,7 +83,7 @@ export default function Listing({ response }:{response:any}) {
                 <NcImage
                     containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
-                    className="object-cover w-full h-full drop-shadow-xl"
+                    className="object-cover w-full h-full "
                     fill
                     alt="vlog"
                 />
@@ -126,14 +126,14 @@ export default function Listing({ response }:{response:any}) {
                             <div
                                 className="  lg:col-span-9  ">
                                 <div
-                                className="grid   grid-cols-2 lg:grid-cols-3 gap-10">
-                                {allVlogs.map((item: VlogResponse) => renderItem(item))}
+                                    className="grid   grid-cols-2 lg:grid-cols-3 gap-10">
+                                    {allVlogs.map((item: VlogResponse) => renderItem(item))}
 
-                                <div ref={lastElementRef}
-                                     className="grid   grid-cols-2 lg:grid-cols-3 gap-10">
-                                    {isFetchingNextPage && <VlogCardSkeleton/>}
 
                                 </div>
+                                <div ref={lastElementRef}
+                                     className="grid   grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
+                                    {isFetchingNextPage && <VlogCardSkeleton/>}
                                 </div>
                             </div>
                         </div>

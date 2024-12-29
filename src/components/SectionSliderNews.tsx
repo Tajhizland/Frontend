@@ -17,13 +17,13 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 
 export interface SectionSliderProductCardProps {
   className?: string;
-  itemClassName?: string; 
+  itemClassName?: string;
   data?: NewsResponse[];
 }
 
 const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
   className = "",
-  itemClassName = "", 
+  itemClassName = "",
   data
 }) => {
   return (
@@ -36,7 +36,7 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
         {data && data.map((item, index) => (
           <li key={index} className={`  ${itemClassName}`}>
 
-            <div className="w-full h-full rounded-xl overflow-hidden border bg-white dark:bg-transparent  hover:shadow  ">
+            <div className="w-full h-full rounded-xl overflow-hidden   bg-white dark:bg-transparent hover:bg-slate-100">
               <Link
                 href={"/news/" + item.url as Route}
                 aria-label={"vlog"}

@@ -7,7 +7,6 @@ import ProductCardNew from "@/components/ProductCardNew";
 import { useRouter } from "next/navigation";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import { useInfiniteQuery } from "react-query";
-import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 

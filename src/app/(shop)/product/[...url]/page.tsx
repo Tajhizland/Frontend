@@ -21,6 +21,7 @@ import TextExpander from "@/shared/TextExpander/TextExpander";
 import VideoSlider from "@/components/VideoSlider";
 import VideoSwiper from "@/components/VideoSwiper";
 import SectionVideo from "@/components/SectionVideo";
+import {ProductResponse} from "@/services/types/product";
 
 
 interface ProductPageProps {
@@ -79,6 +80,17 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
         }
     };
 
+    const renderMixDiscount=(product:ProductResponse)=>{
+        let maxDiscount=0;
+        product.colors.data.map((item)=>{
+            if(item.discount>maxDiscount)
+            {
+                maxDiscount=item.discount;
+            }
+        })
+        return maxDiscount;
+    }
+
     const renderStatus = () => {
         let status="";
         product.colors.data.map((item)=>{
@@ -103,7 +115,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
             return (
                 <div className={CLASSES}>
                     <IconDiscount className="w-3.5 h-3.5"/>
-                    <span className="mr-1 leading-none">{product.min_discounted_price} % تخفیف </span>
+                    <span className="mr-1 leading-none">{renderMixDiscount(product)} % تخفیف </span>
                 </div>
             );
         }
