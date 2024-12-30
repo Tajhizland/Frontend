@@ -19,7 +19,7 @@ const Prices: FC<PricesProps> = ({
                 className={`flex items-center  border-green-500 rounded-lg  py-1 px-2 md:py-1.5 md:px-2.5 text-sm font-medium ${contentClass}`}
             >
                 <span
-                    className={`text-black !leading-none text-xs sm:text-sm ${priceClass}`}>{new Intl.NumberFormat('en-US').format(price)} تومان </span>
+                    className={`text-green-500 !leading-none text-xs sm:text-sm ${priceClass}`}>{new Intl.NumberFormat('en-US').format(price)} تومان </span>
             </div>
         </div>
     );
