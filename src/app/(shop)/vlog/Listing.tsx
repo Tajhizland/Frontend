@@ -13,13 +13,14 @@ import { Route } from "next";
 import VlogCardSkeleton from "@/components/Skeleton/VlogCardSkeleton";
 import { FaCirclePlay } from "react-icons/fa6";
 
-export default function Listing({ response }: { response: any }) {
+export default function Listing({ response,search }: { response: any ,search?:string}) {
     const router = useRouter();
     const observer = useRef<IntersectionObserver | null>(null);
     const lastElementRef = useRef<HTMLDivElement>(null);
 
-    const [filter, setFilter] = useState<string>("");
+    const [filter, setFilter] = useState<string>(search?("filter[search]="+search):"");
 
+    console.log("SEARCH",search)
     // استفاده از useInfiniteQuery برای بارگذاری داده‌ها به صورت بی‌پایان
     const {
         data,
@@ -123,11 +124,11 @@ export default function Listing({ response }: { response: any }) {
 
                     <main>
                         {/* TABS FILTER */}
-                        <VlogFilter changeFilter={handleFilterChange} />
+                        <VlogFilter changeFilter={handleFilterChange} defualtSearch={search}/>
                         {/* LOOP ITEMS */}
                         <div className="grid grid-cols-1 lg:grid-cols-12 mt-8 lg:mt-10 gap-10">
                             <div className="hidden lg:block lg:col-span-3">
-                                <WidgetFilter changeFilter={handleFilterChange} />
+                                <WidgetFilter changeFilter={handleFilterChange}  />
                             </div>
 
                             <div

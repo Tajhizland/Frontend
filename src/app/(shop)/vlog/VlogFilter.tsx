@@ -23,7 +23,7 @@ import ButtonCircle from "@/shared/Button/ButtonCircle";
 
 type SelectedFilters = Record<string, string[] | string>;
 
-export default function VlogFilter({changeFilter}: { changeFilter: (filters: string) => void }) {
+export default function VlogFilter({changeFilter , defualtSearch}: { changeFilter: (filters: string) => void ,defualtSearch?:string }) {
     const {data: categoryList} = useQuery({
         queryKey: [`vlog_category-list`],
         queryFn: () => getList(),
@@ -32,7 +32,7 @@ export default function VlogFilter({changeFilter}: { changeFilter: (filters: str
 
     const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({});
     const [sortOrderStates, setSortOrderStates] = useState<string>("");
-    const [search, setSearch] = useState<string>("");
+    const [search, setSearch] = useState<string>(defualtSearch??"");
     const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false);
 
     const handleFilterChange = (filterId: string, itemId: string, isChecked: boolean) => {
@@ -556,7 +556,7 @@ export default function VlogFilter({changeFilter}: { changeFilter: (filters: str
                             className="shadow-lg border-0 dark:border"
                             id="search-input"
                             type="search"
-                            defaultValue={""}
+                            defaultValue={search}
                             onChange={(e)=>{handleSearchChange(e.target.value)}}
                             placeholder="ویدیو مورد نظر خود را جستجو کنید"
                             sizeClass="pr-14 py-5 pl-5 md:pr-16"

@@ -174,8 +174,8 @@ const NavMobile: React.FC<NavMobileProps> = ({
 
                     <div className="flex justify-between items-center mt-4">
                          <div className={"flex items-center gap-x-1"}>
-                        <BlogLink />
-                        <VlogLink />
+                        <BlogLink className={"bg-neutral-100 dark:bg-neutral-800"}/>
+                        <VlogLink className={"bg-neutral-100 dark:bg-neutral-800"}/>
                          </div>
                         <span className="block">
               <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800"/>

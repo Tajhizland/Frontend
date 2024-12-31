@@ -21,6 +21,7 @@ import {PiSmileySad} from "react-icons/pi";
 import SearchBar from "@/components/Header/SearchBar";
 import VlogLink from "@/components/Header/VlogLink";
 import BlogLink from "@/components/Header/BlogLink";
+import {MdOutlineOndemandVideo} from "react-icons/md";
 
 export interface MainNav2LoggedProps {
 }
@@ -88,7 +89,9 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const handleSearch = () => {
         router.push("/search/" + inputRef.current?.value as Route);
     }
-
+    const handleSearchVlog = () => {
+        router.push("/vlog?search=" + inputRef.current?.value as Route);
+    }
     const renderSearchForm = () => {
         return (
             <div className="relative w-full">
@@ -114,7 +117,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                 {searchResponse && showSearchForm &&
                     <div
                         ref={dropdownRef}
-                        className="absolute top-14 left-0 w-full h-[425px] bg-white  dark:bg-neutral-900  z-50 border rounded shadow border-t-0 overflow-y-auto whitespace-nowrap ">
+                        className="absolute top-14 left-0 w-full max-h-[496px] bg-white  dark:bg-neutral-900  z-50 border rounded shadow border-t-0 overflow-y-auto whitespace-nowrap ">
                         <button type="button" onClick={() => setShowSearchForm(false)}>
                             <XMarkIcon className="w-5 h-5 mr-5 dark:text-white"/>
                         </button>
@@ -147,7 +150,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                     </>))
                                     :
                                     <div
-                                        className="flex items-center gap-x-5 border-t p-5 bg-stone-100  text-center "
+                                        className="flex items-center gap-x-5 border-t p-5  justify-center  text-center "
                                         onClick={handleSearch}>
                                         <div>
                                             <PiSmileySad className={"text-neutral-500"}/>
@@ -167,6 +170,16 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                     مشاهده همه
                                 </span>
                             </div>}
+                            <div
+                                className="flex items-center gap-x-5 border-t p-5 bg-stone-100 dark:bg-slate-900 dark:hover:bg-slate-800  hover:bg-stone-200 text-center cursor-pointer"
+                                onClick={handleSearchVlog}>
+                                <div>
+                                    <MdOutlineOndemandVideo className={"text-neutral-500 dark:text-white"}/>
+                                </div>
+                                <span className={"text-sm text-neutral-800 font-bold dark:text-white"}>
+                                    جستجو در ولاگ
+                                </span>
+                            </div>
                         </div>
                     </div>}
             </div>
@@ -200,7 +213,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                         <SearchBar/>
                     </div>
 
-                    <div className="lg:flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
+                    <div className="lg:flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100 gap-x-1">
                         {/* {!showSearchForm && (
                             <button
                                 aria-label={"search"}
