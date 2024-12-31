@@ -8,6 +8,8 @@ import Nav from "@/shared/Nav/Nav";
 import NavItem from "@/shared/NavItem/NavItem";
 import { HomepageCategoryResponse } from "@/services/types/homepageCategory";
 import NcImage from "@/shared/NcImage/NcImage";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import {Route} from "next";
 
 interface SectionGridFeatureItemsProps {
     data: HomepageCategoryResponse[];
@@ -118,6 +120,9 @@ const SectionGridFeatureItems: FC<SectionGridFeatureItemsProps> = ({ data }) => 
                     <ProductCard2 data={product} key={index}/>
                 ))}
             </div>
+            <ButtonPrimary className={"!flex justify-center w-fit mx-auto my-5"} href={"/category/"+data[tabActive]?.category.url as Route}>
+                مشاهده همه
+            </ButtonPrimary>
         </div>
     );
 };
