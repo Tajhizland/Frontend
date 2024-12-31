@@ -11,6 +11,8 @@ import AdminPagination from "@/shared/Pagination/AdminPagination";
 import Image from "next/image";
 import { useState } from "react";
 import { useQuery } from "react-query";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import {Route} from "next";
 
 const AccountOrder = () => {
   const [page, setPage] = useState(1);
@@ -68,13 +70,17 @@ const AccountOrder = () => {
       <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 sm:p-8 bg-slate-50 dark:bg-slate-500/5">
           <div>
-            <p className="text-lg font-semibold">{item.id}</p>
+            <p className="text-lg font-semibold">شماره سفارش : {item.id}</p>
             <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 sm:mt-2">
               <span>{item.order_date}</span>
               <span className="mx-2">·</span>
               <span className="text-primary-500">{OrderStatus[Number(item.status)]}</span>
+
             </p>
           </div>
+            <ButtonPrimary href={"/factor/"+item.id as Route}>
+                دریافت فاکتور
+            </ButtonPrimary>
 
         </div>
         <div className="border-t border-slate-200 dark:border-slate-700 p-2 sm:p-8 divide-y divide-y-slate-200 dark:divide-slate-700">

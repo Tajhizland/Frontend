@@ -397,6 +397,8 @@ const CheckoutPage = () => {
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
                                        disabled={!allow}>پرداخت</ButtonPrimary>
 
+                        <ButtonPrimary href={"/checkout/prefactor"} className="mt-8 w-full"
+                                       disabled={!allow}>دریافت پیش فاکتور</ButtonPrimary>
                         {
                             !allow &&
                             <Alert containerClassName={"justify-center mt-4"} type={"error"}>محصول غیرفعال یا ناموجود در
