@@ -66,22 +66,22 @@ export default function CartDropdown() {
                     <div>
                         <div className="flex justify-between ">
                             <div>
-                                <h3 className="text-sm font-medium ">
+                                <h3 className="text-xs font-medium ">
                                     <Link onClick={close} href={"/product/" + item.product.url as Route}>
                                         {name}
                                     </Link>
                                 </h3>
-                                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                                     <span>{title}</span>
                                 </p>
-                                <span className="text-sm text-slate-500 dark:text-slate-400">
+                                <span className="text-xs text-slate-500 dark:text-slate-400">
                                     {item.guaranty.name}
                                 </span>
                             </div>
-                            <Prices price={price} className="mt-0.5" />
+                            <Prices price={price} className="  whitespace-nowrap " />
                         </div>
                     </div>
-                    <div className="flex flex-1 items-end justify-between text-sm">
+                    <div className="flex flex-1 items-end justify-between text-xs">
                         <p className="text-gray-500 dark:text-slate-400">{`تعداد : ${count}`}</p>
 
                         <div className="flex">

@@ -22,6 +22,8 @@ import SearchBar from "@/components/Header/SearchBar";
 import VlogLink from "@/components/Header/VlogLink";
 import BlogLink from "@/components/Header/BlogLink";
 import {MdOutlineOndemandVideo} from "react-icons/md";
+import Input from "@/shared/Input/Input";
+import ButtonCircle from "@/shared/Button/ButtonCircle";
 
 export interface MainNav2LoggedProps {
 }
@@ -99,20 +101,69 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     className="flex-1 py-2 text-slate-900 dark:text-slate-100"
 
                 >
-                    <div
-                        className="bg-neutral-100 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded  ">
-                        <FaMagnifyingGlass className={"text-neutral-500 w-4 h-4"}/>
-                        <input
-                            onChange={searchHandle}
-                            ref={inputRef}
-                            type="text"
-                            placeholder="جستجو"
-                            className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-sm"
-                            autoFocus
-                        />
+                    {/*<div*/}
+                    {/*    className="bg-neutral-100 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded  ">*/}
+                    {/*    <FaMagnifyingGlass className={"text-neutral-500 w-4 h-4"}/>*/}
+                    {/*    <input*/}
+                    {/*        onChange={searchHandle}*/}
+                    {/*        ref={inputRef}*/}
+                    {/*        type="text"*/}
+                    {/*        placeholder="جستجو"*/}
+                    {/*        className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-sm"*/}
+                    {/*        autoFocus*/}
+                    {/*    />*/}
 
+                    {/*</div>*/}
+
+                    <div className="relative w-full " >
+                        <label
+                            htmlFor="search-input"
+                            className="text-neutral-500 dark:text-neutral-300"
+                        >
+                            <span className="sr-only">Search all icons</span>
+                            <Input
+                                className="border "
+                                id="search-input"
+                                 onChange={searchHandle}
+                                ref={inputRef}
+                                type="text"
+                                placeholder="جستجو"
+                                sizeClass="pr-14 !py-2 pl-5 md:pr-16"
+                                rounded="rounded-full"
+                            />
+                            <ButtonCircle
+                                className="absolute right-2.5 top-1/2 transform -translate-y-1/2"
+                                size=" w-8 h-8"
+                                onClick={handleSearch}
+                            >
+                                <i className="las la-arrow-right text-xl"></i>
+                            </ButtonCircle>
+                            <span
+                                className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-6">
+                <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                      d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                  />
+                  <path
+                      d="M22 22L20 20"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+                        </label>
                     </div>
-                    <input type="submit" hidden value=""/>
                 </div>
                 {searchResponse && showSearchForm &&
                     <div
@@ -142,7 +193,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                                         className={"text-sm text-neutral-800 font-bold dark:text-white "}> {item.name}  </span>
                                                 </div>
                                                 <div>
-                                                    <FaExternalLinkAlt className={" text-neutral-400"}/>
+                                                <FaExternalLinkAlt className={" text-neutral-400"}/>
                                                 </div>
                                             </div>
 

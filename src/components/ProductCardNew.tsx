@@ -160,24 +160,27 @@ const ProductCard2: FC<ProductCardProps> = ({
                 </div>
 
                 <div className="space-y-1 px-2.5 sm:pt-5 sm:pb-2.5  w-full flex flex-col">
-                    <LikeButton liked={data?.favorite} likeHandle={likeHandle}
-                        className="  z-10 sm:hidden flex" />
+                    <div className={"flex justify-between items-center"}>
+                        <div className="flex sm:hidden items-center mb-0.5 ">
+                            <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
+                            <span className="text-xs ms-1 text-slate-500 dark:text-slate-400">
+                            {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
+                        </span>
+                        </div>
+                        <LikeButton liked={data?.favorite} likeHandle={likeHandle}
+                                    className="  z-10 sm:hidden flex"/>
+                    </div>
+
                     <div>
                         <h2 className="nc-ProductCard__title text-xs lg:text-base font-semibold transition-colors dark:text-white">
                             {data?.name}
                         </h2>
                     </div>
-                    <div className="flex sm:hidden items-center mb-0.5 ">
-                        <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
-                        <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
-                            {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
-                        </span>
-                    </div>
-                    <div className="flex justify-between items-end">
+                    <div className="flex  flex-col justify-between items-start">
+                        {data && checkStock(data) ? <Prices price={renderMinPrice(data)} /> : <Badge color={"red"} name={"ناموجود"} />}
                         <div className="block sm:hidden">
                             {renderVariants()}
                         </div>
-                        {data && checkStock(data) ? <Prices price={renderMinPrice(data)} /> : <Badge color={"red"} name={"ناموجود"} />}
                         <div className="hidden sm:flex items-center mb-0.5 ">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
@@ -191,7 +194,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                 </div>
             </div>
 
-        
+
         </>
     );
 };

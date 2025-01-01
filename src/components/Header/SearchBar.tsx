@@ -6,6 +6,8 @@ import {FaMagnifyingGlass} from "react-icons/fa6";
 import Logo from "@/shared/Logo/Logo";
 import Image from "next/image";
 import logoImg from "@/images/tajhizland/logo.png";
+import Input from "@/shared/Input/Input";
+import ButtonCircle from "@/shared/Button/ButtonCircle";
 
 export interface MenuBarProps {
 }
@@ -84,34 +86,82 @@ const SearchBar: React.FC<MenuBarProps> = () => {
 
     return (
         <>
-            <button
+            <div
                 className={"w-full"}
                 onClick={handleOpenMenu}
             >
-                <div className="relative w-full">
-                    <div
-                        className="flex-1 py-2 text-slate-900 dark:text-slate-100"
-
+                <div className="relative w-full ">
+                    <label
+                        htmlFor="search-input"
+                        className="text-neutral-500 dark:text-neutral-300"
                     >
-                        <div
-                            className="bg-neutral-100 dark:bg-slate-800 flex items-center space-x-1.5 px-1 sm:px-5 h-full rounded  ">
-                            <FaMagnifyingGlass className={"text-neutral-500 w-4 h-4"}/>
-                            <div className={"relative"}>
-                            <input
-                                type="text"
-                                readOnly={true}
-                                placeholder="جستجو"
-                                className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-xs font-bold text-neutral-500"
-                                autoFocus
-                            />
-                               
-                            </div>
-
-                        </div>
-                        <input type="submit" hidden value=""/>
-                    </div>
+                        <span className="sr-only">Search all icons</span>
+                        <Input
+                            className="border text-xs "
+                            id="search-input"
+                            readOnly
+                            type="text"
+                            placeholder="جستجو"
+                            sizeClass="pr-8 !py-1 "
+                            rounded="rounded-full"
+                        />
+                        <ButtonCircle
+                            className="absolute right-1 top-1/2 transform -translate-y-1/2"
+                            size=" w-6 h-6"
+                        >
+                            <i className="las la-arrow-right text-xl"></i>
+                        </ButtonCircle>
+                        <span
+                            className="absolute left-1 top-1/2 transform -translate-y-1/2 text-2xl  ">
+                <svg
+                    className="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                      d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                  />
+                  <path
+                      d="M22 22L20 20"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+                    </label>
                 </div>
-            </button>
+
+                {/*<div className="relative w-full">*/}
+                {/*    <div*/}
+                {/*        className="flex-1 py-2 text-slate-900 dark:text-slate-100"*/}
+
+                {/*    >*/}
+                {/*        <div*/}
+                {/*            className="bg-neutral-100 dark:bg-slate-800 flex items-center space-x-1.5 px-1 sm:px-5 h-full rounded  ">*/}
+                {/*            <FaMagnifyingGlass className={"text-neutral-500 w-4 h-4"}/>*/}
+                {/*            <div className={"relative"}>*/}
+                {/*                <input*/}
+                {/*                    type="text"*/}
+                {/*                    readOnly={true}*/}
+                {/*                    placeholder="جستجو"*/}
+                {/*                    className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-xs font-bold text-neutral-500"*/}
+                {/*                    autoFocus*/}
+                {/*                />*/}
+
+                {/*            </div>*/}
+
+                {/*        </div>*/}
+                {/*        <input type="submit" hidden value=""/>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+            </div>
 
             {renderContent()}
         </>

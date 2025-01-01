@@ -129,7 +129,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                             <div
                                                 className="flex items-center justify-between  py-2 px-1 hover:bg-stone-100 dark:bg-black/30 dark:hover:bg-black/20 ">
                                                 <div className="flex items-center gap-x-5  ">
-                                                    <div className={""}>
+                                                    <div className={" flex-shrink-0"}>
                                                         <Image alt="productImage"
                                                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
                                                                width={50}
@@ -138,7 +138,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                                     </div>
                                                     <div>
                                                     <span
-                                                        className={"text-sm text-neutral-800 font-bold  dark:text-white"}> {item.name}  </span>
+                                                        className={"text-xs text-neutral-800 font-bold  dark:text-white flex-shrink-0 whitespace-normal"}> {item.name}  </span>
                                                     </div>
                                                 </div>
                                                 <div>

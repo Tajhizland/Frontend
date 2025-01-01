@@ -289,7 +289,6 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                                 }
                   `}
                             >
-                                <FaFilter/>
 
                                 <span className=" mr-2">{filter.name}</span>
                                 {!selectedFilters[filter.id]?.length ? (
@@ -391,7 +390,7 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                             {/*        strokeLinejoin="round"*/}
                             {/*    />*/}
                             {/*</svg>*/}
-                            <span className="mr-2 min-w-[90px]">فیلتر قیمت</span>
+                            <span className="mr-2 min-w-[90px]">محدوده قیمت</span>
                             {rangePrices[0] == minPrice &&
                             rangePrices[1] == maxPrice ? null : (
                                 <span onClick={() => {
