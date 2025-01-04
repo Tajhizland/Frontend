@@ -1,5 +1,5 @@
 "use client"
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {FaPlay} from "react-icons/fa";
 import {BsFillCameraReelsFill} from "react-icons/bs";
 
@@ -18,7 +18,7 @@ export default function SectionVideo({
     unboxing_video_description: string,
     usage_video_description: string
 }) {
-    const [openVideo, setOpenVideo] = useState(intro_video);
+    const [openVideo, setOpenVideo] = useState(intro_video ?? unboxing_video ?? usage_video);
 
     const videos = [
         {
@@ -37,31 +37,55 @@ export default function SectionVideo({
             description: unboxing_video_description
         },
     ]
-    return (<>
-        <div className={"flex flex-col-reverse xl:flex-row gap-5"}>
-            <div className={"flex flex-col md:flex-row lg:flex-col justify-between gap-5"}>
-                {
-                    videos.map((item, index) => (<div key={index}
-                        onClick={() => {
-                            setOpenVideo(item.src);
-                        }}
-                        className={"bg-neutral-100 hover:bg-neutral-200 dark:bg-black/20 dark:hover:bg-black/30 rounded flex gap-x-2 w-full xl:w-64 cursor-pointer overflow-hidden"}>
+    if (
+        (!intro_video && !unboxing_video && !usage_video) ||
+        (intro_video == "" && unboxing_video == "" && usage_video == "")
+    ) {
+        return <></>
+    }
 
-                        <div className="flex-shrink-0 w-32 h-20">
-                            <video className="w-full h-full">
-                                <source src={intro_video} type="video/mp4"/>
-                            </video>
-                        </div>
-                        <div className={"flex flex-col justify-between w-fit whitespace-nowrap flex-1 py-2"}>
-                            <div className={"flex items-center gap-x-1"}>
-                                <BsFillCameraReelsFill className={"text-slate-800 dark:text-white"} />
-                                <span className={"text-xs text-slate-900 dark:text-white"}>{item.title}</span>
-                            </div>
-                            <div>
-                                <span className={"text-sm text-slate-900 dark:text-white"}>{item.description}</span>
-                            </div>
-                        </div>
-                    </div>))
+    const renderVideoCount = () => {
+        let count = 0;
+        videos.map((item, index) => {
+            if (item.src && item.src != "") {
+                count++;
+            }
+        });
+        return count;
+    }
+    return (<>
+        {
+            console.log("VID", videos)
+        }
+        <div className={"flex flex-col-reverse xl:flex-row gap-5"}>
+            <div className={"flex flex-col md:flex-row lg:flex-col   gap-5"}>
+                {
+                    videos.map((item, index) => (
+                        <Fragment key={index}>
+                            {(item.src != "" && item.src && renderVideoCount() > 1) ? <div key={index}
+                                                                                           onClick={() => {
+                                                                                               setOpenVideo(item.src);
+                                                                                           }}
+                                                                                           className={"bg-neutral-100 hover:bg-neutral-200 dark:bg-black/20 dark:hover:bg-black/30 rounded flex gap-x-2 w-full xl:w-64 cursor-pointer overflow-hidden"}>
+
+                                <div className="flex-shrink-0 w-32 h-20">
+                                    <video className="w-full h-full">
+                                        <source src={item.src} type="video/mp4"/>
+                                    </video>
+                                </div>
+                                <div className={"flex flex-col justify-between w-fit whitespace-nowrap flex-1 py-2"}>
+                                    <div className={"flex items-center gap-x-1"}>
+                                        <BsFillCameraReelsFill className={"text-slate-800 dark:text-white"}/>
+                                        <span className={"text-xs text-slate-900 dark:text-white"}>{item.title}</span>
+                                    </div>
+                                    <div>
+                                        <span
+                                            className={"text-sm text-slate-900 dark:text-white"}>{item.description}</span>
+                                    </div>
+                                </div>
+                            </div> : ""}
+                        </Fragment>
+                    ))
                 }
             </div>
             <div className={"w-full "}>

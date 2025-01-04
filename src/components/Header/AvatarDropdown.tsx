@@ -33,6 +33,9 @@ export default function AvatarDropdown() {
         enabled: !!getCookie("token"),
         onSuccess: (user) => {
             setUser(user);
+        },
+        onError:()=>{
+            deleteCookie("token");
         }
     });
 

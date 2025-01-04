@@ -16,6 +16,8 @@ const TextExpander: React.FC<TextExpanderProps> = ({ text }) => {
     setIsExpanded(!isExpanded);
   };
 
+  if(!text || text=="")
+      return <></>
   return (
     <div className="mx-auto">
       <div

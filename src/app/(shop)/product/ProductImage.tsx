@@ -58,7 +58,7 @@ export default function ProductImage({ productImages }: { productImages: Product
               </div>
 
               {/* /!*  *!/ */}
-              {[productImages[2]?.url??"", productImages[3]?.url??""].map(
+              {[productImages[2]?.url??productImages[0]?.url, productImages[3]?.url??productImages[1]?.url].map(
                 (item, index) => (
                   <div
                     key={index}

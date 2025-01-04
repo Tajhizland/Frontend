@@ -157,8 +157,7 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
                  </div>
 
                 {/*  */}
-                <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-                {/*  */}
+                 {/*  */}
                 <TextExpander text={product.description} />
                 <AccordionInfo
                     data={[
@@ -168,10 +167,10 @@ const ProductDetailPage2 = async ({params}: ProductPageProps) => {
 
                         },
                     ]}/>
-                <SectionVideo intro_video={"https://tajhizland.com/video/intro_video.mp4"} unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />
-                {/*<SectionVideo intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
-                    {/*<VideoSwiper intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} />*/}
-            </div>
+                {/*<SectionVideo  intro_video={product.intro_video}  unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
+                {/*<SectionVideo intro_video={"https://tajhizland.com/video/intro_video.mp4"} unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
+                <SectionVideo intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />
+             </div>
         );
     };
     const renderSection2 = () => {
