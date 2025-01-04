@@ -84,8 +84,11 @@ export default function ProductImage({ productImages }: { productImages: Product
                 )
               )}
             </div>
-            <div
-              className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
+         
+          </div>
+        </header>
+        <div
+              className=" w-fit mx-auto mt-5 border  md:flex md:items-center md:justify-center px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
               onClick={handleOpenModalImageGallery}
             >
               <svg
@@ -106,8 +109,6 @@ export default function ProductImage({ productImages }: { productImages: Product
                نمایش تمام تصاویر
               </span>
             </div>
-          </div>
-        </header>
       </>
         <Suspense>
             <ListingImageGallery
