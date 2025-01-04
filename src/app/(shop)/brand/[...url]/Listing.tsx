@@ -104,7 +104,7 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
 
                     <div className="flex">
                         <div
-                            className="grid justify-items-center items-center justify-center grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 xl:grid-cols-10 gap-5 text-center">
+                            className="flex hiddenScrollbar overflow-x-auto lg:flex-wrap lg:justify-items-center lg:items-center lg:justify-center lg:grid-cols-8 xl:grid-cols-10 gap-1  lg:gap-5 text-center">
                             {
                                 response?.categories?.data?.map((item, index) => (
                                     <CategoryCircleCard
