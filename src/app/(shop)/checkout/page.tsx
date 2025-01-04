@@ -56,25 +56,25 @@ const CheckoutPage = () => {
             router.push("/thank_you_page")
     }
 
-    async function increaseHandle(selectedColorId: number,guarantyId:number|undefined) {
-        let response = await increaseCartItem({productColorId: selectedColorId ,guaranty_id:guarantyId});
+    async function increaseHandle(selectedColorId: number, guarantyId: number | undefined) {
+        let response = await increaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
         if (response.success) {
-            reduxIncrementQuantity(selectedColorId ,guarantyId)
+            reduxIncrementQuantity(selectedColorId, guarantyId)
         }
     }
 
-    async function decreaseHandle(selectedColorId: number,guarantyId:number|undefined) {
-        let response = await decreaseCartItem({productColorId: selectedColorId ,guaranty_id:guarantyId});
+    async function decreaseHandle(selectedColorId: number, guarantyId: number | undefined) {
+        let response = await decreaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
         if (response.success) {
-            reduxDecrementQuantity(selectedColorId,guarantyId)
+            reduxDecrementQuantity(selectedColorId, guarantyId)
         }
 
     }
 
-    async function removeHandle(selectedColorId: number ,guarantyId:number|undefined) {
-        let response = await removeCartItem({productColorId: selectedColorId ,guaranty_id:guarantyId});
+    async function removeHandle(selectedColorId: number, guarantyId: number | undefined) {
+        let response = await removeCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
         if (response.success) {
-            reduxRemoveFromCart(selectedColorId,guarantyId)
+            reduxRemoveFromCart(selectedColorId, guarantyId)
         }
     }
 
@@ -113,7 +113,7 @@ const CheckoutPage = () => {
 
         return (
             <div key={index} className="relative flex py-7 first:pt-0 last:pb-0">
-                <div className="relative h-36 w-24 sm:w-28 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                <div className="relative h-24 w-24  flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
                     <Image
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`}
                         fill
@@ -126,9 +126,9 @@ const CheckoutPage = () => {
 
                 <div className="mr-3 sm:ml-6 flex flex-1 flex-col">
                     <div>
-                        <div className="flex justify-between ">
+                        <div className="flex justify-between gap-1 flex-col ">
                             <div className="flex-[1.5] ">
-                                <h3 className="text-base font-semibold">
+                                <h3 className="text-xs md:text-sm font-semibold">
                                     <Link href={{pathname: "product/" + item.product.url}}>{item.product.name}</Link>
                                 </h3>
                                 <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
@@ -182,25 +182,28 @@ const CheckoutPage = () => {
                                 </div>
 
                             </div>
-
-                            <div className="flex-1 sm:flex justify-end">
+                            <span className="text-xs text-slate-500 dark:text-slate-400">
+                                    {item.guaranty.name}
+                                </span>
+                            <div className="flex-1 sm:flex justify-start">
                                 <Prices price={item.color.price} className="mt-0.5"/>
                             </div>
                         </div>
+
                     </div>
 
-                    <div className="flex mt-auto pt-4 items-end justify-between text-sm">
+                    <div className="flex mt-auto pt-4 items-start justify-between text-sm flex-col sm:flex-row gap-1">
                         <div className=" sm:block text-center relative">
                             <NcInputNumber className="relative z-10"
                                            defaultValue={item.count}
                                            increaseHandle={() => {
-                                               increaseHandle(item.color.id as number , item.guaranty.id as number)
+                                               increaseHandle(item.color.id as number, item.guaranty.id as number)
                                            }}
                                            decreaseHandel={() => {
-                                               decreaseHandle(item.color.id as number , item.guaranty.id as number)
+                                               decreaseHandle(item.color.id as number, item.guaranty.id as number)
                                            }}
                                            removeHandle={() => {
-                                               removeHandle(item.color.id as number , item.guaranty.id as number)
+                                               removeHandle(item.color.id as number, item.guaranty.id as number)
                                            }}
                             />
                         </div>
@@ -274,7 +277,7 @@ const CheckoutPage = () => {
     const renderDiscount = () => {
         let sumDiscount: number = 0;
         cart.map((item) => {
-            sumDiscount += Number((item.color.price-item.color.discountedPrice) * item.count);
+            sumDiscount += Number((item.color.price - item.color.discountedPrice) * item.count);
         })
         return sumDiscount;
     }
@@ -306,8 +309,8 @@ const CheckoutPage = () => {
     const renderMaxDeliveryDelay = () => {
         let maxDeliveryDelay: number = 0;
         cart.map((item) => {
-            if(item.color.delivery_delay>maxDeliveryDelay)
-                maxDeliveryDelay=item.color.delivery_delay
+            if (item.color.delivery_delay > maxDeliveryDelay)
+                maxDeliveryDelay = item.color.delivery_delay
         })
         return maxDeliveryDelay;
     }

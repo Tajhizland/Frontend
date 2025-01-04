@@ -64,7 +64,7 @@ export default function CartDropdown() {
 
                 <div className="mr-4 flex flex-1 flex-col">
                     <div>
-                        <div className="flex justify-between ">
+                        <div className="flex  flex-col ">
                             <div>
                                 <h3 className="text-xs font-medium ">
                                     <Link onClick={close} href={"/product/" + item.product.url as Route}>
@@ -78,7 +78,7 @@ export default function CartDropdown() {
                                     {item.guaranty.name}
                                 </span>
                             </div>
-                            <Prices price={price} className="  whitespace-nowrap " />
+                            <Prices price={price} className="whitespace-nowrap" />
                         </div>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-xs">

@@ -54,9 +54,6 @@ export default function SectionVideo({
         return count;
     }
     return (<>
-        {
-            console.log("VID", videos)
-        }
         <div className={"flex flex-col-reverse xl:flex-row gap-5"}>
             <div className={"flex flex-col md:flex-row lg:flex-col   gap-5"}>
                 {

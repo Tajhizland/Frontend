@@ -87,7 +87,7 @@ const CartPage = () => {
                     key={index}
                     className="relative flex py-8 sm:py-10 xl:py-12 first:pt-0 last:pb-0"
                 >
-                    <div className="relative h-36 w-24 sm:w-32 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                    <div className="relative h-24 w-24   flex-shrink-0 overflow-hidden rounded-xl  ">
                         <Image
                             fill
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`}
@@ -100,13 +100,13 @@ const CartPage = () => {
 
                     <div className="mr-3 sm:ml-6 flex flex-1 flex-col">
                         <div>
-                            <div className="flex justify-between ">
+                            <div className="flex justify-between gap-1 flex-col  ">
                                 <div className="flex-[1.5] ">
-                                    <h3 className="text-base font-semibold">
+                                    <h3 className="text-xs md:text-sm font-semibold">
                                         <Link
                                             href={{pathname: "/product/" + item.product.url}}>{item.product.name}</Link>
                                     </h3>
-                                    <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
+                                    <div className=" flex text-sm text-slate-600 dark:text-slate-300">
                                         <div className="flex items-center gap-x-1.5">
                                             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
                                                 <path
@@ -152,10 +152,20 @@ const CartPage = () => {
 
                                             <span>{item.color.title}</span>
                                         </div>
+
                                         <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>
 
                                     </div>
+                                    <span className="text-xs text-slate-500 dark:text-slate-400">
+                                    {item.guaranty.name}
+                                </span>
 
+
+                                </div>
+
+
+                                <div className="  flex-1  flex justify-start ">
+                                    <Prices price={item.color.price * item.count} className="mt-0.5"/>
                                 </div>
 
                                 <div className=" block text-center relative">
@@ -174,9 +184,6 @@ const CartPage = () => {
                                     />
                                 </div>
 
-                                <div className="hidden flex-1 sm:flex justify-end">
-                                    <Prices price={item.color.price * item.count} className="mt-0.5"/>
-                                </div>
                             </div>
                         </div>
 
