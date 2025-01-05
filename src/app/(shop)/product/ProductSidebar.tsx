@@ -27,6 +27,7 @@ import { Route } from "next";
 import Policy from "../product-detail/Policy";
 import { GuarantyResponse } from "@/services/types/guaranty";
 import Badge from "@/shared/Badge/Badge";
+import { GuarantyPrice } from "@/hooks/GuarantyPrice";
 
 export default function ProductSidebar({ product }: { product: ProductResponse }) {
     const colors = product.colors.data;
@@ -125,7 +126,12 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                             </small>
                         </div>
                         <span className={"text-xs text-slate-600 dark:text-white"}>
-                            رایگان
+                            {
+                                item.free ? "رایگان"
+                                :
+                                <Prices price={GuarantyPrice(selectedColor.price)} />
+                            }
+                             
                         </span>
                     </div>))}
             </div>
