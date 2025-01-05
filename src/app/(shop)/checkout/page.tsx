@@ -3,8 +3,8 @@
 import Label from "@/components/Label/Label";
 import NcInputNumber from "@/components/NcInputNumber";
 import Prices from "@/components/Prices";
-import {Product, PRODUCTS} from "@/data/data";
-import {useMemo, useState} from "react";
+import { Product, PRODUCTS } from "@/data/data";
+import { useMemo, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import ContactInfo from "./ContactInfo";
@@ -12,9 +12,9 @@ import PaymentMethod from "./PaymentMethod";
 import ShippingAddress from "./ShippingAddress";
 import Image from "next/image";
 import Link from "next/link";
-import {useQuery} from "react-query";
-import {decreaseCartItem, getCart, increaseCartItem, removeCartItem} from "@/services/api/shop/cart";
-import {CartResponse} from "@/services/types/cart";
+import { useQuery } from "react-query";
+import { decreaseCartItem, getCart, increaseCartItem, removeCartItem } from "@/services/api/shop/cart";
+import { CartResponse } from "@/services/types/cart";
 import {
     reduxDecrementQuantity,
     reduxIncrementQuantity, reduxRemoveFromCart,
@@ -22,10 +22,11 @@ import {
     useCart,
     useUser
 } from "@/services/globalState/GlobalState";
-import {useRouter} from "next/navigation";
-import {paymentRequest} from "@/services/api/shop/payment";
-import {CheckIcon, NoSymbolIcon} from "@heroicons/react/24/outline";
-import {Alert} from "@/shared/Alert/Alert";
+import { useRouter } from "next/navigation";
+import { paymentRequest } from "@/services/api/shop/payment";
+import { CheckIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
+import { Alert } from "@/shared/Alert/Alert";
+import { GuarantyPrice } from "@/hooks/GuarantyPrice";
 
 const CheckoutPage = () => {
     const router = useRouter();
@@ -37,7 +38,7 @@ const CheckoutPage = () => {
     // if (!user) {
     //     router.push("/login");
     // }
-    const {data, isSuccess} = useQuery({
+    const { data, isSuccess } = useQuery({
         queryKey: ['cart'],
         queryFn: () => getCart(),
         staleTime: 5000,
@@ -57,14 +58,14 @@ const CheckoutPage = () => {
     }
 
     async function increaseHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await increaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
+        let response = await increaseCartItem({ productColorId: selectedColorId, guaranty_id: guarantyId });
         if (response.success) {
             reduxIncrementQuantity(selectedColorId, guarantyId)
         }
     }
 
     async function decreaseHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await decreaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
+        let response = await decreaseCartItem({ productColorId: selectedColorId, guaranty_id: guarantyId });
         if (response.success) {
             reduxDecrementQuantity(selectedColorId, guarantyId)
         }
@@ -72,7 +73,7 @@ const CheckoutPage = () => {
     }
 
     async function removeHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await removeCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
+        let response = await removeCartItem({ productColorId: selectedColorId, guaranty_id: guarantyId });
         if (response.success) {
             reduxRemoveFromCart(selectedColorId, guarantyId)
         }
@@ -85,7 +86,7 @@ const CheckoutPage = () => {
     const handleScrollToEl = (id: string) => {
         const element = document.getElementById(id);
         setTimeout(() => {
-            element?.scrollIntoView({behavior: "smooth"});
+            element?.scrollIntoView({ behavior: "smooth" });
         }, 80);
     };
 
@@ -93,7 +94,7 @@ const CheckoutPage = () => {
         return (
             <div
                 className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                <NoSymbolIcon className="w-3.5 h-3.5"/>
+                <NoSymbolIcon className="w-3.5 h-3.5" />
                 <span className="mr-1 leading-none">ناموجود</span>
             </div>
         );
@@ -103,7 +104,7 @@ const CheckoutPage = () => {
         return (
             <div
                 className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                <CheckIcon className="w-3.5 h-3.5"/>
+                <CheckIcon className="w-3.5 h-3.5" />
                 <span className="mr-1 leading-none">  موجود</span>
             </div>
         );
@@ -121,7 +122,7 @@ const CheckoutPage = () => {
                         className="h-full w-full object-contain object-center"
                         sizes="150px"
                     />
-                    <Link href={{pathname: "product/" + item.product.url}} className="absolute inset-0"></Link>
+                    <Link href={{ pathname: "product/" + item.product.url }} className="absolute inset-0"></Link>
                 </div>
 
                 <div className="mr-3 sm:ml-6 flex flex-1 flex-col">
@@ -129,7 +130,7 @@ const CheckoutPage = () => {
                         <div className="flex justify-between gap-1 flex-col ">
                             <div className="flex-[1.5] ">
                                 <h3 className="text-xs md:text-sm font-semibold">
-                                    <Link href={{pathname: "product/" + item.product.url}}>{item.product.name}</Link>
+                                    <Link href={{ pathname: "product/" + item.product.url }}>{item.product.name}</Link>
                                 </h3>
                                 <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
                                     <div className="flex items-center gap-x-1.5">
@@ -182,11 +183,21 @@ const CheckoutPage = () => {
                                 </div>
 
                             </div>
-                            <span className="text-xs text-slate-500 dark:text-slate-400">
+                            <div className="flex items-center gap-x-1">
+                                <span className="text-xs text-slate-500 dark:text-slate-400">
                                     {item.guaranty.name}
                                 </span>
+                                {
+                                    item.guaranty.free ?
+                                        <span className="text-xs text-slate-500 dark:text-slate-400">
+                                            (رایگان)
+                                        </span>
+                                        :
+                                        <Prices priceClass="text-xs text-slate-500 dark:text-slate-400" price={GuarantyPrice(item.color.price)} />
+                                }
+                            </div>
                             <div className="flex-1 sm:flex justify-start">
-                                <Prices price={item.color.price} className="mt-0.5"/>
+                                <Prices price={item.color.price} className="mt-0.5" />
                             </div>
                         </div>
 
@@ -195,16 +206,16 @@ const CheckoutPage = () => {
                     <div className="flex mt-auto pt-4 items-start justify-between text-sm flex-col sm:flex-row gap-1">
                         <div className=" sm:block text-center relative">
                             <NcInputNumber className="relative z-10"
-                                           defaultValue={item.count}
-                                           increaseHandle={() => {
-                                               increaseHandle(item.color.id as number, item.guaranty.id as number)
-                                           }}
-                                           decreaseHandel={() => {
-                                               decreaseHandle(item.color.id as number, item.guaranty.id as number)
-                                           }}
-                                           removeHandle={() => {
-                                               removeHandle(item.color.id as number, item.guaranty.id as number)
-                                           }}
+                                defaultValue={item.count}
+                                increaseHandle={() => {
+                                    increaseHandle(item.color.id as number, item.guaranty.id as number)
+                                }}
+                                decreaseHandel={() => {
+                                    decreaseHandle(item.color.id as number, item.guaranty.id as number)
+                                }}
+                                removeHandle={() => {
+                                    removeHandle(item.color.id as number, item.guaranty.id as number)
+                                }}
                             />
                         </div>
                         {!item.hasStock
@@ -373,44 +384,44 @@ const CheckoutPage = () => {
                             <div className="mt-4  flex justify-between py-2.5">
                                 <span>زمان آماده سازی</span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  {maxDeliveryDelay} روز
-                </span>
+                                    {maxDeliveryDelay} روز
+                                </span>
                             </div>
                             <div className="flex justify-between py-2.5">
                                 <span>محصولات</span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  {sumPrice.toLocaleString()} تومان
-                </span>
+                                    {sumPrice.toLocaleString()} تومان
+                                </span>
                             </div>
 
                             <div className="flex justify-between py-2.5">
                                 <span> تخفیف  </span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  {sumDiscount.toLocaleString()} تومان
-                </span>
+                                    {sumDiscount.toLocaleString()} تومان
+                                </span>
                             </div>
                             <div
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                 <span> مجموع  </span>
                                 <span>
-                  {sumDiscountedPrice.toLocaleString()} تومان
-                </span>
+                                    {sumDiscountedPrice.toLocaleString()} تومان
+                                </span>
                             </div>
                         </div>
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
-                                       disabled={!allow}>پرداخت</ButtonPrimary>
+                            disabled={!allow}>پرداخت</ButtonPrimary>
 
                         <ButtonPrimary href={"/checkout/prefactor"} className="mt-8 w-full"
-                                       disabled={!allow}>دریافت پیش فاکتور</ButtonPrimary>
+                            disabled={!allow}>دریافت پیش فاکتور</ButtonPrimary>
                         {
                             !allow &&
                             <Alert containerClassName={"justify-center mt-4"} type={"error"}>محصول غیرفعال یا ناموجود در
                                 سبد خرید موجود میباشد </Alert>
                         } {
-                        limit &&
-                        <Alert containerClassName={" justify-center mt-4"} type={"warning"}>محصول محدود کننده در سبد
-                            خرید موجود میباشد . پس از تایید مدیریت امکان پرداخت وجود دارد </Alert>
-                    }
+                            limit &&
+                            <Alert containerClassName={" justify-center mt-4"} type={"warning"}>محصول محدود کننده در سبد
+                                خرید موجود میباشد . پس از تایید مدیریت امکان پرداخت وجود دارد </Alert>
+                        }
 
                     </div>
                 </div>

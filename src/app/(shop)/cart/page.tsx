@@ -1,13 +1,13 @@
 "use client"
-import {NoSymbolIcon, CheckIcon} from "@heroicons/react/24/outline";
+import { NoSymbolIcon, CheckIcon } from "@heroicons/react/24/outline";
 import NcInputNumber from "@/components/NcInputNumber";
 import Prices from "@/components/Prices";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
-import {useQuery} from "react-query";
-import {decreaseCartItem, getCart, increaseCartItem, removeCartItem} from "@/services/api/shop/cart";
-import {CartResponse} from "@/services/types/cart";
+import { useQuery } from "react-query";
+import { decreaseCartItem, getCart, increaseCartItem, removeCartItem } from "@/services/api/shop/cart";
+import { CartResponse } from "@/services/types/cart";
 import {
     reduxDecrementQuantity,
     reduxIncrementQuantity,
@@ -16,14 +16,15 @@ import {
     useCart,
     useUser
 } from "@/services/globalState/GlobalState";
-import {useMemo} from "react";
-import {Alert} from "@/shared/Alert/Alert";
+import { useMemo } from "react";
+import { Alert } from "@/shared/Alert/Alert";
+import { GuarantyPrice } from "@/hooks/GuarantyPrice";
 
 const CartPage = () => {
     const [cart] = useCart();
     const [user] = useUser();
 
-    const {data, isSuccess} = useQuery({
+    const { data, isSuccess } = useQuery({
         queryKey: ['cart'],
         queryFn: () => getCart(),
         staleTime: 5000,
@@ -35,14 +36,14 @@ const CartPage = () => {
 
 
     async function increaseHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await increaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
+        let response = await increaseCartItem({ productColorId: selectedColorId, guaranty_id: guarantyId });
         if (response.success) {
             reduxIncrementQuantity(selectedColorId, guarantyId)
         }
     }
 
     async function decreaseHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await decreaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
+        let response = await decreaseCartItem({ productColorId: selectedColorId, guaranty_id: guarantyId });
         if (response.success) {
             reduxDecrementQuantity(selectedColorId, guarantyId)
         }
@@ -50,7 +51,7 @@ const CartPage = () => {
     }
 
     async function removeHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await removeCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
+        let response = await removeCartItem({ productColorId: selectedColorId, guaranty_id: guarantyId });
         if (response.success) {
             reduxRemoveFromCart(selectedColorId, guarantyId)
         }
@@ -60,7 +61,7 @@ const CartPage = () => {
         return (
             <div
                 className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                <NoSymbolIcon className="w-3.5 h-3.5"/>
+                <NoSymbolIcon className="w-3.5 h-3.5" />
                 <span className="mr-1 leading-none">ناموجود</span>
             </div>
         );
@@ -70,7 +71,7 @@ const CartPage = () => {
         return (
             <div
                 className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                <CheckIcon className="w-3.5 h-3.5"/>
+                <CheckIcon className="w-3.5 h-3.5" />
                 <span className="mr-1 leading-none">  موجود</span>
             </div>
         );
@@ -95,7 +96,7 @@ const CartPage = () => {
                             sizes="300px"
                             className="h-full w-full object-contain object-center"
                         />
-                        <Link href={{pathname: "/product/" + item.product.url}} className="absolute inset-0"></Link>
+                        <Link href={{ pathname: "/product/" + item.product.url }} className="absolute inset-0"></Link>
                     </div>
 
                     <div className="mr-3 sm:ml-6 flex flex-1 flex-col">
@@ -104,7 +105,7 @@ const CartPage = () => {
                                 <div className="flex-[1.5] ">
                                     <h3 className="text-xs md:text-sm font-semibold">
                                         <Link
-                                            href={{pathname: "/product/" + item.product.url}}>{item.product.name}</Link>
+                                            href={{ pathname: "/product/" + item.product.url }}>{item.product.name}</Link>
                                     </h3>
                                     <div className=" flex text-sm text-slate-600 dark:text-slate-300">
                                         <div className="flex items-center gap-x-1.5">
@@ -156,30 +157,36 @@ const CartPage = () => {
                                         <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>
 
                                     </div>
-                                    <span className="text-xs text-slate-500 dark:text-slate-400">
-                                    {item.guaranty.name}
-                                </span>
-
-
+                                    <div className="flex items-center gap-x-1">
+                                        <span className="text-xs text-slate-500 dark:text-slate-400">
+                                            {item.guaranty.name}
+                                        </span>
+                                        {
+                                            item.guaranty.free ?
+                                                <span className="text-xs text-slate-500 dark:text-slate-400">
+                                                    (رایگان)
+                                                </span>
+                                                :
+                                                <Prices priceClass="text-xs text-slate-500 dark:text-slate-400" price={GuarantyPrice(item.color.price)} />
+                                        }
+                                    </div>
                                 </div>
-
-
                                 <div className="  flex-1  flex justify-start ">
-                                    <Prices price={item.color.price * item.count} className="mt-0.5"/>
+                                    <Prices price={item.color.price * item.count} className="mt-0.5" />
                                 </div>
 
                                 <div className=" block text-center relative">
                                     <NcInputNumber className="relative z-10"
-                                                   defaultValue={item.count}
-                                                   increaseHandle={() => {
-                                                       increaseHandle(item.color.id as number, item.guaranty.id as number)
-                                                   }}
-                                                   decreaseHandel={() => {
-                                                       decreaseHandle(item.color.id as number, item.guaranty.id as number)
-                                                   }}
-                                                   removeHandle={() => {
-                                                       removeHandle(item.color.id as number, item.guaranty.id as number)
-                                                   }}
+                                        defaultValue={item.count}
+                                        increaseHandle={() => {
+                                            increaseHandle(item.color.id as number, item.guaranty.id as number)
+                                        }}
+                                        decreaseHandel={() => {
+                                            decreaseHandle(item.color.id as number, item.guaranty.id as number)
+                                        }}
+                                        removeHandle={() => {
+                                            removeHandle(item.color.id as number, item.guaranty.id as number)
+                                        }}
 
                                     />
                                 </div>
@@ -267,7 +274,7 @@ const CartPage = () => {
                     </div>
                 </div>
 
-                <hr className="border-slate-200 dark:border-slate-700 my-10 xl:my-12"/>
+                <hr className="border-slate-200 dark:border-slate-700 my-10 xl:my-12" />
 
                 <div className="flex flex-col lg:flex-row">
                     <div className="w-full lg:w-[60%] xl:w-[55%] divide-y divide-slate-200 dark:divide-slate-700 ">
@@ -313,10 +320,10 @@ const CartPage = () => {
                                 <Alert containerClassName={"justify-center mt-4"} type={"error"}>محصول غیرفعال در سبد
                                     خرید موجود میباشد </Alert>
                             } {
-                            limit &&
-                            <Alert containerClassName={" justify-center mt-4"} type={"warning"}>محصول محدود کننده در سبد
-                                خرید موجود میباشد . پس از تایید مدیریت امکان پرداخت وجود دارد </Alert>
-                        }
+                                limit &&
+                                <Alert containerClassName={" justify-center mt-4"} type={"warning"}>محصول محدود کننده در سبد
+                                    خرید موجود میباشد . پس از تایید مدیریت امکان پرداخت وجود دارد </Alert>
+                            }
                             <div
                                 className="mt-5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">
                                 <p className="block relative pl-5">

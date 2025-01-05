@@ -75,17 +75,17 @@ export default function CartDropdown() {
                                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                                     <span>{title}</span>
                                 </p>
-                                <div className="flex items-center">
+                                <div className="flex items-center gap-x-1">
                                     <span className="text-xs text-slate-500 dark:text-slate-400">
                                         {item.guaranty.name}
                                     </span>
                                     {
                                         item.guaranty.free ?
                                             <span className="text-xs text-slate-500 dark:text-slate-400">
-                                                رایگان
+                                                (رایگان)
                                             </span>
                                             :
-                                            <Prices className="text-xs text-slate-500 dark:text-slate-400" price={GuarantyPrice(item.color.price)} />
+                                            <Prices priceClass="text-xs text-slate-500 dark:text-slate-400" price={GuarantyPrice(item.color.price)} />
                                     }
 
                                 </div>
