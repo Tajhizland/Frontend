@@ -1,5 +1,6 @@
 import {CartResponse} from "@/services/types/cart";
 import Prices from "@/components/Prices";
+import { GuarantyPrice } from "@/hooks/GuarantyPrice";
 
 export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
     return (<>
@@ -43,7 +44,7 @@ export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
                                         contentClass={"border-orange-500"}/>
                             </th>
                             <th className="px-4 py-2  whitespace-nowrap text-center">
-                                <Prices price={0} priceClass={"mx-auto "}
+                                <Prices price={item.guaranty.free?0:GuarantyPrice(item.color.price)} priceClass={"mx-auto "}
                                         contentClass={"border-orange-500"}/>
                             </th>
 
