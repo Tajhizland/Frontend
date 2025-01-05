@@ -129,7 +129,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                             {
                                 item.free ? "رایگان"
                                 :
-                                <Prices price={GuarantyPrice(selectedColor.price)} />
+                                <Prices className=" whitespace-nowrap" price={GuarantyPrice(selectedColor.price)} />
                             }
                              
                         </span>
