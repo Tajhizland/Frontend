@@ -85,7 +85,7 @@ export default function CartDropdown() {
                                                 (رایگان)
                                             </span>
                                             :
-                                            (<Prices priceClass="text-xs text-slate-500 dark:text-slate-400" price={GuarantyPrice(item.color.price)} />)
+                                            <Prices priceClass="text-xs text-slate-500 dark:text-slate-400" price={GuarantyPrice(item.color.price)} />
                                     }
 
                                 </div>

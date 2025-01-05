@@ -197,7 +197,7 @@ const CheckoutPage = () => {
                                 }
                             </div>
                             <div className="flex-1 sm:flex justify-start">
-                               ( <Prices price={item.color.price} className="mt-0.5" />)
+                                <Prices price={item.color.price} className="mt-0.5" />
                             </div>
                         </div>
 
