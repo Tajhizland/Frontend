@@ -19,6 +19,7 @@ import { reduxRemoveFromCart, setCart, useCart, useGlobalState, useUser } from "
 import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import { Route } from "next";
+import { GuarantyPrice } from "@/hooks/GuarantyPrice";
 
 export default function CartDropdown() {
 
@@ -74,9 +75,20 @@ export default function CartDropdown() {
                                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                                     <span>{title}</span>
                                 </p>
-                                <span className="text-xs text-slate-500 dark:text-slate-400">
-                                    {item.guaranty.name}
-                                </span>
+                                <div className="flex items-center">
+                                    <span className="text-xs text-slate-500 dark:text-slate-400">
+                                        {item.guaranty.name}
+                                    </span>
+                                    {
+                                        item.guaranty.free ?
+                                            <span className="text-xs text-slate-500 dark:text-slate-400">
+                                                رایگان
+                                            </span>
+                                            :
+                                            <Prices className="text-xs text-slate-500 dark:text-slate-400" price={GuarantyPrice(item.color.price)} />
+                                    }
+
+                                </div>
                             </div>
                             <Prices price={price} className="whitespace-nowrap" />
                         </div>
