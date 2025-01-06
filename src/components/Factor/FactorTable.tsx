@@ -5,7 +5,7 @@ import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 export default function FactorTable({order}: { order: OrderResponse }) {
     return (<>
         <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+            <table className="w-full text-xs text-left rtl:text-right text-gray-500 ">
                 <thead className="text-xs text-gray-700 uppercase bg-white  ">
                 <tr>
                     <th className="px-4 py-2  whitespace-nowrap text-center">نام محصول</th>
@@ -18,7 +18,7 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                     <th className="px-4 py-2  whitespace-nowrap text-center">قیمت نهایی</th>
                 </tr>
                 </thead>
-                <tbody className={"bg-white text-black  "}>
+                <tbody className={"bg-white text-black "}>
                 {
                     order.orderItems?.data.map((item) => (<>
                         <tr className="bg-white border-b">

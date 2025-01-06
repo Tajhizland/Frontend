@@ -6,7 +6,7 @@ export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
     return (<>
 
         <div className="relative overflow-x-auto w-full">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+            <table className="w-full text-xs text-left rtl:text-right text-gray-500 ">
                 <thead className="text-xs text-gray-700 uppercase bg-white ">
                 <tr>
                     <th className="px-4 py-2  whitespace-nowrap text-center">نام محصول</th>
