@@ -8,8 +8,7 @@ import IconDiscount from "@/components/IconDiscount";
 import {StarIcon} from "@heroicons/react/24/solid";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
 import AccordionInfo from "@/components/AccordionInfo";
-import Policy from "../../product-detail/Policy";
-import {findProductByUrl} from "@/services/api/shop/product";
+ import {findProductByUrl} from "@/services/api/shop/product";
 import ProductSidebar from "@/app/(shop)/product/ProductSidebar";
 import ProductImage from "../ProductImage";
 import ProductComment from "../ProductComment";
@@ -18,10 +17,9 @@ import {Metadata} from "next";
 import Script from "next/script";
 import {stripHTML} from "@/hooks/StripHtml";
 import TextExpander from "@/shared/TextExpander/TextExpander";
-import VideoSlider from "@/components/VideoSlider";
-import VideoSwiper from "@/components/VideoSwiper";
 import SectionVideo from "@/components/SectionVideo";
 import {ProductResponse} from "@/services/types/product";
+import Policy from "../Policy";
 
 
 interface ProductPageProps {

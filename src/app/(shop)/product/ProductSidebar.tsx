@@ -23,11 +23,11 @@ import { ClockIcon, NoSymbolIcon, SparklesIcon } from "@heroicons/react/24/outli
 import IconDiscount from "@/components/IconDiscount";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
-import { Route } from "next";
-import Policy from "../product-detail/Policy";
+import { Route } from "next"; 
 import { GuarantyResponse } from "@/services/types/guaranty";
 import Badge from "@/shared/Badge/Badge";
 import { GuarantyPrice } from "@/hooks/GuarantyPrice";
+import Policy from "./Policy";
 
 export default function ProductSidebar({ product }: { product: ProductResponse }) {
     const colors = product.colors.data;

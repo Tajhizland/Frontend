@@ -3,7 +3,6 @@
 import React from "react";
 import {usePathname} from "next/navigation";
 import HeaderLogged from "@/components/Header/HeaderLogged";
-import Header from "@/components/Header/Header";
 import {useThemeMode} from "@/hooks/useThemeMode";
 import {QueryClient, QueryClientProvider} from "react-query";
 
@@ -15,7 +14,6 @@ const SiteHeader = () => {
 
     return (<>
         <QueryClientProvider client={queryClient}>
-
             <HeaderLogged/>
         </QueryClientProvider>
 

@@ -1,10 +1,6 @@
 import React from "react";
-import {findNewsByUrl, getNewsPaginated} from "@/services/api/shop/news";
-import Heading from "@/components/Heading/Heading";
-import Card3 from "./Card3";
-import ShopPagination from "@/shared/Pagination/ShopPagination";
-import {stripHTML} from "@/hooks/StripHtml";
-import MetaTag from "@/components/MetaTag/MetaTag";
+import {getNewsPaginated} from "@/services/api/shop/news"; 
+import {stripHTML} from "@/hooks/StripHtml"; 
 import {Metadata} from "next";
 import logo from "@/images/tajhizland/logo.png";
 import Script from "next/script";

@@ -1,7 +1,6 @@
 "use client";
 
 import React, {FC, useState} from "react";
-import CardCategory1 from "@/components/CardCategories/CardCategory1";
 import CardCategory4 from "@/components/CardCategories/CardCategory4";
 import Heading from "@/components/Heading/Heading";
 import NavItem2 from "@/components/NavItem2";
@@ -51,11 +50,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
     ]
     const renderCard = (item: ExploreType) => {
         switch (boxCard) {
-            case "box1":
-                return (
-                    <CardCategory1 key={item.id} featuredImage={item.image} {...item} />
-                );
-
+        
             case "box4":
                 return (
                     <CardCategory4

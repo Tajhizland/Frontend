@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import Card3Small from "./Card3Small";
-import WidgetHeading1 from "./WidgetHeading1";
+ import WidgetHeading1 from "./WidgetHeading1";
+import Card3Small from "@/components/blog/Card3Small";
 
 export interface WidgetPostsProps {
   className?: string;

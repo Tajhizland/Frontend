@@ -1,9 +1,7 @@
-import CardCategory1 from "@/components/CardCategories/CardCategory1";
 import React, { FC, useState } from "react"; 
 import { useQuery } from "react-query";
 import { getList } from "@/services/api/admin/vlogCategory";
-import Checkbox from "@/shared/Checkbox/Checkbox";
-import WidgetHeading1 from "../blog/WidgetHeading1";
+import Checkbox from "@/shared/Checkbox/Checkbox"; 
  
 type SelectedFilters = Record<string, string[] | string>;
 
@@ -91,12 +89,7 @@ const WidgetFilter  = ({changeFilter}: { changeFilter: (filters: string) => void
               />
             </div>
           ))}
-          {/* {[1, 1, 1, 1, 1, 1].map((_, index) => (
-            <CardCategory1
-              className="p-4 xl:p-5 hover:bg-neutral-200 dark:hover:bg-neutral-700"
-              key={index}
-            />
-          ))} */}
+           
         </div>
       </div>
     </div>

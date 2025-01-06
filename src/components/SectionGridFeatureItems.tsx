@@ -1,7 +1,6 @@
 "use client";
 
 import React, { FC, useState, useRef } from "react";
-import HeaderFilterSection from "@/components/HeaderFilterSection";
 import ProductCard2 from "@/components/ProductCard";
 import Heading from "@/shared/Heading/Heading";
 import Nav from "@/shared/Nav/Nav";

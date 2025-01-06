@@ -7,7 +7,6 @@ import Glide from "@glidejs/glide/dist/glide.esm";
 import ProductCard2 from "./ProductCard";
 import { ProductResponse } from "@/services/types/product";
 import { NewsResponse } from "@/services/types/news";
-import Card13 from "@/app/(shop)/news/(blog)/Card13";
 import Link from "next/link";
 import { Route } from "next";
 import NcImage from "@/shared/NcImage/NcImage";

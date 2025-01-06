@@ -12,12 +12,11 @@ import SectionSliderCategories from "@/components/SectionSliderCategories/Sectio
 import Heading from "@/components/Heading/Heading";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
-import SectionMagazine5 from "@/app/(shop)/blog/SectionMagazine5";
 import {homePage} from "@/services/api/shop/homePage";
 import logo from "@/images/tajhizland/logo.png";
 import {Metadata} from "next";
-import VideoSwiper from "@/components/VideoSwiper";
-import SectionSliderNews from "@/components/SectionSliderNews";
+import SectionSliderNews from "@/components/SectionSliderNews"; 
+import SectionMagazine5 from "@/components/blog/SectionMagazine5";
 
 export const dynamic = 'force-dynamic';
 export async function generateMetadata(): Promise<Metadata> {

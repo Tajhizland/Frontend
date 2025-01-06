@@ -6,8 +6,7 @@ import { getNewsPaginated } from "@/services/api/shop/news";
 import Heading from "@/components/Heading/Heading";
 import Card3 from "./Card3";
 import { NewsResponse } from "@/services/types/news";
-import { useRouter } from "next/navigation";
-import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
+import { useRouter } from "next/navigation"; 
 import BlogCardSkeleton from "@/components/Skeleton/BlogCardSkeleton";
 
 const Listing = ({ response }: { response: NewsResponse[] }) => {
