@@ -151,13 +151,17 @@ export default function Page() {
                                 </th>
                                 <th className="px-4 py-2  whitespace-nowrap text-center">
                                     {
-                                        item.guaranty?.free ?
+                                        item.guaranty ?
+                                            item.guaranty?.free ?
                                             <span className="text-xs text-slate-500 dark:text-slate-400">
                                                     (رایگان)
                                                 </span>
                                             :
                                             <Prices priceClass="text-xs text-slate-500 dark:text-slate-400"
                                                     price={GuarantyPrice(item.price)}/>
+                                            :
+                                            <Prices priceClass="text-xs text-slate-500 dark:text-slate-400"
+                                                    price={GuarantyPrice(0)}/>
                                     }
                                 </th>
 

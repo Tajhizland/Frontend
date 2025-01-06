@@ -48,7 +48,11 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                                 {item.guaranty?.name}
                             </th>
                             <th className="px-4 py-2  whitespace-nowrap text-center">
-                                <Prices price={item.guaranty?.free?0:GuarantyPrice(item.price)}
+                                <Prices price={
+                                    item.guaranty?
+                                        item.guaranty.free?0:GuarantyPrice(item.price)
+                                        :0
+                                }
                                         priceClass={"mx-auto"}
                                         contentClass={"border-orange-500"}/>
                             </th>
