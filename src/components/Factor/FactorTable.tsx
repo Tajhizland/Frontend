@@ -1,5 +1,6 @@
 import Prices from "@/components/Prices";
 import {OrderResponse} from "@/services/types/order";
+import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 
 export default function FactorTable({order}: { order: OrderResponse }) {
     return (<>
@@ -12,6 +13,7 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                     <th className="px-4 py-2  whitespace-nowrap text-center">تعداد</th>
                     <th className="px-4 py-2  whitespace-nowrap text-center">قیمت</th>
                     <th className="px-4 py-2  whitespace-nowrap text-center">تخفیف</th>
+                    <th className="px-4 py-2  whitespace-nowrap text-center"> گارانتی</th>
                     <th className="px-4 py-2  whitespace-nowrap text-center">قیمت گارانتی</th>
                     <th className="px-4 py-2  whitespace-nowrap text-center">قیمت نهایی</th>
                 </tr>
@@ -43,7 +45,11 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                                         contentClass={"border-orange-500"}/>
                             </th>
                             <th className="px-4 py-2  whitespace-nowrap text-center">
-                                <Prices price={0} priceClass={"mx-auto"}
+                                {item.guaranty?.name}
+                            </th>
+                            <th className="px-4 py-2  whitespace-nowrap text-center">
+                                <Prices price={item.guaranty?.free?0:GuarantyPrice(item.price)}
+                                        priceClass={"mx-auto"}
                                         contentClass={"border-orange-500"}/>
                             </th>
                             <th className="px-4 py-2  whitespace-nowrap text-center">

@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {Route} from "next";
+import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 
 const AccountOrder = () => {
   const [page, setPage] = useState(1);
@@ -39,51 +40,68 @@ const AccountOrder = () => {
           />
         </div>
 
-        <div className="mr-4 flex flex-1 flex-col">
-          <div>
-            <div className="flex justify-between ">
+          <div className="mr-4 flex flex-1 flex-col">
               <div>
-                <h3 className="text-base font-medium line-clamp-1">{orderItem.product.name}</h3>
-                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                  <span>{orderItem.productColor.color_name}</span>
-                  <span className="mx-2 border-l border-slate-200 dark:border-slate-700 h-4"></span>
-                </p>
+                  <div className="flex justify-between ">
+                      <div>
+                          <h3 className="text-base font-medium line-clamp-1">{orderItem.product.name}</h3>
+                          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                              <span>{orderItem.productColor.color_name}</span>
+                              <span className="mx-2 border-l border-slate-200 dark:border-slate-700 h-4"></span>
+                          </p>
+                      </div>
+                      <Prices className="mt-0.5 ml-2" price={orderItem.price}/>
+                  </div>
               </div>
-              <Prices className="mt-0.5 ml-2" price={orderItem.price} />
-            </div>
-          </div>
-          <div className="flex flex-1 items-end justify-between text-sm">
-            <p className="text-gray-500 dark:text-slate-400 flex items-center">
-              <span className="hidden sm:inline-block">تعداد</span>
-              <span className="inline-block sm:hidden">x</span>
-              <span className="mr-2">{orderItem.count}</span>
-            </p>
 
+              <div className="flex items-center gap-x-1">
+                                        <span className="text-xs text-slate-500 dark:text-slate-400">
+                                            {orderItem.guaranty?.name}
+                                        </span>
+                  {
+                      orderItem.guaranty?.free ?
+                          <span className="text-xs text-slate-500 dark:text-slate-400">
+                                                    (رایگان)
+                                                </span>
+                          :
+                          <Prices priceClass="text-xs text-slate-500 dark:text-slate-400"
+                                  price={GuarantyPrice(orderItem.price)}/>
+                  }
+              </div>
+              <div className="flex flex-1 items-end justify-between text-sm">
+                  <p className="text-gray-500 dark:text-slate-400 flex items-center">
+                      <span className="hidden sm:inline-block">تعداد</span>
+                      <span className="inline-block sm:hidden">x</span>
+                      <span className="mr-2">{orderItem.count}</span>
+                  </p>
+
+              </div>
           </div>
-        </div>
       </div>
     );
   };
 
-  const renderOrder = (item: OrderResponse) => {
-    return (
-      <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 sm:p-8 bg-slate-50 dark:bg-slate-500/5">
-          <div>
-            <p className="text-lg font-semibold">شماره سفارش : {item.id}</p>
-            <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 sm:mt-2">
-              <span>{item.order_date}</span>
-              <span className="mx-2">·</span>
-              <span className="text-primary-500">{OrderStatus[Number(item.status)]}</span>
+    const renderOrder = (item: OrderResponse) => {
+        return (
+            <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
+                <div
+                    className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 sm:p-8 bg-slate-50 dark:bg-slate-500/5">
+                    <div>
+                        <p className="text-lg font-semibold">شماره سفارش : {item.id}</p>
+                        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 sm:mt-2">
+                            <span>{item.order_date}</span>
+                            <span className="mx-2">·</span>
+                            <span className="text-primary-500">{OrderStatus[Number(item.status)]}</span>
 
-            </p>
-          </div>
-            <ButtonPrimary href={"/factor/"+item.id as Route}>
-                دریافت فاکتور
-            </ButtonPrimary>
+                        </p>
+                    </div>
+                    <ButtonPrimary href={"/factor/" + item.id as Route}>
+                        دریافت فاکتور
+                    </ButtonPrimary>
 
-        </div>
-        <div className="border-t border-slate-200 dark:border-slate-700 p-2 sm:p-8 divide-y divide-y-slate-200 dark:divide-slate-700">
+                </div>
+                <div
+                    className="border-t border-slate-200 dark:border-slate-700 p-2 sm:p-8 divide-y divide-y-slate-200 dark:divide-slate-700">
           {
             item.orderItems?.data.map((orderItem, index) => (<>
               {renderProductItem(orderItem, index)}

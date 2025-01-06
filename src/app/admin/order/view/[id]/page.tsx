@@ -8,6 +8,7 @@ import {useQuery} from "react-query";
 import NcImage from "@/shared/NcImage/NcImage";
 import Prices from "@/components/Prices";
 import {OrderStatus} from "@/app/admin/order/orderStatus";
+import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 
 export default function Page() {
     const {id} = useParams();
@@ -106,6 +107,8 @@ export default function Page() {
                         <th className="px-4 py-2  whitespace-nowrap text-center">تعداد</th>
                         <th className="px-4 py-2  whitespace-nowrap text-center">قیمت</th>
                         <th className="px-4 py-2  whitespace-nowrap text-center">تخفیف</th>
+                        <th className="px-4 py-2  whitespace-nowrap text-center">گارانتی</th>
+                        <th className="px-4 py-2  whitespace-nowrap text-center">قیمت گارانتی</th>
                         <th className="px-4 py-2  whitespace-nowrap text-center">قیمت نهایی</th>
                     </tr>
                     </thead>
@@ -142,6 +145,20 @@ export default function Page() {
                                 <th className="px-4 py-2  whitespace-nowrap text-center">
                                     <Prices price={item.discount} priceClass={"mx-auto text-orange-500"}
                                             contentClass={"border-orange-500"}/>
+                                </th>
+                                <th className="px-4 py-2  whitespace-nowrap text-center">
+                                    {item.guaranty?.name}
+                                </th>
+                                <th className="px-4 py-2  whitespace-nowrap text-center">
+                                    {
+                                        item.guaranty?.free ?
+                                            <span className="text-xs text-slate-500 dark:text-slate-400">
+                                                    (رایگان)
+                                                </span>
+                                            :
+                                            <Prices priceClass="text-xs text-slate-500 dark:text-slate-400"
+                                                    price={GuarantyPrice(item.price)}/>
+                                    }
                                 </th>
 
                                 <th className="px-4 py-2  whitespace-nowrap text-center">
