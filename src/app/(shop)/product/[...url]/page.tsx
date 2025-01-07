@@ -22,9 +22,9 @@ import {productSitemap} from "@/services/api/shop/sitemap";
 
 
 interface ProductPageProps {
-    params: {
+    params: Promise<{
         url: [string];
-    }
+    }>
 }
 
 // export async function generateStaticParams() {
@@ -34,7 +34,8 @@ interface ProductPageProps {
 //     }));
 // }
 
-export async function generateMetadata({params}: ProductPageProps): Promise<Metadata> {
+export async function generateMetadata(props: ProductPageProps): Promise<Metadata> {
+    const params = await props.params;
     let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
     let product = productResponse.product;
 
@@ -59,7 +60,8 @@ export async function generateMetadata({params}: ProductPageProps): Promise<Meta
     }
 }
 
-const ProductDetailPage2 = async ({params}: ProductPageProps) => {
+const ProductDetailPage2 = async (props: ProductPageProps) => {
+    const params = await props.params;
     let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
     let product = productResponse.product;
     let relatedProduct = productResponse.relatedProduct.data;

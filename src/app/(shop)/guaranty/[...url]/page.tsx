@@ -5,12 +5,13 @@ import {findByUrl} from "@/services/api/shop/guaranty";
 import NcImage from "@/shared/NcImage/NcImage";
 
 interface PageProps {
-    params: {
+    params: Promise<{
         url: [string];
-    }
+    }>
 }
 
-export async function generateMetadata({params}: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+    const params = await props.params;
     let response = await findByUrl(decodeURIComponent(params.url.join("/")))
 
     return {
@@ -32,7 +33,8 @@ export async function generateMetadata({params}: PageProps): Promise<Metadata> {
     }
 }
 
-const PageCollection = async ({params}: PageProps) => {
+const PageCollection = async (props: PageProps) => {
+    const params = await props.params;
     let response = await findByUrl(decodeURIComponent(params.url.join("/")))
     return (<>
             <div className={"container mt-12"}>

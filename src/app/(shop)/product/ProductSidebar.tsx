@@ -41,7 +41,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
 
     const notifyAddTocart = () => {
         toast.custom(
-            (t) => (
+            (t:any) => (
                 <NotifyAddTocart
                     name={product.name}
                     price={selectedColor.price}

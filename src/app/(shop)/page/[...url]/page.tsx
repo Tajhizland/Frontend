@@ -5,12 +5,13 @@ import {Metadata} from "next";
 import Script from "next/script";
 
 interface ProductPageProps {
-    params: {
+    params: Promise<{
         url: [string];
-    }
+    }>
 }
 
-export async function generateMetadata({params}: ProductPageProps): Promise<Metadata> {
+export async function generateMetadata(props: ProductPageProps): Promise<Metadata> {
+    const params = await props.params;
     const page = await findPageByUrl(decodeURIComponent(params.url.join("/")));
     return {
         title: page.title,
@@ -31,7 +32,8 @@ export async function generateMetadata({params}: ProductPageProps): Promise<Meta
     }
 }
 
-const BlogSingle = async ({params}: ProductPageProps) => {
+const BlogSingle = async (props: ProductPageProps) => {
+    const params = await props.params;
 
     const page = await findPageByUrl(decodeURIComponent(params.url.join("/")));
 

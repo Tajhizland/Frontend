@@ -22,7 +22,7 @@ export default function PreFactorPage() {
             setCart(cartData);
         }
     });
-    const contentRef = useRef();
+    const contentRef = useRef(undefined);
     const handleDownloadPDF = async () => {
         try {
             const content = contentRef.current;

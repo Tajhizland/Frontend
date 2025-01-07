@@ -1,7 +1,7 @@
 "use client"
 //@ts-nocheck
 
-import React, {useState} from "react";
+import React, { useState, use } from "react";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import {searchPaginate} from "@/services/api/shop/search";
@@ -11,15 +11,17 @@ import {useRouter} from "next/navigation";
 import ProductCardNew from "@/components/ProductCardNew";
 
 interface BrandPageProps {
-    params: {
+    params: Promise<{
         query: [string];
-    },
-    searchParams: {
+    }>,
+    searchParams: Promise<{
         page?: string;
-    }
+    }>
 }
 
-const PageSearch = ({params, searchParams}: BrandPageProps) => {
+const PageSearch = (props: BrandPageProps) => {
+    const searchParams = use(props.searchParams);
+    const params = use(props.params);
 
     const [page, setPage] = useState(searchParams.page ? parseInt(searchParams.page, 10) : 1);
     const [query, setQuery] = useState(decodeURIComponent(params.query.join(" ")));

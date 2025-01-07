@@ -8,12 +8,13 @@ import {FaEye} from "react-icons/fa";
 import Heading from "@/components/Heading/Heading";
 
 interface PageProps {
-    params: {
+    params: Promise<{
         url: [string];
-    },
+    }>,
 }
 
-export default async function Page({params}: PageProps) {
+export default async function Page(props: PageProps) {
+    const params = await props.params;
     let response = await findVlogByUrl(decodeURIComponent(params.url.join("/")));
 
     const renderHeader = () => {

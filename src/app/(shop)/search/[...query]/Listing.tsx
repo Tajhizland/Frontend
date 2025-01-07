@@ -20,7 +20,7 @@ interface BrandPageProps {
     }
 }
 
-const Listing = async ({response , query}:  { response: ProductResponse[], query: string }) => {
+const Listing =   ({response , query}:  { response: ProductResponse[], query: string }) => {
 
     const [newResponse, setNewResponse] = useState();
     const router = useRouter();

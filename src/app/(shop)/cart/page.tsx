@@ -252,11 +252,11 @@ const CartPage = () => {
         return sumDiscount;
     }
 
-    const sumPrice = useMemo(() => renderSumPrice(), [cart]);
-    const allow = useMemo(() => renderAllow(), [cart]);
-    const limit = useMemo(() => renderLimit(), [cart]);
-    const sumDiscount = useMemo(() => renderDiscount(), [cart]);
-    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart]);
+    const sumPrice = useMemo(() => renderSumPrice(), [cart,renderSumPrice]);
+    const allow = useMemo(() => renderAllow(), [cart,renderAllow]);
+    const limit = useMemo(() => renderLimit(), [cart ,renderLimit]);
+    const sumDiscount = useMemo(() => renderDiscount(), [cart,renderDiscount]);
+    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart,renderDiscountedPrice]);
     return (
         <div className="nc-CartPage dark:bg-slate-900 dark:text-white">
             <main className="container py-16 lg:pb-28 lg:pt-20 ">

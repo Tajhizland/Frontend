@@ -6,12 +6,13 @@ import LandingCategorySlider from "@/components/LandingCategorySlider";
 import LandingProductSlider from "@/components/LandingProductSlider";
 
 interface ProductPageProps {
-    params: {
+    params: Promise<{
         url: [string];
-    }
+    }>
 }
 
-export default async function page({ params }: ProductPageProps) {
+export default async function page(props: ProductPageProps) {
+    const params = await props.params;
     let response = await findLandingByUrl(decodeURIComponent(params.url.join("/")))
 
 

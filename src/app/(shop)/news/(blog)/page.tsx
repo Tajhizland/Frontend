@@ -7,7 +7,7 @@ import Script from "next/script";
 import Listing from "@/app/(shop)/news/(blog)/Listing";
 
 interface BlogPageProps {
-    searchParams: { page?: string };
+    searchParams: Promise<{ page?: string }>;
 }
 
 
@@ -34,7 +34,8 @@ export async function generateMetadata(): Promise<Metadata> {
     }
 }
 
-const BlogPage = async ({searchParams}: BlogPageProps) => {
+const BlogPage = async (props: BlogPageProps) => {
+    const searchParams = await props.searchParams;
     const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
     const data = await getNewsPaginated(page);
     const structuredData = {

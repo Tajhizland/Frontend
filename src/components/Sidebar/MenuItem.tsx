@@ -26,6 +26,8 @@ import {ImCoinDollar, ImImages} from "react-icons/im";
 import {IoMdSettings} from "react-icons/io";
 import {RiDiscountPercentFill} from "react-icons/ri";
 
+import type { JSX } from "react";
+
 export interface MENU_ITEM_INTERFACE {
     title: string,
     url: string,

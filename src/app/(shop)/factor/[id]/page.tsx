@@ -18,7 +18,7 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    const contentRef = useRef();
+    const contentRef = useRef(undefined);
     const handleDownloadPDF = async () => {
         try {
             const content = contentRef.current;

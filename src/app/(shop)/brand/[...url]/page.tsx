@@ -6,16 +6,18 @@ import {stripHTML} from "@/hooks/StripHtml";
 import Script from "next/script";
 
 interface CategoryPageProps {
-    params: {
+    params: Promise<{
         url: [string];
-    },
-    searchParams: {
+    }>,
+    searchParams: Promise<{
         page?: string;
-    }
+    }>
 }
 
 
-export async function generateMetadata({params, searchParams}: CategoryPageProps): Promise<Metadata> {
+export async function generateMetadata(props: CategoryPageProps): Promise<Metadata> {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
     const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
     let response = await findBrandByUrl(decodeURIComponent(params.url.join("/")), "", page)
 
@@ -41,7 +43,9 @@ export async function generateMetadata({params, searchParams}: CategoryPageProps
     }
 }
 
-const PageCollection = async ({params, searchParams}: CategoryPageProps) => {
+const PageCollection = async (props: CategoryPageProps) => {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
     const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
     let response = await findBrandByUrl(decodeURIComponent(params.url.join("/")), "", page)
 
