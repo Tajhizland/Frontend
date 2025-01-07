@@ -18,6 +18,7 @@ import TextExpander from "@/shared/TextExpander/TextExpander";
 import SectionVideo from "@/components/SectionVideo";
 import {ProductResponse} from "@/services/types/product";
 import Policy from "../Policy";
+import {productSitemap} from "@/services/api/shop/sitemap";
 
 
 interface ProductPageProps {
@@ -25,6 +26,14 @@ interface ProductPageProps {
         url: [string];
     }
 }
+
+// export async function generateStaticParams() {
+//     const products = await productSitemap();
+//     return products.map((product) => ({
+//         url: product.url.split("/"),
+//     }));
+// }
+
 export async function generateMetadata({params}: ProductPageProps): Promise<Metadata> {
     let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
     let product = productResponse.product;
