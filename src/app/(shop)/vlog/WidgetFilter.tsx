@@ -1,8 +1,8 @@
-import React, { FC, useState } from "react"; 
+import React, {useState } from "react";
 import { useQuery } from "react-query";
 import { getList } from "@/services/api/admin/vlogCategory";
-import Checkbox from "@/shared/Checkbox/Checkbox"; 
- 
+import Checkbox from "@/shared/Checkbox/Checkbox";
+
 type SelectedFilters = Record<string, string[] | string>;
 
 const WidgetFilter  = ({changeFilter}: { changeFilter: (filters: string) => void }) => {
@@ -74,7 +74,7 @@ const WidgetFilter  = ({changeFilter}: { changeFilter: (filters: string) => void
       <h2 className="text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow">
         دسته بندی
        </h2>
-        
+
     </div>
       <div className="flow-root">
         <div className="flex flex-col divide-y divide-neutral-200 dark:divide-neutral-700">
@@ -89,7 +89,7 @@ const WidgetFilter  = ({changeFilter}: { changeFilter: (filters: string) => void
               />
             </div>
           ))}
-           
+
         </div>
       </div>
     </div>

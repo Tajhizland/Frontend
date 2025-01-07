@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import Heading from "@/components/Heading/Heading";
 import Pagination from "@/shared/Pagination/Pagination";
-import Card3 from "./Card3";
-import { NewsResponse } from "@/services/types/news";
+ import { NewsResponse } from "@/services/types/news";
+import Card3 from "@/components/blog/Card3";
 
 //
 export interface SectionLatestPostsProps {

@@ -2,15 +2,12 @@
 //@ts-nocheck
 
 import React, {useState} from "react";
-import SectionPromo1 from "@/components/SectionPromo1";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
-import ProductCard2 from "@/components/ProductCard";
 import {searchPaginate} from "@/services/api/shop/search";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
 import {useQuery} from "react-query";
 import {useRouter} from "next/navigation";
-import MetaTag from "@/components/MetaTag/MetaTag";
 import ProductCardNew from "@/components/ProductCardNew";
 
 interface BrandPageProps {
@@ -114,7 +111,7 @@ const PageSearch = ({params, searchParams}: BrandPageProps) => {
                     <main>
                         {/* FILTER */}
 
- 
+
                         {/* LOOP ITEMS */}
                         <div
                             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">

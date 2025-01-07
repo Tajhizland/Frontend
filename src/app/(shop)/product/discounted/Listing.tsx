@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, {useEffect, useRef } from "react";
 import ProductCardNew from "@/components/ProductCardNew";
 import { useRouter } from "next/navigation";
 import { ProductResponse } from "@/services/types/product";

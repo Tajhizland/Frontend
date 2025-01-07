@@ -1,9 +1,7 @@
 import React from "react";
 import {findBrandByUrl} from "@/services/api/shop/brand";
 import Listing from "@/app/(shop)/brand/[...url]/Listing";
-import MetaTag from "@/components/MetaTag/MetaTag";
 import {Metadata} from "next";
-import {findPageByUrl} from "@/services/api/shop/page";
 import {stripHTML} from "@/hooks/StripHtml";
 import Script from "next/script";
 

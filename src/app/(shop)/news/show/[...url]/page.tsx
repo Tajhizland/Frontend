@@ -1,22 +1,8 @@
 import React from "react";
-import Avatar from "@/shared/Avatar/Avatar";
-import Badge from "@/shared/Badge/Badge";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import Comment from "@/shared/Comment/Comment";
-import NcImage from "@/shared/NcImage/NcImage";
-import SocialsList from "@/shared/SocialsList/SocialsList";
-import Textarea from "@/shared/Textarea/Textarea";
-import {_getImgRd, _getPersonNameRd, _getTitleRd} from "@/contains/fakeData";
-import Tag from "@/shared/Tag/Tag";
-import Image from "next/image";
-import Link from "next/link";
 import {findNewsByUrl} from "@/services/api/shop/news";
-import {Content} from "next/font/google";
 import MetaTag from "@/components/MetaTag/MetaTag";
 import {stripHTML} from "@/hooks/StripHtml";
 import {Metadata} from "next";
-import logo from "@/images/tajhizland/logo.png";
 import Script from "next/script";
 
 interface ProductPageProps {

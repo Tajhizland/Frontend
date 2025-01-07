@@ -1,5 +1,5 @@
 "use client"
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import ModalViewAllReviews from "./ModalViewAllReviews";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import ReviewItem from "@/components/ReviewItem";
@@ -59,7 +59,7 @@ export default function ProductComment({ comments ,productId }: { comments: Comm
                     contentExtraClass="max-w-4xl"
                     renderContent={renderContent}
                     triggerText={"ثبت نظر"}
-                    modalTitle="افزودن" 
+                    modalTitle="افزودن"
                     hasButton={false}
                 />
             </div>

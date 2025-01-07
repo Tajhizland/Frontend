@@ -2,7 +2,6 @@
 "use client"
 import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import AdminPagination from "@/shared/Pagination/AdminPagination";
 import { getSpecialProductsPaginate } from "@/services/api/shop/product";
 import ProductCardNew from "@/components/ProductCardNew";
 import { useInfiniteQuery } from "react-query";

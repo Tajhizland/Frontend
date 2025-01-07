@@ -1,11 +1,9 @@
 import React  from "react";
 import {
-    NoSymbolIcon,
     ClockIcon,
     SparklesIcon,
 } from "@heroicons/react/24/outline";
 import IconDiscount from "@/components/IconDiscount";
-import {StarIcon} from "@heroicons/react/24/solid";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
 import AccordionInfo from "@/components/AccordionInfo";
  import {findProductByUrl} from "@/services/api/shop/product";

@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, Fragment, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useInfiniteQuery } from "react-query";
 import { getVlogPaginated } from "@/services/api/shop/vlog";

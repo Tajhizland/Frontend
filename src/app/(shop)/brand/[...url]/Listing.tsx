@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import ProductCardNew from "@/components/ProductCardNew";
-import AdminPagination from "@/shared/Pagination/AdminPagination";
 import { useInfiniteQuery } from "react-query";
 import { BrandListingResponse } from "@/services/types/brand";
 import { findBrandByUrl } from "@/services/api/shop/brand";

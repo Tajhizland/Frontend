@@ -1,9 +1,7 @@
 import React from "react";
-import MetaTag from "@/components/MetaTag/MetaTag";
 import {stripHTML} from "@/hooks/StripHtml";
 import {findPageByUrl} from "@/services/api/shop/page";
 import {Metadata} from "next";
-import {findNewsByUrl} from "@/services/api/shop/news";
 import Script from "next/script";
 
 interface ProductPageProps {

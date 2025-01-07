@@ -1,9 +1,6 @@
 import React from "react";
 import { findLandingByUrl } from "@/services/api/shop/landing";
-import { homePage } from "@/services/api/shop/homePage";
-import SectionHero2 from "@/components/SectionHero/SectionHero2";
 import SectionHeroLanding from "@/components/SectionHero/SectionHeroLanding";
-import DiscoverMoreSlider from "@/components/DiscoverMoreSlider";
 import LandingBannerSlider from "@/components/LandingBannerSlider";
 import LandingCategorySlider from "@/components/LandingCategorySlider";
 import LandingProductSlider from "@/components/LandingProductSlider";

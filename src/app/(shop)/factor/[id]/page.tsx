@@ -1,18 +1,11 @@
 //@ts-nocheck
 "use client"
-import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import Panel from "@/shared/Panel/Panel";
-import PageTitle from "@/shared/PageTitle/PageTitle";
 import {findById} from "@/services/api/admin/order";
 import {useParams} from "next/navigation";
 import {useQuery} from "react-query";
-import NcImage from "@/shared/NcImage/NcImage";
-import Prices from "@/components/Prices";
-import {OrderStatus} from "@/app/admin/order/orderStatus";
 import {useRef} from "react";
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
-import PreFactorTable from "@/components/Factor/PreFactorTable";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import FactorTable from "@/components/Factor/FactorTable";
 

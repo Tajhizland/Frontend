@@ -3,9 +3,7 @@
 import Label from "@/components/Label/Label";
 import React, {FC} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Input from "@/shared/Input/Input";
-import Radio from "@/shared/Radio/Radio";
 import Select from "@/shared/Select/Select";
 import {useMutation, useQuery} from "react-query";
 import {getProvince} from "@/services/api/shop/province";

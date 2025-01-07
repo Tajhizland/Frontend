@@ -3,7 +3,6 @@ import Prices from "@/components/Prices";
 import React, { useState } from "react";
 import { ColorResponse } from "@/services/types/color";
 import {
-    getGlobalState,
     reduxAddToCart,
     reduxDecrementQuantity,
     reduxIncrementQuantity,
@@ -23,7 +22,7 @@ import { ClockIcon, NoSymbolIcon, SparklesIcon } from "@heroicons/react/24/outli
 import IconDiscount from "@/components/IconDiscount";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
-import { Route } from "next"; 
+import { Route } from "next";
 import { GuarantyResponse } from "@/services/types/guaranty";
 import Badge from "@/shared/Badge/Badge";
 import { GuarantyPrice } from "@/hooks/GuarantyPrice";
@@ -122,7 +121,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                                     alt="guaranty"
                                 /></div>
                             <small className={"text-xs text-slate-600 dark:text-white max-w-xs flex-shrink-0"}>
-                            {item.name} 
+                            {item.name}
                             </small>
                         </div>
                         <span className={"text-xs text-slate-600 dark:text-white"}>
@@ -131,7 +130,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                                 :
                                 <Prices className=" whitespace-nowrap" price={GuarantyPrice(selectedColor.price)} />
                             }
-                             
+
                         </span>
                     </div>))}
             </div>

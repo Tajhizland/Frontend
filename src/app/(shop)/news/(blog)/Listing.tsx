@@ -4,10 +4,10 @@ import React, { useRef, useEffect } from "react";
 import { useInfiniteQuery } from "react-query";
 import { getNewsPaginated } from "@/services/api/shop/news";
 import Heading from "@/components/Heading/Heading";
-import Card3 from "./Card3";
 import { NewsResponse } from "@/services/types/news";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 import BlogCardSkeleton from "@/components/Skeleton/BlogCardSkeleton";
+import Card3 from "@/components/blog/Card3";
 
 const Listing = ({ response }: { response: NewsResponse[] }) => {
     const observer = useRef<IntersectionObserver | null>(null);

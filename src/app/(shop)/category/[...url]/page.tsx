@@ -1,11 +1,9 @@
 import React from "react";
 import {findCategoryByUrl} from "@/services/api/shop/category";
 import Listing from "@/app/(shop)/category/[...url]/Listing";
-import MetaTag from "@/components/MetaTag/MetaTag";
 import {Metadata} from "next";
 import {stripHTML} from "@/hooks/StripHtml";
 import Script from "next/script";
-import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 
 interface CategoryPageProps {
