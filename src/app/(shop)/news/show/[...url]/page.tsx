@@ -1,6 +1,5 @@
 import React from "react";
 import {findNewsByUrl} from "@/services/api/shop/news";
-import MetaTag from "@/components/MetaTag/MetaTag";
 import {stripHTML} from "@/hooks/StripHtml";
 import {Metadata} from "next";
 import Script from "next/script";
@@ -89,8 +88,7 @@ const BlogSingle = async (props: ProductPageProps) => {
 
     return (
         <>
-            <MetaTag description={stripHTML(news.content)} title={news.title}
-                     structuredData={JSON.stringify(structuredData)}/>
+
             <div className="nc-PageSingle pt-8 lg:pt-16 ">
 
                 {renderHeader()}
