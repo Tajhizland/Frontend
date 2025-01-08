@@ -1,13 +1,13 @@
+//@ts-nocheck
 "use client";
 import React, {useEffect, useRef } from "react";
 import ProductCardNew from "@/components/ProductCardNew";
 import { useRouter } from "next/navigation";
-import { ProductResponse } from "@/services/types/product";
 import { getDiscountedProducts } from "@/services/api/shop/product";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import { useInfiniteQuery } from "react-query";
 
-const Listing = ({ response }: { response: ProductResponse[] }) => {
+const Listing = ({ response }: { response }) => {
     const router = useRouter();
 
 
@@ -20,7 +20,6 @@ const Listing = ({ response }: { response: ProductResponse[] }) => {
         refetch,
     } = useInfiniteQuery(
         ["discountedProducts"],
-        //@ts-ignore
         async ({ pageParam = 1 }) => {
             const result = await getDiscountedProducts(pageParam); // فراخوانی getDiscountedProducts به صورت صفحه‌بندی شده
             return result;
@@ -32,9 +31,7 @@ const Listing = ({ response }: { response: ProductResponse[] }) => {
                 pageParams: [1],
             },
             getNextPageParam: (lastPage) =>
-                //@ts-ignore
                 lastPage?.meta?.current_page < lastPage?.meta?.last_page
-                    //@ts-ignore
                     ? lastPage?.meta?.current_page + 1
                     : undefined,
         }
@@ -68,14 +65,12 @@ const Listing = ({ response }: { response: ProductResponse[] }) => {
 
     useEffect(() => {
         if (data) {
-            //@ts-ignore
             const currentPage = data.pages[data.pages.length - 1]?.meta?.current_page;
             if (currentPage) {
                 router.push(`?page=${currentPage}`, { scroll: false });
             }
         }
     }, [data, router]);
-    //@ts-ignore
     const allProducts = data?.pages.flatMap((page) => page.data) || [];
 
     return (

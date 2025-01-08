@@ -13,9 +13,10 @@ import Heading from "@/components/Heading/Heading";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
 import {homePage} from "@/services/api/shop/homePage";
+//@ts-ignore
 import logo from "@/images/tajhizland/logo.png";
 import {Metadata} from "next";
-import SectionSliderNews from "@/components/SectionSliderNews"; 
+import SectionSliderNews from "@/components/SectionSliderNews";
 import SectionMagazine5 from "@/components/blog/SectionMagazine5";
 
 export const dynamic = 'force-dynamic';

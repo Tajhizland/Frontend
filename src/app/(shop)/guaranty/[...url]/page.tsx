@@ -12,7 +12,7 @@ interface PageProps {
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
     const params = await props.params;
-    let response = await findByUrl(decodeURIComponent(params.url.join("/")))
+    const response = await findByUrl(decodeURIComponent(params.url.join("/")))
 
     return {
         title: response.name,
@@ -35,7 +35,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
 const PageCollection = async (props: PageProps) => {
     const params = await props.params;
-    let response = await findByUrl(decodeURIComponent(params.url.join("/")))
+    const response = await findByUrl(decodeURIComponent(params.url.join("/")))
     return (<>
             <div className={"container mt-12"}>
                 <div className={"flex justify-center items-center gap-x-5"}>

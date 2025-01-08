@@ -1,7 +1,8 @@
 import React from "react";
-import {getNewsPaginated} from "@/services/api/shop/news"; 
-import {stripHTML} from "@/hooks/StripHtml"; 
+import {getNewsPaginated} from "@/services/api/shop/news";
+import {stripHTML} from "@/hooks/StripHtml";
 import {Metadata} from "next";
+//@ts-ignore
 import logo from "@/images/tajhizland/logo.png";
 import Script from "next/script";
 import Listing from "@/app/(shop)/news/(blog)/Listing";

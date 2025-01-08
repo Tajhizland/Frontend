@@ -4,6 +4,10 @@ import SectionHeroLanding from "@/components/SectionHero/SectionHeroLanding";
 import LandingBannerSlider from "@/components/LandingBannerSlider";
 import LandingCategorySlider from "@/components/LandingCategorySlider";
 import LandingProductSlider from "@/components/LandingProductSlider";
+import {Metadata} from "next";
+//@ts-ignore
+import logo from "@/images/tajhizland/logo.png";
+import {stripHTML} from "@/hooks/StripHtml";
 
 interface ProductPageProps {
     params: Promise<{
@@ -11,9 +15,33 @@ interface ProductPageProps {
     }>
 }
 
+
+export async function generateMetadata(props: ProductPageProps): Promise<Metadata> {
+    const params = await props.params;
+    const response = await findLandingByUrl(decodeURIComponent(params.url.join("/")))
+
+    return {
+        title: response.title,
+        description: stripHTML(response.description),
+        twitter: {
+            title: response.title,
+            description: stripHTML(response.description),
+            images: logo.src,
+        },
+        openGraph: {
+            title: response.title,
+            description: stripHTML(response.description),
+            images: logo.src,
+            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/landing/${response.url}`,
+            type: "website",
+        },
+        robots: "index , follow",
+    }
+}
+
 export default async function page(props: ProductPageProps) {
     const params = await props.params;
-    let response = await findLandingByUrl(decodeURIComponent(params.url.join("/")))
+    const response = await findLandingByUrl(decodeURIComponent(params.url.join("/")))
 
 
     const renderHeader = () => {
@@ -22,7 +50,6 @@ export default async function page(props: ProductPageProps) {
                 <div>
                     <h1
                         className=" text-neutral-900 font-semibold text-3xl md:text-4xl md:!leading-[120%] lg:text-4xl dark:text-neutral-100 max-w-4xl "
-
                     >
                         {response.title}
                     </h1>

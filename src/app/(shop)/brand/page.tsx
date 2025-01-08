@@ -1,11 +1,34 @@
 import React, {Fragment} from "react";
 import {getBrandList} from "@/services/api/shop/brand";
 import CardCategory2 from "@/components/CardCategories/CardCategory2";
+import {Metadata} from "next";
+//@ts-ignore
+import logo from "@/images/tajhizland/logo.png";
 
 export const dynamic = 'force-dynamic';
 
+export async function generateMetadata(): Promise<Metadata> {
+    return {
+        title: "برند های تجهیزلند",
+        description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+        twitter: {
+            title: "برند های تجهیزلند",
+            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+            images: logo.src,
+        },
+        openGraph: {
+            title: "برند های تجهیزلند",
+            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+            images: logo.src,
+            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}`,
+            type: "website",
+        },
+        robots: "index , follow",
+    }
+}
+
 const Page = async () => {
-    let response = await getBrandList();
+    const response = await getBrandList();
     return (<>
         <div className={`nc-PageCollection dark:bg-neutral-900`}>
             <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">

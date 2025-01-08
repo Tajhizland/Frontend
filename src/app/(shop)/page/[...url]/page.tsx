@@ -29,6 +29,7 @@ export async function generateMetadata(props: ProductPageProps): Promise<Metadat
             type: "website",
         },
         robots: "index , follow",
+
     }
 }
 

@@ -1,7 +1,31 @@
+//@ts-ignore
 import orderLogo from "@/images/orderlimit.png";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
 import Image from "next/image";
+import {Metadata} from "next";
+//@ts-ignore
+import logo from "@/images/tajhizland/logo.png";
+
+export async function generateMetadata(): Promise<Metadata> {
+    return {
+        title: "تکمیل خرید",
+        description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+        twitter: {
+            title: "محصولات ویژه تجهیزلند",
+            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+            images: logo.src,
+        },
+        openGraph: {
+            title: "تکمیل خرید",
+            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+            images: logo.src,
+            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}`,
+            type: "website",
+        },
+        robots: "noindex",
+    }
+}
 
 const ThankYouPage = () => {
 

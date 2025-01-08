@@ -19,7 +19,7 @@ export async function generateMetadata(props: CategoryPageProps): Promise<Metada
     const searchParams = await props.searchParams;
     const params = await props.params;
     const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
-    let response = await findBrandByUrl(decodeURIComponent(params.url.join("/")), "", page)
+    const response = await findBrandByUrl(decodeURIComponent(params.url.join("/")), "", page)
 
     return {
         title: response.brand.name,
