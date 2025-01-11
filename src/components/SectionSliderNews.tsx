@@ -13,6 +13,7 @@ import NcImage from "@/shared/NcImage/NcImage";
 import { FaEye } from "react-icons/fa";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import { stripHTML } from "@/hooks/StripHtml";
 
 export interface SectionSliderProductCardProps {
   className?: string;
@@ -35,7 +36,7 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
         {data && data.map((item, index) => (
           <li key={index} className={`  ${itemClassName}`}>
 
-            <div className="w-full h-full rounded-xl overflow-hidden   bg-white dark:bg-transparent hover:bg-slate-100">
+            <div className="w-full h-full overflow-hidden   bg-white dark:bg-transparent hover:text-black group">
               <Link
                 href={"/news/" + item.url as Route}
                 aria-label={"vlog"}
@@ -44,15 +45,19 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
                 <NcImage
                   containerClassName="flex aspect-w-1 aspect-h-1 w-full h-0"
                   src={"https://tajhizland.com/upload/" + item.img}
-                  className="object-cover w-full h-full drop-shadow-xl"
+                  className="object-fill w-full h-full rounded group-hover:opacity-80"
                   fill
                   alt="vlog"
                 />
-                <span className="py-2.5 px-2 dark:text-white text-xs md:text:base">{item.title}</span>
+                <div className="flex flex-col gap-y-2 mt-2">
+                <span className="  dark:text-white text-xs md:text:base text-slate-800 font-bold">{item.title}</span>
+                <p className="line-clamp-2 text-xs text-slate-800">
+                  {stripHTML(item.content)}
+                </p>
                 <div
-                  className="flex justify-between items-center py-1 px-2 text-neutral-500 dark:text-white">
-
+                  className="flex justify-end items-center  px-2 text-neutral-500 dark:text-white">
                   <span className="text-xs">{item.created_at}</span>
+                </div>
                 </div>
               </Link>
             </div>
