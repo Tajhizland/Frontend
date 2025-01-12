@@ -175,7 +175,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
     };
 
     const checkColorInCart = () => {
-        const item = cart && cart.find(item => item.color.id === selectedColor.id && item.guaranty.id == selectedGuaranty.id);
+        const item = cart && cart.find(item => item.color.id === selectedColor.id && item.guaranty.id == selectedGuaranty?.id);
         return item ? item.count : 0;
     };
 
@@ -197,7 +197,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await increaseCartItem({ productColorId: selectedColor.id, guaranty_id: selectedGuaranty.id ?? undefined });
+            let response = await increaseCartItem({ productColorId: selectedColor.id, guaranty_id: selectedGuaranty?.id ?? undefined });
             if (response.success) {
                 reduxIncrementQuantity(selectedColor.id, selectedGuaranty?.id)
             }
@@ -210,7 +210,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await decreaseCartItem({ productColorId: selectedColor.id, guaranty_id: selectedGuaranty.id ?? undefined });
+            let response = await decreaseCartItem({ productColorId: selectedColor.id, guaranty_id: selectedGuaranty?.id ?? undefined });
             if (response.success) {
                 reduxDecrementQuantity(selectedColor.id, selectedGuaranty?.id)
             }
@@ -224,7 +224,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await removeCartItem({ productColorId: selectedColor.id, guaranty_id: selectedGuaranty.id ?? undefined });
+            let response = await removeCartItem({ productColorId: selectedColor.id, guaranty_id: selectedGuaranty?.id ?? undefined });
             if (response.success) {
                 reduxRemoveFromCart(selectedColor.id, selectedGuaranty?.id)
             }
@@ -330,7 +330,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                             increaseHandle={increaseHandle}
                         />
                     </div>
-                    {checkColorInCart() == 0 && <ButtonPrimary
+                    {checkColorInCart() == 0 && selectedCount>0 && <ButtonPrimary
                         onClick={addToCartHandle}
                         className="flex-1 flex-shrink-0"
                     >
