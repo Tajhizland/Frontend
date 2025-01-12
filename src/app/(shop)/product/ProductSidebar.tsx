@@ -107,7 +107,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             return <div className={"flex flex-col gap-1 w-full"}>
                 {product?.guaranties.data.map((item, index) => (
                     <div onClick={() => { setSelectedGuaranty(item) }}
-                        key={index} className={`flex gap-20 items-center bg-slate-100/70  justify-between rounded-full border p-1 pl-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-black/20 ${selectedGuaranty == item ? "border-slate-800" : ""}`}>
+                        key={index} className={`flex gap-20 items-center bg-slate-100/70  justify-between rounded-full border-2 p-1 pl-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-black/20 ${selectedGuaranty == item ? "border-primary-6000 dark:border-primary-500" : ""}`}>
                         <div onClick={() => { setSelectedGuaranty(item) }}
                             key={index} className={`flex gap-5 items-center  `}>
                             <div
@@ -302,7 +302,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                     </div>
 
                     {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
-                    <div className="mt-6 space-y-7 lg:space-y-8">
+                    <div className="mt-6 gap-y-3 lg:gap-y-7">
                         <div className="">{renderVariants()}</div>
 
                         <div className="flex justify-between items-center">

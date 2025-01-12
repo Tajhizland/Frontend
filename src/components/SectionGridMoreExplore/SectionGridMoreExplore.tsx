@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FC, useState} from "react";
+import React, {FC, Fragment, useState} from "react";
 import CardCategory4 from "@/components/CardCategories/CardCategory4";
 import Heading from "@/components/Heading/Heading";
 import NavItem2 from "@/components/NavItem2";
@@ -50,7 +50,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
     ]
     const renderCard = (item: ExploreType) => {
         switch (boxCard) {
-        
+
             case "box4":
                 return (
                     <CardCategory4
@@ -147,7 +147,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
         <div className={`nc-SectionGridMoreExplore relative ${className}`}>
             {renderHeading()}
             <div className={`grid gap-1 md:gap-7 ${gridClassName}`}>
-                {data.map((item, index) => (<>
+                {data.map((item, index) => (<Fragment key={index}>
                     {
                         item.categories?.data.map((category, index2) => (<>
                             {
@@ -164,7 +164,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
 
                         </>))
                     }
-                </>))}
+                </Fragment>))}
             </div>
         </div>
     );
