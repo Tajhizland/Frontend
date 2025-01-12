@@ -63,7 +63,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                 <div className="flex-1 flex  justify-center">
                   {menu.children.data.map((item, index) => (
                     <div key={index}
-                         className={`px-4 ${index !== menu?.children?.data?.length??0 - 1 ? "border-l" : ""}`}>
+                         className={`px-4 ${index !== ((menu?.children?.data?.length??0) - 1 ) ? "border-l" : ""}`}>
                       <Link href={item.url as Route} className="flex justify-center items-center gap-x-1 border-b border-[#fcb415] pb-2">
                       <FaCircle className="text-[#fcb415] w-2 h-2" />
                         <strong className={"dark:text-white text-black  text-xs  whitespace-nowrap"}>
