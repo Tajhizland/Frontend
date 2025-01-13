@@ -8,7 +8,7 @@ export type MenuResponse = {
     parent?: MenuResponse;
     children?:{data:MenuResponse[]};
     url: string;
-    banner_title: string;
+    category_id: number;
     banner_link: string;
     banner_logo: string;
     created_at: string;

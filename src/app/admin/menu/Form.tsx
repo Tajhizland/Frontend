@@ -16,6 +16,7 @@ import Image from "next/image";
 import MenuCard from "@/components/MenuCard/MenuCard";
 import {TrashIcon} from "@heroicons/react/24/solid";
 import {toast} from "react-hot-toast";
+import {categoryList} from "@/services/api/admin/category";
 
 interface Form {
     data?: MenuResponse;
@@ -27,6 +28,11 @@ export default function Form({data, submit}: Form) {
     const {data: list} = useQuery({
         queryKey: [`menu-list`],
         queryFn: () => menuList(),
+        staleTime: 5000,
+    });
+    const {data: categoryLists} = useQuery({
+        queryKey: [`category-list`],
+        queryFn: () => categoryList(),
         staleTime: 5000,
     });
     const deleteBannerHandle = async () => {
@@ -75,8 +81,20 @@ export default function Form({data, submit}: Form) {
                     </Select>
                 </div>
                 <div>
-                    <Label>عنوان بنر</Label>
-                    <Input name={"banner_title"} defaultValue={data?.banner_title}/>
+                    <Label>والد</Label>
+                    <Select name={"category_id"}>
+                        <option value={0}>
+                            بدون والد
+                        </option>
+                        {
+                            categoryLists?.data.map((item) => (<>
+                                <option value={item.id} selected={item.id == data?.category_id}>
+                                    {item.name}
+                                </option>
+                            </>))
+                        }
+
+                    </Select>
                 </div>
                 <div>
                     <Label>آدرس بنر</Label>
@@ -88,12 +106,10 @@ export default function Form({data, submit}: Form) {
                 </div>
                 <div className={'flex items-center'}>
                     {data?.banner_logo && <div className="w-[30%] xl:w-[35%] flex items-center justify-center flex-col">
-                        <MenuCard color="bg-orange-100" featuredImage={data.banner_logo}
-                                  name={data.banner_title as string} url={data.banner_link}/>
+                        <MenuCard color="bg-orange-100" featuredImage={data.banner_logo}  url={data.banner_link}/>
                         <span>
-                                    <TrashIcon className={"w-8 h-8 text-red-500"}
-                                               onClick={() => deleteBannerHandle()}/>
-                                </span>
+                            <TrashIcon className={"w-8 h-8 text-red-500"} onClick={() => deleteBannerHandle()}/>
+                        </span>
                     </div>}
                 </div>
             </div>

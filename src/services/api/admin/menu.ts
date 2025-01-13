@@ -8,7 +8,7 @@ export const store = async <T extends ServerResponse<unknown>>
         parent_id: string,
         url: string|null,
         status: string,
-        banner_title: string | null,
+        category_id: number | null,
         banner_logo: File | null,
         banner_link: string | null
     }
@@ -18,7 +18,7 @@ export const store = async <T extends ServerResponse<unknown>>
     formData.append('parent_id', params.parent_id +"");
     formData.append('url', params.url??"");
     formData.append('status', params.status);
-    formData.append('banner_title', params.banner_title??"");
+    formData.append('category_id', params.category_id?.toString()??"");
     formData.append('banner_link', params.banner_link??"");
     if (params.banner_logo) {
         formData.append('banner_logo', params.banner_logo);
@@ -56,7 +56,7 @@ export const update = async <T extends ServerResponse<unknown>>
         parent_id: string,
         url: string|null,
         status: string,
-        banner_title: string | null,
+        category_id: number | null,
         banner_logo: File | null,
         banner_link: string | null
     }
@@ -67,7 +67,7 @@ export const update = async <T extends ServerResponse<unknown>>
     formData.append('parent_id', params.parent_id +"");
     formData.append('url', params.url??"");
     formData.append('status', params.status+"");
-    formData.append('banner_title', params.banner_title??"");
+    formData.append('category_id', params.category_id?.toString()??"");
     formData.append('banner_link', params.banner_link??"");
     if (params.banner_logo) {
         formData.append('banner_logo', params.banner_logo);

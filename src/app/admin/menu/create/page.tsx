@@ -18,7 +18,7 @@ export default function Page() {
                 url: e.get("url") as string,
                 status: e.get("status") as string,
                 banner_logo: e.get("banner_logo") as File,
-                banner_title: e.get("banner_title") as string,
+                category_id: Number(e.get("category_id")) as number,
                 banner_link: e.get("banner_link") as string,
                 parent_id: e.get("parent_id") as string
             }

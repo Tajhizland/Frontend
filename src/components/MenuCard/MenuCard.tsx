@@ -7,21 +7,19 @@ import {Route} from "next";
 export interface MenuCardProps {
     className?: string;
     featuredImage?: StaticImageData | string;
-    name?: string;
-    desc?: string;
+     desc?: string;
     url?: string;
     color?: string;
 }
 
 const MenuCard: FC<MenuCardProps> = ({
                                          featuredImage = "",
-                                         name = "",
-                                         color = "bg-red-50",
+                                          color = "bg-red-50",
                                          url = ""
                                      }) => {
     return (
         <>
-            {featuredImage &&  
+            {featuredImage &&
                 <div
                     className={`relative w-full aspect-w-16 aspect-h-11 sm:aspect-h-9 h-0 rounded-2xl overflow-hidden group bg-white`}
                 >
