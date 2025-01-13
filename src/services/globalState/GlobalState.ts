@@ -86,7 +86,7 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
 // سایر توابع
 export const reduxRemoveFromCart = (colorId: number ,guarantyId:number|undefined) => {
     const cart = getGlobalState('cart');
-    const newCart = cart.filter(item => !(item.color.id === colorId && item.guaranty.id === guarantyId));
+    const newCart = cart.filter(item => !(item.color.id === colorId && item.guaranty.id == guarantyId));
     setGlobalState('cart', newCart);
 };
 

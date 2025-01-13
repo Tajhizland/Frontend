@@ -14,11 +14,13 @@ export interface NcInputNumberProps {
     increaseHandle?: any;
     decreaseHandel?: any;
     removeHandle?: any;
+    inCart?: boolean;
 }
 
 const NcInputNumber: FC<NcInputNumberProps> = ({
                                                    className = "w-full",
                                                    defaultValue = 0,
+                                                   inCart = true,
                                                    min = 1,
                                                    max = 99,
                                                    onChange,
@@ -51,8 +53,8 @@ const NcInputNumber: FC<NcInputNumberProps> = ({
         increaseHandle && increaseHandle();
     };
     const handleClickRemove = () => {
-        setValue(0);
-        onChange && onChange(0);
+        setValue(1);
+        onChange && onChange(1);
         removeHandle && removeHandle()
     };
 
@@ -81,7 +83,7 @@ const NcInputNumber: FC<NcInputNumberProps> = ({
                 className={`nc-NcInputNumber__content flex items-center justify-between w-[104px] sm:w-28`}
             >
                 {
-                    (value == 1 && defaultValue > 0) ? <>
+                    (value == 1 && inCart ) ? <>
                             <button
                                 className="w-8 h-8 rounded-full flex items-center justify-center border border-neutral-400 dark:border-neutral-500 bg-white dark:bg-neutral-900 focus:outline-none hover:border-neutral-700 dark:hover:border-neutral-400 disabled:hover:border-neutral-400 dark:disabled:hover:border-neutral-500 disabled:opacity-50 disabled:cursor-default"
                                 type="button"

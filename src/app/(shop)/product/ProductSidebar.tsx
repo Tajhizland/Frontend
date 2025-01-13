@@ -33,7 +33,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
     const guaranty = product.guaranties.data;
     const [selectedColor, setSelectedColor] = useState<ColorResponse>(colors[0])
     const [selectedGuaranty, setSelectedGuaranty] = useState<GuarantyResponse>(guaranty[0] ?? null)
-    const [selectedCount, setSelectedCount] = useState<number>(0)
+    const [selectedCount, setSelectedCount] = useState<number>(1)
     const [cart, setCart] = useGlobalState('cart');
     const queryClient = useQueryClient(); // درست است
     const [user] = useUser();
@@ -226,7 +226,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
         if (checkColorInCart() > 0) {
             let response = await removeCartItem({ productColorId: selectedColor.id, guaranty_id: selectedGuaranty?.id ?? undefined });
             if (response.success) {
-                reduxRemoveFromCart(selectedColor.id, selectedGuaranty?.id)
+                 reduxRemoveFromCart(selectedColor.id, selectedGuaranty?.id)
             }
         }
     }
@@ -321,8 +321,10 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                 {selectedColor.statusLabel != "disable" ? <div className="flex  gap-x-3.5">
                     <div
                         className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full dark:text-white">
+
                         <NcInputNumber
-                            defaultValue={checkColorInCart()}
+                            inCart={checkColorInCart()>0?true:false}
+                            defaultValue={checkColorInCart()!=0?checkColorInCart():1}
                             onChange={setSelectedCount}
                             max={selectedColor.stock}
                             removeHandle={removeHandle}
