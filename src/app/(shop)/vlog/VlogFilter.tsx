@@ -15,7 +15,7 @@ import Checkbox from "@/shared/Checkbox/Checkbox";
 import ButtonThird from "@/shared/Button/ButtonThird";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {useQuery} from "react-query";
-import {getList} from "@/services/api/admin/vlogCategory";
+import {getList} from "@/services/api/shop/vlogCategory";
 import Radio from "@/shared/Radio/Radio";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 import Input from "@/shared/Input/Input";

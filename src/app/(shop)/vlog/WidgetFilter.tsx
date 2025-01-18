@@ -1,6 +1,6 @@
 import React, {useState } from "react";
 import { useQuery } from "react-query";
-import { getList } from "@/services/api/admin/vlogCategory";
+import { getList } from "@/services/api/shop/vlogCategory";
 import Checkbox from "@/shared/Checkbox/Checkbox";
 
 type SelectedFilters = Record<string, string[] | string>;
