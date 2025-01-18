@@ -23,7 +23,10 @@ import ButtonCircle from "@/shared/Button/ButtonCircle";
 
 type SelectedFilters = Record<string, string[] | string>;
 
-export default function VlogFilter({changeFilter , defualtSearch}: { changeFilter: (filters: string) => void ,defualtSearch?:string }) {
+export default function VlogFilter({changeFilter, defualtSearch}: {
+    changeFilter: (filters: string) => void,
+    defualtSearch?: string
+}) {
     const {data: categoryList} = useQuery({
         queryKey: [`vlog_category-list`],
         queryFn: () => getList(),
@@ -32,7 +35,7 @@ export default function VlogFilter({changeFilter , defualtSearch}: { changeFilte
 
     const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({});
     const [sortOrderStates, setSortOrderStates] = useState<string>("");
-    const [search, setSearch] = useState<string>(defualtSearch??"");
+    const [search, setSearch] = useState<string>(defualtSearch ?? "");
     const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false);
 
     const handleFilterChange = (filterId: string, itemId: string, isChecked: boolean) => {
@@ -544,33 +547,39 @@ export default function VlogFilter({changeFilter , defualtSearch}: { changeFilte
 
 
     return (<>
-        <div className="container">
-            <header className="max-w-2xl mx-auto -mt-10 flex flex-col lg:-mt-7">
-                <form className="relative w-full " method="post">
+        <hr className="border-slate-200 dark:border-slate-700 my-5"/>
+
+        <div className="flex lg:space-x-4">
+            {/* FOR DESKTOP */}
+            <div className="hidden lg:flex flex-1 gap-x-4">
+                {/* {renderFilters()} */}
+                <div className="relative max-w-xs w-full">
                     <label
                         htmlFor="search-input"
                         className="text-neutral-500 dark:text-neutral-300"
                     >
                         <span className="sr-only">Search all icons</span>
                         <Input
-                            className="shadow-lg border-0 dark:border"
+                            className="  border "
                             id="search-input"
                             type="search"
                             defaultValue={search}
-                            onChange={(e)=>{handleSearchChange(e.target.value)}}
+                            onChange={(e) => {
+                                handleSearchChange(e.target.value)
+                            }}
                             placeholder="ویدیو مورد نظر خود را جستجو کنید"
-                            sizeClass="pr-14 py-5 pl-5 md:pr-16"
+                            sizeClass="pr-14 py-3 pl-5 md:pr-16"
                             rounded="rounded-full"
                         />
                         <ButtonCircle
-                            className="absolute right-2.5 top-1/2 transform -translate-y-1/2"
+                            className="absolute right-1.5 top-1/2 transform -translate-y-1/2"
                             size=" w-11 h-11"
                             type="submit"
                         >
                             <i className="las la-arrow-right text-xl"></i>
                         </ButtonCircle>
                         <span
-                            className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-6">
+                            className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-4">
                 <svg
                     className="h-5 w-5"
                     viewBox="0 0 24 24"
@@ -594,15 +603,8 @@ export default function VlogFilter({changeFilter , defualtSearch}: { changeFilte
                 </svg>
               </span>
                     </label>
-                </form>
-            </header>
-        </div>
-        <hr className="border-slate-200 dark:border-slate-700 my-5"/>
+                </div>
 
-        <div className="flex lg:space-x-4">
-            {/* FOR DESKTOP */}
-            <div className="hidden lg:flex flex-1 gap-x-4">
-                {/* {renderFilters()} */}
                 <div className="!mr-auto">{renderTabsSortOrder()}</div>
             </div>
 

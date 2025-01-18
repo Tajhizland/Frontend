@@ -2,6 +2,10 @@ export type VlogPageResponse = {
     relatedVlogs: { data : VlogResponse[] };
     vlog:VlogResponse;
 }
+export type VlogListingResponse = {
+    listing: { data : VlogResponse[] };
+    mostViewed: { data : VlogResponse[] };
+}
 export type VlogResponse = {
     id: number,
     title: string;
