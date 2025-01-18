@@ -1,26 +1,23 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useInfiniteQuery } from "react-query";
-import { getVlogPaginated } from "@/services/api/shop/vlog";
-import { VlogResponse } from "@/services/types/vlog";
+import React, {useRef, useEffect, useState} from "react";
+import {useInfiniteQuery} from "react-query";
+import {getVlogPaginated} from "@/services/api/shop/vlog";
+import {VlogResponse} from "@/services/types/vlog";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
-import { FaEye } from "react-icons/fa";
+import {FaEye} from "react-icons/fa";
 import VlogFilter from "@/app/(shop)/vlog/VlogFilter";
 import WidgetFilter from "./WidgetFilter";
-import { Route } from "next";
+import {Route} from "next";
 import VlogCardSkeleton from "@/components/Skeleton/VlogCardSkeleton";
-import { FaCirclePlay } from "react-icons/fa6";
+import {FaCirclePlay} from "react-icons/fa6";
 
-export default function Listing({ response,search }: { response: any ,search?:string}) {
-    const router = useRouter();
+export default function Listing({response, search}: { response: any, search?: string }) {
     const observer = useRef<IntersectionObserver | null>(null);
     const lastElementRef = useRef<HTMLDivElement>(null);
 
-    const [filter, setFilter] = useState<string>(search?("filter[search]="+search):"");
+    const [filter, setFilter] = useState<string>(search ? ("filter[search]=" + search) : "");
 
-    console.log("SEARCH",search)
     // استفاده از useInfiniteQuery برای بارگذاری داده‌ها به صورت بی‌پایان
     const {
         data,
@@ -29,14 +26,14 @@ export default function Listing({ response,search }: { response: any ,search?:st
         isFetchingNextPage,
     } = useInfiniteQuery(
         ["vlogs", filter], // فیلترها را در queryKey ارسال می‌کنیم
-        async ({ pageParam = 1, queryKey }) => {
+        async ({pageParam = 1, queryKey}) => {
             const filters = queryKey[1]; // دریافت فیلترها از queryKey
             const result = await getVlogPaginated(pageParam, filters);
             return result;
         },
         {
             initialData: {
-                pages: [{ data: response.data }],
+                pages: [{data: response.data}],
                 pageParams: [1],
             },
             getNextPageParam: (lastPage) =>
@@ -91,14 +88,15 @@ export default function Listing({ response,search }: { response: any ,search?:st
                         fill
                         alt="vlog"
                     />
-                    <div className="absolute top-0 left-0 bg-black/70 w-full h-full group-hover:flex justify-center items-center hidden">
-                        <FaCirclePlay className="text-white w-8 h-8 animate-pulse" />
+                    <div
+                        className="absolute top-0 left-0 bg-black/70 w-full h-full group-hover:flex justify-center items-center hidden">
+                        <FaCirclePlay className="text-white w-8 h-8 animate-pulse"/>
                     </div>
                 </div>
                 <span className="py-2.5 px-2 dark:text-white">{item.title}</span>
                 <div className="flex justify-between items-center py-1 px-2 text-neutral-500 dark:text-white">
                     <div className="flex items-center gap-x-2">
-                        <FaEye />
+                        <FaEye/>
                         <span>{item.view}</span>
                     </div>
                     <span className="text-xs">{item.created_at}</span>
@@ -128,7 +126,7 @@ export default function Listing({ response,search }: { response: any ,search?:st
                         {/* LOOP ITEMS */}
                         <div className="grid grid-cols-1 lg:grid-cols-12 mt-8 lg:mt-10 gap-10">
                             <div className="hidden lg:block lg:col-span-3">
-                                <WidgetFilter changeFilter={handleFilterChange}  />
+                                <WidgetFilter changeFilter={handleFilterChange}/>
                             </div>
 
                             <div
@@ -140,8 +138,8 @@ export default function Listing({ response,search }: { response: any ,search?:st
 
                                 </div>
                                 <div ref={lastElementRef}
-                                    className="grid   grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
-                                    {isFetchingNextPage && <VlogCardSkeleton />}
+                                     className="grid   grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
+                                    {isFetchingNextPage && <VlogCardSkeleton/>}
                                 </div>
                             </div>
                         </div>

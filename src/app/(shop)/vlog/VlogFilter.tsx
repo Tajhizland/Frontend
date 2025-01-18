@@ -547,8 +547,58 @@ export default function VlogFilter({changeFilter, defualtSearch}: {
 
 
     return (<>
+        <div className="lg:hidden relative w-full">
+            <label
+                htmlFor="search-input"
+                className="text-neutral-500 dark:text-neutral-300"
+            >
+                <span className="sr-only">Search all icons</span>
+                <Input
+                    className="  border "
+                    id="search-input"
+                    type="search"
+                    defaultValue={search}
+                    onChange={(e) => {
+                        handleSearchChange(e.target.value)
+                    }}
+                    placeholder="ویدیو مورد نظر خود را جستجو کنید"
+                    sizeClass="pr-14 py-3 pl-5 md:pr-16"
+                    rounded="rounded-full"
+                />
+                <ButtonCircle
+                    className="absolute right-1.5 top-1/2 transform -translate-y-1/2"
+                    size=" w-11 h-11"
+                    type="submit"
+                >
+                    <i className="las la-arrow-right text-xl"></i>
+                </ButtonCircle>
+                <span
+                    className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-4">
+                <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                      d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                  />
+                  <path
+                      d="M22 22L20 20"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </label>
+        </div>
         <hr className="border-slate-200 dark:border-slate-700 my-5"/>
-
         <div className="flex lg:space-x-4">
             {/* FOR DESKTOP */}
             <div className="hidden lg:flex flex-1 gap-x-4">
@@ -604,10 +654,8 @@ export default function VlogFilter({changeFilter, defualtSearch}: {
               </span>
                     </label>
                 </div>
-
                 <div className="!mr-auto">{renderTabsSortOrder()}</div>
             </div>
-
             {/* FOR RESPONSIVE MOBILE */}
             <div className="flex overflow-x-auto lg:hidden gap-x-4">
                 {renderTabMobileFilter()}
