@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import React, {useRef, useEffect, useState} from "react";
 import {useInfiniteQuery} from "react-query";
@@ -29,18 +30,18 @@ export default function Listing({response, search}: { response: any, search?: st
         async ({pageParam = 1, queryKey}) => {
             const filters = queryKey[1]; // دریافت فیلترها از queryKey
             const result = await getVlogPaginated(pageParam, filters);
-            return result;
+            return result.listing.data;
         },
         {
             initialData: {
-                pages: [{data: response.data}],
+                pages: [{data: response.listing.data.data}],
                 pageParams: [1],
             },
             getNextPageParam: (lastPage) =>
                 //@ts-ignore
-                lastPage?.meta?.current_page < lastPage?.meta?.last_page
+                lastPage?.listing?.meta?.current_page < lastPage?.listing?.meta?.last_page
                     //@ts-ignore
-                    ? lastPage?.meta?.current_page + 1
+                    ? lastPage?.listing?.meta?.current_page + 1
                     : undefined,
             refetchOnWindowFocus: false,
         }
@@ -70,7 +71,8 @@ export default function Listing({response, search}: { response: any, search?: st
         };
     }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-    const allVlogs = data?.pages.flatMap((page) => page.data) || [];
+    const allVlogs = data?.pages.flatMap((page) => page) || [];
+    console.log("ALLvlog",allVlogs)
 
     const renderItem = (item: VlogResponse) => (
         <div className="w-full h-full  overflow-hidden   bg-white dark:bg-transparent" key={item.id}>
@@ -133,6 +135,7 @@ export default function Listing({response, search}: { response: any, search?: st
                                 className="  lg:col-span-9  ">
                                 <div
                                     className="grid   grid-cols-2 lg:grid-cols-3 gap-10">
+                                    {console.log("allVlogs",allVlogs)}
                                     {allVlogs.map((item: VlogResponse) => renderItem(item))}
 
 
