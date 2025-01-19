@@ -12,6 +12,7 @@ import WidgetFilter from "./WidgetFilter";
 import {Route} from "next";
 import VlogCardSkeleton from "@/components/Skeleton/VlogCardSkeleton";
 import {FaCirclePlay} from "react-icons/fa6";
+import VlogMiniPost from "@/app/(shop)/vlog/VlogMiniPost";
 
 export default function Listing({response, search}: { response: any, search?: string }) {
     const observer = useRef<IntersectionObserver | null>(null);
@@ -128,15 +129,17 @@ export default function Listing({response, search}: { response: any, search?: st
                         {/* LOOP ITEMS */}
                         <div className="grid grid-cols-1 lg:grid-cols-12 mt-8 lg:mt-10 gap-10">
                             <div className="hidden lg:block lg:col-span-3">
+                                <div className={"flex flex-col gap-10"}>
                                 <WidgetFilter changeFilter={handleFilterChange}/>
+                                <VlogMiniPost vlogs={response.mostViewed.data} />
+                                </div>
                             </div>
 
                             <div
                                 className="  lg:col-span-9  ">
                                 <div
                                     className="grid   grid-cols-2 lg:grid-cols-3 gap-10">
-                                    {console.log("allVlogs",allVlogs)}
-                                    {allVlogs.map((item: VlogResponse) => renderItem(item))}
+                                     {allVlogs.map((item: VlogResponse) => renderItem(item))}
 
 
                                 </div>
