@@ -10,11 +10,13 @@ import Image from "next/image";
 import {useParams} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
 import {toast} from "react-hot-toast";
+import MultiUploader from "@/shared/Uploader/MultiUploader";
+import {useState} from "react";
 
 export default function Page() {
     const {id} = useParams();
     const queryClient = useQueryClient();
-
+    const [files, setFiles] = useState<File[]>([]);
     const {data: data, isLoading: isLoading} = useQuery({
         queryKey: [`product_image`],
         queryFn: () => getByProductId(Number(id)),
@@ -22,7 +24,12 @@ export default function Page() {
     });
 
     async function submit(e: FormData) {
-        let response = await upload({product_id: Number(id), image: e.get("image") as File})
+        const formData = new FormData();
+        files.forEach((file) => {
+            formData.append("image", file);
+        });
+
+        let response = await upload({product_id: Number(id), image: formData.getAll("image") as File[]})
         if (response?.success) {
             queryClient.refetchQueries(['product_image']);
             toast.success(response?.message as string);
@@ -55,7 +62,9 @@ export default function Page() {
             <ProductTab id={id + ""}/>
             <div className="flex flex-col gap-y-4">
                 <form action={submit}>
-                    <Uploader name={"image"}/>
+                    {/*<Uploader name={"image"}/>*/}
+                    <MultiUploader name={"image"}  onFilesSelected={setFiles}/>
+
                     <ButtonPrimary>
                         آپلود
                     </ButtonPrimary>

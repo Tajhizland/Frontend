@@ -13,13 +13,14 @@ export const upload = async <T extends ServerResponse<unknown>>
     (
         params: {
             product_id: number,
-            image: File,
+            image: File[],
         }
     ) => {
     const formData = new FormData();
     formData.append('product_id', params.product_id + "");
-    formData.append('image', params.image);
-
+    params.image.forEach((file) => {
+        formData.append('image[]', file);
+    });
 
     return axios.post<T, SuccessResponseType<T>>("admin/product/image/set/", formData,
         {
