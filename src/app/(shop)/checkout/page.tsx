@@ -27,9 +27,7 @@ import { GuarantyPrice } from "@/hooks/GuarantyPrice";
 const CheckoutPage = () => {
     const router = useRouter();
     const [cart] = useCart();
-    const [user] = useUser();
-
-    console.log("USER IS", user);
+    const [user] = useUser(); 
 
     // if (!user) {
     //     router.push("/login");
@@ -129,49 +127,7 @@ const CheckoutPage = () => {
                                     <Link href={{ pathname: "product/" + item.product.url }}>{item.product.name}</Link>
                                 </h3>
                                 <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
-                                    <div className="flex items-center gap-x-1.5">
-                                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-                                            <path
-                                                d="M7.01 18.0001L3 13.9901C1.66 12.6501 1.66 11.32 3 9.98004L9.68 3.30005L17.03 10.6501C17.4 11.0201 17.4 11.6201 17.03 11.9901L11.01 18.0101C9.69 19.3301 8.35 19.3301 7.01 18.0001Z"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M8.35 1.94995L9.69 3.28992"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M2.07 11.92L17.19 11.26"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M3 22H16"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M18.85 15C18.85 15 17 17.01 17 18.24C17 19.26 17.83 20.09 18.85 20.09C19.87 20.09 20.7 19.26 20.7 18.24C20.7 17.01 18.85 15 18.85 15Z"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                        </svg>
-
+                                    <div className="flex items-center gap-x-1.5"> 
                                         <span>{item.color.title}</span>
                                     </div>
                                     <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>

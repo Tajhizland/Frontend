@@ -71,8 +71,7 @@ const DiscoverMoreSlider = ({data}: { data: BannerResponse[] }) => {
             <Heading
                 className="mb-3 lg:mb-5 text-neutral-900 dark:text-neutral-50 nc-p-r-container "
                 desc=""
-                rightDescText=""
-                hasNextPrev
+                rightDescText="" 
             >
                 {/*دسته‌بندی های پرطرفدار*/}
             </Heading>
