@@ -139,7 +139,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
     };
     const renderBrand = () => {
         if (product?.brand) {
-            return <div className={"flex items-center justify-between w-full"}>
+            return <div className={"flex items-center justify-start w-full"}>
 
                 <Link href={"/brand/" + product.brand.url as Route}
                     className={`relative h-0 w-32 rounded-2xl overflow-hidden group aspect-w-3 aspect-h-1 `}
@@ -155,7 +155,9 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                         />
                     </div>
                 </Link>
-                <span>
+                <span> 
+                    برند 
+                {" "}
                     {
                         product?.brand.name
                     }

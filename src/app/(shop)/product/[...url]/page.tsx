@@ -139,7 +139,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
     const renderOption = () => {
         console.log("product.productOptions.data",product.productOptions.data)
         const options = product.productOptions.data
-            .map((item) =>(item.value && item.value!=""&&item.value!=" " )? `<tr class="border "><td class="border ">${item.option_title}</td><td> ${item.value}</td></tr>`:"")
+            .map((item) =>(item.value && item.value!=""&&item.value!=" " )? `<tr class="border py-2"><td class="border ">${item.option_title}</td><td> ${item.value}</td></tr>`:"")
             .join("");
 
         return `<div class="relative  ">

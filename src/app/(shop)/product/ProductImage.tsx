@@ -88,7 +88,7 @@ export default function ProductImage({ productImages }: { productImages: Product
           </div>
         </header>
         <div
-              className=" w-fit mx-auto mt-5 border  md:flex md:items-center md:justify-center px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
+              className=" w-fit mr-6 mt-6 border  md:flex md:items-start md:justify-start px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
               onClick={handleOpenModalImageGallery}
             >
               <svg

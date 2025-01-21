@@ -129,7 +129,7 @@ const CartPage = () => {
                                         }
                                     </div>
                                 </div>
-                                <div className="  flex-1  flex justify-start ">
+                                <div className="  flex-1  flex justify-end ">
                                     <Prices price={item.color.price * item.count} className="mt-0.5" />
                                 </div>
 

@@ -148,7 +148,7 @@ const CheckoutPage = () => {
                                         <Prices priceClass="text-xs text-slate-500 dark:text-slate-400" price={GuarantyPrice(item.color.price)} />
                                 }
                             </div>
-                            <div className="flex-1 sm:flex justify-start">
+                            <div className="flex flex-1 sm:flex justify-end">
                                 <Prices price={item.color.price} className="mt-0.5" />
                             </div>
                         </div>
