@@ -49,7 +49,7 @@ export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
                             </th>
 
                             <th className="px-4 py-2  whitespace-nowrap text-center">
-                                <Prices price={item.color.discountedPrice * item.count} priceClass={"mx-auto "}
+                                <Prices price={item.color.discountedPrice * item.count +  (item.guaranty.free?0:GuarantyPrice(item.color.price)??0)} priceClass={"mx-auto "}
                                         contentClass={"border-orange-500"}/>
                             </th>
                         </tr>
