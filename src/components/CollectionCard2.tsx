@@ -33,7 +33,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
         <div className={`CollectionCard2 group relative   ${className}`}>
             <div className="relative flex flex-col">
                 <NcImage
-                    containerClassName="aspect-w-8 aspect-h-5 bg-neutral-100 rounded-2xl overflow-hidden"
+                    containerClassName="aspect-w-8 aspect-h-5 bg-white border rounded-2xl overflow-hidden"
                     className="object-contain w-full h-full rounded-2xl"
                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${imgs && imgs[0] && imgs[0].url}`}
                     width={720}
@@ -43,7 +43,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
                 />
                 <div className="grid grid-cols-3 gap-2.5 mt-2.5">
                     <NcImage
-                        containerClassName="w-full h-24 sm:h-28"
+                        containerClassName="w-full h-24 sm:h-28 border"
                         className="object-cover w-full h-full rounded-2xl"
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${imgs && imgs[1] && imgs[1].url}`}
                         alt=""
@@ -52,7 +52,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
                         height={450}
                     />
                     <NcImage
-                        containerClassName="w-full h-24 sm:h-28"
+                        containerClassName="w-full h-24 sm:h-28 border"
                         className="object-cover w-full h-full rounded-2xl"
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${imgs && imgs[2] && imgs[2].url}`}
                         alt=""
@@ -61,7 +61,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
                         sizes="150px"
                     />
                     <NcImage
-                        containerClassName="w-full h-24 sm:h-28"
+                        containerClassName="w-full h-24 sm:h-28 border"
                         className="object-cover w-full h-full rounded-2xl"
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${imgs && imgs[3] && imgs[3].url}`}
                         alt=""

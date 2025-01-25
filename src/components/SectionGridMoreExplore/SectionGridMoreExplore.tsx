@@ -92,9 +92,9 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
                     className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50"
                     fontClass="text-3xl md:text-4xl 2xl:text-5xl font-semibold"
                     isCenter
-                    desc="تجهیزاتی که لازم داری رو میتونی اینجا پیدا کنی"
+                    desc="ازین قسمت میتونی تجهیزات اصلی کانسپت مورد نظرتو پیدا کنی"
                 >
-                    میخوای راه اندازی کنی ؟!
+                    چه کانسپتی میخوای راه اندازی کنی ؟!
                  </Heading>
                 <Nav
                     className="p-1 bg-white dark:bg-neutral-800 rounded-full shadow-lg overflow-x-auto hiddenScrollbar"

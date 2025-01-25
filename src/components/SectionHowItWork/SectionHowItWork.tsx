@@ -19,6 +19,7 @@ const DEMO_DATA = [
     img: HIW1img,
     imgDark: HIW1img,
     title: "تجهیز و راه اندازی",
+    mobileTitle: "تجهیز و \n راه اندازی",
     desc: "صفر تا صد راه اندازی کافه , رستوران و فست فود",
   },
   {
@@ -26,6 +27,7 @@ const DEMO_DATA = [
     img: HIW2img,
     imgDark: HIW2img,
     title: "مشاوره و آموزش",
+    mobileTitle: "مشاوره و\n  آموزش",
     desc: "مشاوره در انتخاب کانسپت تا تجهیزات و آموزش و راه اندازی و استفاده در تجهیزات",
   },
   {
@@ -33,6 +35,7 @@ const DEMO_DATA = [
     img: HIW3img,
     imgDark: HIW3img,
     title: "ضمانت اصالت کالا",
+    mobileTitle: "ضمانت \n اصالت کالا",
     desc: "تضمین اصالت کلیه کالاهای موجود در تجهیزلند",
   },
   {
@@ -40,6 +43,7 @@ const DEMO_DATA = [
     img: HIW4img,
     imgDark: HIW4img,
     title: "ارسال به سراسر کشور",
+    mobileTitle: "ارسال به \n سراسر کشور",
     desc: "امکان ارسال کلیه کالا ها به سراسر کشور با کمترین هزینه",
   },
 ];
@@ -81,8 +85,9 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
                     : "purple"
                 }
               /> */}
-              <h3 className="text-sm font-semibold dark:text-white">{item.title}</h3>
-              <span className="block text-slate-600 dark:text-slate-400 text-xs leading-6">
+              <h3 className="text-sm font-semibold dark:text-white hidden sm:block">{item.title}</h3>
+              <h3 className="text-sm font-semibold dark:text-white block sm:hidden">{item.mobileTitle}</h3>
+              <span className="  text-slate-600 dark:text-slate-400 text-xs leading-6 hidden sm:block">
                 {item.desc}
               </span>
             </div>

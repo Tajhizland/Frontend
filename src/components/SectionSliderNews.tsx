@@ -30,7 +30,7 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
     <div className={`nc-SectionSliderProductCard ${className}`}>
       <div className="flex justify-between items-center">
         <h2 className="text-xl md:text-2xl font-semibold">جدید ترین مقاله ها</h2>
-        <ButtonSecondary href="/news">مشاهده همه</ButtonSecondary>
+        <ButtonSecondary href="/news">مشاهده همه مقالات</ButtonSecondary>
       </div>
       <ul className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-5">
         {data && data.map((item, index) => (

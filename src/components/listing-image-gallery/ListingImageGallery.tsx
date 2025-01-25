@@ -124,7 +124,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose }) => {
                 className="focus:outline-none focus:ring-0 w-10 h-10 rounded-full flex items-center justify-center hover:bg-neutral-100"
                 onClick={handleClose}
               >
-                <ArrowRightIcon className="w-6 h-6" />
+                <ArrowRightIcon className="w-8 h-8" />
               </button>
             </div>
 

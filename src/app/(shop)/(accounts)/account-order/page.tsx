@@ -91,7 +91,7 @@ const AccountOrder = () => {
         return (
             <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
                 <div
-                    className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 sm:p-8 bg-slate-50 dark:bg-slate-500/5">
+                    className="flex flex-row sm:justify-between sm:items-center p-4 sm:p-8 bg-slate-50 dark:bg-slate-500/5">
                     <div>
                         <p className="text-lg font-semibold">شماره سفارش : {item.id}</p>
                         <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 sm:mt-2">
@@ -101,7 +101,7 @@ const AccountOrder = () => {
 
                         </p>
                     </div>
-                    <ButtonPrimary href={"/factor/" + item.id as Route}>
+                    <ButtonPrimary className="hidden sm:block" href={"/factor/" + item.id as Route}>
                         دریافت فاکتور
                     </ButtonPrimary>
 
@@ -114,6 +114,9 @@ const AccountOrder = () => {
                         </>))
                     }
                 </div>
+                <ButtonPrimary className="sm:hidden flex w-full" href={"/factor/" + item.id as Route}>
+                        دریافت فاکتور
+                    </ButtonPrimary>
             </div>
         );
     };
