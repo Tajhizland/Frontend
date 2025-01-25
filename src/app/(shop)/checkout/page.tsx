@@ -245,11 +245,8 @@ const CheckoutPage = () => {
         return sumDiscount;
     }
     const renderDiscountedPrice = () => {
-        let sumPrice: number = 0;
-        cart.map((item) => {
-            sumPrice += Number(item.color.discountedPrice * item.count);
-        })
-        return sumPrice;
+     
+        return sumPrice + sumGuarantyPrice - sumDiscount;
     }
     const renderAllow = () => {
         let allow: boolean = true;
@@ -278,9 +275,21 @@ const CheckoutPage = () => {
         return maxDeliveryDelay;
     }
 
+    const renderSumGuarantyPrice = () => {
+        let sumPrice: number = 0;
+        cart.map((item) => {
+            if(!item.guaranty.free)
+            {
+                sumPrice += GuarantyPrice(item.color.price)??0;
+            }
+        })
+        return sumPrice;
+    }
+
     const sumPrice = useMemo(() => renderSumPrice(), [cart]);
     const allow = useMemo(() => renderAllow(), [cart]);
     const limit = useMemo(() => renderLimit(), [cart]);
+    const sumGuarantyPrice = useMemo(() => renderSumGuarantyPrice(), [cart,renderSumGuarantyPrice]);
     const sumDiscount = useMemo(() => renderDiscount(), [cart]);
     const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart]);
     const maxDeliveryDelay = useMemo(() => renderMaxDeliveryDelay(), [cart]);
@@ -352,6 +361,12 @@ const CheckoutPage = () => {
                                     {sumDiscount.toLocaleString()} تومان
                                 </span>
                             </div>
+                            <div className="flex justify-between py-4">
+                                    <span>مجموع قیمت گارانتی</span>
+                                    <span className="font-semibold text-slate-900 dark:text-slate-200">
+                                        {sumGuarantyPrice.toLocaleString()} تومان
+                                    </span>
+                                </div>
                             <div
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                 <span> مجموع  </span>
