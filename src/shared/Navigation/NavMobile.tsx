@@ -41,6 +41,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
                                     pathname: i.url || undefined,
                                 }}
                                 className={`  justify-center text-center items-center flex flex-col text-sm rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5 ${itemClass}`}
+                                onClick={onClickClose}
                             >
                                 <div className={"border rounded-full overflow-x-hidden w-16 h-16"}>
                                     <Image
@@ -174,8 +175,8 @@ const NavMobile: React.FC<NavMobileProps> = ({
 
                     <div className="flex justify-between items-center mt-4">
                          <div className={"flex items-center gap-x-1"}>
-                        <BlogLink className={"bg-neutral-100 dark:bg-neutral-800"}/>
-                        <VlogLink className={"bg-neutral-100 dark:bg-neutral-800"}/>
+                        <BlogLink className={"bg-neutral-100 dark:bg-neutral-800"} onClick={onClickClose}/>
+                        <VlogLink className={"bg-neutral-100 dark:bg-neutral-800"} onClick={onClickClose}/>
                          </div>
                         <span className="block">
               <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800"/>
