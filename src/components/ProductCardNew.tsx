@@ -31,11 +31,11 @@ const ProductCard2: FC<ProductCardProps> = ({
 
     const renderVariants = () => {
         return (
-            <div className="flex gap-1.5">
+            <div className="flex gap-1 sm:gap-1.5 justify-center bg-red-500 w-full">
                 {data?.colors.data.map((color, index) => (
                     <div
                         key={index}
-                        className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer`}
+                        className={`relative w-4 h-4 sm:w-6 sm:h-6 rounded-full overflow-hidden z-10 border cursor-pointer`}
                         title={color.color_name}
                     >
                         <div
@@ -161,27 +161,28 @@ const ProductCard2: FC<ProductCardProps> = ({
                         <LikeButton liked={data?.favorite} likeHandle={likeHandle}
                                     className="  z-10 sm:hidden flex"/>
                     </div>
-
+                    <div className="hidden sm:flex w-full">
+                        {renderVariants()}
+                    </div>
                     <div>
                         <h2 className="nc-ProductCard__title text-xs lg:text-base font-semibold transition-colors dark:text-white">
                             {data?.name}
                         </h2>
                     </div>
-                    <div className="flex  flex-col justify-between items-start">
-                        {data && checkStock(data) ? <Prices price={renderMinPrice(data)} /> : <Badge color={"red"} name={"ناموجود"} />}
+
+                    <div className="flex flex-col gap-y-2 sm:flex-row justify-between items-start  text-xs sm:text-base ">
+                        {data && checkStock(data)?<Prices price={renderMinPrice(data)}/>:<Badge color={"red"} name={"ناموجود"} />}
+                        <div className="hidden lg:flex items-center mb-0.5">
+                            <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
+                            <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
+                {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
+              </span>
+                        </div>
                         <div className="block sm:hidden">
                             {renderVariants()}
                         </div>
-                        <div className="hidden sm:flex items-center mb-0.5 ">
-                            <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
-                            <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
-                                {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
-                            </span>
-                        </div>
-                    </div>
-                    <div className="hidden sm:block">
-                        {renderVariants()}
-                    </div>
+                    </div> 
+             
                 </div>
             </div>
 
