@@ -47,10 +47,12 @@ export default function Page() {
        let response = await set({
             product_id: Number(id),
             color: colors
-        }) 
-        toast.success(response.message as string)
-        setExtraColor(0);
-        queryClient.invalidateQueries(['color-info']);
+        })
+        if(response?.success) {
+            toast.success(response.message as string)
+            setExtraColor(0);
+            queryClient.invalidateQueries(['color-info']);
+        }
 
     }
     return (<>
@@ -112,4 +114,4 @@ export default function Page() {
         </Panel>
 
     </>)
-} 
+}
