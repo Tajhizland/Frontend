@@ -31,6 +31,8 @@ export default function PreFactorPage() {
             const canvas = await html2canvas(content, {
                 scale: 2, // افزایش کیفیت تصویر
                 useCORS: true, // رفع مشکل منابع خارجی
+                windowWidth: 1500,
+
             });
 
             const imgData = canvas.toDataURL("image/png");

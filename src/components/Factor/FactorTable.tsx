@@ -4,7 +4,7 @@ import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 
 export default function FactorTable({order}: { order: OrderResponse }) {
     return (<>
-        <div className="relative overflow-x-auto">
+        <div className="relative w-[1000px]">
             <table className="w-full text-xs text-left rtl:text-right text-gray-500 ">
                 <thead className="text-xs text-gray-700 uppercase bg-white  ">
                 <tr>

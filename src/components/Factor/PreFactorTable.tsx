@@ -5,7 +5,7 @@ import { GuarantyPrice } from "@/hooks/GuarantyPrice";
 export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
     return (<>
 
-        <div className="relative overflow-x-auto w-full">
+        <div className="relative w-[1000px]">
             <table className="w-full text-xs text-left rtl:text-right text-gray-500 ">
                 <thead className="text-xs text-gray-700 uppercase bg-white ">
                 <tr>

@@ -23,11 +23,10 @@ export default function Page() {
         try {
             const content = contentRef.current;
 
-            // گرفتن عکس از صفحه با html2canvas
-            const canvas = await html2canvas(content, {
-                scale: 2, // افزایش کیفیت تصویر
-                useCORS: true, // رفع مشکل منابع خارجی
-                windowWidth: 1200, // عرض ثابت برای رندر دسکتاپ
+             const canvas = await html2canvas(content, {
+                scale: 1,
+                useCORS: true,
+                windowWidth: 1500,
             });
 
             const imgData = canvas.toDataURL("image/png");
