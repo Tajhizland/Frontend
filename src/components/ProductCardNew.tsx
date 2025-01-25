@@ -31,7 +31,7 @@ const ProductCard2: FC<ProductCardProps> = ({
 
     const renderVariants = () => {
         return (
-            <div className="flex gap-1 sm:gap-1.5 justify-center  w-full">
+            <div className="flex gap-1 sm:gap-1.5 justify-center sm:justify-start  w-full">
                 {data?.colors.data.map((color, index) => (
                     <div
                         key={index}
