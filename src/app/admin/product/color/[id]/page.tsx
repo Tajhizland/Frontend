@@ -48,7 +48,7 @@ export default function Page() {
             product_id: Number(id),
             color: colors
         })
-        if(response?.success) {
+        if(response && response?.success) {
             toast.success(response.message as string)
             setExtraColor(0);
             queryClient.invalidateQueries(['color-info']);
