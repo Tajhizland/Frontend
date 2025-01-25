@@ -31,7 +31,7 @@ const ProductCard2: FC<ProductCardProps> = ({
 
     const renderVariants = () => {
         return (
-            <div className="flex gap-1 sm:gap-1.5 justify-center bg-red-500 w-full">
+            <div className="flex gap-1 sm:gap-1.5 justify-center  w-full">
                 {data?.colors.data.map((color, index) => (
                     <div
                         key={index}
@@ -161,7 +161,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                         <LikeButton liked={data?.favorite} likeHandle={likeHandle}
                                     className="  z-10 sm:hidden flex"/>
                     </div>
-                    <div className="hidden sm:flex w-full">
+                    <div className="hidden sm:block">
                         {renderVariants()}
                     </div>
                     <div>
@@ -178,7 +178,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                 {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
               </span>
                         </div>
-                        <div className="block sm:hidden">
+                        <div className="flex sm:hidden w-full">
                             {renderVariants()}
                         </div>
                     </div> 
