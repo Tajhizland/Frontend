@@ -8,6 +8,7 @@ import {useQuery} from "react-query";
 import {getCart} from "@/services/api/shop/cart";
 import PreFactorTable from "@/components/Factor/PreFactorTable";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import Logo from "@/shared/Logo/Logo";
 
 export default function PreFactorPage() {
     const [cart] = useCart();
@@ -55,13 +56,15 @@ export default function PreFactorPage() {
             <div
                 ref={contentRef}
             >
-                <h1 className={"font-bold text-lg "}>پیش فاکتور</h1>
-                <p className={"text-sm text-neutral-800 "}>
+                <h1 className={"font-bold text-2xl my-1 text-center "}>پیش فاکتور</h1>
+                <p className={"text-xl text-neutral-800 my-1 text-center "}>
                     پیش فاکتور خرید اینترنتی از فروشگاه تجهیزلند .
                 </p>
-                <div className={"mt-10"}>
+                <div className={"my-10"}>
                     <PreFactorTable cart={cart}/>
                 </div>
+                <Logo  className={"mx-auto flex justify-center"}/>
+
             </div>
             <ButtonPrimary
                 className={"w-full mt-10"}

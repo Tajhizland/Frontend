@@ -8,6 +8,7 @@ import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import FactorTable from "@/components/Factor/FactorTable";
+import Logo from "@/shared/Logo/Logo";
 
 export default function Page() {
     const {id} = useParams();
@@ -50,13 +51,16 @@ export default function Page() {
                     className={"p-5"}
                     ref={contentRef}
                 >
-                    <h1 className={"font-bold text-lg "}> فاکتور</h1>
-                    <p className={"text-sm text-neutral-800  "}>
+
+                    <h1 className={"font-bold text-2xl text-center my-1"}> فاکتور</h1>
+                    <p className={"text-lg text-neutral-800  text-center my-1"}>
                           فاکتور خرید اینترنتی از فروشگاه تجهیزلند .
                     </p>
-                    <div className={"mt-10"}>
+                    <div className={"my-10"}>
                         {data && <FactorTable order={data}/>}
                     </div>
+                    <Logo  className={"mx-auto flex justify-center"}/>
+
                 </div>
                 <ButtonPrimary
                     className={"w-full mt-10"}
