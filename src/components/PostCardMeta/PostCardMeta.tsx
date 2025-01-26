@@ -1,6 +1,5 @@
 import React, {FC} from "react";
-import {CiCalendarDate } from "react-icons/ci";
-import {FaRegCalendar, FaRegUser, FaUser} from "react-icons/fa";
+import {  FaUser} from "react-icons/fa";
 import {IoIosCalendar} from "react-icons/io";
 
 export interface PostCardMetaProps {
