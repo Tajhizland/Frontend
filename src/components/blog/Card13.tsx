@@ -38,7 +38,7 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
           {data.created_at}
         </span>
         <div className="mt-auto hidden sm:block">
-          <PostCardMeta />
+          <PostCardMeta date={data.created_at} author={data.author} />
         </div>
       </div>
 

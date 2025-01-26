@@ -13,6 +13,7 @@ export type VlogResponse = {
     description: string;
     video: string;
     poster: string;
+    author	: string;
     status: number;
     categoryId: number;
     view: number;
