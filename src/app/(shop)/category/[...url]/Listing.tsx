@@ -7,10 +7,10 @@ import ProductCardNew from "@/components/ProductCardNew";
 import { useRouter } from "next/navigation";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import { useInfiniteQuery } from "react-query";
-import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
+import { BreadcrumbType } from "@/components/Breadcrumb/BreadcrumbType";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 
-const PageCollection = ({ response, url ,breadcrump }: { response: any, url: string ,breadcrump:BreadcrumbType[]}) => {
+const PageCollection = ({ response, url, breadcrump }: { response: any, url: string, breadcrump: BreadcrumbType[] }) => {
     const router = useRouter();
     const [filter, setFilter] = useState<string>("");
     const observer = useRef<IntersectionObserver | null>(null);
@@ -36,7 +36,7 @@ const PageCollection = ({ response, url ,breadcrump }: { response: any, url: str
             },
             getNextPageParam: (lastPage) =>
                 lastPage?.products?.meta?.current_page <
-                lastPage?.products?.meta?.last_page
+                    lastPage?.products?.meta?.last_page
                     ? lastPage?.products?.meta?.current_page + 1
                     : undefined,
         }
@@ -84,19 +84,13 @@ const PageCollection = ({ response, url ,breadcrump }: { response: any, url: str
     return (
         <div className={`nc-PageCollection dark:bg-neutral-900`}>
 
-            <div className="container py-5 lg:pb-28 lg:pt-14 space-y-16 sm:space-y-20 lg:space-y-28">
+            <div className="container py-5 lg:pb-28 lg:pt-14 space-y-5 ">
 
-                <div className="space-y-10 lg:space-y-14">
+                <div className="space-y-5">
                     <ShopBreadcrump breadcrumb={breadcrump} />
 
                     {/* HEADING */}
-                    <div className="max-w-screen-sm">
 
-                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
-                            {response.category.name}
-                        </h2>
-
-                    </div>
 
                     <hr className="border-slate-200 dark:border-slate-700" />
 
@@ -117,23 +111,28 @@ const PageCollection = ({ response, url ,breadcrump }: { response: any, url: str
                         </div>
 
                         <div ref={lastElementRef}
-                             className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4  gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
+                            className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4  gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
                             {isFetchingNextPage && <ProductCardSkeleton />}
                         </div>
                     </main>
                 </div>
 
                 <hr className="border-slate-200 dark:border-slate-700" />
+                <div>
+                    <div className="max-w-screen-sm">
+                        <h2 className="block text-xl sm:text-2xl lg:text-3xl font-semibold dark:text-white">
+                            {response.category.name}
+                        </h2>
+                    </div>
 
-                <SectionPromo1 />
-
-                <span className="block mt-4 text-neutral-500 text-sm sm:text-base dark:text-white">
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html: response.category.description,
-                                }}
-                            />
-                        </span>
+                    <span className="block mt-4 text-neutral-500 text-sm sm:text-base dark:text-white">
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: response.category.description,
+                            }}
+                        />
+                    </span>
+                </div>
             </div>
         </div>
     );

@@ -52,13 +52,13 @@ export default function ProductImage({ productImages }: { productImages: Product
                   sizes="(max-width: 640px) 100vw, 50vw"
                   containerClassName="absolute inset-0"
                   className="object-cover w-full h-full rounded-md sm:rounded-xl"
-                  src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${productImages[1]?.url}`}
+                  src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${productImages[1]?.url??productImages[0]?.url}`}
                 />
                 <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
               </div>
 
               {/* /!*  *!/ */}
-              {[productImages[2]?.url??productImages[0]?.url, productImages[3]?.url??productImages[1]?.url].map(
+              {[productImages[2]?.url??productImages[0]?.url, productImages[3]?.url??productImages[1]?.url??productImages[0]?.url].map(
                 (item, index) => (
                   <div
                     key={index}
