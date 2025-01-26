@@ -91,7 +91,8 @@ export default function CartDropdown() {
                                                 (رایگان)
                                             </span>
                                             :
-                                            <Prices priceClass="text-xs text-slate-500 dark:text-slate-400" price={GuarantyPrice(item.color.price)} />
+                                            <span className={`text-xs text-slate-500 dark:text-slate-400`}>{new Intl.NumberFormat('en-US').format(GuarantyPrice(item.color.price))} تومان </span>
+ 
                                     }
 
                                 </div>
@@ -123,7 +124,13 @@ export default function CartDropdown() {
     const renderSumPrice = () => {
         let sumPrice = 0;
         cart && cart.map((item) => {
-            sumPrice += item.color.price;
+          
+        let guarantyPrice=0;
+        if(!item.guaranty.free)
+        {
+            guarantyPrice=GuarantyPrice(item.color.price)??0;
+        }
+            sumPrice += (item.color.price+guarantyPrice)*item.count;
         })
         return sumPrice;
     }
