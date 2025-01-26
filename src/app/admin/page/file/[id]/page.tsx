@@ -75,7 +75,7 @@ export default function Page() {
                                 />
                             </div>
                             <span>
-                                {item.path}
+                                {`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/page/file/${item.path}`}
                             </span>
                             <TrashIcon className="w-8 h-8 text-red-500 cursor-pointer" onClick={() => {
                                 removeFile(item.id)
