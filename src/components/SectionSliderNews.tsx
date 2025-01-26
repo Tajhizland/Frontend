@@ -14,6 +14,7 @@ import { FaEye } from "react-icons/fa";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import { stripHTML } from "@/hooks/StripHtml";
+import PostCardMeta from "@/components/PostCardMeta/PostCardMeta";
 
 export interface SectionSliderProductCardProps {
   className?: string;
@@ -54,10 +55,8 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
                 <p className="line-clamp-2 text-xs text-slate-800">
                   {stripHTML(item.content)}
                 </p>
-                <div
-                  className="flex justify-end items-center  px-2 text-neutral-500 dark:text-white">
-                  <span className="text-xs">{item.created_at}</span>
-                </div>
+                    <PostCardMeta date={item.created_at} author={item.author} />
+
                 </div>
               </Link>
             </div>
