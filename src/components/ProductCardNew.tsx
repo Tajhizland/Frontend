@@ -177,7 +177,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                 {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
               </span>
                         </div>
-                        {data && checkStock(data)?<Prices className="flex w-full justify-end"  price={renderMinPrice(data)}/>:<Badge color={"red"} name={"ناموجود"} />}
+                        {data && checkStock(data)?<Prices priceClass={"bold"} className="flex w-full justify-end"  price={renderMinPrice(data)}/>:<Badge color={"red"} name={"ناموجود"} />}
 
                         <div className="flex sm:hidden w-full">
                             {renderVariants()}
