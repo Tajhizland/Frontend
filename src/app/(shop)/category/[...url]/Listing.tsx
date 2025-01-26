@@ -9,6 +9,7 @@ import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import { useInfiniteQuery } from "react-query";
 import { BreadcrumbType } from "@/components/Breadcrumb/BreadcrumbType";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
+import TextExpander from "@/shared/TextExpander/TextExpander";
 
 const PageCollection = ({ response, url, breadcrump }: { response: any, url: string, breadcrump: BreadcrumbType[] }) => {
     const router = useRouter();
@@ -126,11 +127,12 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
                     </div>
 
                     <span className="block mt-4 text-neutral-500 text-sm sm:text-base dark:text-white">
-                        <div
+                    <TextExpander text={response.category.description} />
+                        {/* <div
                             dangerouslySetInnerHTML={{
                                 __html: response.category.description,
                             }}
-                        />
+                        /> */}
                     </span>
                 </div>
             </div>
