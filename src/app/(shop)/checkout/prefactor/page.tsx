@@ -67,7 +67,7 @@ export default function PreFactorPage() {
 
             </div>
             <ButtonPrimary
-                className={"w-full mt-10"}
+                className={"mt-10"}
                 onClick={handleDownloadPDF}
             >
                 دانلود PDF
