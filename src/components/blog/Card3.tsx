@@ -23,7 +23,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full", item }) => {
       >
         <Link
           href={{pathname:"/news/show/" +(item.url)}}
-          className={`block w-full h-0 aspect-h-9 sm:aspect-h-16 aspect-w-16 `}
+          className={`block w-full h-0 aspect-h-2  aspect-w-3 `}
         >
           <NcImage
             alt=""

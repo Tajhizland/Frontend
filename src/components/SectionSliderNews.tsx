@@ -39,7 +39,7 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
 
             <div className="w-full h-full overflow-hidden   bg-white dark:bg-transparent hover:text-black group border rounded">
               <Link
-                href={"/news/" + item.url as Route}
+                href={"/news/show/" + item.url as Route}
                 aria-label={"vlog"}
                 className="flex flex-col"
               >
