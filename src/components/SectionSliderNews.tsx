@@ -37,26 +37,25 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
         {data && data.map((item, index) => (
           <li key={index} className={`  ${itemClassName}`}>
 
-            <div className="w-full h-full overflow-hidden   bg-white dark:bg-transparent hover:text-black group">
+            <div className="w-full h-full overflow-hidden   bg-white dark:bg-transparent hover:text-black group border rounded">
               <Link
                 href={"/news/" + item.url as Route}
                 aria-label={"vlog"}
                 className="flex flex-col"
               >
                 <NcImage
-                  containerClassName="flex aspect-w-1 aspect-h-1 w-full h-0"
+                  containerClassName="flex aspect-w-3 aspect-h-2 w-full h-0 rounded"
                   src={"https://tajhizland.com/upload/" + item.img}
                   className="object-fill w-full h-full rounded group-hover:opacity-80"
                   fill
                   alt="vlog"
                 />
-                <div className="flex flex-col gap-y-2 mt-2">
+                <div className="flex flex-col gap-y-2 mt-2 p-2">
                 <span className="  dark:text-white text-xs md:text:base text-slate-800 font-bold">{item.title}</span>
                 <p className="line-clamp-2 text-xs text-slate-800">
                   {stripHTML(item.content)}
-                </p>
+                </p> 
                     <PostCardMeta date={item.created_at} author={item.author} />
-
                 </div>
               </Link>
             </div>
