@@ -177,12 +177,20 @@ const CartPage = () => {
         })
         return sumPrice;
     }
-    const renderDiscountedPrice = () => {
+    const renderSumGuarantyPrice = () => {
         let sumPrice: number = 0;
         cart.map((item) => {
-            sumPrice += Number(item.color.discountedPrice * item.count);
+            if(!item.guaranty.free)
+            {
+                sumPrice += GuarantyPrice(item.color.price)??0;
+            }
         })
         return sumPrice;
+    }
+    
+    const renderDiscountedPrice = () => {
+   
+        return sumPrice - sumDiscount + sumGuarantyPrice;
     }
     const renderAllow = () => {
         let allow: boolean = true;
@@ -213,6 +221,7 @@ const CartPage = () => {
     const sumPrice = useMemo(() => renderSumPrice(), [cart,renderSumPrice]);
     const allow = useMemo(() => renderAllow(), [cart,renderAllow]);
     const limit = useMemo(() => renderLimit(), [cart ,renderLimit]);
+    const sumGuarantyPrice = useMemo(() => renderSumGuarantyPrice(), [cart,renderSumGuarantyPrice]);
     const sumDiscount = useMemo(() => renderDiscount(), [cart,renderDiscount]);
     const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart,renderDiscountedPrice]);
     return (
@@ -257,7 +266,12 @@ const CartPage = () => {
                                         {sumDiscount.toLocaleString()} تومان
                                     </span>
                                 </div>
-
+                                <div className="flex justify-between py-4">
+                                    <span>مجموع قیمت گارانتی</span>
+                                    <span className="font-semibold text-slate-900 dark:text-slate-200">
+                                        {sumGuarantyPrice.toLocaleString()} تومان
+                                    </span>
+                                </div>
                                 <div
                                     className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                     <span>مجموع</span>

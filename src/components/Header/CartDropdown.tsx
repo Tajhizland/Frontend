@@ -212,7 +212,7 @@ export default function CartDropdown() {
                                                 className="flex-1 border border-slate-200 dark:border-slate-700"
                                                 onClick={close}
                                             >
-                                                مشاهده کارت
+                                                مشاهده سبد خرید
                                             </ButtonSecondary>
                                             <ButtonPrimary
                                                 href="/checkout"

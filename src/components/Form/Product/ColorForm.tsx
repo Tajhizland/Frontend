@@ -26,7 +26,7 @@ export default function FormComponent({index ,id , name , code ,deliveryDelay , 
             </div>
             <div>
                 <Label>زمان آماده سازی</Label>
-                <Input name={`color[${index}][delivery_delay]`} defaultValue={deliveryDelay??""}/>
+                <Input name={`color[${index}][delivery_delay]`} defaultValue={deliveryDelay??0}/>
             </div>
             <div>
                 <Label>وضعیت رنگ</Label>
@@ -39,15 +39,15 @@ export default function FormComponent({index ,id , name , code ,deliveryDelay , 
 
             <div>
                 <Label>قیمت</Label>
-                <Input name={`color[${index}][price]`} defaultValue={price??""}/>
+                <Input name={`color[${index}][price]`} defaultValue={price??0}/>
             </div>
             <div>
                 <Label>تخفیف</Label>
-                <Input name={`color[${index}][discount]`} defaultValue={discount??""}/>
+                <Input name={`color[${index}][discount]`} defaultValue={discount??0}/>
             </div>
             <div>
                 <Label>موجودی</Label>
-                <Input name={`color[${index}][stock]`} defaultValue={stock??""}/>
+                <Input name={`color[${index}][stock]`} defaultValue={stock??0}/>
             </div>
             <Input name={`color[${index}][id]`} type={"hidden"} value={id}/>
 
