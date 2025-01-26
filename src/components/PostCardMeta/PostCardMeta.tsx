@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import Avatar from "@/shared/Avatar/Avatar";
-import { _getPersonNameRd } from "@/contains/fakeData";
 import Link from "next/link";
 
 export interface PostCardMetaProps {
@@ -30,7 +29,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
           <Avatar radius="rounded-full" sizeClass={"h-7 w-7 text-sm"} />
         )}
         <span className="block text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium">
-          {author??"مدیر سایت"}
+          {author!=""?author:"مدیر سایت"}
         </span>
       </Link>
       <>

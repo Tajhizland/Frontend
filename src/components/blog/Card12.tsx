@@ -58,7 +58,7 @@ const Card12: FC<Card12Props> = ({className = "h-full", data}) => {
 
           </span>
         </span>
-                <PostCardMeta className="mt-5"/>
+                <PostCardMeta  date={data.created_at} author={data.author}  className="mt-5"/>
             </div>
         </div>
     );
