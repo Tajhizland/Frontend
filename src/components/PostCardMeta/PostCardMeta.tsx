@@ -7,12 +7,15 @@ export interface PostCardMetaProps {
   className?: string;
   hiddenAvatar?: boolean;
   date?:string;
+    author?:string;
+
 }
 
 const PostCardMeta: FC<PostCardMetaProps> = ({
   className = "leading-none",
   hiddenAvatar = true,
-  date
+  date,
+   author
 }) => {
   return (
     <div
@@ -27,7 +30,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
           <Avatar radius="rounded-full" sizeClass={"h-7 w-7 text-sm"} />
         )}
         <span className="block text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium">
-          مدیر سایت
+          {author??"مدیر سایت"}
         </span>
       </Link>
       <>

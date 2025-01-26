@@ -56,7 +56,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full", item }) => {
               </span>
             </div>
           </div>
-          <PostCardMeta date={item.created_at} />
+          <PostCardMeta date={item.created_at} author={item.author} />
         </div>
       </div>
 

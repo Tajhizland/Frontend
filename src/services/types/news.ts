@@ -4,6 +4,7 @@ export type NewsResponse = {
     url:string ;
     content:string ;
     img:string ;
+    author:string ;
     published:number ;
     static:string ;
     created_at:string ;
