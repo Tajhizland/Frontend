@@ -47,6 +47,12 @@ export default function CartDropdown() {
         const { product, count, color } = item;
         const { name, url, image } = product;
         const { title, code, price, id } = color;
+
+        let guarantyPrice=0;
+        if(!item.guaranty.free)
+        {
+            guarantyPrice=GuarantyPrice(item.color.price)??0;
+        }
         return (
             <div key={index} className="flex py-5 last:pb-0">
                 <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -90,7 +96,7 @@ export default function CartDropdown() {
 
                                 </div>
                             </div>
-                            <Prices price={price} className="whitespace-nowrap" />
+                            <Prices price={price+guarantyPrice} className="whitespace-nowrap" />
                         </div>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-xs">

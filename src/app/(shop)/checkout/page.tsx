@@ -27,7 +27,7 @@ import { GuarantyPrice } from "@/hooks/GuarantyPrice";
 const CheckoutPage = () => {
     const router = useRouter();
     const [cart] = useCart();
-    const [user] = useUser(); 
+    const [user] = useUser();
 
     // if (!user) {
     //     router.push("/login");
@@ -105,7 +105,11 @@ const CheckoutPage = () => {
     };
 
     const renderProduct = (item: CartResponse, index: number) => {
-
+        let guarantyPrice=0;
+        if(!item.guaranty.free)
+        {
+            guarantyPrice=GuarantyPrice(item.color.price)??0;
+        }
         return (
             <div key={index} className="relative flex py-7 first:pt-0 last:pb-0">
                 <div className="relative h-24 w-24  flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -127,7 +131,7 @@ const CheckoutPage = () => {
                                     <Link href={{ pathname: "product/" + item.product.url }}>{item.product.name}</Link>
                                 </h3>
                                 <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
-                                    <div className="flex items-center gap-x-1.5"> 
+                                    <div className="flex items-center gap-x-1.5">
                                         <span>{item.color.title}</span>
                                     </div>
                                     <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>
@@ -245,7 +249,7 @@ const CheckoutPage = () => {
         return sumDiscount;
     }
     const renderDiscountedPrice = () => {
-     
+
         return sumPrice + sumGuarantyPrice - sumDiscount;
     }
     const renderAllow = () => {

@@ -78,7 +78,11 @@ const CartPage = () => {
     };
 
     const renderProduct = (item: CartResponse, index: number) => {
-
+        let guarantyPrice=0;
+        if(!item.guaranty.free)
+        {
+            guarantyPrice=GuarantyPrice(item.color.price)??0;
+        }
         return (
             <>
                 {/*<head>*/}
@@ -108,7 +112,7 @@ const CartPage = () => {
                                             href={{ pathname: "/product/" + item.product.url }}>{item.product.name}</Link>
                                     </h3>
                                     <div className=" flex text-sm text-slate-600 dark:text-slate-300">
-                                        <div className="flex items-center gap-x-1.5"> 
+                                        <div className="flex items-center gap-x-1.5">
                                             <span>{item.color.title}</span>
                                         </div>
 
@@ -130,7 +134,7 @@ const CartPage = () => {
                                     </div>
                                 </div>
                                 <div className="  flex-1  flex justify-end ">
-                                    <Prices price={item.color.price * item.count} className="mt-0.5" />
+                                    <Prices price={(item.color.price+guarantyPrice) * item.count} className="mt-0.5" />
                                 </div>
 
                                 <div className=" block text-center relative">
@@ -187,9 +191,9 @@ const CartPage = () => {
         })
         return sumPrice;
     }
-    
+
     const renderDiscountedPrice = () => {
-   
+
         return sumPrice - sumDiscount + sumGuarantyPrice;
     }
     const renderAllow = () => {
