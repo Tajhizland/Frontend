@@ -55,7 +55,7 @@ export default function CartDropdown() {
         }
         return (
             <div key={index} className="flex py-5 last:pb-0">
-                <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-white">
                     <Image
                         fill
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`}
@@ -92,7 +92,7 @@ export default function CartDropdown() {
                                             </span>
                                             :
                                             <span className={`text-xs text-slate-500 dark:text-slate-400`}>{new Intl.NumberFormat('en-US').format(GuarantyPrice(item.color.price))} تومان </span>
- 
+
                                     }
 
                                 </div>
@@ -124,7 +124,7 @@ export default function CartDropdown() {
     const renderSumPrice = () => {
         let sumPrice = 0;
         cart && cart.map((item) => {
-          
+
         let guarantyPrice=0;
         if(!item.guaranty.free)
         {

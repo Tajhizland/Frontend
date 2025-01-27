@@ -5,7 +5,7 @@ import Heading from "@/components/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import CollectionCard from "./CollectionCard";
-import CollectionCard2 from "./CollectionCard2"; 
+import CollectionCard2 from "./CollectionCard2";
 import Link from "next/link";
 import {ProductResponse} from "@/services/types/product";
 import {SpecialProductResponse} from "@/services/types/specialProduct";
@@ -41,16 +41,16 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
         },
         1024: {
           gap: 20,
-          perView: 2.5,
+          perView: 1.3,
         },
         768: {
           gap: 10,
-          perView: 2.3,
+          perView: 1.1,
         },
 
         500: {
           gap: 10,
-          perView: 2.0,
+          perView: 1,
         },
       },
     };
@@ -102,7 +102,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
                                             className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </Link>
                 </li>
