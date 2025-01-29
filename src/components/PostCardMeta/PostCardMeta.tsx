@@ -17,7 +17,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
                                              }) => {
     return (
         <div
-            className={`nc-PostCardMeta inline-flex items-center w-full flex-wrap text-[0.6rem] sm:text-xs justify-between gap-2 mt-2 ${className}`}
+            className={`nc-PostCardMeta inline-flex items-center w-full flex-wrap text-[0.5rem] sm:text-xs justify-between gap-2 mt-2 ${className}`}
             data-nc-id="PostCardMeta"
         >
             <div className={"flex items-center gap-1"}>
