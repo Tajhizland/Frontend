@@ -1,12 +1,16 @@
 import React, {FC} from "react";
 import toman from "@/images/tajhizland/toman.svg"
 import Image from "next/image";
+import {NextFont} from "next/dist/compiled/@next/font";
+import localFont from "next/font/local";
 export interface PricesProps {
     className?: string;
     price?: number;
     contentClass?: string;
     priceClass?: string;
 }
+const myFont: NextFont = localFont({src: '../fonts/fa/IRANSansWeb(FaNum).woff2'})
+
 
 const Prices: FC<PricesProps> = ({
                                      className = "",
@@ -14,13 +18,15 @@ const Prices: FC<PricesProps> = ({
                                      price = 33,
                                      contentClass = "",
                                  }) => {
+
+
     return (
         <div className={`${className}`}>
             <div
                 className={`flex items-center  border-green-500 rounded-lg  py-1 md:py-1.5 text-sm font-medium ${contentClass}`}
             >
                 <span
-                    className={`text-green-500 !leading-none text-xs sm:text-sm flex items-center gap-1 ${priceClass}`}>{new Intl.NumberFormat('en-US').format(price)}
+                    className={`text-green-500 !leading-none text-xs sm:text-sm flex items-center gap-1 ${priceClass} ${myFont.className}`}>{new Intl.NumberFormat('en-US').format(price)}
                 <Image src={toman} alt={"تومان"}  width={20} height={20} className={"w-4 h-4"}/>
                 </span>
             </div>
