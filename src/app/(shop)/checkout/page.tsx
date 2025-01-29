@@ -149,8 +149,8 @@ const CheckoutPage = () => {
                                             (رایگان)
                                         </span>
                                         :
-                                        <Prices priceClass="text-xs text-slate-500 dark:text-slate-400" price={GuarantyPrice(item.color.price)} />
-                                }
+                                        <span className={`text-xs text-slate-500 dark:text-slate-400`}>{new Intl.NumberFormat('en-US').format(GuarantyPrice(item.color.price))} تومان </span>
+                                    }
                             </div>
                             <div className="flex flex-1 sm:flex justify-end">
                                 <Prices price={item.color.price} className="mt-0.5" />

@@ -15,6 +15,7 @@ import { IoIosArrowDropleftCircle } from "react-icons/io";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import { stripHTML } from "@/hooks/StripHtml";
 import PostCardMeta from "@/components/PostCardMeta/PostCardMeta";
+import BackgroundSection from "./BackgroundSection/BackgroundSection";
 
 export interface SectionSliderProductCardProps {
   className?: string;
@@ -28,7 +29,8 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
   data
 }) => {
   return (
-    <div className={`nc-SectionSliderProductCard ${className}`}>
+    <div className={`nc-SectionSliderProductCard bg-neutral-100/70 dark:bg-black/20  rounded-lg px-5 py-5${className}`}>
+
       <div className="flex justify-between items-center">
         <h2 className="text-xl md:text-2xl font-semibold">جدید ترین مقاله ها</h2>
         <ButtonSecondary href="/news">مشاهده همه مقالات</ButtonSecondary>
@@ -37,7 +39,7 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
         {data && data.map((item, index) => (
           <li key={index} className={`  ${itemClassName}`}>
 
-            <div className="w-full h-full overflow-hidden   bg-white dark:bg-transparent hover:text-black group border rounded">
+            <div className="w-full h-full overflow-hidden hover:shadow bg-white dark:bg-transparent hover:text-black group border rounded">
               <Link
                 href={"/news/show/" + item.url as Route}
                 aria-label={"vlog"}
@@ -51,11 +53,11 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
                   alt="vlog"
                 />
                 <div className="flex flex-col gap-y-2 mt-2 p-2">
-                <span className="  dark:text-white text-xs md:text:base text-slate-800 font-bold">{item.title}</span>
-                <p className="line-clamp-2 text-xs text-slate-800">
-                  {stripHTML(item.content)}
-                </p> 
-                    <PostCardMeta date={item.created_at} author={item.author} />
+                  <span className="  dark:text-white text-xs md:text:base text-slate-800 font-bold">{item.title}</span>
+                  <p className="line-clamp-2 text-xs text-slate-800">
+                    {stripHTML(item.content)}
+                  </p>
+                  <PostCardMeta date={item.created_at} author={item.author} />
                 </div>
               </Link>
             </div>

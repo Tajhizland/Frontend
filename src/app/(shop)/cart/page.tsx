@@ -129,8 +129,8 @@ const CartPage = () => {
                                                     (رایگان)
                                                 </span>
                                                 :
-                                                <Prices priceClass="text-xs text-slate-500 dark:text-slate-400" price={GuarantyPrice(item.color.price)} />
-                                        }
+                                                <span className={`text-xs text-slate-500 dark:text-slate-400`}>{new Intl.NumberFormat('en-US').format(GuarantyPrice(item.color.price))} تومان </span>
+                                            }
                                     </div>
                                 </div>
                                 <div className="  flex-1  flex justify-end ">

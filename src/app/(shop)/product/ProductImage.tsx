@@ -89,7 +89,7 @@ export default function ProductImage({ productImages }: { productImages: Product
         </header>
         <div className=" container">
         <div
-              className=" w-fit mt-5 border  md:flex md:items-center md:justify-center px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
+              className=" w-fit mt-5 border  mx-auto sm:mx-0 flex items-center justify-center px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
               onClick={handleOpenModalImageGallery}
             >
               <svg
