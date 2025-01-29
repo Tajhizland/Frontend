@@ -56,7 +56,7 @@ const PageCollection = async (props: CategoryPageProps) => {
             "@type": "Product",
             "position": index + 1,
             "name": product.name,
-            "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`,
+            "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0]?product.images.data[0].url:""}`,
             "description": product.description,
             "sku": product.id,
             "offers": {
