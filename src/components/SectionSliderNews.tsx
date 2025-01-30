@@ -32,7 +32,7 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
     <div className={`nc-SectionSliderProductCard bg-neutral-100/70 dark:bg-black/20  rounded-lg sm:px-5 py-5 ${className}`}>
 
       <div className="flex justify-between items-center">
-        <h2 className="text-xl md:text-2xl font-semibold">جدید ترین مقاله ها</h2>
+        <h2 className="text-lg md:text-2xl font-semibold">جدید ترین مقاله ها</h2>
         <ButtonSecondary href="/news">مشاهده همه مقالات</ButtonSecondary>
       </div>
       <ul className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-5">

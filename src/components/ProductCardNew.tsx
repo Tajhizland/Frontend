@@ -124,12 +124,12 @@ const ProductCard2: FC<ProductCardProps> = ({
     return (
         <>
             <div
-                className={`nc-ProductCard relative flex flex-row items-center sm:flex-col bg-transparent ${className}`}
+                className={`nc-ProductCard relative flex flex-row items-center sm:flex-col bg-transparent group ${className}`}
             >
                 <Link href={{ pathname: "/product/" + data?.url }} className="absolute inset-0"></Link>
 
                 <div
-                    className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded sm:rounded-3xl overflow-hidden z-1 group w-28 sm:w-full border">
+                    className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded sm:rounded-3xl overflow-hidden z-1 group w-28 sm:w-full border  group-hover:shadow">
                     <Link href={{ pathname: "/product/" + data?.url }} className="block">
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"

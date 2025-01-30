@@ -136,8 +136,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         }
         return null;
     };
-    const renderOption = () => {
-        console.log("product.productOptions.data",product.productOptions.data)
+    const renderOption = () => { 
         const options = product.productOptions.data
             .map((item) =>(item.value && item.value!=""&&item.value!=" " )? `<tr class=""><td class="py-4 text-neutral-600">${item.option_title}</td><td class="text-right text-black border-b"> ${item.value}</td></tr>`:"")
             .join("");
@@ -149,7 +148,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         return (
             <div className="listingSection__wrap !space-y-6">
                 <div>
-                    <h2 className="text-2xl md:text-3xl font-semibold dark:text-white">
+                    <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold dark:text-white">
                         {product.name}
                     </h2>
                     <div className="flex items-center mt-4 sm:mt-5">
@@ -174,6 +173,11 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                             content: renderOption()
 
                         },
+                        {
+                            name: "بررسی تخصصی",
+                            render:true ,
+                            content: renderSection2()
+                        }
                     ]}/>
                 {/*<SectionVideo  intro_video={product.intro_video}  unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
                 {/*<SectionVideo intro_video={"https://tajhizland.com/video/intro_video.mp4"} unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
@@ -184,7 +188,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
     const renderSection2 = () => {
         return (
             <div className="listingSection__wrap !border-b-0 !pb-0 dark:text-white">
-                <h2 className="text-2xl font-semibold">بررسی تخصصی</h2>
+                {/* <h2 className="text-2xl font-semibold">بررسی تخصصی</h2> */}
                 {/* <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div> */}
                 <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white">
                     <div dangerouslySetInnerHTML={{__html: product.review}}/>
@@ -210,7 +214,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     {/* CONTENT */}
                     <div className="w-full lg:w-3/5 xl:w-2/3 space-y-10 lg:pl-14 lg:space-y-14">
                         {renderSection1()}
-                        {renderSection2()}
+                        {/* {renderSection2()} */}
                     </div>
 
                     {/* SIDEBAR */}

@@ -87,7 +87,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                             onClick={() => setSelectedColor(color)}
                             className={`relative flex-1 max-w-[75px] h-10 sm:h-11 rounded-full border-2 cursor-pointer ${color.id === selectedColor.id
                                 ? "border-primary-6000 dark:border-primary-500"
-                                : "border-transparent"
+                                : " "
                                 }`}
                         >
                             <div

@@ -65,7 +65,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   });
 
   return (
-    <div className="nc-AccountCommonLayout  dark:bg-neutral-900">
+    <div className="nc-AccountCommonLayout  dark:bg-neutral-900 container">
       <div className="pt-14 sm:pt-20">
         <div className="max-w-4xl mx-auto">
           <div className="max-w-2xl">

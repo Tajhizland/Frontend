@@ -25,7 +25,7 @@ export default function ProductImage({ productImages }: { productImages: Product
           <div className="relative ">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-6">
               <div
-                className="md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer"
+                className="md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer border"
                onClick={handleOpenModalImageGallery}
               >
                 <NcImage
@@ -43,7 +43,7 @@ export default function ProductImage({ productImages }: { productImages: Product
 
               {/* /!*  *!/ */}
               <div
-                className="col-span-1 row-span-2 relative rounded-md sm:rounded-xl overflow-hidden z-0 cursor-pointer"
+                className="col-span-1 row-span-2 relative rounded-md sm:rounded-xl overflow-hidden z-0 cursor-pointer border"
                 onClick={handleOpenModalImageGallery}
               >
                 <NcImage
@@ -62,7 +62,7 @@ export default function ProductImage({ productImages }: { productImages: Product
                 (item, index) => (
                   <div
                     key={index}
-                    className={`relative rounded-md sm:rounded-xl overflow-hidden z-0 ${
+                    className={`relative rounded-md sm:rounded-xl overflow-hidden z-0 border ${
                       index >= 2 ? "block" : ""
                     }`}
                   >
