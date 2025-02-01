@@ -8,6 +8,7 @@ import { findBrandByUrl } from "@/services/api/shop/brand";
 import CategoryCircleCard from "@/components/CircleCard/CategoryCircleCard";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import {CgScrollH} from "react-icons/cg";
+import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 
 const PageCollection = ({ response, url }: { response: BrandListingResponse, url: string }) => {
     const [filter, setFilter] = useState<number>();
@@ -90,7 +91,15 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
 
     return (
         <div className={`nc-PageCollection dark:bg-neutral-900`}>
-            <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
+            <div className="container py-0  lg:py-10  lg:pb-28   space-y-16 sm:space-y-20 lg:space-y-28">
+            <ShopBreadcrump breadcrumb={[{
+                href:"brand" ,
+                title:"برند ها"
+            } , {
+                title:response.brand.name ,
+                href:"brand/"+response.brand.url
+            }]} />
+
                 <div className="space-y-10 lg:space-y-14">
                     {/* HEADING */}
 
@@ -108,13 +117,10 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
                                 ))
                             }
                         </div>
-                        <div className={"flex justify-center border-b"}>
+                        <div className={"flex justify-center border-b lg:hidden"}>
                             <CgScrollH className={" w-8 h-8 text-neutral-400"}/>
                         </div>
-                    </div>
-
-
-                    <hr className="border-slate-200 dark:border-slate-700"/>
+                    </div> 
                     <main>
                     {/* LOOP ITEMS */}
                         <div
