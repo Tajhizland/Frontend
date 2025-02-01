@@ -7,6 +7,7 @@ import { BrandListingResponse } from "@/services/types/brand";
 import { findBrandByUrl } from "@/services/api/shop/brand";
 import CategoryCircleCard from "@/components/CircleCard/CategoryCircleCard";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
+import {CgScrollH} from "react-icons/cg";
 
 const PageCollection = ({ response, url }: { response: BrandListingResponse, url: string }) => {
     const [filter, setFilter] = useState<number>();
@@ -92,16 +93,9 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
             <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
                 <div className="space-y-10 lg:space-y-14">
                     {/* HEADING */}
-                    <div className="max-w-screen-sm">
-                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
-                            {response.brand.name}
-                        </h2>
-                        <span className="block mt-4 text-neutral-500 dark:text-white text-sm sm:text-base">
-                            <div dangerouslySetInnerHTML={{ __html: response.brand.description }} />
-                        </span>
-                    </div>
 
-                    <div className="flex">
+
+                    <div className="flex flex-col">
                         <div
                             className="flex hiddenScrollbar overflow-x-auto lg:flex-wrap lg:justify-items-center lg:items-center lg:justify-center lg:grid-cols-8 xl:grid-cols-10 gap-1  lg:gap-5 text-center">
                             {
@@ -110,15 +104,19 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
                                         category={item}
                                         active={item.id === filter}
                                         key={index}
-                                        onClick={() => changeFilter(item.id)} />
+                                        onClick={() => changeFilter(item.id)}/>
                                 ))
                             }
                         </div>
+                        <div className={"flex justify-center border-b"}>
+                            <CgScrollH className={" w-8 h-8 text-neutral-400"}/>
+                        </div>
                     </div>
 
-                    <hr className="border-slate-200 dark:border-slate-700" />
+
+                    <hr className="border-slate-200 dark:border-slate-700"/>
                     <main>
-                        {/* LOOP ITEMS */}
+                    {/* LOOP ITEMS */}
                         <div
                             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                             {allProducts.length === 0 && !isLoading
@@ -135,6 +133,15 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
                             {isFetchingNextPage && <ProductCardSkeleton/>}
                         </div>
                     </main>
+                    <hr/>
+                    <div className="max-w-screen-sm">
+                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
+                            {response.brand.name}
+                        </h2>
+                        <span className="block mt-4 text-neutral-500 dark:text-white text-sm sm:text-base">
+                            <div dangerouslySetInnerHTML={{__html: response.brand.description}}/>
+                        </span>
+                    </div>
                 </div>
 
             </div>
