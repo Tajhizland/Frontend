@@ -70,7 +70,7 @@ export default function SharedModal({
       >
         {/* Main image */}
         <div className="w-full overflow-hidden">
-          <div className="relative flex aspect-[3/2] items-center justify-center">
+          <div className="relative flex aspect-1 items-center justify-center">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
                 key={index}
@@ -90,7 +90,7 @@ export default function SharedModal({
                   alt="Chisfis listing gallery"
                   onLoadingComplete={() => setLoaded(true)}
                   sizes="(max-width: 1025px) 100vw, 1280px"
-                  className="object-contain"
+                  className="object-contain w-[900px] h-[900px]"
                 />
               </motion.div>
             </AnimatePresence>
