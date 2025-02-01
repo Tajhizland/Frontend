@@ -9,7 +9,6 @@ export interface PricesProps {
     contentClass?: string;
     priceClass?: string;
 }
-const myFont: NextFont = localFont({src: '../fonts/fa/IRANSansWeb(FaNum).woff2'})
 
 
 const Prices: FC<PricesProps> = ({
@@ -26,7 +25,7 @@ const Prices: FC<PricesProps> = ({
                 className={`flex items-center  border-green-500 rounded-lg  py-1 md:py-1.5 text-sm font-medium ${contentClass}`}
             >
                 <span
-                    className={`text-green-500 !leading-none text-xs sm:text-sm flex items-center gap-1 ${priceClass} ${myFont.className}`}>{new Intl.NumberFormat('en-US').format(price)}
+                    className={`text-green-500 !leading-none text-xs sm:text-sm flex items-center gap-1 ${priceClass} priceFont`}>{new Intl.NumberFormat('en-US').format(price)}
                 <Image src={toman} alt={"تومان"}  width={20} height={20} className={"w-4 h-4"}/>
                 </span>
             </div>
