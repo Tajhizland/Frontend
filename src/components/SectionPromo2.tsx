@@ -27,10 +27,10 @@ const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10",logo }) 
         <div className="lg:w-[45%] max-w-lg relative">
           {/* <Logo className="w-28" /> */}
           <h2 className="font-semibold text-xl sm:text-4xl xl:text-5xl mt-6 sm:mt-10 !leading-[1.13] tracking-tight dark:text-white">
-               مشاوره تخصصی و <br />
+               مشاوره تخصصی و <br  className="hidden sm:block" />
                  آموزش کاربردی
           </h2>
-          <span className="block mt-6 text-slate-500 dark:text-slate-400">
+          <span className="block mt-6 text-slate-500 dark:text-slate-400 text-sm">
             مشاوره از انتخاب کانسپت تا انتخاب بهترین تجهیزات . همچنین آموزش کاربردی نصب و راه اندازی و استفاده از تجهیزات
           </span>
           <div className="flex space-x-2 sm:space-x-5 mt-6 sm:mt-12">

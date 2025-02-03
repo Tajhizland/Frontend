@@ -159,10 +159,10 @@ const SectionPromo1: FC<SectionPromo1Props> = ({className = "" , logo}) => {
             />
             <div className="relative flex-shrink-0 mb-16 lg:mb-0 lg:mr-10 lg:w-2/5">
                  <h2 className="font-semibold text-lg sm:text-4xl xl:text-5xl mt-6 sm:mt-10 !leading-[1.2] tracking-tight dark:text-white">
-                    راه اندازی مجموعتو <br/>به تجهیزلند بسپار
+                    راه اندازی مجموعتو <br className="hidden sm:block"/>به تجهیزلند بسپار
                 </h2>
                 <div className="mt-6 sm:mt-12">
-                <span className="font-semibold  sm:text-lg xl:text-xl  !leading-[1.2] tracking-tight text-slate-700 dark:text-white ">
+                <span className="font-semibold  text-sm sm:text-lg xl:text-xl  !leading-[1.2] tracking-tight text-slate-700 dark:text-white ">
                     مشاوره و راه اندازی صفر تا صد کافه , رستوران و فست فود
                 </span>
                 </div>

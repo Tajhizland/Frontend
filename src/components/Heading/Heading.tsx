@@ -84,7 +84,7 @@ const Heading: React.FC<HeadingProps> = ({
       </h2>
         }
         {!!desc && (
-          <span className="mt-3 md:mt-4 font-normal block text-base sm:text-xl text-neutral-500 dark:text-neutral-400">
+          <span className="mt-3 md:mt-4 font-normal block text-sm sm:text-xl text-neutral-500 dark:text-neutral-400">
             {desc}
           </span>
         )}
