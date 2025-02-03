@@ -35,7 +35,7 @@ const TextExpander: React.FC<TextExpanderProps> = ({ text }) => {
 
       {/* دکمه برای مشاهده همه یا نمایش کمتر */}
          <div  onClick={toggleExpanded}
-               className="mt-5 cursor-pointer "
+               className="mt-5 cursor-pointer text-left"
         >
              <span className="  text-sm font-bold text-neutral-700  dark:text-white">
               {isExpanded ? "مشاهده کمتر":  "مشاهده بیشتر"}
