@@ -82,8 +82,9 @@ async function PageHome() {
                     </div>
                 </div>
                 <SectionSliderCategories data={response.brands.data} />
-                <SectionSliderNews data={response.news.data} /> 
             </div>
+            <SectionSliderNews data={response.news.data} />
+
         </div>
     );
 }
