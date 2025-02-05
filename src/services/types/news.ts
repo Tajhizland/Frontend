@@ -1,3 +1,9 @@
+import {BannerResponse} from "@/services/types/banner";
+
+export type NewsListingResponse = {
+    listing:{data:NewsResponse[]}
+    banner:{data:BannerResponse[]}
+};
 export type NewsResponse = {
     id:number ;
     title:string ;

@@ -1,3 +1,5 @@
+import {BannerResponse} from "@/services/types/banner";
+
 export type VlogPageResponse = {
     relatedVlogs: { data : VlogResponse[] };
     vlog:VlogResponse;
@@ -5,6 +7,7 @@ export type VlogPageResponse = {
 export type VlogListingResponse = {
     listing: { data : VlogResponse[] };
     mostViewed: { data : VlogResponse[] };
+    banner: { data : BannerResponse[] };
 }
 export type VlogResponse = {
     id: number,

@@ -13,12 +13,15 @@ import {Route} from "next";
 import VlogCardSkeleton from "@/components/Skeleton/VlogCardSkeleton";
 import {FaCirclePlay} from "react-icons/fa6";
 import VlogMiniPost from "@/app/(shop)/vlog/VlogMiniPost";
+import Image from "next/image";
+import {useRouter} from "next/navigation";
 
 export default function Listing({response, search}: { response: any, search?: string }) {
     const observer = useRef<IntersectionObserver | null>(null);
     const lastElementRef = useRef<HTMLDivElement>(null);
-
+    const router = useRouter();
     const [filter, setFilter] = useState<string>(search ? ("filter[search]=" + search) : "");
+    const [page, setPage] = useState<number>(1);
 
     // استفاده از useInfiniteQuery برای بارگذاری داده‌ها به صورت بی‌پایان
     const {
@@ -31,18 +34,18 @@ export default function Listing({response, search}: { response: any, search?: st
         async ({pageParam = 1, queryKey}) => {
             const filters = queryKey[1]; // دریافت فیلترها از queryKey
             const result = await getVlogPaginated(pageParam, filters);
-            return result.listing.data;
+            return result.listing;
         },
         {
             initialData: {
-                pages: [{data: response.listing.data.data}],
+                pages: [ response.listing],
                 pageParams: [1],
             },
             getNextPageParam: (lastPage) =>
                 //@ts-ignore
-                lastPage?.listing?.meta?.current_page < lastPage?.listing?.meta?.last_page
+                lastPage?.meta?.current_page < lastPage?.meta?.last_page
                     //@ts-ignore
-                    ? lastPage?.listing?.meta?.current_page + 1
+                    ? lastPage?.meta?.current_page + 1
                     : undefined,
             refetchOnWindowFocus: false,
         }
@@ -56,6 +59,8 @@ export default function Listing({response, search}: { response: any, search?: st
             (entries) => {
                 if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
                     fetchNextPage();
+                    setPage((prevPage) => prevPage + 1);
+
                 }
             },
             {
@@ -72,8 +77,13 @@ export default function Listing({response, search}: { response: any, search?: st
         };
     }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-    const allVlogs = data?.pages.flatMap((page) => page) || [];
-    console.log("ALLvlog",allVlogs)
+    useEffect(() => {
+        if (page > 1) {
+            router.replace(`?page=${page}`, { scroll: false });
+        }
+    }, [page, router]);
+
+    const allVlogs = data?.pages.flatMap((page) => page.data) || [];
 
     const renderItem = (item: VlogResponse) => (
         <div className="w-full h-full  overflow-hidden   bg-white dark:bg-transparent" key={item.id}>
@@ -110,18 +120,35 @@ export default function Listing({response, search}: { response: any, search?: st
 
     const handleFilterChange = (filters: string) => {
         setFilter(filters); // فیلتر را در state تغییر می‌دهیم
+        setPage(1)
     };
 
     return (
         <div className="nc-PageCollection dark:bg-neutral-900">
             <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
                 <div className="space-y-10 lg:space-y-14">
+                    <div
+                        className={`relative w-full aspect-w-9 aspect-h-2 rounded-2xl overflow-hidden group border`}
+                    >
+                        {
+                            response.banner.data.map((item,index)=>(
+                                <Link key={index} href={item.url as Route} title={"link"}>
+                                    <Image
+                                        alt=""
+                                        fill
+                                        className="w-full h-full object-cover"
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${item.image}`}
+                                    />
+                                </Link>))
+                        }
+                    </div>
                     {/* HEADING */}
                     <div className="max-w-screen-sm">
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             تجهیزلند ولاگ
                         </h2>
                     </div>
+
 
                     <main>
                         {/* TABS FILTER */}
@@ -140,8 +167,6 @@ export default function Listing({response, search}: { response: any, search?: st
                                 <div
                                     className="grid   grid-cols-2 lg:grid-cols-3 gap-10">
                                      {allVlogs.map((item: VlogResponse) => renderItem(item))}
-
-
                                 </div>
                                 <div ref={lastElementRef}
                                      className="grid   grid-cols-2 lg:grid-cols-3 gap-10 mt-10">

@@ -42,7 +42,7 @@ const BlogPage = async (props: BlogPageProps) => {
     const structuredData = {
         "@context": "https://schema.org/",
         "@type": "ItemList",
-        "itemListElement": data.data.map((article, index) => ({
+        "itemListElement": data.listing.data.map((article, index) => ({
             "@type": "ListItem",
             "position": index + 1,
             "item": {
@@ -65,7 +65,7 @@ const BlogPage = async (props: BlogPageProps) => {
             <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
-            <Listing   response={data.data} />
+            <Listing response={data} />
         </>
     );
 };

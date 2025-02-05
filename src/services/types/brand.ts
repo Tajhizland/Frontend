@@ -1,5 +1,6 @@
 import {ProductResponse} from "@/services/types/product";
 import {CategoryResponse} from "@/services/types/category";
+import {BannerResponse} from "@/services/types/banner";
 
 export type BrandResponse = {
     id:number ;
@@ -14,6 +15,8 @@ export type BrandResponse = {
 
 export type BrandListingResponse = {
     brand:BrandResponse ;
+    banner: { data : BannerResponse[] };
+
     products: {
         data: ProductResponse[];
         meta?: {

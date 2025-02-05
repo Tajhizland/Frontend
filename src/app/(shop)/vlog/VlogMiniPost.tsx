@@ -24,7 +24,7 @@ export default function VlogMiniPost({
 
             </div>
             <div className="flow-root">
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-5 px-2 bg-white">
                     {
                         vlogs.map((item , index)=>(<Link
                             href={"/vlog/" + item.url as Route}

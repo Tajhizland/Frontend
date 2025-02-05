@@ -51,7 +51,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
       return null;
     }
     return (
-      <li
+      <div
         className={`menu-item flex-shrink-0 menu-megamenu menu-megamenu--large`}
       >
         {renderMainItem(menu)}
@@ -91,7 +91,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
             </div>
           </div>
         </div>
-      </li>
+      </div>
     );
   };
 

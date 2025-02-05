@@ -9,6 +9,9 @@ import CategoryCircleCard from "@/components/CircleCard/CategoryCircleCard";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import {CgScrollH} from "react-icons/cg";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
+import Link from "next/link";
+import {Route} from "next";
+import Image from "next/image";
 
 const PageCollection = ({ response, url }: { response: BrandListingResponse, url: string }) => {
     const [filter, setFilter] = useState<number>();
@@ -99,7 +102,21 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
                 title:response.brand.name ,
                 href:"brand/"+response.brand.url
             }]} />
-
+                <div
+                    className={`relative w-full aspect-w-9 aspect-h-2 rounded-2xl overflow-hidden group border !m-0`}
+                >
+                    {
+                        response.banner.data.map((item,index)=>(
+                            <Link key={index} href={item.url as Route} title={"link"}>
+                                <Image
+                                    alt=""
+                                    fill
+                                    className="w-full h-full object-cover"
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${item.image}`}
+                                />
+                            </Link>))
+                    }
+                </div>
                 <div className="space-y-10 lg:space-y-14">
                     {/* HEADING */}
 
@@ -120,7 +137,7 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
                         <div className={"flex justify-center border-b lg:hidden"}>
                             <CgScrollH className={" w-8 h-8 text-neutral-400"}/>
                         </div>
-                    </div> 
+                    </div>
                     <main>
                     {/* LOOP ITEMS */}
                         <div
