@@ -5,11 +5,13 @@ export const store = async <T extends ServerResponse<unknown>>
 (
     params: {
         url: string,
+        type: string,
         image: File | undefined,
     }
 ) => {
     const formData = new FormData();
     formData.append('url', params.url);
+    formData.append('type', params.type);
     if (params.image) {
         formData.append('image', params.image);
     }
@@ -26,12 +28,14 @@ export const update = async <T extends ServerResponse<unknown>>
     params: {
         id: number,
         url: string,
+        type: string,
         image: File | undefined,
     }
 ) => {
     const formData = new FormData();
     formData.append('id', params.id.toString());
     formData.append('url', params.url);
+    formData.append('type', params.type);
     if (params.image) {
         formData.append('image', params.image);
     }

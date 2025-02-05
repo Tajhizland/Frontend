@@ -21,6 +21,7 @@ export default  function Page()
             {
                 id:Number(id),
                 url: e.get("url") as string,
+                type: e.get("type") as string,
                 image: e.get("image") as File,
 
             }

@@ -33,7 +33,7 @@ export default function Page() {
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
                 <Link href={{pathname: "/admin/banner/sort"}}>
-                    <ButtonPrimary> سورت کردن</ButtonPrimary>
+                    <ButtonPrimary> سورت کردن بنر هوم پیج</ButtonPrimary>
                 </Link>
             </PageLink>
             <DataTable

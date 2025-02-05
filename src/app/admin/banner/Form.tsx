@@ -8,6 +8,7 @@ import {BannerResponse} from "@/services/types/banner";
 import Image from "next/image";
 import Link from "next/link";
 import {Route} from "next";
+import Select from "@/shared/Select/Select";
 
 interface Form {
     data?: BannerResponse;
@@ -15,13 +16,37 @@ interface Form {
 }
 
 export default function Form({data, submit}: Form) {
-
+    const types=[
+        {
+            title:"هوم پیج",
+            value:"home_page"
+        },  {
+            title:"ولاگ",
+            value:"vlog"
+        },  {
+            title:"بلاگ",
+            value:"blog"
+        }, {
+            title:"برند",
+            value:"brand"
+        },
+    ]
     return (<>
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>آدرس </Label>
                     <Input name={"url"} defaultValue={data?.url}/>
+                </div>
+                <div>
+                    <Label>نوع بنر </Label>
+                    <Select name={"type"} >
+                        {
+                            types.map((item,index)=>(<option value={item.value} key={index} selected={data?.type==item.value}>
+                                {item.value}
+                            </option>))
+                        }
+                    </Select>
                 </div>
             </div>
 
