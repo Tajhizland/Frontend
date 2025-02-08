@@ -1,7 +1,7 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import ProductTab from "@/components/Tabs/ProductTab";
-import {findById, setVideo} from "@/services/api/admin/product";
+import {findById as productFindById, findById, setVideo} from "@/services/api/admin/product";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
 import Uploader from "@/shared/Uploader/Uploader";
@@ -20,7 +20,11 @@ export default function Page() {
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
-
+    const { data: productInfo } = useQuery({
+        queryKey: [`product-info`],
+        queryFn: () => productFindById(Number(id)),
+        staleTime: 5000,
+    });
     async function uploadIntro(e: FormData) {
         let response = await setVideo({
             productId: Number(id),
@@ -68,7 +72,7 @@ export default function Page() {
                 href: "product"
             },
             {
-                title: "ویرایش محصول",
+                title: "ویرایش محصول"+" ( "+productInfo?.name+" )",
                 href: "product/edit/" + id
             },
             {

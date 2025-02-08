@@ -12,6 +12,7 @@ import {useQuery, useQueryClient} from "react-query";
 import {toast} from "react-hot-toast";
 import MultiUploader from "@/shared/Uploader/MultiUploader";
 import {useState} from "react";
+import {findById as productFindById} from "@/services/api/admin/product";
 
 export default function Page() {
     const {id} = useParams();
@@ -42,7 +43,11 @@ export default function Page() {
             toast.success(response?.message as string);
         }
     }
-
+    const { data: productInfo } = useQuery({
+        queryKey: [`product-info`],
+        queryFn: () => productFindById(Number(id)),
+        staleTime: 5000,
+    });
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -50,7 +55,7 @@ export default function Page() {
                 href: "product"
             },
             {
-                title: "ویرایش محصول",
+                title: "ویرایش محصول"+" ( "+productInfo?.name+" )",
                 href: "product/edit/" + id
             },
             {

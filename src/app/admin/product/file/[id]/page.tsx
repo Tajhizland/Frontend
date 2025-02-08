@@ -12,6 +12,7 @@ import {useQuery, useQueryClient} from "react-query";
 import {toast} from "react-hot-toast";
 import NcImage from "@/shared/NcImage/NcImage";
 import React from "react";
+import {findById as productFindById} from "@/services/api/admin/product";
 
 export default function Page() {
     const {id} = useParams();
@@ -19,6 +20,11 @@ export default function Page() {
     const {data: data, isLoading: isLoading} = useQuery({
         queryKey: [`files`],
         queryFn: () => getFiles({model_id:Number(id) ,model_type:"product"}),
+        staleTime: 5000,
+    });
+    const { data: productInfo } = useQuery({
+        queryKey: [`product-info`],
+        queryFn: () => productFindById(Number(id)),
         staleTime: 5000,
     });
     async function submit(e: FormData) {
@@ -35,6 +41,8 @@ export default function Page() {
             toast.success(response?.message as string);
         }
     }
+
+
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -42,7 +50,7 @@ export default function Page() {
                 href: "product"
             },
             {
-                title: "ویرایش محصول",
+                title: "ویرایش محصول"+" ( "+productInfo?.name+" )",
                 href: "product/edit/" + id
             },
             {

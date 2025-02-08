@@ -14,6 +14,7 @@ import {useParams} from "next/navigation";
 import {useState} from "react";
 import {toast} from "react-hot-toast";
 import {useQuery, useQueryClient} from "react-query";
+import {findById as productFindById} from "@/services/api/admin/product";
 
 export default function Page() {
     const {id} = useParams();
@@ -22,6 +23,11 @@ export default function Page() {
     const {data: data, isLoading: isLoading} = useQuery({
         queryKey: [`filter-info`],
         queryFn: () => findById(Number(id)),
+        staleTime: 5000,
+    });
+    const { data: productInfo } = useQuery({
+        queryKey: [`product-info`],
+        queryFn: () => productFindById(Number(id)),
         staleTime: 5000,
     });
 
@@ -56,7 +62,7 @@ export default function Page() {
                 href: "product"
             },
             {
-                title: "ویرایش محصول",
+                title: "ویرایش محصول"+" ( "+productInfo?.name+" )",
                 href: "product/edit/" + id
             },
             {

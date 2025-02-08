@@ -1,7 +1,7 @@
 import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 import Link from "next/link";
 
-export default function ShopBreadcrump({breadcrumb}: { breadcrumb: BreadcrumbType[] }) {
+export default function ShopBreadcrump({breadcrumb , baseUrl="/"}: { breadcrumb: BreadcrumbType[] ,baseUrl:string }) {
     return (<>
              <div
                 className="p-3 bg-white ">
@@ -34,7 +34,7 @@ export default function ShopBreadcrump({breadcrumb}: { breadcrumb: BreadcrumbTyp
                                                     {item.title}
                                             </div>
                                                 :
-                                                <Link     href={{ pathname: "/" + item.href }}
+                                                <Link href={{ pathname: baseUrl + item.href }}
                                                           className="ms-1 text-xs font-bold text-gray-700 hover:text-[#fcb415] md:ms-2  ">{item.title}</Link>
 
                                         }

@@ -89,7 +89,7 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
             <div className="container py-5 lg:pb-28 lg:pt-14 space-y-5 ">
 
                 <div className="space-y-5">
-                    <ShopBreadcrump breadcrumb={breadcrump} />
+                    <ShopBreadcrump breadcrumb={breadcrump} baseUrl={"/category/"} />
 
                     {/* HEADING */}
 
