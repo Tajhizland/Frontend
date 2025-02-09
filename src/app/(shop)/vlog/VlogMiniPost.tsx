@@ -24,12 +24,12 @@ export default function VlogMiniPost({
 
             </div>
             <div className="flow-root">
-                <div className="flex flex-col gap-5 px-2 bg-white">
+                <div className="flex flex-col  bg-white dark:bg-black/20 divide-y divide-neutral-200 dark:divide-neutral-700 ">
                     {
                         vlogs.map((item , index)=>(<Link
                             href={"/vlog/" + item.url as Route}
                             key={index}
-                            className={"flex items-center gap-1  "}>
+                            className={"flex items-center gap-1 py-2 px-1  hover:bg-neutral-100 dark:hover:bg-neutral-700"}>
 
                                 <div className="relative rounded-xl overflow-hidden group shrink-0">
 

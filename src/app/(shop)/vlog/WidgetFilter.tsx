@@ -77,13 +77,13 @@ const WidgetFilter  = ({changeFilter}: { changeFilter: (filters: string) => void
 
     </div>
       <div className="flow-root">
-        <div className="flex flex-col divide-y divide-neutral-200 dark:divide-neutral-700">
+        <div className="flex flex-col divide-y divide-neutral-200 dark:divide-neutral-700 bg-white dark:bg-black/20">
           {categoryList && categoryList.map((item) => (
             <div key={item.id} className="">
               <Checkbox
                 name={item.name}
                 label={item.name}
-                className="p-4 xl:p-5 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                className="p-4 xl:p-5 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                 defaultChecked={selectedFilters["category"]?.includes(item.id + "")}
                 onChange={(checked) => handleFilterChange("category", item.id + "", checked)}
               />

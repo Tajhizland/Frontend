@@ -603,7 +603,7 @@ export default function VlogFilter({changeFilter, defualtSearch}: {
             {/* FOR DESKTOP */}
             <div className="hidden lg:flex flex-1 gap-x-4">
                 {/* {renderFilters()} */}
-                <div className="relative max-w-xs w-full">
+                <div className="relative max-w-[19rem] w-full">
                     <label
                         htmlFor="search-input"
                         className="text-neutral-500 dark:text-neutral-300"
