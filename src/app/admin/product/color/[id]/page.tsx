@@ -93,6 +93,7 @@ export default function Page() {
                                     name={item.color_name}
                                     discount={item.discount}
                                     id={item.id}
+                                    status={item.status}
                                     price={item.price}
                                     stock={item.stock}
                                     deliveryDelay={item.delivery_delay}
