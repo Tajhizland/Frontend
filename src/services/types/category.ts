@@ -10,6 +10,7 @@ export type CategoryResponse = {
     image: string;
     parent_id: number;
     description: string;
+    type: string;
     created_at: string;
     updated_at: string;
     minPrice: number;

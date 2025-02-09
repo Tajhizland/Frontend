@@ -89,13 +89,9 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
             <div className="container py-5 lg:pb-28 lg:pt-14 space-y-5 ">
 
                 <div className="space-y-5">
-                    <ShopBreadcrump breadcrumb={breadcrump} baseUrl={"/category/"} />
-
+                    <ShopBreadcrump breadcrumb={breadcrump} baseUrl={response.category.type=="listing"?"/category/":"/landing/"} />
                     {/* HEADING */}
-
-
                     <hr className="border-slate-200 dark:border-slate-700" />
-
                     <main>
                         {/* TABS FILTER */}
                         <TabFilters
@@ -104,7 +100,6 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
                             minPrice={response.category.minPrice}
                             changeFilter={handleFilterChange}
                         />
-
                         {/* LOOP ITEMS */}
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
                             {allProducts.map((item, index) => (

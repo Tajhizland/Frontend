@@ -44,6 +44,17 @@ export default function Form({data, submit}: productForm) {
                     <Input name={"name"} defaultValue={data?.name}/>
                 </div>
                 <div>
+                    <Label>نوع نمایش دسته‌بندی</Label>
+                    <Select name={"type"}>
+                        <option value={"listing"} selected={data?.type == "listing"}>
+                            لیست محصولات
+                        </option>
+                        <option value={"landing"} selected={data?.type == "landing"}>
+                           لندینگ
+                        </option>
+                    </Select>
+                </div>
+                <div>
                     <Label>وضعیت دسته‌بندی</Label>
                     <Select name={"status"}>
                         <option value={1} selected={data?.status == "1"}>
