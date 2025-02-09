@@ -67,6 +67,7 @@ export default function Page() {
             color: colors,
         });
         setModal(false);
+        setProductID(undefined);
         toast.success(response?.message as string)
     }
 
