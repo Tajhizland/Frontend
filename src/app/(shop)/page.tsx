@@ -44,7 +44,7 @@ async function PageHome() {
     const response = await homePage();
     return (
         <div className="nc-PageHome relative overflow-hidden lg:mt-10  dark:bg-neutral-900">
-            <SectionHero2 data={response.sliders.data} />
+            <SectionHero2 data={response.desktopSliders.data} />
             <div className="py-5 dark:bg-neutral-900">
                 <DiscoverMoreSlider data={response.banners.data} />
             </div>

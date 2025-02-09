@@ -25,7 +25,6 @@ export default function Form({ data, submit  }: Form) {
                 <div>
                     <Label>آدرس  </Label>
                     <Input name={"url"} defaultValue={data?.url}/>
-
                 </div>
                 <div>
                     <Label>وضعیت سرویس</Label>
@@ -38,12 +37,20 @@ export default function Form({ data, submit  }: Form) {
                         </option>
                     </Select>
                 </div>
-
+                <div>
+                    <Label>نمایش برای</Label>
+                    <Select name={"type"}>
+                        <option value={"desktop"} selected={data?.type == "desktop"}>
+                           دسکتاپ
+                        </option>
+                        <option value={"mobile"} selected={data?.type == "mobile"}>
+                           موبایل
+                        </option>
+                    </Select>
+                </div>
             </div>
-
             <hr className={"my-5"}/>
             <div className={"grid grid-cols-1 gap-5"}>
-
                 <div>
                     <Label>تصویر</Label>
                     <Uploader  name={"image"} />
@@ -64,7 +71,6 @@ export default function Form({ data, submit  }: Form) {
                         </div>
                     </div>
                 </div>:""}
-
             </div>
             <hr className={"my-5"}/>
             <div className={"flex justify-center my-5"}>

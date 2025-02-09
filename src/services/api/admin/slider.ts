@@ -6,6 +6,7 @@ export const store = async <T extends ServerResponse<unknown>>
     params: {
         title: string,
         url: string,
+        type: string,
         status: number | string,
         image: File,
     }
@@ -14,6 +15,7 @@ export const store = async <T extends ServerResponse<unknown>>
     formData.append('title', params.title);
     formData.append('status', params.status.toString());
     formData.append('url', params.url);
+    formData.append('type', params.type);
     if (params.image) {
         formData.append('image', params.image);
     }
@@ -31,6 +33,7 @@ export const update = async <T extends ServerResponse<unknown>>
         id: number,
         title: string,
         url: string,
+        type: string,
         status: number | string,
         image: File | undefined,
     }
@@ -38,6 +41,7 @@ export const update = async <T extends ServerResponse<unknown>>
     const formData = new FormData();
     formData.append('id', params.id.toString());
     formData.append('title', params.title);
+    formData.append('type', params.type);
     formData.append('status', params.status.toString());
     formData.append('url', params.url);
     if (params.image) {

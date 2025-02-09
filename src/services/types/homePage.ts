@@ -14,7 +14,8 @@ export type HomePageResponse = {
     popularProducts: { data: PopularProductResponse[] };
      banners: { data: BannerResponse[] };
     homepageCategories: { data: HomepageCategoryResponse[] };
-    sliders: { data: SliderResponse[] };
+    desktopSliders: { data: SliderResponse[] };
+    mobileSliders: { data: SliderResponse[] };
     brands: { data: BrandResponse[] };
     news: { data: NewsResponse[] };
     vlogs: { data: VlogResponse[] };

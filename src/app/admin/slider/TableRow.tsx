@@ -11,6 +11,7 @@ export const columns: Column<SliderResponse>[] = [
     {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'title', header: 'عنوان', filterType: 'input', editable: false},
     {key: 'url', header: 'آدرس ', filterType: 'input', editable: false},
+    {key: 'type', header: 'نمایش برای ', filterType: 'input', editable: false},
     {
         key: 'status',
         header: 'وضعیت',
