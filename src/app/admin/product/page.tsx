@@ -21,6 +21,7 @@ import Input from "@/shared/Input/Input";
 import {Label} from "@headlessui/react";
 import {useQuery} from "react-query";
 import Spinner from "@/shared/Loading/Spinner";
+import Select from "@/shared/Select/Select";
 
 export default function Page() {
     const [modal, setModal] = useState(false)
@@ -56,6 +57,8 @@ export default function Page() {
                 id: Number(e.get(`color[${i}][id]`)),
                 price: Number(e.get(`color[${i}][price]`)),
                 discount: Number(e.get(`color[${i}][discount]`)),
+                status: Number(e.get(`color[${i}][status]`)),
+                delivery_delay: Number(e.get(`color[${i}][delivery_delay]`)),
             };
 
             colors.push(colorData);
@@ -117,6 +120,19 @@ export default function Page() {
                                 <div>
                                     <label>تخفیف</label>
                                     <Input name={`color[${index}][discount]`} defaultValue={item.discount}/>
+                                </div>
+
+                                <div>
+                                    <Label>وضعیت رنگ</Label>
+                                    <Select name={`color[${index}][status]`}>
+                                        <option value={1} selected={item.status==1} >فعال</option>
+                                        <option value={0} selected={item.status==0}>غیر فعال</option>
+                                        <option value={2} selected={item.status==2}>محدودیت</option>
+                                    </Select>
+                                </div>
+                                <div>
+                                    <Label>زمان آماده سازی</Label>
+                                    <Input name={`color[${index}][delivery_delay]`} defaultValue={item.delivery_delay??0}/>
                                 </div>
                             </div>
                         </div>
