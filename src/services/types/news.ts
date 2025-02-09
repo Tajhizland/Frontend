@@ -1,7 +1,10 @@
 import {BannerResponse} from "@/services/types/banner";
+import {BlogCategoryResponse} from "@/services/types/blogCategory";
 
 export type NewsListingResponse = {
     listing:{data:NewsResponse[]}
+    lastPost:{data:NewsResponse[]}
+    category:{data:BlogCategoryResponse[]}
     banner:{data:BannerResponse[]}
 };
 export type NewsResponse = {
