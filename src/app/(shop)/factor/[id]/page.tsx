@@ -3,12 +3,14 @@
 import {findById} from "@/services/api/admin/order";
 import {useParams} from "next/navigation";
 import {useQuery} from "react-query";
-import {useRef} from "react";
+import React, {useRef} from "react";
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import FactorTable from "@/components/Factor/FactorTable";
 import Logo from "@/shared/Logo/Logo";
+import Image from "next/image";
+import logoLight from "@/images/tajhizland/logo.png";
 
 export default function Page() {
     const {id} = useParams();
@@ -59,8 +61,12 @@ export default function Page() {
                     <div className={"my-10"}>
                         {data && <FactorTable order={data}/>}
                     </div>
-                    <Logo  className={"mx-auto flex justify-center"}/>
-
+                     <Image
+                        className={`lg:h-10 w-auto max-w-40 mx-auto `}
+                        src={logoLight}
+                        alt="Logo"
+                        priority
+                    />
                 </div>
                 <ButtonPrimary
                     className={"mt-10"}

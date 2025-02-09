@@ -2,13 +2,15 @@
 "use client"
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
-import {useRef} from "react";
+import React, {useRef} from "react";
 import {setCart, useCart, useUser} from "@/services/globalState/GlobalState";
 import {useQuery} from "react-query";
 import {getCart} from "@/services/api/shop/cart";
 import PreFactorTable from "@/components/Factor/PreFactorTable";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Logo from "@/shared/Logo/Logo";
+import Image from "next/image";
+import logoLight from "@/images/tajhizland/logo.png";
 
 export default function PreFactorPage() {
     const [cart] = useCart();
@@ -60,10 +62,15 @@ export default function PreFactorPage() {
                 <p className={"text-xl text-neutral-800 my-1 text-center "}>
                     پیش فاکتور خرید اینترنتی از فروشگاه تجهیزلند .
                 </p>
-                <div className={"my-10"}>
+                <div className={"my-10 overflow-x-auto"}>
                     <PreFactorTable cart={cart}/>
                 </div>
-                <Logo  className={"mx-auto flex justify-center"}/>
+                <Image
+                    className={`lg:h-10 w-auto max-w-40 mx-auto `}
+                    src={logoLight}
+                    alt="Logo"
+                    priority
+                />
 
             </div>
             <ButtonPrimary

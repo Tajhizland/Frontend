@@ -9,6 +9,31 @@
     font-style: normal;
 }
 
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    direction: ltr;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #fefefe;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #0f172a;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #0f172a;
+}
+
+
 .priceFont {
     font-family: 'IRANSansWeb', sans-serif;
 }
