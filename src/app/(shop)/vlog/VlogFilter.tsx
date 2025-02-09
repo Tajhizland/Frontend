@@ -603,7 +603,7 @@ export default function VlogFilter({changeFilter, defualtSearch}: {
             {/* FOR DESKTOP */}
             <div className="hidden lg:flex flex-1 gap-x-4">
                 {/* {renderFilters()} */}
-                <div className="relative max-w-[19rem] w-full">
+                <div className="relative max-w-[18.5rem] w-full">
                     <label
                         htmlFor="search-input"
                         className="text-neutral-500 dark:text-neutral-300"
@@ -619,6 +619,7 @@ export default function VlogFilter({changeFilter, defualtSearch}: {
                             }}
                             placeholder="ویدیو مورد نظر خود را جستجو کنید"
                             sizeClass="pr-14 py-3 pl-5 md:pr-16"
+                            fontClass={'text-xs'}
                             rounded="rounded-full"
                         />
                         <ButtonCircle
