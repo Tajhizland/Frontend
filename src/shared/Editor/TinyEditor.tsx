@@ -13,7 +13,8 @@ const TinyEditor: React.FC<TinyEditorProps> = ({ value ,name }) => {
         <>
             <Editor
                 textareaName={name}
-                apiKey='kp9pxdgoj5z9ohilbu3yf7gq1hkl9uvdz70oeoec0a6odmdu'
+                // apiKey='kp9pxdgoj5z9ohilbu3yf7gq1hkl9uvdz70oeoec0a6odmdu'
+                apiKey='q3mi6er3ude1zs29ao9hrwyywp9j8zxi4f781hiwnh2un0nt'
                 onInit={(_evt, editor) => editorRef.current = editor}
                 initialValue={value}
                 init={{
