@@ -18,7 +18,6 @@ import {Fragment, useState} from "react";
 import NcModal from "@/shared/NcModal/NcModal";
 import {findById, updateColorPrice} from "@/services/api/admin/color";
 import Input from "@/shared/Input/Input";
-import {Label} from "@headlessui/react";
 import {useQuery} from "react-query";
 import Spinner from "@/shared/Loading/Spinner";
 import Select from "@/shared/Select/Select";
@@ -123,7 +122,7 @@ export default function Page() {
                                 </div>
 
                                 <div>
-                                    <Label>وضعیت رنگ</Label>
+                                    <label>وضعیت رنگ</label>
                                     <Select name={`color[${index}][status]`}>
                                         <option value={1} selected={item.status==1} >فعال</option>
                                         <option value={0} selected={item.status==0}>غیر فعال</option>
@@ -131,7 +130,7 @@ export default function Page() {
                                     </Select>
                                 </div>
                                 <div>
-                                    <Label>زمان آماده سازی</Label>
+                                    <label>زمان آماده سازی</label>
                                     <Input name={`color[${index}][delivery_delay]`} defaultValue={item.delivery_delay??0}/>
                                 </div>
                             </div>
