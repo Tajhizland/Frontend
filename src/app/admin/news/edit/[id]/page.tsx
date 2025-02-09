@@ -10,29 +10,30 @@ import {findById} from "@/services/api/admin/news";
 import {useQuery} from "react-query";
 import NewsTab from "@/components/Tabs/NewsTab";
 
-export default  function Page()
-{
-    const { id } = useParams();
-     const { data: data } = useQuery({
+export default function Page() {
+    const {id} = useParams();
+    const {data: data} = useQuery({
         queryKey: [`news-info`],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
+
     async function submit(e: FormData) {
-        let response=await update(
+        let response = await update(
             {
-                id:Number(id),
+                id: Number(id),
                 title: e.get("title") as string,
                 url: e.get("url") as string,
+                categoryId: Number(e.get("categoryId") ),
                 published: e.get("published") as string,
-                 image: e.get("image") as File,
+                image: e.get("image") as File,
                 content: e.get("content") as string,
             }
         )
         toast.success(response?.message as string)
     }
 
-    return(<>
+    return (<>
         <Breadcrump breadcrumb={[
             {
                 title: "بلاگ",
@@ -40,16 +41,16 @@ export default  function Page()
             },
             {
                 title: "ویرایش بلاگ",
-                href: "news/edit/"+id
+                href: "news/edit/" + id
             }
         ]}/>
         <Panel>
             <PageTitle>
                 ویرایش بلاگ
             </PageTitle>
-            <NewsTab id={id+""} />
+            <NewsTab id={id + ""}/>
             <div>
-                <Form data={data} submit={submit} />
+                <Form data={data} submit={submit}/>
             </div>
         </Panel>
 

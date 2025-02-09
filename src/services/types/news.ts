@@ -6,6 +6,7 @@ export type NewsListingResponse = {
 };
 export type NewsResponse = {
     id:number ;
+    category_id:number ;
     title:string ;
     url:string ;
     content:string ;

@@ -15,6 +15,7 @@ export default function Page() {
             {
                 title: e.get("title") as string,
                 url: e.get("url") as string,
+                categoryId: Number(e.get("categoryId")),
                 published: e.get("published") as string,
                 image: e.get("image") as File,
                 content: e.get("content") as string,

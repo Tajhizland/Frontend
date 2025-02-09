@@ -34,3 +34,9 @@ export const findById = async <T extends ServerResponse<BlogCategoryResponse>>
     return axios.get<T, SuccessResponseType<T>>("admin/blogCategory/find/" + id)
         .then((res) => res?.data?.result?.data)
 };
+export const getList = async <T extends ServerResponse<BlogCategoryResponse[]>>
+(
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/blogCategory/list")
+        .then((res) => res?.data?.result?.data)
+};

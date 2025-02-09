@@ -7,6 +7,7 @@ export const store = async <T extends ServerResponse<unknown>>
         title:string,
         url:string,
         published:number|string,
+        categoryId:number,
         image: File | null,
         content:string
     }
@@ -14,6 +15,7 @@ export const store = async <T extends ServerResponse<unknown>>
     const formData = new FormData();
     formData.append('title', params.title);
     formData.append('url', params.url);
+    formData.append('categoryId', params.categoryId.toString());
     formData.append('published', params.published.toString());
     formData.append('content', params.content);
 
@@ -33,6 +35,7 @@ export const update = async <T extends ServerResponse<unknown>>
 (
     params: {
         id:number|string,
+        categoryId:number,
         title:string,
         url:string,
         published:number|string,
@@ -42,6 +45,7 @@ export const update = async <T extends ServerResponse<unknown>>
 ) => {
     const formData = new FormData();
     formData.append('id', params.id.toString());
+    formData.append('categoryId', params.categoryId.toString());
     formData.append('title', params.title);
     formData.append('url', params.url);
     formData.append('published', params.published.toString());

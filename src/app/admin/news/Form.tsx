@@ -3,11 +3,12 @@ import Label from "@/components/Label/Label";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Textarea from "@/shared/Textarea/Textarea";
 import React from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import {NewsResponse} from "@/services/types/news";
 import TinyEditor from "@/shared/Editor/TinyEditor";
+import {useQuery} from "react-query";
+import {getList} from "@/services/api/admin/blogCategory";
 
 interface Form {
     data?: NewsResponse;
@@ -16,6 +17,11 @@ interface Form {
 
 export default function Form({ data, submit  }: Form) {
 
+    const {data: categoryList} = useQuery({
+        queryKey: [`news_category-list`],
+        queryFn: () => getList(),
+        staleTime: 5000,
+    });
     return (<>
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
@@ -36,6 +42,18 @@ export default function Form({ data, submit  }: Form) {
                         <option value={0} selected={data?.published == 0}>
                             غیر فعال
                         </option>
+                    </Select>
+                </div>
+                <div>
+                    <Label>دسته بندی</Label>
+                    <Select name={"categoryId"}>
+                        {
+                            categoryList && categoryList.map((item,index)=>(<>
+                                <option key={index}  value={item.id} selected={data?.category_id == item.id}>
+                                    {item.name}
+                                </option>
+                            </>))
+                        }
                     </Select>
                 </div>
 
