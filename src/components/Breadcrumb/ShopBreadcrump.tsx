@@ -1,7 +1,7 @@
 import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 import Link from "next/link";
 
-export default function ShopBreadcrump({breadcrumb , baseUrl="/"}: { breadcrumb: BreadcrumbType[] ,baseUrl:string }) {
+export default function ShopBreadcrump({breadcrumb , baseUrl="/"}: { breadcrumb: BreadcrumbType[] ,baseUrl?:string }) {
     return (<>
              <div
                 className="p-3 bg-white ">

@@ -1,6 +1,5 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
-import SectionPromo1 from "@/components/SectionPromo1";
 import TabFilters from "@/components/TabFilters";
 import { findCategoryByUrl } from "@/services/api/shop/category";
 import ProductCardNew from "@/components/ProductCardNew";
@@ -9,7 +8,6 @@ import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import { useInfiniteQuery } from "react-query";
 import { BreadcrumbType } from "@/components/Breadcrumb/BreadcrumbType";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
-import TextExpander from "@/shared/TextExpander/TextExpander";
 import TextExpander2 from "@/shared/TextExpander/TextExpander2";
 
 const PageCollection = ({ response, url, breadcrump }: { response: any, url: string, breadcrump: BreadcrumbType[] }) => {
