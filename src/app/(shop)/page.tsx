@@ -18,6 +18,7 @@ import logo from "@/images/tajhizland/logo.png";
 import {Metadata} from "next";
 import SectionSliderNews from "@/components/SectionSliderNews";
 import SectionMagazine5 from "@/components/blog/SectionMagazine5";
+import SectionHero2Mobile from "@/components/SectionHero/SectionHero2Mobile";
 
 export const dynamic = 'force-dynamic';
 
@@ -48,8 +49,10 @@ async function PageHome() {
             <div className={"hidden sm:block"}>
                 <SectionHero2 data={response.desktopSliders.data}/>
             </div>
-            <div className={"block sm:hidden"}>
-                <SectionHero2 data={response.mobileSliders.data}/>
+            <div className={"block sm:hidden container  "}>
+                <div className={"  rounded-2xl overflow-hidden !p-0 "}>
+                    <SectionHero2Mobile data={response.mobileSliders.data}/>
+                </div>
             </div>
             <div className="py-5 dark:bg-neutral-900">
                 <DiscoverMoreSlider data={response.banners.data}/>
