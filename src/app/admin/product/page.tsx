@@ -67,7 +67,6 @@ export default function Page() {
             color: colors,
         });
         setModal(false);
-        setProductID(undefined);
         toast.success(response?.message as string)
     }
 
@@ -92,7 +91,7 @@ export default function Page() {
         },
     ]
     const {data: colors, isLoading: isLoading} = useQuery({
-        queryKey: [`color-info`, productId],
+        queryKey: [`color-info`, productId , modal],
         queryFn: () => findById(productId ?? 0),
         staleTime: 5000,
         enabled: !!productId
