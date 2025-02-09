@@ -118,7 +118,7 @@ export default function Page() {
                                 </div>
                                 <div>
                                     <label>تخفیف</label>
-                                    <Input name={`color[${index}][discount]`} defaultValue={item.discount}/>
+                                    <Input name={`color[${index}][discount]`} defaultValue={item.discountedPrice}/>
                                 </div>
 
                                 <div>
