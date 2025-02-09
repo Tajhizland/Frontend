@@ -66,8 +66,9 @@ export default function Page() {
         const response = await updateColorPrice({
             color: colors,
         });
-        setModal(false);
         toast.success(response?.message as string)
+        setModal(false);
+
     }
 
     const buttons: DataTableButtons[] = [
