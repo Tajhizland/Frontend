@@ -5,13 +5,15 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import {update ,findById} from "@/services/api/admin/blogCategory";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
- import {useQuery} from "react-query";
+ import {useQuery, useQueryClient} from "react-query";
 import Form from "@/app/admin/blog_category/Form";
 
 export default  function Page()
 {
     const { id } = useParams();
-     const { data: data } = useQuery({
+    const queryClient = useQueryClient();
+
+    const { data: data } = useQuery({
         queryKey: [`blogCategory-info`],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
@@ -25,7 +27,10 @@ export default  function Page()
                 url: e.get("url") as string,
             }
         )
+        queryClient.refetchQueries(['blogCategory-info']);
+
         toast.success(response?.message as string)
+
     }
 
     return(<>
