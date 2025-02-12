@@ -81,7 +81,7 @@ export default function Form({data, submit}: Form) {
                     </Select>
                 </div>
                 <div>
-                    <Label>والد</Label>
+                    <Label>دسته بندی</Label>
                     <Select name={"category_id"}>
                         <option value={0}>
                             بدون والد
