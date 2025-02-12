@@ -191,6 +191,25 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         ]
     },
     {
+        title: "دسته بندی بلاگ",
+        url: "/",
+        icon: <FaFileVideo  className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت دسته بندی بلاگ ها",
+                url: "/blog_category",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن دسته بندی بلاگ",
+                url: "/blog_category/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }
+        ]
+    }, 
+    {
         title: "گارانتی",
         url: "/guaranty",
         icon: <GiSevenPointedStar className="h-6 w-6 text-gray-500"/>,
