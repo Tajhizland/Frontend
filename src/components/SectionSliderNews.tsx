@@ -30,7 +30,7 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
                                                               }) => {
     return (
         <div
-            className={`nc-SectionSliderProductCard bg-neutral-100/70 dark:bg-black/20  rounded-2xl sm:px-5 py-10 mx-10  ${className}`}>
+            className={`nc-SectionSliderProductCard bg-neutral-100/70 dark:bg-black/20  rounded-2xl sm:px-5 py-10 md:mx-10  ${className}`}>
             <div className={"container"}>
                 <div className="flex justify-between items-center ">
                     <h2 className="text-lg md:text-2xl font-semibold">جدید ترین مقاله ها</h2>

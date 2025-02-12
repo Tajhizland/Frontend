@@ -42,20 +42,20 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
         </div>
       </div>
 
-      <Link
-        href={"/vlog/"+data.url as Route}
-        aria-label={"news"}
-        className={`block relative h-full flex-shrink-0 w-2/5  mr-3 sm:mr-5`}
-      >
-        <NcImage
-          alt=""
-          src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`}
-
-          containerClassName="absolute inset-0"
-          className="object-cover w-full h-full rounded-xl sm:rounded-3xl"
-          sizes="400px"
-          fill
-        />
+        <Link
+            href={"/vlog/" + data.url as Route}
+            aria-label={"vlog"}
+            className="flex flex-col w-full mr-5"
+        >
+            <div className="relative rounded-xl overflow-hidden group">
+              <NcImage
+                  containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
+                  src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`}
+                  className="object-cover w-full h-full "
+                  fill
+                  alt="vlog"
+              />
+          </div>
       </Link>
     </div>
   );

@@ -26,7 +26,7 @@ export default function Page() {
         try {
             const content = contentRef.current;
 
-             const canvas = await html2canvas(content, {
+            const canvas = await html2canvas(content, {
                 scale: 1,
                 useCORS: true,
                 windowWidth: 1500,
@@ -53,20 +53,37 @@ export default function Page() {
                     className={"p-5"}
                     ref={contentRef}
                 >
-
-                    <h1 className={"font-bold text-2xl text-center my-1"}> فاکتور</h1>
-                    <p className={"text-lg text-neutral-800  text-center my-1"}>
-                          فاکتور خرید اینترنتی از فروشگاه تجهیزلند .
-                    </p>
-                    <div className={"my-10"}>
-                        {data && <FactorTable order={data}/>}
+                    <div
+                        className={"border p-5 m-5  border-slate-400 rounded-lg"}>
+                        <Image
+                            className={`lg:h-10 w-auto max-w-40 mx-auto `}
+                            src={logoLight}
+                            alt="Logo"
+                            priority
+                        />
+                        <p className={"text-sm text-neutral-800 my-1 text-center "}>
+                            مرکز تخصصی تجهیزات کافه و رستوران
+                        </p>
+                        <h1 className={"font-bold  my-1 text-center "}>فاکتور</h1>
+                        <h2 className={" my-2 "}> مشخصات فروشنده </h2>
+                        <div className={"border border-slate-400 p-2 grid grid-cols-3 text-sm gap-5"}>
+                            <div className={"flex gap-2"}>
+                                <span>فروشنده:</span>
+                                <span>تجهیزلند</span>
+                            </div>
+                            <div className={"flex gap-2"}>
+                                <span>شماره تماس:</span>
+                                <span>021-66477790-1</span>
+                            </div>
+                            <div className={"flex gap-2 col-span-2"}>
+                                <span>نشانی:</span>
+                                <span>تهران ، خیابان جمهوری ، بین خیابان دانشگاه و ابوریحان ، ضلع شمال خیابان جمهوری  ،پلاک 981 </span>
+                            </div>
+                        </div>
+                        <div className={"my-10 overflow-x-auto border border-slate-400 rounded-lg"}>
+                            {data && <FactorTable order={data}/>}
+                        </div>
                     </div>
-                     <Image
-                        className={`lg:h-10 w-auto max-w-40 mx-auto `}
-                        src={logoLight}
-                        alt="Logo"
-                        priority
-                    />
                 </div>
                 <ButtonPrimary
                     className={"mt-10"}

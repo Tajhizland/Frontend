@@ -18,9 +18,22 @@ interface Form {
 export default function Form({data, submit}: Form) {
     const types=[
         {
-            title:"هوم پیج",
+            title:"هوم پیج (اصلی)",
             value:"home_page"
-        },  {
+        },
+        {
+            title:"هوم پیج 2",
+            value:"home_page2"
+        },
+        {
+            title:"هوم پیج 3",
+            value:"home_page3"
+        },
+        {
+            title:"هوم پیج 4",
+            value:"home_page4"
+        },
+        {
             title:"ولاگ",
             value:"vlog"
         },  {

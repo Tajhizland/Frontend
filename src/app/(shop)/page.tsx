@@ -15,10 +15,11 @@ import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
 import {homePage} from "@/services/api/shop/homePage";
 //@ts-ignore
 import logo from "@/images/tajhizland/logo.png";
-import {Metadata} from "next";
+import {Metadata } from "next";
 import SectionSliderNews from "@/components/SectionSliderNews";
 import SectionMagazine5 from "@/components/blog/SectionMagazine5";
 import SectionHero2Mobile from "@/components/SectionHero/SectionHero2Mobile";
+import SectionTwinBanner from "@/components/Banner/SectionTwinBanner";
 
 export const dynamic = 'force-dynamic';
 
@@ -64,19 +65,20 @@ async function PageHome() {
                     subHeading={""}
                     heading={"محصولات پر تخفیف"}
                 />
+                <SectionTwinBanner banners={response.banners2.data} />
                 <div className="relative py-5 lg:py-10">
                     <BackgroundSection/>
                     <SectionGridMoreExplore data={response.concepts.data}/>
                 </div>
+                <SectionTwinBanner banners={response.banners3.data} />
                 <div className="py-5 lg:py-10 border-t border-b border-slate-200 dark:border-slate-700">
                     <SectionHowItWork/>
                 </div>
                 <SectionPromo1 logo={response.posters.data[0].image}/>
-
                 <SectionGridFeatureItems data={response.homepageCategories.data}/>
                 <SectionPromo2 logo={response.posters.data[1].image}/>
                 <SectionSliderLargeProduct cardStyle="style2" data={response.specialProducts.data}/>
-
+                <SectionTwinBanner banners={response.banners4.data} />
                 <div className="relative  lg:py-10">
                     <BackgroundSection/>
                     <div>
@@ -93,7 +95,6 @@ async function PageHome() {
                 <SectionSliderCategories data={response.brands.data}/>
             </div>
             <SectionSliderNews data={response.news.data}/>
-
         </div>
     );
 }

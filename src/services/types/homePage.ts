@@ -12,7 +12,10 @@ import {PosterResponse} from "@/services/types/poster";
 
 export type HomePageResponse = {
     popularProducts: { data: PopularProductResponse[] };
-     banners: { data: BannerResponse[] };
+    banners: { data: BannerResponse[] };
+    banners2: { data: BannerResponse[] };
+    banners3: { data: BannerResponse[] };
+    banners4: { data: BannerResponse[] };
     homepageCategories: { data: HomepageCategoryResponse[] };
     desktopSliders: { data: SliderResponse[] };
     mobileSliders: { data: SliderResponse[] };

@@ -22,7 +22,14 @@ export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
                     <tbody className="bg-white text-black">
                     {cart.map((item) => (
                         <tr key={item.id} className="border-b">
-                            <td className="px-4 py-2 text-center">{item.product.name}</td>
+                            <td className="px-4 py-2 text-center flex flex-col gap-1">
+                                <span>
+                                {item.product.name}
+                                    </span>
+                                <span className={"text-slate-600 "}>
+                                {item?.guaranty?.name}
+                                    </span>
+                            </td>
                             <td className="px-4 py-2 text-center">{item.color.title}</td>
                             <td className="px-4 py-2 text-center">{item.count}</td>
                             <td className="px-4 py-2 text-center">
