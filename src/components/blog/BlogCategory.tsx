@@ -1,12 +1,48 @@
-import React from "react"; 
-import Link from "next/link";
-import { Route } from "next"; 
-import { BlogCategoryResponse } from "@/services/types/blogCategory"; 
+import React, {useState } from "react";
+import { useQuery } from "react-query";
+import { getList } from "@/services/api/shop/vlogCategory";
+import Checkbox from "@/shared/Checkbox/Checkbox";
+import {BlogCategoryResponse} from "@/services/types/blogCategory";
 
-export default function BlogCategory({
-    blogCategory
-}: { blogCategory: BlogCategoryResponse[] }) {
-    return (<>
+type SelectedFilters = Record<string, string[] | string>;
+
+const BlogCategory  = ({categoryList,changeFilter}: {categoryList:BlogCategoryResponse[] , changeFilter: (filters: string) => void }) => {
+    const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({});
+    const handleFilterChange = (filterId: string, itemId: string, isChecked: boolean) => {
+        //@ts-ignore
+        setSelectedFilters((prevFilters) => {
+            const currentItems = prevFilters[filterId] || [];
+            const updatedItems = isChecked
+                //@ts-ignore
+                ? [...currentItems, itemId]
+                //@ts-ignore
+                : currentItems.filter((id) => id !== itemId);
+
+            const newFilters: SelectedFilters = {
+                ...prevFilters,
+                [filterId]: updatedItems.length > 0 ? updatedItems : [],
+            };
+
+            changeFilter(buildFilterQueryString(newFilters));
+            return newFilters;
+        });
+    };
+    const buildFilterQueryString = (filters: SelectedFilters) => {
+        return Object.keys(filters)
+            .map((filterId) => {
+                const value = filters[filterId];
+                // چک کنید که آیا مقدار یک رشته (برای just_has_stock) یا آرایه است
+                if (Array.isArray(value)) {
+                    return value.map((itemId) => `filter[${filterId}][]=${itemId}`).join("&");
+                } else if (value !== undefined) {
+                    return `filter[${filterId}]=${value}`; // برای just_has_stock
+                }
+                return null;
+            })
+            .filter(Boolean) // فیلتر کردن مقادیر null
+            .join("&");
+    };
+     return (
         <div
             className={`nc-WidgetCategories rounded-3xl overflow-hidden  bg-neutral-100 dark:bg-neutral-800`}
             data-nc-id="WidgetCategories"
@@ -15,24 +51,27 @@ export default function BlogCategory({
                 className={`nc-WidgetHeading1 flex items-center justify-between p-4 xl:p-5 border-b border-neutral-200 dark:border-neutral-700  `}
             >
                 <h2 className="text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow">
-                    دسته بندی مقاله ها
+                    دسته بندی
                 </h2>
 
             </div>
             <div className="flow-root">
-                <div className="flex flex-col  bg-white dark:bg-black/20 divide-y divide-neutral-200 dark:divide-neutral-700 ">
-                    {
-                        blogCategory.map((item, index) => (<Link
-                            href={"/blog/" + item.url as Route}
-                            key={index}
-                            className={"flex items-center gap-1 py-2 px-1  hover:bg-neutral-100 dark:hover:bg-neutral-700"}>
- 
-                            <span className="py-2.5 px-2 dark:text-white text-xs">{item.name}</span>
-
-                        </Link>))
-                    }
+                <div className="flex flex-col divide-y divide-neutral-200 dark:divide-neutral-700 bg-white dark:bg-black/20">
+                    {categoryList && categoryList.map((item) => (
+                        <div key={item.id} className="">
+                            <Checkbox
+                                name={item.name}
+                                label={item.name}
+                                className="p-4 xl:p-5 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                                defaultChecked={selectedFilters["category"]?.includes(item.id + "")}
+                                onChange={(checked) => handleFilterChange("category", item.id + "", checked)}
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
-    </>)
-}
+    );
+};
+
+export default BlogCategory;

@@ -7,7 +7,7 @@ export const findNewsByUrl = async <T extends ServerResponse<NewsResponse>>
         .then((res) => res?.data?.result.data)
 };
 export const getNewsPaginated = async <T extends ServerResponse<NewsListingResponse>>
-(page:number) => {
-    return axios.get<T, SuccessResponseType<T>>("news/paginated?page="+page)
+(page:number,filter:string="") => {
+    return axios.get<T, SuccessResponseType<T>>("news/paginated?page="+page+"&"+filter)
         .then((res) => res?.data?.result?.data)
 };

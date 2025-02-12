@@ -19,6 +19,7 @@ const Listing = ({ response }: { response }) => {
     const observer = useRef<IntersectionObserver | null>(null);
     const lastElementRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
+    const [filter, setFilter] = useState<string>("");
     const [page, setPage] = useState<number>(1);
 
     const {
@@ -28,9 +29,9 @@ const Listing = ({ response }: { response }) => {
         isFetchingNextPage,
         isSuccess,
     } = useInfiniteQuery(
-        "news",
+        ["news",filter],
         async ({ pageParam = 1 }) => {
-            const result = await getNewsPaginated(pageParam);
+            const result = await getNewsPaginated(pageParam,filter);
             return result.listing;
         },
         {
@@ -76,6 +77,11 @@ const Listing = ({ response }: { response }) => {
         }
     }, [page, router]);
 
+    const handleFilterChange = (filters: string) => {
+        setFilter(filters);
+        setPage(1)
+    };
+
     const allArticles = data?.pages.flatMap((page) => page.data) || [];
     return (
         <div className="nc-BlogPage overflow-hidden relative">
@@ -115,7 +121,7 @@ const Listing = ({ response }: { response }) => {
                                     </div>
                                 </div>
                                 <div className="flex-1 flex flex-col gap-10 ">
-                                    <BlogCategory blogCategory={response.category.data} />
+                                    <BlogCategory categoryList={response.category.data} changeFilter={handleFilterChange} />
                                     <BlogLastPost blogs={response.lastPost.data} />
                                 </div>
                             </div>
