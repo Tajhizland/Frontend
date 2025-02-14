@@ -7,7 +7,7 @@ import { BrandListingResponse } from "@/services/types/brand";
 import { findBrandByUrl } from "@/services/api/shop/brand";
 import CategoryCircleCard from "@/components/CircleCard/CategoryCircleCard";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
-import {CgScrollH} from "react-icons/cg";
+import {CgScrollH, CgSwap} from "react-icons/cg";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 import Link from "next/link";
 import {Route} from "next";
@@ -135,8 +135,8 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
                             }
                         </div>
                         <div className={"flex justify-center border-b lg:hidden"}>
-                            <CgScrollH className={" w-8 h-8 text-neutral-400"}/>
-                        </div>
+                            <CgSwap className={" w-8 h-8 text-neutral-400"}/>
+                         </div>
                     </div>
                     <main>
                     {/* LOOP ITEMS */}

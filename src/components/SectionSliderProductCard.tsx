@@ -84,30 +84,45 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
           hasNextPrev
           href={"/product/discounted"}
         >
-          {heading || `New Arrivals`}
+          {heading  }
         </Heading>
-        <div className="glide__track" data-glide-el="track"  style={{direction:"rtl"}}>
-            <ul className="glide__slides">
-                {data && data.map((item, index) => (
-                    <li key={index} className={`glide__slide ${itemClassName}`}>
-                        <ProductCard2 data={item.product}/>
-                    </li>
-                ))}
-                <li className={`glide__slide   `}>
-                    <Link href={"/product/discounted"} className="block relative group">
-                        <div className="relative rounded-2xl overflow-hidden h-[310px] md:h-[410px]">
-                            <div className="h-[410px] bg-neutral-100/70  dark:bg-black/20"></div>
-                            <div className="absolute inset-y-6 inset-x-10  flex flex-col items-center justify-center">
-                                <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">
-                                    <IoIosArrowDropleftCircle className={"w-10 h-10 text-slate-900 dark:text-white"} />
-                                    <span className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
-                                </div>
-                             </div>
-                        </div>
-                    </Link>
-                </li>
-            </ul>
-        </div>
+          <div className={"bg-[#fcb415] p-5 rounded-2xl relative"}>
+              <div className={"bg-[#fcb415] rounded-t-3xl absolute -top-20 px-10 py-7 right-0"}>
+                  <h2 className={"font-bold text-lg"}>محصولات پر تخفیف</h2>
+                  <div>
+                      <Link href={"/product/discounted"} className="block relative group">
+                          <div className="flex items-center relative gap-x-2">
+                              <span className="text-sm   font-semibold whitespace-nowrap text-slate-800 ">نمایش همه  </span>
+                              <IoIosArrowDropleftCircle className={"w-4 h-4 text-slate-800 "} />
+                          </div>
+                      </Link>
+                  </div>
+              </div>
+              <div className="glide__track " data-glide-el="track"  style={{direction:"rtl"}}>
+
+                  <ul className="glide__slides  flex-grow flex items-center">
+                      {data && data.map((item, index) => (
+                          <li key={index} className={`glide__slide  rounded-3xl overflow-hidden ${itemClassName}`}>
+                              <ProductCard2 data={item.product}/>
+                          </li>
+                      ))}
+                      <li className={`glide__slide   `}>
+                          <Link href={"/product/discounted"} className="block relative group">
+                              <div className="relative rounded-2xl overflow-hidden h-[325px]  sm:h-[480px] md:h-[400px] lg:h-[485px]">
+                                  <div className="h-[490px] bg-white dark:bg-slate-800 "></div>
+                                  <div className="absolute inset-y-6 inset-x-10  flex flex-col items-center justify-center">
+                                      <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">
+                                          <IoIosArrowDropleftCircle className={"w-10 h-10 text-slate-900 dark:text-white"} />
+                                          <span className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </Link>
+                      </li>
+                  </ul>
+              </div>
+
+          </div>
       </div>
     </div>
   );

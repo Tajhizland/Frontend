@@ -147,7 +147,7 @@ const ProductCard: FC<ProductCardProps> = ({
         <>
             <div
                 style={{direction:"rtl"}}
-                className={`nc-ProductCard relative flex flex-col  bg-transparent ${className}`}
+                className={`nc-ProductCard relative flex flex-col bg-white dark:bg-slate-800 ${className}`}
             >
                 <Link href={"/product/"+data?.url as Route} className="absolute inset-0" aria-label={"product"}></Link>
                 <div
@@ -175,7 +175,7 @@ const ProductCard: FC<ProductCardProps> = ({
                     {renderVariants()}
 
                     <div>
-                        <h2 className="nc-ProductCard__title text-xs sm:text-base font-semibold transition-colors text-right dark:text-white">
+                        <h2 className="nc-ProductCard__title text-xs sm:text-base font-semibold transition-colors text-right dark:text-white  min-h-[2lh] h-[2lh] leading-[1lh] line-clamp-2">
                             {data?.name}
                         </h2>
                     </div>

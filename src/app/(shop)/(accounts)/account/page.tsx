@@ -59,12 +59,10 @@ const AccountPage = () => {
         <div className={`nc-AccountPage dark:text-white `}>
             <div className="space-y-10 sm:space-y-12">
                 {/* HEADING */}
-                <h2 className="text-2xl sm:text-3xl font-semibold">
-                    اطلاعات حساب کاربری
-                </h2>
+
                 <form action={submit}>
 
-                    <div className="flex flex-col md:flex-row">
+                    <div className="flex flex-col md:flex-row items-center md:items-start w-full">
                         <div className="flex-shrink-0 flex items-start">
                             {/* AVATAR */}
                             <div className="relative rounded-full overflow-hidden flex">
@@ -106,7 +104,7 @@ const AccountPage = () => {
                                 />
                             </div>
                         </div>
-                        <div className="flex-grow mt-10 md:mt-0 md:pr-16 max-w-3xl space-y-6">
+                        <div className="flex-grow mt-10 md:mt-0 md:pr-16 max-w-3xl space-y-6  w-full">
                             <div>
                                 <Label>نام کامل</Label>
                                 <Input className="mt-1.5" defaultValue={user?.name} name={"name"}/>

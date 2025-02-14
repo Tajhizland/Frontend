@@ -134,7 +134,6 @@ const AccountOrder = () => {
     return (
         <div className="space-y-10 sm:space-y-12  dark:text-white">
             {/* HEADING */}
-            <h2 className="text-2xl sm:text-3xl font-semibold"> تاریخچه سفارشات معلق</h2>
             {data?.data?.map((item) => (<>
                 {renderOrder(item)
                 }      </>))}

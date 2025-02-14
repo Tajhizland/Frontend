@@ -69,7 +69,6 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
       <div className="pt-14 sm:pt-20">
         <div className="max-w-4xl mx-auto">
           <div className="max-w-2xl">
-            <h2 className="text-3xl xl:text-4xl font-semibold dark:text-white">حساب کاربری</h2>
 
           </div>
           <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>

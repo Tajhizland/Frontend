@@ -30,11 +30,11 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
                                                               }) => {
     return (
         <div
-            className={`nc-SectionSliderProductCard bg-neutral-100/70 dark:bg-black/20  rounded-2xl sm:px-5 py-10 md:mx-10  ${className}`}>
+            className={`nc-SectionSliderProductCard bg-neutral-100/70 dark:bg-black/20  rounded-2xl sm:px-5 py-5 md:mx-10  ${className}`}>
             <div className={"container"}>
                 <div className="flex justify-between items-center ">
                     <h2 className="text-lg md:text-2xl font-semibold">جدید ترین مقاله ها</h2>
-                    <ButtonSecondary href="/news">مشاهده همه مقالات</ButtonSecondary>
+                    <ButtonSecondary className={"hidden sm:block"} href="/news">مشاهده همه مقالات</ButtonSecondary>
                 </div>
                 <ul className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-5">
                     {data && data.map((item, index) => (
@@ -68,6 +68,10 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
                         </li>
                     ))}
                 </ul>
+            </div>
+
+            <div className="flex sm:hidden mt-5 justify-center">
+                <ButtonSecondary href={"/news"}> مشاهده همه مقالات</ButtonSecondary>
             </div>
         </div>
     );

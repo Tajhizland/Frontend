@@ -1,4 +1,5 @@
 "use client"
+"use client"
 import {Fragment, useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {changeActiveAddress, getAllAddress} from "@/services/api/shop/address";
@@ -143,7 +144,6 @@ const AccountOrder = () => {
             {/*</ModalGallery>*/}
             <div className="space-y-10 sm:space-y-12  dark:text-white">
                 {/* HEADING */}
-                <h2 className="text-2xl sm:text-3xl font-semibold">لیست آدرس ها</h2>
                 <div>
                     <ButtonPrimary onClick={()=>{setShowCreateModal(true)}}>
                         افزودن آدرس جدید

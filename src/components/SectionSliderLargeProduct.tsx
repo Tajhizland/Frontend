@@ -93,7 +93,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
                     <Link href={"/special"} className="block relative group">
                         <div className="relative flex flex-col rounded-2xl overflow-hidden">
                             <div className="relative">
-                                <div className="aspect-w-8  aspect-h-12   lg:aspect-h-9 bg-neutral-100/70   dark:bg-black/20"></div>
+                                <div className="aspect-w-8  aspect-h-9 bg-neutral-100/70   dark:bg-black/20"></div>
                                 <div
                                     className="absolute inset-y-6 inset-x-10  flex flex-col items-center justify-center">
                                     <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">

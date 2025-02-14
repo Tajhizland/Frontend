@@ -63,7 +63,6 @@ async function PageHome() {
                 <SectionSliderProductCard
                     data={response.popularProducts.data}
                     subHeading={""}
-                    heading={"محصولات پر تخفیف"}
                 />
                 <SectionTwinBanner banners={response.banners2.data} />
                 <div className="relative py-5 lg:py-10">
@@ -79,7 +78,7 @@ async function PageHome() {
                 <SectionPromo2 logo={response.posters.data[1].image}/>
                 <SectionSliderLargeProduct cardStyle="style2" data={response.specialProducts.data}/>
                 <SectionTwinBanner banners={response.banners4.data} />
-                <div className="relative  lg:py-10">
+                <div className="relative py-5 lg:py-10">
                     <BackgroundSection/>
                     <div>
                         <Heading>
@@ -87,7 +86,7 @@ async function PageHome() {
                         </Heading>
                         {/*<SectionMagazine5 data={response.news.data}/>*/}
                         <SectionMagazine5 data={response.vlogs.data}/>
-                        <div className="flex mt-16 justify-center">
+                        <div className="flex mt-5 sm:mt-10 justify-center">
                             <ButtonSecondary href={"/vlog"}> مشاهده همه ویدیوها</ButtonSecondary>
                         </div>
                     </div>
