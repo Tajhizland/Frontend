@@ -138,6 +138,10 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                     <TinyEditor name={"description"} value={data?.description}/>
                 </div>
                 <div>
+                    <Label>بررسی تخصصی</Label>
+                    <TinyEditor name={"review"} value={data?.review}/>
+                </div>
+                <div>
                     <Label>عنوان سئو</Label>
                     <Textarea name={"seo_title"} defaultValue={data?.meta_title}/>
                 </div>

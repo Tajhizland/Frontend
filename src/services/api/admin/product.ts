@@ -26,6 +26,7 @@ export const store = async <T extends ServerResponse<unknown>>
         guaranty_id: string ,
         guaranty_time: number,
         study: string,
+        review: string,
         categoryId: string,
     }
 ) => {
@@ -47,6 +48,7 @@ export const update = async <T extends ServerResponse<unknown>>
         guaranty_id: string,
         guaranty_time: number,
         study: string,
+        review: string,
         categoryId: string,
 
     }
