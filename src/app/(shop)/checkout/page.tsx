@@ -24,12 +24,14 @@ import {CheckIcon, NoSymbolIcon} from "@heroicons/react/24/outline";
 import {Alert} from "@/shared/Alert/Alert";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import {IoMdDownload} from "react-icons/io";
+import Checkbox from "@/shared/Checkbox/Checkbox";
 
 const CheckoutPage = () => {
     const router = useRouter();
     const [cart] = useCart();
     const [user] = useUser();
 
+    const [acceptRule, setAcceptRule] = useState(false);
     // if (!user) {
     //     router.push("/login");
     // }
@@ -231,6 +233,25 @@ const CheckoutPage = () => {
                         onCloseActive={() => setTabActive("PaymentMethod")}
                     />
                 </div>
+                <div className={"border rounded-2xl flex flex-col w-full gap-5 p-5 bg-slate-100 dark:bg-black/20"}>
+                    <div>
+                        <strong className={"text-sm sm:text-base"}>
+                            شرایط ارسال کالا
+                        </strong>
+                    </div>
+                    <div>
+                        <p className={"text-xs sm:text-sm  text-slate-800 dark:text-white"}>
+                            ۱ . نحوه ارسال کالا پس از پرداخت صورتحساب با هماهنگی و بنا به درخواست خریدار از طریق باربری،
+                            تیپاکس، پست، اسنپ و یا تحویل حضوری درب انبار تجهیزلند امکان‌پذیر می‌باشد
+                        </p>
+                    </div>
+                    <div>
+                        <p className={"text-xs sm:text-sm text-slate-800 dark:text-white"}>
+                            ۲ . هزینه ارسال کالا در استان تهران و حومه توسط کارشناسان تجهیزلند پس از پرداخت صورت حساب
+                            کالا به خریدار اعلام می‌گردد و در کلیه شهرستان‌ها به صورت پس کرایه می‌باشد.
+                        </p>
+                    </div>
+                </div>
             </div>
         );
     };
@@ -392,7 +413,20 @@ const CheckoutPage = () => {
                             </div>
                         </div>
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
-                                       disabled={!allow}>پرداخت</ButtonPrimary>
+                                       disabled={!allow || !acceptRule}>پرداخت</ButtonPrimary>
+
+                        <div className={"flex items-center gap-2 mt-5 justify-center"}>
+                            <Checkbox name={"rule"} onChange={() => {
+                                setAcceptRule(!acceptRule)
+                            }}/>
+                            <p>با
+                                {" "}
+                                <Link className={"text-[#fcb415] font-bold"} href={"/page/rule"}>
+                                    قوانین
+                                </Link>
+                                {" "}
+                                سایت موافقم</p>
+                        </div>
 
                         {
                             !allow &&
