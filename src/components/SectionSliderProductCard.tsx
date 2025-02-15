@@ -39,29 +39,25 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
     const OPTIONS: Partial<Glide.Options> = {
       // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
       direction:"rtl",
-      perView: 4,
+      perView: 4.2,
       gap: 32,
       bound: true,
       breakpoints: {
         1280: {
-          perView: 4 - 1,
+          perView: 3.1,
         },
         1024: {
           gap: 20,
-          perView: 4 - 1,
+          perView: 2.8,
         },
         768: {
           gap: 20,
-          perView: 4 - 2,
+          perView: 2.2,
         },
         640: {
           gap: 10,
-          perView: 2.2,
-        },
-        500: {
-          gap: 10,
-          perView: 1.6,
-        },
+          perView: 1.8,
+        }
       },
     };
     if (!sliderRef.current) return;
@@ -106,18 +102,26 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
                               <ProductCard2 data={item.product}/>
                           </li>
                       ))}
-                      <li className={`glide__slide   `}>
-                          <Link href={"/product/discounted"} className="block relative group">
-                              <div className="relative rounded-2xl overflow-hidden h-[325px]  sm:h-[480px] md:h-[400px] lg:h-[485px]">
-                                  <div className="h-[490px] bg-white dark:bg-slate-800 "></div>
-                                  <div className="absolute inset-y-6 inset-x-10  flex flex-col items-center justify-center">
-                                      <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-10">
-                                          <IoIosArrowDropleftCircle className={"w-10 h-10 text-slate-900 dark:text-white"} />
-                                          <span className="text-sm  lg:text-xl font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
+                      <li className={`glide__slide ${itemClassName}`}>
+                          <div
+                              className={`flex-1 relative w-full h-0 rounded-2xl overflow-hidden group aspect-w-3 aspect-h-5 bg-slate-100  dark:bg-black/20`}
+                          >
+                              <div>
+                                  <div
+                                      className="absolute inset-y-6 inset-x-10 flex flex-col sm:items-center justify-center">
+                                      <div className="flex flex-col items-center justify-center relative gap-y-2 lg:gap-y-5">
+                                          <IoIosArrowDropleftCircle className={"w-5 h-5 md:w-10 md:h-10 text-slate-900 dark:text-white"}/>
+                                          <span
+                                              className="text-xs lg:text-base font-semibold whitespace-nowrap text-neutral-800 dark:text-white">نمایش همه  </span>
                                       </div>
+
                                   </div>
                               </div>
-                          </Link>
+                              <Link
+                                  href={"/brand"}
+                                  className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"
+                              ></Link>
+                          </div>
                       </li>
                   </ul>
               </div>
