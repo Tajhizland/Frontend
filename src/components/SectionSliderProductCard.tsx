@@ -60,7 +60,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
         },
         500: {
           gap: 10,
-          perView: 2.1,
+          perView: 1.6,
         },
       },
     };
@@ -87,12 +87,12 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
           {heading  }
         </Heading>
           <div className={"bg-[#fcb415] p-5 rounded-2xl relative"}>
-              <div className={"bg-[#fcb415] rounded-t-3xl absolute -top-20 px-10 py-7 right-0"}>
-                  <h2 className={"font-bold text-lg"}>محصولات پر تخفیف</h2>
-                  <div>
+              <div className={"bg-[#fcb415] rounded-t-3xl absolute -top-[4.3rem] px-8 py-5 right-0"}>
+                  <h2 className={"font-bold text-sm sm:text-lg"}>محصولات پر تخفیف</h2>
+                  <div className={"mt-1"}>
                       <Link href={"/product/discounted"} className="block relative group">
                           <div className="flex items-center relative gap-x-2">
-                              <span className="text-sm   font-semibold whitespace-nowrap text-slate-800 ">نمایش همه  </span>
+                              <span className="text-xs sm:text-sm font-semibold whitespace-nowrap text-slate-800 ">نمایش همه  </span>
                               <IoIosArrowDropleftCircle className={"w-4 h-4 text-slate-800 "} />
                           </div>
                       </Link>
