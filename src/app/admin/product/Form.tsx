@@ -23,7 +23,7 @@ interface productForm {
 }
 
 type optionType = {
-    value: number ;
+    value: number;
     label: string;
 };
 export default function Form({data, submit, setColorCount, colorCount}: productForm) {
@@ -63,15 +63,15 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
     ];
 
 
-    const renderCategoryDefaultValue=()=>{
-      return   options?.filter((option) => data?.category_ids.includes(option.value))
+    const renderCategoryDefaultValue = () => {
+        return options?.filter((option) => data?.category_ids.includes(option.value))
     }
-    const renderGuarantyDefaultValue=()=>{
-      return   guarantyOptions?.filter((option) => data?.guaranty_ids.includes(option.value))
+    const renderGuarantyDefaultValue = () => {
+        return guarantyOptions?.filter((option) => data?.guaranty_ids.includes(option.value))
     }
     const categoryDefaultValue = useMemo(() => renderCategoryDefaultValue(), [options]);
     const guarantyDefaultValue = useMemo(() => renderGuarantyDefaultValue(), [guarantyOptions]);
-     return (<>
+    return (<>
 
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
@@ -106,7 +106,8 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                 <div>
                     <Label>گارانتی</Label>
                     {guarantyOptions && guarantyDefaultValue != undefined &&
-                        <MultiSelect name={"guaranty_id"} options={guarantyOptions} defaultValue={guarantyDefaultValue}/>}
+                        <MultiSelect name={"guaranty_id"} options={guarantyOptions}
+                                     defaultValue={guarantyDefaultValue}/>}
 
                 </div>
                 <div>
@@ -147,10 +148,8 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                 </div>
                 <div>
                     <Label>توضیحات سئو</Label>
-                    <Textarea name={"meta_description"}>{data?.meta_description}</Textarea>
-
+                    <Textarea name={"meta_description"} defaultValue={data?.meta_description}/>
                 </div>
-
             </div>
             <hr className={"my-5"}/>
 
