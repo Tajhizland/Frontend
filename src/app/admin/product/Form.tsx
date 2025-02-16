@@ -143,11 +143,11 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                 </div>
                 <div>
                     <Label>عنوان سئو</Label>
-                    <Textarea name={"seo_title"} defaultValue={data?.meta_title}/>
+                    <Textarea name={"meta_title"} defaultValue={data?.meta_title}/>
                 </div>
                 <div>
                     <Label>توضیحات سئو</Label>
-                    <Textarea name={"description"}>{data?.meta_description}</Textarea>
+                    <Textarea name={"meta_description"}>{data?.meta_description}</Textarea>
 
                 </div>
 
