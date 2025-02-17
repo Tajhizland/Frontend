@@ -25,6 +25,7 @@ import {Alert} from "@/shared/Alert/Alert";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import {IoMdDownload} from "react-icons/io";
 import Checkbox from "@/shared/Checkbox/Checkbox";
+import {findActive} from "@/services/api/shop/address";
 
 const CheckoutPage = () => {
     const router = useRouter();
@@ -45,6 +46,12 @@ const CheckoutPage = () => {
         }
     });
 
+    const {data: address} = useQuery({
+        queryKey: ['address'],
+        queryFn: () => findActive(),
+        staleTime: 5000,
+
+    });
 
     async function payment() {
         let response = await paymentRequest();
@@ -252,6 +259,29 @@ const CheckoutPage = () => {
                         </p>
                     </div>
                 </div>
+                {address && <div className={"border rounded-2xl flex flex-col w-full gap-5 p-5 bg-slate-100 dark:bg-black/20"}>
+                    <div>
+                        <p className={"text-xs sm:text-sm  text-slate-800 dark:text-white"}>
+                            سفارش شما پس از پرداخت در بازه زمانی
+                            {" "}
+                            {renderMaxDeliveryDelay()}
+                            {" "}
+                            روز کاری ، با توجه به شرایط ارسال اعلامی به ادرس
+                            {" "}
+                            {address?.province?.name} ,
+                            {" "}
+                            {address?.city?.name} ,
+                            {" "}
+                            {address?.address}
+                            {" "}
+                            به کد پستی
+                            {" "}
+                            {address?.zip_code}
+                            {" "}
+                            ارسال خواد شد.
+                        </p>
+                    </div>
+                </div>}
             </div>
         );
     };

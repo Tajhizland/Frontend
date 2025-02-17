@@ -5,7 +5,7 @@ import React, {FC} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getProvince} from "@/services/api/shop/province";
 import {getCity} from "@/services/api/shop/city";
 import { findActive, update} from "@/services/api/shop/address";
@@ -24,13 +24,13 @@ const ShippingAddress: FC<Props> = ({
                                         onCloseActive,
                                         onOpenActive,
                                     }) => {
-
+    const queryClient = useQueryClient();
     const {data: address} = useQuery({
         queryKey: ['address'],
         queryFn: () => findActive(),
         staleTime: 5000,
         onSuccess: data => {
-            changeProvince(data?.province_id);
+            changeProvince(data?.province_id??1);
         }
     });
 
@@ -62,7 +62,10 @@ const ShippingAddress: FC<Props> = ({
             address: e.get("address") as string,
             mobile: e.get("mobile") as string,
         })
-        toast.success(response?.message as string);
+        if(response) {
+            queryClient.invalidateQueries(['address']);
+            toast.success(response?.message as string);
+        }
     }
 
 
