@@ -87,7 +87,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
                     {heading}
                 </Heading>
                 <div className={"bg-[#fcb415] p-5 rounded-2xl relative"}>
-                    <div className={"bg-[#fcb415] rounded-t-3xl absolute -top-[4.3rem] px-8 py-5 right-0"}>
+                    <div className={"bg-[#fcb415] rounded-t-3xl absolute -top-[4.3rem] px-8 py-5 right-0 sm:right-[40%]"}>
                         <h2 className={"font-bold text-sm sm:text-lg"}>محصولات پر تخفیف</h2>
                         <div className={"mt-1"}>
                             <Link href={"/product/discounted"} className="block relative group">
