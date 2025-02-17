@@ -90,7 +90,7 @@ const Listing = ({ response }: { response }) => {
                     <div className="flex flex-col lg:flex-row">
                         <div className="w-full xl:pr-14">
                             <div
-                                className={`relative w-full aspect-w-9 aspect-h-2 rounded-2xl overflow-hidden group border`}
+                                className={`relative w-full aspect-w-2 sm:aspect-w-3  lg:aspect-w-5 aspect-h-1 rounded-2xl overflow-hidden group border`}
                             >
                                 {
                                     response.banner.data.map((item, index) => (

@@ -34,10 +34,12 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                             <td className="px-4 py-2 text-center">{item.productColor.color_name}</td>
                             <td className="px-4 py-2 text-center">{item.count}</td>
                             <td className="px-4 py-2 text-center">
-                                <Prices price={item.price} priceClass="mx-auto" contentClass="border-orange-500" />
+                                <Prices price={item.price} priceClass="mx-auto" contentClass="border-orange-500"
+                                        image={false}/>
                             </td>
                             <td className="px-4 py-2 text-center">
-                                <Prices price={item.discount} priceClass="mx-auto" contentClass="border-orange-500" />
+                                <Prices price={item.discount} priceClass="mx-auto" contentClass="border-orange-500"
+                                        image={false}/>
                             </td>
                             <td className="px-4 py-2 text-center">{item.guaranty?.name}</td>
                             <td className="px-4 py-2 text-center">
@@ -47,10 +49,12 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                                     }
                                     priceClass="mx-auto"
                                     contentClass="border-orange-500"
+                                    image={false}
                                 />
                             </td>
                             <td className="px-4 py-2 text-center">
-                                <Prices price={item.final_price * item.count} priceClass="mx-auto" contentClass="border-orange-500" />
+                                <Prices price={item.final_price * item.count} priceClass="mx-auto"
+                                        contentClass="border-orange-500" image={false}/>
                             </td>
                         </tr>
                     ))}
@@ -65,7 +69,7 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                             <div className="flex items-center gap-x-4 justify-center">
                                 <span>قیمت محصولات :</span>
                                 <span>
-                    <Prices price={order?.price} priceClass="mx-auto " />
+                    <Prices price={order?.price} priceClass="mx-auto " image={false}/>
                   </span>
                             </div>
                         </th>
@@ -77,7 +81,7 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                             <div className="flex items-center gap-x-4 justify-center">
                                 <span>هزینه ارسال :</span>
                                 <span>
-                    <Prices price={order?.delivery_price} priceClass="mx-auto " />
+                    <Prices price={order?.delivery_price} priceClass="mx-auto " image={false}/>
                   </span>
                             </div>
                         </th>
@@ -89,7 +93,7 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                             <div className="flex items-center gap-x-4 justify-center">
                                 <span>مجموع :</span>
                                 <span>
-                    <Prices price={order?.final_price} priceClass="mx-auto " />
+                    <Prices price={order?.final_price} priceClass="mx-auto " image={false}/>
                   </span>
                             </div>
                         </th>
@@ -103,7 +107,7 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                 {order.orderItems?.data.map((item) => (
                     <div key={item.id} className="bg-white px-4 pb-4 rounded-lg shadow-md border">
                         <p className="font-bold text-center py-2">{item.product.name}</p>
-                        <hr />
+                        <hr/>
                         <div className="mt-2 text-sm">
                             <div className="grid grid-cols-2 gap-2">
                                 <span className="font-semibold">رنگ:</span>
@@ -113,12 +117,12 @@ export default function FactorTable({order}: { order: OrderResponse }) {
 
                                 <span className="font-semibold">قیمت:</span>
                                 <span>
-                  <Prices price={item.price} />
+                  <Prices price={item.price} image={false}/>
                 </span>
 
                                 <span className="font-semibold">تخفیف:</span>
                                 <span>
-                  <Prices price={item.discount} />
+                  <Prices price={item.discount} image={false}/>
                 </span>
 
                                 <span className="font-semibold">گارانتی:</span>
@@ -134,12 +138,13 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                                   : GuarantyPrice(item.price)
                               : 0
                       }
+                      image={false}
                   />
                 </span>
 
                                 <span className="font-semibold">قیمت نهایی:</span>
                                 <span>
-                  <Prices price={item.final_price * item.count} />
+                  <Prices price={item.final_price * item.count} image={false}/>
                 </span>
                             </div>
                         </div>
@@ -147,4 +152,5 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                 ))}
             </div>
         </div>
-    );}
+    );
+}

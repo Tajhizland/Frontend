@@ -62,7 +62,7 @@ export default function PreFactorPage() {
                     <div
                         className={"border p-5 m-5  border-slate-400 rounded-lg bg-neutral-50"}>
                         <Image
-                            className={`lg:h-10 w-auto max-w-40 mx-auto `}
+                            className={`lg:h-auto w-auto max-w-40 mx-auto `}
                             src={logoLight}
                             alt="Logo"
                             priority

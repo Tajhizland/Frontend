@@ -127,8 +127,9 @@ export default function Listing({ response, search }: { response: any, search?: 
         <div className="nc-PageCollection dark:bg-neutral-900">
             <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
                 <div className="space-y-10 lg:space-y-14">
+
                     <div
-                        className={`relative w-full aspect-w-9 aspect-h-2 rounded-2xl overflow-hidden group border`}
+                        className={`relative w-full aspect-w-2 sm:aspect-w-3  lg:aspect-w-5 aspect-h-1 rounded-2xl overflow-hidden group border`}
                     >
                         {
                             response.banner.data.map((item, index) => (
@@ -142,6 +143,7 @@ export default function Listing({ response, search }: { response: any, search?: 
                                 </Link>))
                         }
                     </div>
+
                     <main>
                         {/* TABS FILTER */}
                         <VlogFilter changeFilter={handleFilterChange} defualtSearch={search} />
