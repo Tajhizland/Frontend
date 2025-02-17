@@ -72,7 +72,8 @@ export default function PreFactorPage() {
                         </p>
                         <h1 className={"font-bold  my-1 text-center "}>پیش فاکتور</h1>
                         <h2 className={" my-2 "}> مشخصات فروشنده </h2>
-                        <div className={"border border-slate-400 grid grid-cols-3 text-sm gap-5 pt-3 pb-5 px-2 rounded-lg"}>
+                        <div
+                            className={"border border-slate-400 grid grid-cols-3 text-sm gap-5 pt-3 pb-5 px-2 rounded-lg"}>
                             <div className={"flex gap-2"}>
                                 <span>فروشنده:</span>
                                 <span>تجهیزلند</span>
@@ -88,6 +89,30 @@ export default function PreFactorPage() {
                         </div>
                         <div className={"my-10 overflow-x-auto border border-slate-400 rounded-lg"}>
                             <PreFactorTable cart={cart}/>
+                        </div>
+                        <div className={"flex flex-col gap-1 text-slate-800 text-sm"}>
+                            <p>
+                                این پیش فاکتور صرفاً جنبه اطلاع رسانی داشته و به عنوان سند مالی با تعهد فروش محسوب نمی
+                                شود و هیچ ارزش قانونی ندارد.
+                            </p>
+                            <p>
+                                این پیش فاکتور فقط تا 48 ساعت پس از صدور آن اعتبار دارد.
+
+                            </p>
+                            <p>
+                                قیمت ها ممکن است به دلیل نوسانات بازار تغییر کنند، لذا پیش از تایید نهایی لطفاً از به
+                                روز بودن قیمت ها اطمینان حاصل کنید.
+
+                            </p>
+                            <p>
+                                در صورت اتمام موجودی کالا مبلغ پرداختی مسترد یا محصول جایگزین پیشنهاد خواهد شد.
+
+                            </p>
+                            <p>
+                                هزینه و نحوه ارسال کالا پس از تایید و پرداخت نهایی به اطلاع خریدار خواهد رسید.
+
+                            </p>
+
                         </div>
                     </div>
                 </div>
