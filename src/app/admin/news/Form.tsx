@@ -9,6 +9,7 @@ import {NewsResponse} from "@/services/types/news";
 import TinyEditor from "@/shared/Editor/TinyEditor";
 import {useQuery} from "react-query";
 import {getList} from "@/services/api/admin/blogCategory";
+import SunEditors from "@/shared/Editor/SunEditors";
 
 interface Form {
     data?: NewsResponse;
@@ -64,7 +65,7 @@ export default function Form({ data, submit  }: Form) {
 
                 <div>
                     <Label>محتوا بلاگ</Label>
-                    <TinyEditor name={"content"} value={data?.content} />
+                    <SunEditors name={"content"} value={data?.content} />
                 </div>
 
             </div>

@@ -7,6 +7,7 @@ import React from "react";
 import Textarea from "@/shared/Textarea/Textarea";
 import {LandingResponse} from "@/services/types/landing";
 import TinyEditor from "@/shared/Editor/TinyEditor";
+import SunEditors from "@/shared/Editor/SunEditors";
 
 interface Form {
     data?: LandingResponse;
@@ -42,7 +43,7 @@ export default function Form({ data, submit  }: Form) {
             <div className={"grid grid-cols-1 gap-5"}>
                 <div>
                     <Label>توضیحات  </Label>
-                    <TinyEditor name={"description"} value={data?.description} />
+                    <SunEditors name={"description"} value={data?.description} />
                 </div>
             </div>
             <hr className={"my-5"}/>

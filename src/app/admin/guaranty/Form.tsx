@@ -9,6 +9,7 @@ import {GuarantyResponse} from "@/services/types/guaranty";
 import Uploader from "@/shared/Uploader/Uploader";
 import TinyEditor from "@/shared/Editor/TinyEditor";
 import NcImage from "@/shared/NcImage/NcImage";
+import SunEditors from "@/shared/Editor/SunEditors";
 
 interface Form {
     data?: GuarantyResponse;
@@ -60,7 +61,7 @@ export default function Form({ data, submit  }: Form) {
 
                 <div>
                     <Label>توضیحات</Label>
-                    <TinyEditor name={"description"} value={data?.description} />
+                    <SunEditors name={"description"} value={data?.description} />
                 </div>
 
             </div>

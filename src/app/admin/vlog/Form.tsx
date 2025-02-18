@@ -10,6 +10,7 @@ import {VlogResponse} from "@/services/types/vlog";
 import {useQuery} from "react-query";
 import {findById, getList} from "@/services/api/admin/vlogCategory";
 import NcImage from "@/shared/NcImage/NcImage";
+import SunEditors from "@/shared/Editor/SunEditors";
 
 interface Form {
     data?: VlogResponse;
@@ -66,7 +67,7 @@ export default function Form({ data, submit  }: Form) {
 
                 <div>
                     <Label>توضیحات ولاگ</Label>
-                    <TinyEditor name={"description"} value={data?.description} />
+                    <SunEditors name={"description"} value={data?.description} />
                 </div>
 
             <div>

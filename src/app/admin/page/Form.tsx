@@ -5,8 +5,8 @@ import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
 import Uploader from "@/shared/Uploader/Uploader";
-import TinyEditor from "@/shared/Editor/TinyEditor";
 import {PageResponse} from "@/services/types/page";
+import SunEditors from "@/shared/Editor/SunEditors";
 
 interface Form {
     data?: PageResponse;
@@ -45,7 +45,7 @@ export default function Form({ data, submit  }: Form) {
 
                 <div>
                     <Label>محتوا صفحه</Label>
-                    <TinyEditor name={"content"} value={data?.content} />
+                    <SunEditors name={"content"} value={data?.content} />
                 </div>
 
             </div>

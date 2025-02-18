@@ -4,16 +4,15 @@ import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Textarea from "@/shared/Textarea/Textarea";
-import React, {useMemo, useState} from "react";
+import React, {useMemo } from "react";
 import {categoryList} from "@/services/api/admin/category"
 import {useQuery} from "react-query";
 import {brandList} from "@/services/api/admin/brand";
-import FormComponent from "@/components/Form/Product/ColorForm";
 import {ProductResponse} from "@/services/types/product";
 import TinyEditor from "@/shared/Editor/TinyEditor";
-import Uploader from "@/shared/Uploader/Uploader";
 import {guarantyLists} from "@/services/api/admin/guaranty";
 import MultiSelect from "@/shared/Select/MultiSelect";
+import SunEditors from "@/components/Ckeditor/CkEditor";
 
 interface productForm {
     data?: ProductResponse;
@@ -135,11 +134,12 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
 
                 <div>
                     <Label>توضیحات محصول</Label>
-                    <TinyEditor name={"description"} value={data?.description}/>
+                    <SunEditors  name={"description"} value={data?.description} />
+                    {/*<TinyEditor name={"description"} value={data?.description}/>*/}
                 </div>
                 <div>
                     <Label>بررسی تخصصی</Label>
-                    <TinyEditor name={"review"} value={data?.review}/>
+                    <SunEditors name={"review"} value={data?.review}/>
                 </div>
                 <div>
                     <Label>عنوان سئو</Label>
