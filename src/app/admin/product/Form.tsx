@@ -12,7 +12,7 @@ import {ProductResponse} from "@/services/types/product";
 import TinyEditor from "@/shared/Editor/TinyEditor";
 import {guarantyLists} from "@/services/api/admin/guaranty";
 import MultiSelect from "@/shared/Select/MultiSelect";
-import SunEditors from "@/components/Ckeditor/CkEditor";
+import SunEditors from "@/shared/Editor/SunEditors";
 
 interface productForm {
     data?: ProductResponse;
