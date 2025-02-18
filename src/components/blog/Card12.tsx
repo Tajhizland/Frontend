@@ -39,7 +39,7 @@ const Card12: FC<Card12Props> = ({className = "h-full", data}) => {
             </video>
 
 
-            <div className=" mt-8 pr-10 flex flex-col">
+            <div className=" mt-8  flex flex-col">
                 <h2
                     className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors text-lg sm:text-2xl`}
                 >
