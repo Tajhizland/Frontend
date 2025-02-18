@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import logo from "@/images/tajhizland/logo.png"
 import avatar from "@/images/avatars/Image-16.png"
 import Image from "next/image";
@@ -18,8 +18,9 @@ export default function Navbar({sidebarControl}:{sidebarControl:any}) {
             <div className="px-3 py-3 lg:px-5 lg:pl-3">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center justify-start rtl:justify-end">
-
-                       <Logo imageClassName={"h-8 lg:h-10"} />
+                        <div className={" w-32 md:w-48  h-full"}>
+                            <Logo/>
+                        </div>
                         <button
                             data-drawer-target="logo-sidebar"
                             data-drawer-toggle="logo-sidebar"
@@ -45,7 +46,7 @@ export default function Navbar({sidebarControl}:{sidebarControl:any}) {
                         </button>
                     </div>
 
-                    <div className="flex items-center gap-x-10 ml-10">
+                    <div className="flex items-center gap-x-2 sm:gap-x-10 ">
                         <div>
                             <Bell/>
                         </div>

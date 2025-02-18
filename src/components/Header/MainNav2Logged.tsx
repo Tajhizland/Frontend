@@ -115,7 +115,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
 
                     {/*</div>*/}
 
-                    <div className="relative w-full " >
+                    <div className="relative w-full ">
                         <label
                             htmlFor="search-input"
                             className="text-neutral-500 dark:text-neutral-300"
@@ -124,7 +124,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             <Input
                                 className="border "
                                 id="search-input"
-                                 onChange={searchHandle}
+                                onChange={searchHandle}
                                 ref={inputRef}
                                 type="text"
                                 placeholder="جستجو"
@@ -193,7 +193,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                                         className={"text-sm text-neutral-800 font-bold dark:text-white "}> {item.name}  </span>
                                                 </div>
                                                 <div>
-                                                <FaExternalLinkAlt className={" text-neutral-400"}/>
+                                                    <FaExternalLinkAlt className={" text-neutral-400"}/>
                                                 </div>
                                             </div>
 
@@ -245,12 +245,15 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     {/*    <MenuBar/>*/}
                     {/*</div>*/}
 
-                    <div className=" flex-1  flex items-center flex-col justify-center lg:gap-1 !flex-shrink-0  ml-1">
-                        <Logo className="!flex-shrink-0"/>
-                        <small
-                            className="text-slate-600 dark:text-slate-100 lg:text-xs sm:text-[8px] text-[6px]  block whitespace-nowrap">
-                            مرکز تخصصی تجهیزات کافه و رستوران
-                        </small>
+                    {/*<div className=" flex-1  flex items-center flex-col justify-center lg:gap-1 !flex-shrink-0  ml-1">*/}
+                    {/*    <Logo className="!flex-shrink-0"/>*/}
+                    {/*    <small*/}
+                    {/*        className="text-slate-600 dark:text-slate-100 lg:text-xs sm:text-[8px] text-[6px]  block whitespace-nowrap">*/}
+                    {/*        مرکز تخصصی تجهیزات کافه و رستوران*/}
+                    {/*    </small>*/}
+                    {/*</div>*/}
+                    <div className={"w-full ml-1 flex-1"}>
+                        <Logo/>
                     </div>
 
                     <div className="lg:flex-[2] hidden lg:flex items-center justify-center mx-4">
@@ -260,7 +263,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     {/*<Logo className="flex-shrink-0  w-full" imageClassName={"!w-full"} />*/}
                     {/*</div>*/}
 
-                    <div className="lg:hidden flex items-center justify-center ml-1 w-full">
+                    <div className="lg:hidden flex items-center justify-center ml-1 w-full flex-[2]">
                         <SearchBar/>
                     </div>
 

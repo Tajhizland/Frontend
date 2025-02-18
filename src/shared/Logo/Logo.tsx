@@ -16,18 +16,19 @@ export interface LogoProps {
 const Logo: React.FC<LogoProps> = ({
                                        img = logoDark,
                                        imgLight = logoLight,
-                                       className = "flex-shrink-0",
+                                       className = "flex-shrink-0 ",
                                        imageClassName = "flex-shrink-0",
                                    }) => {
     return (
+        <div className={"w-full max-w-32 md:max-w-48  flex items-center"}>
         <Link
             href="/"
-            className={`ttnc-logo inline-block text-slate-600 ${className}`}
+            className={`ttnc-logo inline-block text-slate-600  aspect-h-1 aspect-w-4 sm:aspect-w-5 w-full h-0 ${className}`}
         >
 
             {logoLight && (
                 <Image
-                    className={`hidden lg:h-10 w-auto sm:block dark:hidden ${imageClassName} `}
+                    className={`hidden  h-full w-full sm:block dark:hidden ${imageClassName} `}
                     src={logoLight}
                     alt="Logo"
                     priority
@@ -35,7 +36,7 @@ const Logo: React.FC<LogoProps> = ({
             )}
             {logoLighSmall && (
                 <Image
-                    className={`block lg:h-10 w-auto sm:hidden dark:hidden ${imageClassName} `}
+                    className={`block  h-full w-full sm:hidden dark:hidden ${imageClassName} `}
                     src={logoLighSmall}
                     alt="Logo"
                     priority
@@ -43,7 +44,7 @@ const Logo: React.FC<LogoProps> = ({
             )}
             {logoDark && (
                 <Image
-                    className={`hidden  lg:h-10 w-auto sm:dark:block ${imageClassName}`}
+                    className={`hidden  h-full w-full sm:dark:block ${imageClassName}`}
                     src={logoDark}
                     alt="Logo-Light"
                     priority
@@ -51,13 +52,14 @@ const Logo: React.FC<LogoProps> = ({
             )}
             {logoDarkSmall && (
                 <Image
-                    className={`hidden dark:block  lg:h-10 w-auto sm:dark:hidden  ${imageClassName}`}
+                    className={`hidden dark:block h-full w-full sm:dark:hidden  ${imageClassName}`}
                     src={logoDarkSmall}
                     alt="Logo-Light"
                     priority
                 />
             )}
         </Link>
+        </div>
     );
 };
 

@@ -102,19 +102,19 @@ const SearchBar: React.FC<MenuBarProps> = () => {
                             readOnly
                             type="text"
                             placeholder="جستجو"
-                            sizeClass="pr-8 !py-1 "
+                            sizeClass="pr-10 !py-[0.3rem] "
                             rounded="rounded-full"
                         />
                         <ButtonCircle
                             className="absolute right-1 top-1/2 transform -translate-y-1/2"
-                            size=" w-6 h-6"
+                            size=" w-7 h-7"
                         >
                             <i className="las la-arrow-right text-xl"></i>
                         </ButtonCircle>
                         <span
-                            className="absolute left-1 top-1/2 transform -translate-y-1/2 text-2xl  ">
+                            className="absolute left-2 top-1/2 transform -translate-y-1/2 text-2xl  ">
                 <svg
-                    className="h-4 w-4"
+                    className="h-5 w-5"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
