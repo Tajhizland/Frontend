@@ -48,6 +48,17 @@ const errorHandler = (error: AxiosError) => {
     if (error.response?.status === 401) {
         toast.error("خطای دسترسی: دوباره وارد شوید");
     }
+    if (error.response?.status === 400) {
+        //@ts-ignore
+        toast.error(error?.response?.data?.message as string);
+        return ;
+
+    }
+    if (error.response?.status === 422) {
+        //@ts-ignore
+        toast.error(error?.response?.data?.message as string);
+        return ;
+    }
     throw error;
 };
 
@@ -91,5 +102,6 @@ axios.interceptors.response.use(
     },
     errorHandler // مدیریت خطا در پاسخ
 );
+
 
 export default axios;

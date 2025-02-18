@@ -55,7 +55,7 @@ async function PageHome() {
                     <SectionHero2Mobile data={response.mobileSliders.data}/>
                 </div>
             </div>
-            <div className="py-5 dark:bg-neutral-900">
+            <div className="  dark:bg-neutral-900">
                 <DiscoverMoreSlider data={response.banners.data}/>
             </div>
 

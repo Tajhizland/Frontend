@@ -85,3 +85,9 @@ body {
   display: block;
   width: 100%;
 }
+
+
+.description * {
+    font-family: myFont, myFont Fallback !important;
+
+}

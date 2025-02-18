@@ -21,7 +21,7 @@ const TextExpander2: React.FC<TextExpanderProps> = ({ text }) => {
   return (
     <div className="mx-auto">
       <div
-        className={`relative text-gray-800  dark:text-white transition-all duration-300 ${
+        className={`description relative text-gray-800  dark:text-white transition-all duration-300 ${
           isExpanded ? 'line-clamp-none' : 'line-clamp-3'
         }`}
       >

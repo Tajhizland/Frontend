@@ -103,7 +103,7 @@ const PageCollection = ({ response, url }: { response: BrandListingResponse, url
                 href:"brand/"+response.brand.url
             }]} />
                 <div
-                    className={`relative w-full aspect-w-9 aspect-h-2 rounded-2xl overflow-hidden group border !m-0`}
+                    className={`relative w-full aspect-w-2 sm:aspect-w-3  lg:aspect-w-5 aspect-h-1 rounded-2xl overflow-hidden group border`}
                 >
                     {
                         response.banner.data.map((item,index)=>(

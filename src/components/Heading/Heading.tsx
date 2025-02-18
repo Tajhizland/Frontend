@@ -31,7 +31,7 @@ const solutions = [
 const Heading: React.FC<HeadingProps> = ({
   children,
   desc = "",
-  className = "mb-5 lg:mb-14 text-neutral-900 dark:text-neutral-50",
+  className = "mb-5 lg:mb-7 text-neutral-900 dark:text-neutral-50",
   isCenter = false,
   hasNextPrev = false,
   fontClass = "text-base md:text-2xl font-semibold",

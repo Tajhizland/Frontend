@@ -33,20 +33,20 @@ export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
                             <td className="px-4 py-2 text-center">{item.color.title}</td>
                             <td className="px-4 py-2 text-center">{item.count}</td>
                             <td className="px-4 py-2 text-center">
-                                <Prices price={item.color.price} priceClass="mx-auto" contentClass="border-orange-500"/>
+                                <Prices price={item.color.price} priceClass="mx-auto" contentClass="border-orange-500" image={false}/>
                             </td>
                             <td className="px-4 py-2 text-center">
                                 <Prices price={item.color.discountedPrice} priceClass="mx-auto"
-                                        contentClass="border-orange-500"/>
+                                        contentClass="border-orange-500" image={false}/>
                             </td>
                             <td className="px-4 py-2 text-center">
                                 <Prices price={item.guaranty.free ? 0 : GuarantyPrice(item.color.price)}
-                                        priceClass="mx-auto" contentClass="border-orange-500"/>
+                                        priceClass="mx-auto" contentClass="border-orange-500" image={false}/>
                             </td>
                             <td className="px-4 py-2 text-center">
                                 <Prices
                                     price={item.color.discountedPrice * item.count + (item.guaranty.free ? 0 : GuarantyPrice(item.color.price) ?? 0)}
-                                    priceClass="mx-auto" contentClass="border-orange-500"/>
+                                    priceClass="mx-auto" contentClass="border-orange-500" image={false}/>
                             </td>
                         </tr>
                     ))}
