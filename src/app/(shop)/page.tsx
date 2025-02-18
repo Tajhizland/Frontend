@@ -59,11 +59,14 @@ async function PageHome() {
                 <DiscoverMoreSlider data={response.banners.data}/>
             </div>
 
-            <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10  dark:bg-neutral-900">
+            <div className="container bg-[#fcb415] sm:bg-white my-5 lg:my-10 px-0 md:px-[1rem] ">
                 <SectionSliderProductCard
                     data={response.popularProducts.data}
                     subHeading={""}
                 />
+            </div>
+            <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10  dark:bg-neutral-900">
+
                 <SectionTwinBanner banners={response.banners2.data} />
                 <div className="relative py-5 lg:py-10">
                     <BackgroundSection/>

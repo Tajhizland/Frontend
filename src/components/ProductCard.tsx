@@ -106,12 +106,12 @@ const ProductCard: FC<ProductCardProps> = ({
     const renderVariants = () => {
 
         return (
-            <div className="flex gap-1.5">
+            <div className="flex gap-1 md:gap-1.5">
                 {data && data.colors && data?.colors.data.map((color, index) => (
                     <div
                         key={index}
                         onClick={() => setVariantActive(index)}
-                        className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${variantActive == index ? "shadow-lg" : ""}`}
+                        className={`relative w-4 h-4  lg:w-6 lg:h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${variantActive == index ? "shadow-lg" : ""}`}
                         title={color.color_name}
                     >
                         <div style={{backgroundColor: color.color_code}}
@@ -171,11 +171,11 @@ const ProductCard: FC<ProductCardProps> = ({
 
                 </div>
 
-                <div className="space-y-4 px-2.5 pt-5 pb-2.5">
+                <div className="space-y-1 md:space-y-2 px-2.5 pt-1 sm:pt-4 pb-2.5">
                     {renderVariants()}
 
                     <div>
-                        <h2 className="nc-ProductCard__title text-xs sm:text-base font-semibold transition-colors text-right dark:text-white  min-h-[2lh] h-[2lh] leading-[1lh] line-clamp-2">
+                        <h2 className="nc-ProductCard__title text-xs md:text-sm xl:text-base font-semibold transition-colors text-right dark:text-white  min-h-[2lh] h-[2lh] leading-[0.7lh] line-clamp-2">
                             {data?.name}
                         </h2>
                     </div>
