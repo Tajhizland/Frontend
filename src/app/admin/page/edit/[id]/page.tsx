@@ -24,7 +24,7 @@ export default  function Page()
                 id:Number(id),
                 title: e.get("title") as string,
                 url: e.get("url") as string,
-                status: e.get("published") as string,
+                status: e.get("status") as string,
                  image: e.get("image") as File,
                 content: e.get("content") as string,
             }

@@ -16,7 +16,7 @@ export interface Card13Props {
 const Card13: FC<Card13Props> = ({ className = "" , data }) => {
 
   return (
-    <div className={`nc-Card13 relative flex ${className}`} data-nc-id="Card13">
+    <div className={`nc-Card13 relative flex flex-col-reverse sm:flex-row ${className}`} data-nc-id="Card13">
       <div className="flex flex-col h-full py-2">
         <h2 className={`nc-card-title block font-semibold text-base dark:text-white`}>
           <Link
@@ -34,10 +34,8 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
 
           </span>
         </span>
-          <span className="mt-4 block sm:hidden text-sm text-slate-500 ">
-          {data.created_at}
-        </span>
-        <div className="mt-auto hidden sm:block">
+
+        <div className="mt-auto ">
           <PostCardMeta date={data.created_at} author={data.author} />
         </div>
       </div>
@@ -45,7 +43,7 @@ const Card13: FC<Card13Props> = ({ className = "" , data }) => {
         <Link
             href={"/vlog/" + data.url as Route}
             aria-label={"vlog"}
-            className="flex flex-col w-full mr-5"
+            className="flex flex-col w-full sm:mr-5"
         >
             <div className="relative rounded-xl overflow-hidden group">
               <NcImage

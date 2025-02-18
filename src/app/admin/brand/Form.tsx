@@ -9,6 +9,7 @@ import Uploader from "@/shared/Uploader/Uploader";
 import {BrandResponse} from "@/services/types/brand";
 import TinyEditor from "@/shared/Editor/TinyEditor";
 import NcImage from "@/shared/NcImage/NcImage";
+import SunEditors from "@/shared/Editor/SunEditors";
 
 interface Form {
     data?: BrandResponse;
@@ -47,7 +48,7 @@ export default function Form({ data, submit  }: Form) {
 
                 <div>
                     <Label>توضیحات برند</Label>
-                    <TinyEditor name={"description"} value={data?.description} />
+                    <SunEditors name={"description"} value={data?.description} />
 
                 </div>
 

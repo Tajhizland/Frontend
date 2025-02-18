@@ -36,7 +36,7 @@ const SectionSliderNews: FC<SectionSliderProductCardProps> = ({
                     <h2 className="text-lg md:text-2xl font-semibold">جدید ترین مقاله ها</h2>
                     <ButtonSecondary className={"hidden sm:block"} href="/news">مشاهده همه مقالات</ButtonSecondary>
                 </div>
-                <ul className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-5">
+                <ul className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-5 mt-5">
                     {data && data.map((item, index) => (
                         <li key={index} className={`  ${itemClassName}`}>
 

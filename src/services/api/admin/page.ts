@@ -40,7 +40,7 @@ export const update = async <T extends ServerResponse<unknown>>
     formData.append('id', params.id.toString());
     formData.append('title', params.title);
     formData.append('url', params.url);
-    formData.append('published', params.status.toString());
+    formData.append('status', params.status.toString());
     formData.append('content', params.content);
 
     if (params.image) {
