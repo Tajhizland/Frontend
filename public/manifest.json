@@ -1,0 +1,37 @@
+{
+    "name": "تجهیزلند",
+    "short_name": "تجهیزلند",
+    "description": "مرکز تخصصی تجهیزات کافه و رستوران",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#fcb415",
+    "icons": [
+        {
+            "src": "/icons/logo.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/logo.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/logo.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
