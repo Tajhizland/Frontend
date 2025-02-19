@@ -14,7 +14,7 @@ export  default  function Profile()
         <div>
             <button
                 type="button"
-                className="flex whitespace-nowrap overflow-hidden text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                className="flex whitespace-nowrap overflow-hidden text-sm rounded-full focus:ring-4 focus:ring-gray-300 "
                 aria-expanded="false"
                 onClick={toggleDropdown}
             >
