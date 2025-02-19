@@ -3,7 +3,7 @@ import {findLandingByUrl} from "@/services/api/shop/landing";
 
 import {Metadata} from "next";
 //@ts-ignore
-import logo from "@/images/tajhizland/logo.png";
+import logo from "@/images/lightLogo.png";
 import {stripHTML} from "@/hooks/StripHtml";
 import SectionHeroLanding from "@/components/Landing/SectionHeroLanding";
 import LandingCategorySlider from "@/components/Landing/LandingCategorySlider";

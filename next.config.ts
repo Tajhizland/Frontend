@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type {NextConfig} from "next";
 import withPWA from "@ducanh2912/next-pwa";
 
 const nextConfig: NextConfig = {
@@ -7,14 +7,14 @@ const nextConfig: NextConfig = {
             {
                 protocol: 'https',
                 hostname: 'tajhizland.com',
-            },  {
+            }, {
                 protocol: 'https',
                 hostname: 'c778665.parspack.net',
             },
             {
                 protocol: 'https',
                 hostname: "images.pexels.com",
-            },{
+            }, {
                 protocol: 'https',
                 hostname: "images.unsplash.com",
             },
@@ -22,8 +22,10 @@ const nextConfig: NextConfig = {
     },
 
 };
-export default withPWA({
-    dest: "public",
-    register: true,
+export default nextConfig;
 
-})(nextConfig);
+// export default withPWA({
+//     dest: "public",
+//     register: true,
+//
+// })(nextConfig);
