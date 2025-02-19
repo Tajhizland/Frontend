@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import withPWA from '@ducanh2912/next-pwa';
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -28,9 +27,5 @@ const nextConfig: NextConfig = {
         ignoreDuringBuilds: true,
     },
 };
-export default withPWA({
-    dest: "public",
-    register: true,
 
-})(nextConfig);
-// export default nextConfig;
+export default nextConfig;

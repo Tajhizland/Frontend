@@ -18,6 +18,12 @@ export default function AdminLayout({
     return (
         <>
             <html dir={"rtl"}>
+            <head>
+                <link rel="manifest" href="/manifest.json"/>
+                <meta name="theme-color" content="#fff"/>
+                <link rel="apple-touch-icon" href="/icons/logo.png"/>
+                <meta name="apple-mobile-web-app-status-bar" content="#fff"/>
+            </head>
             <body className={[myFont.className ].join(" ")}>
                   {children}
             </body>
