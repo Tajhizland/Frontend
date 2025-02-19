@@ -3,9 +3,12 @@
     "short_name": "تجهیزلند",
     "description": "مرکز تخصصی تجهیزات کافه و رستوران",
     "start_url": "/",
+    "scope": "/",
+    "scope_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#fcb415",
+    "purpose": "any maskable",
     "icons": [
         {
             "src": "/icons/logo.png",
