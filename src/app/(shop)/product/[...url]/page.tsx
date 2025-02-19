@@ -3,22 +3,22 @@ import {
     ClockIcon,
     SparklesIcon,
 } from "@heroicons/react/24/outline";
-import IconDiscount from "@/components/IconDiscount";
-import LikeSaveBtns from "@/components/LikeSaveBtns";
-import AccordionInfo from "@/components/AccordionInfo";
+
  import {findProductByUrl} from "@/services/api/shop/product";
-import ProductSidebar from "@/app/(shop)/product/ProductSidebar";
-import ProductImage from "../ProductImage";
-import ProductComment from "../ProductComment";
-import SectionSliderProductCard2 from "@/components/SectionSliderProductCard2";
+import ProductSidebar from "@/components/Product/ProductSidebar";
+import ProductImage from "../../../../components/Product/ProductImage";
+import ProductComment from "../../../../components/Product/ProductComment";
 import {Metadata} from "next";
 import Script from "next/script";
 import {stripHTML} from "@/hooks/StripHtml";
 import TextExpander from "@/shared/TextExpander/TextExpander";
-import SectionVideo from "@/components/SectionVideo";
-import {ProductResponse} from "@/services/types/product";
-import Policy from "../Policy";
-import {productSitemap} from "@/services/api/shop/sitemap";
+ import {ProductResponse} from "@/services/types/product";
+import Policy from "../../../../components/Product/Policy";
+import SectionLinkedProductSlider from "@/components/Section/SectionLinkedProductSlider";
+import IconDiscount from "@/components/Icon/IconDiscount";
+import LikeSaveBtns from "@/shared/Button/LikeSaveBtns";
+import Accordion from "@/components/Accordion/Accordion";
+import SectionVideo from "@/components/Section/SectionVideo";
 
 
 interface ProductPageProps {
@@ -136,7 +136,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         }
         return null;
     };
-    const renderOption = () => { 
+    const renderOption = () => {
         const options = product.productOptions.data
             .map((item) =>(item.value && item.value!=""&&item.value!=" " )? `<tr class=""><td class="py-4 text-neutral-600">${item.option_title}</td><td class="text-right text-black border-b"> ${item.value}</td></tr>`:"")
             .join("");
@@ -166,7 +166,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 {/*  */}
                  {/*  */}
                 <TextExpander text={product.description} />
-                <AccordionInfo
+                <Accordion
                     data={[
                         {
                             name: "مشخصات محصول",
@@ -175,7 +175,6 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                         },
                         {
                             name: "بررسی تخصصی",
-                            render:true ,
                             content: renderSection2()
                         }
                     ]}/>
@@ -234,7 +233,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     <ProductComment comments={product.comments.data} productId={product.id}/>
 
                     <hr className="border-slate-200 dark:border-slate-700"/>
-                     <SectionSliderProductCard2
+                     <SectionLinkedProductSlider
                         heading="محصولات مرتبط"
                         subHeading=""
                         headingFontClassName="text-2xl font-semibold"

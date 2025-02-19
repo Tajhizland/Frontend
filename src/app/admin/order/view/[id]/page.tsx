@@ -6,7 +6,7 @@ import {findById} from "@/services/api/admin/order";
 import {useParams} from "next/navigation";
 import {useQuery} from "react-query";
 import NcImage from "@/shared/NcImage/NcImage";
-import Prices from "@/components/Prices";
+import Prices from "@/components/Price/Prices";
 import {OrderStatus} from "@/app/admin/order/orderStatus";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 

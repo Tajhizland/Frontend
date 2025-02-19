@@ -1,4 +1,4 @@
-export const GuarantyPrice = (price: number) => {
+export const GuarantyPrice = (price: number):number => {
 
     if (price <= 10000000 && price >= 0) {
         return price * 1.1 / 100;
@@ -27,5 +27,6 @@ export const GuarantyPrice = (price: number) => {
     if (price > 20000000) {
         return price * 0.3 / 100;
     }
+    return  price;
 
 };

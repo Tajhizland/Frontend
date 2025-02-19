@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
+import withPWAInit from "@ducanh2912/next-pwa";
 
 const nextConfig: NextConfig = {
-  /* config options here */
     images: {
         remotePatterns: [
             {
@@ -20,12 +20,10 @@ const nextConfig: NextConfig = {
             },
         ],
     },
-    typescript: {
-        ignoreBuildErrors: true,
-    },
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
-};
 
-export default nextConfig;
+};
+export default withPWAInit({
+    dest: "public",
+    register: true,
+
+})(nextConfig);

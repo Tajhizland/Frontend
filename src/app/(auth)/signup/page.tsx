@@ -70,7 +70,7 @@ const PageSignUp = () => {
                     <div className="max-w-md mx-auto space-y-6 ">
 
                         {/* FORM */}
-                        {step == 1 && <form className="grid grid-cols-1 gap-6" action={sendCode} method="post">
+                        {step == 1 && <form className="grid grid-cols-1 gap-6" action={sendCode} >
                             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
                شماره ‌همراه
@@ -85,7 +85,7 @@ const PageSignUp = () => {
                             <ButtonPrimary type="submit">ادامه</ButtonPrimary>
                         </form>}
 
-                        {step == 2 && <form className="grid grid-cols-1 gap-6" action={verifyCode} method="post">
+                        {step == 2 && <form className="grid grid-cols-1 gap-6" action={verifyCode} >
                             <label className="block">
                                 <div className="flex flex-col gap-y-2">
               <span className="text-neutral-800 dark:text-neutral-200">
@@ -128,7 +128,7 @@ const PageSignUp = () => {
                             <ButtonPrimary type="submit">ادامه</ButtonPrimary>
                         </form>}
 
-                        {step == 3 && <form className="grid grid-cols-1 gap-6" action={setPassword} method="post">
+                        {step == 3 && <form className="grid grid-cols-1 gap-6" action={setPassword} >
                             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 کلمه عبور

@@ -1,6 +1,5 @@
 "use client"
 import {AddressResponse} from "@/services/types/address";
-import Label from "@/components/Label/Label";
 import Select from "@/shared/Select/Select";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -10,6 +9,7 @@ import {toast} from "react-hot-toast";
 import {useMutation, useQuery} from "react-query";
 import {getProvince} from "@/services/api/shop/province";
 import {getCity} from "@/services/api/shop/city";
+import Label from "@/shared/Label/Label";
 
 export default function AddressForm({address}: { address?: AddressResponse }) {
     async function saveAddress(e: FormData) {

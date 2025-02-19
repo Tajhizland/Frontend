@@ -6,11 +6,11 @@ import {findById} from "@/services/api/admin/order";
 import {useParams} from "next/navigation";
 import {useQuery} from "react-query";
 import NcImage from "@/shared/NcImage/NcImage";
-import Prices from "@/components/Prices";
 import {OrderStatus} from "@/app/admin/order/orderStatus";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {toast} from "react-hot-toast";
 import {accept, reject} from "@/services/api/admin/onHoldOrder";
+import Prices from "@/components/Price/Prices";
 
 export default function Page() {
     const {id} = useParams();

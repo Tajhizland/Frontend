@@ -8,9 +8,8 @@ import {useQuery} from "react-query";
 import {getCart} from "@/services/api/shop/cart";
 import PreFactorTable from "@/components/Factor/PreFactorTable";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Logo from "@/shared/Logo/Logo";
 import Image from "next/image";
-import logoLight from "@/images/tajhizland/logo.png";
+import logoLight from "@/images/lightLogo.png";
 
 export default function PreFactorPage() {
     const [cart] = useCart();

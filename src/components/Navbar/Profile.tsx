@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import avatar from "@/images/avatars/Image-16.png";
+import avatar from "@/images/avatar.svg";
 import {useState} from "react";
 
 export  default  function Profile()

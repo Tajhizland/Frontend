@@ -1,11 +1,7 @@
-import {
-  Popover,
-  PopoverButton,
-  PopoverPanel,
-  Transition,
-} from "@/app/(shop)/headlessui";
+
 import Input from "@/shared/Input/Input";
 import React, { FC } from "react";
+import {Popover, PopoverButton, PopoverPanel, Transition} from "@headlessui/react";
 
 interface Props {
   className?: string;
@@ -64,7 +60,7 @@ const SearchDropdown: FC<Props> = ({ className = "" }) => {
                   static
                   className="absolute right-0 z-10 w-screen max-w-sm mt-3"
                 >
-                  <form action="" method="POST">
+                  <form>
                     <Input
                       ref={inputRef}
                       type="search"

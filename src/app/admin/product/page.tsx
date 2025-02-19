@@ -39,10 +39,11 @@ export default function Page() {
                 description: e.description,
                 meta_description: e.meta_description,
                 meta_title: e.meta_title,
-                guaranty_id: JSON.stringify(e.guaranty_id,)  as string,
+                guaranty_id: JSON.stringify(e.guaranty_id,) as string,
                 study: e.study,
-                guaranty_time:e.guaranty_time,
-                categoryId: JSON.stringify(e.category_ids)  as string,
+                guaranty_time: e.guaranty_time,
+                categoryId: JSON.stringify(e.category_ids) as string,
+                review: e.review,
             }
         )
         toast.success(response?.message as string)
@@ -81,7 +82,7 @@ export default function Page() {
                     pathname: 'product/edit/' + value,
                 };
             }
-        },  {
+        }, {
             label: <BsCoin className={"text-black w-5 h-5"} title={"ویرایش قیمت"}/>,
             type: "action",
             colorClass: "bg-white text-white border border-slate-900 outline-none ",
@@ -92,7 +93,7 @@ export default function Page() {
         },
     ]
     const {data: colors, isLoading: isLoading} = useQuery({
-        queryKey: [`color-info`, productId , modal],
+        queryKey: [`color-info`, productId, modal],
         queryFn: () => findById(productId ?? 0),
         staleTime: 5000,
         enabled: !!productId
@@ -125,14 +126,15 @@ export default function Page() {
                                 <div>
                                     <label>وضعیت رنگ</label>
                                     <Select name={`color[${index}][status]`}>
-                                        <option value={1} selected={item.status==1} >فعال</option>
-                                        <option value={0} selected={item.status==0}>غیر فعال</option>
-                                        <option value={2} selected={item.status==2}>محدودیت</option>
+                                        <option value={1} selected={item.status == 1}>فعال</option>
+                                        <option value={0} selected={item.status == 0}>غیر فعال</option>
+                                        <option value={2} selected={item.status == 2}>محدودیت</option>
                                     </Select>
                                 </div>
                                 <div>
                                     <label>زمان آماده سازی</label>
-                                    <Input name={`color[${index}][delivery_delay]`} defaultValue={item.delivery_delay??0}/>
+                                    <Input name={`color[${index}][delivery_delay]`}
+                                           defaultValue={item.delivery_delay ?? 0}/>
                                 </div>
                             </div>
                         </div>

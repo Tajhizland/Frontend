@@ -3,9 +3,9 @@ import {getNewsPaginated} from "@/services/api/shop/news";
 import {stripHTML} from "@/hooks/StripHtml";
 import {Metadata} from "next";
 //@ts-ignore
-import logo from "@/images/tajhizland/logo.png";
+import logo from "@/images/lightLogo.png";
 import Script from "next/script";
-import Listing from "@/app/(shop)/news/(blog)/Listing";
+import BlogListing from "@/components/Linsting/BlogListing";
 
 interface BlogPageProps {
     searchParams: Promise<{ page?: string }>;
@@ -65,7 +65,7 @@ const BlogPage = async (props: BlogPageProps) => {
             <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
-            <Listing response={data} />
+            <BlogListing response={data} />
         </>
     );
 };

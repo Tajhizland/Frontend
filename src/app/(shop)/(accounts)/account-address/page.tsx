@@ -1,14 +1,11 @@
 "use client"
-"use client"
 import {Fragment, useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {changeActiveAddress, getAllAddress} from "@/services/api/shop/address";
 import {AddressResponse} from "@/services/types/address";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {Switch} from "@headlessui/react";
-import {FaPencil} from "react-icons/fa6";
 import AddressForm from "@/components/Address/AddressForm";
-import ModalGallery from "@/components/ModalGallery";
 import NcModal from "@/shared/NcModal/NcModal";
 
 const AccountOrder = () => {

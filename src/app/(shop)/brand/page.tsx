@@ -1,9 +1,9 @@
 import React, {Fragment} from "react";
 import {getBrandList} from "@/services/api/shop/brand";
-import CardCategory2 from "@/components/CardCategories/CardCategory2";
 import {Metadata} from "next";
 //@ts-ignore
-import logo from "@/images/tajhizland/logo.png";
+import logo from "@/images/lightLogo.png"
+import BrandCard from "@/components/Card/BrandCard";
 
 export const dynamic = 'force-dynamic';
 
@@ -45,11 +45,10 @@ const Page = async () => {
                             className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10  items-center"   style={{ gridAutoRows: "1fr" }} >
                             {
                                 response.map((item, index) => (<Fragment key={index}>
-                                    <CardCategory2
+                                    <BrandCard
                                         featuredImage={item.image}
                                         name={item.name}
                                         url={item.url}
-                                        desc={""}
                                     />
                                 </Fragment>))
                             }

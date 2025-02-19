@@ -1,6 +1,6 @@
 "use client";
 
-import { Route } from "@/routers/types";
+import { Route } from "next";
 import { me } from "@/services/api/auth/me";
 import { setUser } from "@/services/globalState/GlobalState";
 import { getCookie } from "cookies-next";

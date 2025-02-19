@@ -1,5 +1,5 @@
 "use client"
-import Label from "@/components/Label/Label";
+import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -8,8 +8,6 @@ import {categoryList, deleteImage} from "@/services/api/admin/category"
 import {useQuery} from "react-query";
 import Uploader from "@/shared/Uploader/Uploader";
 import {CategoryResponse} from "@/services/types/category";
-import TinyEditor from "@/shared/Editor/TinyEditor";
-import MenuCard from "@/components/MenuCard/MenuCard";
 import {TrashIcon} from "@heroicons/react/24/solid";
 import {toast} from "react-hot-toast";
 import Image from "next/image";

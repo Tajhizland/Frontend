@@ -1,9 +1,9 @@
 "use client";
-import ProductCard2 from "@/components/ProductCard";
 import {useInfiniteQuery} from "react-query";
 import {getFavorite} from "@/services/api/shop/favorite";
 import React, {useRef, useEffect} from "react";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
+import ProductCard2 from "@/components/Card/ProductCard2";
 
 const AccountSavelists = () => {
     const observer = useRef<IntersectionObserver | null>(null);

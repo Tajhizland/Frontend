@@ -5,9 +5,7 @@ import {
     PopoverButton,
     PopoverPanel,
     Transition,
-} from "@/app/(shop)/headlessui";
-import Prices from "@/components/Prices";
-import { Product, PRODUCTS } from "@/data/data";
+} from "@headlessui/react";
 import { getCart, removeCartItem } from "@/services/api/shop/cart";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
@@ -15,11 +13,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "react-query";
 import { CartResponse } from "@/services/types/cart";
-import { reduxRemoveFromCart, setCart, useCart, useGlobalState, useUser } from "@/services/globalState/GlobalState";
+import { reduxRemoveFromCart, setCart, useCart,  useUser } from "@/services/globalState/GlobalState";
 import { toast } from "react-hot-toast";
-import { useEffect } from "react";
 import { Route } from "next";
 import { GuarantyPrice } from "@/hooks/GuarantyPrice";
+import Prices from "@/components/Price/Prices";
 
 export default function CartDropdown() {
 

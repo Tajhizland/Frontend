@@ -4,7 +4,7 @@ import Input from "@/shared/Input/Input";
 import { useState } from "react";
 import FilterItemForm from "@/app/admin/category/filter/[id]/FilterItemForm";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
-import Label from "@/components/Label/Label";
+import Label from "@/shared/Label/Label";
 import Select from "@/shared/Select/Select";
 
 export default function FilterForm({ filter, index }: { filter?: FilterResponse, index: number }) {

@@ -1,8 +1,8 @@
  import {getSpecialProductsPaginate} from "@/services/api/shop/product";
- import Listing from "@/app/(shop)/special/Listing";
+ import SpecialListing from "@/components/Linsting/SpecialListing";
  import {Metadata} from "next";
  //@ts-ignore
- import logo from "@/images/tajhizland/logo.png";
+ import logo from "@/images/lightLogo.png";
 
 interface PageProps {
     searchParams: Promise<{
@@ -37,6 +37,6 @@ export default async function Page(props: PageProps) {
     const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
     let response = await getSpecialProductsPaginate(page);
     return (<>
-        <Listing response={response}/>
+        <SpecialListing response={response}/>
     </>)
 }

@@ -8,9 +8,8 @@ import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import FactorTable from "@/components/Factor/FactorTable";
-import Logo from "@/shared/Logo/Logo";
 import Image from "next/image";
-import logoLight from "@/images/tajhizland/logo.png";
+import logoLight from "@/images/lightLogo.png";
 
 export default function Page() {
     const {id} = useParams();

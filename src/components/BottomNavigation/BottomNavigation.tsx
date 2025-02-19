@@ -2,11 +2,11 @@
 import Link from "next/link";
 import { FaNewspaper, FaRegUser} from "react-icons/fa";
 import {useUser} from "@/services/globalState/GlobalState";
-import MenuBar from "@/shared/MenuBar/MenuBar";
 import React from "react";
 import {SlBasket} from "react-icons/sl";
 import {HiOutlineHome} from "react-icons/hi";
 import {MdOutlineOndemandVideo} from "react-icons/md";
+import MenuBar from "@/components/MenuBar/MenuBar";
 
 export default function BottomNavigation() {
     const [user] = useUser();

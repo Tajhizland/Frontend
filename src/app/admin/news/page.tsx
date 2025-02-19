@@ -22,6 +22,7 @@ export default function Page() {
                 published: e.published,
                 image: null ,
                 content: e.content,
+                categoryId:e.category_id
             }
         )
         toast.success(response?.message as string)

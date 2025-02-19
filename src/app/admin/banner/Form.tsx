@@ -1,5 +1,5 @@
 "use client"
-import Label from "@/components/Label/Label";
+import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";

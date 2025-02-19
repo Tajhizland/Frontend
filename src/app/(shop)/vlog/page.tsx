@@ -1,8 +1,7 @@
 import {getVlogPaginated} from "@/services/api/shop/vlog"
-import Listing from "@/app/(shop)/vlog/Listing";
+import VlogListing from "@/components/Linsting/VlogListing";
 import {Metadata} from "next";
-//@ts-ignore
-import logo from "@/images/tajhizland/logo.png";
+import logo from "@/images/lightLogo.png";
 
 interface PageProps {
     searchParams: Promise<{
@@ -39,6 +38,6 @@ export default async function Page(props: PageProps) {
     const response = await getVlogPaginated(page,search?("filter[search]="+search):"");
 
     return (<>
-        <Listing response={response} search={search}/>
+        <VlogListing response={response} search={search}/>
     </>)
 }

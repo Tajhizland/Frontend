@@ -1,11 +1,9 @@
 "use client";
 
-import NcInputNumber from "@/components/NcInputNumber";
-import Prices from "@/components/Prices";
+
 import {useMemo, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import PaymentMethod from "./PaymentMethod";
-import ShippingAddress from "./ShippingAddress";
+import ShippingAddress from "../../../components/Checkout/ShippingAddress";
 import Image from "next/image";
 import Link from "next/link";
 import {useQuery} from "react-query";
@@ -26,6 +24,8 @@ import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import {IoMdDownload} from "react-icons/io";
 import Checkbox from "@/shared/Checkbox/Checkbox";
 import {findActive} from "@/services/api/shop/address";
+import CartController from "@/components/CartController/CartController";
+import Prices from "@/components/Price/Prices";
 
 const CheckoutPage = () => {
     const router = useRouter();
@@ -171,7 +171,7 @@ const CheckoutPage = () => {
 
                     <div className="flex mt-auto pt-4 items-start justify-between text-sm flex-col sm:flex-row gap-1">
                         <div className=" sm:block text-center relative">
-                            <NcInputNumber className="relative z-10"
+                            <CartController className="relative z-10"
                                            defaultValue={item.count}
                                            increaseHandle={() => {
                                                increaseHandle(item.color.id as number, item.guaranty.id as number)
@@ -187,12 +187,6 @@ const CheckoutPage = () => {
                         {!item.hasStock
                             ? renderStatusSoldout()
                             : renderStatusInstock()}
-                        {/*<a*/}
-                        {/*    href="##"*/}
-                        {/*    className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "*/}
-                        {/*>*/}
-                        {/*    <span>حذف</span>*/}
-                        {/*</a>*/}
                     </div>
                 </div>
             </div>
@@ -202,20 +196,6 @@ const CheckoutPage = () => {
     const renderLeft = () => {
         return (
             <div className="space-y-8">
-                {/* <div id="ContactInfo" className="scroll-mt-24">
-                    <ContactInfo
-                        isActive={tabActive === "ContactInfo"}
-                        onOpenActive={() => {
-                            setTabActive("ContactInfo");
-                            handleScrollToEl("ContactInfo");
-                        }}
-                        onCloseActive={() => {
-                            setTabActive("ShippingAddress");
-                            handleScrollToEl("ShippingAddress");
-                        }}
-                    />
-                </div> */}
-
                 <div id="ShippingAddress" className="scroll-mt-24">
                     <ShippingAddress
                         isActive={tabActive === "ShippingAddress"}
@@ -229,17 +209,6 @@ const CheckoutPage = () => {
                         }}
                     />
                 </div>
-
-                {/*<div id="PaymentMethod" className="scroll-mt-24">*/}
-                {/*    <PaymentMethod*/}
-                {/*        isActive={tabActive === "PaymentMethod"}*/}
-                {/*        onOpenActive={() => {*/}
-                {/*            setTabActive("PaymentMethod");*/}
-                {/*            handleScrollToEl("PaymentMethod");*/}
-                {/*        }}*/}
-                {/*        onCloseActive={() => setTabActive("PaymentMethod")}*/}
-                {/*    />*/}
-                {/*</div>*/}
                 <div className={"border rounded-2xl flex flex-col w-full gap-5 p-5 bg-slate-100 dark:bg-black/20"}>
                     <div>
                         <strong className={"text-sm sm:text-base"}>

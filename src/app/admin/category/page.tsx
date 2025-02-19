@@ -23,7 +23,8 @@ export default function Page() {
                 status: e.status,
                 image: null ,
                 description: e.description,
-                parent_id:e.parent_id
+                parent_id:e.parent_id,
+                type:e.type
             }
         )
         toast.success(response?.message as string)

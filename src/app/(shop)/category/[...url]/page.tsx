@@ -1,10 +1,10 @@
 import React from "react";
 import {findCategoryByUrl} from "@/services/api/shop/category";
-import Listing from "@/app/(shop)/category/[...url]/Listing";
 import {Metadata} from "next";
 import {stripHTML} from "@/hooks/StripHtml";
 import Script from "next/script";
 import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
+import CategoryListing from "@/components/Linsting/CategoryListing";
 
 interface CategoryPageProps {
     params: Promise<{
@@ -80,7 +80,7 @@ const PageCollection = async (props: CategoryPageProps) => {
             <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
-            <Listing response={response} breadcrump={renderBreadcrump()} url={decodeURIComponent(params.url.join("/"))}/>
+            <CategoryListing response={response} breadcrump={renderBreadcrump()} url={decodeURIComponent(params.url.join("/"))}/>
         </>
     );
 };

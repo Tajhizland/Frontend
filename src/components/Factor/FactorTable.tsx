@@ -1,6 +1,6 @@
-import Prices from "@/components/Prices";
-import {OrderResponse} from "@/services/types/order";
+ import {OrderResponse} from "@/services/types/order";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
+ import Prices from "@/components/Price/Prices";
 
 export default function FactorTable({order}: { order: OrderResponse }) {
     return (

@@ -1,9 +1,9 @@
 import React from "react";
 import {findBrandByUrl} from "@/services/api/shop/brand";
-import Listing from "@/app/(shop)/brand/[...url]/Listing";
 import {Metadata} from "next";
 import {stripHTML} from "@/hooks/StripHtml";
 import Script from "next/script";
+import BrandListing from "@/components/Linsting/BrandListing";
 
 interface CategoryPageProps {
     params: Promise<{
@@ -78,7 +78,7 @@ const PageCollection = async (props: CategoryPageProps) => {
             <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
-            <Listing response={response} url={decodeURIComponent(params.url.join("/"))}/>
+            <BrandListing response={response} url={decodeURIComponent(params.url.join("/"))}/>
         </>
     );
 };

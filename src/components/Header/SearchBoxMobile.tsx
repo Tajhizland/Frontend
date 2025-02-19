@@ -2,9 +2,8 @@
 
 import React, { createRef, useState } from "react";
 import { useMutation } from "react-query";
-import { FaBorderAll, FaExternalLinkAlt, FaTimes } from "react-icons/fa";
+import { FaBorderAll, FaExternalLinkAlt } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Route } from "next";
 import { PiSmileySad } from "react-icons/pi";
@@ -12,8 +11,8 @@ import { search } from "@/services/api/shop/search";
 import { useRouter } from "next/navigation";
 import Logo from "@/shared/Logo/Logo";
 import Image from "next/image";
-import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 import {MdOutlineOndemandVideo} from "react-icons/md";
+import ButtonClose from "@/shared/Button/ButtonClose";
 
 export interface NavMobileProps {
     onClickClose?: () => void;

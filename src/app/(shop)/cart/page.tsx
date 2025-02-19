@@ -1,7 +1,6 @@
 "use client"
 import { NoSymbolIcon, CheckIcon } from "@heroicons/react/24/outline";
-import NcInputNumber from "@/components/NcInputNumber";
-import Prices from "@/components/Prices";
+
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,9 +15,11 @@ import {
     useCart,
     useUser
 } from "@/services/globalState/GlobalState";
-import { useMemo } from "react";
+import {Fragment, useMemo} from "react";
 import { Alert } from "@/shared/Alert/Alert";
 import { GuarantyPrice } from "@/hooks/GuarantyPrice";
+import Prices from "@/components/Price/Prices";
+import CartController from "@/components/CartController/CartController";
 
 const CartPage = () => {
     const [cart] = useCart();
@@ -84,7 +85,7 @@ const CartPage = () => {
             guarantyPrice=GuarantyPrice(item.color.price)??0;
         }
         return (
-            <>
+            <Fragment key={index}>
                 {/*<head>*/}
                 {/*    <title>سبد خرید</title>*/}
                 {/*</head>*/}
@@ -138,7 +139,7 @@ const CartPage = () => {
                                 </div>
 
                                 <div className=" block text-center relative">
-                                    <NcInputNumber className="relative z-10"
+                                    <CartController className="relative z-10"
                                         defaultValue={item.count}
                                         increaseHandle={() => {
                                             increaseHandle(item.color.id as number, item.guaranty.id as number)
@@ -161,16 +162,10 @@ const CartPage = () => {
                                 ? renderStatusSoldout()
                                 : renderStatusInstock()}
 
-                            {/*<a*/}
-                            {/*    href="##"*/}
-                            {/*    className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "*/}
-                            {/*>*/}
-                            {/*    <span>حذف</span>*/}
-                            {/*</a>*/}
                         </div>
                     </div>
                 </div>
-            </>
+            </Fragment>
         );
     };
 

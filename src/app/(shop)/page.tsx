@@ -1,27 +1,21 @@
-import React from "react";
-import SectionHowItWork from "@/components/SectionHowItWork/SectionHowItWork";
-import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
-import SectionPromo1 from "@/components/SectionPromo1";
-import SectionHero2 from "@/components/SectionHero/SectionHero2";
-import SectionSliderLargeProduct from "@/components/SectionSliderLargeProduct";
-import SectionSliderProductCard from "@/components/SectionSliderProductCard";
-import DiscoverMoreSlider from "@/components/DiscoverMoreSlider";
-import SectionGridMoreExplore from "@/components/SectionGridMoreExplore/SectionGridMoreExplore";
-import SectionPromo2 from "@/components/SectionPromo2";
-import SectionSliderCategories from "@/components/SectionSliderCategories/SectionSliderCategories";
-import Heading from "@/components/Heading/Heading";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
+import {Metadata} from "next";
+import logo from "@/images/lightLogo.png"
 import {homePage} from "@/services/api/shop/homePage";
-//@ts-ignore
-import logo from "@/images/tajhizland/logo.png";
-import {Metadata } from "next";
-import SectionSliderNews from "@/components/SectionSliderNews";
-import SectionMagazine5 from "@/components/blog/SectionMagazine5";
-import SectionHero2Mobile from "@/components/SectionHero/SectionHero2Mobile";
-import SectionTwinBanner from "@/components/Banner/SectionTwinBanner";
-
-export const dynamic = 'force-dynamic';
+import MobileHero from "@/components/Hero/MobileHero";
+import Hero from "@/components/Hero/Hero";
+import SectionDiscountSlider from "@/components/Section/SectionDiscountSlider";
+import SectionBannerSlider from "@/components/Section/SectionBannerSlider";
+import SectionTwinBanner from "@/components/Section/SectionTwinBanner";
+import BackgroundSection from "@/components/Section/BackgroundSection";
+import SectionConcept from "@/components/Section/SectionConcept";
+import SectionPromoFeatures from "@/components/Section/SectionPromoFeatures";
+import SectionPromo1 from "@/components/Section/SectionPromo1";
+import SectionPromo2 from "@/components/Section/SectionPromo2";
+import SectionHomepageCategory from "@/components/Section/SectionHomepageCategory";
+import SectionSpecialSlider from "@/components/Section/SectionSpecialSlider";
+import SectionHomepageVlog from "@/components/Section/SectionHomepageVlog";
+import SectionHomepageBrand from "@/components/Section/SectionHomepageBrand";
+import SectionHomepageBlog from "@/components/Section/SectionHomepageBlog";
 
 export async function generateMetadata(): Promise<Metadata> {
     return {
@@ -43,62 +37,47 @@ export async function generateMetadata(): Promise<Metadata> {
     }
 }
 
-async function PageHome() {
+export default async function Homepage() {
     const response = await homePage();
-    return (
-        <div className="nc-PageHome relative overflow-hidden lg:mt-10  dark:bg-neutral-900">
-            <div className={"hidden sm:block"}>
-                <SectionHero2 data={response.desktopSliders.data}/>
-            </div>
-            <div className={"block sm:hidden container  "}>
-                <div className={"  rounded-2xl overflow-hidden !p-0 "}>
-                    <SectionHero2Mobile data={response.mobileSliders.data}/>
-                </div>
-            </div>
-            <div className="  dark:bg-neutral-900">
-                <DiscoverMoreSlider data={response.banners.data}/>
-            </div>
 
-            <div className="container bg-[#fcb415] sm:bg-white my-5 lg:my-10 px-0 md:px-[1rem] ">
-                <SectionSliderProductCard
-                    data={response.popularProducts.data}
-                    subHeading={""}
-                />
-            </div>
-            <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10  dark:bg-neutral-900">
-
-                <SectionTwinBanner banners={response.banners2.data} />
-                <div className="relative py-5 lg:py-10">
-                    <BackgroundSection/>
-                    <SectionGridMoreExplore data={response.concepts.data}/>
-                </div>
-                <SectionTwinBanner banners={response.banners3.data} />
-                <div className="py-5 lg:py-10 border-t border-b border-slate-200 dark:border-slate-700">
-                    <SectionHowItWork/>
-                </div>
-                <SectionPromo1 logo={response.posters.data[0].image}/>
-                <SectionGridFeatureItems data={response.homepageCategories.data}/>
-                <SectionPromo2 logo={response.posters.data[1].image}/>
-                <SectionSliderLargeProduct cardStyle="style2" data={response.specialProducts.data}/>
-                <SectionTwinBanner banners={response.banners4.data} />
-                <div className="relative py-5 lg:py-10">
-                    <BackgroundSection/>
-                    <div>
-                        <Heading>
-                            جدیدترین ولاگ
-                        </Heading>
-                        {/*<SectionMagazine5 data={response.news.data}/>*/}
-                        <SectionMagazine5 data={response.vlogs.data}/>
-                        <div className="flex mt-5 sm:mt-10 justify-center">
-                            <ButtonSecondary href={"/vlog"}> مشاهده همه ویدیوها</ButtonSecondary>
-                        </div>
-                    </div>
-                </div>
-                <SectionSliderCategories data={response.brands.data}/>
-            </div>
-            <SectionSliderNews data={response.news.data}/>
+    return (<div className="relative overflow-hidden lg:mt-10 dark:bg-neutral-900">
+        <div className={"hidden sm:block"}>
+            <Hero data={response.desktopSliders.data}/>
         </div>
-    );
-}
+        <div className={"block sm:hidden container  "}>
+            <div className={"rounded-2xl overflow-hidden !p-0 "}>
+                <MobileHero data={response.mobileSliders.data}/>
+            </div>
+        </div>
+        <div className="dark:bg-neutral-900">
+            <SectionBannerSlider data={response.banners.data}/>
+        </div>
 
-export default PageHome;
+        <div className="container bg-[#fcb415] sm:bg-white my-5 lg:my-10 px-0 md:px-[1rem] ">
+            <SectionDiscountSlider
+                data={response.popularProducts.data}
+                subHeading={""}
+            />
+        </div>
+
+        <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10  dark:bg-neutral-900">
+            <SectionTwinBanner banners={response.banners2.data}/>
+            <div className="relative py-5 lg:py-10">
+                <BackgroundSection/>
+                <SectionConcept data={response.concepts.data}/>
+            </div>
+            <SectionTwinBanner banners={response.banners3.data}/>
+            <div className="py-5 lg:py-10 border-t border-b border-slate-200 dark:border-slate-700">
+                <SectionPromoFeatures/>
+            </div>
+            <SectionPromo1 logo={response.posters.data[0].image}/>
+            <SectionHomepageCategory data={response.homepageCategories.data}/>
+            <SectionPromo2 logo={response.posters.data[1].image}/>
+            <SectionSpecialSlider data={response.specialProducts.data}/>
+            <SectionTwinBanner banners={response.banners4.data}/>
+            <SectionHomepageVlog data={response.vlogs.data}/>
+            <SectionHomepageBrand data={response.brands.data}/>
+        </div>
+        <SectionHomepageBlog data={response.news.data}/>
+    </div>)
+}

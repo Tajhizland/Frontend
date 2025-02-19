@@ -1,5 +1,5 @@
-import React, {ButtonHTMLAttributes} from "react";
-import {Route} from "@/routers/types";
+import React  from "react";
+
 
 export interface ButtonProps {
     className?: string;

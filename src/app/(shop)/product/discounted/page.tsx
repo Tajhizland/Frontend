@@ -1,9 +1,9 @@
 import React  from "react";
 import {getDiscountedProducts} from "@/services/api/shop/product";
-import Listing from "@/app/(shop)/product/discounted/Listing";
+import DiscountListing from "@/components/Linsting/DiscountListing";
 import {Metadata} from "next";
 //@ts-ignore
-import logo from "@/images/tajhizland/logo.png";
+import logo from "@/images/lightLogo.png";
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -33,7 +33,7 @@ const Page = async ( ) => {
     const response = await getDiscountedProducts();
     return (
         <>
-            <Listing response={response} />
+            <DiscountListing response={response} />
         </>
     );
 };

@@ -4,7 +4,7 @@ import Input from "@/shared/Input/Input";
 import { useState } from "react";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import OptionItemForm from "@/app/admin/category/option/[id]/OptionItemForm";
-import Label from "@/components/Label/Label";
+import Label from "@/shared/Label/Label";
 
 export default function OptionForm({ option ,index}: { option?: OptionResponse ,index:number}) {
     const [extraItem, setExtraItem] = useState(0);

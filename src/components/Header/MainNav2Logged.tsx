@@ -2,21 +2,17 @@
 
 import React, {createRef, FC, useEffect, useRef, useState} from "react";
 import Logo from "@/shared/Logo/Logo";
-import MenuBar from "@/shared/MenuBar/MenuBar";
 import AvatarDropdown from "./AvatarDropdown";
-import Navigation from "@/shared/Navigation/Navigation";
 import CartDropdown from "./CartDropdown";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import {usePathname, useRouter} from "next/navigation";
 import {search} from "@/services/api/shop/search";
-import {SearchResponse} from "@/services/types/serach";
 import Link from "next/link";
 import {Route} from "next";
 import Image from "next/image";
 import {ProductResponse} from "@/services/types/product";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {FaMagnifyingGlass} from "react-icons/fa6";
-import {FaBorderAll, FaExternalLinkAlt} from "react-icons/fa";
+import {  FaBorderAll,  FaExternalLinkAlt} from "react-icons/fa";
 import {PiSmileySad} from "react-icons/pi";
 import SearchBar from "@/components/Header/SearchBar";
 import VlogLink from "@/components/Header/VlogLink";
@@ -24,6 +20,8 @@ import BlogLink from "@/components/Header/BlogLink";
 import {MdOutlineOndemandVideo} from "react-icons/md";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
+import Navigation from "@/components/Header/Navigation/Navigation";
+import {FiChevronRight} from "react-icons/fi";
 
 export interface MainNav2LoggedProps {
 }
@@ -132,11 +130,12 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                 rounded="rounded-full"
                             />
                             <ButtonCircle
+                                title={"icon"}
                                 className="absolute right-2.5 top-1/2 transform -translate-y-1/2"
                                 size=" w-8 h-8"
                                 onClick={handleSearch}
                             >
-                                <i className="las la-arrow-right text-xl"></i>
+                                <FiChevronRight className={"w-4 h-4"} />
                             </ButtonCircle>
                             <span
                                 className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-6">

@@ -1,22 +1,17 @@
 "use client"
-import Label from "@/components/Label/Label";
-import Input from "@/shared/Input/Input";
+ import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Textarea from "@/shared/Textarea/Textarea";
 import React from "react";
 import Uploader from "@/shared/Uploader/Uploader";
-import {BrandResponse} from "@/services/types/brand";
-import TinyEditor from "@/shared/Editor/TinyEditor";
 import {MenuResponse} from "@/services/types/menu";
 import {useQuery} from "react-query";
-import {findById} from "@/services/api/admin/faq";
 import {deleteBanner, menuList} from "@/services/api/admin/menu";
-import Image from "next/image";
-import MenuCard from "@/components/MenuCard/MenuCard";
 import {TrashIcon} from "@heroicons/react/24/solid";
 import {toast} from "react-hot-toast";
 import {categoryList} from "@/services/api/admin/category";
+import Label from "@/shared/Label/Label";
+import MenuCard from "@/components/Card/MenuCard";
 
 interface Form {
     data?: MenuResponse;

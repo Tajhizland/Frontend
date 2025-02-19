@@ -1,6 +1,5 @@
 "use client"
 import React from "react";
-import Label from "@/components/Label/Label";
 import Input from "@/shared/Input/Input";
 import Textarea from "@/shared/Textarea/Textarea";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -10,7 +9,8 @@ import {useMutation, useQuery} from "react-query";
 import {getProvince} from "@/services/api/shop/province";
 import {getCity} from "@/services/api/shop/city";
 import Select from "@/shared/Select/Select";
-import Maps from "@/components/Map";
+import Label from "@/shared/Label/Label";
+import Maps from "@/components/Maps/Maps";
 
 const info = [
     {
@@ -97,7 +97,7 @@ const PageContact = ({}) => {
                             ))}
                         </div>
                         <div>
-                            <form className="grid grid-cols-1 gap-6" action={submitHandle} method="post">
+                            <form className="grid grid-cols-1 gap-6" action={submitHandle} >
                                 <label className="block">
                                     <Label>نام</Label>
 
@@ -127,11 +127,11 @@ const PageContact = ({}) => {
                                     }}>
                                         <option>انتخاب کنید</option>
                                         {
-                                            provinces && provinces?.map((item) => (<>
-                                                <option value={item.id as number}>
+                                            provinces && provinces?.map((item,index) => (
+                                                <option key={index} value={item.id as number}>
                                                     {item.name}
                                                 </option>
-                                            </>))
+                                            ))
                                         }
                                     </Select>
                                 </label>

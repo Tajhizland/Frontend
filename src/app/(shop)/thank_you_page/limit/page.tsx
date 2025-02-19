@@ -5,7 +5,7 @@ import React from "react";
 import Image from "next/image";
 import {Metadata} from "next";
 //@ts-ignore
-import logo from "@/images/tajhizland/logo.png";
+import logo from "@/images/lightLogo.png";
 
 export async function generateMetadata(): Promise<Metadata> {
     return {
@@ -31,9 +31,6 @@ const ThankYouPageLimit = () => {
 
     return (
         <>
-            {/*<head>*/}
-            {/*    <title>ثبت سفارش معلق</title>*/}
-            {/*</head>*/}
             <div className="nc-Page404">
                 <div className="container relative pt-5 pb-16 lg:pb-20 lg:pt-5">
                     {/* HEADER */}

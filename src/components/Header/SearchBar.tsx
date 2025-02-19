@@ -2,10 +2,6 @@
 import React, {useState, Fragment} from "react";
 import {Transition, Dialog, TransitionChild} from "@headlessui/react";
 import SearchBoxMobile from "@/components/Header/SearchBoxMobile";
-import {FaMagnifyingGlass} from "react-icons/fa6";
-import Logo from "@/shared/Logo/Logo";
-import Image from "next/image";
-import logoImg from "@/images/tajhizland/logo.png";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 

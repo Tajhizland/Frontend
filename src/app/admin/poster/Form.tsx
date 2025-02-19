@@ -1,5 +1,5 @@
 "use client"
-import Label from "@/components/Label/Label";
+import Label from "@/shared/Label/Label";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
 import Uploader from "@/shared/Uploader/Uploader";

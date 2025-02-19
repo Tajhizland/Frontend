@@ -1,12 +1,8 @@
 "use client"
 import {OrderStatus} from "@/app/admin/order/orderStatus";
-import Prices from "@/components/Prices";
-import {PRODUCTS} from "@/data/data";
 import {myOrders} from "@/services/api/shop/order";
 import {OrderResponse} from "@/services/types/order";
 import {OrderItemResponse} from "@/services/types/orderItem";
-import {ProductResponse} from "@/services/types/product";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
 import Image from "next/image";
 import {useState} from "react";
@@ -14,6 +10,7 @@ import {useQuery} from "react-query";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {Route} from "next";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
+import Prices from "@/components/Price/Prices";
 
 const AccountOrder = () => {
     const [page, setPage] = useState(1);

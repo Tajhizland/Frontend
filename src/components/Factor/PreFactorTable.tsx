@@ -1,6 +1,6 @@
 import {CartResponse} from "@/services/types/cart";
-import Prices from "@/components/Prices";
-import {GuarantyPrice} from "@/hooks/GuarantyPrice";
+ import {GuarantyPrice} from "@/hooks/GuarantyPrice";
+import Prices from "@/components/Price/Prices";
 
 export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
     return (

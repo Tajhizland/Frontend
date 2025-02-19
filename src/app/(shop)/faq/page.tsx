@@ -1,7 +1,7 @@
-import AccordionInfo from "@/components/AccordionInfo";
 import { getFaq } from "@/services/api/shop/faq";
 import {Metadata} from "next";
-import logo from "@/images/tajhizland/logo.png";
+import logo from "@/images/lightLogo.png";
+import Accordion from "@/components/Accordion/Accordion";
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -50,7 +50,7 @@ export default async function page() {
                     </div>
                     <hr className="border-slate-200 dark:border-slate-700" />
                     <main>
-                        <AccordionInfo data={renderFaqData()} />
+                        <Accordion data={renderFaqData()} />
                     </main>
                 </div>
             </div>

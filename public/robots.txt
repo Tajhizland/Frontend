@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://tajhizland.com
-
-# Sitemaps
-Sitemap: https://tajhizland.com/sitemap.xml

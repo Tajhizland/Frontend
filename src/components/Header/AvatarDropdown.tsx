@@ -3,30 +3,27 @@
 import {
     Popover,
     PopoverButton,
-    PopoverOverlay,
     PopoverPanel,
     Transition,
-} from "@/app/(shop)/headlessui";
-import { avatarImgs } from "@/contains/fakeData";
+} from "@headlessui/react";
 import {Fragment, useEffect} from "react";
-import Avatar from "@/shared/Avatar/Avatar";
-import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
 import Link from "next/link";
-import {useMutation, useQuery, useQueryClient} from "react-query";
-import { getCart } from "@/services/api/shop/cart";
-import { me } from "@/services/api/auth/me";
-import { setUser, useUser } from "@/services/globalState/GlobalState";
+import {useMutation, useQuery} from "react-query";
+import {me} from "@/services/api/auth/me";
+import {setUser, useUser} from "@/services/globalState/GlobalState";
 import {deleteCookie, getCookie} from "cookies-next";
 import {MdLogin} from "react-icons/md";
-import {getCity} from "@/services/api/shop/city";
 import {logout} from "@/services/api/auth/logout";
 import {toast} from "react-hot-toast";
+import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
+ import Image from "next/image";
+import Avatar from "@/components/Avatar/Avatar";
 
 export default function AvatarDropdown() {
 
     const [user] = useUser();
 
-    const { data, isSuccess } = useQuery({
+    const {data, isSuccess} = useQuery({
         queryKey: ['user'],
         queryFn: () => me(),
         staleTime: 5000,
@@ -34,7 +31,7 @@ export default function AvatarDropdown() {
         onSuccess: (user) => {
             setUser(user);
         },
-        onError:()=>{
+        onError: () => {
             deleteCookie("token");
         }
     });
@@ -53,7 +50,6 @@ export default function AvatarDropdown() {
         }
 
     });
-
 
 
     useEffect(() => {
@@ -81,7 +77,7 @@ export default function AvatarDropdown() {
         return (
             <div className="AvatarDropdown z-50">
                 <Popover className="relative">
-                    {({ open, close }) => (
+                    {({open, close}) => (
                         <>
                             <PopoverButton
                                 className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none flex items-center justify-center`}
@@ -119,19 +115,20 @@ export default function AvatarDropdown() {
                             >
                                 <PopoverPanel
                                     className="absolute z-10 w-screen max-w-[260px] mt-3.5 -left-4 sm:left-0 sm:px-0">
-                                    <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
+                                    <div
+                                        className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                                         <div
                                             className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
                                             <div className="flex items-center gap-x-3">
-                                                <Avatar imgUrl={avatarImgs[7]} sizeClass="w-12 h-12" />
-
+                                                <Avatar profile={user?.avatar} />
                                                 <div className="flex-grow">
                                                     <h4 className="font-semibold">{data?.name}</h4>
                                                     <p className="text-xs mt-0.5">{data?.username}</p>
                                                 </div>
                                             </div>
 
-                                            <div className="w-full border-b border-neutral-200 dark:border-neutral-700" />
+                                            <div
+                                                className="w-full border-b border-neutral-200 dark:border-neutral-700"/>
 
                                             {/* ------------------ 1 --------------------- */}
                                             <Link
@@ -249,7 +246,7 @@ export default function AvatarDropdown() {
                                                 </div>
                                             </Link>
 
-                                             {/* ------------------ 2 --------------------- */}
+                                            {/* ------------------ 2 --------------------- */}
                                             <Link
                                                 href={"/account-savelists"}
                                                 className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -277,7 +274,8 @@ export default function AvatarDropdown() {
                                                 </div>
                                             </Link>
 
-                                            <div className="w-full border-b border-neutral-200 dark:border-neutral-700" />
+                                            <div
+                                                className="w-full border-b border-neutral-200 dark:border-neutral-700"/>
 
                                             {/* ------------------ 2 --------------------- */}
                                             <div
@@ -319,7 +317,7 @@ export default function AvatarDropdown() {
                                                         <p className="text-sm font-medium ">{"حالت شب"}</p>
                                                     </div>
                                                 </div>
-                                                <SwitchDarkMode2 />
+                                                <SwitchDarkMode2/>
                                             </div>
 
                                             {/* ------------------ 2 --------------------- */}
@@ -389,7 +387,10 @@ export default function AvatarDropdown() {
                                             {/* ------------------ 2 --------------------- */}
                                             <div
                                                 className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                                                onClick={()=>{logoutHandle();close()}}
+                                                onClick={() => {
+                                                    logoutHandle();
+                                                    close()
+                                                }}
                                             >
                                                 <div
                                                     className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
@@ -438,13 +439,13 @@ export default function AvatarDropdown() {
         );
     else
         return (<Link href={"/login"} aria-label={"login"}
-            className={`rounded bg-white flex whitespace-nowrap border px-1 sm:px-3 py-1 lg:py-2 lg:ml-4 text-slate-700 dark:text-white  hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-900 focus:outline-none lg:flex items-center justify-center gap-x-1`}
+                      className={`rounded bg-white flex whitespace-nowrap border px-1 sm:px-3 py-1 lg:py-2 lg:ml-4 text-slate-700 dark:text-white  hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-900 focus:outline-none lg:flex items-center justify-center gap-x-1`}
         >
-              <div>
-                  <MdLogin className={"w-3 h-3 sm:w-5 sm:h-5"} />
-              </div>
-              <div>
-                  <span className={"text-[10px] sm:text-xs font-bold whitespace-nowrap"}>ورود | ثبت نام</span>
-              </div>
+            <div>
+                <MdLogin className={"w-3 h-3 sm:w-5 sm:h-5"}/>
+            </div>
+            <div>
+                <span className={"text-[10px] sm:text-xs font-bold whitespace-nowrap"}>ورود | ثبت نام</span>
+            </div>
         </Link>)
 }

@@ -2,7 +2,7 @@
 import {Fragment} from "react";
 import {BellAlertIcon} from "@heroicons/react/24/solid";
 import {Alert} from "@/shared/Alert/Alert";
-import {Popover, PopoverButton, PopoverPanel, Transition} from "@/app/(shop)/headlessui";
+import {Popover, PopoverButton, PopoverPanel, Transition} from "@headlessui/react";
 import Link from "next/link";
 import {useQuery} from "react-query";
 import {unseen} from "@/services/api/admin/notification";

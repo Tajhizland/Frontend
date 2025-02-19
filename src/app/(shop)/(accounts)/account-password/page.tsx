@@ -1,7 +1,8 @@
-import Label from "@/components/Label/Label";
+
 import React from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
+import Label from "@/shared/Label/Label";
 
 const AccountPass = () => {
   return (

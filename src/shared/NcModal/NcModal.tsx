@@ -1,8 +1,8 @@
 "use client";
 import React, { FC, Fragment, ReactNode, useEffect, useState } from "react";
-import { Dialog, Transition, TransitionChild } from "@/app/(shop)/headlessui";
-import ButtonClose from "@/shared/ButtonClose/ButtonClose";
+import { Dialog, Transition, TransitionChild } from "@headlessui/react";
 import Button from "@/shared/Button/Button";
+import ButtonClose from "@/shared/Button/ButtonClose";
 
 export interface NcModalProps {
   renderContent: () => ReactNode;
