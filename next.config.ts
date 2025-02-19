@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import withPWAInit from "@ducanh2912/next-pwa";
+import withPWA from "@ducanh2912/next-pwa";
 
 const nextConfig: NextConfig = {
     images: {
@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
     },
 
 };
-export default withPWAInit({
+export default withPWA({
     dest: "public",
     register: true,
 
