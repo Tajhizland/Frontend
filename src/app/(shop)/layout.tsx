@@ -35,6 +35,12 @@ export default function RootLayout({
 
     return (
         <html lang="fa" dir="rtl" className={[myFont.className].join(" ")}>
+        <head>
+            <link rel="manifest" href="/manifest.json"/>
+            <meta name="theme-color" content="#fff"/>
+            <link rel="apple-touch-icon" href="/icons/logo.png"/>
+            <meta name="apple-mobile-web-app-status-bar" content="#fff"/>
+        </head>
         <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
         <div>
             <QueryClientProvider client={queryClient}>
