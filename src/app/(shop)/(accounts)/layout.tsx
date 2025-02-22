@@ -2,13 +2,15 @@
 
 import { Route } from "next";
 import { me } from "@/services/api/auth/me";
-import { setUser } from "@/services/globalState/GlobalState";
+import {setUser, useUser} from "@/services/globalState/GlobalState";
 import { getCookie } from "cookies-next";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { FC } from "react";
 import { useQuery } from "react-query";
+import Image from "next/image";
+import avatar from "@/images/avatar.svg";
 
 export interface CommonLayoutProps {
   children?: React.ReactNode;
@@ -47,6 +49,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   const pathname = usePathname();
 
   const router = useRouter();
+  const [user] = useUser();
 
   const hasCookie=getCookie("token")
   if(!hasCookie)
@@ -66,9 +69,27 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
 
   return (
     <div className="nc-AccountCommonLayout  dark:bg-neutral-900 container">
-      <div className="pt-14 sm:pt-20">
+      <div className="pt-7 sm:pt-20">
         <div className="max-w-4xl mx-auto">
-          <div className="max-w-2xl">
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="relative rounded-full overflow-hidden flex w-20 h-20 shrink-0">
+              <Image
+                  src={(user?.avatar) ?
+                      `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/avatar/${user?.avatar}`
+                      : avatar
+                  }
+
+                  alt="avatar"
+                  width={128}
+                  height={128}
+                  className=" w-20 h-20 rounded-full object-cover z-0"
+              />
+            </div>
+            <div>
+              <span className={"text-slate-600"}>
+                {user?.name}
+              </span>
+            </div>
 
           </div>
           <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>

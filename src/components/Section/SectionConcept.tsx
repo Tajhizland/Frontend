@@ -7,6 +7,7 @@ import NcImage from "@/shared/NcImage/NcImage";
 import Nav from "@/components/Nav/Nav";
 import NavItem from "@/components/Nav/NavItem";
 import CategoryCard from "@/components/Card/CategoryCard";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export interface SectionGridMoreExploreProps {
     className?: string;
@@ -15,11 +16,12 @@ export interface SectionGridMoreExploreProps {
 }
 
 const SectionConcept: FC<SectionGridMoreExploreProps> = ({
-                                                                     className = "",
-                                                                     gridClassName = "grid-cols-3 md:grid-cols-3 xl:grid-cols-4",
-                                                                     data,
-                                                                 }) => {
+                                                             className = "",
+                                                             gridClassName = "grid-cols-3 md:grid-cols-3 xl:grid-cols-4",
+                                                             data,
+                                                         }) => {
     const [tabActive, setTabActive] = useState(0);
+    const [showAll, setShowAll] = useState(false);
 
     const renderHeading = () => {
         return (
@@ -40,7 +42,10 @@ const SectionConcept: FC<SectionGridMoreExploreProps> = ({
                         <NavItem
                             key={index}
                             isActive={tabActive === index}
-                            onClick={() => setTabActive(index)}
+                            onClick={() => {
+                                setTabActive(index);
+                                setShowAll(false)
+                            }}
                         >
                             <div
                                 className="flex items-center justify-center gap-x-1.5 sm:gap-x-2.5  text-xs sm:text-sm ">
@@ -72,7 +77,7 @@ const SectionConcept: FC<SectionGridMoreExploreProps> = ({
             <div className={`grid gap-1 md:gap-7 ${gridClassName}`}>
                 {data.map((item, index) => (<Fragment key={index}>
                     {
-                        item.categories?.data.map((category, index2) => (<Fragment key={index2}>
+                        item.categories?.data.slice(0,showAll?-1:8).map((category, index2) => (<Fragment key={index2}>
                             {
                                 tabActive == index ? <CategoryCard
                                         featuredImage={`${category.image}`}
@@ -82,12 +87,25 @@ const SectionConcept: FC<SectionGridMoreExploreProps> = ({
                                         color={"bg-orange-50"}
                                         {...item}
                                     />
-                                    :""
+                                    : ""
                             }
 
                         </Fragment>))
                     }
+
+
                 </Fragment>))}
+
+            </div>
+            <div className={"flex justify-center mt-5"}>
+            {
+                data.map((item, index) => (<Fragment key={index}>
+                    {(tabActive == index && !showAll && (item.categories?.data.length ?? 0) > 8) ?
+                        <ButtonPrimary onClick={()=>{setShowAll(true)}}>مشاهده همه </ButtonPrimary>
+                        :
+                        <></>}
+                </Fragment>))
+            }
             </div>
         </div>
     );
