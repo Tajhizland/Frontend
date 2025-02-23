@@ -71,7 +71,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
     <div className="nc-AccountCommonLayout  dark:bg-neutral-900 container">
       <div className="pt-7 sm:pt-20">
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap flex-col justify-center">
             <div className="relative rounded-full overflow-hidden flex w-20 h-20 shrink-0">
               <Image
                   src={(user?.avatar) ?

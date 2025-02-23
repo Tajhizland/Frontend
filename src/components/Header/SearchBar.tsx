@@ -4,6 +4,7 @@ import {Transition, Dialog, TransitionChild} from "@headlessui/react";
 import SearchBoxMobile from "@/components/Header/SearchBoxMobile";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
+import {FiChevronRight} from "react-icons/fi";
 
 export interface MenuBarProps {
 }
@@ -105,7 +106,7 @@ const SearchBar: React.FC<MenuBarProps> = () => {
                             className="absolute right-1 top-1/2 transform -translate-y-1/2"
                             size=" w-7 h-7"
                         >
-                            <i className="las la-arrow-right text-xl"></i>
+                            <FiChevronRight className={"w-4 h-4"} />
                         </ButtonCircle>
                         <span
                             className="absolute left-2 top-1/2 transform -translate-y-1/2 text-2xl  ">

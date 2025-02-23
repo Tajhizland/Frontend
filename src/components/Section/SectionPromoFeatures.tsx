@@ -72,7 +72,7 @@ const SectionPromoFeatures: FC<SectionHowItWorkProps> = ({
                         <div className="text-center  space-y-5">
 
                             <h3 className="text-sm font-semibold dark:text-white hidden sm:block">{item.title}</h3>
-                            <h3 className="text-sm font-semibold dark:text-white block sm:hidden">{item.mobileTitle}</h3>
+                            <h3 className="text-xs font-semibold dark:text-white block sm:hidden">{item.mobileTitle}</h3>
                             <span className="  text-slate-600 dark:text-slate-400 text-xs leading-6 hidden sm:block">
                                 {item.desc}
                             </span>

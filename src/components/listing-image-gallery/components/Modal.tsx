@@ -66,7 +66,7 @@ export default function Modal({
         <motion.div
           ref={overlayRef}
           key="backdrop"
-          className="fixed inset-0 z-30 bg-black"
+          className="fixed inset-0 z-30 bg-white"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           onClick={handleClose}

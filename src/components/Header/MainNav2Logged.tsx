@@ -294,7 +294,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     return (
         <div
             className="nc-MainNav2Logged relative z-40 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
-            <div className="sm:container z-50 px-1">{renderContent()}</div>
+            <div className="container sm:container z-50 px-1">{renderContent()}</div>
             {/* z-index بالا برای محتوا */}
             <div className="relative z-40 hidden lg:block">
                 <div

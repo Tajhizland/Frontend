@@ -186,7 +186,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
     return (
       <div className="h-10 flex-shrink-0 flex items-center">
         <Link
-          className="inline-flex items-center text-xs  font-medium text-slate-700 dark:text-slate-300 py-2.5 px-4 xl:px-5 rounded-full hover:text-slate-900 hover:bg-neutral-200 hover:dark:bg-slate-950 dark:hover:text-slate-200 mega-main"
+          className="inline-flex items-center text-xs  font-medium text-slate-700 dark:text-slate-300 py-2.5 px-2 xl:px-3 rounded-full hover:text-slate-900 hover:bg-neutral-200 hover:dark:bg-slate-950 dark:hover:text-slate-200 mega-main"
           href={{
             pathname: item.url || undefined,
           }}
