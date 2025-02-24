@@ -16,7 +16,7 @@ const AccountOrder = () => {
     const {data: address} = useQuery({
         queryKey: ['my-address'],
         queryFn: () => getAllAddress(),
-        staleTime: 5000,
+        staleTime: 6000,
     });
 
     const {
@@ -33,28 +33,58 @@ const AccountOrder = () => {
     });
 
     const renderItem = (item: AddressResponse) => {
-        return <div className={"border rounded-lg flex flex-col p-5 text-neutral-600   dark:text-white dark:bg-black/20 text-sm md:text-base gap-y-10"}>
-            <div className={"flex items-center justify-between flex-col md:flex-row gap-y-5"}>
-              <span>
-                  استان :
-                  {item.province?.name}
-              </span>
-                <span>
-                    شهر :
-                    {item.city?.name}
-              </span>
-                <span>
-                  تلفن :
-                    {item.tell}
-              </span>
-                <span>
-                  موبایل :
-                    {item.mobile}
-              </span>
-                <span>
-                  کدپستی :
-                    {item.zip_code}
-              </span>
+        return <div
+            className={"border rounded-lg flex flex-col p-5 text-neutral-500   dark:text-white dark:bg-black/20 text-sm md:text-base gap-y-10"}>
+            <div className={"flex items-center flex-auto flex-wrap gap-x-10 gap-y-5"}>
+                <div>
+                  <span className={"text-slate-500"}>
+                  عنوان :
+                  </span>
+                    <span className={"text-slate-600"}>
+                        {item.title}
+                    </span>
+                </div>
+                <div>
+                    <span className={"text-slate-500"}>
+                        استان :
+                    </span>
+                    <span className={"text-slate-600"}>
+                        {item.province?.name}
+                    </span>
+                </div>
+                <div>
+                    <span className={"text-slate-500"}>
+                        شهر :
+                    </span>
+                    <span className={"text-slate-600"}>
+                        {item.city?.name}
+                    </span>
+                </div>
+                <div>
+                    <span className={"text-slate-500"}>
+                        تلفن :
+                    </span>
+                    <span className={"text-slate-600"}>
+                        {item.tell}
+                    </span>
+                </div>
+                <div>
+                    <span className={"text-slate-500"}>
+                        موبایل :
+                    </span>
+                    <span className={"text-slate-600"}>
+                        {item.mobile}
+                    </span>
+
+                </div>
+                <div>
+                    <span className={"text-slate-500"}>
+                        کدپستی :
+                    </span>
+                    <span className={"text-slate-600"}>
+                        {item.zip_code}
+                    </span>
+                </div>
             </div>
 
             <div className={"flex  justify-center md:justify-start"}>
@@ -73,7 +103,7 @@ const AccountOrder = () => {
                         }}
                         disabled={item.active == 1 ? true : false}
                         checked={item.active == 1 ? true : false}
-                        className={`${item.active ? "bg-teal-600" : "bg-slate-900"}
+                        className={`${item.active ? "bg-teal-500" : "bg-slate-900"}
           relative inline-flex h-[22px] w-[42px] shrink-0 cursor-pointer rounded-full border-4 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 disabled:cursor-not-allowed`}
                     >
                         <span className="sr-only">فعال</span>
@@ -96,12 +126,14 @@ const AccountOrder = () => {
     }
     const renderContent = () => {
         return <div className={"text-right "}>
-            {editAddress && <AddressForm address={editAddress}/>}
+            {editAddress && <AddressForm address={editAddress} close={() => {
+                setShowEditModal(false)
+            }}/>}
         </div>
     }
     const renderCreateContent = () => {
         return <div className={"text-right"}>
-            <AddressForm  />
+            <AddressForm/>
         </div>
     }
 
@@ -142,7 +174,9 @@ const AccountOrder = () => {
             <div className="space-y-10 sm:space-y-12  dark:text-white">
                 {/* HEADING */}
                 <div>
-                    <ButtonPrimary onClick={()=>{setShowCreateModal(true)}}>
+                    <ButtonPrimary onClick={() => {
+                        setShowCreateModal(true)
+                    }}>
                         افزودن آدرس جدید
                     </ButtonPrimary>
                 </div>

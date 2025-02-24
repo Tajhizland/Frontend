@@ -6,23 +6,30 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect} from "react";
 import {update} from "@/services/api/shop/address";
 import {toast} from "react-hot-toast";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getProvince} from "@/services/api/shop/province";
 import {getCity} from "@/services/api/shop/city";
 import Label from "@/shared/Label/Label";
 
-export default function AddressForm({address}: { address?: AddressResponse }) {
+export default function AddressForm({address , close}: { address?: AddressResponse , close?: () => void }) {
+    const queryClient = useQueryClient();
+
     async function saveAddress(e: FormData) {
-        let response = await update({
+         let response = await update({
             id: address?.id,
             city_id: e.get("city_id") as string,
+            title: e.get("title") as string,
             province_id: e.get("province_id") as string,
             tell: e.get("tell") as string,
             zip_code: e.get("zip_code") as string,
             address: e.get("address") as string,
             mobile: e.get("mobile") as string,
         })
-        toast.success(response?.message as string);
+        if(response) {
+            queryClient.invalidateQueries(['my-address']);
+            toast.success(response?.message as string);
+            close && close()
+        }
     }
 
     const {data: provinces} = useQuery({
@@ -55,16 +62,20 @@ export default function AddressForm({address}: { address?: AddressResponse }) {
             {/* ============ */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3 ">
                 <div>
+                    <Label className="text-sm  dark:text-white">عنوان آدرس</Label>
+                    <Input className="mt-1.5" defaultValue={address?.title} name={"title"}/>
+                </div>
+                <div>
                     <Label className="text-sm  dark:text-white">استان</Label>
                     <Select name={"province_id"} onChange={(e) => {
                         changeProvince(Number(e.target.value))
                     }}>
                         {
-                            provinces && provinces?.map((item) => (<>
-                                <option value={item.id as number} selected={address?.province_id == item.id}>
+                            provinces && provinces?.map((item , index) => (
+                                <option key={index} value={item.id as number} selected={address?.province_id == item.id}>
                                     {item.name}
                                 </option>
-                            </>))
+                            ))
                         }
                     </Select>
                 </div>

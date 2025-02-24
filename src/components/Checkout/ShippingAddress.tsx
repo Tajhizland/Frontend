@@ -56,6 +56,7 @@ const ShippingAddress: FC<Props> = ({
         let response = await update({
             id: address?.id as number,
             city_id: e.get("city_id") as string,
+            title: e.get("title") as string,
             province_id: e.get("province_id") as string,
             tell: e.get("tell") as string,
             zip_code: e.get("zip_code") as string,

@@ -4,6 +4,7 @@ import {ProviceResponse} from "@/services/types/province";
 export type AddressResponse = {
     id:number ;
     city_id:number ;
+    title:string ;
     province_id:number ;
     user_id:number ;
     tell:string ;
