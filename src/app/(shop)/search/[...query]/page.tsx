@@ -9,6 +9,7 @@ import AdminPagination from "@/shared/Pagination/AdminPagination";
 import {useQuery} from "react-query";
 import {useRouter} from "next/navigation";
 import ProductCard from "@/components/Card/ProductCard";
+import {FiChevronRight} from "react-icons/fi";
 
 interface BrandPageProps {
     params: Promise<{
@@ -79,7 +80,8 @@ const PageSearch = (props: BrandPageProps) => {
                                     type="submit"
                                     onClick={changeQueryHandle}
                                 >
-                                    <i className="las la-arrow-right text-xl"></i>
+                                    <FiChevronRight className={"w-4 h-4"} />
+
                                 </ButtonCircle>
                                 <span className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-6">
                 <svg

@@ -34,6 +34,10 @@ export default function Form({data, submit}: Form) {
             value:"home_page4"
         },
         {
+            title:"هوم پیج 5",
+            value:"home_page5"
+        },
+        {
             title:"ولاگ",
             value:"vlog"
         },  {

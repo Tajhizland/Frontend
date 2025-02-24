@@ -20,6 +20,7 @@ import Radio from "@/shared/Radio/Radio";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import ButtonClose from "@/shared/Button/ButtonClose";
+import {FiChevronRight} from "react-icons/fi";
 
 type SelectedFilters = Record<string, string[] | string>;
 
@@ -570,7 +571,8 @@ export default function VlogFilter({changeFilter, defualtSearch}: {
                     size=" w-11 h-11"
                     type="submit"
                 >
-                    <i className="las la-arrow-right text-xl"></i>
+                    <FiChevronRight className={"w-4 h-4"} />
+
                 </ButtonCircle>
                 <span
                     className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-4">
@@ -627,7 +629,8 @@ export default function VlogFilter({changeFilter, defualtSearch}: {
                             size=" w-11 h-11"
                             type="submit"
                         >
-                            <i className="las la-arrow-right text-xl"></i>
+                            <FiChevronRight className={"w-4 h-4"} />
+
                         </ButtonCircle>
                         <span
                             className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-4">

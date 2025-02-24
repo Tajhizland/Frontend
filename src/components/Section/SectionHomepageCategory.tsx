@@ -93,7 +93,17 @@ const SectionHomepageCategory: FC<SectionHomepageCategoryProps> = ({ data }) => 
                 </div>
             </div>
 
-            <div className="grid gap-2 lg:gap-8 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-2 lg:gap-8 grid-cols-2 sm:grid-cols-2 lg:hidden">
+                {data[tabActive]?.category?.products?.data.slice(0,4).map((product, index) => (
+                    <ProductCard2 data={product} key={index}/>
+                ))}
+            </div>
+            <div className="hidden lg:grid gap-2 lg:gap-8  lg:grid-cols-3 xl:hidden">
+                {data[tabActive]?.category?.products?.data.slice(0,6).map((product, index) => (
+                    <ProductCard2 data={product} key={index}/>
+                ))}
+            </div>
+            <div className="hidden xl:grid gap-2 lg:gap-8  xl:grid-cols-4">
                 {data[tabActive]?.category?.products?.data.map((product, index) => (
                     <ProductCard2 data={product} key={index}/>
                 ))}

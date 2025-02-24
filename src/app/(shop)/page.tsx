@@ -16,6 +16,7 @@ import SectionSpecialSlider from "@/components/Section/SectionSpecialSlider";
 import SectionHomepageVlog from "@/components/Section/SectionHomepageVlog";
 import SectionHomepageBrand from "@/components/Section/SectionHomepageBrand";
 import SectionHomepageBlog from "@/components/Section/SectionHomepageBlog";
+import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 
 export async function generateMetadata(): Promise<Metadata> {
     return {
@@ -76,6 +77,7 @@ export default async function Homepage() {
             <SectionSpecialSlider data={response.specialProducts.data}/>
             <SectionTwinBanner banners={response.banners4.data}/>
             <SectionHomepageVlog data={response.vlogs.data}/>
+            {response.banners5.data.length>0 && <SectionSingleBanner banner={response.banners5.data[0]}/>}
             <SectionHomepageBrand data={response.brands.data}/>
         </div>
         <SectionHomepageBlog data={response.news.data}/>

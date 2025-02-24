@@ -12,7 +12,7 @@ import {Route} from "next";
 import Image from "next/image";
 import {ProductResponse} from "@/services/types/product";
 import {FaMagnifyingGlass} from "react-icons/fa6";
-import {  FaBorderAll,  FaExternalLinkAlt} from "react-icons/fa";
+import {FaBorderAll, FaExternalLinkAlt} from "react-icons/fa";
 import {PiSmileySad} from "react-icons/pi";
 import SearchBar from "@/components/Header/SearchBar";
 import VlogLink from "@/components/Header/VlogLink";
@@ -135,7 +135,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                 size=" w-8 h-8"
                                 onClick={handleSearch}
                             >
-                                <FiChevronRight className={"w-4 h-4"} />
+                                <FiChevronRight className={"w-4 h-4"}/>
                             </ButtonCircle>
                             <span
                                 className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-6">
@@ -251,8 +251,12 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     {/*        مرکز تخصصی تجهیزات کافه و رستوران*/}
                     {/*    </small>*/}
                     {/*</div>*/}
-                    <div className={"w-full ml-1 flex-1"}>
+                    <div className={"w-full ml-1 flex-1  flex flex-col gap-1"}>
                         <Logo/>
+                        <small
+                            className="text-slate-600 dark:text-slate-100 lg:text-xs sm:text-[8px] text-[6px] hidden lg:block whitespace-nowrap">
+                            مرکز تخصصی تجهیزات کافه و رستوران
+                        </small>
                     </div>
 
                     <div className="lg:flex-[2] hidden lg:flex items-center justify-center mx-4">
@@ -294,9 +298,9 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     return (
         <div
             className="nc-MainNav2Logged relative z-40 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
-            <div className="container sm:container z-50 px-1">{renderContent()}</div>
+            <div className="container sm:container z-50 ">{renderContent()}</div>
             {/* z-index بالا برای محتوا */}
-            <div className="relative z-40 hidden lg:block">
+            <div className="  relative z-40 hidden lg:block">
                 <div
                     className={`bg-neutral-100   dark:bg-neutral-800 border-b border-slate-100 dark:border-slate-700 flex justify-center transition-all duration-300 ease-in-out absolute left-0 right-0 h-10 ${showNavigation ? 'translate-y-0 block' : '-translate-y-full hidden'
                     }`}
