@@ -17,7 +17,7 @@ import SectionHomepageVlog from "@/components/Section/SectionHomepageVlog";
 import SectionHomepageBrand from "@/components/Section/SectionHomepageBrand";
 import SectionHomepageBlog from "@/components/Section/SectionHomepageBlog";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
-
+export const dynamic = 'force-dynamic';
 export async function generateMetadata(): Promise<Metadata> {
     return {
         title: "تجهیزلند",
