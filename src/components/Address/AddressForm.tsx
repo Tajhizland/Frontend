@@ -25,7 +25,7 @@ export default function AddressForm({address , close}: { address?: AddressRespon
             address: e.get("address") as string,
             mobile: e.get("mobile") as string,
         })
-        if(response) {
+        if(response?.success) {
             queryClient.invalidateQueries(['my-address']);
             toast.success(response?.message as string);
             close && close()
