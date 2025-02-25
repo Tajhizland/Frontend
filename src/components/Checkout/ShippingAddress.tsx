@@ -7,7 +7,7 @@ import Select from "@/shared/Select/Select";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getProvince} from "@/services/api/shop/province";
 import {getCity} from "@/services/api/shop/city";
-import { findActive, update} from "@/services/api/shop/address";
+import {findActive, update} from "@/services/api/shop/address";
 import {toast} from "react-hot-toast";
 import Link from "next/link";
 import Label from "@/shared/Label/Label";
@@ -30,7 +30,7 @@ const ShippingAddress: FC<Props> = ({
         queryFn: () => findActive(),
         staleTime: 5000,
         onSuccess: data => {
-            changeProvince(data?.province_id??1);
+            changeProvince(data?.province_id ?? 1);
         }
     });
 
@@ -63,7 +63,7 @@ const ShippingAddress: FC<Props> = ({
             address: e.get("address") as string,
             mobile: e.get("mobile") as string,
         })
-        if(response) {
+        if (response) {
             queryClient.invalidateQueries(['address']);
             toast.success(response?.message as string);
         }
@@ -75,7 +75,7 @@ const ShippingAddress: FC<Props> = ({
             <div className="border border-slate-200 dark:border-slate-700 rounded-xl ">
                 <div className="p-6 flex flex-col sm:flex-row items-start justify-between">
                     <div className="flex  items-center">
-          <span className="hidden sm:block">
+                        <span className="hidden sm:block">
             <svg
                 className="w-6 h-6 text-slate-700 dark:text-slate-400 mt-0.5"
                 viewBox="0 0 24 24"
@@ -119,23 +119,23 @@ const ShippingAddress: FC<Props> = ({
               />
             </svg>
           </span>
-
-                        <div className="sm:mr-8">
-                            <h3 className=" text-slate-700 dark:text-slate-300 flex ">
+                        <div className="sm:mr-2">
+                            <h3 className=" text-slate-700 dark:text-slate-300 flex items-center flex-wrap gap-2">
                                 <span className="uppercase">آدرس</span>
-                                <svg
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="2.5"
-                                    stroke="currentColor"
-                                    className="w-5 h-5 ml-3 text-slate-900 dark:text-slate-100"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M4.5 12.75l6 6 9-13.5"
-                                    />
-                                </svg>
+                                <span className={" text-xs text-slate-600"}>
+                                  {address && <>(
+                                      {address?.province?.name} ,
+                                      {" "}
+                                      {address?.city?.name} ,
+                                      {" "}
+                                      {address?.address}
+                                      {" "}
+                                      به کد پستی
+                                      {" "}
+                                      {address?.zip_code}
+                                      {" "}
+                                      )</>}
+                    </span>
                             </h3>
                         </div>
                     </div>
@@ -143,9 +143,11 @@ const ShippingAddress: FC<Props> = ({
                         className="py-2 px-4 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 mt-5 sm:mt-0  text-sm font-medium rounded-lg"
                         onClick={onOpenActive}
                     >
-                        ویرایش
+                        تغییر آدرس
                     </button>
+
                 </div>
+
                 <div
                     className={`border-t border-slate-200 dark:border-slate-700 px-6 py-7 space-y-4 sm:space-y-6 ${isActive ? "block" : "hidden"
                     }`}
@@ -156,79 +158,79 @@ const ShippingAddress: FC<Props> = ({
                             آدرس های من
                         </ButtonPrimary>
                     </Link>
-                    <form action={saveAddress}>
-                        {/* ============ */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
-                            <div>
-                                <Label className="text-sm dark:text-white">استان</Label>
-                                <Select defaultValue={address?.province_id} name={"province_id"} onChange={(e) => {
-                                    changeProvince(Number(e.target.value))
-                                }}>
-                                    {
-                                        provinces && provinces?.map((item,index) => (
-                                            <option key={index} value={item.id as number} selected={address?.province_id == item.id}>
-                                                {item.name}
-                                            </option>
-                                        ))
-                                    }
-                                </Select>
-                            </div>
-                            <div>
-                                <Label className="text-sm dark:text-white">شهر</Label>
+                    {/*<form action={saveAddress}>*/}
+                    {/*    /!* ============ *!/*/}
+                    {/*    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">*/}
+                    {/*        <div>*/}
+                    {/*            <Label className="text-sm dark:text-white">استان</Label>*/}
+                    {/*            <Select defaultValue={address?.province_id} name={"province_id"} onChange={(e) => {*/}
+                    {/*                changeProvince(Number(e.target.value))*/}
+                    {/*            }}>*/}
+                    {/*                {*/}
+                    {/*                    provinces && provinces?.map((item,index) => (*/}
+                    {/*                        <option key={index} value={item.id as number} selected={address?.province_id == item.id}>*/}
+                    {/*                            {item.name}*/}
+                    {/*                        </option>*/}
+                    {/*                    ))*/}
+                    {/*                }*/}
+                    {/*            </Select>*/}
+                    {/*        </div>*/}
+                    {/*        <div>*/}
+                    {/*            <Label className="text-sm dark:text-white">شهر</Label>*/}
 
-                                <Select name={"city_id"} defaultValue={address?.city_id}>
-                                    {
-                                        citys && citys?.map((item ,index) => (
-                                            <option key={index} value={item.id} selected={address?.city_id == item.id}>
-                                                {item.name}
-                                            </option>
-                                        ))
-                                    }
-                                </Select>
-                            </div>
-                        </div>
+                    {/*            <Select name={"city_id"} defaultValue={address?.city_id}>*/}
+                    {/*                {*/}
+                    {/*                    citys && citys?.map((item ,index) => (*/}
+                    {/*                        <option key={index} value={item.id} selected={address?.city_id == item.id}>*/}
+                    {/*                            {item.name}*/}
+                    {/*                        </option>*/}
+                    {/*                    ))*/}
+                    {/*                }*/}
+                    {/*            </Select>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
 
-                        {/* ============ */}
-                        <div className="sm:flex space-y-4 sm:space-y-0 sm:gap-x-3">
-                            <div className="flex-1">
-                                <Label className="text-sm dark:text-white">آدرس</Label>
-                                <Input
-                                    className="mt-1.5"
-                                    placeholder=""
-                                    name={"address"}
-                                    defaultValue={address?.address}
-                                    type={"text"}
-                                />
-                            </div>
-                            <div className="sm:w-1/3">
-                                <Label className="text-sm dark:text-white">تلفن</Label>
-                                <Input className="mt-1.5" defaultValue={address?.tell} name={"tell"}/>
-                            </div>
-                        </div>
+                    {/*    /!* ============ *!/*/}
+                    {/*    <div className="sm:flex space-y-4 sm:space-y-0 sm:gap-x-3">*/}
+                    {/*        <div className="flex-1">*/}
+                    {/*            <Label className="text-sm dark:text-white">آدرس</Label>*/}
+                    {/*            <Input*/}
+                    {/*                className="mt-1.5"*/}
+                    {/*                placeholder=""*/}
+                    {/*                name={"address"}*/}
+                    {/*                defaultValue={address?.address}*/}
+                    {/*                type={"text"}*/}
+                    {/*            />*/}
+                    {/*        </div>*/}
+                    {/*        <div className="sm:w-1/3">*/}
+                    {/*            <Label className="text-sm dark:text-white">تلفن</Label>*/}
+                    {/*            <Input className="mt-1.5" defaultValue={address?.tell} name={"tell"}/>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
 
-                        {/* ============ */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
-                            <div>
-                                <Label className="text-sm dark:text-white">کد پستی</Label>
-                                <Input className="mt-1.5" defaultValue={address?.zip_code} name={"zip_code"}/>
-                            </div>
-                            <div>
-                                <Label className="text-sm dark:text-white">شماره همراه</Label>
-                                <Input className="mt-1.5" defaultValue={address?.mobile} name={"mobile"}/>
-                            </div>
+                    {/*    /!* ============ *!/*/}
+                    {/*    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">*/}
+                    {/*        <div>*/}
+                    {/*            <Label className="text-sm dark:text-white">کد پستی</Label>*/}
+                    {/*            <Input className="mt-1.5" defaultValue={address?.zip_code} name={"zip_code"}/>*/}
+                    {/*        </div>*/}
+                    {/*        <div>*/}
+                    {/*            <Label className="text-sm dark:text-white">شماره همراه</Label>*/}
+                    {/*            <Input className="mt-1.5" defaultValue={address?.mobile} name={"mobile"}/>*/}
+                    {/*        </div>*/}
 
-                        </div>
+                    {/*    </div>*/}
 
 
-                        {/* ============ */}
-                        <div className="flex flex-col sm:flex-row pt-6">
-                            <ButtonPrimary
-                                className="sm:!px-7 shadow-none"
-                            >
-                                ذخیره
-                            </ButtonPrimary>
-                        </div>
-                    </form>
+                    {/*    /!* ============ *!/*/}
+                    {/*    <div className="flex flex-col sm:flex-row pt-6">*/}
+                    {/*        <ButtonPrimary*/}
+                    {/*            className="sm:!px-7 shadow-none"*/}
+                    {/*        >*/}
+                    {/*            ذخیره*/}
+                    {/*        </ButtonPrimary>*/}
+                    {/*    </div>*/}
+                    {/*</form>*/}
                 </div>
             </div>
         );

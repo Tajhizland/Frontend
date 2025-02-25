@@ -85,7 +85,7 @@ const CheckoutPage = () => {
 
     const [tabActive, setTabActive] = useState<
         "ContactInfo" | "ShippingAddress" | "PaymentMethod"
-    >("ShippingAddress");
+    >("ContactInfo");
 
     const handleScrollToEl = (id: string) => {
         const element = document.getElementById(id);
