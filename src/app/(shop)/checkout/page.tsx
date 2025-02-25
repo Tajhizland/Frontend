@@ -265,13 +265,13 @@ const CheckoutPage = () => {
     const renderDiscount = () => {
         let sumDiscount: number = 0;
         cart.map((item) => {
-            sumDiscount += Number((item.color.price - item.color.discountedPrice) * item.count);
+            sumDiscount += Number((item.color.price - item.color.discountedPrice==0?item.color.price:item.color.discountedPrice) * item.count);
         })
         return sumDiscount;
     }
     const renderDiscountedPrice = () => {
 
-        return sumPrice + sumGuarantyPrice - sumDiscount;
+        return sumPrice-sumDiscount + sumGuarantyPrice  ;
     }
     const renderAllow = () => {
         let allow: boolean = true;
