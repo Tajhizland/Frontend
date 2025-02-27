@@ -18,12 +18,13 @@ const widgetMenus: WidgetFooterMenu[] = [
         id: "5",
         title: " اطلاعات ",
         menus: [
-            {href: "/pages/راهنمای-خرید-از-تجهیزلند" as Route, label: "راهنمای خرید"},
-            {href: "/pages/نحوه-ثبت-سفارش" as Route, label: "نحوه ثبت سفارش"},
-            {href: "/pages/رویه-ارسال-سفارش" as Route, label: "رویه ارسال سفارش"},
-            {href: "/pages/شیوه-های-پرداخت" as Route, label: "شیوه های پرداخت"},
-            {href: "/pages/قوانین-تجهیزلند" as Route, label: "قوانین و مقررات"},
-            {href: "/pages/شرایط-بازگرداندن-کالا" as Route, label: "شرایط بازگرداندن سفارش"},
+            {href: "/page/rahnama" as Route, label: "راهنمای خرید"},
+            {href: "/page/faq" as Route, label: "سوالات متداول"},
+            {href: "/page/aboutus" as Route, label: "درباره ما"},
+            {href: "/page/ghavanin" as Route, label: "قوانین سایت"},
+            {href: "/page/rule" as Route, label: "قوانین ثبت سفارش"},
+            {href: "/page/raviyeersal" as Route, label: "رویه ارسال سفارشات"},
+            {href: "/page/hamkarifrosh" as Route, label: " همکاری با تولید و تامین کنندگان"},
 
         ],
     },
@@ -32,11 +33,12 @@ const widgetMenus: WidgetFooterMenu[] = [
         title: "خدمات تجهیزلند",
         menus: [
             {href: "/", label: "فروشگاه اینترنتی"},
-            {href: "/pages/تجهیز-رستوران" as Route, label: "تجهیز رستوران"},
-            {href: "/pages/تجهیز-کافی-شاپ" as Route, label: "تجهیز کافی شاپ"},
-            {href: "/pages/تجهیز-فست-فود" as Route, label: "تجهیز فست فود"},
-            {href: "/pages/تجهیز-آشپزخانه-صنعتی" as Route, label: "تجهیز آشپزخانه صنعتی "},
-            {href: "/pages/تولید-انواع-یخچال-فروشگاهی" as Route, label: "تولید انواع یخچال فروشگاهی"},
+            {href: "/page/tajhizrahandazi" as Route, label: "تجهیز و راه اندازی"},
+            {href: "/page/mosshvereamozesh" as Route, label: "مشاوره و آموزش"},
+            {href: "/page/zemanatesalat" as Route, label: "ضمانت اصالت کالا"},
+            {href: "/page/ersal" as Route, label: "ارسال به سراسر کشور"},
+            {href: "/page/khadamatpasazfrosh" as Route, label: "خدمات پس از فروش"},
+
 
         ],
     },
@@ -44,11 +46,11 @@ const widgetMenus: WidgetFooterMenu[] = [
         id: "2",
         title: "دسترسی سریع",
         menus: [
-            {href: "/pages/فروش-محصولات-در-تجهیزلند" as Route, label: "فروش محصولات در تجهیزلند"},
-            {href: "/pages/خدمات-پس-از-فروش" as Route, label: "خدمات پس از فروش"},
-            {href: "/faq" as Route, label: "پرسش های متداول"},
             {href: "/news" as Route, label: "مقالات"},
-            {href: "/pages/about" as Route, label: "درباره ما"},
+            {href: "/vlog" as Route, label: "ولاگ"},
+            {href: "/product/discounted" as Route, label: "تخفیفی های تجهیزلند"},
+            {href: "/special" as Route, label: "محصولات خاص پسند ها"},
+            {href: "/brand" as Route, label: "برند ها"},
             {href: "/contact" as Route, label: "تماس با ما"},
 
         ],
