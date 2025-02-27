@@ -88,10 +88,9 @@ const ProductCard: FC<ProductCardProps> = ({
             return (
                 <div className={CLASSES}>
                     <Badge color={"red"} name={
-                        <>
-                            <IconDiscount className="w-3.5 h-3.5  text-red-500"/>
-                            <span className="mr-1 leading-none  text-red-500 text-xs">{discounted} تخفیف </span>
-                        </>
+                        <span className="mr-1 leading-none  text-red-500 text-xs">{discounted}
+                            %
+                                 تخفیف </span>
                     }/>
                 </div>
             );

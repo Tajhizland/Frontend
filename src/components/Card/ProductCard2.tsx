@@ -71,11 +71,10 @@ const ProductCard2: FC<ProductCardProps> = ({
             return (
                 <div className={CLASSES}>
                     <Badge color={"red"} name={
-                        <>
-                            <IconDiscount className="w-3.5 h-3.5  text-red-500"/>
-                            <span className="mr-1 leading-none  text-red-500 text-xs">{discounted} تخفیف </span>
-                        </>
-                    }/>
+                             <span className="mr-1 leading-none  text-red-500 text-xs">{discounted}
+                                %
+                                 تخفیف </span>
+                     }/>
                 </div>
             );
         }
@@ -139,7 +138,7 @@ const ProductCard2: FC<ProductCardProps> = ({
         let minPrice = product.colors.data[0].price;
         let minDiscountedPrice = product.colors.data[0].discountedPrice;
         product.colors.data.map((item) => {
-            if (item.price < minPrice && item.status == 1 && item.price>0) {
+            if (item.price < minPrice && item.status == 1 && item.price > 0) {
                 minPrice = item.price;
                 minDiscountedPrice = item.discountedPrice;
             }
@@ -151,7 +150,7 @@ const ProductCard2: FC<ProductCardProps> = ({
             else
                 return <div className={"flex items-center gap-2"}>
                     <del className={"text-xs text-red-500"}>
-                         {
+                        {
                             new Intl.NumberFormat('fa').format(minPrice)
                         }
                     </del>
