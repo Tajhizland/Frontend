@@ -6,7 +6,7 @@ import Select from "@/shared/Select/Select";
 import avatar from "@/images/avatar.svg";
 import Image from "next/image";
 import {useUser} from "@/services/globalState/GlobalState";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {update} from "@/services/api/auth/me";
 import {toast} from "react-hot-toast";
 import {findActive} from "@/services/api/shop/address";
@@ -19,6 +19,7 @@ import {FaPhone} from "react-icons/fa";
 const AccountPage = () => {
 
     const [user] = useUser();
+    const queryClient = useQueryClient();
 
     const {data: address} = useQuery({
         queryKey: ['address'],
@@ -56,6 +57,8 @@ const AccountPage = () => {
         })
         if (response?.success)
             toast.success(response?.message as string);
+        queryClient.invalidateQueries([`bannerList`]);
+
     }
 
     return (
@@ -146,7 +149,7 @@ const AccountPage = () => {
                                 <div className="mt-1.5 flex">
                 <span
                     className="inline-flex items-center px-2.5 rounded-r-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
-                <FaPhone />
+                <FaPhone/>
 
                 </span>
                                     <Input name={"mobile"} className="!rounded-r-none" defaultValue={user?.username}
