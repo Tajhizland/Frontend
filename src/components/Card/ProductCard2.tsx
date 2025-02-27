@@ -1,7 +1,7 @@
 "use client";
 
 import React, {FC, useState} from "react";
-import {  ClockIcon,  SparklesIcon} from "@heroicons/react/24/outline";
+import {ClockIcon, SparklesIcon} from "@heroicons/react/24/outline";
 import {StarIcon} from "@heroicons/react/24/solid";
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
@@ -22,9 +22,9 @@ export interface ProductCardProps {
 }
 
 const ProductCard2: FC<ProductCardProps> = ({
-                                               className = "",
-                                               data,
-                                           }) => {
+                                                className = "",
+                                                data,
+                                            }) => {
 
 
     const [variantActive, setVariantActive] = useState(0);
@@ -33,24 +33,24 @@ const ProductCard2: FC<ProductCardProps> = ({
     const queryClient = useQueryClient(); // درست است
     async function likeHandle(like: boolean) {
         if (like) {
-            let response =  await addToFavorite({productId: data?.id as number})
+            let response = await addToFavorite({productId: data?.id as number})
             toast.success(response?.message as string)
         } else {
-            let response =  await deleteFromFavorite({productId: data?.id as number})
+            let response = await deleteFromFavorite({productId: data?.id as number})
             toast.success(response?.message as string)
 
         }
-        queryClient.invalidateQueries(['get_favorite' ]);
+        queryClient.invalidateQueries(['get_favorite']);
     }
+
     const renderStatus = () => {
-        let status="";
-        let discounted=0;
-        data?.colors.data.map((item)=>{
-            if (item.statusLabel!=""){
-                status=item.statusLabel;
-                if(item.discount>0)
-                {
-                    discounted=item.discount;
+        let status = "";
+        let discounted = 0;
+        data?.colors.data.map((item) => {
+            if (item.statusLabel != "") {
+                status = item.statusLabel;
+                if (item.discount > 0) {
+                    discounted = item.discount;
                 }
             }
         })
@@ -67,11 +67,15 @@ const ProductCard2: FC<ProductCardProps> = ({
                 </div>
             );
         }
-        if (status == "discount") {
+        if (discounted != 0) {
             return (
                 <div className={CLASSES}>
-                    <IconDiscount className="w-3.5 h-3.5"/>
-                    <span className="mr-1 leading-none">{discounted}   تخفیف </span>
+                    <Badge color={"red"} name={
+                        <>
+                            <IconDiscount className="w-3.5 h-3.5  text-red-500"/>
+                            <span className="mr-1 leading-none  text-red-500 text-xs">{discounted} تخفیف </span>
+                        </>
+                    }/>
                 </div>
             );
         }
@@ -87,10 +91,9 @@ const ProductCard2: FC<ProductCardProps> = ({
         return null;
     };
     const renderGuaranty = () => {
-        if(data?.guaranty)
-        {
+        if (data?.guaranty) {
             return <div
-                className={  " flex items-center  dark:text-slate-300 absolute top-12 start-3 bg-white rounded-full p-2 text-xs"}
+                className={" flex items-center  dark:text-slate-300 absolute top-12 start-3 bg-white rounded-full p-2 text-xs"}
             ><NcImage
                 containerClassName="flex aspect-w-11 aspect-h-12 w-4 h-4  lg:w-8 lg:h-8"
                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${data?.guaranty?.icon}`}
@@ -122,38 +125,54 @@ const ProductCard2: FC<ProductCardProps> = ({
             </div>
         );
     };
-    const checkStock=(product:ProductResponse)=>{
-        let hasStock=false;
-        product.colors.data.map((item)=>{
-            if(item.stock>0 && item.status==1)
-            {
-                hasStock =true;
+    const checkStock = (product: ProductResponse) => {
+        let hasStock = false;
+        product.colors.data.map((item) => {
+            if (item.stock > 0 && item.status == 1) {
+                hasStock = true;
                 return hasStock;
             }
         })
         return hasStock;
     }
-    const renderMinPrice=(product:ProductResponse)=>{
-        let minPrice=product.colors.data[0].discountedPrice;
-        product.colors.data.map((item)=>{
-            if(item.discountedPrice<minPrice && item.status==1 && item.discountedPrice!=0)
-            {
-                minPrice =item.discountedPrice;
+    const renderMinPrice = (product: ProductResponse) => {
+        let minPrice = product.colors.data[0].price;
+        let minDiscountedPrice = product.colors.data[0].discountedPrice;
+        product.colors.data.map((item) => {
+            if (item.price < minPrice && item.status == 1 && item.price>0) {
+                minPrice = item.price;
+                minDiscountedPrice = item.discountedPrice;
             }
         })
-        return minPrice;
+
+        if (checkStock(product)) {
+            if (minDiscountedPrice == minPrice)
+                return <Prices price={minPrice}/>
+            else
+                return <div className={"flex items-center gap-2"}>
+                    <del className={"text-xs text-red-500"}>
+                         {
+                            new Intl.NumberFormat('fa').format(minPrice)
+                        }
+                    </del>
+                    <Prices price={minDiscountedPrice}/>
+                </div>
+
+        }
+        return <Badge color={"red"} name={"ناموجود"}/>;
     }
     return (
         <>
             <div
-                style={{direction:"rtl"}}
+                style={{direction: "rtl"}}
                 className={`nc-ProductCard relative flex flex-col bg-white dark:bg-slate-800 ${className}`}
             >
-                <Link href={"/product/"+data?.url as Route} className="absolute inset-0" aria-label={"product"}></Link>
+                <Link href={"/product/" + data?.url as Route} className="absolute inset-0"
+                      aria-label={"product"}></Link>
                 <div
                     className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group border">
 
-                    <Link href={"/product/"+data?.url as Route} className="block" aria-label={"product"}>
+                    <Link href={"/product/" + data?.url as Route} className="block" aria-label={"product"}>
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 "
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0]?.url}`}
@@ -180,8 +199,9 @@ const ProductCard2: FC<ProductCardProps> = ({
                         </h2>
                     </div>
 
-                    <div className="flex flex-col gap-y-2 sm:flex-row justify-between items-start  text-xs sm:text-base ">
-                        {data && checkStock(data)?<Prices price={renderMinPrice(data)}/>:<Badge color={"red"} name={"ناموجود"} />}
+                    <div
+                        className="flex flex-col gap-y-2 sm:flex-row justify-between items-start  text-xs sm:text-base ">
+                        {data && renderMinPrice(data)}
                         <div className="hidden lg:flex items-center mb-0.5">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">

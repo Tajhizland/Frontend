@@ -12,6 +12,7 @@ import {Route} from "next";
 import Image from "next/image";
 import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
 import ProductCard from "@/components/Card/ProductCard";
+import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 
 const BrandListing = ({ response, url }: { response: BrandListingResponse, url: string }) => {
     const [filter, setFilter] = useState<number>();
@@ -94,7 +95,7 @@ const BrandListing = ({ response, url }: { response: BrandListingResponse, url: 
 
     return (
         <div className={`nc-PageCollection dark:bg-neutral-900`}>
-            <div className="container py-0  lg:py-10  lg:pb-28   space-y-16 sm:space-y-20 lg:space-y-28">
+            <div className="container py-0  lg:py-10  lg:pb-28 ">
             <ShopBreadcrump breadcrumb={[{
                 href:"brand" ,
                 title:"برند ها"
@@ -102,21 +103,8 @@ const BrandListing = ({ response, url }: { response: BrandListingResponse, url: 
                 title:response.brand.name ,
                 href:"brand/"+response.brand.url
             }]} />
-                <div
-                    className={`relative w-full aspect-w-2 sm:aspect-w-3  lg:aspect-w-5 aspect-h-1 rounded-2xl overflow-hidden group border`}
-                >
-                    {
-                        response.banner.data.map((item,index)=>(
-                            <Link key={index} href={item.url as Route} title={"link"}>
-                                <Image
-                                    alt=""
-                                    fill
-                                    className="w-full h-full object-cover"
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${item.image}`}
-                                />
-                            </Link>))
-                    }
-                </div>
+                <SectionSingleBanner banner={response.banner.data[0]}/>
+
                 <div className="space-y-10 lg:space-y-14">
                     {/* HEADING */}
 
