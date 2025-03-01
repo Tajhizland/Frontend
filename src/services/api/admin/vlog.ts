@@ -15,7 +15,7 @@ export const store = async <T extends ServerResponse<unknown>>
 ) => {
     const formData = new FormData();
     formData.append('title', params.title);
-    formData.append('description', params.title);
+    formData.append('description', params.description);
     formData.append('url', params.url);
     formData.append('status', params.status.toString());
     formData.append('video', params.video);
@@ -35,13 +35,14 @@ export const update = async <T extends ServerResponse<unknown>>
         categoryId: number | string,
         video: File | null,
         poster: File | null,
-        description: string
+        description: string ,
+        setProgress?: (progress: number) => void // تابع برای تغییر مقدار درصد آپلود
     }
 ) => {
     const formData = new FormData();
     formData.append('id', params.id.toString());
     formData.append('title', params.title);
-    formData.append('description', params.title);
+    formData.append('description', params.description);
     formData.append('url', params.url);
     formData.append('categoryId', params.categoryId.toString());
     formData.append('status', params.status.toString());
@@ -49,7 +50,14 @@ export const update = async <T extends ServerResponse<unknown>>
         formData.append('video', params.video);
     if (params.poster)
         formData.append('poster', params.poster);
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog/update", formData)
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog/update", formData,
+        {
+            onUploadProgress: (progressEvent) => {
+                //@ts-ignore
+                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                if (params.setProgress) params.setProgress(percentCompleted);
+            }
+        })
         .then((res) => res?.data);
 };
 

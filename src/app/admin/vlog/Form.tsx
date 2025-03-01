@@ -11,13 +11,15 @@ import {useQuery} from "react-query";
 import {findById, getList} from "@/services/api/admin/vlogCategory";
 import NcImage from "@/shared/NcImage/NcImage";
 import SunEditors from "@/shared/Editor/SunEditors";
+import Spinner from "@/shared/Loading/Spinner";
 
 interface Form {
     data?: VlogResponse;
+    loading:boolean;
     submit: (e: FormData) => void;
 }
 
-export default function Form({ data, submit  }: Form) {
+export default function Form({ data, submit ,loading }: Form) {
 
     const {data: categoryList} = useQuery({
         queryKey: [`vlog_category-list`],
@@ -92,8 +94,13 @@ export default function Form({ data, submit  }: Form) {
             </div>
             <hr className={"my-5"}/>
             <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"}>
+                <ButtonPrimary type={"submit"} disabled={loading}>
+                    <div className={"flex items-center gap-2"}>
                     ذخیره
+                    {
+                        loading && <div className={"w-4 h-4"}><Spinner  className={"!w-4 !h-4"} /> </div>
+                    }
+                    </div>
                 </ButtonPrimary>
             </div>
         </form>
