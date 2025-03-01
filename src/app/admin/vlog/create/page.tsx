@@ -6,11 +6,14 @@ import Form from "@/app/admin/vlog/Form";
 import {store} from "@/services/api/admin/vlog";
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
+import {useState} from "react";
 
 export default function Page() {
     const router = useRouter();
+    const [loading, setLoading] = useState<boolean>(false);
 
     async function submit(e: FormData) {
+        setLoading(true);
         let response = await store(
             {
                 title: e.get("title") as string,
@@ -22,6 +25,7 @@ export default function Page() {
                 description: e.get("description") as string,
             }
         )
+        setLoading(false);
         toast.success(response?.message as string)
         router.push("/admin/vlog");
     }
@@ -42,7 +46,7 @@ export default function Page() {
                 افزودن ولاگ جدید
             </PageTitle>
             <div>
-                <Form submit={submit}/>
+                <Form loading={loading} submit={submit}/>
             </div>
         </Panel>
     </>)
