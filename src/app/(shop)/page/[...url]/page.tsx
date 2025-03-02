@@ -71,7 +71,7 @@ const BlogSingle = async (props: ProductPageProps) => {
 
     const renderContent = () => {
         return (
-            <div dangerouslySetInnerHTML={{__html: page.content}}/>
+            <div className={"description"} dangerouslySetInnerHTML={{__html: page.content}}/>
         );
     };
 

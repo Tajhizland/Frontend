@@ -100,9 +100,12 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
     };
     const handleSearch = () => {
         router.push("/search/" + inputRef.current?.value as Route);
+        onClickClose && onClickClose()
     }
     const handleSearchVlog = () => {
         router.push("/vlog?search=" + inputRef.current?.value as Route);
+        onClickClose && onClickClose()
+
     }
     return (
         <div
@@ -124,7 +127,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                         <div className="flex flex-col relative  ">
                             {
                                 data.data.length > 0 ? data.data.map((item) => (<>
-                                        <Link href={"/product/" + item.url as Route}>
+                                        <Link href={"/product/" + item.url as Route}  onClick={onClickClose}>
                                             <div
                                                 className="flex items-center justify-between  py-2 px-1 hover:bg-stone-100 dark:bg-black/30 dark:hover:bg-black/20 ">
                                                 <div className="flex items-center gap-x-5  ">

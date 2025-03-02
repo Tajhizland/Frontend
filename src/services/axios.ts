@@ -64,7 +64,7 @@ const errorHandler = (error: AxiosError) => {
 
 const axios: AxiosInstance = Axios.create({
     baseURL: API_URL,
-    timeout: 120000,
+    timeout: 1800000,
     headers: {
         'Content-Type': 'application/json',
         'Pragma': 'no-cache',

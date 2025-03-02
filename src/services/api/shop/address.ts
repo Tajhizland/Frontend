@@ -18,6 +18,7 @@ export const update = async <T extends ServerResponse<unknown>>
 (params:{
     id?:number ,
     city_id:string ,
+    title:string ,
     province_id:string ,
     tell:string ,
     mobile:string ,
