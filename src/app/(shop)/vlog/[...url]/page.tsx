@@ -6,6 +6,7 @@ import {Route} from "next";
 import NcImage from "@/shared/NcImage/NcImage";
 import {FaEye} from "react-icons/fa";
 import Heading from "@/components/Heading/Heading";
+import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
 
 interface PageProps {
     params: Promise<{
@@ -43,13 +44,8 @@ export default async function Page(props: PageProps) {
     const renderContent = () => {
         return (
             <div className={"flex flex-col gap-y-10 text-right dark:text-white"}>
-                <video
-                    className="w-full h-auto"
-                    controls
-                >
-                    <source src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.video}`}
-                            type="video/mp4"/>
-                </video>
+
+                <VideoPlayer src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.video}`}/>
 
                 <div dangerouslySetInnerHTML={{__html: (response.vlog.description)}}/>
             </div>

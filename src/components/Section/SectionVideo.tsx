@@ -2,6 +2,7 @@
 import React, {Fragment, useState} from "react";
 import {FaPlay} from "react-icons/fa";
 import {BsFillCameraReelsFill} from "react-icons/bs";
+import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
 
 export default function SectionVideo({
                                          intro_video,
@@ -66,9 +67,7 @@ export default function SectionVideo({
                                                                                            className={"bg-neutral-100 hover:bg-neutral-200 dark:bg-black/20 dark:hover:bg-black/30 rounded flex gap-x-2 w-full xl:w-64 cursor-pointer overflow-hidden"}>
 
                                 <div className="flex-shrink-0 w-32 h-20">
-                                    <video className="w-full h-full">
-                                        <source src={item.src} type="video/mp4"/>
-                                    </video>
+                                    <VideoPlayer src={item.src}/>
                                 </div>
                                 <div className={"flex flex-col justify-between w-fit whitespace-nowrap flex-1 py-2"}>
                                     <div className={"flex items-center gap-x-1"}>
@@ -90,9 +89,7 @@ export default function SectionVideo({
                     <div
                         className={`mt-0   nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full  aspect-w-16 aspect-h-9 `}>
                         <div className="h-full mx-auto flex justify-center items-center">
-                            <video className="w-full h-auto object-cover" controls>
-                                <source src={openVideo} type="video/mp4"/>
-                            </video>
+                            <VideoPlayer src={openVideo}/>
                         </div>
                     </div>
                 </div>
