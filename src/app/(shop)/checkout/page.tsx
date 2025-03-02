@@ -26,6 +26,7 @@ import Checkbox from "@/shared/Checkbox/Checkbox";
 import {findActive} from "@/services/api/shop/address";
 import CartController from "@/components/CartController/CartController";
 import Prices from "@/components/Price/Prices";
+import Badge from "@/shared/Badge/Badge";
 
 const CheckoutPage = () => {
     const router = useRouter();
@@ -414,6 +415,7 @@ const CheckoutPage = () => {
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
                                        disabled={!allow || !acceptRule}>پرداخت</ButtonPrimary>
 
+
                         <div className={"flex items-center gap-2 mt-5 justify-center"}>
                             <Checkbox name={"rule"} onChange={() => {
                                 setAcceptRule(!acceptRule)
@@ -426,7 +428,10 @@ const CheckoutPage = () => {
                                 {" "}
                                 سایت موافقم</p>
                         </div>
-
+                        <div className={"flex justify-center mt-5"}>
+                            {!acceptRule && <Badge color={"red"} name={" برای ثبت سفارش ابتدا باید با قوانین سایت موافقت کنید"}>
+                            </Badge>}
+                        </div>
                         {
                             !allow &&
                             <Alert containerClassName={"justify-center mt-4"} type={"error"}>محصول غیرفعال یا ناموجود در
