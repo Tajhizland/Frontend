@@ -19,6 +19,7 @@ import IconDiscount from "@/components/Icon/IconDiscount";
 import LikeSaveBtns from "@/shared/Button/LikeSaveBtns";
 import Accordion from "@/components/Accordion/Accordion";
 import SectionVideo from "@/components/Section/SectionVideo";
+import Badge from "@/shared/Badge/Badge";
 
 
 interface ProductPageProps {
@@ -121,8 +122,11 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         if (status == "discount") {
             return (
                 <div className={CLASSES}>
-                    <IconDiscount className="w-3.5 h-3.5"/>
-                    <span className="mr-1 leading-none">{renderMixDiscount(product)} % تخفیف </span>
+                    <Badge color={"red"} name={
+                        <span className="mr-1 leading-none  text-red-500 text-xs">
+                             {renderMixDiscount(product)} % تخفیف
+                         </span>
+                    }/>
                 </div>
             );
         }

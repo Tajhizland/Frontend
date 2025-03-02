@@ -55,6 +55,21 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             { position: "top-left", id: "nc-product-notify", duration: 3000 }
         );
     };
+
+    const renderMainPrice=()=>{
+        if(selectedColor.discountedPrice == selectedColor.price)
+        {
+            return  <Prices price={selectedColor.price}/>
+        }
+        return <div className={"flex items-center gap-2"}>
+            <del className={"text-sm text-red-500"}>
+                {
+                    new Intl.NumberFormat('fa').format(selectedColor.price)
+                }
+            </del>
+            <Prices price={selectedColor.discountedPrice}/>
+        </div>
+    }
     const renderVariants = () => {
         if (!colors || !colors.length) {
             return null;
@@ -72,10 +87,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                             </span>
                         </span>
                         <div className={"flex mt-3"}>
-                            {selectedColor.discountedPrice ? <Prices
-                                contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold text-center"
-                                price={selectedColor.discountedPrice}
-                            /> :
+                            {selectedColor.discountedPrice ? renderMainPrice()  :
                                 <Badge name={"ناموجود"} color={"red"} />}
                         </div>
                     </div>
@@ -249,11 +261,15 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                 </div>
             );
         }
-        if (status == "discount") {
+        if (selectedColor.discount!=0) {
             return (
                 <div className={CLASSES}>
-                    <IconDiscount className="w-3.5 h-3.5" />
-                    <span className="mr-1 leading-none">{selectedColor.discount} % تخفیف </span>
+
+                    <Badge color={"red"} name={
+                        <span className="mr-1 leading-none  text-red-500 text-xs">
+                          {selectedColor.discount} % تخفیف
+                         </span>
+                    }/>
                 </div>
             );
         }
