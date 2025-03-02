@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Image from "next/image";
 
 export default function Uploader(props: any) {
@@ -52,7 +52,7 @@ export default function Uploader(props: any) {
                     />
                 </label>
 
-                {selectedImage && (
+                {(!props.show || props.show == true) && selectedImage && (
                     <div className="mt-4">
                         <Image
                             width={120}

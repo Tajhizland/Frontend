@@ -74,7 +74,7 @@ export default function Form({ data, submit ,loading }: Form) {
 
             <div>
                 <Label>ویدیو  </Label>
-                <Uploader  name={"video"}/>
+                <Uploader  name={"video"} show={false}/>
             </div>
             <div>
                 <Label>پوستر  </Label>
