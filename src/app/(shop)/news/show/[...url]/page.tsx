@@ -20,12 +20,12 @@ export async function generateMetadata(props: ProductPageProps): Promise<Metadat
         twitter: {
             title: news.title,
             description: stripHTML(news.content),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/news/${news.img}`,
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/blog/${news.img}`,
         },
         openGraph: {
             title: news.title,
             description: stripHTML(news.content),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/news/${news.img}`,
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/blog/${news.img}`,
             url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/news/show/${news.url}`,
             type: "website",
         },

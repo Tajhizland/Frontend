@@ -42,7 +42,7 @@ const SectionHomepageBlog: FC<SectionHomepageBlogProps> = ({
                                 >
                                     <NcImage
                                         containerClassName="flex aspect-w-3 aspect-h-2 w-full h-0 rounded"
-                                        src={"https://tajhizland.com/upload/" + item.img}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/blog/${item.img}`}
                                         className="object-fill w-full h-full rounded group-hover:opacity-80"
                                         fill
                                         alt="vlog"

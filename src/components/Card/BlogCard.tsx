@@ -27,7 +27,7 @@ const BlogCard: FC<BlogCardProps> = ({ className = "h-full", item }) => {
                     <NcImage
                         alt=""
                         fill
-                        src={"https://tajhizland.com/upload/" + item.img}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/blog/${item.img}`}
                         containerClassName="absolute inset-0"
                         className="w-full"
                     />
