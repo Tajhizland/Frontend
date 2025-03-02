@@ -5,13 +5,13 @@ import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
 import Uploader from "@/shared/Uploader/Uploader";
-import TinyEditor from "@/shared/Editor/TinyEditor";
 import {VlogResponse} from "@/services/types/vlog";
 import {useQuery} from "react-query";
 import {findById, getList} from "@/services/api/admin/vlogCategory";
 import NcImage from "@/shared/NcImage/NcImage";
 import SunEditors from "@/shared/Editor/SunEditors";
 import Spinner from "@/shared/Loading/Spinner";
+import SimpleUploader from "@/shared/Uploader/SimpleUploader";
 
 interface Form {
     data?: VlogResponse;
@@ -74,7 +74,7 @@ export default function Form({ data, submit ,loading }: Form) {
 
             <div>
                 <Label>ویدیو  </Label>
-                <Uploader  name={"video"} show={false}/>
+                <SimpleUploader name={"video"} />
             </div>
             <div>
                 <Label>پوستر  </Label>
