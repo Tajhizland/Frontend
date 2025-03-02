@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
-export default function VideoPlayer({src}:{src:string}) {
+export default function VideoPlayer({src , poster}:{src:string ,poster?:string}) {
     const videoRef = useRef(null);
 
     useEffect(() => {
@@ -13,6 +13,7 @@ export default function VideoPlayer({src}:{src:string}) {
             controls: true,
             responsive: true,
             fluid: true,
+            poster:poster ,
             autoplay: false,
             sources: [
                 { src: src, type: "video/mp4" }, // HLS

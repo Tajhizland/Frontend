@@ -13,7 +13,7 @@ export interface Card12Props {
 const VlogVideoCard: FC<Card12Props> = ({className = "h-full", data}) => {
     return (
         <div className={` group relative flex flex-col ${className}`}>
-            <VideoPlayer src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.video}`}/>
+            <VideoPlayer poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`} src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.video}`}/>
 
             {/*<video*/}
             {/*    className="w-full h-auto"*/}
