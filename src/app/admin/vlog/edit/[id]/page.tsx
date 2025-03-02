@@ -7,7 +7,7 @@ import {update} from "@/services/api/admin/vlog";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 import {findById} from "@/services/api/admin/vlog";
-import {useQuery} from "react-query";
+import {useQuery, useQueryClient} from "react-query";
 import PageTab from "@/components/Tabs/PageTab";
 import React, {useState} from "react";
 import {BarLoader} from "react-spinners";
@@ -15,6 +15,7 @@ import {BarLoader} from "react-spinners";
 export default function Page() {
     const [loading, setLoading] = useState<boolean>(false);
     const [progress, setProgress] = useState(0);
+    const queryClient = useQueryClient();
     const {id} = useParams();
     const {data: data} = useQuery({
         queryKey: [`vlog-info`],
@@ -37,6 +38,7 @@ export default function Page() {
                 setProgress: setProgress, // فرستادن تابع برای نمایش درصد آپلود
             }
         )
+        queryClient.invalidateQueries(['vlog-info']);
         setLoading(false);
         toast.success(response?.message as string)
     }
