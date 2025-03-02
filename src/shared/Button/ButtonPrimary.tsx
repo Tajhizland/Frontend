@@ -1,7 +1,7 @@
 import Button, { ButtonProps } from "@/shared/Button/Button";
-import React, {ButtonHTMLAttributes} from "react";
+import React from "react";
 
-export interface ButtonPrimaryProps extends ButtonHTMLAttributes<any> {}
+export interface ButtonPrimaryProps extends ButtonProps {}
 
 const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({
   className = "",
