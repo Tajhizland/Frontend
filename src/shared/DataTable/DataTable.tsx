@@ -15,6 +15,7 @@ import NcModal from "@/shared/NcModal/NcModal";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import {IoIosWarning} from "react-icons/io";
+import SelectPagination from "@/shared/Pagination/SelectPagination";
 
 type optionType = {
     label: string;
@@ -387,7 +388,7 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                                                 sizeClass={"py-1 px-3 sm:py-1 h-8 sm:px-6 h-8"}
                                                                 fontSize={" text-sm"} onClick={() => {
                                                             button.action(row.id);
-                                                            fetchData(meta.current_page)
+                                                            // fetchData(meta.current_page)
                                                         }}>{button.label}</Button>
                                                         : ""
                                                 }
@@ -402,7 +403,15 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                 </table>
 
             </div>
-            <div className={"mt-5 mx-auto"}>
+            <div className={"mt-5 mx-auto flex items-center gap-5"}>
+                <SelectPagination
+                    currentPage={meta.current_page}
+                    totalPages={Math.ceil(meta.total / meta.per_page)}
+                    onPageChange={(n) => {
+                        fetchData(n);
+                    }}
+                />
+
                 <AdminPagination
                     currentPage={meta.current_page}
                     totalPages={Math.ceil(meta.total / meta.per_page)}
@@ -410,6 +419,7 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                         fetchData(n);
                     }}
                 />
+
             </div>
         </>
     );
