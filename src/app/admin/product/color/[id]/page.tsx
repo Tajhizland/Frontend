@@ -91,7 +91,7 @@ export default function Page() {
                                     index={index}
                                     code={item.color_code}
                                     name={item.color_name}
-                                    discount={item.discount}
+                                    discount={item.discountedPrice}
                                     id={item.id}
                                     status={item.status}
                                     price={item.price}

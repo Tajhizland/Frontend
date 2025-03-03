@@ -120,7 +120,7 @@ export default function Page() {
                                     <Input name={`color[${index}][price]`} defaultValue={item.price}/>
                                 </div>
                                 <div>
-                                    <label>تخفیف</label>
+                                    <label>قیمت پس از تخفیف</label>
                                     <Input name={`color[${index}][discount]`} defaultValue={item.discountedPrice}/>
                                 </div>
 
