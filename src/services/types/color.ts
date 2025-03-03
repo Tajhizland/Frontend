@@ -1,3 +1,5 @@
+import {ProductResponse} from "@/services/types/product";
+
 export type ColorResponse = {
     id: number,
     product_id: number,
@@ -11,6 +13,7 @@ export type ColorResponse = {
     simple_discount: number,
     delivery_delay: number,
     stock: number,
+    product?: ProductResponse,
     created_at: string,
     updated_at: string,
 }

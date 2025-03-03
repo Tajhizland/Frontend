@@ -111,6 +111,9 @@ export default function Page() {
             return <Spinner/>
         setSumColorSize(colors?.length ?? 0);
         return (<>
+            <strong className={"text-center mx-auto flex justify-center"}>
+                {colors && colors[0]?.product?.name}
+            </strong>
             <form action={updateColor}>
                 {colors && colors.map((item, index) => (
                     <Fragment key={index}>
