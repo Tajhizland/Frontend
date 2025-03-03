@@ -58,6 +58,7 @@ export default function Page() {
                 price: Number(e.get(`color[${i}][price]`)),
                 discount: Number(e.get(`color[${i}][discount]`)),
                 status: Number(e.get(`color[${i}][status]`)),
+                stock: Number(e.get(`color[${i}][stock]`)),
                 delivery_delay: Number(e.get(`color[${i}][delivery_delay]`)),
             };
 
@@ -130,6 +131,11 @@ export default function Page() {
                                         <option value={0} selected={item.status == 0}>غیر فعال</option>
                                         <option value={2} selected={item.status == 2}>محدودیت</option>
                                     </Select>
+                                </div>
+                                <div>
+                                    <label>موجودی</label>
+                                    <Input name={`color[${index}][stock]`}
+                                           defaultValue={item.stock ?? 0}/>
                                 </div>
                                 <div>
                                     <label>زمان آماده سازی</label>

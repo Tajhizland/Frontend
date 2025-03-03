@@ -32,6 +32,7 @@ export const updateColorPrice = async <T extends ServerResponse<unknown>>(
             price:number,
             discount:number,
             status:number,
+            stock:number,
             delivery_delay:number,
         }[]
 
