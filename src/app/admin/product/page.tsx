@@ -18,7 +18,7 @@ import {Fragment, useState} from "react";
 import NcModal from "@/shared/NcModal/NcModal";
 import {findById, updateColorPrice} from "@/services/api/admin/color";
 import Input from "@/shared/Input/Input";
-import {useQuery} from "react-query";
+import {useQuery, useQueryClient} from "react-query";
 import Spinner from "@/shared/Loading/Spinner";
 import Select from "@/shared/Select/Select";
 
@@ -26,6 +26,7 @@ export default function Page() {
     const [modal, setModal] = useState(false)
     const [productId, setProductID] = useState<number>()
     const [sumColorSize, setSumColorSize] = useState<number>(0)
+    const queryClient = useQueryClient();
 
     async function submit(e: ProductResponse) {
 
@@ -47,6 +48,7 @@ export default function Page() {
             }
         )
         toast.success(response?.message as string)
+
     }
 
     async function updateColor(e: FormData) {
@@ -70,6 +72,7 @@ export default function Page() {
         });
         toast.success(response?.message as string)
         setModal(false);
+        queryClient.invalidateQueries(['color-info']);
 
     }
 
