@@ -8,6 +8,7 @@ export type ColorResponse = {
     price: number,
     discountedPrice: number,
     discount: number,
+    simple_discount: number,
     delivery_delay: number,
     stock: number,
     created_at: string,

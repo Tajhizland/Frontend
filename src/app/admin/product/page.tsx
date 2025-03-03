@@ -124,7 +124,7 @@ export default function Page() {
                                 </div>
                                 <div>
                                     <label>قیمت پس از تخفیف</label>
-                                    <Input name={`color[${index}][discount]`} defaultValue={item.discountedPrice}/>
+                                    <Input name={`color[${index}][discount]`} defaultValue={item.simple_discount}/>
                                 </div>
 
                                 <div>
