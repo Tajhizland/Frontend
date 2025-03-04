@@ -50,6 +50,7 @@ export default function Page() {
                 price: e.get(`color[${i}][price]`) as string,
                 discount: e.get(`color[${i}][discount]`) as string,
                 stock: e.get(`color[${i}][stock]`) as string,
+                discount_expire_time: e.get(`color[${i}][discount_expire_time]`) as string,
             };
             colors.push(colorData);
         }
@@ -97,6 +98,8 @@ export default function Page() {
                                     price={item.price}
                                     stock={item.stock}
                                     deliveryDelay={item.delivery_delay}
+                                    discount_expire_time={item.discount_expire_time}
+                                    discount_expire_time_fa={item.discount_expire_time_fa}
                                 />
                                 <hr />
                             </>))

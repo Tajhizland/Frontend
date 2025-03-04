@@ -9,6 +9,8 @@ export type ColorResponse = {
     statusLabel: string,
     price: number,
     discountedPrice: number,
+    discount_expire_time: string,
+    discount_expire_time_fa: string,
     discount: number,
     simple_discount: number,
     delivery_delay: number,

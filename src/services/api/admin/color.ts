@@ -13,6 +13,7 @@ export const set = async <T extends ServerResponse<unknown>>(
             stock:number|string,
             status:number|string,
             delivery_delay:number|string,
+            discount_expire_time:string,
         }[]
 
     }

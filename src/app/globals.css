@@ -85,7 +85,9 @@ body {
     width: 100%;
 }
 
-
+.rmdp-container{
+    width: 100%;
+}
 .description * {
     font-family: myFont, myFont Fallback !important;
 
