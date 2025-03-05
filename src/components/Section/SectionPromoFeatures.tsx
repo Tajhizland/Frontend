@@ -6,6 +6,7 @@ import HIW3img from  "@/images/promo3.png";
 import HIW4img from  "@/images/promo2.png";
 import VectorImg from "@/images/VectorHIW.svg";
 import Image from "next/image";
+import Link from "next/link";
 
 export interface SectionHowItWorkProps {
     className?: string;
@@ -16,6 +17,7 @@ const data = [
         id: 1,
         img: HIW1img,
         imgDark: HIW1img,
+        link: "/page/tajhizrahandazi",
         title: "تجهیز و راه اندازی",
         mobileTitle: "تجهیز و \n راه اندازی",
         desc: "صفر تا صد راه اندازی کافه , رستوران و فست فود",
@@ -24,6 +26,7 @@ const data = [
         id: 2,
         img: HIW2img,
         imgDark: HIW2img,
+        link: "/page/mosshvereamozesh",
         title: "مشاوره و آموزش",
         mobileTitle: "مشاوره و\n  آموزش",
         desc: "مشاوره در انتخاب کانسپت تا تجهیزات و آموزش و راه اندازی و استفاده در تجهیزات",
@@ -32,6 +35,7 @@ const data = [
         id: 3,
         img: HIW3img,
         imgDark: HIW3img,
+        link: "/page/zemanatesalat",
         title: "ضمانت اصالت کالا",
         mobileTitle: "ضمانت \n اصالت کالا",
         desc: "تضمین اصالت کلیه کالاهای موجود در تجهیزلند",
@@ -40,6 +44,7 @@ const data = [
         id: 4,
         img: HIW4img,
         imgDark: HIW4img,
+        link: "/page/ersal",
         title: "ارسال به سراسر کشور",
         mobileTitle: "ارسال به \n سراسر کشور",
         desc: "امکان ارسال کلیه کالا ها به سراسر کشور با کمترین هزینه",
@@ -58,7 +63,8 @@ const SectionPromoFeatures: FC<SectionHowItWorkProps> = ({
                     alt="vector"
                 />
                 {data.map((item , index: number) => (
-                    <div
+                    <Link
+                        href={item.link}
                         key={index}
                         className="relative flex flex-col items-start max-w-xs mx-auto"
                     >
@@ -77,7 +83,7 @@ const SectionPromoFeatures: FC<SectionHowItWorkProps> = ({
                                 {item.desc}
                             </span>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

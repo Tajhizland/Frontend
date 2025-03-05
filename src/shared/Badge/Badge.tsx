@@ -5,7 +5,7 @@ import React, {FC, ReactNode} from "react";
 export interface BadgeProps {
     className?: string;
     name: ReactNode;
-    color?: "pink" | "red" | "gray" | "green" | "purple" | "indigo" | "yellow" | "blue"
+    color?: "pink" | "red" | "gray" | "green" | "purple" | "indigo" | "yellow" | "blue"|"discount"
     href?: Route;
 }
 
@@ -23,6 +23,8 @@ const Badge: FC<BadgeProps> = ({
                 }`;
             case "red":
                 return `text-red-800 bg-red-100 ${hasHover ? "hover:bg-red-800" : ""}`;
+            case "discount":
+                return `text-white bg-red-600 ${hasHover ? "hover:bg-red-800" : ""}`;
             case "gray":
                 return `text-gray-800 bg-gray-100 ${
                     hasHover ? "hover:bg-gray-800" : ""

@@ -125,7 +125,7 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
                                     </div>
                                     <Link
                                         title={"all"}
-                                        href={"/brand"}
+                                        href={"/product/discounted"}
                                         className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"
                                     ></Link>
                                 </div>

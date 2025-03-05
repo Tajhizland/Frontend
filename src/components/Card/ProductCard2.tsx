@@ -70,10 +70,10 @@ const ProductCard2: FC<ProductCardProps> = ({
         if (discounted != 0) {
             return (
                 <div className={CLASSES}>
-                    <Badge color={"red"} name={
-                             <span className="mr-1 leading-none  text-red-500 text-xs">{discounted}
+                    <Badge color={"discount"} name={
+                             <span className="mr-1 leading-none    text-xs">{discounted}
                                 %
-                                 تخفیف </span>
+                                   </span>
                      }/>
                 </div>
             );
