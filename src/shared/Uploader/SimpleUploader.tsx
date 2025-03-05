@@ -25,7 +25,7 @@ export default function SimpleUploader(props: any) {
                             />
                         </svg>
                         <p className="mb-2 text-xs text-gray-500 text-center">
-                            <span className="font-semibold">برای آپلود عکس کلیک کنید</span> یا عکس را در اینجا بکشید
+                            <span className="font-semibold">برای آپلود کلیک کنید</span>
                         </p>
                     </div>
                     <input

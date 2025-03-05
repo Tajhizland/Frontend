@@ -4,19 +4,23 @@ import ProductTab from "@/components/Tabs/ProductTab";
 import { getFiles, remove, upload} from "@/services/api/admin/fileManager";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
-import Uploader from "@/shared/Uploader/Uploader";
 import {TrashIcon} from "@heroicons/react/24/solid";
-import Image from "next/image";
 import {useParams} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
 import {toast} from "react-hot-toast";
 import NcImage from "@/shared/NcImage/NcImage";
-import React from "react";
+import React, {useState} from "react";
 import {findById as productFindById} from "@/services/api/admin/product";
+import Progress from "@/shared/Progress/Progress";
+import Spinner from "@/shared/Loading/Spinner";
+import SimpleUploader from "@/shared/Uploader/SimpleUploader";
 
 export default function Page() {
     const {id} = useParams();
     const queryClient = useQueryClient();
+    const [progress, setProgress] = useState(0);
+    const [loading, setLoading] = useState(false);
+
     const {data: data, isLoading: isLoading} = useQuery({
         queryKey: [`files`],
         queryFn: () => getFiles({model_id:Number(id) ,model_type:"product"}),
@@ -28,11 +32,14 @@ export default function Page() {
         staleTime: 5000,
     });
     async function submit(e: FormData) {
-        let response = await upload({model_id: Number(id), file: e.get("file") as File ,model_type:"product"})
+        setLoading(true)
+        let response = await upload({model_id: Number(id), file: e.get("file") as File ,model_type:"product",setProgress:setProgress})
         if (response?.success) {
             queryClient.refetchQueries(['files']);
             toast.success(response?.message as string);
         }
+        setLoading(false)
+
     }
     async function removeFile(id: number) {
         let response = await remove(id)
@@ -62,11 +69,17 @@ export default function Page() {
             <ProductTab id={id + ""}/>
             <div className="flex flex-col gap-y-4">
                 <form action={submit}>
-                    <Uploader name={"file"}/>
-                    <ButtonPrimary>
-                        آپلود
+                    <SimpleUploader name={"file"}/>
+                    <ButtonPrimary disabled={loading}>
+                        <div className={"flex items-center gap-2"}>
+                            آپلود
+                            {
+                                loading && <div className={"w-4 h-4"}><Spinner  className={"!w-4 !h-4"} /> </div>
+                            }
+                        </div>
                     </ButtonPrimary>
                 </form>
+                <Progress progress={progress} />
             </div>
             <div className={"grid grid-cols-1 md:grid-cols-2  xl:grid-cols-5 gap-5 border rounded  mt-10"}>
                 {
