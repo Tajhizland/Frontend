@@ -1,5 +1,10 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
-import {ProductPageResponse, ProductResponse} from "@/services/types/product";
+import {
+    DiscountedProductPageResponse,
+    ProductPageResponse,
+    ProductResponse,
+    SpecialProductPageResponse
+} from "@/services/types/product";
 
 export const findProductByUrl = async <T extends ServerResponse<ProductPageResponse>>
 (
@@ -9,15 +14,15 @@ export const findProductByUrl = async <T extends ServerResponse<ProductPageRespo
     return axios.post<T, SuccessResponseType<T>>("product/find",{url:url})
         .then((res) => res?.data?.result?.data)
 };
-export const getDiscountedProducts = async <T extends ServerResponse<ProductResponse[]>>
+export const getDiscountedProducts = async <T extends ServerResponse<DiscountedProductPageResponse>>
 ( page=1) => {
 
     return axios.get<T, SuccessResponseType<T>>("product/discount?page="+page)
-        .then((res) => res?.data?.result)
+        .then((res) => res?.data?.result?.data)
 };
-export const getSpecialProductsPaginate = async <T extends ServerResponse<ProductResponse[]>>
+export const getSpecialProductsPaginate = async <T extends ServerResponse<SpecialProductPageResponse[]>>
 ( page=1) => {
 
     return axios.get<T, SuccessResponseType<T>>("special/list?page="+page)
-        .then((res) => res?.data?.result)
+        .then((res) => res?.data?.result?.data)
 };

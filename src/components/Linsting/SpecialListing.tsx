@@ -7,6 +7,7 @@ import { useInfiniteQuery } from "react-query";
 import { ProductResponse } from "@/services/types/product";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import ProductCard from "@/components/Card/ProductCard";
+import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 
 export default function SpecialListing({ response }) {
     const router = useRouter();
@@ -25,11 +26,11 @@ export default function SpecialListing({ response }) {
         "specialProducts",  // شناسه کوئری
         async ({ pageParam = 1 }) => {
             const result = await getSpecialProductsPaginate(pageParam);
-            return result;
+            return result.data;
         },
         {
             initialData: {
-                pages: [response],
+                pages: [response.data],
                 pageParams: [1],
             },
             getNextPageParam: (lastPage) => {
@@ -75,20 +76,15 @@ export default function SpecialListing({ response }) {
     }, [data, router]);
 
     const allProducts = data?.pages.flatMap((page) => page.data) || [];
-
-    return (
+     return (
         <>
             <div className={`nc-PageCollection dark:bg-neutral-900`}>
                 <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
                     <div className="space-y-10 lg:space-y-14">
                         {/* HEADING */}
-                        <div className="max-w-screen-sm">
-                            <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
-                                محصولات خاص پسند ها
-                            </h2>
-                        </div>
-
+                        <SectionSingleBanner banner={response.banner.data[0]} />
                         <hr className="border-slate-200 dark:border-slate-700" />
+
                         <main>
                             {/* LOOP ITEMS */}
                             <div
@@ -104,6 +100,13 @@ export default function SpecialListing({ response }) {
                                 {isFetchingNextPage && <ProductCardSkeleton/>}
                             </div>
                         </main>
+                        <hr className="border-slate-200 dark:border-slate-700" />
+                        <div className="max-w-screen-sm">
+                            <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
+                                محصولات خاص پسند ها
+                            </h2>
+                        </div>
+
                     </div>
                 </div>
             </div>

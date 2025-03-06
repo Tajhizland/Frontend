@@ -1,13 +1,22 @@
-import { ColorResponse } from "./color";
-import { CommentResponse } from "./comment";
-import { ProductOptionResponse } from "@/services/types/productOption";
-import { ProductImageResponse } from "@/services/types/productImage";
+import {ColorResponse} from "./color";
+import {CommentResponse} from "./comment";
+import {ProductOptionResponse} from "@/services/types/productOption";
+import {ProductImageResponse} from "@/services/types/productImage";
 import {GuarantyResponse} from "@/services/types/guaranty";
 import {BrandResponse} from "@/services/types/brand";
+import {BannerResponse} from "@/services/types/banner";
 
 export type ProductPageResponse = {
-    product:ProductResponse;
-    relatedProduct:{data:ProductResponse[]};
+    product: ProductResponse;
+    relatedProduct: { data: ProductResponse[] };
+}
+export type SpecialProductPageResponse = {
+    data: ProductResponse;
+    banner: { data: BannerResponse[] };
+}
+export type DiscountedProductPageResponse = {
+    data: ProductResponse;
+    banner: { data: BannerResponse[] };
 }
 export type ProductResponse = {
     id: number;
