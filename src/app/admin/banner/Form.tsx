@@ -46,6 +46,12 @@ export default function Form({data, submit}: Form) {
         }, {
             title:"برند",
             value:"brand"
+        },  {
+            title:"محصولات خاص",
+            value:"special"
+        }, {
+            title:"تخفیفی ها",
+            value:"discount"
         },
     ]
     return (<>
