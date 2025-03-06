@@ -15,7 +15,7 @@ import ButtonThird from "@/shared/Button/ButtonThird";
 import Slider from "rc-slider";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {FilterResponse} from "@/services/types/filter";
-import Toman from "@/images/toman.svg"
+import Toman from "@/images/tomanBlack.svg";
 import Image from "next/image";
 import Radio from "@/shared/Radio/Radio";
 import Checkbox from "@/shared/Checkbox/Checkbox";
@@ -432,6 +432,29 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                                         <div className="flex justify-between space-x-5">
                                             <div>
                                                 <label
+                                                    htmlFor="maxPrice"
+                                                    className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+                                                >
+                                                    حداکثر قیمت
+                                                </label>
+                                                <div className="mt-1 relative rounded-md">
+                          <span
+                              className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
+                                                        <Image width={15} src={Toman} alt={"تومان"}/>
+
+                          </span>
+                                                    <input
+                                                        type="text"
+                                                        disabled
+                                                        name="maxPrice"
+                                                        id="maxPrice"
+                                                        className="block w-32 pr-10 pl-4 text-xs  border-neutral-200 dark:border-neutral-700 rounded-full bg-transparent"
+                                                        value={rangePrices[1]}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label
                                                     htmlFor="minPrice"
                                                     className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                                                 >
@@ -454,29 +477,7 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                                                     />
                                                 </div>
                                             </div>
-                                            <div>
-                                                <label
-                                                    htmlFor="maxPrice"
-                                                    className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
-                                                >
-                                                    حداکثر قیمت
-                                                </label>
-                                                <div className="mt-1 relative rounded-md">
-                          <span
-                              className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
-                                                        <Image width={15} src={Toman} alt={"تومان"}/>
 
-                          </span>
-                                                    <input
-                                                        type="text"
-                                                        disabled
-                                                        name="maxPrice"
-                                                        id="maxPrice"
-                                                        className="block w-32 pr-10 pl-4 text-xs  border-neutral-200 dark:border-neutral-700 rounded-full bg-transparent"
-                                                        value={rangePrices[1]}
-                                                    />
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div
@@ -716,32 +717,6 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                                                         <div className="flex justify-between space-x-5">
                                                             <div>
                                                                 <label
-                                                                    htmlFor="minPrice"
-                                                                    className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
-                                                                >
-                                                                    حداقل قیمت
-                                                                </label>
-                                                                <div className="mt-1 relative rounded-md">
-                                                                    <div
-                                                                        className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <span className="text-neutral-500 sm:text-sm">
-                                                                                              <Image width={15}
-                                                                                                     src={Toman}
-                                                                                                     alt={"تومان"}/>
-                                    </span>
-                                                                    </div>
-                                                                    <input
-                                                                        type="text"
-                                                                        name="minPrice"
-                                                                        disabled
-                                                                        id="minPrice"
-                                                                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-7 pl-3  text-sm text-center border-neutral-200 rounded-full text-neutral-900"
-                                                                        value={rangePrices[0]}
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <label
                                                                     htmlFor="maxPrice"
                                                                     className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                                                                 >
@@ -766,6 +741,33 @@ const TabFilters = ({filters, changeFilter, minPrice, maxPrice}: {
                                                                     />
                                                                 </div>
                                                             </div>
+                                                            <div>
+                                                                <label
+                                                                    htmlFor="minPrice"
+                                                                    className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+                                                                >
+                                                                    حداقل قیمت
+                                                                </label>
+                                                                <div className="mt-1 relative rounded-md">
+                                                                    <div
+                                                                        className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <span className="text-neutral-500 sm:text-sm">
+                                                                                              <Image width={15}
+                                                                                                     src={Toman}
+                                                                                                     alt={"تومان"}/>
+                                    </span>
+                                                                    </div>
+                                                                    <input
+                                                                        type="text"
+                                                                        name="minPrice"
+                                                                        disabled
+                                                                        id="minPrice"
+                                                                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-7 pl-3  text-sm text-center border-neutral-200 rounded-full text-neutral-900"
+                                                                        value={rangePrices[0]}
+                                                                    />
+                                                                </div>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
