@@ -11,18 +11,24 @@ import {getCity} from "@/services/api/shop/city";
 import Select from "@/shared/Select/Select";
 import Label from "@/shared/Label/Label";
 import Maps from "@/components/Maps/Maps";
+import {MdEmail} from "react-icons/md";
+import {FaPhone} from "react-icons/fa";
+import {FaLocationCrosshairs, FaLocationDot} from "react-icons/fa6";
 
 const info = [
     {
-        title: "🗺 آدرس",
+        icon: <FaLocationCrosshairs/>,
+        title: "آدرس",
         desc: "تهران ، خیابان جمهوری ، بین خیابان دانشگاه و ابوریحان ، ضلع شمال خیابان جمهوری(لاین خط ویژه) ،پلاک 981 ",
     },
     {
-        title: "💌 ایمیل",
+        icon: <MdEmail/>,
+        title: "ایمیل",
         desc: "support@tajhizland.com",
     },
     {
-        title: "☎ تلفن",
+        icon: <FaPhone/>,
+        title: "تلفن",
         desc: <a
             href="tel:02166477790"
         >
@@ -30,8 +36,9 @@ const info = [
         </a>,
     },
     {
-        title: "📍 لوکیشن",
-        desc: <Maps />,
+        icon: <FaLocationDot/>,
+        title: " لوکیشن",
+        desc: <Maps/>,
     },
 ];
 const PageContact = ({}) => {
@@ -77,7 +84,7 @@ const PageContact = ({}) => {
         , "سایر"
     ]
     return (
-        <div className={`nc-PageContact overflow-hidden dark:bg-slate-900 dark:text-white`}>
+        <div className={`nc-PageContact overflow-hidden dark:bg-slate-900 dark:text-white mb-10`}>
             <div className="">
                 <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
                     تماس با ما
@@ -87,9 +94,12 @@ const PageContact = ({}) => {
                         <div className="max-w-sm space-y-8">
                             {info.map((item, index) => (
                                 <div key={index}>
-                                    <h3 className="uppercase font-semibold text-sm dark:text-neutral-200 tracking-wider">
-                                        {item.title}
-                                    </h3>
+                                    <div className={"flex items-center gap-2"}>
+                                        {item.icon}
+                                        <h3 className="uppercase font-semibold text-sm dark:text-neutral-200 tracking-wider">
+                                            {item.title}
+                                        </h3>
+                                    </div>
                                     <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
                     {item.desc}
                   </span>
@@ -97,7 +107,7 @@ const PageContact = ({}) => {
                             ))}
                         </div>
                         <div>
-                            <form className="grid grid-cols-1 gap-6" action={submitHandle} >
+                            <form className="grid grid-cols-1 gap-6" action={submitHandle}>
                                 <label className="block">
                                     <Label>نام</Label>
 
@@ -127,7 +137,7 @@ const PageContact = ({}) => {
                                     }}>
                                         <option>انتخاب کنید</option>
                                         {
-                                            provinces && provinces?.map((item,index) => (
+                                            provinces && provinces?.map((item, index) => (
                                                 <option key={index} value={item.id as number}>
                                                     {item.name}
                                                 </option>
