@@ -14,7 +14,7 @@ export default function InstallPWAButton() {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > lastScrollY) {
+            if (window.scrollY > lastScrollY || window.scrollY < 10) {
                 // اسکرول به پایین - منو را پنهان کن
                 setShowNavigation(false);
             } else {
