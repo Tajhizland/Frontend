@@ -3,8 +3,8 @@
 import usePWAInstallPrompt from "@/hooks/usePWAInstallPrompt";
 
 export default function InstallPWAButton() {
-    const { isInstallable, installPWA } = usePWAInstallPrompt();
-
+    const {isInstallable, installPWA} = usePWAInstallPrompt();
+    console.log(isInstallable);
     if (!isInstallable) return null;
 
     return (
