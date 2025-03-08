@@ -12,6 +12,7 @@ import {Suspense} from "react";
 import BottomNavigation from "@/components/BottomNavigation/BottomNavigation";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
+import InstallPWAButton from "@/components/Pwa/InstallPWAButton";
 
 
 const myFont: NextFont = localFont({src: '../../fonts/fa/IRANSansWeb.woff2'})
@@ -38,6 +39,7 @@ export default function ShopLayout({
                     <BottomNavigation/>
                 </QueryClientProvider>
                 <Footer/>
+                <InstallPWAButton />
             </div>
             <CommonClient/>
         </>
