@@ -1,18 +1,51 @@
-"use client"
-
+import React, {useEffect, useState} from "react";
 import usePWAInstallPrompt from "@/hooks/usePWAInstallPrompt";
+import Image from "next/image";
+import icon from "@/images/icon.png"
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 
 export default function InstallPWAButton() {
     const {isInstallable, installPWA} = usePWAInstallPrompt();
-    console.log(isInstallable);
-    if (!isInstallable) return null;
 
+
+    const [showNavigation, setShowNavigation] = useState(true);
+
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > lastScrollY) {
+                // اسکرول به پایین - منو را پنهان کن
+                setShowNavigation(false);
+            } else {
+                // اسکرول به بالا - منو را نمایش بده
+                setShowNavigation(true);
+            }
+            setLastScrollY(window.scrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
+
+    if (!isInstallable || !showNavigation) return null;
     return (
-        <div className="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-lg shadow-md">
-            <p>نصب اپلیکیشن روی گوشی؟</p>
-            <button onClick={installPWA} className="bg-white text-blue-600 px-4 py-2 mt-2 rounded">
-                نصب
-            </button>
+        <div
+            className="fixed top-16 right-0 w-full bg-white text-black px-2 py-1 rounded-lg shadow-md  flex md:hidden justify-between gap-2 z-50">
+            <div className={"flex items-center gap-2"}>
+                <Image className={"w-5 h-5"} src={icon} alt={"logo"}/>
+                <p className={"text-sm"}>اپلیکیشن تجهیزلند</p>
+            </div>
+            <div className="flex gap-2">
+                <ButtonSecondary
+                    className="border border-slate-100 dark:border-slate-700 text-xs sm:text-sm"
+                    onClick={installPWA}>
+                    نصب
+                </ButtonSecondary>
+            </div>
         </div>
     );
 }
