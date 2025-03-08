@@ -31,36 +31,36 @@ const NavMobile: React.FC<NavMobileProps> = ({
             <>
                 <div className={"grid grid-cols-3 gap-2"}>
                     {item.children?.data?.map((item, index) => (
-                        <Fragment key={index} >
+                        <Fragment key={index}>
                             {item.children?.data?.map((i, index) => (
 
                                 <Disclosure key={index} as="li">
-                            <Link
-                                href={{
-                                    pathname: i.url || undefined,
-                                }}
-                                className={`  justify-center text-center items-center flex flex-col text-sm rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5 ${itemClass}`}
-                                onClick={onClickClose}
-                            >
-                                <div className={"border rounded-full overflow-x-hidden w-16 h-16"}>
-                                    <Image
-                                        alt=""
-                                        width={500}
-                                        height={100}
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/menu/${i.banner_logo}`}
-                                        className="   w-full  h-full "
-                                    />
-                                </div>
-              <span
-                  className={`py-2.5 text-center text-xs ${!i.children ? "block w-full" : ""}`}
-                  onClick={onClickClose}
-              >
+                                    <Link
+                                        href={{
+                                            pathname: i.url || undefined,
+                                        }}
+                                        className={`  justify-center text-center items-center flex flex-col text-sm rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5 ${itemClass}`}
+                                        onClick={onClickClose}
+                                    >
+                                        <div className={"border rounded-full overflow-x-hidden w-16 h-16"}>
+                                            <Image
+                                                alt=""
+                                                width={500}
+                                                height={100}
+                                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/menu/${i.banner_logo}`}
+                                                className="   w-full  h-full "
+                                            />
+                                        </div>
+                                        <span
+                                            className={`py-2.5 text-center text-xs ${!i.children ? "block w-full" : ""}`}
+                                            onClick={onClickClose}
+                                        >
                 {i.title}
               </span>
 
-                            </Link>
+                                    </Link>
 
-                        </Disclosure>
+                                </Disclosure>
                             ))}
 
                         </Fragment>
@@ -85,28 +85,30 @@ const NavMobile: React.FC<NavMobileProps> = ({
                 {/*>*/}
                 <div
                     className="flex w-full items-center py-2.5 px-4 font-medium uppercase tracking-wide text-sm hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
-          <span
-              className={!item.children?.data ? "block w-full" : ""}
-              // onClick={onClickClose}
-          >
+                    <Disclosure.Button
+                        as="span"
+                        className="flex justify-between flex-grow "
+                    >     <span
+                        className={!item.children?.data ? "block w-full" : ""}
+                        // onClick={onClickClose}
+                    >
             {item.title}
           </span>
-                    {item.children?.data && (
-                        <span
-                            className="block flex-grow"
-                            onClick={(e) => e.preventDefault()}
-                        >
-              <Disclosure.Button
-                  as="span"
-                  className="flex justify-end flex-grow"
-              >
+                        {item.children?.data && (
+                            <span
+                                className="block flex-grow flex justify-end"
+                                onClick={(e) => e.preventDefault()}
+                            >
+
+
                 <ChevronDownIcon
                     className="ml-2 h-4 w-4 text-neutral-500"
                     aria-hidden="true"
                 />
-              </Disclosure.Button>
             </span>
-                    )}
+                        )}
+                    </Disclosure.Button>
+
                 </div>
                 {/*</Link>*/}
                 {item.children?.data && (
@@ -166,15 +168,15 @@ const NavMobile: React.FC<NavMobileProps> = ({
             className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
             <div className="py-6 px-5">
                 <div className={"flex justify-center w-full"}>
-                <Logo  />
+                    <Logo/>
                 </div>
                 <div className="flex flex-col mt-5 text-slate-600 dark:text-slate-300 text-sm">
 
                     <div className="flex justify-between items-center mt-4">
-                         <div className={"flex items-center gap-x-1"}>
-                        <BlogLink className={"bg-neutral-100 dark:bg-neutral-800"} onClick={onClickClose}/>
-                        <VlogLink className={"bg-neutral-100 dark:bg-neutral-800"} onClick={onClickClose}/>
-                         </div>
+                        <div className={"flex items-center gap-x-1"}>
+                            <BlogLink className={"bg-neutral-100 dark:bg-neutral-800"} onClick={onClickClose}/>
+                            <VlogLink className={"bg-neutral-100 dark:bg-neutral-800"} onClick={onClickClose}/>
+                        </div>
                         <span className="block">
               <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800"/>
             </span>

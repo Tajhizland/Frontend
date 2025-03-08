@@ -87,7 +87,7 @@ const ProductCard: FC<ProductCardProps> = ({
         if (discounted != 0) {
             return (
                 <div className={CLASSES}>
-                    <Badge   color={"discount"} name={
+                    <Badge color={"discount"} name={
                         <span className="mr-1 leading-none  text-white text-xs">{discounted}
                             <b>
                                 %
@@ -132,7 +132,9 @@ const ProductCard: FC<ProductCardProps> = ({
 
         if (checkStock(product)) {
             if (minDiscountedPrice == minPrice)
-                return <Prices price={minPrice}/>
+                return <div className={"flex items-center gap-2 w-full justify-end"}>
+                    <Prices price={minPrice}/>
+                </div>
             else
                 return <div className={"flex items-center gap-2 w-full justify-end"}>
                     <del className={"text-xs text-red-500"}>

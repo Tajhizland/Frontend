@@ -43,7 +43,7 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
                     <NcImage
                         containerClassName="w-full h-24 sm:h-28 border rounded-2xl"
                         className="object-cover w-full h-full rounded-2xl"
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${imgs && imgs[1] && imgs[1].url}`}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${imgs?imgs[1].url??imgs[0].url:""}`}
                         alt=""
                         sizes="150px"
                         width={720}
@@ -52,7 +52,7 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
                     <NcImage
                         containerClassName="w-full h-24 sm:h-28 border rounded-2xl"
                         className="object-cover w-full h-full rounded-2xl"
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${imgs && imgs[2] && imgs[2].url}`}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${imgs?imgs[2]?.url??imgs[0]?.url:""}`}
                         alt=""
                         width={720}
                         height={450}
@@ -61,7 +61,7 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
                     <NcImage
                         containerClassName="w-full h-24 sm:h-28 border rounded-2xl"
                         className="object-cover w-full h-full rounded-2xl"
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${imgs && imgs[3] && imgs[3].url}`}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${imgs?imgs[3]?.url??imgs[1]?.url??imgs[0]?.url:""}`}
                         alt=""
                         sizes="150px"
                         width={720}
@@ -74,15 +74,7 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
                 {/* TITLE */}
                 <div className="flex-1 sm:flex-[2]">
                     <h2 className="font-semibold text-xs  sm:text-sm lg:text-lg text-right dark:text-white">{name}</h2>
-                    {/* AUTHOR */}
-                    <div className="mt-3 lg:flex items-center text-slate-500 dark:text-slate-400 hidden">
 
-                        <span className="h-5 mx-1 sm:mx-2 border-l border-slate-200 dark:border-slate-700"></span>
-                        <StarIcon className="w-4 h-4 text-orange-400" />
-                        <span className="text-sm ml-1 ">
-                            <span className="line-clamp-1">{rating}{" "}({review} نظر)</span>
-                        </span>
-                    </div>
                 </div>
                 <Prices className="mt-0.5 sm:mt-1 sm:ml-4 text-center flex-1" priceClass={"mx-auto"} price={price} />
             </div>

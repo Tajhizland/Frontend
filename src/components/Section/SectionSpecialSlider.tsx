@@ -66,7 +66,7 @@ const SectionSpecialSlider: FC<SectionSpecialSliderProps> = ({
         <div className={` ${className}`}>
             <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
                 <Heading isCenter={false} href="/special" hasNextPrev>
-                    محصولات منحصر به فرد
+                   تجهیزات خاص
                 </Heading>
                 <div className="glide__track" data-glide-el="track"  style={{direction:"rtl"}}>
                     <ul className="glide__slides">
