@@ -59,7 +59,7 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
                 },
                 500: {
                     gap: 10,
-                    perView: 2.1
+                    perView: 1.9
                 },
             },
         };

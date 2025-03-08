@@ -7,7 +7,7 @@ import React from "react";
 export default function SectionSingleBanner({banner}: { banner: BannerResponse }) {
     return (
         <div
-            className={`relative w-full aspect-w-2 sm:aspect-w-3  lg:aspect-w-5 aspect-h-1 rounded-2xl overflow-hidden group border`}
+            className={`relative w-full aspect-w-2 sm:aspect-w-3  lg:aspect-w-4 aspect-h-1 rounded-2xl overflow-hidden group border`}
         >
             <Link href={banner.url as Route} title={"link"}>
                 <Image

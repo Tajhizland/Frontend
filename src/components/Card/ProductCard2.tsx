@@ -203,12 +203,12 @@ const ProductCard2: FC<ProductCardProps> = ({
                     <div
                         className="flex flex-col gap-y-2 sm:flex-row justify-between items-start  text-xs sm:text-base ">
                         {data && renderMinPrice(data)}
-                        <div className="hidden lg:flex items-center mb-0.5">
-                            <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
-                            <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
-                {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
-              </span>
-                        </div>
+              {/*          <div className="hidden lg:flex items-center mb-0.5">*/}
+              {/*              <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>*/}
+              {/*              <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">*/}
+              {/*  {data?.rating || ""} ({data?.comments.data.length || 0} نظر)*/}
+              {/*</span>*/}
+              {/*          </div>*/}
                     </div>
                 </div>
             </div>

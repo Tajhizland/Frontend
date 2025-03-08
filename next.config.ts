@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
             }, {
                 protocol: 'https',
                 hostname: "images.unsplash.com",
+            }, {
+                protocol: 'https',
+                hostname: "Trustseal.eNamad.ir",
+            }, {
+                protocol: 'https',
+                hostname: "logo.samandehi.ir",
             },
         ],
     },

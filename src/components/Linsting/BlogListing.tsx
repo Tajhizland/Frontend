@@ -13,6 +13,7 @@ import Image from "next/image";
 import BlogLastPost from "@/components/Blog/BlogLastPost";
 import BlogCategory from "@/components/Blog/BlogCategory";
 import BlogCard from "@/components/Card/BlogCard";
+import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 
 const BlogListing = ({ response }: { response }) => {
     const observer = useRef<IntersectionObserver | null>(null);
@@ -89,21 +90,8 @@ const BlogListing = ({ response }: { response }) => {
                 <div className={`nc-SectionLatestPosts relative py-5 lg:py-16  `}>
                     <div className="flex flex-col lg:flex-row">
                         <div className="w-full xl:pr-14">
-                            <div
-                                className={`relative w-full aspect-w-2 sm:aspect-w-3  lg:aspect-w-5 aspect-h-1 rounded-2xl overflow-hidden group border`}
-                            >
-                                {
-                                    response.banner.data.map((item, index) => (
-                                        <Link key={index} href={item.url as Route} title={"link"}>
-                                            <Image
-                                                alt=""
-                                                fill
-                                                className="w-full h-full object-cover"
-                                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${item.image}`}
-                                            />
-                                        </Link>))
-                                }
-                            </div>
+                            <SectionSingleBanner banner={response.banner.data[0]}/>
+
                             <div className="flex flex-col lg:flex-row gap-10 mt-5">
 
                                 <div className="flex-[3]">

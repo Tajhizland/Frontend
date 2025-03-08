@@ -15,6 +15,7 @@ import { FaCirclePlay } from "react-icons/fa6";
 import VlogMiniPost from "@/components/Vlog/VlogMiniPost";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 
 export default function VlogListing({ response, search }: { response: any, search?: string }) {
     const observer = useRef<IntersectionObserver | null>(null);
@@ -127,22 +128,7 @@ export default function VlogListing({ response, search }: { response: any, searc
         <div className="nc-PageCollection dark:bg-neutral-900">
             <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
                 <div className="space-y-10 lg:space-y-14">
-
-                    <div
-                        className={`relative w-full aspect-w-2 sm:aspect-w-3  lg:aspect-w-5 aspect-h-1 rounded-2xl overflow-hidden group border`}
-                    >
-                        {
-                            response.banner.data.map((item, index) => (
-                                <Link key={index} href={item.url as Route} title={"link"}>
-                                    <Image
-                                        alt=""
-                                        fill
-                                        className="w-full h-full object-cover"
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${item.image}`}
-                                    />
-                                </Link>))
-                        }
-                    </div>
+                    <SectionSingleBanner banner={response.banner.data[0]}/>
 
                     <main>
                         {/* TABS FILTER */}
