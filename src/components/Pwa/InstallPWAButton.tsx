@@ -31,7 +31,7 @@ export default function InstallPWAButton() {
         };
     }, [lastScrollY]);
 
-    if (!isInstallable || !showNavigation) return null;
+    if (!isInstallable || !showNavigation || window.scrollY < 10) return null;
     return (
         <div
             className="fixed top-16 right-0 w-full bg-white text-black px-2 py-1 rounded-lg shadow-md  flex md:hidden justify-between gap-2 z-50">
