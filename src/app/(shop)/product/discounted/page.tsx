@@ -5,6 +5,7 @@ import {Metadata} from "next";
 //@ts-ignore
 import logo from "@/images/lightLogo.png";
 
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
     return {

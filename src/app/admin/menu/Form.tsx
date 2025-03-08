@@ -79,7 +79,7 @@ export default function Form({data, submit}: Form) {
                     <Label>دسته بندی</Label>
                     <Select name={"category_id"}>
                         <option value={0}>
-                            بدون والد
+                            بدون دسته بندی
                         </option>
                         {
                             categoryLists?.data.map((item) => (<>
