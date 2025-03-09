@@ -251,7 +251,8 @@ const ShippingAddress: FC<Props> = ({
           </span>
                         <div className="sm:mr-2">
                             <h3 className=" text-slate-700 dark:text-slate-300 flex items-center flex-wrap gap-2">
-                                <span className="uppercase">آدرس</span>
+                                <span className="">آدرس</span>
+                                <span className={" text-xs text-slate-600"}> {activeAddress?.title} : </span>
                                 <span className={" text-xs text-slate-600"}>
                                   {address && <>(
                                       {activeAddress?.province?.name} ,

@@ -80,6 +80,21 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         ]
     },
     {
+        title: "سفارشات",
+        url: "/order",
+        icon: <PiShippingContainerDuotone className="h-6 w-6 text-gray-500"/>,
+    },
+    {
+        title: "سفارشات معلق",
+        url: "/onHoldOrder",
+        icon: <PiShippingContainerDuotone className="h-6 w-6 text-gray-500"/>,
+    },
+    {
+        title: "مدیریت تراکنش ها",
+        url: "/transaction",
+        icon: <ImCoinDollar className="h-6 w-6 text-gray-500"/>,
+    },
+    {
         title: "لندینگ ها",
         url: "/",
         icon: <SiWayland className="h-6 w-6 text-gray-500"/>,
@@ -339,16 +354,17 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         url: "/order",
         icon: <PiShippingContainerDuotone className="h-6 w-6 text-gray-500"/>,
     },
-    // {
-    //     title: "مدیریت مرجوعی ها",
-    //     url: "/returned",
-    //     icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
-    //  },
     {
         title: "مدیریت تراکنش ها",
         url: "/transaction",
         icon: <ImCoinDollar className="h-6 w-6 text-gray-500"/>,
     },
+    // {
+    //     title: "مدیریت مرجوعی ها",
+    //     url: "/returned",
+    //     icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
+    //  },
+
     {
         title: "اعلان ها",
         url: "/notification",
