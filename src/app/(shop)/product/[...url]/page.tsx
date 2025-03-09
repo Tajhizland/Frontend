@@ -156,7 +156,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                         {product.name}
                     </h2>
                     <div className="flex items-center mt-4 sm:mt-5">
-                         {renderStatus()}
+                         {/*{renderStatus()}*/}
                         <div className="mr-auto">
                             <LikeSaveBtns like={product.favorite} productId={product.id}/>
                         </div>
