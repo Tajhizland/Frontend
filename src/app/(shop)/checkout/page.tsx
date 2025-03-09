@@ -413,7 +413,7 @@ const CheckoutPage = () => {
                             </div>
                         </div>
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
-                                       disabled={!allow || !acceptRule}>پرداخت</ButtonPrimary>
+                                       disabled={!allow || !acceptRule || sumDiscountedPrice<=0}>پرداخت</ButtonPrimary>
 
 
                         <div className={"flex items-center gap-2 mt-5 justify-center"}>
