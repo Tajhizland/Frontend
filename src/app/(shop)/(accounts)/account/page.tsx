@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, {useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
@@ -20,7 +20,18 @@ const AccountPage = () => {
 
     const [user] = useUser();
     const queryClient = useQueryClient();
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setSelectedImage(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
     const {data: address} = useQuery({
         queryKey: ['address'],
         queryFn: () => findActive(),
@@ -55,10 +66,10 @@ const AccountPage = () => {
             gender: e.get("gender") as string,
             avatar: e.get("avatar") as File
         })
-        if (response?.success)
+        if (response?.success) {
             toast.success(response?.message as string);
-        queryClient.invalidateQueries([`bannerList`]);
-
+            queryClient.invalidateQueries([`user`]);
+        }
     }
 
     return (
@@ -72,17 +83,30 @@ const AccountPage = () => {
                         <div className="flex-shrink-0 flex items-start">
                             {/* AVATAR */}
                             <div className="relative rounded-full overflow-hidden flex">
-                                <Image
-                                    src={(user?.avatar) ?
-                                        `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/avatar/${user?.avatar}`
-                                        : avatar
-                                    }
 
-                                    alt="avatar"
-                                    width={128}
-                                    height={128}
-                                    className="w-32 h-32 rounded-full object-cover z-0"
-                                />
+                                {selectedImage ? <Image
+                                        src={selectedImage
+                                        }
+
+                                        alt="avatar"
+                                        width={128}
+                                        height={128}
+                                        className="w-32 h-32 rounded-full object-cover z-0"
+                                    />
+
+                                    :
+                                    <Image
+                                        src={(user?.avatar) ?
+                                            `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/avatar/${user?.avatar}`
+                                            : avatar
+                                        }
+
+                                        alt="avatar"
+                                        width={128}
+                                        height={128}
+                                        className="w-32 h-32 rounded-full object-cover z-0"
+                                    />
+                                }
                                 <div
                                     className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-neutral-50 cursor-pointer">
                                     <svg
@@ -107,6 +131,7 @@ const AccountPage = () => {
                                     type="file"
                                     name={"avatar"}
                                     className="absolute inset-0 opacity-0 cursor-pointer"
+                                    onChange={handleFileChange}
                                 />
                             </div>
                         </div>

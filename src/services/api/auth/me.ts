@@ -22,6 +22,6 @@ export const update = async <T extends ServerResponse<unknown>>
     if (params.avatar)
         formData.append("avatar", params.avatar);
     return axios.post<T, SuccessResponseType<T>>("auth/update", formData)
-        .then((res) => res.data);
+        .then((res) => res?.data);
 };
 
