@@ -75,6 +75,7 @@ const ShippingAddress: FC<Props> = ({
             toast.success(response?.message as string);
         }
     }
+
     const {data: address} = useQuery({
         queryKey: ['my-address'],
         queryFn: () => getAllAddress(),
@@ -197,7 +198,11 @@ const ShippingAddress: FC<Props> = ({
     }
     const renderCreateContent = () => {
         return <div className={"text-right"}>
-            <AddressForm/>
+            <AddressForm
+                close={() => {
+                    setShowEditModal(false)
+                }}
+            />
         </div>
     }
     const renderShippingAddress = () => {
@@ -254,7 +259,7 @@ const ShippingAddress: FC<Props> = ({
                                 <span className="">آدرس</span>
                                 <span className={" text-xs text-slate-600"}> {activeAddress?.title} : </span>
                                 <span className={" text-xs text-slate-600"}>
-                                  {address && <>(
+                                  {activeAddress ? <>(
                                       {activeAddress?.province?.name} ,
                                       {" "}
                                       {activeAddress?.city?.name} ,
@@ -265,7 +270,10 @@ const ShippingAddress: FC<Props> = ({
                                       {" "}
                                       {activeAddress?.zip_code}
                                       {" "}
-                                      )</>}
+                                      )</>
+                                  :<>
+                                          آدرس را وارد کنید
+                                  </>}
                     </span>
                             </h3>
                         </div>
