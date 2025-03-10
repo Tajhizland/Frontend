@@ -1,10 +1,10 @@
-import React  from "react";
+import React from "react";
 import {
     ClockIcon,
     SparklesIcon,
 } from "@heroicons/react/24/outline";
 
- import {findProductByUrl} from "@/services/api/shop/product";
+import {findProductByUrl} from "@/services/api/shop/product";
 import ProductSidebar from "@/components/Product/ProductSidebar";
 import ProductImage from "../../../../components/Product/ProductImage";
 import ProductComment from "../../../../components/Product/ProductComment";
@@ -12,7 +12,7 @@ import {Metadata} from "next";
 import Script from "next/script";
 import {stripHTML} from "@/hooks/StripHtml";
 import TextExpander from "@/shared/TextExpander/TextExpander";
- import {ProductResponse} from "@/services/types/product";
+import {ProductResponse} from "@/services/types/product";
 import Policy from "../../../../components/Product/Policy";
 import SectionLinkedProductSlider from "@/components/Section/SectionLinkedProductSlider";
 import IconDiscount from "@/components/Icon/IconDiscount";
@@ -41,22 +41,30 @@ export async function generateMetadata(props: ProductPageProps): Promise<Metadat
     let product = productResponse.product;
 
     return {
-        title: product.meta_title??product.name,
-        description: product.meta_description??stripHTML(product.description),
-        twitter:{
-            title: product.meta_title??product.name,
-            description: product.meta_description??stripHTML(product.description),
+        title: product.meta_title ?? product.name,
+        description: product.meta_description ?? stripHTML(product.description),
+        twitter: {
+            title: product.meta_title ?? product.name,
+            description: product.meta_description ?? stripHTML(product.description),
             images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
 
         },
-        openGraph:{
-            title: product.meta_title??product.name,
-            description: product.meta_description??stripHTML(product.description),
+        openGraph: {
+            title: product.meta_title ?? product.name,
+            description: product.meta_description ?? stripHTML(product.description),
             images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
-            url:`${process.env.NEXT_PUBLIC_WEBSITE_URL}/product/${product.url}`,
-             type:"website",
-         },
-        robots:"index , follow",
+            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/product/${product.url}`,
+            type: "website",
+        },
+        robots: "index , follow",
+        other: {
+            product_id: product?.id,
+            product_name: product?.name,
+            product_price: product?.min_price,
+            product_old_price: product?.min_price,
+            availability: product.status==1?"instock":"outofstock",
+            guarantee: product?.guaranties.data[0] ? product?.guaranties.data[0]?.name ?? "" : ""
+        }
 
     }
 }
@@ -88,25 +96,24 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         }
     };
 
-    const renderMixDiscount=(product:ProductResponse)=>{
-        let maxDiscount=0;
-        product.colors.data.map((item)=>{
-            if(item.discount>maxDiscount)
-            {
-                maxDiscount=item.discount;
+    const renderMixDiscount = (product: ProductResponse) => {
+        let maxDiscount = 0;
+        product.colors.data.map((item) => {
+            if (item.discount > maxDiscount) {
+                maxDiscount = item.discount;
             }
         })
         return maxDiscount;
     }
 
     const renderStatus = () => {
-        let status="";
-        product.colors.data.map((item)=>{
-           if (item.statusLabel!=""){
-               status=item.statusLabel;
-           }
+        let status = "";
+        product.colors.data.map((item) => {
+            if (item.statusLabel != "") {
+                status = item.statusLabel;
+            }
         })
-         if (!status) {
+        if (!status) {
             return null;
         }
         const CLASSES =
@@ -142,7 +149,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
     };
     const renderOption = () => {
         const options = product.productOptions.data
-            .map((item) =>(item.value && item.value!=""&&item.value!=" " )? `<tr class=""><td class="py-4 text-neutral-600">${item.option_title}</td><td class="text-right text-black border-b"> ${item.value}</td></tr>`:"")
+            .map((item) => (item.value && item.value != "" && item.value != " ") ? `<tr class=""><td class="py-4 text-neutral-600">${item.option_title}</td><td class="text-right text-black border-b"> ${item.value}</td></tr>` : "")
             .join("");
 
         return `<div class="relative  ">
@@ -156,7 +163,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                         {product.name}
                     </h2>
                     <div className="flex items-center mt-4 sm:mt-5">
-                         {/*{renderStatus()}*/}
+                        {/*{renderStatus()}*/}
                         <div className="mr-auto">
                             <LikeSaveBtns like={product.favorite} productId={product.id}/>
                         </div>
@@ -165,11 +172,11 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 {/*  */}
                 <div className="block lg:hidden">
                     <ProductSidebar product={product}/>
-                 </div>
+                </div>
 
                 {/*  */}
-                 {/*  */}
-                <TextExpander text={product.description} />
+                {/*  */}
+                <TextExpander text={product.description}/>
                 <Accordion
                     data={[
                         {
@@ -184,8 +191,12 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     ]}/>
                 {/*<SectionVideo  intro_video={product.intro_video}  unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
                 {/*<SectionVideo intro_video={"https://tajhizland.com/video/intro_video.mp4"} unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
-                <SectionVideo intro_video={product.intro_video} unboxing_video={product.unboxing_video} usage_video={product.usage_video} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />
-             </div>
+                <SectionVideo intro_video={product.intro_video} unboxing_video={product.unboxing_video}
+                              usage_video={product.usage_video}
+                              intro_video_description={product.intro_video_description}
+                              unboxing_video_description={product.unboxing_video_description}
+                              usage_video_description={product.usage_video_description}/>
+            </div>
         );
     };
     const renderSection2 = () => {
@@ -199,7 +210,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 </div>
                 {/* ---------- 6 ----------  */}
                 <div className="lg:hidden  ">
-                    <Policy />
+                    <Policy/>
                 </div>
             </div>
         );
@@ -237,7 +248,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     <ProductComment comments={product.comments.data} productId={product.id}/>
 
                     <hr className="border-slate-200 dark:border-slate-700"/>
-                     <SectionLinkedProductSlider
+                    <SectionLinkedProductSlider
                         heading="محصولات مرتبط"
                         subHeading=""
                         headingFontClassName="text-2xl font-semibold"
