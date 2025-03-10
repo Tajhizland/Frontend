@@ -39,7 +39,6 @@ export default function ShopLayout({
                     <BottomNavigation/>
                 </QueryClientProvider>
                 <Footer/>
-                <InstallPWAButton />
             </div>
             <CommonClient/>
         </>
