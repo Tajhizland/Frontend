@@ -16,9 +16,8 @@ const Header = () => {
     return (<>
         <QueryClientProvider client={queryClient}>
             <div className="nc-HeaderLogged sticky top-0 w-full z-40 ">
-                <InstallPWAButton />
-
                 <MainNav2Logged />
+                <InstallPWAButton />
             </div>
         </QueryClientProvider>
 
