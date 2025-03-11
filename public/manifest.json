@@ -26,12 +26,12 @@
       "type": "image/png"
     },
     {
-      "src": "/icons/144.png",
+      "src": "/icons/96.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "/icons/180.png",
+      "src": "/icons/96.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any maskable"
