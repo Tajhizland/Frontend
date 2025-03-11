@@ -5,6 +5,7 @@ import {usePathname} from "next/navigation";
 import {useThemeMode} from "@/hooks/useThemeMode";
 import {QueryClient, QueryClientProvider} from "react-query";
 import MainNav2Logged from "@/components/Header/MainNav2Logged";
+import InstallPWAButton from "@/components/Pwa/InstallPWAButton";
 
 const Header = () => {
     useThemeMode();
@@ -15,6 +16,8 @@ const Header = () => {
     return (<>
         <QueryClientProvider client={queryClient}>
             <div className="nc-HeaderLogged sticky top-0 w-full z-40 ">
+                <InstallPWAButton />
+
                 <MainNav2Logged />
             </div>
         </QueryClientProvider>

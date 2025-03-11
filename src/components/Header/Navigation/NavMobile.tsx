@@ -86,27 +86,14 @@ const NavMobile: React.FC<NavMobileProps> = ({
                 <div
                     className="flex w-full items-center py-2.5 px-4 font-medium uppercase tracking-wide text-sm hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
                     <Disclosure.Button
-                        as="span"
+                        as="div"
                         className="flex justify-between flex-grow "
-                    >     <span
-                        className={!item.children?.data ? "block w-full" : ""}
-                        // onClick={onClickClose}
                     >
-            {item.title}
-          </span>
-                        {item.children?.data && (
-                            <span
-                                className="block flex-grow flex justify-end"
-                                onClick={(e) => e.preventDefault()}
-                            >
-
-
-                <ChevronDownIcon
-                    className="ml-2 h-4 w-4 text-neutral-500"
-                    aria-hidden="true"
-                />
-            </span>
-                        )}
+                        {item.title}
+                        <ChevronDownIcon
+                            className="ml-2 h-4 w-4 text-neutral-500"
+                            aria-hidden="true"
+                        />
                     </Disclosure.Button>
 
                 </div>

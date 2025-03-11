@@ -27,6 +27,8 @@ export default function AddressForm({address , close}: { address?: AddressRespon
         })
         if(response?.success) {
             queryClient.invalidateQueries(['my-address']);
+            queryClient.invalidateQueries(['address']);
+
             toast.success(response?.message as string);
             close && close()
         }

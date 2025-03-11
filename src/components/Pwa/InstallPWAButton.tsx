@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import usePWAInstallPrompt from "@/hooks/usePWAInstallPrompt";
 import Image from "next/image";
-import icon from "@/images/icon.png"
+import icon from "@/images/icon2.png"
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 
 export default function InstallPWAButton() {
     const {isInstallable, installPWA} = usePWAInstallPrompt();
 
 
-    const [showNavigation, setShowNavigation] = useState(true);
+    const [showNavigation, setShowNavigation] = useState(false);
 
     const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -31,19 +31,24 @@ export default function InstallPWAButton() {
         };
     }, [lastScrollY]);
 
-    if (!isInstallable || !showNavigation || window.scrollY < 10) return null;
+    if (
+        !isInstallable ||
+        !showNavigation || window.scrollY < 10) return null;
     return (
         <div
-            className="fixed top-16 right-0 w-full bg-white text-black px-2 py-1 rounded-lg shadow-md  flex md:hidden justify-between gap-2 z-50">
+            className="  w-full bg-slate-800 text-white px-5 py-2  flex md:hidden justify-between items-center gap-2 z-50">
             <div className={"flex items-center gap-2"}>
-                <Image className={"w-5 h-5"} src={icon} alt={"logo"}/>
-                <p className={"text-sm"}>اپلیکیشن تجهیزلند</p>
+                <Image className={"w-8 h-8"} src={icon} alt={"logo"}/>
+                <div className={"flex flex-col gap-0.5"}>
+                    <p className={"text-sm font-bold"}>اپلیکیشن تجهیزلند</p>
+                    <small className={"text-xs"}>خریدی هوشمنمدانه با تجربه ای بهتر ...</small>
+                </div>
             </div>
             <div className="flex gap-2">
                 <ButtonSecondary
-                    className="border border-slate-100 dark:border-slate-700 text-xs sm:text-sm"
+                    className="border border-slate-100 dark:border-slate-700 text-xs sm:text-sm !h-fit !py-1"
                     onClick={installPWA}>
-                    نصب
+                    دانلود
                 </ButtonSecondary>
             </div>
         </div>
