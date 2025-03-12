@@ -5,7 +5,7 @@ import {Alert} from "@/shared/Alert/Alert";
 import {Popover, PopoverButton, PopoverPanel, Transition} from "@headlessui/react";
 import Link from "next/link";
 import {useQuery} from "react-query";
-import {unseen} from "@/services/api/admin/notification";
+import {seen, unseen} from "@/services/api/admin/notification";
 import {Route} from "next";
 
 export default function Bell() {
@@ -14,6 +14,10 @@ export default function Bell() {
         queryFn: () => unseen(),
         staleTime: 5000,
     });
+
+    async function seenAll() {
+        await seen();
+    }
 
     function renderType(type: string) {
         let alertType: "default" | "warning" | "info" | "success" | "error" = "default";
@@ -39,9 +43,16 @@ export default function Bell() {
                 {({open, close}) => (
                     <>
                         <PopoverButton
+                            onClick={seenAll}
                             className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none flex items-center justify-center`}
                         >
-                            <BellAlertIcon className="h-6 w-6 text-slate-900"/>
+                            <div className={"relative"}>
+                                <BellAlertIcon className="h-6 w-6 text-slate-900"/>
+                                {data && data.length > 0 && <div
+                                    className={"absolute -right-2 -top-2 bg-rose-600 rounded-full flex justify-center items-start text-white font-bold text-xs w-4 h-4"}>
+                                    {data.length}
+                                </div>}
+                            </div>
                         </PopoverButton>
                         <Transition
                             as={Fragment}
@@ -70,8 +81,8 @@ export default function Bell() {
                                                     <Alert type={renderType(item.type)}
                                                            containerClassName={"w-full"}>
                                                         <div className={"flex flex-col"}>
-                                                         <h4 className={"text-black"}>  {item.title}</h4>
-                                                           <p> {item.message}</p>
+                                                            <h4 className={"text-black"}>  {item.title}</h4>
+                                                            <p> {item.message}</p>
 
                                                         </div>
                                                     </Alert>
