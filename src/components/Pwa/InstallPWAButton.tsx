@@ -43,7 +43,7 @@ export default function InstallPWAButton() {
                 <Image className={"w-8 h-8"} src={icon} alt={"logo"}/>
                 <div className={"flex flex-col gap-0.5"}>
                     <p className={"text-sm font-bold"}>اپلیکیشن تجهیزلند</p>
-                    <small className={"text-xs"}>خریدی هوشمنمدانه با تجربه ای بهتر ...</small>
+                    <small className={"text-xs"}>خریدی هوشمندانه با تجربه ای بهتر ...</small>
                 </div>
             </div>
             <div className="flex gap-2">
