@@ -9,6 +9,6 @@ export const unseen = async <T extends ServerResponse<NotificationResponse[]>>
 
 export const seen = async <T extends ServerResponse<unknown>>
 ( ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/notification/seen")
+    return axios.post<T, SuccessResponseType<T>>("admin/notification/seen")
         .then((res) => res?.data)
 };
