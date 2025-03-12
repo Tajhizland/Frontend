@@ -35,8 +35,10 @@ export default function InstallPWAButton() {
         !isInstallable ||
         !showNavigation || window.scrollY < 10) return null;
     return (
+        <div className={"relative"}>
+
         <div
-            className="  w-full bg-slate-800 text-white px-5 py-2  flex md:hidden justify-between items-center gap-2 z-50">
+            className={`w-full bg-slate-800 text-white px-5 py-2  flex md:hidden justify-between items-center gap-2 z-50 absolute top-0 left-0`}>
             <div className={"flex items-center gap-2"}>
                 <Image className={"w-8 h-8"} src={icon} alt={"logo"}/>
                 <div className={"flex flex-col gap-0.5"}>
@@ -51,6 +53,7 @@ export default function InstallPWAButton() {
                     دانلود
                 </ButtonSecondary>
             </div>
+        </div>
         </div>
     );
 }
