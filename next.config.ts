@@ -28,10 +28,10 @@ const nextConfig: NextConfig = {
     },
 
 };
-export default nextConfig;
+// export default nextConfig;
 
-// export default withPWA({
-//     dest: "public",
-//     register: true,
-//
-// })(nextConfig);
+export default withPWA({
+    dest: "public",
+    register: true,
+
+})(nextConfig);
