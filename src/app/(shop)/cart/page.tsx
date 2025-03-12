@@ -212,7 +212,7 @@ const CartPage = () => {
     const renderDiscount = () => {
         let sumDiscount: number = 0;
         cart.map((item) => {
-            sumDiscount += Number((item.color.price - item.color.discountedPrice==0?item.color.price:item.color.discountedPrice) * item.count);
+            sumDiscount += Number((item.color.price - item.color.discountedPrice) * item.count);
         })
         return sumDiscount;
     }

@@ -128,7 +128,7 @@ export default function CartDropdown() {
         {
             guarantyPrice=GuarantyPrice(item.color.price)??0;
         }
-            sumPrice += (item.color.price+guarantyPrice)*item.count;
+            sumPrice += (item.color.discountedPrice+guarantyPrice)*item.count;
         })
         return sumPrice;
     }
