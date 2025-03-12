@@ -25,6 +25,12 @@ export default function Page() {
                 <Link href={"/admin/slider/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
+                <Link href={"/admin/slider/sort-mobile"}>
+                    <ButtonPrimary> سورت اسلایدر موبایل</ButtonPrimary>
+                </Link>
+                <Link href={"/admin/slider/sort-desktop"}>
+                    <ButtonPrimary> سورت اسلایدر دسکتاپ</ButtonPrimary>
+                </Link>
             </PageLink>
             <DataTable
                 apiUrl={"admin/slider/dataTable"}

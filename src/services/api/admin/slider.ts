@@ -62,3 +62,28 @@ export const findById = async <T extends ServerResponse<SliderResponse>>
     return axios.get<T, SuccessResponseType<T>>("admin/slider/find/" + id)
         .then((res) => res?.data?.result?.data)
 };
+export const getMobileSliders = async <T extends ServerResponse<SliderResponse[]>>
+(
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/slider/all_mobile")
+        .then((res) => res?.data?.result)
+};
+export const getDesktopSliders = async <T extends ServerResponse<SliderResponse[]>>
+(
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/slider/all_desktop")
+        .then((res) => res?.data?.result)
+};
+
+export const sortSlider = async <T extends ServerResponse<unknown>>
+(
+    param:{
+        slider: {
+            id: number
+            sort: number
+        }[]
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/slider/sort",param)
+        .then((res) => res?.data)
+};
