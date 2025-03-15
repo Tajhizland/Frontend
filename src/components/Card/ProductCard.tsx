@@ -121,8 +121,8 @@ const ProductCard: FC<ProductCardProps> = ({
     }
 
     const renderMinPrice = (product: ProductResponse) => {
-        let minPrice = product.colors.data[0].price;
-        let minDiscountedPrice = product.colors.data[0].discountedPrice;
+        let minPrice = product?.colors?.data[0]?.price;
+        let minDiscountedPrice = product?.colors?.data[0]?.discountedPrice;
         product.colors.data.map((item) => {
             if (item.price < minPrice && item.status == 1 && item.price > 0) {
                 minPrice = item.price;
