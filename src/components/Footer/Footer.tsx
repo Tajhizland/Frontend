@@ -1,8 +1,11 @@
 import Logo from "@/shared/Logo/Logo";
-import React from "react";
+import React, {ReactNode} from "react";
 import {Route} from "next";
 import Link from "next/link";
-import Image from "next/image";
+import {PiNewspaper, PiVideo} from "react-icons/pi";
+import {IoLocationSharp} from "react-icons/io5";
+import {SiAparat} from "react-icons/si";
+import {FaInstagram, FaYoutube} from "react-icons/fa";
 
 export interface CustomLink {
     label: string;
@@ -13,61 +16,55 @@ export interface CustomLink {
 export interface WidgetFooterMenu {
     id: string;
     title: string;
+    link: string;
+    icon: ReactNode;
     menus: CustomLink[];
 }
 
 const widgetMenus: WidgetFooterMenu[] = [
     {
         id: "5",
-        title: " اطلاعات ",
+        title: "تجهیزلند ولاگ",
+        link: "/vlog",
+        icon: <PiVideo className={"w-6 h-6"}/>,
         menus: [
-            {href: "/page/rahnama" as Route, label: "راهنمای خرید"},
-            {href: "/page/faq" as Route, label: "سوالات متداول"},
             {href: "/page/aboutus" as Route, label: "درباره ما"},
+            {href: "/page/faq" as Route, label: "سوالات متداول"},
+            {href: "/page/rahnama" as Route, label: "راهنمای خرید"},
             {href: "/page/ghavanin" as Route, label: "قوانین سایت"},
-            {href: "/page/rule" as Route, label: "قوانین ثبت سفارش"},
             {href: "/page/raviyeersal" as Route, label: "رویه ارسال سفارشات"},
-            {href: "/page/hamkarifrosh" as Route, label: " همکاری با تولید و تامین کنندگان"},
-
+            {href: "/page/khadamatpasazfrosh" as Route, label: "خدمات پس از فروش"},
         ],
     },
     {
         id: "1",
-        title: "خدمات تجهیزلند",
+        link: "/news",
+        icon: <PiNewspaper className={"w-6 h-6"}/>,
+        title: "تجهیزلند بلاگ",
         menus: [
-            {href: "/", label: "فروشگاه اینترنتی"},
             {href: "/page/tajhizrahandazi" as Route, label: "تجهیز و راه اندازی"},
             {href: "/page/mosshvereamozesh" as Route, label: "مشاوره و آموزش"},
             {href: "/page/zemanatesalat" as Route, label: "ضمانت اصالت کالا"},
             {href: "/page/ersal" as Route, label: "ارسال به سراسر کشور"},
-            {href: "/page/khadamatpasazfrosh" as Route, label: "خدمات پس از فروش"},
-
-
+            {href: "/page/hamkarifrosh" as Route, label: " همکاری با تولید و تامین کنندگان"},
+            {href: "/contact" as Route, label: "تماس با ما"},
         ],
     },
-    {
-        id: "2",
-        title: "دسترسی سریع",
-        menus: [
-            {href: "/news" as Route, label: "مقالات"},
-            {href: "/vlog" as Route, label: "ولاگ"},
-            {href: "/product/discounted" as Route, label: "تخفیفی های تجهیزلند"},
-            {href: "/special" as Route, label: "محصولات خاص پسند ها"},
-            {href: "/brand" as Route, label: "برند ها"},
-            {href: "/contact" as Route, label: "تماس با ما"},
-
-        ],
-    }
 ];
 
 const Footer: React.FC = () => {
+    const latitude = 35.69589116711923;
+    const longitude = 51.397654536591794;
     const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
         return (
-            <div key={index} className="text-sm">
-                <h2 className="font-semibold text-neutral-700 dark:text-neutral-200 text-base">
-                    {menu.title}
-                </h2>
-                <ul className="mt-5 space-y-4">
+            <div key={index} className="text-sm  border-l">
+                <Link href={menu.link} className={"flex items-center gap-2  text-[#fcb415] justify-center"}>
+                    {menu.icon}
+                    <h2 className="font-semibold text-base text-center ">
+                        {menu.title}
+                    </h2>
+                </Link>
+                <ul className="mt-5 space-y-2 text-center">
                     {menu.menus.map((item, index) => (
                         <li key={index}>
                             <a
@@ -86,12 +83,16 @@ const Footer: React.FC = () => {
         );
     };
 
+    const handleOpenAndroidMaps = () => {
+        const url = `intent://maps.google.com/maps?daddr=${latitude},${longitude}#Intent;scheme=https;package=com.google.android.apps.maps;end`;
+        window.open(url, '_blank');
+    };
     return (
         <div
             className="nc-Footer relative py-20 lg:pt-28 lg:pb-24 border-t border-neutral-200 dark:border-neutral-700  dark:bg-neutral-900">
             <div
                 className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-4 lg:gap-x-10 ">
-                <div className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
+                <div className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col border-l">
                     <div className="col-span-2 md:col-span-1">
                         <Logo/>
                     </div>
@@ -127,6 +128,37 @@ const Footer: React.FC = () => {
 
                 </div>
                 {widgetMenus.map(renderWidgetMenuItem)}
+                <div className={"flex flex-col gap-2"}>
+                    <div className={"flex items-center gap-1"}>
+                        <IoLocationSharp className={"w-4 h-4"}/>
+                        <strong>
+                            آدرس فروشگاه حضوری :
+                        </strong>
+                    </div>
+                    <p className={"text-sm"}>
+                        تهران ، خیابان جمهوری ، بین خیابان دانشگاه و ابوریحان ، ضلع شمال خیابان جمهوری(لاین خط ویژه)
+                        ،پلاک 981
+                    </p>
+                    <div>
+                        <strong className={"text-[#fcb415] cursor-pointer"} onClick={handleOpenAndroidMaps}>
+                            مسیریابی آنلاین
+                        </strong>
+                    </div>
+                    <strong className={"font-bold text-lg"}>
+                        ۰۲۱-۶۶۴۷۷۷۹۰
+                    </strong>
+                    <div className={"flex  items-center gap-5"}>
+                        <div>
+                            <SiAparat className={"w-6 h-6"}/>
+                        </div>
+                        <div>
+                            <FaInstagram className={"w-6 h-6"}/>
+                        </div>
+                        <div>
+                            <FaYoutube className={"w-6 h-6"}/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
