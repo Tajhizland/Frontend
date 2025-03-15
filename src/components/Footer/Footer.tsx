@@ -91,7 +91,7 @@ const Footer: React.FC = () => {
         <div
             className="nc-Footer relative py-20 lg:pt-28 lg:pb-24 border-t border-neutral-200 dark:border-neutral-700  dark:bg-neutral-900">
             <div
-                className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-4 lg:gap-x-10 ">
+                className="container grid grid-cols-2 gap-y-10 md:grid-cols-4 lg:grid-cols-4 ">
                 <div className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col border-l">
                     <div className="col-span-2 md:col-span-1">
                         <Logo/>
@@ -128,7 +128,7 @@ const Footer: React.FC = () => {
 
                 </div>
                 {widgetMenus.map(renderWidgetMenuItem)}
-                <div className={"flex flex-col gap-2"}>
+                <div className={"flex flex-col gap-2 mr-5"}>
                     <div className={"flex items-center gap-1"}>
                         <IoLocationSharp className={"w-4 h-4"}/>
                         <strong>
