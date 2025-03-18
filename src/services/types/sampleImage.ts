@@ -1,6 +1,7 @@
 export interface SampleImageResponse{
     id:number;
-    content:string;
+    image:string;
+    sort:string;
     created_at:string;
     updated_at:string;
 }
