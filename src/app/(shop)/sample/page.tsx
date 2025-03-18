@@ -4,6 +4,7 @@ import {findSample} from "@/services/api/shop/sample";
 import SectionSampleInfo from "@/components/Section/SectionSampleInfo";
 import SectionSampleVideo from "@/components/Section/SectionSampleVideo";
 import SectionSampleImage from "@/components/Section/SectionSampleImage";
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
     return {
