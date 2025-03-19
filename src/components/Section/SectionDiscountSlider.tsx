@@ -9,6 +9,7 @@ import Link from "next/link";
 import {IoIosArrowDropleftCircle} from "react-icons/io";
 import ProductCard2 from "@/components/Card/ProductCard2";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import Timer from "@/components/Timer/Timer";
 
 export interface SectionSliderProductCardProps {
     className?: string;
@@ -17,6 +18,7 @@ export interface SectionSliderProductCardProps {
     headingFontClassName?: string;
     headingClassName?: string;
     subHeading?: string;
+    timer?: string;
     data?: PopularProductResponse[];
 }
 
@@ -27,6 +29,7 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
                                                                       headingClassName = "pl-2",
                                                                       heading,
                                                                       subHeading = "REY backpacks & bags",
+                                                                      timer,
                                                                       data
                                                                   }) => {
     const sliderRef = useRef(null);
@@ -76,18 +79,18 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
     return (
         <div className={`nc-SectionSliderProductCard ${className}`}>
             <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
-                <div className={"flex justify-between items-center"}>
-                    <div className={"flex items-center gap-2"}>
-                        <h2 className={"font-bold text-sm sm:text-xl"}>محصولات پر تخفیف</h2>
-                        <Link href={"/product/discounted"} className="block relative group">
-                            <ButtonPrimary>
-                                <div className="flex items-center relative gap-x-2">
-                                    <span
-                                        className="text-xs sm:text-sm font-semibold whitespace-nowrap">مشاهده همه  </span>
-                                </div>
-                            </ButtonPrimary>
-                        </Link>
-                    </div>
+                <div className={"flex justify-end items-center"}>
+                    {/*<div className={"flex items-center gap-2"}>*/}
+                    {/*    <h2 className={"font-bold text-sm sm:text-xl"}>محصولات پر تخفیف</h2>*/}
+                    {/*    <Link href={"/product/discounted"} className="block relative group">*/}
+                    {/*        <ButtonPrimary>*/}
+                    {/*            <div className="flex items-center relative gap-x-2">*/}
+                    {/*                <span*/}
+                    {/*                    className="text-xs sm:text-sm font-semibold whitespace-nowrap">مشاهده همه  </span>*/}
+                    {/*            </div>*/}
+                    {/*        </ButtonPrimary>*/}
+                    {/*    </Link>*/}
+                    {/*</div>*/}
                     <Heading
                         className={headingClassName}
                         fontClass={headingFontClassName}
@@ -101,18 +104,22 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
 
                 </div>
                 <div className={"bg-[#fcb415] p-5 rounded-2xl relative mt-5"}>
-                    {/*<div className={"bg-[#fcb415] rounded-t-3xl absolute -top-[4.8rem] sm:-top-[4.3rem] px-8 py-5 right-0 sm:right-[40%]"}>*/}
-                    {/*    <h2 className={"font-bold text-sm sm:text-lg"}>محصولات پر تخفیف</h2>*/}
-                    {/*    <div className={"mt-1"}>*/}
-                    {/*        <Link href={"/product/discounted"} className="block relative group">*/}
-                    {/*            <div className="flex items-center relative gap-x-2">*/}
-                    {/*                <span*/}
-                    {/*                    className="text-xs sm:text-sm font-semibold whitespace-nowrap text-slate-800 ">نمایش همه  </span>*/}
-                    {/*                <IoIosArrowDropleftCircle className={"w-4 h-4 text-slate-800 "}/>*/}
-                    {/*            </div>*/}
-                    {/*        </Link>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                    <div
+                        className={"bg-[#fcb415] rounded-t-3xl absolute -top-[4.8rem] sm:-top-[4.3rem] px-8 py-5 right-0 sm:right-[25%] md:right-[35%]"}>
+                        <div className={"flex items-center gap-2 sm:gap-5"}>
+                            <h2 className={"font-bold text-sm sm:text-lg"}>محصولات پر تخفیف</h2>
+                            {timer && <Timer date={timer}/>}
+                        </div>
+                        <div className={"mt-1"}>
+                            <Link href={"/product/discounted"} className="block relative group">
+                                <div className="flex items-center relative gap-x-2">
+                                    <span
+                                        className="text-xs sm:text-sm font-semibold whitespace-nowrap text-slate-800 ">نمایش همه  </span>
+                                    <IoIosArrowDropleftCircle className={"w-4 h-4 text-slate-800 "}/>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
                     <div className="glide__track " data-glide-el="track" style={{direction: "rtl"}}>
 
                         <ul className="glide__slides  flex-grow flex items-center">

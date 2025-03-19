@@ -9,9 +9,11 @@ import {NewsResponse} from "@/services/types/news";
 import {BannerResponse} from "@/services/types/banner";
 import {VlogResponse} from "@/services/types/vlog";
 import {PosterResponse} from "@/services/types/poster";
+import {PriceResponse} from "@/services/types/price";
 
 export type HomePageResponse = {
     popularProducts: { data: PopularProductResponse[] };
+    discount: PriceResponse;
     banners: { data: BannerResponse[] };
     banners2: { data: BannerResponse[] };
     banners3: { data: BannerResponse[] };

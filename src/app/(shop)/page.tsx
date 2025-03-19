@@ -17,7 +17,10 @@ import SectionHomepageVlog from "@/components/Section/SectionHomepageVlog";
 import SectionHomepageBrand from "@/components/Section/SectionHomepageBrand";
 import SectionHomepageBlog from "@/components/Section/SectionHomepageBlog";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
+import Timer from "@/components/Timer/Timer";
+
 export const dynamic = 'force-dynamic';
+
 export async function generateMetadata(): Promise<Metadata> {
     return {
         title: "تجهیزلند",
@@ -54,19 +57,21 @@ export default async function Homepage() {
             <SectionBannerSlider data={response.banners.data}/>
         </div>
 
-        <div className="container my-5 sm:my-20 px-0 md:px-[1rem] ">
-            <SectionDiscountSlider
-                data={response.popularProducts.data}
-                subHeading={""}
-            />
-        </div>
-
-        {/*<div className="container bg-[#fcb415] sm:bg-white my-5 sm:my-20 px-0 md:px-[1rem] ">*/}
+        {/*<div className="container my-5 sm:my-20 px-0 md:px-[1rem] ">*/}
         {/*    <SectionDiscountSlider*/}
         {/*        data={response.popularProducts.data}*/}
         {/*        subHeading={""}*/}
         {/*    />*/}
         {/*</div>*/}
+
+        <div className="container bg-[#fcb415] sm:bg-white my-5 sm:my-20 px-0 md:px-[1rem] ">
+
+            <SectionDiscountSlider
+                timer={response.discount.discount_expire_time}
+                data={response.popularProducts.data}
+                subHeading={""}
+            />
+        </div>
 
         <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10  dark:bg-neutral-900">
             <SectionTwinBanner banners={response.banners2.data}/>
@@ -84,7 +89,7 @@ export default async function Homepage() {
             <SectionSpecialSlider data={response.specialProducts.data}/>
             <SectionTwinBanner banners={response.banners4.data}/>
             <SectionHomepageVlog data={response.vlogs.data}/>
-            {response.banners5.data.length>0 && <SectionSingleBanner banner={response.banners5.data[0]}/>}
+            {response.banners5.data.length > 0 && <SectionSingleBanner banner={response.banners5.data[0]}/>}
             <SectionHomepageBrand data={response.brands.data}/>
         </div>
         <SectionHomepageBlog data={response.news.data}/>
