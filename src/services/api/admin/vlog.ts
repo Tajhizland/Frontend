@@ -77,3 +77,11 @@ export const findById = async <T extends ServerResponse<VlogResponse>>
     return axios.get<T, SuccessResponseType<T>>("admin/vlog/find/" + id)
         .then((res) => res?.data?.result?.data)
 };
+
+export const search = async <T extends ServerResponse<VlogResponse[]>>
+(
+    query:string
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog/search" ,{query:query})
+        .then((res) => res?.data?.result?.data)
+};
