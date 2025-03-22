@@ -67,7 +67,7 @@ export default async function Homepage() {
         <div className="container bg-[#fcb415] sm:bg-white my-5 sm:my-20 px-0 md:px-[1rem] ">
 
             <SectionDiscountSlider
-                timer={response.discount.discount_expire_time}
+                timer={response?.discount?.discount_expire_time}
                 data={response.popularProducts.data}
                 subHeading={""}
             />
