@@ -266,7 +266,8 @@ const CheckoutPage = () => {
     const renderDiscount = () => {
         let sumDiscount: number = 0;
         cart.map((item) => {
-            sumDiscount += Number((item.color.price - item.color.discountedPrice) * item.count);
+            if(item.color.discountedPrice>0)
+                sumDiscount += Number((item.color.price - item.color.discountedPrice) * item.count);
         })
         return sumDiscount;
     }
