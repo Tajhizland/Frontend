@@ -31,21 +31,21 @@ const SectionSampleImage: FC<SectionSpecialSliderProps> = ({
         const OPTIONS: Partial<Glide.Options> = {
             direction:"rtl",
 
-            perView: 8.5,
+            perView: 5.5,
             gap: 32,
             bound: true,
             breakpoints: {
                 1280: {
                     gap: 28,
-                    perView: 8.5,
+                    perView: 5.5,
                 },
                 1024: {
                     gap: 20,
-                    perView: 7.5,
+                    perView: 4.5,
                 },
                 768: {
                     gap: 10,
-                    perView:5.5,
+                    perView:3.5,
                 },
 
                 500: {
