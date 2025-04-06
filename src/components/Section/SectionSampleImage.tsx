@@ -74,7 +74,7 @@ const SectionSampleImage: FC<SectionSpecialSliderProps> = ({
                         {data.map((image, index) => (
                             <li className={`glide__slide`} key={index}>
                                 <NcImage
-                                    containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
+                                    containerClassName="flex aspect-w-2 aspect-h-1 w-full h-0"
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/sample/${image.image}`}
 
                                     className="object-cover w-full h-full drop-shadow-xl"
