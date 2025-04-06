@@ -39,7 +39,7 @@ export default async function page() {
         <div className={"mt-14 container "}>
             <SectionSampleVideo video={response.video.data}/>
         </div>
-        <div className={"mt-14 container "}>
+        <div className={"my-14 container "}>
             <SectionSampleImage data={response.image.data}/>
         </div>
     </>)

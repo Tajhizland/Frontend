@@ -7,7 +7,7 @@ import {
 import {GiSevenPointedStar, GiTargetPoster} from "react-icons/gi";
 import {VscLayoutMenubar} from "react-icons/vsc";
 import {TbAlignBoxCenterTop, TbBrandApple} from "react-icons/tb";
-import {SiPagespeedinsights, SiWayland} from "react-icons/si";
+import {SiElectronbuilder, SiPagespeedinsights, SiWayland} from "react-icons/si";
 import {
     FaBell,
     FaCcPaypal,
@@ -93,6 +93,11 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         title: "مدیریت تراکنش ها",
         url: "/transaction",
         icon: <ImCoinDollar className="h-6 w-6 text-gray-500"/>,
+    },
+    {
+        title: "نمونه پروژه ها",
+        url: "/sample",
+        icon: <SiElectronbuilder className="h-6 w-6 text-gray-500"/>,
     },
     {
         title: "لندینگ ها",
@@ -223,7 +228,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
 
             }
         ]
-    }, 
+    },
     {
         title: "گارانتی",
         url: "/guaranty",
