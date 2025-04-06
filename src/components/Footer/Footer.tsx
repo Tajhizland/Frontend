@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
                                href='https://trustseal.enamad.ir/?id=150491&Code=dHACISLBlXNOcdnB2JpZ'><img
                                 referrerPolicy='origin'
                                 src='https://trustseal.enamad.ir/logo.aspx?id=150491&Code=dHACISLBlXNOcdnB2JpZ' alt=''
-                                style='cursor:pointer' code='dHACISLBlXNOcdnB2JpZ'/></a>
+                                code='dHACISLBlXNOcdnB2JpZ'/></a>
                             <img
                                 className={"w-[100px] h-[100px]"}
                                 referrerPolicy={"origin"}
