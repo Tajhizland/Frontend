@@ -24,7 +24,7 @@ export const columns: Column<OrderResponse>[] = [
             value: index
         }))
     ,
-        render: (value) =>  <Badge name={OrderStatus[Number(value)]} color={"green"}/>  ,
+        render: (value) =>  <Badge name={OrderStatus[Number(value)]} color={(value==0||value==2||value==4)?"red":"green"}/>  ,
 
     },
     {key: 'order_date', header: 'تاریخ ثبت سفارش', filterType: 'input', editable: false},
