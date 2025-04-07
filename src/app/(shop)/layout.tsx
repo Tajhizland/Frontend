@@ -13,6 +13,7 @@ import BottomNavigation from "@/components/BottomNavigation/BottomNavigation";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import InstallPWAButton from "@/components/Pwa/InstallPWAButton";
+import Footprint from "@/components/Footprint/Footprint";
 
 
 const myFont: NextFont = localFont({src: '../../fonts/fa/IRANSansWeb.woff2'})
@@ -37,6 +38,7 @@ export default function ShopLayout({
                     </Suspense>
                     {children}
                     <BottomNavigation/>
+                    <Footprint />
                 </QueryClientProvider>
                 <Footer/>
             </div>
