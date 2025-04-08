@@ -55,6 +55,24 @@ export default function Page() {
             <Panel>
                 <div>
                     <PageTitle>
+                        نمودار تعداد بازدید از صفحات
+                    </PageTitle>
+                    {isSuccess && <LineChart data={data.viewLog} XLabel={"تاریخ"} YLabel={"تعداد بازدید "} label={"تعداد"}
+                                             borderColor={"rgb(23,255,0)"} backgroundColor={"rgba(23,255,0,0.5)"}/>}
+                </div>
+            </Panel>
+            <Panel>
+                <div>
+                    <PageTitle>
+                        نمودار تعداد بازدید از سایت
+                    </PageTitle>
+                    {isSuccess && <LineChart data={data.viewIpLog} XLabel={"تاریخ"} YLabel={"تعداد بازدید"} label={"تعداد"}
+                                             borderColor={"rgba(2,44,255)"} backgroundColor={"rgba(2,44,255,0.5)"}/>}
+                </div>
+            </Panel>
+            <Panel>
+                <div>
+                    <PageTitle>
                         نمودار تعداد فروش
                     </PageTitle>
                     {isSuccess && <LineChart data={data.totalCount} XLabel={"تاریخ"} YLabel={"تعداد فروش "} label={"تعداد"}
@@ -70,7 +88,6 @@ export default function Page() {
                                              borderColor={"rgb(250, 50, 192)"} backgroundColor={"rgba(250, 50, 192,0.5)"}/>}
                 </div>
             </Panel>
-
         </div>
     </>)
 }
