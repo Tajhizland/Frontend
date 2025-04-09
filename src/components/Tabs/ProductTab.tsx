@@ -35,11 +35,12 @@ export default function ProductTab({id}:{id:string}) {
             title: "فایل ها",
             link: "/admin/product/file/"+id,
             icon: <FaFile className="w-5 h-5" />
-        },    {
-            title: "ویدیو ها",
-            link: "/admin/product/video/"+id,
-            icon: <FaFile className="w-5 h-5" />
         },
+        // {
+        //     title: "ویدیو ها",
+        //     link: "/admin/product/video/"+id,
+        //     icon: <FaFile className="w-5 h-5" />
+        // },
     ]
     const pathname = usePathname();
 
@@ -56,7 +57,7 @@ export default function ProductTab({id}:{id:string}) {
                         </li>
                     </>))
                 }
-                
+
             </ul>
         </div>
     </>)
