@@ -23,7 +23,7 @@ export default function VideoPlayer({src , poster}:{src:string ,poster?:string})
         return () => {
             if (player) player.dispose();
         };
-    }, []);
+    }, [src]);
 
     return (
         <div>

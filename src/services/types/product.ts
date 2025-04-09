@@ -5,6 +5,7 @@ import {ProductImageResponse} from "@/services/types/productImage";
 import {GuarantyResponse} from "@/services/types/guaranty";
 import {BrandResponse} from "@/services/types/brand";
 import {BannerResponse} from "@/services/types/banner";
+import {VlogResponse} from "@/services/types/vlog";
 
 export type ProductPageResponse = {
     product: ProductResponse;
@@ -50,6 +51,9 @@ export type ProductResponse = {
     usage_video: string;
     created_at: string;
     updated_at: string;
+    unboxing?: VlogResponse;
+    intro?: VlogResponse;
+    usage?: VlogResponse;
     guaranties: {
         data: GuarantyResponse[]
     };

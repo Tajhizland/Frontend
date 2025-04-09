@@ -191,11 +191,8 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     ]}/>
                 {/*<SectionVideo  intro_video={product.intro_video}  unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
                 {/*<SectionVideo intro_video={"https://tajhizland.com/video/intro_video.mp4"} unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
-                <SectionVideo intro_video={product.intro_video} unboxing_video={product.unboxing_video}
-                              usage_video={product.usage_video}
-                              intro_video_description={product.intro_video_description}
-                              unboxing_video_description={product.unboxing_video_description}
-                              usage_video_description={product.usage_video_description}/>
+                <SectionVideo intro_video={product.intro} unboxing_video={product.unboxing}
+                              usage_video={product.usage} />
             </div>
         );
     };
