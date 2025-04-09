@@ -15,6 +15,7 @@ import Image from "next/image";
 import {search} from "@/services/api/admin/product";
 import {ProductResponse} from "@/services/types/product";
 import {SpecialProductResponse} from "@/services/types/specialProduct";
+import Link from "next/link";
 
 
 export default function Page() {
@@ -92,6 +93,11 @@ export default function Page() {
                 <ButtonPrimary onClick={() => {
                     setShowModal(true)
                 }}> ایجاد</ButtonPrimary>
+                <Link href={"/admin/special_product/sort"}>
+                    <ButtonPrimary>
+                        سورت کردن
+                    </ButtonPrimary>
+                </Link>
             </PageLink>
 
             <NcModal

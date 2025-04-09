@@ -28,7 +28,7 @@ const SectionSpecialSlider: FC<SectionSpecialSliderProps> = ({
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
             direction:"rtl",
-
+            autoplay: 5000,
             perView: 3,
             gap: 32,
             bound: true,

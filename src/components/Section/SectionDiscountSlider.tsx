@@ -41,20 +41,20 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
             direction: "rtl",
-            perView: 5.2,
-            gap: 32,
+            perView: 7.2,
+            gap: 10,
             bound: true,
             breakpoints: {
                 1280: {
-                    perView: 5.2,
+                    perView: 7.2,
                 },
                 1024: {
-                    gap: 20,
-                    perView: 3.8,
+                    gap: 10,
+                    perView: 5.8,
                 },
                 768: {
-                    gap: 20,
-                    perView: 3.2,
+                    gap: 10,
+                    perView: 4.2,
                 },
                 640: {
                     gap: 10,
