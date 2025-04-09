@@ -13,7 +13,7 @@ export default function Timer({date}: { date: string }) {
     useEffect(() => {
         const updateTimer = () => {
             const now = dayjs();
-            const diff = targetDate.diff(now); // اختلاف زمانی به میلی‌ثانیه
+            const diff = targetDate.diff(now);
 
             if (diff <= 0) {
                 setTimeLeft({ days: 0, hours: 0, minutes: 0 });
@@ -32,7 +32,7 @@ export default function Timer({date}: { date: string }) {
             });
         };
 
-        updateTimer(); // مقدار اولیه
+        updateTimer();
         const interval = setInterval(updateTimer, 60000); // هر دقیقه آپدیت شود
 
         return () => clearInterval(interval);
