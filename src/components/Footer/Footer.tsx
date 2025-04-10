@@ -101,13 +101,13 @@ const Footer: React.FC = () => {
                     <div className="col-span-2 flex items-center md:col-span-3">
                         <div
                             className="flex items-center space-x-2 lg:space-x-0 lg:flex-col lg:space-y-3 lg:items-start"/>
-                        <span className="text-xs text-gray-600">
+                        <span className="text-xs text-gray-600 dark:text-white">
               تجهیز لند، فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...
             </span>
                     </div>
-                    <div className="col-span-2 md:col-span-1">
+                    <div className="col-span-4 sm:col-span-2 md:col-span-1">
 
-                        <div className={"flex gap-2 items-center"}>
+                        <div className={"flex gap-2 items-center justify-center"}>
                             <a referrerPolicy='origin' target='_blank'
                                href='https://trustseal.enamad.ir/?id=150491&Code=dHACISLBlXNOcdnB2JpZ'><img
                                 referrerPolicy='origin'
@@ -125,7 +125,7 @@ const Footer: React.FC = () => {
 
                 </div>
                 {widgetMenus.map(renderWidgetMenuItem)}
-                <div className={"flex flex-col gap-2 mr-5"}>
+                <div className={"flex flex-col gap-2 mr-5 col-span-2 sm:col-span-1"}>
                     <div className={"flex items-center gap-1"}>
                         <IoLocationSharp className={"w-4 h-4"}/>
                         <strong>

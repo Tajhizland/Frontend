@@ -50,7 +50,7 @@ const SectionHomepageBlog: FC<SectionHomepageBlogProps> = ({
                                     <div className="flex flex-col gap-y-2 mt-2 p-2">
                                         <span
                                             className="  dark:text-white text-xs md:text:base text-slate-800 font-bold">{item.title}</span>
-                                        <p className="line-clamp-2 text-xs text-slate-800">
+                                        <p className="line-clamp-2 text-xs text-slate-800 dark:text-neutral-200">
                                             {stripHTML(item.content)}
                                         </p>
                                         <MetaCard date={item.created_at} author={item.author}/>
