@@ -58,11 +58,11 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
                 },
                 640: {
                     gap: 10,
-                    perView: 2.7,
+                    perView: 2.8,
                 },
                 500: {
                     gap: 10,
-                    perView: 1.9
+                    perView: 2.6
                 },
             },
         };
@@ -79,7 +79,7 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
     return (
         <div className={`nc-SectionSliderProductCard ${className}`}>
             <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
-                <div className={"flex justify-end items-center"}>
+                <div className={"flex justify-end items-center opacity-0 sm:opacity-100"}>
                     {/*<div className={"flex items-center gap-2"}>*/}
                     {/*    <h2 className={"font-bold text-sm sm:text-xl"}>محصولات پر تخفیف</h2>*/}
                     {/*    <Link href={"/product/discounted"} className="block relative group">*/}

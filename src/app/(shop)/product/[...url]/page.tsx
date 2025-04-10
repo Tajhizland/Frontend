@@ -149,11 +149,11 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
     };
     const renderOption = () => {
         const options = product.productOptions.data
-            .map((item) => (item.value && item.value != "" && item.value != " ") ? `<tr class=""><td class="py-4 text-neutral-600">${item.option_title}</td><td class="text-right text-black border-b"> ${item.value}</td></tr>` : "")
+            .map((item) => (item.value && item.value != "" && item.value != " ") ? `<tr class=""><td class="py-4 text-neutral-600 dark:text-white ">${item.option_title}</td><td class="text-right text-black border-b dark:text-white "> ${item.value}</td></tr>` : "")
             .join("");
 
         return `<div class="relative  ">
-    <table class="w-full text-sm text-center text-gray-500 rounded">${options}</table></div>`;
+    <table class="w-full text-sm text-center text-gray-500  dark:text-white rounded">${options}</table></div>`;
     };
     const renderSection1 = () => {
         return (

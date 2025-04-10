@@ -92,7 +92,7 @@ const BlogListing = ({ response }: { response }) => {
                         <div className="w-full xl:pr-14">
                             <SectionSingleBanner banner={response.banner.data[0]}/>
 
-                            <div className="flex flex-col lg:flex-row gap-10 mt-5">
+                            <div className="flex flex-col-reverse lg:flex-row gap-10 mt-5">
 
                                 <div className="flex-[3]">
                                     {/* Articles List */}
