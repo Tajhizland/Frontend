@@ -398,7 +398,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 icon: <MdFolderSpecial className="h-6 w-6 text-gray-500"/>,
             },
             {
-                title: "محصولات تخفیف دار",
+                title: "محصولات محصولات پر تخفیف",
                 url: "/popular_product",
                 icon: <RiDiscountPercentFill className="h-6 w-6 text-gray-500"/>,
             },

@@ -70,13 +70,13 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "محصولات محبوب",
+                title: "محصولات پر تخفیف",
                 href: "popular_product"
             }
         ]} />
         <Panel>
             <PageTitle>
-                محصولات محبوب
+                محصولات پر تخفیف
             </PageTitle>
             <PageLink>
                 <ButtonPrimary onClick={() => { setShowModal(true) }} > ایجاد</ButtonPrimary>
