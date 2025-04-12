@@ -1,6 +1,6 @@
 "use client"
- import React, { useState } from "react";
-import { ColorResponse } from "@/services/types/color";
+import React, {useState} from "react";
+import {ColorResponse} from "@/services/types/color";
 import {
     reduxAddToCart,
     reduxDecrementQuantity,
@@ -9,18 +9,18 @@ import {
     useGlobalState, useUser
 } from "@/services/globalState/GlobalState";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import { addToCart, decreaseCartItem, increaseCartItem, removeCartItem } from "@/services/api/shop/cart";
-import { StarIcon } from "@heroicons/react/24/solid";
-import { toast } from "react-hot-toast";
-import { ProductResponse } from "@/services/types/product";
-import { useQueryClient } from "react-query";
-import { ClockIcon, NoSymbolIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import {addToCart, decreaseCartItem, increaseCartItem, removeCartItem} from "@/services/api/shop/cart";
+import {StarIcon} from "@heroicons/react/24/solid";
+import {toast} from "react-hot-toast";
+import {ProductResponse} from "@/services/types/product";
+import {useQueryClient} from "react-query";
+import {ClockIcon, NoSymbolIcon, SparklesIcon} from "@heroicons/react/24/outline";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
-import { Route } from "next";
-import { GuarantyResponse } from "@/services/types/guaranty";
+import {Route} from "next";
+import {GuarantyResponse} from "@/services/types/guaranty";
 import Badge from "@/shared/Badge/Badge";
-import { GuarantyPrice } from "@/hooks/GuarantyPrice";
+import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import Policy from "./Policy";
 import Prices from "@/components/Price/Prices";
 import CartController from "@/components/CartController/CartController";
@@ -28,7 +28,7 @@ import IconDiscount from "@/components/Icon/IconDiscount";
 import NotifyAddTocart from "@/components/Product/NotifyAddTocart";
 import BagIcon from "@/components/Icon/BagIcon";
 
-export default function ProductSidebar({ product }: { product: ProductResponse }) {
+export default function ProductSidebar({product}: { product: ProductResponse }) {
     const colors = product.colors.data;
     const guaranty = product.guaranties.data;
     const [selectedColor, setSelectedColor] = useState<ColorResponse>(colors[0])
@@ -41,7 +41,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
 
     const notifyAddTocart = () => {
         toast.custom(
-            (t:any) => (
+            (t: any) => (
                 <NotifyAddTocart
                     name={product.name}
                     price={selectedColor.price}
@@ -52,14 +52,13 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                     color={selectedColor.color_name}
                 />
             ),
-            { position: "top-left", id: "nc-product-notify", duration: 3000 }
+            {position: "top-left", id: "nc-product-notify", duration: 3000}
         );
     };
 
-    const renderMainPrice=()=>{
-        if(selectedColor.discountedPrice == selectedColor.price)
-        {
-            return  <Prices price={selectedColor.price}/>
+    const renderMainPrice = () => {
+        if (selectedColor.discountedPrice == selectedColor.price) {
+            return <Prices price={selectedColor.price}/>
         }
         return <div className={"flex items-center gap-2"}>
             <del className={"text-sm text-red-500"}>
@@ -87,8 +86,8 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                             </span>
                         </span>
                         <div className={"flex mt-3"}>
-                            {selectedColor.discountedPrice ? renderMainPrice()  :
-                                <Badge name={"ناموجود"} color={"red"} />}
+                            {selectedColor.discountedPrice ? renderMainPrice() :
+                                <Badge name={"ناموجود"} color={"red"}/>}
                         </div>
                     </div>
                 </label>
@@ -100,10 +99,10 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                             className={`relative flex-1 max-w-[75px] h-10 sm:h-11 rounded-full border-2 cursor-pointer ${color.id === selectedColor.id
                                 ? "border-primary-6000 dark:border-primary-500"
                                 : " "
-                                }`}
+                            }`}
                         >
                             <div
-                                style={{ backgroundColor: color.color_code }}
+                                style={{backgroundColor: color.color_code}}
                                 className={`absolute inset-0.5 rounded-full overflow-hidden z-0 object-cover `}
 
                             ></div>
@@ -118,29 +117,34 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
         if (product?.guaranties) {
             return <div className={"flex flex-col gap-1 w-full"}>
                 {product?.guaranties.data.map((item, index) => (
-                    <div onClick={() => { setSelectedGuaranty(item) }}
-                        key={index} className={`flex gap-20 items-center bg-slate-100/70  justify-between rounded-full border-2 p-1 pl-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-black/20 ${selectedGuaranty == item ? "border-primary-6000 dark:border-primary-500" : ""}`}>
-                        <div onClick={() => { setSelectedGuaranty(item) }}
-                            key={index} className={`flex gap-5 items-center  `}>
+                    <div onClick={() => {
+                        setSelectedGuaranty(item)
+                    }}
+                         key={index}
+                         className={`flex gap-20 items-center bg-slate-100/70  justify-between rounded-full border-2 p-1 pl-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-black/20 ${selectedGuaranty == item ? "border-primary-6000 dark:border-primary-500" : ""}`}>
+                        <div onClick={() => {
+                            setSelectedGuaranty(item)
+                        }}
+                             key={index} className={`flex gap-5 items-center  `}>
                             <div
                                 className={"w-10 flex-shrink-0"}
                             ><NcImage
-                                    containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${item?.icon}`}
-                                    className="object-cover w-full h-full drop-shadow-xl"
-                                    fill
-                                    sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                                    alt="guaranty"
-                                /></div>
+                                containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${item?.icon}`}
+                                className="object-cover w-full h-full drop-shadow-xl"
+                                fill
+                                sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                                alt="guaranty"
+                            /></div>
                             <small className={"text-xs text-slate-600 dark:text-white max-w-xs flex-shrink-0"}>
-                            {item.name}
+                                {item.name}
                             </small>
                         </div>
                         <span className={"text-xs text-slate-600 dark:text-white"}>
                             {
                                 item.free ? "رایگان"
-                                :
-                                <Prices className=" whitespace-nowrap" price={GuarantyPrice(selectedColor.price)} />
+                                    :
+                                    <Prices className=" whitespace-nowrap" price={GuarantyPrice(selectedColor.price)}/>
                             }
 
                         </span>
@@ -154,7 +158,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             return <div className={"flex items-center justify-start w-full"}>
 
                 <Link href={"/brand/" + product.brand.url as Route}
-                    className={`relative h-0 w-32 rounded-2xl overflow-hidden group aspect-w-3 aspect-h-1 `}
+                      className={`relative h-0 w-32 rounded-2xl overflow-hidden group aspect-w-3 aspect-h-1 `}
                 >
                     <div className="flex justify-center items-center">
                         <NcImage
@@ -169,7 +173,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                 </Link>
                 <span>
                     برند
-                {" "}
+                    {" "}
                     {
                         product?.brand.name
                     }
@@ -198,7 +202,11 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
             return;
         }
-        let response = await addToCart({ productColorId: selectedColor.id, count: selectedCount, guaranty_id: selectedGuaranty?.id ?? undefined });
+        let response = await addToCart({
+            productColorId: selectedColor.id,
+            count: selectedCount,
+            guaranty_id: selectedGuaranty?.id ?? undefined
+        });
         if (response.success) {
             reduxAddToCart(product, selectedCount, selectedColor, selectedGuaranty);
             notifyAddTocart();
@@ -211,7 +219,10 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await increaseCartItem({ productColorId: selectedColor.id, guaranty_id: selectedGuaranty?.id ?? undefined });
+            let response = await increaseCartItem({
+                productColorId: selectedColor.id,
+                guaranty_id: selectedGuaranty?.id ?? undefined
+            });
             if (response.success) {
                 reduxIncrementQuantity(selectedColor.id, selectedGuaranty?.id)
             }
@@ -224,7 +235,10 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await decreaseCartItem({ productColorId: selectedColor.id, guaranty_id: selectedGuaranty?.id ?? undefined });
+            let response = await decreaseCartItem({
+                productColorId: selectedColor.id,
+                guaranty_id: selectedGuaranty?.id ?? undefined
+            });
             if (response.success) {
                 reduxDecrementQuantity(selectedColor.id, selectedGuaranty?.id)
             }
@@ -238,9 +252,12 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
             return;
         }
         if (checkColorInCart() > 0) {
-            let response = await removeCartItem({ productColorId: selectedColor.id, guaranty_id: selectedGuaranty?.id ?? undefined });
+            let response = await removeCartItem({
+                productColorId: selectedColor.id,
+                guaranty_id: selectedGuaranty?.id ?? undefined
+            });
             if (response.success) {
-                 reduxRemoveFromCart(selectedColor.id, selectedGuaranty?.id)
+                reduxRemoveFromCart(selectedColor.id, selectedGuaranty?.id)
             }
         }
     }
@@ -256,12 +273,12 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
         if (status == "new") {
             return (
                 <div className={CLASSES}>
-                    <SparklesIcon className="w-3.5 h-3.5" />
+                    <SparklesIcon className="w-3.5 h-3.5"/>
                     <span className="mr-1 leading-none">محصول جدید</span>
                 </div>
             );
         }
-        if (selectedColor.discount!=0) {
+        if (selectedColor.discount != 0 && selectedColor.discountedPrice != 0) {
             return (
                 <div className={CLASSES}>
 
@@ -276,7 +293,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
         if (status === "disable") {
             return (
                 <div className={CLASSES}>
-                    <NoSymbolIcon className="w-3.5 h-3.5" />
+                    <NoSymbolIcon className="w-3.5 h-3.5"/>
                     <span className="mr-1 leading-none">نا‌موجود</span>
                 </div>
             );
@@ -284,7 +301,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
         if (status === "limited edition") {
             return (
                 <div className={CLASSES}>
-                    <ClockIcon className="w-3.5 h-3.5" />
+                    <ClockIcon className="w-3.5 h-3.5"/>
                     <span className="mr-1 leading-none">{status}</span>
                 </div>
             );
@@ -308,7 +325,7 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                             className="flex items-center text-sm font-medium"
                         >
                             <div className="">
-                                <StarIcon className="w-5 h-5 pb-[1px] text-orange-400" />
+                                <StarIcon className="w-5 h-5 pb-[1px] text-orange-400"/>
                             </div>
                             <span className="mr-1.5 flex">
                                 <span>{product.rating} </span>
@@ -341,8 +358,8 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                         className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full dark:text-white">
 
                         <CartController
-                            inCart={checkColorInCart()>0?true:false}
-                            defaultValue={checkColorInCart()!=0?checkColorInCart():1}
+                            inCart={checkColorInCart() > 0 ? true : false}
+                            defaultValue={checkColorInCart() != 0 ? checkColorInCart() : 1}
                             onChange={setSelectedCount}
                             max={selectedColor.stock}
                             removeHandle={removeHandle}
@@ -350,17 +367,17 @@ export default function ProductSidebar({ product }: { product: ProductResponse }
                             increaseHandle={increaseHandle}
                         />
                     </div>
-                    {checkColorInCart() == 0 && selectedCount>0 && <ButtonPrimary
+                    {checkColorInCart() == 0 && selectedCount > 0 && <ButtonPrimary
                         onClick={addToCartHandle}
                         className="flex-1 flex-shrink-0"
                     >
-                        <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
+                        <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
                         <span className="mr-3">افزودن به سبد خرید</span>
                     </ButtonPrimary>
                     }
                 </div> : ""}
                 <div className="hidden lg:flex">
-                    <Policy />
+                    <Policy/>
                 </div>
 
                 {/* SUM */}
