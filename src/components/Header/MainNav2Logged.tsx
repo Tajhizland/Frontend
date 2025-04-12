@@ -254,7 +254,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     <div className={"w-full ml-1 flex-1  flex flex-col gap-1"}>
                         <Logo/>
                         <small
-                            className="text-slate-600 dark:text-slate-100 lg:text-xs sm:text-[8px] text-[6px] hidden lg:block whitespace-nowrap">
+                            className="text-slate-600 dark:text-slate-100 lg:text-[13px] sm:text-[8px] text-[6px] hidden lg:block whitespace-nowrap">
                             مرکز تخصصی تجهیزات کافه و رستوران
                         </small>
                     </div>
