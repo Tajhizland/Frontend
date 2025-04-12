@@ -40,15 +40,15 @@ export default function Timer({date}: { date: string }) {
 
     return (
         <div className={"flex items-center text-sm font-bold gap-0.5 sm:gap-1"} style={{direction:"ltr"}}>
-            <div className={"flex justify-center items-center rounded-lg p-1 bg-white  w-8 h-8 sm:w-10 sm:h-10"}>
+            <div className={"flex justify-center items-center rounded-lg p-1 bg-white  w-8 h-8 sm:w-10 sm:h-10 text-black"}>
                 {timeLeft.days}
             </div>
             <span className={"text-white font-bold"}>:</span>
-            <div className={"flex justify-center items-center rounded-lg p-1 bg-white w-8 h-8 sm:w-10 sm:h-10"}>
+            <div className={"flex justify-center items-center rounded-lg p-1 bg-white w-8 h-8 sm:w-10 sm:h-10 text-black"}>
                 {timeLeft.hours}
             </div>
             <span className={"text-white font-bold"}>:</span>
-            <div className={"flex justify-center items-center rounded-lg p-1 bg-white w-8 h-8 sm:w-10 sm:h-10"}>
+            <div className={"flex justify-center items-center rounded-lg p-1 bg-white w-8 h-8 sm:w-10 sm:h-10 text-black"}>
                 {timeLeft.minutes}
             </div>
         </div>

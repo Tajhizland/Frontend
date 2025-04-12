@@ -166,14 +166,14 @@ const ProductCard2: FC<ProductCardProps> = ({
         <>
             <div
                 style={{direction: "rtl"}}
-                className={`nc-ProductCard relative flex flex-col bg-white dark:bg-slate-800 ${className}`}
+                className={`nc-ProductCard relative flex flex-col bg-white dark:bg-slate-800 p-1 ${className}`}
             >
                 <Link href={"/product/" + data?.url as Route} className="absolute inset-0"
                       aria-label={"product"}></Link>
                 <div
                     className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group border">
 
-                    <Link href={"/product/" + data?.url as Route} className="block" aria-label={"product"}>
+                    <Link href={"/product/" + data?.url as Route} className="block " aria-label={"product"}>
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 "
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0]?.url}`}
