@@ -278,7 +278,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                 </div>
             );
         }
-        if (selectedColor.discount != 0 && selectedColor.discountedPrice != 0) {
+        if (selectedColor.discount != 0 && selectedColor.discountedPrice != 0 && selectedColor.discountedPrice != selectedColor.price) {
             return (
                 <div className={CLASSES}>
 
