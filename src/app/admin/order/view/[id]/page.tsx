@@ -200,7 +200,7 @@ export default function Page() {
                                 </span>
                                 </div>
                             </th>
-                            <th scope="row" colSpan={2} className="px-6 py-3 text-base text-center">
+                            <th scope="row" colSpan={2} className="px-6 py-3 text-sm text-center">
                                 <div className={"flex items-center gap-x-4 justify-center"}>
                                 <span>
                                     هزینه ارسال :
@@ -210,7 +210,7 @@ export default function Page() {
                                  </span>
                                 </div>
                             </th>
-                            <th scope="row" colSpan={3} className="px-6 py-3 text-base text-center">
+                            <th scope="row" colSpan={3} className="px-6 py-3 text-sm text-center">
                                 <div className={"flex items-center gap-x-4 justify-center"}>
                                 <span>
                                     مجموع :
