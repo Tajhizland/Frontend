@@ -9,6 +9,7 @@ import NcImage from "@/shared/NcImage/NcImage";
 import Prices from "@/components/Price/Prices";
 import {OrderStatus} from "@/app/admin/order/orderStatus";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export default function Page() {
     const {id} = useParams();
@@ -18,7 +19,14 @@ export default function Page() {
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
-
+    const handlePrint = () => {
+        const printSection = document.getElementById('print');
+        const originalContents = document.body.innerHTML;
+        //@ts-ignore
+        document.body.innerHTML = printSection.innerHTML;
+        window.print();
+        document.body.innerHTML = originalContents;
+    };
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -34,6 +42,7 @@ export default function Page() {
             <PageTitle>
                 مشاهده سفارش
             </PageTitle>
+            <div id={"print"}>
             <div className={"grid grid-cols-1  lg:grid-cols-2 gap-5 "}>
                 <div className="border rounded-2xl px-5  text-sm">
                     <div className="flex flex-col divide-y   text-gray-500">
@@ -211,7 +220,14 @@ export default function Page() {
                     </tfoot>
                 </table>
             </div>
-
+            </div>
+        </Panel>
+        <Panel>
+            <ButtonPrimary
+                onClick={handlePrint}
+            >
+                پرینت
+            </ButtonPrimary>
         </Panel>
 
     </>)
