@@ -10,9 +10,9 @@ import NcImage from "@/shared/NcImage/NcImage";
 import {ProductResponse} from "@/services/types/product";
 import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
 import Badge from "@/shared/Badge/Badge";
-import IconDiscount from "@/components/Icon/IconDiscount";
 import LikeButton from "@/shared/Button/LikeButton";
 import Prices from "@/components/Price/Prices";
+import SmallTimer from "@/components/Timer/SmallTimer";
 
 export interface ProductCardProps {
     className?: string;
@@ -148,7 +148,24 @@ const ProductCard: FC<ProductCardProps> = ({
         }
         return <Badge color={"red"} name={"ناموجود"}/>;
     }
+    const renderMixDiscountTime = () => {
+        let timer = null;
+        const now = new Date();
 
+        data?.colors.data.forEach((item) => {
+            if (
+                item.discount_expire_time &&
+                item.discountedPrice != item.price
+            ) {
+                const expireDate = new Date(item.discount_expire_time);
+                if (expireDate > now) {
+                    timer = item.discount_expire_time;
+                }
+            }
+        });
+
+        return timer;
+    };
     return (
         <>
             <div
@@ -211,9 +228,19 @@ const ProductCard: FC<ProductCardProps> = ({
                         <div className="flex sm:hidden w-full">
                             {renderVariants()}
                         </div>
+
                     </div>
 
+
+                    {renderMixDiscountTime() != null &&
+                        <div className={"flex justify-end"}>
+                            <SmallTimer date={renderMixDiscountTime() ?? ""}/>
+                        </div>
+                    }
+
+
                 </div>
+
             </div>
 
 

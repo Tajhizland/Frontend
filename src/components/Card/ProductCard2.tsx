@@ -15,6 +15,7 @@ import Badge from "@/shared/Badge/Badge";
 import IconDiscount from "@/components/Icon/IconDiscount";
 import LikeButton from "@/shared/Button/LikeButton";
 import Prices from "@/components/Price/Prices";
+import SmallTimer from "@/components/Timer/SmallTimer";
 
 export interface ProductCardProps {
     className?: string;
@@ -162,6 +163,26 @@ const ProductCard2: FC<ProductCardProps> = ({
         }
         return <Badge color={"red"} name={"ناموجود"}/>;
     }
+
+    const renderMixDiscountTime = () => {
+        let timer = null;
+        const now = new Date();
+
+        data?.colors.data.forEach((item) => {
+            if (
+                item.discount_expire_time &&
+                item.discountedPrice != item.price
+            ) {
+                const expireDate = new Date(item.discount_expire_time);
+                if (expireDate > now) {
+                    timer = item.discount_expire_time;
+                }
+            }
+        });
+
+        return timer;
+    };
+
     return (
         <>
             <div
@@ -209,7 +230,16 @@ const ProductCard2: FC<ProductCardProps> = ({
               {/*  {data?.rating || ""} ({data?.comments.data.length || 0} نظر)*/}
               {/*</span>*/}
               {/*          </div>*/}
+
+
                     </div>
+                    <div className={"flex justify-end"}>
+                    {renderMixDiscountTime() != null &&
+
+                            <SmallTimer date={renderMixDiscountTime() ?? ""}/>
+                    }
+                    </div>
+
                 </div>
             </div>
 
