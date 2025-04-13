@@ -27,6 +27,7 @@ import CartController from "@/components/CartController/CartController";
 import IconDiscount from "@/components/Icon/IconDiscount";
 import NotifyAddTocart from "@/components/Product/NotifyAddTocart";
 import BagIcon from "@/components/Icon/BagIcon";
+import SmallTimer from "@/components/Timer/SmallTimer";
 
 export default function ProductSidebar({product}: { product: ProductResponse }) {
     const colors = product.colors.data;
@@ -69,6 +70,22 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
             <Prices price={selectedColor.discountedPrice}/>
         </div>
     }
+    const renderMaxDiscountTime = () => {
+        let timer = null;
+        const now = new Date();
+
+        if (
+            selectedColor.discount_expire_time &&
+            selectedColor.discountedPrice != selectedColor.price
+        ) {
+            const expireDate = new Date(selectedColor.discount_expire_time);
+            if (expireDate > now) {
+                timer = selectedColor.discount_expire_time;
+            }
+        }
+        return timer;
+    };
+
     const renderVariants = () => {
         if (!colors || !colors.length) {
             return null;
@@ -334,6 +351,12 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                                 </span>
                             </span>
                         </a>
+                    </div>
+
+                    <div className={"flex justify-start mt-3"}>
+                        {renderMaxDiscountTime() != null &&
+                            <SmallTimer date={renderMaxDiscountTime() ?? ""}/>
+                        }
                     </div>
 
                     {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
