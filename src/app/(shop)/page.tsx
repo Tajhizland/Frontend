@@ -18,6 +18,8 @@ import SectionHomepageBrand from "@/components/Section/SectionHomepageBrand";
 import SectionHomepageBlog from "@/components/Section/SectionHomepageBlog";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import Timer from "@/components/Timer/Timer";
+import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSlider";
+import React from "react";
 
 export const dynamic = 'force-dynamic';
 
@@ -64,13 +66,21 @@ export default async function Homepage() {
         {/*    />*/}
         {/*</div>*/}
 
-        <div className="container bg-[#fcb415] sm:bg-transparent my-5 sm:my-20 px-0 md:px-[1rem] ">
+        <div
+            className="container  my-5 sm:my-20 px-0  relative overflow-hidden">
 
-            <SectionDiscountSlider
+            <SectionNewDiscountSlider
                 timer={response?.discount?.discount_expire_time}
                 data={response.popularProducts.data}
                 subHeading={""}
             />
+            <div
+                className={"absolute w-24 h-24  bg-[#fcb415] rounded-full -left-10 top-1/3  items-center justify-center hidden lg:flex"}>
+                <div className={"  w-20 h-20 bg-white rounded-full -left-10 top-1/3 "}>
+
+                </div>
+            </div>
+
         </div>
 
         <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10  dark:bg-neutral-900">
