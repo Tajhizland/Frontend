@@ -14,19 +14,22 @@ import {DataTableButtons} from "@/shared/DataTable/type";
 import {HiMiniPencil} from "react-icons/hi2";
 import {UrlObject} from "node:url";
 import {BsCoin} from "react-icons/bs";
-import {Fragment, useState} from "react";
+import {createRef, Fragment, useState} from "react";
 import NcModal from "@/shared/NcModal/NcModal";
 import {findById, updateColorPrice} from "@/services/api/admin/color";
 import Input from "@/shared/Input/Input";
 import {useQuery, useQueryClient} from "react-query";
 import Spinner from "@/shared/Loading/Spinner";
 import Select from "@/shared/Select/Select";
+import Label from "@/shared/Label/Label";
+import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
 
 export default function Page() {
     const [modal, setModal] = useState(false)
     const [productId, setProductID] = useState<number>()
     const [sumColorSize, setSumColorSize] = useState<number>(0)
     const queryClient = useQueryClient();
+    const dateRef = createRef<HTMLInputElement>();
 
     async function submit(e: ProductResponse) {
 
@@ -62,6 +65,7 @@ export default function Page() {
                 status: Number(e.get(`color[${i}][status]`)),
                 stock: Number(e.get(`color[${i}][stock]`)),
                 delivery_delay: Number(e.get(`color[${i}][delivery_delay]`)),
+                discount_expire_time:  (e.get(`color[${i}][discount_expire_time]`))+"",
             };
 
             colors.push(colorData);
@@ -126,6 +130,21 @@ export default function Page() {
                                     <Input name={`color[${index}][price]`} defaultValue={item.price}/>
                                 </div>
                                 <div>
+                                    <label>زمان انقضای تخفیف</label>
+                                    <PersianDatePicker
+                                        value={item.discount_expire_time_fa}
+                                        onChange={(date) => {
+                                            if (dateRef.current) {
+                                                dateRef.current.value = date;
+                                            }
+                                        }}/>
+                                    <input
+                                        ref={dateRef}
+                                        type={"hidden"}
+                                        name={`color[${index}][discount_expire_time]`}
+                                        defaultValue={item.discount_expire_time??""}/>
+                                </div>
+                                <div>
                                     <label>قیمت پس از تخفیف</label>
                                     <Input name={`color[${index}][discount]`} defaultValue={item.simple_discount}/>
                                 </div>
@@ -148,6 +167,7 @@ export default function Page() {
                                     <Input name={`color[${index}][delivery_delay]`}
                                            defaultValue={item.delivery_delay ?? 0}/>
                                 </div>
+
                             </div>
                         </div>
                         <hr className="border-slate-200 my-5"/>
