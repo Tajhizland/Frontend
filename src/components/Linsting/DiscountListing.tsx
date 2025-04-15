@@ -7,6 +7,7 @@ import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import {useInfiniteQuery} from "react-query";
 import ProductCard from "@/components/Card/ProductCard";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
+import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSlider";
 
 const DiscountListing = ({response}: { response }) => {
     const router = useRouter();
@@ -78,7 +79,28 @@ const DiscountListing = ({response}: { response }) => {
         <div className={`nc-PageSearch dark:bg-neutral-900 py-16 lg:pb-28 lg:pt-20 `} data-nc-id="PageSearch">
             <div className="container space-y-10 lg:space-y-14">
                 <SectionSingleBanner banner={response.banner.data[0]}/>
-                <hr className="border-slate-200 dark:border-slate-700"/>
+            </div>
+            <hr className="border-slate-200 dark:border-slate-700 mt-10 lg:mt-14"/>
+
+            <div
+                className="container  my-5 sm:my-10 px-5  lg:px-0  relative overflow-hidden">
+                <SectionNewDiscountSlider
+                    timer={response?.discountTimer?.discount_expire_time}
+                    data={response.discounts.data}
+                    subHeading={""}
+                />
+                <div
+                    className="absolute w-24 h-24 bg-[#fcb415] rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
+                    <div className="w-20 h-20 bg-white rounded-full"></div>
+                </div>
+
+
+            </div>
+            <hr/>
+
+            <div className="container space-y-10 lg:space-y-14">
+
+
                 <div className="  space-y-16 lg:space-y-28">
                     <main>
                         {/* LOOP ITEMS */}

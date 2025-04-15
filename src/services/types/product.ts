@@ -6,6 +6,8 @@ import {GuarantyResponse} from "@/services/types/guaranty";
 import {BrandResponse} from "@/services/types/brand";
 import {BannerResponse} from "@/services/types/banner";
 import {VlogResponse} from "@/services/types/vlog";
+import {PriceResponse} from "@/services/types/price";
+import {PopularProductResponse} from "@/services/types/popularProduct";
 
 export type ProductPageResponse = {
     product: ProductResponse;
@@ -18,6 +20,8 @@ export type SpecialProductPageResponse = {
 export type DiscountedProductPageResponse = {
     data: ProductResponse;
     banner: { data: BannerResponse[] };
+    discounts: { data: PopularProductResponse[] };
+    discountTimer: PriceResponse;
 }
 export type ProductResponse = {
     id: number;
