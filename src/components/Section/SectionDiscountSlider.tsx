@@ -41,6 +41,7 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
         const OPTIONS: Partial<Glide.Options> = {
             // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
             direction: "rtl",
+            autoplay: 3000,
             perView: 7.2,
             gap: 10,
             bound: true,

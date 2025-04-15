@@ -335,6 +335,11 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                     <div className="flex items-center justify-between   gap-x-5">
                         <div className="flex text-2xl font-semibold">
                             {renderStatus()}
+                            <div className={"flex justify-start mr-5"}>
+                                {renderMaxDiscountTime() != null &&
+                                    <SmallTimer date={renderMaxDiscountTime() ?? ""}/>
+                                }
+                            </div>
                         </div>
 
                         <a
@@ -353,11 +358,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                         </a>
                     </div>
 
-                    <div className={"flex justify-start mt-3"}>
-                        {renderMaxDiscountTime() != null &&
-                            <SmallTimer date={renderMaxDiscountTime() ?? ""}/>
-                        }
-                    </div>
+
 
                     {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
                     <div className="mt-6 gap-y-3 lg:gap-y-7">

@@ -67,19 +67,17 @@ export default async function Homepage() {
         {/*</div>*/}
 
         <div
-            className="container  my-5 sm:my-20 px-0  relative overflow-hidden">
+            className="container  my-5 sm:my-20 px-5  lg:px-0  relative overflow-hidden">
 
             <SectionNewDiscountSlider
                 timer={response?.discount?.discount_expire_time}
                 data={response.popularProducts.data}
                 subHeading={""}
             />
-            <div
-                className={"absolute w-24 h-24  bg-[#fcb415] rounded-full -left-10 top-1/3  items-center justify-center hidden lg:flex"}>
-                <div className={"  w-20 h-20 bg-white rounded-full -left-10 top-1/3 "}>
-
-                </div>
+            <div className="absolute w-24 h-24 bg-[#fcb415] rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
+                <div className="w-20 h-20 bg-white rounded-full"></div>
             </div>
+
 
         </div>
 

@@ -59,7 +59,7 @@ const ProductCard3: FC<ProductCardProps> = ({
             return null;
         }
         const CLASSES =
-            " flex items-center text-slate-700 text-slate-900 dark:text-slate-300  dark:bg-slate-900 absolute top-1 start-1 lg:top-3 lg:start-3 bg-white rounded-full p-1 lg:p-2 text-xs";
+            " flex items-center text-slate-700 text-slate-900 dark:text-slate-300  dark:bg-slate-900 absolute top-1 start-1 lg:top-2 lg:start-2 bg-white rounded-full text-xs";
         if (status == "new") {
             return (
                 <div className={CLASSES}>
@@ -151,7 +151,7 @@ const ProductCard3: FC<ProductCardProps> = ({
             if (minDiscountedPrice == minPrice)
                 return <Prices price={minPrice}/>
             else
-                return <div className={"flex items-center gap-x-1 gap-y-0.5 flex-wrap"}>
+                return <div className={"flex flex-col items-center gap-x-1 gap-y-0.5 w-full"}>
                     <del className={"text-xs text-red-500"}>
                         {
                             new Intl.NumberFormat('fa').format(minPrice)

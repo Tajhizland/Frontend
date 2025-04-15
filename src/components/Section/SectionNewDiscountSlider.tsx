@@ -78,7 +78,11 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
     }, [sliderRef]);
 
     const renderMobileHeader = () => {
-        return <div className={"flex flex-col items-center border-b-2 border-dashed pb-5"}>
+        return <div className={"flex flex-col items-center border-b-2 border-dashed pb-5 relative"}>
+            <div className="absolute w-20 h-20 bg-white rounded-full left-1/2 -top-20 -translate-x-1/2 "></div>
+            <div className={"absolute w-10 h-10 bg-white rounded-full -left-6 -bottom-5 "}></div>
+            <div className={"absolute w-10 h-10 bg-white rounded-full -right-6 -bottom-5 "}></div>
+
             <div className={"flex items-center gap-5"}>
                 <div>
                     <strong className={"font-bold text-3xl  "}>
@@ -112,11 +116,11 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
         </div>
     }
     const renderDesktopHeader = () => {
-        return <div className={"flex flex-col items-center w-64 gap-5 border-l-2 border-dashed pl-5 relative"}>
+        return <div className={"flex flex-col items-center w-64 gap-5 border-l-4 border-dashed pl-5 relative"}>
             <div className={"absolute w-10 h-10 bg-white rounded-full -left-5 -top-10 hidden md:block"}></div>
             <div className={"absolute w-10 h-10 bg-white rounded-full -left-5 -bottom-10 hidden md:block"}></div>
-            <div className={" text-center"}>
-                <strong className={"font-bold xl:text-2xl lg:text-xl"}>
+            <div className={" "}>
+                <strong className={"font-bold xl:text-2xl lg:text-xl text-center flex"}>
                     پیشنهاد
                     <br/>
                     محصولات
@@ -150,7 +154,7 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
             <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
 
                 <div className={"bg-[#fcb415] py-5 lg:pr-10 rounded-2xl relative mt-5 flex lg:pl-4 flex-col lg:flex-row gap-5"}>
-                    <div className={"absolute w-20 h-20 bg-white rounded-full -right-10 top-1/3 hidden lg:block"}></div>
+                    <div className="absolute w-20 h-20 bg-white rounded-full -right-14 top-1/2 -translate-y-1/2 hidden lg:block"></div>
                     <div className={"block lg:hidden"}>
                         {renderMobileHeader()}
                     </div>
@@ -168,7 +172,7 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                             ))}
                             <li className={`glide__slide ${itemClassName}`}>
                                 <div
-                                    className={`flex-1 relative w-full h-0 rounded-2xl overflow-hidden group aspect-w-3 aspect-h-5 bg-slate-100  dark:bg-black/20`}
+                                    className={`flex-1 relative w-full h-0 rounded-2xl overflow-hidden group aspect-w-4 aspect-h-7 bg-slate-100  dark:bg-black/20`}
                                 >
                                     <div>
                                         <div
