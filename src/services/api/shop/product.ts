@@ -15,9 +15,9 @@ export const findProductByUrl = async <T extends ServerResponse<ProductPageRespo
         .then((res) => res?.data?.result?.data)
 };
 export const getDiscountedProducts = async <T extends ServerResponse<DiscountedProductPageResponse>>
-( page=1) => {
+( page=1 , filter="") => {
 
-    return axios.get<T, SuccessResponseType<T>>("product/discount?page="+page)
+    return axios.get<T, SuccessResponseType<T>>("product/discount?page="+page+"&"+filter)
         .then((res) => res?.data?.result?.data)
 };
 export const getSpecialProductsPaginate = async <T extends ServerResponse<SpecialProductPageResponse[]>>

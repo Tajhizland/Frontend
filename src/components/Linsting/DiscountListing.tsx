@@ -1,6 +1,6 @@
 //@ts-nocheck
 "use client";
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/navigation";
 import {getDiscountedProducts} from "@/services/api/shop/product";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
@@ -8,9 +8,12 @@ import {useInfiniteQuery} from "react-query";
 import ProductCard from "@/components/Card/ProductCard";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSlider";
+import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
+import {CgSwap} from "react-icons/cg";
 
 const DiscountListing = ({response}: { response }) => {
     const router = useRouter();
+    const [filter, setFilter] = useState<number>();
 
 
     // استفاده از useInfiniteQuery برای بارگذاری داده‌ها
@@ -21,9 +24,9 @@ const DiscountListing = ({response}: { response }) => {
         isFetchingNextPage,
         refetch,
     } = useInfiniteQuery(
-        ["discountedProducts"],
+        ["discountedProducts",filter],
         async ({pageParam = 1}) => {
-            const result = await getDiscountedProducts(pageParam); // فراخوانی getDiscountedProducts به صورت صفحه‌بندی شده
+            const result = await getDiscountedProducts(pageParam ,  filter ? `filter[category]=${filter}` : ""); // فراخوانی getDiscountedProducts به صورت صفحه‌بندی شده
             return result.data;
         },
         {
@@ -75,6 +78,15 @@ const DiscountListing = ({response}: { response }) => {
     }, [data, router]);
     const allProducts = data?.pages.flatMap((page) => page.data) || [];
 
+    const changeFilter = async (value: number) => {
+        if (filter === value) {
+            setFilter(undefined);
+            await fetchNextPage(); // Reset filter
+        } else {
+            setFilter(value);
+            await fetchNextPage(); // Apply new filter
+        }
+    };
     return (
         <div className={`nc-PageSearch dark:bg-neutral-900 py-16 lg:pb-28 lg:pt-20 `} data-nc-id="PageSearch">
             <div className="container space-y-10 lg:space-y-14">
@@ -98,6 +110,24 @@ const DiscountListing = ({response}: { response }) => {
             </div>
             <hr/>
 
+            <div className="flex flex-col">
+                <div
+                    className="flex hiddenScrollbar overflow-x-auto lg:flex-wrap lg:justify-items-center lg:items-center lg:justify-center lg:grid-cols-8 xl:grid-cols-10 gap-1  lg:gap-5 text-center">
+                    {
+                        response?.category?.data?.map((item, index) => (
+                            <CategoryCircleCard
+                                category={item}
+                                active={item.id === filter}
+                                key={index}
+                                onClick={() => changeFilter(item.id)}/>
+                        ))
+                    }
+                </div>
+                <div className={"flex justify-center border-b lg:hidden"}>
+                    <CgSwap className={" w-8 h-8 text-neutral-400"}/>
+                </div>
+            </div>
+            <hr/>
             <div className="container space-y-10 lg:space-y-14">
 
 
