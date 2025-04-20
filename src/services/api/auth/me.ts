@@ -13,11 +13,15 @@ export const update = async <T extends ServerResponse<unknown>>
         name: string,
         email: string,
         gender: string,
+        last_name: string,
+        national_code: string,
         avatar: File | undefined
     }) => {
     const formData = new FormData();
     formData.append("name", params.name);
     formData.append("email", params.email);
+    formData.append("last_name", params.last_name);
+    formData.append("national_code", params.national_code);
     formData.append("gender", params.gender);
     if (params.avatar)
         formData.append("avatar", params.avatar);

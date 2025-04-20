@@ -6,6 +6,8 @@ export type OrderInfoResponse = {
     city_id:number ;
     province_id:number ;
     name:string ;
+    last_name:string ;
+    national_code:string ;
     tell:string ;
     mobile:string ;
     zip_code:string ;

@@ -51,6 +51,14 @@ export default function Page() {
                                 <span>نام : </span>
                                 <span>{data?.orderInfo?.name}</span>
                             </div>
+                            <div className="flex py-2 justify-between">
+                                <span>نام خانوادگی : </span>
+                                <span>{data?.orderInfo?.last_name}</span>
+                            </div>
+                            <div className="flex py-2 justify-between">
+                                <span>کد ملی : </span>
+                                <span>{data?.orderInfo?.national_code}</span>
+                            </div>
                             <div className="flex  py-2 justify-between">
                                 <span>موبایل : </span>
                                 <span>{data?.orderInfo?.mobile}</span>

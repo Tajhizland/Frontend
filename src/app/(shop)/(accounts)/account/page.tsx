@@ -64,6 +64,8 @@ const AccountPage = () => {
             name: e.get("name") as string,
             email: e.get("email") as string,
             gender: e.get("gender") as string,
+            last_name: e.get("last_name") as string,
+            national_code: e.get("national_code") as string,
             avatar: e.get("avatar") as File
         })
         if (response?.success) {
