@@ -4,6 +4,14 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Checkbox from "@/shared/Checkbox/Checkbox";
 import Input from "@/shared/Input/Input";
  import Label from "@/shared/Label/Label";
+ import {MdOutlineAlternateEmail} from "react-icons/md";
+ import Select from "@/shared/Select/Select";
+ import {FaPhone} from "react-icons/fa";
+ import {setUser, useUser} from "@/services/globalState/GlobalState";
+ import {me, update} from "@/services/api/auth/me";
+ import {toast} from "react-hot-toast";
+ import {useQuery, useQueryClient} from "react-query";
+ import {deleteCookie, getCookie} from "cookies-next";
 
 interface Props {
   isActive: boolean;
@@ -12,10 +20,42 @@ interface Props {
 }
 
 const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
-  const renderAccount = () => {
+    const [user] = useUser();
+    const queryClient = useQueryClient();
+
+
+    const {data, isSuccess} = useQuery({
+        queryKey: ['user'],
+        queryFn: () => me(),
+        staleTime: 5000,
+        enabled: !!getCookie("token"),
+        onSuccess: (user) => {
+            setUser(user);
+        },
+        onError: () => {
+            deleteCookie("token");
+        }
+    });
+
+    async function submit(e: FormData) {
+        let response = await update({
+            name: e.get("name") as string,
+            email: e.get("email") as string,
+            gender: e.get("gender") as string,
+            last_name: e.get("last_name") as string,
+            national_code: e.get("national_code") as string,
+            avatar: e.get("avatar") as File
+        })
+        if (response?.success) {
+            toast.success(response?.message as string);
+            queryClient.invalidateQueries([`user`]);
+        }
+    }
+    const renderAccount = () => {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden z-0">
-        <div className="flex flex-col sm:flex-row items-start p-6 ">
+        <div className="flex flex-col sm:flex-row items-start p-6 justify-between  sm:items-center">
+            <div className={"flex items-center"}>
           <span className="hidden sm:block">
             <svg
               className="w-6 h-6 text-slate-700 dark:text-slate-400 mt-0.5"
@@ -52,8 +92,9 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
 
             </h3>
           </div>
+            </div>
           <button
-            className="py-2 px-4 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 mt-5 sm:mt-0 sm:ml-auto text-sm font-medium rounded-lg"
+            className="py-2 px-4 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 mt-5 sm:mt-0   text-sm font-medium rounded-lg"
             onClick={() => onOpenActive()}
           >
             ویرایش
@@ -64,47 +105,67 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
             isActive ? "block" : "hidden"
           }`}
         >
-          <div className="flex justify-between flex-wrap items-baseline">
-            <h3 className="text-lg font-semibold">Contact infomation</h3>
-            <span className="block text-sm my-1 md:my-0">
-              Do not have an account?{` `}
-              <a href="##" className="text-primary-500 font-medium">
-                Log in
-              </a>
-            </span>
-          </div>
-          <div className="max-w-lg">
-            <Label className="text-sm">Your phone number</Label>
-            <Input className="mt-1.5" defaultValue={"+808 xxx"} type={"tel"} />
-          </div>
-          <div className="max-w-lg">
-            <Label className="text-sm">Email address</Label>
-            <Input className="mt-1.5" type={"email"} />
-          </div>
-          <div>
-            <Checkbox
-              className="!text-sm"
-              name="uudai"
-              label="Email me news and offers"
-              defaultChecked
-            />
-          </div>
+            <form action={submit}>
+            <div className="flex-grow mt-10 md:mt-0 md:pr-16 max-w-3xl space-y-6  w-full">
+                <div>
+                    <Label>نام </Label>
+                    <Input className="mt-1.5" defaultValue={user?.name} name={"name"}/>
+                </div>
+                <div>
+                    <Label>نام خانوادگی </Label>
+                    <Input className="mt-1.5" defaultValue={user?.last_name} name={"last_name"}/>
+                </div>
+                <div>
+                    <Label>کد ملی </Label>
+                    <Input className="mt-1.5" defaultValue={user?.national_code} name={"national_code"}/>
+                </div>
 
-          {/* ============ */}
-          <div className="flex flex-col sm:flex-row pt-6">
-            <ButtonPrimary
-              className="sm:!px-7 shadow-none"
-              onClick={() => onCloseActive()}
-            >
-              Save and next to Shipping
-            </ButtonPrimary>
-            <ButtonSecondary
-              className="mt-3 sm:mt-0 sm:ml-3"
-              onClick={() => onCloseActive()}
-            >
-              Cancel
-            </ButtonSecondary>
-          </div>
+                {/* ---- */}
+
+                {/* ---- */}
+                <div>
+                    <Label>ایمیل</Label>
+                    <div className="mt-1.5 flex">
+                <span
+                    className="inline-flex items-center px-2.5 rounded-r-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+                  <MdOutlineAlternateEmail/>
+
+                </span>
+                        <Input
+                            className="!rounded-r-none"
+                            placeholder="example@email.com"
+                            name={"email"}
+                            defaultValue={user?.email}
+                        />
+                    </div>
+                </div>
+                <div>
+                    <Label>جنسیت</Label>
+                    <Select className="mt-1.5" name={"gender"} defaultValue={user?.gender}>
+                        <option value="1" selected={user?.gender == 1}>مرد</option>
+                        <option value="0" selected={user?.gender == 0}>زن</option>
+                    </Select>
+                </div>
+
+                {/* ---- */}
+                <div>
+                    <Label>شماره همراه</Label>
+                    <div className="mt-1.5 flex">
+                <span
+                    className="inline-flex items-center px-2.5 rounded-r-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+                <FaPhone/>
+
+                </span>
+                        <Input name={"mobile"} className="!rounded-r-none" defaultValue={user?.username}
+                               readOnly/>
+                    </div>
+                </div>
+
+                <div className="pt-2">
+                    <ButtonPrimary>ویرایش</ButtonPrimary>
+                </div>
+            </div>
+            </form>
         </div>
       </div>
     );
