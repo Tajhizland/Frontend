@@ -46,6 +46,9 @@ const PageSignUp = () => {
     async function setPassword(e: FormData) {
         let res = await register({
             mobile: e.get("mobile") as string,
+            name: e.get("name") as string,
+            last_name: e.get("last_name") as string,
+            national_code: e.get("national_code") as string,
             password: e.get("password") as string,
             password_confirmation: e.get("password_confirmation") as string
         })
@@ -129,6 +132,27 @@ const PageSignUp = () => {
                         </form>}
 
                         {step == 3 && <form className="grid grid-cols-1 gap-6" action={setPassword} >
+                            <label className="block">
+              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                نام
+              </span>
+                                <Input type={"text"} placeholder="نام" className="mt-1" name={"name"}/>
+
+                            </label>
+                            <label className="block">
+              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                نام خانوادگی
+              </span>
+                                <Input type={"text"} placeholder="نام خانوادگی" className="mt-1" name={"last_name"}/>
+
+                            </label>
+                            <label className="block">
+              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                کد ملی
+              </span>
+                                <Input type={"text"} placeholder="کد ملی" className="mt-1" name={"national_code"}/>
+
+                            </label>
                             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 کلمه عبور

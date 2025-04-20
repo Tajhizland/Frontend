@@ -28,6 +28,9 @@ export const register = async <T extends ServerResponse<TokenResponse>>
 (
     params: {
         mobile: string;
+        name: string;
+        last_name: string;
+        national_code: string;
         password: string;
         password_confirmation: string;
     }
