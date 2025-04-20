@@ -224,7 +224,7 @@ const ProductCard3: FC<ProductCardProps> = ({
                         className="flex flex-col gap-y-2 sm:flex-row justify-between items-start  text-xs sm:text-base ">
                         {data && renderMinPrice(data)}
                     </div>
-                    <div className={"flex justify-center h-5"}>
+                    <div className={"flex justify-center h-10"}>
 
                         {renderMixDiscountTime() != null &&
 
