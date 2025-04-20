@@ -1,6 +1,8 @@
 export type UserResponse = {
     id:number ;
     name:string ;
+    national_code:string ;
+    last_name:string ;
     gender:number ;
     email:string ;
     username:string ;

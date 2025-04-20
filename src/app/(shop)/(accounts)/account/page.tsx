@@ -137,8 +137,16 @@ const AccountPage = () => {
                         </div>
                         <div className="flex-grow mt-10 md:mt-0 md:pr-16 max-w-3xl space-y-6  w-full">
                             <div>
-                                <Label>نام کامل</Label>
+                                <Label>نام </Label>
                                 <Input className="mt-1.5" defaultValue={user?.name} name={"name"}/>
+                            </div>
+                            <div>
+                                <Label>نام خانوادگی </Label>
+                                <Input className="mt-1.5" defaultValue={user?.last_name} name={"last_name"}/>
+                            </div>
+                            <div>
+                                <Label>کد ملی </Label>
+                                <Input className="mt-1.5" defaultValue={user?.national_code} name={"national_code"}/>
                             </div>
 
                             {/* ---- */}
