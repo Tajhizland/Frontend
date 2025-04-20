@@ -211,19 +211,19 @@ const CheckoutPage = () => {
                         }}
                     />
                 </div>
-                {/*<div id="ContactInfo" className="scroll-mt-24">*/}
-                {/*    <ContactInfo*/}
-                {/*        isActive={tabActive === "ContactInfo"}*/}
-                {/*        onOpenActive={() => {*/}
-                {/*            setTabActive("ContactInfo");*/}
-                {/*            handleScrollToEl("ContactInfo");*/}
-                {/*        }}*/}
-                {/*        onCloseActive={() => {*/}
-                {/*            setTabActive("PaymentMethod");*/}
-                {/*            handleScrollToEl("PaymentMethod");*/}
-                {/*        }}*/}
-                {/*    />*/}
-                {/*</div>*/}
+                <div id="ContactInfo" className="scroll-mt-24">
+                    <ContactInfo
+                        isActive={tabActive === "ContactInfo"}
+                        onOpenActive={() => {
+                            setTabActive("ContactInfo");
+                            handleScrollToEl("ContactInfo");
+                        }}
+                        onCloseActive={() => {
+                            setTabActive("PaymentMethod");
+                            handleScrollToEl("PaymentMethod");
+                        }}
+                    />
+                </div>
                 <div className={"border rounded-2xl flex flex-col w-full gap-5 p-5 bg-slate-100 dark:bg-black/20"}>
                     <div>
                         <strong className={"text-sm sm:text-base"}>
