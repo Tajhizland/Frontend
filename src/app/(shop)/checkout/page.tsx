@@ -174,16 +174,16 @@ const CheckoutPage = () => {
                     <div className="flex mt-auto pt-4 items-start justify-between text-sm flex-col sm:flex-row gap-1">
                         <div className=" sm:block text-center relative">
                             <CartController className="relative z-10"
-                                           defaultValue={item.count}
-                                           increaseHandle={() => {
-                                               increaseHandle(item.color.id as number, item.guaranty.id as number)
-                                           }}
-                                           decreaseHandel={() => {
-                                               decreaseHandle(item.color.id as number, item.guaranty.id as number)
-                                           }}
-                                           removeHandle={() => {
-                                               removeHandle(item.color.id as number, item.guaranty.id as number)
-                                           }}
+                                            defaultValue={item.count}
+                                            increaseHandle={() => {
+                                                increaseHandle(item.color.id as number, item.guaranty.id as number)
+                                            }}
+                                            decreaseHandel={() => {
+                                                decreaseHandle(item.color.id as number, item.guaranty.id as number)
+                                            }}
+                                            removeHandle={() => {
+                                                removeHandle(item.color.id as number, item.guaranty.id as number)
+                                            }}
                             />
                         </div>
                         {!item.hasStock
@@ -211,19 +211,20 @@ const CheckoutPage = () => {
                         }}
                     />
                 </div>
-                <div id="ContactInfo" className="scroll-mt-24">
-                    <ContactInfo
-                        isActive={tabActive === "ContactInfo"}
-                        onOpenActive={() => {
-                            setTabActive("ContactInfo");
-                            handleScrollToEl("ContactInfo");
-                        }}
-                        onCloseActive={() => {
-                            setTabActive("PaymentMethod");
-                            handleScrollToEl("PaymentMethod");
-                        }}
-                    />
-                </div>
+                {user && (user.name == null || user.last_name == null || user.national_code == null) &&
+                    <div id="ContactInfo" className="scroll-mt-24">
+                        <ContactInfo
+                            isActive={tabActive === "ContactInfo"}
+                            onOpenActive={() => {
+                                setTabActive("ContactInfo");
+                                handleScrollToEl("ContactInfo");
+                            }}
+                            onCloseActive={() => {
+                                setTabActive("PaymentMethod");
+                                handleScrollToEl("PaymentMethod");
+                            }}
+                        />
+                    </div>}
                 <div className={"border rounded-2xl flex flex-col w-full gap-5 p-5 bg-slate-100 dark:bg-black/20"}>
                     <div>
                         <strong className={"text-sm sm:text-base"}>
@@ -243,29 +244,30 @@ const CheckoutPage = () => {
                         </p>
                     </div>
                 </div>
-                {address && <div className={"border rounded-2xl flex flex-col w-full gap-5 p-5 bg-slate-100 dark:bg-black/20"}>
-                    <div>
-                        <p className={"text-xs sm:text-sm  text-slate-800 dark:text-white"}>
-                            سفارش شما پس از پرداخت در بازه زمانی
-                            {" "}
-                            {renderMaxDeliveryDelay()}
-                            {" "}
-                            روز کاری ، با توجه به شرایط ارسال اعلامی به ادرس
-                            {" "}
-                            {address?.province?.name} ,
-                            {" "}
-                            {address?.city?.name} ,
-                            {" "}
-                            {address?.address}
-                            {" "}
-                            به کد پستی
-                            {" "}
-                            {address?.zip_code}
-                            {" "}
-                            ارسال خواد شد.
-                        </p>
-                    </div>
-                </div>}
+                {address &&
+                    <div className={"border rounded-2xl flex flex-col w-full gap-5 p-5 bg-slate-100 dark:bg-black/20"}>
+                        <div>
+                            <p className={"text-xs sm:text-sm  text-slate-800 dark:text-white"}>
+                                سفارش شما پس از پرداخت در بازه زمانی
+                                {" "}
+                                {renderMaxDeliveryDelay()}
+                                {" "}
+                                روز کاری ، با توجه به شرایط ارسال اعلامی به ادرس
+                                {" "}
+                                {address?.province?.name} ,
+                                {" "}
+                                {address?.city?.name} ,
+                                {" "}
+                                {address?.address}
+                                {" "}
+                                به کد پستی
+                                {" "}
+                                {address?.zip_code}
+                                {" "}
+                                ارسال خواد شد.
+                            </p>
+                        </div>
+                    </div>}
             </div>
         );
     };
@@ -280,14 +282,14 @@ const CheckoutPage = () => {
     const renderDiscount = () => {
         let sumDiscount: number = 0;
         cart.map((item) => {
-            if(item.color.discountedPrice>0)
+            if (item.color.discountedPrice > 0)
                 sumDiscount += Number((item.color.price - item.color.discountedPrice) * item.count);
         })
         return sumDiscount;
     }
     const renderDiscountedPrice = () => {
 
-        return sumPrice-sumDiscount + sumGuarantyPrice  ;
+        return sumPrice - sumDiscount + sumGuarantyPrice;
     }
     const renderAllow = () => {
         let allow: boolean = true;
@@ -428,7 +430,7 @@ const CheckoutPage = () => {
                             </div>
                         </div>
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
-                                       disabled={!allow || !acceptRule || sumDiscountedPrice<=0}>پرداخت</ButtonPrimary>
+                                       disabled={!allow || !acceptRule || sumDiscountedPrice <= 0}>پرداخت</ButtonPrimary>
 
 
                         <div className={"flex items-center gap-2 mt-5 justify-center"}>
@@ -444,8 +446,9 @@ const CheckoutPage = () => {
                                 سایت موافقم</p>
                         </div>
                         <div className={"flex justify-center mt-5"}>
-                            {!acceptRule && <Badge color={"red"} name={" برای ثبت سفارش ابتدا باید با قوانین سایت موافقت کنید"}>
-                            </Badge>}
+                            {!acceptRule &&
+                                <Badge color={"red"} name={" برای ثبت سفارش ابتدا باید با قوانین سایت موافقت کنید"}>
+                                </Badge>}
                         </div>
                         {
                             !allow &&
