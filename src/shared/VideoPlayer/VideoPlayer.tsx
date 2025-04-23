@@ -16,7 +16,9 @@ export default function VideoPlayer({src , poster}:{src:string ,poster?:string})
             poster:poster ,
             autoplay: false,
             sources: [
-                { src: src, type: "video/mp4" }, // HLS
+                { src: src, type: "video/mp4" },
+                // { src: src, type :"application/x-mpegURL"}, // HLS
+
             ],
         });
 
