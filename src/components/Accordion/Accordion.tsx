@@ -21,7 +21,7 @@ export default function Accordion({
     return (
         <div className="w-full rounded-2xl space-y-2.5">
             {data.map((item, index) => (
-                <Disclosure key={index} defaultOpen={index > 0}>
+                <Disclosure key={index} defaultOpen={index > 1}>
                     {({ open }) => (
                         <div>
                             <Disclosure.Button

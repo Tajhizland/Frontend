@@ -155,6 +155,33 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         return `<div class="relative  ">
     <table class="w-full text-sm text-center text-gray-500  dark:text-white rounded">${options}</table></div>`;
     };
+
+    const renderAccordianData = () => {
+        if(product.review)
+        {
+            return[
+                {
+                    name: "مشخصات محصول",
+                    content: renderOption()
+
+                },
+                {
+                    name: "بررسی تخصصی",
+                    content: renderSection2()
+                }
+            ]
+
+        }
+        else {
+            return[
+                {
+                    name: "مشخصات محصول",
+                    content: renderOption()
+
+                }
+            ]
+        }
+    }
     const renderSection1 = () => {
         return (
             <div className="listingSection__wrap !space-y-6">
@@ -178,37 +205,29 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 {/*  */}
                 <TextExpander text={product.description}/>
                 <Accordion
-                    data={[
-                        {
-                            name: "مشخصات محصول",
-                            content: renderOption()
-
-                        },
-                        {
-                            name: "بررسی تخصصی",
-                            content: renderSection2()
-                        }
-                    ]}/>
+                    data={renderAccordianData()}/>
                 {/*<SectionVideo  intro_video={product.intro_video}  unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
                 {/*<SectionVideo intro_video={"https://tajhizland.com/video/intro_video.mp4"} unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
                 <SectionVideo intro_video={product.intro} unboxing_video={product.unboxing}
                               usage_video={product.usage} />
+
+
+                <div className="lg:hidden  ">
+                    <Policy/>
+                </div>
+
             </div>
         );
     };
     const renderSection2 = () => {
         return (
             <div className="listingSection__wrap !border-b-0 !pb-0 dark:text-white">
-                {/* <h2 className="text-2xl font-semibold">بررسی تخصصی</h2> */}
-                {/* <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div> */}
+
                 <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white">
                     <div dangerouslySetInnerHTML={{__html: product.review}}/>
-
                 </div>
                 {/* ---------- 6 ----------  */}
-                <div className="lg:hidden  ">
-                    <Policy/>
-                </div>
+
             </div>
         );
     };
