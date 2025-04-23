@@ -28,7 +28,8 @@ export type breadcrumbResponse = {
 
 export type CategoryListing = {
     category: CategoryResponse;
-    breadcrumb: { data:breadcrumbResponse[] };
+    children: { data: CategoryResponse };
+    breadcrumb: { data: breadcrumbResponse[] };
     products: {
         data: ProductResponse[];
         meta?: {

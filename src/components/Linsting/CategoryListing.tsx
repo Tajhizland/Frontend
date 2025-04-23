@@ -98,6 +98,7 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
                         {/* TABS FILTER */}
                         <TabCategoryFilters
                             filters={response.category.filters.data}
+                            categorys={response.children.data}
                             maxPrice={response.category.maxPrice}
                             minPrice={response.category.minPrice}
                             changeFilter={handleFilterChange}

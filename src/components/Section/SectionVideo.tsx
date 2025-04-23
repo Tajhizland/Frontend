@@ -53,12 +53,12 @@ export default function SectionVideo({
         return count;
     }
 
-    console.log("Vid",videos)
-    console.log("Vid",openVideo)
+    console.log("Vid", videos)
+    console.log("Vid", openVideo)
 
     return (<>
         <div className={"flex flex-col-reverse xl:flex-row gap-5"}>
-            <div className={"flex flex-col md:flex-row lg:flex-col   gap-5"}>
+            <div className={"flex flex-col md:flex-row lg:flex-col   gap-10"}>
                 {
                     videos.map((item, index) => (
                         <Fragment key={index}>
@@ -95,12 +95,35 @@ export default function SectionVideo({
                     ))
                 }
             </div>
-            <div className={"w-full "}>
+            <div className={`w-full ${unboxing_video?.video == openVideo?"block":"hidden"}`}>
                 <div className="relative w-full ">
                     <div
                         className={`mt-0   nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full  aspect-w-16 aspect-h-9 `}>
                         <div className={"flex flex-col gap-y-10 text-right dark:text-white"}>
-                            <VideoPlayer  src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${openVideo}`} />
+                            <VideoPlayer poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${unboxing_video?.poster}`}
+                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${unboxing_video?.video}`}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className={`w-full ${intro_video?.video == openVideo?"block":"hidden"}`}>
+                <div className="relative w-full ">
+                    <div
+                        className={`mt-0   nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full  aspect-w-16 aspect-h-9 `}>
+                        <div className={"flex flex-col gap-y-10 text-right dark:text-white"}>
+                            <VideoPlayer poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${intro_video?.poster}`}
+                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${intro_video?.video}`}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className={`w-full ${usage_video?.video == openVideo?"block":"hidden"}`}>
+                <div className="relative w-full ">
+                    <div
+                        className={`mt-0   nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full  aspect-w-16 aspect-h-9 `}>
+                        <div className={"flex flex-col gap-y-10 text-right dark:text-white"}>
+                            <VideoPlayer poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${usage_video?.poster}`}
+                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${usage_video?.video}`}/>
                         </div>
                     </div>
                 </div>
