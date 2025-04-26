@@ -3,7 +3,7 @@ import Link from "next/link";
 import {stripHTML} from "@/hooks/StripHtml";
 import {VlogResponse} from "@/services/types/vlog";
 import MetaCard from "@/components/Card/MetaCard";
-import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
+import VideoPlayer2 from "@/shared/VideoPlayer/VideoPlayer2";
 
 export interface Card12Props {
     className?: string;
@@ -13,7 +13,7 @@ export interface Card12Props {
 const VlogVideoCard: FC<Card12Props> = ({className = "h-full", data}) => {
     return (
         <div className={` group relative flex flex-col ${className}`}>
-            <VideoPlayer poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`} src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.video}`}/>
+            <VideoPlayer2 poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`} src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.video}`}/>
 
             {/*<video*/}
             {/*    className="w-full h-auto"*/}
