@@ -1,10 +1,10 @@
 //@ts-nocheck
 "use client";
-import {useEffect, useRef} from "react";
+import { useEffect, useRef } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
-export default function VideoPlayer({src, poster}: { src: string; poster?: string }) {
+export default function VideoPlayer({ src, poster }: { src: string; poster?: string }) {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const playerRef = useRef<videojs.Player | null>(null);
 
@@ -12,7 +12,7 @@ export default function VideoPlayer({src, poster}: { src: string; poster?: strin
         if (!videoRef.current) return;
 
         if (!playerRef.current) {
-            // فقط یکبار پلیر ساخته بشه
+            // اولین بار پلیر بساز
             playerRef.current = videojs(videoRef.current, {
                 controls: true,
                 responsive: true,
@@ -20,20 +20,32 @@ export default function VideoPlayer({src, poster}: { src: string; poster?: strin
                 poster: poster,
                 autoplay: false,
             });
-        } else {
-            // اگر پلیر ساخته شده بود، فقط سورس رو تغییر بده
-            playerRef.current.poster(poster || "");
 
+            // وقتی پلیر آماده شد
+            playerRef.current.ready(() => {
+                if (src) {
+                    playerRef.current?.src([
+                        { src: src, type: "video/mp4" },
+                    ]);
+                    playerRef.current?.play().catch((e) => {
+                        console.log("Autoplay prevented on first load", e);
+                    });
+                }
+            });
+        } else {
+            // اگر پلیر ساخته شده بود فقط سورس عوض کن
+            playerRef.current.poster(poster || "");
             playerRef.current.src([
-                {src: src, type: "video/mp4"},
-                // { src: src, type: "application/x-mpegURL" }, // HLS اگر خواستی
+                { src: src, type: "video/mp4" },
             ]);
+            playerRef.current.play().catch((e) => {
+                console.log("Autoplay prevented on source change", e);
+            });
         }
     }, [src, poster]);
 
     useEffect(() => {
         return () => {
-            // در نهایت وقتی کامپوننت destroy شد پلیر رو dispose کن
             if (playerRef.current) {
                 playerRef.current.dispose();
                 playerRef.current = null;
@@ -43,7 +55,7 @@ export default function VideoPlayer({src, poster}: { src: string; poster?: strin
 
     return (
         <div>
-            <video ref={videoRef} className="video-js vjs-default-skin"/>
+            <video ref={videoRef} className="video-js vjs-default-skin" />
         </div>
     );
 }
