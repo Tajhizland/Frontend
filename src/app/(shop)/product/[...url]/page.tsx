@@ -20,6 +20,7 @@ import LikeSaveBtns from "@/shared/Button/LikeSaveBtns";
 import Accordion from "@/components/Accordion/Accordion";
 import SectionVideo from "@/components/Section/SectionVideo";
 import Badge from "@/shared/Badge/Badge";
+import SectionProductVideo from "@/components/Section/SectionProductVideo";
 
 
 interface ProductPageProps {
@@ -206,11 +207,11 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 <TextExpander text={product.description}/>
                 <Accordion
                     data={renderAccordianData()}/>
-                {/*<SectionVideo  intro_video={product.intro_video}  unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
-                {/*<SectionVideo intro_video={"https://tajhizland.com/video/intro_video.mp4"} unboxing_video={"https://tajhizland.com/video/intro_video.mp4"} usage_video={"https://tajhizland.com/video/intro_video.mp4"} intro_video_description={product.intro_video_description} unboxing_video_description={product.unboxing_video_description} usage_video_description={product.usage_video_description} />*/}
-                <SectionVideo intro_video={product.intro} unboxing_video={product.unboxing}
+                 <SectionVideo intro_video={product.intro}
+                               unboxing_video={product.unboxing}
                               usage_video={product.usage} />
 
+                {/*<SectionProductVideo videos={product.videos.data} />*/}
 
                 <div className="lg:hidden  ">
                     <Policy/>

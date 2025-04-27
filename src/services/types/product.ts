@@ -8,6 +8,7 @@ import {BannerResponse} from "@/services/types/banner";
 import {VlogResponse} from "@/services/types/vlog";
 import {PriceResponse} from "@/services/types/price";
 import {PopularProductResponse} from "@/services/types/popularProduct";
+import {ProductVideoResponse} from "@/services/types/productVideo";
 
 export type ProductPageResponse = {
     product: ProductResponse;
@@ -66,6 +67,9 @@ export type ProductResponse = {
     };
     images: {
         data: ProductImageResponse[]
+    };
+    videos: {
+        data: ProductVideoResponse[]
     };
     productOptions: {
         data: ProductOptionResponse[]
