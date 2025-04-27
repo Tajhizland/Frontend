@@ -7,6 +7,7 @@ import NcImage from "@/shared/NcImage/NcImage";
 import {FaEye} from "react-icons/fa";
 import Heading from "@/components/Heading/Heading";
 import VideoPlayer2 from "@/shared/VideoPlayer/VideoPlayer2";
+import HlsVideoPlayer from "@/shared/VideoPlayer/HlsVideoPlayer";
 
 interface PageProps {
     params: Promise<{
@@ -44,9 +45,12 @@ export default async function Page(props: PageProps) {
     const renderContent = () => {
         return (
             <div className={"flex flex-col gap-y-10 text-right dark:text-white"}>
-
-                <VideoPlayer2 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.video}`}/>
-
+                {
+                    response.vlog.hls &&  response.vlog.hls!="" ?
+                        <HlsVideoPlayer src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${response.vlog.hls}`}  poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.poster}`}  />
+                        :
+                        <VideoPlayer2 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.video}`}  poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.poster}`} />
+                }
                 <div dangerouslySetInnerHTML={{__html: (response.vlog.description)}}/>
             </div>
         );

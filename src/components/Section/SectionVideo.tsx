@@ -4,6 +4,7 @@ import { BsFillCameraReelsFill } from "react-icons/bs";
 import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
 import { VlogResponse } from "@/services/types/vlog";
 import NcImage from "@/shared/NcImage/NcImage";
+import HlsVideoPlayer from "@/shared/VideoPlayer/HlsVideoPlayer";
 
 export default function SectionVideo({
                                          intro_video,
@@ -17,18 +18,21 @@ export default function SectionVideo({
     const videos = [
         {
             src: intro_video?.video ?? "",
+            hls: intro_video?.hls ?? "",
             poster: intro_video?.poster ?? "",
             title: "معرفی محصول",
             description: intro_video?.title ?? "",
         },
         {
             src: usage_video?.video ?? "",
+            hls: usage_video?.hls ?? "",
             poster: usage_video?.poster ?? "",
             title: "آماده به کار محصول",
             description: usage_video?.title ?? "",
         },
         {
             src: unboxing_video?.video ?? "",
+            hls: unboxing_video?.hls ?? "",
             poster: unboxing_video?.poster ?? "",
             title: "آنباکس محصول",
             description: unboxing_video?.title ?? "",
@@ -36,7 +40,7 @@ export default function SectionVideo({
     ].filter((v) => v.src !== ""); // فقط ویدیوهای موجود رو نگه دار
 
     const [currentVideo, setCurrentVideo] = useState(() => {
-        return videos[0] || { src: "", poster: "", title: "", description: "" };
+        return videos[0] || { src: "", poster: "", title: "", hls: "", description: "" };
     });
 
     if (videos.length === 0) return <></>; // اگر هیچ ویدیویی نبود هیچی نشون نده
@@ -79,10 +83,19 @@ export default function SectionVideo({
                 <div className="relative w-full">
                     <div className="mt-0 nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full aspect-w-16 aspect-h-9">
                         <div className="flex flex-col gap-y-10 text-right dark:text-white">
-                            <VideoPlayer
-                                poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${currentVideo.poster}`}
-                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${currentVideo.src}`}
-                            />
+                            {
+                                currentVideo.hls &&  currentVideo.hls !=""?
+                                    <HlsVideoPlayer
+                                        poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${currentVideo.poster}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${currentVideo.hls}`}
+                                    />
+                                    :
+                                    <VideoPlayer
+                                        poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${currentVideo.poster}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${currentVideo.src}`}
+                                    />
+                            }
+
                         </div>
                     </div>
                 </div>

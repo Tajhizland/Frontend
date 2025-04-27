@@ -14,6 +14,7 @@ export type VlogResponse = {
     title: string;
     url: string;
     description: string;
+    hls: string;
     video: string;
     poster: string;
     author	: string;
