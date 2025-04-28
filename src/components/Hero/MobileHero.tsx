@@ -5,6 +5,7 @@ import Image from "next/image";
 import useInterval from "beautiful-react-hooks/useInterval";
 import useHorizontalSwipe from "beautiful-react-hooks/useHorizontalSwipe";
 import {SliderResponse} from "@/services/types/slider";
+import Link from "next/link";
 
 export interface SectionHero2Props {
     className?: string;
@@ -132,7 +133,7 @@ const MobileHero: FC<SectionHero2Props> = ({className = "", data}) => {
             return null;
         }
         return (
-            <div
+            <Link href={item.url}
                 className={`mt-0  nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full  aspect-w-16 aspect-h-10  `}
                 key={index}
             >
@@ -147,7 +148,7 @@ const MobileHero: FC<SectionHero2Props> = ({className = "", data}) => {
 
                     <div>{renderDots()}</div>
                 </div>
-            </div>
+            </Link>
         );
     };
 
