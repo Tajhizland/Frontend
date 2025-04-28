@@ -27,9 +27,9 @@ export default function HlsVideoPlayer({ src, poster }: { src: string; poster?: 
                     playerRef.current?.src([
                         { src: src, type :"application/x-mpegURL"},
                     ]);
-                    playerRef.current?.play().catch((e) => {
-                        console.log("Autoplay prevented on first load", e);
-                    });
+                    // playerRef.current?.play().catch((e) => {
+                    //     console.log("Autoplay prevented on first load", e);
+                    // });
                 }
             });
         } else {
@@ -38,9 +38,9 @@ export default function HlsVideoPlayer({ src, poster }: { src: string; poster?: 
             playerRef.current.src([
                 { src: src, type :"application/x-mpegURL"},
             ]);
-            playerRef.current.play().catch((e) => {
-                console.log("Autoplay prevented on source change", e);
-            });
+            // playerRef.current.play().catch((e) => {
+            //     console.log("Autoplay prevented on source change", e);
+            // });
         }
     }, [src, poster]);
 
