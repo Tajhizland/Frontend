@@ -5,6 +5,7 @@ import {VlogResponse} from "@/services/types/vlog";
 import MetaCard from "@/components/Card/MetaCard";
 import VideoPlayer2 from "@/shared/VideoPlayer/VideoPlayer2";
 import HlsVideoPlayer from "@/shared/VideoPlayer/HlsVideoPlayer";
+import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
 
 export interface Card12Props {
     className?: string;
@@ -18,7 +19,7 @@ const VlogVideoCard: FC<Card12Props> = ({className = "h-full", data}) => {
                 data.hls && data.hls!=""?
                     <HlsVideoPlayer src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${data.hls}`} poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`} />
                     :
-                    <VideoPlayer2 poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`} src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.video}`}/>
+                    <VideoPlayer poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`} src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.video}`}/>
 
             }
 

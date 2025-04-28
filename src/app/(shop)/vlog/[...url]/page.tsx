@@ -8,6 +8,7 @@ import {FaEye} from "react-icons/fa";
 import Heading from "@/components/Heading/Heading";
 import VideoPlayer2 from "@/shared/VideoPlayer/VideoPlayer2";
 import HlsVideoPlayer from "@/shared/VideoPlayer/HlsVideoPlayer";
+import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
 
 interface PageProps {
     params: Promise<{
@@ -49,7 +50,7 @@ export default async function Page(props: PageProps) {
                     response.vlog.hls &&  response.vlog.hls!="" ?
                         <HlsVideoPlayer src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${response.vlog.hls}`}  poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.poster}`}  />
                         :
-                        <VideoPlayer2 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.video}`}  poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.poster}`} />
+                        <VideoPlayer src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.video}`}  poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.poster}`} />
                 }
                 <div dangerouslySetInnerHTML={{__html: (response.vlog.description)}}/>
             </div>
