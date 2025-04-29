@@ -66,7 +66,7 @@ export const removeSlider = async <T extends ServerResponse<SliderResponse>>
 (
     id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/slider/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/slider/delete/" + id)
         .then((res) => res?.data)
 };
 export const getMobileSliders = async <T extends ServerResponse<SliderResponse[]>>
