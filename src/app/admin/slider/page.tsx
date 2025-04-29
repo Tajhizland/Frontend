@@ -8,6 +8,7 @@ import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {removeSlider} from "@/services/api/admin/slider";
+import {toast} from "react-hot-toast";
 
 export default function Page() {
 
