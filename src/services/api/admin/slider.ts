@@ -62,6 +62,13 @@ export const findById = async <T extends ServerResponse<SliderResponse>>
     return axios.get<T, SuccessResponseType<T>>("admin/slider/find/" + id)
         .then((res) => res?.data?.result?.data)
 };
+export const removeSlider = async <T extends ServerResponse<SliderResponse>>
+(
+    id: number
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/slider/delete/" + id)
+        .then((res) => res?.data)
+};
 export const getMobileSliders = async <T extends ServerResponse<SliderResponse[]>>
 (
 ) => {

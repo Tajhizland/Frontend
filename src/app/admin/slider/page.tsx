@@ -7,8 +7,14 @@ import {buttons, columns} from "@/app/admin/slider/TableRow";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import {removeSlider} from "@/services/api/admin/slider";
 
 export default function Page() {
+
+    async function removeItem(id: any) {
+        let response = await removeSlider(Number(id));
+        toast.success(response?.message as string)
+    }
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -36,6 +42,7 @@ export default function Page() {
                 apiUrl={"admin/slider/dataTable"}
                 columns={columns}
                 buttons={buttons}
+                onDelete={removeItem}
             />
 
 
