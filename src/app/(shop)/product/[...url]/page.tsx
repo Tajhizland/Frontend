@@ -207,11 +207,11 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 <TextExpander text={product.description}/>
                 <Accordion
                     data={renderAccordianData()}/>
-                 <SectionVideo intro_video={product.intro}
-                               unboxing_video={product.unboxing}
-                              usage_video={product.usage} />
+                 {/*<SectionVideo intro_video={product.intro}*/}
+                 {/*              unboxing_video={product.unboxing}*/}
+                 {/*             usage_video={product.usage} />*/}
 
-                {/*<SectionProductVideo videos={product.videos.data} />*/}
+                <SectionProductVideo videos={product.videos.data} />
 
                 <div className="lg:hidden  ">
                     <Policy/>
