@@ -1,25 +1,28 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import ProductTab from "@/components/Tabs/ProductTab";
-import {findById as productFindById, findById, setVideo} from "@/services/api/admin/product";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
-import {TrashIcon} from "@heroicons/react/24/solid";
 import {useParams} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
 import {toast} from "react-hot-toast";
 import Input from "@/shared/Input/Input";
 import Image from "next/image";
 import NcModal from "@/shared/NcModal/NcModal";
-import {useState} from "react";
+import React, {useState} from "react";
 import {search} from "@/services/api/admin/vlog";
 import {VlogResponse} from "@/services/types/vlog";
+import {deleteProductVideo, findById, setProductVideo} from "@/services/api/admin/productVideo";
+import NcImage from "@/shared/NcImage/NcImage";
+import {FaTrash} from "react-icons/fa";
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 
 export default function Page() {
     const {id} = useParams();
     const queryClient = useQueryClient();
     const [showModal, setShowModal] = useState(false);
-    const [type, setType] = useState("");
+    const [title, setTitle] = useState("");
+    const [vlogId, setVlogId] = useState<Number>();
     const [serachResponse, setSearchResponse] = useState<VlogResponse[]>();
 
     const {data: data, isLoading: isLoading} = useQuery({
@@ -27,17 +30,12 @@ export default function Page() {
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
-    const {data: productInfo} = useQuery({
-        queryKey: [`product-info`],
-        queryFn: () => productFindById(Number(id)),
-        staleTime: 5000,
-    });
 
-    async function setVideoId(vlogId: number | null) {
-        let response = await setVideo({
-            productId: Number(id),
-            vlogId: vlogId,
-            type: type
+    async function setVideoId() {
+        let response = await setProductVideo({
+            product_id: Number(id),
+            vlogId: Number(vlogId),
+            title: title
         })
         if (response?.success) {
             queryClient.refetchQueries(['product_info']);
@@ -65,7 +63,9 @@ export default function Page() {
                                 <div
                                     className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
                                     onClick={() => {
-                                        setVideoId(item.id)
+                                        setVlogId(item.id);
+                                        setShowModal(false);
+
                                     }}>
                                     <div className="w-[100px] h-[100px]">
                                         <Image
@@ -84,12 +84,8 @@ export default function Page() {
         );
     };
 
-    const deleteVideo = async (types: string) => {
-        let response = await setVideo({
-            productId: Number(id),
-            vlogId: null,
-            type: types
-        })
+    const deleteVideo = async (id: number) => {
+        let response = await deleteProductVideo(id)
         if (response?.success) {
             queryClient.refetchQueries(['product_info']);
             toast.success(response?.message as string);
@@ -102,7 +98,7 @@ export default function Page() {
                 href: "product"
             },
             {
-                title: "ویرایش محصول" + " ( " + productInfo?.name + " )",
+                title: "ویرایش محصول",
                 href: "product/edit/" + id
             },
             {
@@ -123,72 +119,50 @@ export default function Page() {
         />
         <Panel>
             <ProductTab id={id + ""}/>
-            <div className={"flex flex-col gap-y-10"}>
 
-                <div>
-                    <div className="flex flex-col gap-y-4">
-                        <h1>ویدیوی معرفی</h1>
-                        <ButtonPrimary onClick={() => {
-                            setShowModal(true);
-                            setType("intro")
-                        }}> ویرایش</ButtonPrimary>
-                    </div>
-                    <div className={"flex-col flex gap-5 mt-10 justify-center items-center"}>
-                        {data?.intro && <div className="flex flex-col justify-center items-center gap-y-4 ">
-                            <Image
-                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data?.intro?.poster}`}
-                                alt={"image"} width={720} height={100} className="w-full h-full"/>
-                            <ButtonPrimary onClick={() => {
-                                deleteVideo("intro");
-                            }}>
-                                <TrashIcon className={"w-6 h-6"}/>
-                            </ButtonPrimary>
-                        </div>}
-                    </div>
+            <div className={"flex flex-col gap-4"}>
+                <div className={"flex flex-col gap-1"}>
+                    <label>عنوان</label>
+                    <Input name={"title"} onChange={(e)=>{setTitle(e.target.value)}}/>
                 </div>
                 <div>
-                    <div className="flex flex-col gap-y-4">
-                        <h1>ویدیوی استفاده</h1>
-                        <ButtonPrimary onClick={() => {
-                            setShowModal(true);
-                            setType('usage')
-                        }}> ویرایش</ButtonPrimary>
-                    </div>
-                    <div className={"flex-col flex gap-5 mt-10 justify-center items-center"}>
-                        {data?.usage && <div className="flex flex-col justify-center items-center gap-y-4 ">
-                            <Image
-                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data?.usage?.poster}`}
-                                alt={"image"} width={720} height={100} className="w-full h-full"/>
-                            <ButtonPrimary onClick={() => {
-                                deleteVideo("usage");
-                            }}>
-                                <TrashIcon className={"w-6 h-6"}/>
-                            </ButtonPrimary>
-                        </div>}
-                    </div>
+                    <ButtonSecondary onClick={() => {
+                        setShowModal(true)
+                    }}>
+                        انتخاب ولاگ
+                    </ButtonSecondary>
                 </div>
                 <div>
-                    <div className="flex flex-col gap-y-4">
-                        <h1>ویدیوی آنباکسینگ</h1>
-                        <ButtonPrimary onClick={() => {
-                            setShowModal(true);
-                            setType('unboxing')
-                        }}> ویرایش</ButtonPrimary>
-                        <div className={"flex-col flex gap-5 mt-10 justify-center items-center mx-auto"}>
-                            {data?.unboxing && <div className="flex flex-col justify-center items-center gap-y-4 ">
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data?.unboxing?.poster}`}
-                                    alt={"image"} width={720} height={100} className="w-full h-full"/>
-                                <ButtonPrimary onClick={() => {
-                                    deleteVideo("unboxing");
-                                }}>
-                                    <TrashIcon className={"w-6 h-6"}/>
-                                </ButtonPrimary>
-                            </div>}
-
+                    <ButtonPrimary onClick={setVideoId}>
+                        ذخیره
+                    </ButtonPrimary>
+                </div>
+            </div>
+            <hr/>
+            <div className={"flex flex-col "}>
+                {data && data.map((item, index) => (
+                    <div className={"flex items-center justify-between gap-5 flex-wrap border-b py-5"} key={index}>
+                        <div className="relative  w-32">
+                            <NcImage
+                                containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item?.vlog?.poster}`}
+                                className="object-cover w-full h-full "
+                                fill
+                                alt="vlog"
+                            />
+                        </div>
+                        <div>
+                            <span>
+                                {item.title}
+                            </span>
+                        </div>
+                        <div>
+                            <ButtonPrimary onClick={()=>{deleteVideo(item.id)}}>
+                                <FaTrash/>
+                            </ButtonPrimary>
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
         </Panel>
     </>)
