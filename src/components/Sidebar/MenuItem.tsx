@@ -26,7 +26,7 @@ import {ImCoinDollar, ImImages} from "react-icons/im";
 import {IoMdSettings} from "react-icons/io";
 import {RiDiscountPercentFill} from "react-icons/ri";
 
-import type { JSX } from "react";
+import type {JSX} from "react";
 
 export interface MENU_ITEM_INTERFACE {
     title: string,
@@ -140,7 +140,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
     {
         title: "بنر ها",
         url: "/",
-        icon: <ImImages  className="h-6 w-6 text-gray-500"/>,
+        icon: <ImImages className="h-6 w-6 text-gray-500"/>,
         sub: [
             {
                 title: "مدیریت بنر ها",
@@ -155,10 +155,10 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
 
             }
         ]
-    },{
+    }, {
         title: "ولاگ ها",
         url: "/",
-        icon: <FaFileVideo  className="h-6 w-6 text-gray-500"/>,
+        icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
         sub: [
             {
                 title: "مدیریت ولاگ ها",
@@ -173,10 +173,10 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
 
             }
         ]
-    },{
+    }, {
         title: "دسته بندی ولاگ",
         url: "/",
-        icon: <FaFileVideo  className="h-6 w-6 text-gray-500"/>,
+        icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
         sub: [
             {
                 title: "مدیریت دسته بندی ولاگ ها",
@@ -213,7 +213,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
     {
         title: "دسته بندی بلاگ",
         url: "/",
-        icon: <FaFileVideo  className="h-6 w-6 text-gray-500"/>,
+        icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
         sub: [
             {
                 title: "مدیریت دسته بندی بلاگ ها",
@@ -406,6 +406,12 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 title: "دسته بندی های محبوب",
                 url: "/popular_category",
                 icon: <TbAlignBoxCenterTop className="h-6 w-6 text-gray-500"/>,
+            },
+            {
+                title: "ولاگ های صفحه اصلی",
+                url: "/homepage_vlog",
+                icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
+
             },
             {
                 title: "دسته بندی های جدید",
