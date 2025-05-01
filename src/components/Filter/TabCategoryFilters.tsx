@@ -144,7 +144,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                 {({open, close}) => (
                     <>
                         <PopoverButton
-                            className={`flex items-center justify-center px-4 py-2 text-sm border rounded-full focus:outline-none select-none
+                            className={`whitespace-nowrap flex items-center justify-center px-4 py-2 text-sm border rounded-full focus:outline-none select-none
               ${open ? "!border-primary-500 " : ""}
                 ${!!sortOrderStates.length
                                 ? "!border-primary-500 bg-primary-50 text-primary-900"
@@ -219,7 +219,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                             leaveTo="opacity-0 translate-y-1"
                         >
                             <PopoverPanel
-                                className="absolute z-40 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-sm">
+                                className="fixed sm:absolute z-40 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-sm">
                                 <div
                                     className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                                     <div className="relative flex flex-col px-5 py-6 space-y-5">
@@ -282,7 +282,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                     {({open, close}) => (
                         <>
                             <PopoverButton
-                                className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
+                                className={`whitespace-nowrap flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
                 ${open ? "!border-primary-500 " : ""}
                   ${!!selectedFilters[filter.id]?.length
                                     ? "!border-primary-500 bg-primary-50 text-primary-900"
@@ -309,7 +309,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                                 leaveTo="opacity-0 translate-y-1"
                             >
                                 <PopoverPanel
-                                    className="absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 lg:max-w-sm">
+                                    className="fixed sm:absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 lg:max-w-sm">
                                     <div
                                         className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                                         <div className="relative flex flex-col px-5 py-6 space-y-5">
@@ -362,7 +362,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                        {({open, close}) => (
                            <>
                                <PopoverButton
-                                   className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
+                                   className={`whitespace-nowrap flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
                 ${open ? "!border-primary-500 " : ""}
                   ${!!selectedFilters["category"]?.length
                                        ? "!border-primary-500 bg-primary-50 text-primary-900"
@@ -388,7 +388,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                                    leaveTo="opacity-0 translate-y-1"
                                >
                                    <PopoverPanel
-                                       className="absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 lg:max-w-sm">
+                                       className="fixed sm:absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 lg:max-w-sm">
                                        <div
                                            className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                                          <div className={"relative flex flex-col px-5 py-6 space-y-5"}>
@@ -445,7 +445,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                 {({open, close}) => (
                     <>
                         <PopoverButton
-                            className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border border-primary-500 bg-primary-50 text-primary-900 focus:outline-none `}
+                            className={`whitespace-nowrap flex items-center justify-center px-4 py-2 text-sm rounded-full border border-primary-500 bg-primary-50 text-primary-900 focus:outline-none `}
                         >
                             {/*<svg*/}
                             {/*    className="w-4 h-4"*/}
@@ -496,7 +496,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                             leaveFrom="opacity-100 translate-y-0"
                             leaveTo="opacity-0 translate-y-1"
                         >
-                            <PopoverPanel className="absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 ">
+                            <PopoverPanel className="fixed sm:absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 ">
                                 <div
                                     className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                                     <div className="relative flex flex-col px-5 py-6 space-y-8">
@@ -944,9 +944,9 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
     };
 
     return (
-        <div className="flex lg:space-x-4">
+        <div className="flex lg:space-x-4 overflow-x-auto sm:overflow-visible">
             {/* FOR DESKTOP */}
-            <div className="hidden lg:flex flex-1 gap-x-4">
+            <div className="flex flex-1 gap-x-4  ">
                 {renderTabsPriceRage()}
                 {renderFilters()}
                 {renderCategorys()}
