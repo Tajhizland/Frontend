@@ -14,6 +14,7 @@ import BlogLastPost from "@/components/Blog/BlogLastPost";
 import BlogCategory from "@/components/Blog/BlogCategory";
 import BlogCard from "@/components/Card/BlogCard";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
+import BlogMobileCategory from "@/components/Blog/BlogMobileCategory";
 
 const BlogListing = ({ response }: { response }) => {
     const observer = useRef<IntersectionObserver | null>(null);
@@ -86,17 +87,19 @@ const BlogListing = ({ response }: { response }) => {
     const allArticles = data?.pages.flatMap((page) => page.data) || [];
     return (
         <div className="nc-BlogPage overflow-hidden relative">
+
             <div className="container relative">
                 <div className={`nc-SectionLatestPosts relative py-5 lg:py-16  `}>
                     <div className="flex flex-col lg:flex-row">
-                        <div className="w-full xl:pr-14">
+                        <div className="w-full xl:pr-14 space-y-5">
                             <SectionSingleBanner banner={response.banner.data[0]}/>
+                            <BlogMobileCategory  categoryList={response.category.data} changeFilter={handleFilterChange}  />
 
-                            <div className="flex flex-col-reverse lg:flex-row gap-10 mt-5">
+                            <div className="flex flex-col-reverse lg:flex-row gap-10  ">
 
                                 <div className="flex-[3]">
                                     {/* Articles List */}
-                                    <div className={`grid gap-6 md:gap-8 grid-cols-1 mt-5`}>
+                                    <div className={`grid gap-6 md:gap-8 grid-cols-1 md:mt-5`}>
                                         {allArticles.map((item, index) => (
                                             <BlogCard key={index} className="" item={item} />
                                         ))}
@@ -104,7 +107,7 @@ const BlogListing = ({ response }: { response }) => {
 
                                     {/* Infinite Scroll Loader */}
                                     <div ref={lastElementRef}
-                                        className="grid gap-6 md:gap-8 grid-cols-1 mt-6 md:mt-8">
+                                        className="grid gap-6 md:gap-8 grid-cols-1   md:mt-5">
                                         {isFetchingNextPage && <BlogCardSkeleton />}
                                     </div>
                                 </div>
