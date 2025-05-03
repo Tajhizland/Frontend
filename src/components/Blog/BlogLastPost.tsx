@@ -10,7 +10,7 @@ export default function BlogLastPost({
 {
     return(<>
         <div
-            className={`nc-WidgetCategories rounded-3xl overflow-hidden  bg-neutral-100 dark:bg-neutral-800`}
+            className={`nc-WidgetCategories rounded-3xl overflow-hidden  bg-neutral-100 dark:bg-neutral-800 hidden md:block`}
             data-nc-id="WidgetCategories"
         >
             <div

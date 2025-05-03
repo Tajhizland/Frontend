@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import React, { useRef, useEffect, useState } from "react";
  import { findCategoryByUrl } from "@/services/api/shop/category";
@@ -9,6 +10,8 @@ import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 import TextExpander2 from "@/shared/TextExpander/TextExpander2";
 import ProductCard from "@/components/Card/ProductCard";
 import TabCategoryFilters from "@/components/Filter/TabCategoryFilters";
+import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
+import CategoryCircleCard2 from "@/components/Card/CategoryCircleCard2";
 
 const PageCollection = ({ response, url, breadcrump }: { response: any, url: string, breadcrump: BreadcrumbType[] }) => {
     const router = useRouter();
@@ -91,6 +94,21 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
 
                     {/* HEADING */}
 
+                    {
+                        response?.children?.data && response?.children?.data.length > 0 && (<>
+                            <hr className="border-slate-200 dark:border-slate-700" />
+                            <div
+                                className="flex overflow-x-auto  gap-1  lg:gap-5 text-center py-4">
+                                {
+                                    response?.children?.data?.map((item, index) => (
+                                        <CategoryCircleCard2
+                                            category={item}
+                                            key={index} />
+                                    ))
+                                }
+                            </div>
+                        </>)
+                    }
 
                     <hr className="border-slate-200 dark:border-slate-700" />
 
