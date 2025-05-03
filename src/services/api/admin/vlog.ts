@@ -1,5 +1,6 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {VlogResponse} from "@/services/types/vlog";
+import {BrandResponse} from "@/services/types/brand";
 
 export const store = async <T extends ServerResponse<unknown>>
 (
@@ -84,4 +85,23 @@ export const search = async <T extends ServerResponse<VlogResponse[]>>
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/vlog/search" ,{query:query})
         .then((res) => res?.data?.result?.data)
+};
+
+export const vlogList = async <T extends ServerResponse<VlogResponse[]>>
+() => {
+    return axios.get<T, SuccessResponseType<T>>("admin/vlog/list")
+        .then((res) => res?.data?.result)
+};
+
+export const sortVlog = async <T extends ServerResponse<unknown>>
+(
+    param:{
+        vlog: {
+            id: number
+            sort: number
+        }[]
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog/sort",param)
+        .then((res) => res?.data)
 };
