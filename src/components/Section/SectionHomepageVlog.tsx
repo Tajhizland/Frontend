@@ -16,7 +16,7 @@ const SectionHomepageVlog: FC<SectionMagazine5Props> = ({data}) => {
             <BackgroundSection/>
             <div>
                 <Heading>
-                    جدیدترین ولاگ
+                    تجهیزلند ولاگ
                 </Heading>
                 <div>
                     <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
