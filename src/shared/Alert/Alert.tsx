@@ -14,7 +14,7 @@ export const Alert: React.FC<AlertProps> = ({
   let classes = containerClassName;
   switch (type) {
     case "default":
-      classes += " text-black bg-neutral-900";
+      classes += " text-black bg-blue-100";
       break;
     case "info":
       // classes += " bg-status-infoBg text-status-info";
