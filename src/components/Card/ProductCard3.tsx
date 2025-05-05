@@ -69,6 +69,17 @@ const ProductCard3: FC<ProductCardProps> = ({
             );
         }
         if (discounted != 0) {
+            let minPrice = data?.colors.data[0].price ?? 0;
+            let minDiscountedPrice = data?.colors.data[0].discountedPrice ?? 0;
+            data?.colors.data.map((item) => {
+                if (item.price < minPrice && item.status == 1 && item.price > 0) {
+                    minPrice = item.price;
+                    minDiscountedPrice = item.discountedPrice;
+                }
+            })
+            if (minDiscountedPrice == minPrice)
+                return <></>
+
             return (
                 <div className={CLASSES}>
                     <Badge color={"discount"} name={
