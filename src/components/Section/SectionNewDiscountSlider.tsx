@@ -45,6 +45,8 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
             perView: 7.2,
             gap: 10,
             bound: true,
+            autoplay: 5000,
+
             breakpoints: {
                 1280: {
                     perView: 5.3,
