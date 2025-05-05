@@ -108,11 +108,15 @@ const Footer: React.FC = () => {
                     <div className="col-span-4 sm:col-span-2 md:col-span-1">
 
                         <div className={"flex gap-2 items-center justify-center"}>
+                            <div className={"border rounded-2xl p-4"}>
                             <a referrerPolicy='origin' target='_blank'
                                href='https://trustseal.enamad.ir/?id=150491&Code=dHACISLBlXNOcdnB2JpZ'><img
+                                className={"w-[100px] h-[100px]"}
                                 referrerPolicy='origin'
                                 src='https://trustseal.enamad.ir/logo.aspx?id=150491&Code=dHACISLBlXNOcdnB2JpZ' alt=''
                                 code='dHACISLBlXNOcdnB2JpZ'/></a>
+                            </div>
+                            <div className={"border rounded-2xl p-4"}>
                             <img
                                 className={"w-[100px] h-[100px]"}
                                 referrerPolicy={"origin"}
@@ -120,6 +124,7 @@ const Footer: React.FC = () => {
                                 src={"https://logo.samandehi.ir/logo.aspx?id=319327&p=qftinbpdbsiyqftiodrfyndt"}
                                 alt={"samandehi"}
                             />
+                            </div>
                         </div>
                     </div>
 
