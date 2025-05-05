@@ -12,6 +12,7 @@ import ProductCard from "@/components/Card/ProductCard";
 import TabCategoryFilters from "@/components/Filter/TabCategoryFilters";
 import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
 import CategoryCircleCard2 from "@/components/Card/CategoryCircleCard2";
+import TabCategoryFiltersMobile from "@/components/Filter/TabCategoryFiltersMobile";
 
 const PageCollection = ({ response, url, breadcrump }: { response: any, url: string, breadcrump: BreadcrumbType[] }) => {
     const router = useRouter();
@@ -121,7 +122,13 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
                             minPrice={response.category.minPrice}
                             changeFilter={handleFilterChange}
                         />
-
+                        <TabCategoryFiltersMobile
+                            filters={response.category.filters.data}
+                            categorys={response.children.data}
+                            maxPrice={response.category.maxPrice}
+                            minPrice={response.category.minPrice}
+                            changeFilter={handleFilterChange}
+                        />
                         {/* LOOP ITEMS */}
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
                             {allProducts.map((item, index) => (
