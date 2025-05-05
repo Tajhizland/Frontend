@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
     const longitude = 51.397654536591794;
     const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
         return (
-            <div key={index} className="text-sm  border-l">
+            <div key={index} className="text-sm  md:border-l">
                 <Link href={menu.link} className={"flex items-center gap-2  text-[#fcb415] justify-center"}>
                     {menu.icon}
                     <h2 className="font-semibold text-base text-center ">
@@ -94,7 +94,7 @@ const Footer: React.FC = () => {
             <div
                 className="container grid grid-cols-2 gap-y-10 md:grid-cols-4 lg:grid-cols-4 ">
                 <div
-                    className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col border-l">
+                    className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col md:border-l">
                     <div className="col-span-2 md:col-span-1">
                         <Logo/>
                     </div>
@@ -130,7 +130,7 @@ const Footer: React.FC = () => {
 
                 </div>
                 {widgetMenus.map(renderWidgetMenuItem)}
-                <div className={"flex flex-col gap-2 mr-5 col-span-2 sm:col-span-1"}>
+                <div className={"flex flex-col gap-2 mr-5 col-span-2 sm:col-span-1 items-center"}>
                     <div className={"flex items-center gap-1"}>
                         <IoLocationSharp className={"w-4 h-4"}/>
                         <strong>
@@ -146,9 +146,9 @@ const Footer: React.FC = () => {
                             مسیریابی آنلاین
                         </strong>
                     </div>
-                    <strong className={"font-bold text-lg"}>
+                    <a href={"tel:02166477790"} className={"font-bold text-lg"}>
                         ۰۲۱-۶۶۴۷۷۷۹۰
-                    </strong>
+                    </a>
                     <div className={"flex  items-center gap-5"}>
                         <div>
                             <SiAparat className={"w-6 h-6"}/>
