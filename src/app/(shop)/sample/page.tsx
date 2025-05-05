@@ -36,7 +36,10 @@ export default async function page() {
         <div className={"mt-14 container "}>
             <SectionSampleInfo info={response.info}/>
         </div>
-        <div className={"mt-14 container "}>
+        <div className={"mt-14 container space-y-5"}>
+            <div className={"text-lg text-center mx-auto"}>
+                نمونه پروژه های تجهیز شده
+            </div>
             <SectionSampleVideo video={response.video.data}/>
         </div>
         <div className={"my-14 container "}>

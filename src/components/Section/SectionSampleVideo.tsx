@@ -4,7 +4,7 @@ import {SampleVideoResponse} from "@/services/types/sampleVideo";
 import VlogCard2 from "@/components/Card/VlogCard2";
 
 export default function SectionSampleVideo({video}: { video: SampleVideoResponse[] }) {
-    return (<div className={"grid grid-cols-2 md:grid-cols-4 gap-5"}>
+    return (<div className={"grid grid-cols-2 md:grid-cols-3 gap-5"}>
 
         {
             video.map((item, index) => (<div key={index}>

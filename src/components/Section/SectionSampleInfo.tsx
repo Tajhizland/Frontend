@@ -159,7 +159,7 @@ const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info}) => {
         >
 
             <div
-                className="relative flex-shrink-0 mb-16 lg:mb-0 lg:mr-10 md:w-2/5 overflow-auto bg-white max-h-[500px] rounded-lg flex flex-col gap-5 p-4 ">
+                className="relative flex-shrink-0 mb-16 lg:mb-0 lg:mr-10 md:w-2/5 overflow-auto bg-white max-h-[500px] rounded-lg flex flex-col gap-5 p-4 flex-[1] ">
                 <h2 className="font-semibold text-lg   !leading-[1.2] tracking-tight text-[#fcb415]">
                     راه اندازی مجموعتو به تجهیزلند بسپار
                 </h2>
@@ -174,8 +174,13 @@ const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info}) => {
                         {info.content}
                     </p>
                 </div>
+                <ButtonPrimary onClick={() => {
+                    setModal(true)
+                }} className=" text-xs sm:text-sm w-fit mx-auto">
+                    دریافت نوبت مشاوره
+                </ButtonPrimary>
             </div>
-            <div className="relative flex-1 max-w-xl lg:max-w-none flex flex-col gap-5 justify-center items-center">
+            <div className="relative flex-[1] max-w-xl lg:max-w-none flex flex-col gap-5 justify-center items-center">
                 <NcImage
                     alt=""
                     width={1080}
@@ -185,11 +190,7 @@ const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info}) => {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className=""
                 />
-                <ButtonPrimary onClick={() => {
-                    setModal(true)
-                }} className=" text-xs sm:text-sm">
-                    دریافت نوبت مشاوره
-                </ButtonPrimary>
+
             </div>
 
         </div>
