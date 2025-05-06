@@ -20,6 +20,8 @@ import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import Timer from "@/components/Timer/Timer";
 import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSlider";
 import React from "react";
+import SectionBrand from "@/components/Section/SectionBrand";
+import {FaAngleRight, FaChevronRight} from "react-icons/fa";
 
 export const dynamic = 'force-dynamic';
 
@@ -67,22 +69,23 @@ export default async function Homepage() {
         {/*</div>*/}
 
         <div
-            className="container  my-5 sm:my-20 px-5  lg:px-0  relative overflow-hidden">
-
+            className="container my-0 px-5 lg:px-0 relative overflow-hidden">
             <SectionNewDiscountSlider
                 timer={response?.discount?.discount_expire_time}
                 data={response.popularProducts.data}
                 subHeading={""}
             />
-            <div className="absolute w-24 h-24 bg-[#fcb415] rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
-                <div className="w-20 h-20 bg-white rounded-full"></div>
+            <div
+                className="absolute w-24 h-24 bg-[#fcb415] rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
+                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-start">
+                    <FaChevronRight  className={"w-8 h-8 text-stone-400"}/>
+                </div>
             </div>
-
-
         </div>
 
         <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10  dark:bg-neutral-900">
             <SectionTwinBanner banners={response.banners2.data}/>
+            <SectionBrand data={response.brands.data}/>
             <div className="relative py-5 lg:py-10">
                 <BackgroundSection/>
                 <SectionConcept data={response.concepts.data}/>
@@ -98,7 +101,7 @@ export default async function Homepage() {
             <SectionTwinBanner banners={response.banners4.data}/>
             <SectionHomepageVlog data={response.vlogs.data}/>
             {response.banners5.data.length > 0 && <SectionSingleBanner banner={response.banners5.data[0]}/>}
-            <SectionHomepageBrand data={response.brands.data}/>
+            {/*<SectionHomepageBrand data={response.brands.data}/>*/}
         </div>
         <SectionHomepageBlog data={response.news.data}/>
     </div>)
