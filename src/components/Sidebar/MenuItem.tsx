@@ -385,12 +385,15 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         url: "/",
         icon: <FaHome className="h-6 w-6 text-gray-500"/>,
         sub: [
-
-
             {
                 title: "مدیریت پوستر ها",
                 url: "/poster",
                 icon: <GiTargetPoster className="h-6 w-6 text-gray-500"/>,
+            },
+            {
+                title: "مدیریت برند های تجهیز شده",
+                url: "/trusted-brand",
+                icon: <TbBrandApple className="h-6 w-6 text-gray-500"/>,
             },
             {
                 title: "محصولات ویژه",
