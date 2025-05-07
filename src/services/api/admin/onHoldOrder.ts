@@ -1,7 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {OnHoldOrderResponse} from "@/services/types/onHoldOrder";
+import {OrderResponse} from "@/services/types/order";
 
-export const findById = async <T extends ServerResponse<OnHoldOrderResponse>>
+export const findById = async <T extends ServerResponse<OrderResponse>>
 (
     id:number|string
 ) => {
