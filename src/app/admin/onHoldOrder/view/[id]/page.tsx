@@ -2,21 +2,20 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import {findById} from "@/services/api/admin/order";
 import {useParams} from "next/navigation";
 import {useQuery} from "react-query";
 import NcImage from "@/shared/NcImage/NcImage";
 import {OrderStatus} from "@/app/admin/order/orderStatus";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {toast} from "react-hot-toast";
-import {accept, reject} from "@/services/api/admin/onHoldOrder";
+import {accept, findById, reject} from "@/services/api/admin/onHoldOrder";
 import Prices from "@/components/Price/Prices";
 
 export default function Page() {
     const {id} = useParams();
 
     const {data: data} = useQuery({
-        queryKey: [`order-info`],
+        queryKey: [`onhold-order-info`],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
