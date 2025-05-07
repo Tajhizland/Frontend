@@ -10,6 +10,8 @@ import {BannerResponse} from "@/services/types/banner";
 import {VlogResponse} from "@/services/types/vlog";
 import {PosterResponse} from "@/services/types/poster";
 import {PriceResponse} from "@/services/types/price";
+import SectionTrustedBrand from "@/components/Section/SectionTrustedBrand";
+import {TrustedBrandResponse} from "@/services/types/trustedBrand";
 
 export type HomePageResponse = {
     popularProducts: { data: PopularProductResponse[] };
@@ -23,6 +25,7 @@ export type HomePageResponse = {
     desktopSliders: { data: SliderResponse[] };
     mobileSliders: { data: SliderResponse[] };
     brands: { data: BrandResponse[] };
+    trustedBrands: { data: TrustedBrandResponse[] };
     news: { data: NewsResponse[] };
     vlogs: { data: VlogResponse[] };
     posters: { data: PosterResponse[] };
