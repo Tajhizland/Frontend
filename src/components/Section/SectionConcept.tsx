@@ -30,7 +30,7 @@ const SectionConcept: FC<SectionGridMoreExploreProps> = ({
                     className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50"
                     fontClass=" md:text-4xl 2xl:text-5xl font-semibold"
                     isCenter
-                    desc="ازین قسمت میتونی تجهیزات اصلی کانسپت مورد نظرتو پیدا کنی"
+                    desc="از این قسمت میتونی تجهیزات اصلی کانسپت مورد نظرتو پیدا کنی"
                 >
                     چه کانسپتی میخوای راه اندازی کنی ؟!
                 </Heading>

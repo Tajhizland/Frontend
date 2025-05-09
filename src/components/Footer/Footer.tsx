@@ -30,7 +30,7 @@ const widgetMenus: WidgetFooterMenu[] = [
         icon: <PiVideo className={"w-6 h-6"}/>,
         menus: [
             {href: "/page/aboutus" as Route, label: "درباره ما"},
-            {href: "/page/faq" as Route, label: "سوالات متداول"},
+            {href: "/faq" as Route, label: "سوالات متداول"},
             {href: "/page/rahnama" as Route, label: "راهنمای خرید"},
             {href: "/page/ghavanin" as Route, label: "قوانین سایت"},
             {href: "/page/raviyeersal" as Route, label: "رویه ارسال سفارشات"},
@@ -150,15 +150,15 @@ const Footer: React.FC = () => {
                         ۰۲۱-۶۶۴۷۷۷۹۰
                     </a>
                     <div className={"flex  items-center gap-5"}>
-                        <div>
+                        <Link href={"https://www.aparat.com/tajhizland_shop"}>
                             <SiAparat className={"w-6 h-6"}/>
-                        </div>
-                        <div>
+                        </Link>
+                        <Link href={"https://www.instagram.com/tajhizland_com?igsh=MWljMndzcTM0c2QzZg=="}>
                             <FaInstagram className={"w-6 h-6"}/>
-                        </div>
-                        <div>
+                        </Link>
+                        <Link href={"https://youtube.com/@tajhizland1590?si=p2_1_MPtla-xpdhP"}>
                             <FaYoutube className={"w-6 h-6"}/>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>

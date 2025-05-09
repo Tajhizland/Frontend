@@ -78,7 +78,7 @@ export default async function Homepage() {
             <div
                 className="absolute w-24 h-24 bg-[#fcb415] rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
                 <div className="w-20 h-20 bg-white rounded-full flex items-center justify-start">
-                    <FaChevronRight  className={"w-8 h-8 text-stone-400"}/>
+                    <FaChevronRight  className={"w-6 h-6 text-stone-400"}/>
                 </div>
             </div>
         </div>

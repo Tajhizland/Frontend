@@ -54,7 +54,7 @@ export default function Form({ data, submit ,loading }: Form) {
                     <Select name={"categoryId"}>
                         {
                             categoryList && categoryList.map((item,index)=>(<>
-                                <option key={index}  value={item.id} selected={data?.status == 1}>
+                                <option key={index}  value={item.id} selected={data?.categoryId == item.id}>
                                     {item.name}
                                 </option>
                             </>))
