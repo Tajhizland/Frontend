@@ -7,6 +7,7 @@ import {PiNewspaper, PiVideo} from "react-icons/pi";
 import {IoLocationSharp} from "react-icons/io5";
 import {SiAparat} from "react-icons/si";
 import {FaInstagram, FaYoutube} from "react-icons/fa";
+import {IoLogoWhatsapp} from "react-icons/io";
 
 export interface CustomLink {
     label: string;
@@ -158,6 +159,9 @@ const Footer: React.FC = () => {
                         </Link>
                         <Link href={"https://youtube.com/@tajhizland1590?si=p2_1_MPtla-xpdhP"}>
                             <FaYoutube className={"w-6 h-6"}/>
+                        </Link>
+                        <Link href={"https://wa.me/989353077652"}>
+                            <IoLogoWhatsapp className={"w-6 h-6"}/>
                         </Link>
                     </div>
                 </div>
