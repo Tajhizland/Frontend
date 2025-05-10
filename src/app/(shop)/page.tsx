@@ -3,7 +3,6 @@ import logo from "@/images/lightLogo.png"
 import {homePage} from "@/services/api/shop/homePage";
 import MobileHero from "@/components/Hero/MobileHero";
 import Hero from "@/components/Hero/Hero";
-import SectionDiscountSlider from "@/components/Section/SectionDiscountSlider";
 import SectionBannerSlider from "@/components/Section/SectionBannerSlider";
 import SectionTwinBanner from "@/components/Section/SectionTwinBanner";
 import BackgroundSection from "@/components/Section/BackgroundSection";
@@ -14,14 +13,12 @@ import SectionPromo2 from "@/components/Section/SectionPromo2";
 import SectionHomepageCategory from "@/components/Section/SectionHomepageCategory";
 import SectionSpecialSlider from "@/components/Section/SectionSpecialSlider";
 import SectionHomepageVlog from "@/components/Section/SectionHomepageVlog";
-import SectionHomepageBrand from "@/components/Section/SectionHomepageBrand";
 import SectionHomepageBlog from "@/components/Section/SectionHomepageBlog";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
-import Timer from "@/components/Timer/Timer";
 import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSlider";
 import React from "react";
 import SectionBrand from "@/components/Section/SectionBrand";
-import {FaAngleRight, FaChevronRight} from "react-icons/fa";
+import {BsChevronCompactRight} from "react-icons/bs";
 
 export const dynamic = 'force-dynamic';
 
@@ -78,7 +75,7 @@ export default async function Homepage() {
             <div
                 className="absolute w-24 h-24 bg-[#fcb415] rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
                 <div className="w-20 h-20 bg-white rounded-full flex items-center justify-start">
-                    <FaChevronRight  className={"w-6 h-6 text-stone-400"}/>
+                    <BsChevronCompactRight  className={"w-6 h-6 text-stone-400"}/>
                 </div>
             </div>
         </div>
