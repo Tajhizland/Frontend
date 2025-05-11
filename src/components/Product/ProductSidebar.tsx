@@ -156,6 +156,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                             <small className={"text-xs text-slate-600 dark:text-white max-w-xs flex-shrink-0"}>
                                 {item.name}
                             </small>
+
                         </div>
                         <span className={"text-xs text-slate-600 dark:text-white"}>
                             {
@@ -166,6 +167,12 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
 
                         </span>
                     </div>))}
+
+                <div className={"text-xs text-slate-600 dark:text-white flex-shrink-0 rounded-2xl p-2 max-w-md"}>
+                    {selectedGuaranty.description && selectedGuaranty.description != "null" &&
+                        <div dangerouslySetInnerHTML={{__html: (selectedGuaranty.description)}}/>}
+
+                </div>
             </div>
         }
         return null;
@@ -357,7 +364,6 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                             </span>
                         </a>
                     </div>
-
 
 
                     {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
