@@ -155,7 +155,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                                     sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
                                     alt="guaranty"
                                 /></div>
-                                <small className={"text-xs text-slate-600 dark:text-white max-w-xs flex-shrink-0"}>
+                                <small className={`text-xs  max-w-xs flex-shrink-0 ${selectedGuaranty.id==item.id?"text-primary-6000":"text-slate-600 dark:text-white"}`}>
                                     {item.name}
                                 </small>
 
@@ -171,7 +171,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                         </div>
                         {item.id == selectedGuaranty.id && selectedGuaranty && selectedGuaranty?.description && selectedGuaranty?.description != "null" &&
                             <div
-                                className={"text-xs text-slate-600 dark:text-white flex-shrink-0 rounded-2xl p-2 max-w-sm "}>
+                                className={"text-xs text-primary-6000  flex-shrink-0 rounded-2xl p-2 max-w-sm "}>
                                 <div dangerouslySetInnerHTML={{__html: (selectedGuaranty.description)}}/>
                             </div>}
                     </Fragment>
