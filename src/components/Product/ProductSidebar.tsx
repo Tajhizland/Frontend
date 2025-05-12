@@ -1,5 +1,5 @@
 "use client"
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {ColorResponse} from "@/services/types/color";
 import {
     reduxAddToCart,
@@ -134,31 +134,33 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
         if (product?.guaranties) {
             return <div className={"flex flex-col gap-1 w-full"}>
                 {product?.guaranties.data.map((item, index) => (
-                    <div onClick={() => {
-                        setSelectedGuaranty(item)
-                    }}
-                         key={index}
-                         className={`flex gap-20 items-center bg-slate-100/70  justify-between rounded-full border-2 p-1 pl-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-black/20 ${selectedGuaranty == item ? "border-primary-6000 dark:border-primary-500" : ""}`}>
+                    <Fragment key={index}>
+
                         <div onClick={() => {
                             setSelectedGuaranty(item)
                         }}
-                             key={index} className={`flex gap-5 items-center  `}>
-                            <div
-                                className={"w-10 flex-shrink-0"}
-                            ><NcImage
-                                containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
-                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${item?.icon}`}
-                                className="object-cover w-full h-full drop-shadow-xl"
-                                fill
-                                sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                                alt="guaranty"
-                            /></div>
-                            <small className={"text-xs text-slate-600 dark:text-white max-w-xs flex-shrink-0"}>
-                                {item.name}
-                            </small>
+                             key={index}
+                             className={`flex gap-20 items-center bg-slate-100/70  justify-between rounded-full border-2 p-1 pl-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-black/20 w-full ${selectedGuaranty == item ? "border-primary-6000 dark:border-primary-500" : ""}`}>
+                            <div onClick={() => {
+                                setSelectedGuaranty(item)
+                            }}
+                                 key={index} className={`flex gap-5 items-center  `}>
+                                <div
+                                    className={"w-10 flex-shrink-0"}
+                                ><NcImage
+                                    containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${item?.icon}`}
+                                    className="object-cover w-full h-full drop-shadow-xl"
+                                    fill
+                                    sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                                    alt="guaranty"
+                                /></div>
+                                <small className={"text-xs text-slate-600 dark:text-white max-w-xs flex-shrink-0"}>
+                                    {item.name}
+                                </small>
 
-                        </div>
-                        <span className={"text-xs text-slate-600 dark:text-white"}>
+                            </div>
+                            <span className={"text-xs text-slate-600 dark:text-white"}>
                             {
                                 item.free ? "رایگان"
                                     :
@@ -166,13 +168,16 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                             }
 
                         </span>
-                    </div>))}
+                        </div>
+                        {item.id == selectedGuaranty.id && selectedGuaranty && selectedGuaranty?.description && selectedGuaranty?.description != "null" &&
+                            <div
+                                className={"text-xs text-slate-600 dark:text-white flex-shrink-0 rounded-2xl p-2 max-w-sm "}>
+                                <div dangerouslySetInnerHTML={{__html: (selectedGuaranty.description)}}/>
+                            </div>}
+                    </Fragment>
+                ))}
 
-                <div className={"text-xs text-slate-600 dark:text-white flex-shrink-0 rounded-2xl p-2 max-w-md"}>
-                    {selectedGuaranty && selectedGuaranty?.description && selectedGuaranty?.description != "null" &&
-                        <div dangerouslySetInnerHTML={{__html: (selectedGuaranty.description)}}/>}
 
-                </div>
             </div>
         }
         return null;
