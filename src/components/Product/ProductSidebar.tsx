@@ -169,7 +169,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                     </div>))}
 
                 <div className={"text-xs text-slate-600 dark:text-white flex-shrink-0 rounded-2xl p-2 max-w-md"}>
-                    {selectedGuaranty.description && selectedGuaranty.description != "null" &&
+                    {selectedGuaranty && selectedGuaranty?.description && selectedGuaranty?.description != "null" &&
                         <div dangerouslySetInnerHTML={{__html: (selectedGuaranty.description)}}/>}
 
                 </div>
