@@ -5,6 +5,7 @@ import { menu } from "@/services/api/shop/menu";
 import { useQuery } from "react-query";
 import {BiCategoryAlt} from "react-icons/bi";
 import NavMobile from "@/components/Header/Navigation/NavMobile";
+import {getBrandList} from "@/services/api/shop/brand";
 
 export interface MenuBarProps {}
 const MenuBar: React.FC<MenuBarProps> = () => {
@@ -16,6 +17,12 @@ const MenuBar: React.FC<MenuBarProps> = () => {
   const {data, isSuccess} = useQuery({
     queryKey: ['menu'],
     queryFn: () => menu(),
+    staleTime: 5000,
+});
+
+  const {data:brand} = useQuery({
+    queryKey: ['brand'],
+    queryFn: () => getBrandList(),
     staleTime: 5000,
 });
 
@@ -39,7 +46,7 @@ const MenuBar: React.FC<MenuBarProps> = () => {
                 leaveTo="opacity-0 translate-x-14"
               >
                 <div className="z-20 relative">
-                  <NavMobile onClickClose={handleCloseMenu}  data={data}/>
+                  <NavMobile onClickClose={handleCloseMenu} brand={brand?.brand?.data}  data={data}/>
                 </div>
               </TransitionChild>
 

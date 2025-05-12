@@ -11,14 +11,17 @@ import BlogLink from "@/components/Header/BlogLink";
 import VlogLink from "@/components/Header/VlogLink";
 import SwitchDarkMode from "@/shared/SwitchDarkMode/SwitchDarkMode";
 import ButtonClose from "@/shared/Button/ButtonClose";
+import {BrandResponse} from "@/services/types/brand";
 
 export interface NavMobileProps {
     data?: MenuResponse[];
+    brand?: BrandResponse[];
     onClickClose?: () => void;
 }
 
 const NavMobile: React.FC<NavMobileProps> = ({
                                                  data,
+                                                 brand,
                                                  onClickClose,
                                              }) => {
 
@@ -70,6 +73,67 @@ const NavMobile: React.FC<NavMobileProps> = ({
         );
     };
 
+    const renderBrand = () => {
+        return ( <Disclosure
+            as="li"
+            className="text-slate-900 dark:text-white"
+        >
+            <div
+                className="flex w-full items-center py-2.5 px-4 font-medium uppercase tracking-wide text-sm hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+                <Disclosure.Button
+                    as="div"
+                    className="flex justify-between flex-grow "
+                >
+                   برند ها
+                    <ChevronDownIcon
+                        className="ml-2 h-4 w-4 text-neutral-500"
+                        aria-hidden="true"
+                    />
+                </Disclosure.Button>
+
+            </div>
+
+                <Disclosure.Panel>
+                    <div className={"grid grid-cols-3 gap-2"}>
+                    {renderBrandItem()}
+                    </div>
+                </Disclosure.Panel>
+        </Disclosure>)
+    }
+    const renderBrandItem=()=>{
+    return (<>
+        {
+            brand?.map((item , index)=>(<Disclosure key={index} as="li">
+                    <Link
+                        href={{
+                            pathname: "/brand/"+item.url || undefined,
+                        }}
+                        className={`  justify-center text-center items-center flex flex-col text-sm rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5  `}
+                        onClick={onClickClose}
+                    >
+                        <div className={"border rounded-full overflow-x-hidden w-16 h-16"}>
+                            <Image
+                                alt=""
+                                width={500}
+                                height={100}
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${item.image}`}
+                                className="   w-full  h-full "
+                            />
+                        </div>
+                        <span
+                            className={`py-2.5 text-center text-xs `}
+                            onClick={onClickClose}
+                        >
+                {item.name}
+              </span>
+
+                    </Link>
+
+                </Disclosure>
+            ))
+        }
+    </>)
+    }
     const _renderItem = (item: MenuResponse, index: number) => {
         return (
             <Disclosure
@@ -176,6 +240,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
             </div>
             <ul className="flex flex-col py-6 px-2 space-y-1">
                 {data && data.map(_renderItem)}
+                {/*{renderBrand()}*/}
             </ul>
 
         </div>
