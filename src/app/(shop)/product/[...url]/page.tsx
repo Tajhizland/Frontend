@@ -240,7 +240,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 {JSON.stringify(structuredData)}
             </Script>
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
-                <ProductImage productImages={product.images.data}/>
+                {product.images.data.length > 0 && <ProductImage productImages={product.images.data}/>}
                 {/* MAIn */}
                 <main className="container relative z-10 mt-9 sm:mt-11 flex ">
                     {/* CONTENT */}

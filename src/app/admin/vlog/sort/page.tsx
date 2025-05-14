@@ -93,7 +93,7 @@ const ProductList: React.FC<{
                 items={vlogs.map(vlog => String(vlog.id))}
                 strategy={verticalListSortingStrategy}
             >
-                <div>
+                <div className={"grid grid-cols-1 md:grid-cols-3 gap-5"}>
                     {vlogs.map((vlog) => (
                         <SortableItem key={String(vlog.id)} id={String(vlog.id)}>
                             <div className={"container   flex items-center justify-between"}>
