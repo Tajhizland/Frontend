@@ -15,7 +15,7 @@ export default function RootLayout({
     return (
         <html lang="fa" dir={"rtl"}>
         <head>
-            {/*<Script src={"/js/goftino.js"}></Script>*/}
+            <Script src={"/js/goftino.js"}></Script>
             <link rel="manifest" href="/manifest.json"/>
             <meta name="theme-color" content="#fff"/>
             <link rel="apple-touch-icon" href="/icons/logo.png"/>
