@@ -240,7 +240,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
             </div>
             <ul className="flex flex-col py-6 px-2 space-y-1">
                 {data && data.map(_renderItem)}
-                {/*{renderBrand()}*/}
+                {renderBrand()}
             </ul>
 
         </div>

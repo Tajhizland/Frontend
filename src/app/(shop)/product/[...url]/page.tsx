@@ -204,6 +204,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
 
                 {/*  */}
                 {/*  */}
+                <h2 className={"font-semibold block lg:hidden"}>توضیحات </h2>
                 <TextExpander text={product.description}/>
                 <Accordion
                     data={renderAccordianData()}/>
