@@ -9,6 +9,8 @@ export default function GoftinoContainer() {
 
     useEffect(() => {
         window.addEventListener('goftino_ready', function () {
+            if(!Goftino.getUserId())
+                return;
             let response = chatInfo({token:Goftino.getUserId()});
             response.then((res) => {
                 Goftino.setUserId(res.token);
