@@ -23,7 +23,7 @@ export const deleteField = async <T extends ServerResponse<GroupProductResponse[
 export const deleteProduct = async <T extends ServerResponse<GroupProductResponse[]>>
 (id: number) => {
     return axios.delete<T, SuccessResponseType<T>>("admin/group/product/" + id)
-        .then((res) => res?.data?.result?.data)
+        .then((res) => res?.data)
 };
 
 export const addField = async <T extends ServerResponse<GroupProductResponse[]>>
@@ -41,5 +41,5 @@ export const addProduct = async <T extends ServerResponse<GroupProductResponse[]
     productId:number;
 }) => {
     return axios.post<T, SuccessResponseType<T>>("admin/group/product",params)
-        .then((res) => res?.data?.result?.data)
+        .then((res) => res?.data)
 };
