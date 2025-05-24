@@ -1,3 +1,4 @@
+"use client"
 import React, { useMemo, useState } from 'react';
 import {GroupProductResponse} from "@/services/types/groupProduct";
 import {ProductResponse} from "@/services/types/product";
