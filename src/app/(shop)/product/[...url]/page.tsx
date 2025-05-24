@@ -254,7 +254,8 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                             {/*{renderSectionSidebar()}*/}
                             {product.type == "product" && <ProductSidebar product={product}/>
                             }
-                            {product.type == "group" && product.groupItems && <SectionGroup groupItems={product.groupItems}/>
+                            {product.type == "group" && product.groupItems && product.groupItems.data &&
+                                <SectionGroup groupItems={product.groupItems.data}/>
                             }
                         </div>
                     </div>

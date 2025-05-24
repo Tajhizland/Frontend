@@ -1,82 +1,90 @@
-"use client"
-import React, { useMemo, useState } from 'react';
-import {GroupProductResponse} from "@/services/types/groupProduct";
-import {ProductResponse} from "@/services/types/product";
+"use client";
+import React, { useMemo, useState } from "react";
+import { GroupProductResponse } from "@/services/types/groupProduct";
+import { ProductResponse } from "@/services/types/product";
 
 type Props = {
-    groupItems: { data: GroupProductResponse[] };
+    groupItems: GroupProductResponse[];
 };
 
-export default function SectionGroup({ groupItems }: Props) {
-    const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
-    const [selectedValue, setSelectedValue] = useState<string | null>(null);
+export default function ProductGroupFilter({ groupItems }: Props) {
+    const [selectedValues, setSelectedValues] = useState<Record<string, string | null>>({});
 
-    // استخراج titleها
-    const uniqueTitles = useMemo(() => {
-        const titles = groupItems.data.flatMap(item =>
-            item.value?.data.map(val => val.groupField?.title).filter(Boolean) ?? []
-        );
-        return Array.from(new Set(titles));
+    // گروه‌بندی titleها به همراه valueهای آن‌ها
+    const groupedFields = useMemo(() => {
+        const map = new Map<string, Set<string>>();
+        groupItems.forEach((item) => {
+            item.value?.data.forEach((val) => {
+                const title = val.groupField?.title;
+                const value = val.value;
+                if (title && value) {
+                    if (!map.has(title)) {
+                        map.set(title, new Set());
+                    }
+                    map.get(title)?.add(value);
+                }
+            });
+        });
+        return map;
     }, [groupItems]);
 
-    // استخراج valueها
-    const uniqueValues = useMemo(() => {
-        const values = groupItems.data.flatMap(item =>
-            item.value?.data.map(val => val.value).filter(Boolean) ?? []
-        );
-        return Array.from(new Set(values));
-    }, [groupItems]);
-
-    // فیلتر محصولات بر اساس انتخاب
-    const filteredProducts = useMemo(() => {
-        return groupItems.data
-            .filter(item =>
-                item.value?.data.some(val =>
-                    (!selectedTitle || val.groupField?.title === selectedTitle) &&
-                    (!selectedValue || val.value === selectedValue)
-                )
-            )
-            .map(item => item.product)
+    // فیلتر محصولات بر اساس selectedValues
+    const filteredProducts: ProductResponse[] = useMemo(() => {
+        return groupItems
+            .filter((item) => {
+                const itemValues = item.value?.data ?? [];
+                return Object.entries(selectedValues).every(([title, selectedVal]) => {
+                    if (!selectedVal) return true;
+                    return itemValues.some(
+                        (val) => val.groupField?.title === title && val.value === selectedVal
+                    );
+                });
+            })
+            .map((item) => item.product)
             .filter(Boolean) as ProductResponse[];
-    }, [groupItems, selectedTitle, selectedValue]);
+    }, [groupItems, selectedValues]);
+
+    const handleSelectValue = (title: string, value: string) => {
+        setSelectedValues((prev) => ({
+            ...prev,
+            [title]: prev[title] === value ? null : value,
+        }));
+    };
 
     return (
-        <div className="p-4 space-y-4">
-            <div className="space-y-2">
-                <label className="block font-bold">عنوان ویژگی (title):</label>
-                <select
-                    className="border p-2 rounded w-full"
-                    value={selectedTitle ?? ''}
-                    onChange={(e) => setSelectedTitle(e.target.value || null)}
-                >
-                    <option value="">همه</option>
-                    {uniqueTitles.map(title => (
-                        <option key={title} value={title}>{title}</option>
-                    ))}
-                </select>
-            </div>
+        <div className="space-y-6 p-4">
+            {[...groupedFields.entries()].map(([title, values]) => (
+                <div key={title}>
+                    <h4 className="font-bold mb-2">{title}</h4>
+                    <div className="flex flex-wrap gap-2">
+                        {[...values].map((value) => {
+                            const isSelected = selectedValues[title] === value;
+                            return (
+                                <button
+                                    key={value}
+                                    className={`px-3 py-1 border rounded-full text-sm transition ${
+                                        isSelected
+                                            ? "bg-blue-600 text-white"
+                                            : "bg-gray-100 hover:bg-gray-200"
+                                    }`}
+                                    onClick={() => handleSelectValue(title, value)}
+                                >
+                                    {value}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            ))}
 
-            <div className="space-y-2">
-                <label className="block font-bold">مقدار ویژگی (value):</label>
-                <select
-                    className="border p-2 rounded w-full"
-                    value={selectedValue ?? ''}
-                    onChange={(e) => setSelectedValue(e.target.value || null)}
-                >
-                    <option value="">همه</option>
-                    {uniqueValues.map(value => (
-                        <option key={value} value={value}>{value}</option>
-                    ))}
-                </select>
-            </div>
-
+            {/* نمایش محصولات فیلتر شده */}
             <div>
-                <h3 className="font-bold mt-4">محصولات مرتبط:</h3>
+                <h3 className="font-bold mt-6">محصولات مرتبط:</h3>
                 {filteredProducts.length === 0 ? (
-                    <p className="text-gray-500">محصولی یافت نشد.</p>
+                    <p className="text-gray-500 mt-2">محصولی یافت نشد.</p>
                 ) : (
-                    <ul className="list-disc pl-5">
-                        {filteredProducts.map(product => (
+                    <ul className="list-disc pl-5 mt-2">
+                        {filteredProducts.map((product) => (
                             <li key={product.id}>{product.name}</li>
                         ))}
                     </ul>
