@@ -56,7 +56,7 @@ export default function Page() {
         ]}/>
         <Panel>
             <PageTitle>
-                ویرایش محصول
+                ویرایش محصول گروهی
             </PageTitle>
             <GroupTab id={id + ""}/>
             <div className={"flex flex-col gap-2"}>

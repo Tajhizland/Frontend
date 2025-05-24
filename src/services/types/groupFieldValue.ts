@@ -13,3 +13,8 @@ export type GroupFieldValueResponse = {
     groupProduct?: GroupProductResponse;
     groupField?: GroupFieldResponse;
 };
+
+export type GroupFieldValuePage = {
+    value: { data: GroupProductResponse[] };
+    fields: { data: GroupFieldResponse[] };
+};
