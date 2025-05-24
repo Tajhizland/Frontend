@@ -9,6 +9,7 @@ import {VlogResponse} from "@/services/types/vlog";
 import {PriceResponse} from "@/services/types/price";
 import {PopularProductResponse} from "@/services/types/popularProduct";
 import {ProductVideoResponse} from "@/services/types/productVideo";
+import {GroupProductResponse} from "@/services/types/groupProduct";
 
 export type ProductPageResponse = {
     product: ProductResponse;
@@ -47,6 +48,7 @@ export type ProductResponse = {
     rating: number;
     favorite: boolean;
     study: string;
+    type: string;
     review: string;
     unboxing_video: string;
     intro_video_description: string;
@@ -76,5 +78,8 @@ export type ProductResponse = {
     };
     comments: {
         data: CommentResponse[]
+    };
+    groupItems: {
+        data: GroupProductResponse[]
     };
 };

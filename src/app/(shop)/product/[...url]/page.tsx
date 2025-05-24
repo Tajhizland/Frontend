@@ -21,6 +21,7 @@ import Accordion from "@/components/Accordion/Accordion";
 import SectionVideo from "@/components/Section/SectionVideo";
 import Badge from "@/shared/Badge/Badge";
 import SectionProductVideo from "@/components/Section/SectionProductVideo";
+import SectionGroup from "@/components/Group/SectionGroup";
 
 
 interface ProductPageProps {
@@ -63,7 +64,7 @@ export async function generateMetadata(props: ProductPageProps): Promise<Metadat
             product_name: product?.name,
             product_price: product?.min_price,
             product_old_price: product?.min_price,
-            availability: product.status==1?"instock":"outofstock",
+            availability: product.status == 1 ? "instock" : "outofstock",
             guarantee: product?.guaranties.data[0] ? product?.guaranties.data[0]?.name ?? "" : ""
         }
 
@@ -158,9 +159,8 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
     };
 
     const renderAccordianData = () => {
-        if(product.review)
-        {
-            return[
+        if (product.review) {
+            return [
                 {
                     name: "مشخصات محصول",
                     content: renderOption()
@@ -172,9 +172,8 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 }
             ]
 
-        }
-        else {
-            return[
+        } else {
+            return [
                 {
                     name: "مشخصات محصول",
                     content: renderOption()
@@ -208,11 +207,11 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 <TextExpander text={product.description}/>
                 <Accordion
                     data={renderAccordianData()}/>
-                 {/*<SectionVideo intro_video={product.intro}*/}
-                 {/*              unboxing_video={product.unboxing}*/}
-                 {/*             usage_video={product.usage} />*/}
+                {/*<SectionVideo intro_video={product.intro}*/}
+                {/*              unboxing_video={product.unboxing}*/}
+                {/*             usage_video={product.usage} />*/}
 
-                <SectionProductVideo videos={product.videos.data} />
+                <SectionProductVideo videos={product.videos.data}/>
 
                 <div className="lg:hidden  ">
                     <Policy/>
@@ -253,7 +252,10 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     <div className="flex-grow">
                         <div className="hidden lg:block sticky top-36 dark:bg-black/20">
                             {/*{renderSectionSidebar()}*/}
-                            <ProductSidebar product={product}/>
+                            {product.type == "product" && <ProductSidebar product={product}/>
+                            }
+                            {product.type == "group" && product.groupItems && <SectionGroup groupItems={product.groupItems}/>
+                            }
                         </div>
                     </div>
                 </main>
