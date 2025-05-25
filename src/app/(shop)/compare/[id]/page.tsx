@@ -98,7 +98,7 @@ export default function Page() {
             }}>
                 انتخاب محصول
             </ButtonPrimary>
-            <div className={"grid grid-cols-3 gap-5 text-xs sm:text-sm font-bold text-slate-800 "}>
+            <div className={"grid grid-cols-3 gap-5 text-xs sm:text-sm font-bold text-slate-800  dark:text-white "}>
                 <div className={"flex flex-col divide-y "}>
                     <div className="w-[100px] h-[100px] "></div>
                     <h2 className={"py-5 line-clamp-1"}>نام محصول</h2>
