@@ -22,6 +22,9 @@ import SectionVideo from "@/components/Section/SectionVideo";
 import Badge from "@/shared/Badge/Badge";
 import SectionProductVideo from "@/components/Section/SectionProductVideo";
 import SectionGroup from "@/components/Group/SectionGroup";
+import Link from "next/link";
+import {FaCodeCompare} from "react-icons/fa6";
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 
 
 interface ProductPageProps {
@@ -191,8 +194,19 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     </h2>
                     <div className="flex items-center mt-4 sm:mt-5">
                         {/*{renderStatus()}*/}
-                        <div className="mr-auto">
+                        <div className="mr-auto flex justify-between gap-2 items-center w-full">
+                            <Link href={"/compare/" + product.id}>
+                                <ButtonSecondary>
+                                    <div className={"flex items-center gap-2"}>
+                                        <FaCodeCompare/>
+                                        <span>
+                                        مقایسه محصول
+                                            </span>
+                                    </div>
+                                </ButtonSecondary>
+                            </Link>
                             <LikeSaveBtns like={product.favorite} productId={product.id}/>
+
                         </div>
                     </div>
                 </div>
