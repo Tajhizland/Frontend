@@ -83,7 +83,12 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                             onChange={(e) => {
                                 searchHandle(e.target.value)
                             }}
-
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    handleSearch();
+                                }
+                            }}
                            ref={inputRef}
                             type="text"
                             placeholder="جستجو"
