@@ -12,20 +12,23 @@ const SectionBrand = ({data}: { data: BrandResponse[] }) => {
     return (
         <div className={"flex flex-col gap-5 items-center py-10"}>
             <h2 className={"text-2xl font-bold"}>انتخاب محصول بر اساس برند</h2>
-            <div className={"grid grid-cols-4 md:grid-cols-6"}>
+            <div className="grid  grid-cols-4 lg:grid-cols-6 gap-4">
                 {data.slice(0, 12).map((item, i) => (
                     <Link href={"/brand/" + item.url as Route} title={item.name} key={i}>
-                        <NcImage
-                            alt={item.name}
-                            containerClassName="w-full h-full flex justify-center"
-                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${item.image}`}
-                            className="object-cover rounded-2xl w-full h-full"
-                            width={720}
-                            height={720}
-                        />
+                        <div className="aspect-square w-full">
+                            <NcImage
+                                alt={item.name}
+                                containerClassName="w-full h-full"
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${item.image}`}
+                                className="object-cover w-full h-full rounded-2xl"
+                                width={720}
+                                height={720}
+                            />
+                        </div>
                     </Link>
                 ))}
             </div>
+
             <ButtonPrimary href={"/brand"}>
                  مشاهده همه برند ها
             </ButtonPrimary>
