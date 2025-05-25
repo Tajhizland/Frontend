@@ -9,7 +9,7 @@ export default function GoftinoContainer() {
 
     useEffect(() => {
         window.addEventListener('goftino_ready', function () {
-            if(!Goftino.getUserId())
+            if(!Goftino.getUserId() || !user)
                 return;
             let response = chatInfo({token:Goftino.getUserId()});
             response.then((res) => {
@@ -23,6 +23,6 @@ export default function GoftinoContainer() {
                 });
             })
         });
-    })
+    },[user])
     return (<></>)
 }
