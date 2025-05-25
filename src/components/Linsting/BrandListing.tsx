@@ -1,9 +1,9 @@
 "use client"
-import React, { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
-import { useInfiniteQuery } from "react-query";
-import { BrandListingResponse } from "@/services/types/brand";
-import { findBrandByUrl } from "@/services/api/shop/brand";
+import React, {useState, useEffect, useRef} from "react";
+import {useRouter} from "next/navigation";
+import {useInfiniteQuery} from "react-query";
+import {BrandListingResponse} from "@/services/types/brand";
+import {findBrandByUrl} from "@/services/api/shop/brand";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import {CgScrollH, CgSwap} from "react-icons/cg";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
@@ -14,7 +14,7 @@ import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
 import ProductCard from "@/components/Card/ProductCard";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 
-const BrandListing = ({ response, url }: { response: BrandListingResponse, url: string }) => {
+const BrandListing = ({response, url}: { response: BrandListingResponse, url: string }) => {
     const [filter, setFilter] = useState<number>();
     const router = useRouter();
     const observer = useRef<IntersectionObserver | null>(null);
@@ -30,7 +30,7 @@ const BrandListing = ({ response, url }: { response: BrandListingResponse, url: 
         isFetching,
     } = useInfiniteQuery(
         ["brandProducts", url, filter],
-        async ({ pageParam = 1 }) => {
+        async ({pageParam = 1}) => {
             const result = await findBrandByUrl(url, filter ? `filter[category]=${filter}` : "", pageParam);
             return result;
         },
@@ -76,7 +76,7 @@ const BrandListing = ({ response, url }: { response: BrandListingResponse, url: 
         if (data) {
             const currentPage = data.pages[data.pages.length - 1]?.products?.meta?.current_page;
             if (currentPage) {
-                router.push(`?page=${currentPage}`, { scroll: false });
+                router.push(`?page=${currentPage}`, {scroll: false});
             }
         }
     }, [data, router]);
@@ -96,14 +96,30 @@ const BrandListing = ({ response, url }: { response: BrandListingResponse, url: 
     return (
         <div className={`nc-PageCollection dark:bg-neutral-900`}>
             <div className="container py-0  lg:py-10  lg:pb-28 ">
-            <ShopBreadcrump breadcrumb={[{
-                href:"brand" ,
-                title:"برند ها"
-            } , {
-                title:response.brand.name ,
-                href:"brand/"+response.brand.url
-            }]} />
-                <SectionSingleBanner banner={response.banner.data[0]}/>
+                <ShopBreadcrump breadcrumb={[{
+                    href: "brand",
+                    title: "برند ها"
+                }, {
+                    title: response.brand.name,
+                    href: "brand/" + response.brand.url
+                }]}/>
+
+                {
+                    response.brand.banner && response.brand.banner != "" ?
+                        <div
+                            className={`relative w-full aspect-w-2 sm:aspect-w-3  lg:aspect-w-4 aspect-h-1 rounded-2xl overflow-hidden group border`}
+                        >
+                            <Image
+                                alt=""
+                                fill
+                                className="w-full h-full object-cover"
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand-banner/${response.brand.banner}`}
+                            />
+
+                        </div>
+                        :
+                        <SectionSingleBanner banner={response.banner.data[0]}/>
+                }
 
                 <div className="space-y-10 lg:space-y-14">
                     {/* HEADING */}
@@ -124,10 +140,10 @@ const BrandListing = ({ response, url }: { response: BrandListingResponse, url: 
                         </div>
                         <div className={"flex justify-center border-b lg:hidden"}>
                             <CgSwap className={" w-8 h-8 text-neutral-400"}/>
-                         </div>
+                        </div>
                     </div>
                     <main>
-                    {/* LOOP ITEMS */}
+                        {/* LOOP ITEMS */}
                         <div
                             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                             {allProducts.length === 0 && !isLoading
