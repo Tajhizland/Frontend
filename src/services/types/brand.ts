@@ -12,6 +12,7 @@ export type BrandResponse = {
     url: string;
     status: string;
     image: string;
+    banner: string;
     description: string;
     created_at: string;
     updated_at: string;

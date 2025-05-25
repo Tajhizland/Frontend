@@ -57,6 +57,18 @@ export default function Form({ data, submit  }: Form) {
                 <Label>تصویر بنر</Label>
                 <Uploader name={"banner"}/>
             </div>
+            {data?.banner ? <div className={"max-w-lg flex justify-center mx-auto"}>
+                <div className="flex justify-center items-center">
+                    <NcImage
+                        alt=""
+                        containerClassName="w-full h-fit flex justify-center"
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand-banner/${data.banner}`}
+                        className="object-contain rounded-2xl w-full h-full"
+                        width={720}
+                        height={720}
+                    />
+                </div>
+            </div> : ""}
             <div>
                 <Label>تصویر برند</Label>
                 <Uploader name={"image"}/>

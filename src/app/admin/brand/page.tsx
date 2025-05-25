@@ -21,6 +21,7 @@ export default function Page() {
                 url: e.url,
                 status: e.status,
                 image: null,
+                banner: null,
                 description: e.description,
             }
         )
