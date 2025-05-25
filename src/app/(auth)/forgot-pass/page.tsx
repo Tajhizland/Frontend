@@ -84,7 +84,7 @@ const PageForgotPass = ({}) => {
                             type="text"
                             name={"mobile"}
                             placeholder="شماره موبایل"
-                            className="mt-1"
+                            className="mt-1 text-[16px]"
                         />
                     </label>
                     <ButtonPrimary type="submit">ادامه</ButtonPrimary>
@@ -101,7 +101,7 @@ const PageForgotPass = ({}) => {
                             name={"code"}
                             type="text"
                             placeholder="کد بازیابی"
-                            className="mt-1"
+                            className="mt-1  text-[16px]"
                         />
                         <Input
                             name={"mobile"}
