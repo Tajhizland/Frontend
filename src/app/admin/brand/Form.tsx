@@ -54,6 +54,10 @@ export default function Form({ data, submit  }: Form) {
 
             </div>
             <div>
+                <Label>تصویر بنر</Label>
+                <Uploader name={"banner"}/>
+            </div>
+            <div>
                 <Label>تصویر برند</Label>
                 <Uploader name={"image"}/>
             </div>

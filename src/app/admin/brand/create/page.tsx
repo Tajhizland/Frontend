@@ -18,6 +18,7 @@ export default function Page() {
                 url: e.get("url") as string,
                 status: e.get("status") as string,
                 image: e.get("image") as File,
+                banner: e.get("banner") as File,
                 description: e.get("description") as string,
             }
         )

@@ -12,6 +12,7 @@ export const store = async <T extends ServerResponse<unknown>>(
         url: string,
         status: number | string,
         image: File | null,
+        banner: File | null,
         description: string
     }
 ) => {
@@ -23,6 +24,9 @@ export const store = async <T extends ServerResponse<unknown>>(
 
     if (params.image) {
         formData.append('image', params.image);
+    }
+    if (params.banner) {
+        formData.append('banner', params.banner);
     }
 
     return axios.post<T, SuccessResponseType<T>>("admin/brand/store", formData, {
@@ -41,6 +45,7 @@ export const update = async <T extends ServerResponse<unknown>>
         url: string,
         status: number | string,
         image: File | null,
+        banner: File | null,
         description: string
     }
 ) => {
@@ -53,6 +58,9 @@ export const update = async <T extends ServerResponse<unknown>>
 
     if (params.image) {
         formData.append('image', params.image);
+    }
+    if (params.banner) {
+        formData.append('banner', params.banner);
     }
 
     return axios.post<T, SuccessResponseType<T>>("admin/brand/update", formData, {
