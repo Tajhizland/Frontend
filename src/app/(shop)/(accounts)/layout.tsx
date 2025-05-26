@@ -23,6 +23,9 @@ const pages: {
   {
     name: "حساب کاربری",
     link: "/account",
+  },  {
+    name: "کیف پول",
+    link: "/account-wallet",
   },
   {
     name: "لیست علاقه مندی",
@@ -94,7 +97,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
           </div>
           <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
 
-          <div className="flex gap-x-8 md:gap-x-14 overflow-x-auto hiddenScrollbar">
+          <div className="flex gap-x-8 md:gap-x-10 overflow-x-auto hiddenScrollbar">
             {pages.map((item, index) => {
               return (
                 <Link

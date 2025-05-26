@@ -4,6 +4,7 @@ export type UserResponse = {
     national_code:string ;
     last_name:string ;
     gender:number ;
+    wallet:number ;
     email:string ;
     username:string ;
     role:string ;
