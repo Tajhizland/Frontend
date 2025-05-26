@@ -197,14 +197,12 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                         <div className="mr-auto flex justify-between gap-2 items-center w-full">
                             <Link href={"/compare/" + product.id}>
                                 <div
-                                    className=" w-fit mt-5 border  mx-auto sm:mx-0 flex items-center justify-center px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
+                                    className=" w-fit  border  flex items-center justify-center px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
                                 >
-                                    <div className={"flex items-center gap-2"}>
-                                        <FaCodeCompare/>
+                                         <FaCodeCompare/>
                                         <span>
                                         مقایسه محصول
                                             </span>
-                                    </div>
                                 </div>
                             </Link>
                             <LikeSaveBtns like={product.favorite} productId={product.id}/>
