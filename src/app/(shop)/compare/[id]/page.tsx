@@ -132,7 +132,7 @@ export default function Page() {
                 </div>
                 {
                     compareProduct && <div className={"flex flex-col  divide-y"}>
-                        <div className="w-[100px] h-[100px] py-5">
+                        <div className="w-[100px] h-[100px]  ">
                             <Image
                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${compareProduct.images.data[0].url}`}
                                 alt={"image"} width={100} height={100}/>
