@@ -197,7 +197,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                         <div className="mr-auto flex justify-between gap-2 items-center w-full">
                             <Link href={"/compare/" + product.id}>
                                 <div
-                                    className=" w-fit  border  flex items-center justify-center px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
+                                    className=" w-fit gap-5 border  flex items-center justify-center px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
                                 >
                                          <FaCodeCompare/>
                                         <span>
