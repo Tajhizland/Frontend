@@ -1,21 +1,23 @@
 "use client";
-import { useMutation, useQuery } from "react-query";
-import { useParams } from "next/navigation";
-import { find, search } from "@/services/api/shop/compare";
+import {useMutation, useQuery} from "react-query";
+import {useParams} from "next/navigation";
+import {find, search} from "@/services/api/shop/compare";
 import Spinner from "@/shared/Loading/Spinner";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import Input from "@/shared/Input/Input";
-import { ProductResponse } from "@/services/types/product";
+import {ProductResponse} from "@/services/types/product";
 import NcModal from "@/shared/NcModal/NcModal";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export default function Page() {
-    const { id } = useParams();
+    const {id} = useParams();
     const [compareProducts, setCompareProducts] = useState<ProductResponse[]>([]);
     const [openModal, setOpenModal] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-    const { data: product } = useQuery({
+    const {data: product} = useQuery({
         queryKey: ["compare-find"],
         queryFn: () => find(Number(id)),
         staleTime: 5000,
@@ -28,8 +30,26 @@ export default function Page() {
     } = useMutation({
         mutationKey: ["city"],
         mutationFn: (e: any) =>
-            search({ query: e.target.value, categoryIds: product?.category_ids ?? [] }),
+            search({query: e.target.value, categoryIds: product?.category_ids ?? []}),
     });
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        handleResize(); // بررسی اولیه
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    useEffect(() => {
+        if (isMobile) {
+            setIsButtonDisabled(compareProducts.length >= 1);
+        } else {
+            setIsButtonDisabled(compareProducts.length >= 2);
+        }
+    }, [compareProducts, isMobile]);
 
     const renderContent = () => (
         <div>
@@ -73,7 +93,7 @@ export default function Page() {
     if (!product) {
         return (
             <div className="flex justify-center items-center w-full h-screen">
-                <Spinner />
+                <Spinner/>
             </div>
         );
     }
@@ -100,7 +120,7 @@ export default function Page() {
                 <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                     مقایسه محصولات
                 </h2>
-                <ButtonPrimary onClick={() => setOpenModal(true)}>
+                <ButtonPrimary onClick={() => setOpenModal(true)} disabled={isButtonDisabled}>
                     انتخاب محصول
                 </ButtonPrimary>
 
