@@ -32,7 +32,7 @@ const FailedOrderPage = () => {
     return (
         <>
             <div className="nc-Page404">
-                <div className="container relative pt-5 pb-16 lg:pb-20 lg:pt-5">
+                <div className="container relative pt-5 pb-16 lg:py-20 lg:pt-5">
                     {/* HEADER */}
                     <header className="text-center max-w-2xl mx-auto space-y-2">
                         <Image src={orderLogo} alt="403" className={"object-cover  mx-auto"}/>
