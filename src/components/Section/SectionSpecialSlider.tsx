@@ -74,8 +74,9 @@ const SectionSpecialSlider: FC<SectionSpecialSliderProps> = ({
                             <li className={`glide__slide`} key={index}>
                                 <CollectionProductCard
                                     name={product.product && product.product.name || ""}
+                                    product={product.product}
                                     price={product.product && product.product.min_price || 0}
-                                    imgs={product.product && product.product.images.data || undefined}
+                                     imgs={product.product && product.product.images.data || undefined}
                                     description={product.product && product.product.description || ""}
                                     url={product.product && product.product.url || ""}
                                     review={product.product?.comments.data.length}
