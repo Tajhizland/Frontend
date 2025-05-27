@@ -25,6 +25,9 @@ export default function Bell() {
             case "comment":
                 alertType = "warning"
                 break
+            case "orderRequest":
+                alertType = "error"
+                break
             case "order":
                 alertType = "success"
                 break

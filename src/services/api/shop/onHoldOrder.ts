@@ -17,3 +17,10 @@ export const payment = async <T extends ServerResponse<PaymentResponse>>
         .then((res) => res?.data?.result?.data)
 };
 
+export const paymentByWallet = async <T extends ServerResponse<PaymentResponse>>
+(id: number
+) => {
+    return axios.post<T, SuccessResponseType<T>>("on-hold-order/wallet/" + id)
+        .then((res) => res?.data?.result?.data)
+};
+
