@@ -11,10 +11,20 @@ import Input from "@/shared/Input/Input";
 import {Alert} from "@/shared/Alert/Alert";
 import {useUser} from "@/services/globalState/GlobalState";
 import Prices from "@/components/Price/Prices";
+import {chargeRequest} from "@/services/api/shop/charge";
 
 const AccountOrder = () => {
     const [user] = useUser();
     const queryClient = useQueryClient();
+    const [price, setPrice] = useState(0);
+
+    async function charge() {
+        let response = await chargeRequest({amount: price});
+        if(response)
+        {
+            window.location.href = response.path;
+        }
+    }
 
     return (
         <>
@@ -37,9 +47,16 @@ const AccountOrder = () => {
                         <label>
                             مبلغ
                         </label>
-                        <Input/>
+                        <Input
+                            value={price ? price.toLocaleString('en-US') : ''} // فرمت کردن مقدار به صورت 1,234,567
+                            onChange={(e) => {
+                                // حذف کاما و تبدیل به عدد
+                                const rawValue = e.target.value.replace(/,/g, '');
+                                setPrice(Number(rawValue) || 0); // تبدیل به عدد یا 0 اگر معتبر نباشد
+                            }}
+                        />
                     </div>
-                    <ButtonPrimary disabled={true}>
+                    <ButtonPrimary disabled={price < 1000} onClick={charge}>
                         شارژ کیف پول
                     </ButtonPrimary>
                 </div>
