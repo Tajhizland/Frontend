@@ -1,11 +1,11 @@
 //@ts-nocheck
 "use client";
-import React, { useRef, useEffect, useState } from "react";
- import { findCategoryByUrl } from "@/services/api/shop/category";
- import { useRouter } from "next/navigation";
+import React, {useRef, useEffect, useState} from "react";
+import {findCategoryByUrl} from "@/services/api/shop/category";
+import {useRouter} from "next/navigation";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
-import { useInfiniteQuery } from "react-query";
-import { BreadcrumbType } from "@/components/Breadcrumb/BreadcrumbType";
+import {useInfiniteQuery} from "react-query";
+import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 import TextExpander2 from "@/shared/TextExpander/TextExpander2";
 import ProductCard from "@/components/Card/ProductCard";
@@ -13,13 +13,20 @@ import TabCategoryFilters from "@/components/Filter/TabCategoryFilters";
 import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
 import CategoryCircleCard2 from "@/components/Card/CategoryCircleCard2";
 import TabCategoryFiltersMobile from "@/components/Filter/TabCategoryFiltersMobile";
+import ProductCardWithCompare from "@/components/Card/ProductCardWithCompare";
+import {ProductResponse} from "@/services/types/product";
+import Compare from "@/components/Compare/Compare";
+import {FaCodeCompare} from "react-icons/fa6";
+import {toast} from "react-hot-toast";
 
-const PageCollection = ({ response, url, breadcrump }: { response: any, url: string, breadcrump: BreadcrumbType[] }) => {
+const PageCollection = ({response, url, breadcrump}: { response: any, url: string, breadcrump: BreadcrumbType[] }) => {
     const router = useRouter();
     const [filter, setFilter] = useState<string>("");
     const observer = useRef<IntersectionObserver | null>(null);
     const lastElementRef = useRef<HTMLDivElement>(null);
     const [page, setPage] = useState<number>(1);  // مدیریت صفحه
+    const [compareList, setCompareList] = useState<ProductResponse>([]);
+    const [compare, setCompare] = useState<boolean>(false);
 
     const {
         data,
@@ -29,7 +36,7 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
         refetch,
     } = useInfiniteQuery(
         ["categoryProducts", url, filter],
-        async ({ pageParam = 1 }) => {
+        async ({pageParam = 1}) => {
             const result = await findCategoryByUrl(url, filter, pageParam);
             return result;
         },
@@ -40,11 +47,34 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
             },
             getNextPageParam: (lastPage) =>
                 lastPage?.products?.meta?.current_page <
-                    lastPage?.products?.meta?.last_page
+                lastPage?.products?.meta?.last_page
                     ? lastPage?.products?.meta?.current_page + 1
                     : undefined,
         }
     );
+    const toggleProductInCompareList = (product: ProductResponse) => {
+        setCompareList((prevList) => {
+            // چک می‌کنیم محصول توی لیست هست یا نه
+            const isProductExist = prevList.some((item) => item.id === product.id);
+
+            if (isProductExist) {
+                // اگه وجود داشت، حذفش می‌کنیم
+                return prevList.filter((item) => item.id !== product.id);
+            } else {
+                // اگه تعداد محصولات کمتر از 3 باشه، اضافه می‌کنیم
+                if (prevList.length < 3) {
+                    return [...prevList, product];
+                }
+                // اگه 3 یا بیشتر باشه، لیست بدون تغییر برمی‌گردونیم
+                toast.error("امکان مقایسه بیش از سه محصول با هم وجود ندارد")
+                return prevList;
+            }
+        });
+    };
+
+    const isProductInCompareList = (product: ProductResponse): boolean => {
+        return compareList.some((item) => item.id === product.id);
+    };
 
     // هنگام تغییر فیلتر، داده‌ها را مجدداً بارگذاری می‌کنیم
     const handleFilterChange = async (newFilter: string) => {
@@ -79,7 +109,7 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
     // هر بار که صفحه تغییر می‌کند، URL را به‌روز می‌کنیم
     useEffect(() => {
         if (page > 1) {
-            router.replace(`?page=${page}`, { scroll: false });
+            router.replace(`?page=${page}`, {scroll: false});
         }
     }, [page, router]);
 
@@ -87,31 +117,45 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
 
     return (
         <div className={`nc-PageCollection dark:bg-neutral-900`}>
+            {
+                compareList.length > 0 && <div onClick={() => {
+                    setCompare(true)
+                }}
+                                               className={"fixed flex flex-col gap-1 justify-center items-center text-white z-50 md:bottom-10 md:right-10 bottom-20 right-5 shadow-xl bg-orange-600 rounded-full w-20 h-20 font-bold text-xs cursor-pointer hover:bg-opacity-80"}>
+                    <FaCodeCompare/>
+                    مقایسه کن
+                </div>
+            }
 
+            {
+                compare && <Compare close={() => {
+                    setCompare(false)
+                }} compareList={compareList} setCompareList={setCompareList}/>
+            }
             <div className="container py-5 lg:pb-28 lg:pt-14 space-y-5 ">
 
                 <div className="space-y-5">
-                    <ShopBreadcrump breadcrumb={breadcrump} />
+                    <ShopBreadcrump breadcrumb={breadcrump}/>
 
                     {/* HEADING */}
 
                     {
                         response?.children?.data && response?.children?.data.length > 0 && (<>
-                            <hr className="border-slate-200 dark:border-slate-700" />
+                            <hr className="border-slate-200 dark:border-slate-700"/>
                             <div
                                 className="flex overflow-x-auto  gap-1  lg:gap-5 text-center py-4">
                                 {
                                     response?.children?.data?.map((item, index) => (
                                         <CategoryCircleCard2
                                             category={item}
-                                            key={index} />
+                                            key={index}/>
                                     ))
                                 }
                             </div>
                         </>)
                     }
 
-                    <hr className="border-slate-200 dark:border-slate-700" />
+                    <hr className="border-slate-200 dark:border-slate-700"/>
 
                     <main>
                         {/* TABS FILTER */}
@@ -130,20 +174,30 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
                             changeFilter={handleFilterChange}
                         />
                         {/* LOOP ITEMS */}
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
+                        <div
+                            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
                             {allProducts.map((item, index) => (
-                                <ProductCard data={item} key={index} />
+                                // <ProductCardWithCompare
+                                //     data={item}
+                                //     key={index}
+                                //     addToCompare={()=>{toggleProductInCompareList(item)}}
+                                //     isProductInCompareList={isProductInCompareList(item)}
+                                // />
+                                <ProductCard
+                                    data={item}
+                                    key={index}
+                                />
                             ))}
                         </div>
 
                         <div ref={lastElementRef}
-                            className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4  gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
-                            {isFetchingNextPage && <ProductCardSkeleton />}
+                             className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4  gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
+                            {isFetchingNextPage && <ProductCardSkeleton/>}
                         </div>
                     </main>
                 </div>
 
-                <hr className="border-slate-200 dark:border-slate-700" />
+                <hr className="border-slate-200 dark:border-slate-700"/>
                 <div>
                     <div className="max-w-screen-sm">
                         <h2 className="block text-xl sm:text-2xl lg:text-3xl font-semibold dark:text-white">
@@ -152,7 +206,7 @@ const PageCollection = ({ response, url, breadcrump }: { response: any, url: str
                     </div>
 
                     <span className="block mt-4 text-neutral-500 text-sm sm:text-base dark:text-white">
-                    <TextExpander2 text={response.category.description} />
+                    <TextExpander2 text={response.category.description}/>
                         {/* <div
                             dangerouslySetInnerHTML={{
                                 __html: response.category.description,

@@ -59,7 +59,7 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
                     <Prices price={minPrice}/>
                 </div>
             else
-                return <div className={"flex items-center gap-2 w-full justify-end flex-1"}>
+                return <div className={"flex flex-col-reverse items-center gap-2 w-full justify-end flex-1"}>
                     <del className={"text-xs text-red-500"}>
                         {
                             new Intl.NumberFormat('fa').format(minPrice)

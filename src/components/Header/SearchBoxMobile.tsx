@@ -78,7 +78,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                 >
                     <div
                         className="bg-neutral-100 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded  ">
-                        <FaMagnifyingGlass className={"text-neutral-500 w-4 h-4"} />
+                        <FaMagnifyingGlass className={"text-neutral-500 w-4 h-4"} onClick={handleSearch} />
                         <input
                             onChange={(e) => {
                                 searchHandle(e.target.value)

@@ -138,7 +138,8 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                 <FiChevronRight className={"w-4 h-4"}/>
                             </ButtonCircle>
                             <span
-                                className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-6">
+                                onClick={handleSearch}
+                                className="absolute cursor-pointer left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-6">
                 <svg
                     className="h-5 w-5"
                     viewBox="0 0 24 24"
