@@ -90,6 +90,11 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         icon: <PiShippingContainerDuotone className="h-6 w-6 text-gray-500"/>,
     },
     {
+        title: "مدیریت تراکنش های کیف پول",
+        url: "/wallet-transaction",
+        icon: <ImCoinDollar className="h-6 w-6 text-gray-500"/>,
+    },
+    {
         title: "مدیریت تراکنش ها",
         url: "/transaction",
         icon: <ImCoinDollar className="h-6 w-6 text-gray-500"/>,

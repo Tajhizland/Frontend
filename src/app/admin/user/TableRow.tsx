@@ -9,6 +9,7 @@ export const columns: Column<UserResponse>[] = [
 
     {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'name', header: 'نام کاربر', filterType: 'input', editable: true},
+    {key: 'wallet', header: 'موجودی کیف پول', filterType: 'input', editable: false},
     {key: 'username', header: 'نام کاربری', filterType: 'input', editable: true},
     {
         key: 'role',
