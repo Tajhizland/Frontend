@@ -17,7 +17,7 @@ import {
     useUser
 } from "@/services/globalState/GlobalState";
 import {useRouter} from "next/navigation";
-import {paymentRequest} from "@/services/api/shop/payment";
+import {paymentByWallet, paymentRequest} from "@/services/api/shop/payment";
 import {CheckIcon, NoSymbolIcon} from "@heroicons/react/24/outline";
 import {Alert} from "@/shared/Alert/Alert";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
@@ -60,7 +60,14 @@ const CheckoutPage = () => {
         if (response.type == "payment")
             window.location.href = response.path;
         else
+            router.push("/thank_you_page/limit")
+    }
+    async function paymentWallet() {
+        let response = await paymentByWallet();
+        if (response.type == "paid")
             router.push("/thank_you_page")
+        else
+            router.push("/thank_you_page/limit")
     }
 
     async function increaseHandle(selectedColorId: number, guarantyId: number | undefined) {
@@ -428,10 +435,27 @@ const CheckoutPage = () => {
                                     {sumDiscountedPrice.toLocaleString()} تومان
                                 </span>
                             </div>
+                            <div
+                                className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
+                                <div className={"flex items-center gap-1"}>
+                                    کیف پول
+                                    <Link className={"text-green-600 text-xs"} href={"/account-wallet"}>
+                                        (
+                                        افزایش موجودی
+                                        )
+                                    </Link>
+                                </div>
+                                <span>
+                                    {(user?.wallet??0).toLocaleString()} تومان
+                                </span>
+                            </div>
                         </div>
-                        <ButtonPrimary className="mt-8 w-full" onClick={payment}
+                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
                                        disabled={!allow || !acceptRule || sumDiscountedPrice <= 0}>پرداخت</ButtonPrimary>
 
+                        {/*<ButtonPrimary className="mt-4 w-full" onClick={paymentWallet}*/}
+                        {/*               disabled={sumDiscountedPrice > (user?.wallet??0) ||!allow || !acceptRule || sumDiscountedPrice <= 0}>تکمیل سفارش با موجودی*/}
+                        {/*    کیف پول</ButtonPrimary>*/}
 
                         <div className={"flex items-center gap-2 mt-5 justify-center"}>
                             <Checkbox name={"rule"} onChange={() => {
