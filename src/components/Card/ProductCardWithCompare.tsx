@@ -215,8 +215,15 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                             {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
                         </span>
                         </div>
-                        <LikeButton liked={data?.favorite} likeHandle={likeHandle}
-                                    className="  z-10 sm:hidden flex"/>
+                        {/*<LikeButton liked={data?.favorite} likeHandle={likeHandle}*/}
+                        {/*            className="  z-10 sm:hidden flex"/>*/}
+                        <div  title={'مقایسه'} className=" z-10 flex sm:hidden" onClick={addToCompare}>
+                            <div
+                                className={` w-fit gap-5  flex items-center justify-center p-2 rounded-xl text-slate-500 cursor-pointer   z-10 ${isProductInCompareList?"bg-orange-600 text-white":"bg-white hover:bg-slate-200 "}`}
+                            >
+                                <FaCodeCompare className={"w-3 h-3"}/>
+                            </div>
+                        </div>
                     </div>
                     <div className="hidden sm:block">
                         {renderVariants()}

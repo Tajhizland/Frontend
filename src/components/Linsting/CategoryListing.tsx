@@ -53,24 +53,22 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
         }
     );
     const toggleProductInCompareList = (product: ProductResponse) => {
-        setCompareList((prevList) => {
-            // چک می‌کنیم محصول توی لیست هست یا نه
-            const isProductExist = prevList.some((item) => item.id === product.id);
+        const isMobile = window.innerWidth <= 768;
+        const maxItems = isMobile ? 2 : 3;
 
-            if (isProductExist) {
-                // اگه وجود داشت، حذفش می‌کنیم
-                return prevList.filter((item) => item.id !== product.id);
+        const isProductExist = compareList.some((item) => item.id === product.id);
+
+        if (isProductExist) {
+            setCompareList(compareList.filter((item) => item.id !== product.id));
+        } else {
+            if (compareList.length < maxItems) {
+                setCompareList([...compareList, product]);
             } else {
-                // اگه تعداد محصولات کمتر از 3 باشه، اضافه می‌کنیم
-                if (prevList.length < 3) {
-                    return [...prevList, product];
-                }
-                // اگه 3 یا بیشتر باشه، لیست بدون تغییر برمی‌گردونیم
-                toast.error("امکان مقایسه بیش از سه محصول با هم وجود ندارد")
-                return prevList;
+                toast.error(`امکان مقایسه بیش از ${maxItems} محصول با هم وجود ندارد`);
             }
-        });
+        }
     };
+
 
     const isProductInCompareList = (product: ProductResponse): boolean => {
         return compareList.some((item) => item.id === product.id);
