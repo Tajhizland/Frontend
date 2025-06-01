@@ -453,9 +453,9 @@ const CheckoutPage = () => {
                          <ButtonPrimary className="mt-8 w-full" onClick={payment}
                                        disabled={!allow || !acceptRule || sumDiscountedPrice <= 0}>پرداخت</ButtonPrimary>
 
-                        {/*<ButtonPrimary className="mt-4 w-full" onClick={paymentWallet}*/}
-                        {/*               disabled={sumDiscountedPrice > (user?.wallet??0) ||!allow || !acceptRule || sumDiscountedPrice <= 0}>تکمیل سفارش با موجودی*/}
-                        {/*    کیف پول</ButtonPrimary>*/}
+                        <ButtonPrimary className="mt-4 w-full" onClick={paymentWallet}
+                                       disabled={sumDiscountedPrice > (user?.wallet??0) ||!allow || !acceptRule || sumDiscountedPrice <= 0}>تکمیل سفارش با موجودی
+                            کیف پول</ButtonPrimary>
 
                         <div className={"flex items-center gap-2 mt-5 justify-center"}>
                             <Checkbox name={"rule"} onChange={() => {
