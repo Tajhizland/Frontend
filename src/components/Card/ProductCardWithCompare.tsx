@@ -182,18 +182,18 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                     className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded sm:rounded-3xl overflow-hidden z-1 group w-28 sm:w-full border  group-hover:shadow">
                     <Link href={{pathname: "/product/" + data?.url}} className="block">
                         <NcImage
-                            containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0  block group-hover:hidden"
+                            containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 transition-all block group-hover:hidden"
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0]?.url}`}
-
+                            priority
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
                             alt="product"
                         />
                         <NcImage
-                            containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 hidden group-hover:block"
+                            containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 transition-all hidden group-hover:block"
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[3]?.url??data?.images?.data[0]?.url}`}
-
+                            priority
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
