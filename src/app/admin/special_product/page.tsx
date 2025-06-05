@@ -81,13 +81,13 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "محصولات خاص",
+                title: "تجهیزات خاص",
                 href: "special_product"
             }
         ]}/>
         <Panel>
             <PageTitle>
-                محصولات خاص
+                تجهیزات خاص
             </PageTitle>
             <PageLink>
                 <ButtonPrimary onClick={() => {

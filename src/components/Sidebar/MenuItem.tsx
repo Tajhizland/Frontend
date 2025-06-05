@@ -401,7 +401,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 icon: <TbBrandApple className="h-6 w-6 text-gray-500"/>,
             },
             {
-                title: "محصولات ویژه",
+                title: "تجهیزات خاص",
                 url: "/special_product",
                 icon: <MdFolderSpecial className="h-6 w-6 text-gray-500"/>,
             },
@@ -411,18 +411,13 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 icon: <RiDiscountPercentFill className="h-6 w-6 text-gray-500"/>,
             },
             {
-                title: "دسته بندی های محبوب",
-                url: "/popular_category",
-                icon: <TbAlignBoxCenterTop className="h-6 w-6 text-gray-500"/>,
-            },
-            {
                 title: "ولاگ های صفحه اصلی",
                 url: "/homepage_vlog",
                 icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
 
             },
             {
-                title: "دسته بندی های جدید",
+                title: "دسته بندی های پرطرفدار",
                 url: "/homepage_category",
                 icon: <MdOutlineWaterfallChart className="h-6 w-6 text-gray-500"/>,
             },

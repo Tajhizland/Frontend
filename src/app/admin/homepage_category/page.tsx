@@ -101,13 +101,13 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "دسته‌بندی صفحه اصلی",
+                title: "دسته بندی های پرطرفدار",
                 href: "homepage_category"
             }
         ]}/>
         <Panel>
             <PageTitle>
-                دسته‌بندی صفحه اصلی
+                دسته بندی های پرطرفدار
             </PageTitle>
             <PageLink>
                 <ButtonPrimary onClick={() => { setShowModal(true) }} > ایجاد</ButtonPrimary>
