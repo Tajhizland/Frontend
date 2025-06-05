@@ -13,6 +13,7 @@ import {toast} from "react-hot-toast";
 import MultiUploader from "@/shared/Uploader/MultiUploader";
 import {useState} from "react";
 import {findById as productFindById} from "@/services/api/admin/product";
+import Link from "next/link";
 
 export default function Page() {
     const {id} = useParams();
@@ -65,6 +66,11 @@ export default function Page() {
         ]}/>
         <Panel>
             <ProductTab id={id + ""}/>
+            <Link href={"/admin/product/image/sort/"+id}>
+                <ButtonPrimary>
+                    سورت کردن
+                </ButtonPrimary>
+            </Link>
             <div className="flex flex-col gap-y-4">
                 <form action={submit}>
                     {/*<Uploader name={"image"}/>*/}
