@@ -192,7 +192,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                         />
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 transition-all hidden group-hover:block"
-                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[3]?.url??data?.images?.data[0]?.url}`}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[2]?.url??data?.images?.data[0]?.url}`}
                             priority
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
