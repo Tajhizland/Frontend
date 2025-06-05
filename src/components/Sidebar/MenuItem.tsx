@@ -359,16 +359,6 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         icon: <FaMessage className="h-6 w-6 text-gray-500"/>,
 
     },
-    {
-        title: "سفارشات",
-        url: "/order",
-        icon: <PiShippingContainerDuotone className="h-6 w-6 text-gray-500"/>,
-    },
-    {
-        title: "مدیریت تراکنش ها",
-        url: "/transaction",
-        icon: <ImCoinDollar className="h-6 w-6 text-gray-500"/>,
-    },
     // {
     //     title: "مدیریت مرجوعی ها",
     //     url: "/returned",
