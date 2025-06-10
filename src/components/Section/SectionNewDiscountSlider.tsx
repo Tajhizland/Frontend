@@ -80,33 +80,29 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
     }, [sliderRef]);
 
     const renderMobileHeader = () => {
-        return <div className={"flex flex-col items-center border-b-2 border-dashed pb-5 relative"}>
-            <div className="absolute w-20 h-20 bg-white rounded-full left-1/2 -top-20 -translate-x-1/2 "></div>
+        return <div className={"flex flex-col items-center border-b-2 border-dashed pb-10 relative"}>
+            {/*<div className="absolute w-20 h-20 bg-white rounded-full left-1/2 -top-20 -translate-x-1/2 "></div>*/}
             <div className={"absolute w-10 h-10 bg-white rounded-full -left-6 -bottom-5 "}></div>
             <div className={"absolute w-10 h-10 bg-white rounded-full -right-6 -bottom-5 "}></div>
 
-            <div className={"flex items-center gap-5"}>
+            <div className={"flex flex-col items-center gap-2"}>
                 <div>
-                    <strong className={"font-bold text-3xl  "}>
+                    <strong className={"font-bold text-xl  "}>
                         پیشنهاد
-                        <br/>
-                        محصولات
-                        <br/>
-                        پرتخفیف تا
+                         محصولات
+                         پرتخفیف تا
                     </strong>
                 </div>
-                <div className={"flex flex-col"}>
-                    <div>
-                        <strong className={"font-bold  text-5xl text-red-600"}>
+                <div className={"flex items-center gap-2"}>
+                         <span className={"font-bold  text-4xl text-red-600"}>
                             % 20
-                        </strong>
-                    </div>
-                    <div>
+                        </span>
+                     <div>
                         {timer && <Timer date={timer} label={true}/>}
                     </div>
                 </div>
             </div>
-            <div className={"mt-5"}>
+            <div className={"absolute -bottom-2 bg-[#fcb415]"}>
                 <Link href={"/product/discounted"} className="block relative group">
                     <div className="flex items-center relative gap-x-2">
                                     <span
