@@ -62,6 +62,7 @@ const CheckoutPage = () => {
         else
             router.push("/thank_you_page/limit")
     }
+
     async function paymentWallet() {
         let response = await paymentByWallet();
         if (response.type == "paid")
@@ -438,7 +439,7 @@ const CheckoutPage = () => {
                             <div
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                 <div className={"flex items-center gap-1"}>
-                                    کیف پول
+                                    موجودی کیف پول
                                     <Link className={"text-green-600 text-xs"} href={"/account-wallet"}>
                                         (
                                         افزایش موجودی
@@ -446,16 +447,17 @@ const CheckoutPage = () => {
                                     </Link>
                                 </div>
                                 <span>
-                                    {(user?.wallet??0).toLocaleString()} تومان
+                                    {(user?.wallet ?? 0).toLocaleString()} تومان
                                 </span>
                             </div>
                         </div>
-                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
+                        <ButtonPrimary className="mt-8 w-full" onClick={payment}
                                        disabled={!allow || !acceptRule || sumDiscountedPrice <= 0}>پرداخت</ButtonPrimary>
 
                         <ButtonPrimary className="mt-4 w-full" onClick={paymentWallet}
-                                       disabled={sumDiscountedPrice > (user?.wallet??0) ||!allow || !acceptRule || sumDiscountedPrice <= 0}>تکمیل سفارش با موجودی
-                            کیف پول</ButtonPrimary>
+                                       disabled={sumDiscountedPrice > (user?.wallet ?? 0) || !allow || !acceptRule || sumDiscountedPrice <= 0}>
+                        پرداخت با کیف پول
+                        </ButtonPrimary>
 
                         <div className={"flex items-center gap-2 mt-5 justify-center"}>
                             <Checkbox name={"rule"} onChange={() => {

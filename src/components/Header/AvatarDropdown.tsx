@@ -6,7 +6,7 @@ import {
     PopoverPanel,
     Transition,
 } from "@headlessui/react";
-import {Fragment, useEffect} from "react";
+import {Fragment, useEffect, useState} from "react";
 import Link from "next/link";
 import {useMutation, useQuery} from "react-query";
 import {me} from "@/services/api/auth/me";
@@ -16,12 +16,15 @@ import {MdLogin} from "react-icons/md";
 import {logout} from "@/services/api/auth/logout";
 import {toast} from "react-hot-toast";
 import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
- import Image from "next/image";
+import Image from "next/image";
 import Avatar from "@/components/Avatar/Avatar";
+import Prices from "@/components/Price/Prices";
+import {FaEye} from "react-icons/fa";
 
 export default function AvatarDropdown() {
 
     const [user] = useUser();
+    const [showWallet,setShowWallet] = useState(true);
 
     const {data, isSuccess} = useQuery({
         queryKey: ['user'],
@@ -82,7 +85,7 @@ export default function AvatarDropdown() {
                             <PopoverButton
                                 className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none flex items-center justify-center`}
                             >
-                                <Avatar profile={user?.avatar}  className={"w-7 h-7"} />
+                                <Avatar profile={user?.avatar} className={"w-7 h-7"}/>
                                 {/*<svg*/}
                                 {/*    className=" w-6 h-6"*/}
                                 {/*    viewBox="0 0 24 24"*/}
@@ -121,11 +124,29 @@ export default function AvatarDropdown() {
                                         <div
                                             className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
                                             <div className="flex items-center gap-x-3">
-                                                <Avatar profile={user?.avatar} />
+                                                <Avatar profile={user?.avatar}/>
                                                 <div className="flex-grow">
                                                     <h4 className="font-semibold">{data?.name}</h4>
                                                     <p className="text-xs mt-0.5">{data?.username}</p>
+                                                    <div
+                                                        className={"flex justify-between items-center text-xs font-bold"}>
+                                                        <div className={"flex gap-1 items-center"}>
+                                                            <Link href={"/account-wallet"}>
+                                                                کیف پول
+                                                            </Link>
+                                                            <FaEye className={"cursor-pointer"} onClick={()=>{setShowWallet(!showWallet)}}/>
+                                                        </div>
+                                                        {showWallet ?
+                                                            <Prices price={data?.wallet ?? 0}/>
+                                                            :
+                                                            <div className={"py-1.5"}>
+                                                            ***
+                                                            </div>
+                                                        }
+
+                                                    </div>
                                                 </div>
+
                                             </div>
 
                                             <div
