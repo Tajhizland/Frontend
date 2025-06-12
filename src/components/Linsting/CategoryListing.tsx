@@ -8,9 +8,7 @@ import {useInfiniteQuery, useQuery} from "react-query";
 import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 import TextExpander2 from "@/shared/TextExpander/TextExpander2";
-import ProductCard from "@/components/Card/ProductCard";
 import TabCategoryFilters from "@/components/Filter/TabCategoryFilters";
-import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
 import CategoryCircleCard2 from "@/components/Card/CategoryCircleCard2";
 import TabCategoryFiltersMobile from "@/components/Filter/TabCategoryFiltersMobile";
 import ProductCardWithCompare from "@/components/Card/ProductCardWithCompare";
@@ -18,8 +16,8 @@ import {ProductResponse} from "@/services/types/product";
 import Compare from "@/components/Compare/Compare";
 import {FaCodeCompare} from "react-icons/fa6";
 import {toast} from "react-hot-toast";
-import {getProvince} from "@/services/api/shop/province";
 import {storeCategoryViewHistory} from "@/services/api/shop/categoryViewHistory";
+import {useUser} from "@/services/globalState/GlobalState";
 
 const PageCollection = ({response, url, breadcrump}: { response: any, url: string, breadcrump: BreadcrumbType[] }) => {
     const router = useRouter();
@@ -29,10 +27,12 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
     const [page, setPage] = useState<number>(1);  // مدیریت صفحه
     const [compareList, setCompareList] = useState<ProductResponse>([]);
     const [compare, setCompare] = useState<boolean>(false);
+    const [user] = useUser();
 
     useQuery({
         queryKey: ['store-category-view'],
         queryFn: () => storeCategoryViewHistory({category_id : response.category.id}),
+        enabled: !!user,
         staleTime: 5000,
     });
 

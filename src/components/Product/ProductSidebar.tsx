@@ -42,7 +42,8 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
 
     useQuery({
         queryKey: ['store-category-view'],
-        queryFn: () => storeCategoryViewHistory({category_id : product.category_id}),
+        queryFn: () => storeCategoryViewHistory({category_id: product.category_id}),
+        enabled: !!user,
         staleTime: 5000,
     });
     const notifyAddTocart = () => {
@@ -160,7 +161,8 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                                     sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
                                     alt="guaranty"
                                 /></div>
-                                <small className={`text-xs  max-w-xs flex-shrink-0 ${selectedGuaranty.id==item.id?"text-primary-6000":"text-slate-600 dark:text-white"}`}>
+                                <small
+                                    className={`text-xs  max-w-xs flex-shrink-0 ${selectedGuaranty.id == item.id ? "text-primary-6000" : "text-slate-600 dark:text-white"}`}>
                                     {item.name}
                                 </small>
 
