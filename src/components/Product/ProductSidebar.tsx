@@ -13,7 +13,7 @@ import {addToCart, decreaseCartItem, increaseCartItem, removeCartItem} from "@/s
 import {StarIcon} from "@heroicons/react/24/solid";
 import {toast} from "react-hot-toast";
 import {ProductResponse} from "@/services/types/product";
-import {useQueryClient} from "react-query";
+import {useQuery, useQueryClient} from "react-query";
 import {ClockIcon, NoSymbolIcon, SparklesIcon} from "@heroicons/react/24/outline";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
@@ -28,6 +28,7 @@ import IconDiscount from "@/components/Icon/IconDiscount";
 import NotifyAddTocart from "@/components/Product/NotifyAddTocart";
 import BagIcon from "@/components/Icon/BagIcon";
 import SmallTimer from "@/components/Timer/SmallTimer";
+import {storeCategoryViewHistory} from "@/services/api/shop/categoryViewHistory";
 
 export default function ProductSidebar({product}: { product: ProductResponse }) {
     const colors = product.colors.data;
@@ -39,7 +40,11 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
     const queryClient = useQueryClient(); // درست است
     const [user] = useUser();
 
-
+    useQuery({
+        queryKey: ['store-category-view'],
+        queryFn: () => storeCategoryViewHistory({category_id : product.category_id}),
+        staleTime: 5000,
+    });
     const notifyAddTocart = () => {
         toast.custom(
             (t: any) => (

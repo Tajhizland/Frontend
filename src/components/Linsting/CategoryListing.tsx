@@ -4,7 +4,7 @@ import React, {useRef, useEffect, useState} from "react";
 import {findCategoryByUrl} from "@/services/api/shop/category";
 import {useRouter} from "next/navigation";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
-import {useInfiniteQuery} from "react-query";
+import {useInfiniteQuery, useQuery} from "react-query";
 import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 import TextExpander2 from "@/shared/TextExpander/TextExpander2";
@@ -18,6 +18,8 @@ import {ProductResponse} from "@/services/types/product";
 import Compare from "@/components/Compare/Compare";
 import {FaCodeCompare} from "react-icons/fa6";
 import {toast} from "react-hot-toast";
+import {getProvince} from "@/services/api/shop/province";
+import {storeCategoryViewHistory} from "@/services/api/shop/categoryViewHistory";
 
 const PageCollection = ({response, url, breadcrump}: { response: any, url: string, breadcrump: BreadcrumbType[] }) => {
     const router = useRouter();
@@ -27,6 +29,12 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
     const [page, setPage] = useState<number>(1);  // مدیریت صفحه
     const [compareList, setCompareList] = useState<ProductResponse>([]);
     const [compare, setCompare] = useState<boolean>(false);
+
+    useQuery({
+        queryKey: ['store-category-view'],
+        queryFn: () => storeCategoryViewHistory({category_id : response.category.id}),
+        staleTime: 5000,
+    });
 
     const {
         data,
