@@ -26,7 +26,15 @@ export default function ShopLayout({
     children: React.ReactNode;
     params: any;
 }) {
-    const queryClient = new QueryClient();
+    const queryClient = new QueryClient(
+        {
+            defaultOptions: {
+                queries: {
+                    refetchOnWindowFocus: false,
+                },
+            },
+        }
+    );
 
     return (
         <>
