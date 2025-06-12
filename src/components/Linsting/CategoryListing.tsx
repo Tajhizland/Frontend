@@ -33,7 +33,6 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
         queryKey: ['store-category-view'],
         queryFn: () => storeCategoryViewHistory({category_id : response.category.id}),
         enabled: !!user,
-        staleTime: 5000,
     });
 
     const {

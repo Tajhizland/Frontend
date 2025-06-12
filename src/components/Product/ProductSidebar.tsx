@@ -44,7 +44,6 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
         queryKey: ['store-category-view'],
         queryFn: () => storeCategoryViewHistory({category_id: product.category_id}),
         enabled: !!user,
-        staleTime: 5000,
     });
     const notifyAddTocart = () => {
         toast.custom(
