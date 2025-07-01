@@ -95,9 +95,13 @@ const ProductList: React.FC<{
                 strategy={verticalListSortingStrategy}
             >
                 <div>
-                    {images.map((image) => (
+                    {images.map((image, index) => (
                         <SortableItem key={String(image.id)} id={String(image.id)}>
-                            <div className={"container max-w-lg"}>
+                            <div className={"container max-w-lg flex gap-4 items-center"}>
+                                <strong>
+                                    {index + 1}
+                                    {index == 2 ? "تصویر دوم محصول" : ""}
+                                </strong>
                                 <div
                                     className={`relative w-full aspect-w-16 aspect-h-11 lg:aspect-h-9  rounded-2xl overflow-hidden group border`}
                                 >
@@ -158,7 +162,7 @@ export default function Page() {
                     href: "product"
                 },
                 {
-                    title: "ویرایش تصویر" ,
+                    title: "ویرایش تصویر",
                     href: "product/image/" + id
                 },
                 {
