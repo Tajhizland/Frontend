@@ -18,6 +18,7 @@ export const store = async <T extends ServerResponse<unknown>>
     params: {
         name: string,
         url: string,
+        type: string,
         status:number,
         brand_id: number,
         description: string,
@@ -40,6 +41,7 @@ export const update = async <T extends ServerResponse<unknown>>
         id: number|string,
         name: string,
         url: string,
+        type: string,
         status:number,
         brand_id: number,
         description: string,

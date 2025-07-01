@@ -4,7 +4,7 @@ import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Textarea from "@/shared/Textarea/Textarea";
-import React, {useMemo } from "react";
+import React, {useMemo} from "react";
 import {categoryList} from "@/services/api/admin/category"
 import {useQuery} from "react-query";
 import {brandList} from "@/services/api/admin/brand";
@@ -92,6 +92,17 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                     </Select>
                 </div>
                 <div>
+                    <Label>نوع محصول</Label>
+                    <Select name={"type"}>
+                        <option value={"product"} selected={data?.type == "product"}>
+                            محصول عادی
+                        </option>
+                        <option value={"group"} selected={data?.type == "group"}>
+                            محصول گروهی
+                        </option>
+                    </Select>
+                </div>
+                <div>
                     <Label>ادرس محصول</Label>
                     <Input name={"url"} defaultValue={data?.url}/>
                 </div>
@@ -135,7 +146,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
 
                 <div>
                     <Label>توضیحات محصول</Label>
-                    <SunEditors  name={"description"} value={data?.description} />
+                    <SunEditors name={"description"} value={data?.description}/>
                     {/*<TinyEditor name={"description"} value={data?.description}/>*/}
                 </div>
                 <div>

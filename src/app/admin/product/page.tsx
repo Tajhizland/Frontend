@@ -39,6 +39,7 @@ export default function Page() {
                 name: e.name,
                 url: e.url,
                 status: e.status,
+                type: e.type,
                 brand_id: e.brand_id,
                 description: e.description,
                 meta_description: e.meta_description,

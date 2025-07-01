@@ -105,6 +105,11 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         icon: <SiElectronbuilder className="h-6 w-6 text-gray-500"/>,
     },
     {
+        title: "محصولات گروهی",
+        url: "/group",
+        icon: <CubeIcon className="h-6 w-6 text-gray-500"/>,
+    },
+    {
         title: "لندینگ ها",
         url: "/",
         icon: <SiWayland className="h-6 w-6 text-gray-500"/>,

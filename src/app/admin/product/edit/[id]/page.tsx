@@ -36,6 +36,7 @@ export default function Page() {
                 study: e.get("study") as string,
                 review: e.get("review") as string,
                 categoryId: e.get("category_id") as string,
+                type: e.get("type") as string,
                 guaranty_id: (e.get("guaranty_id"))as string,
                 guaranty_time:Number(e.get("guaranty_time"))
             }

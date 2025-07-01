@@ -18,7 +18,7 @@ export default function GroupTab({id}:{id:string}) {
         },
         {
             title: "مقادیر",
-            link: "/admin/group/filter-value/"+id,
+            link: "/admin/group/field-value/"+id,
             icon: <FaFilter className="w-5 h-5" />
         },
     ]
