@@ -13,7 +13,7 @@ export default function Page() {
         {
             label: <div>محصولات </div>,
             type: "link",
-            colorClass: "bg-white text-black border border-slate-900 outline-none ",
+            colorClass: "bg-white text-black border border-slate-900 outline-none whitespace-nowrap",
             href: (value: any): UrlObject => {
                 return {
                     pathname: 'group/product/' + value,
@@ -22,16 +22,16 @@ export default function Page() {
         }, {
             label: <div>فیلد ها </div>,
             type: "link",
-            colorClass: "bg-white text-black border border-slate-900 outline-none ",
+            colorClass: "bg-white text-black border border-slate-900 outline-none whitespace-nowrap",
             href: (value: any): UrlObject => {
                 return {
                     pathname: 'group/field/' + value,
                 };
             }
         }, {
-             label: <div>مقدار فیلد </div>,
+            label: <div>مقدار فیلد </div>,
             type: "link",
-            colorClass: "bg-white text-black border border-slate-900 outline-none ",
+            colorClass: "bg-white text-black border border-slate-900 outline-none whitespace-nowrap",
             href: (value: any): UrlObject => {
                 return {
                     pathname: 'group/field-value/' + value,
@@ -51,7 +51,6 @@ export default function Page() {
             <PageTitle>
                 مدیریت محصولات گروهی
             </PageTitle>
-
             <DataTable
                 apiUrl={"admin/group/dataTable"}
                 columns={columns}
