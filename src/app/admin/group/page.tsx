@@ -11,7 +11,7 @@ import {UrlObject} from "node:url";
 export default function Page() {
     const buttons: DataTableButtons[] = [
         {
-            label: "محصولات",
+            label: <div>محصولات </div>,
             type: "link",
             colorClass: "bg-white text-white border border-slate-900 outline-none ",
             href: (value: any): UrlObject => {
@@ -20,7 +20,7 @@ export default function Page() {
                 };
             }
         }, {
-            label: "فیلد ها",
+            label: <div>فیلد ها </div>,
             type: "link",
             colorClass: "bg-white text-white border border-slate-900 outline-none ",
             href: (value: any): UrlObject => {
@@ -29,7 +29,7 @@ export default function Page() {
                 };
             }
         }, {
-            label: "مقدار فیلد",
+             label: <div>مقدار فیلد </div>,
             type: "link",
             colorClass: "bg-white text-white border border-slate-900 outline-none ",
             href: (value: any): UrlObject => {
