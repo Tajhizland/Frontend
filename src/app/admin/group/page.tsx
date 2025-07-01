@@ -11,12 +11,30 @@ import {UrlObject} from "node:url";
 export default function Page() {
     const buttons: DataTableButtons[] = [
         {
-            label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
+            label: <HiMiniPencil className={"text-black w-5 h-5"} title={"محصولات"}/>,
             type: "link",
             colorClass: "bg-white text-white border border-slate-900 outline-none ",
             href: (value: any): UrlObject => {
                 return {
-                    pathname: 'group/edit/' + value,
+                    pathname: 'group/product/' + value,
+                };
+            }
+        },      {
+            label: <HiMiniPencil className={"text-black w-5 h-5"} title={"فیلد ها"}/>,
+            type: "link",
+            colorClass: "bg-white text-white border border-slate-900 outline-none ",
+            href: (value: any): UrlObject => {
+                return {
+                    pathname: 'group/field/' + value,
+                };
+            }
+        },      {
+            label: <HiMiniPencil className={"text-black w-5 h-5"} title={"مقدار فیلد"}/>,
+            type: "link",
+            colorClass: "bg-white text-white border border-slate-900 outline-none ",
+            href: (value: any): UrlObject => {
+                return {
+                    pathname: 'group/field-value/' + value,
                 };
             }
         },
@@ -24,8 +42,8 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "محصولات",
-                href: "product"
+                title: "محصولات گروهی",
+                href: "group"
             }
         ]}/>
 
