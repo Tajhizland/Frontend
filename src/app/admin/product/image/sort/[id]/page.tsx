@@ -97,11 +97,15 @@ const ProductList: React.FC<{
                 <div>
                     {images.map((image, index) => (
                         <SortableItem key={String(image.id)} id={String(image.id)}>
-                            <div className={"container max-w-lg flex gap-4 items-center"}>
-                                <strong>
-                                    {index + 1}
-                                    {index == 2 ? "تصویر دوم محصول" : ""}
-                                </strong>
+                            <div className={"container max-w-xl flex gap-4 items-center"}>
+                                <div className={"flex flex-col gap-1 text-sm"}>
+                                    <strong>
+                                        {index + 1}
+                                    </strong>
+                                    <strong className={"text-xs"}>
+                                        {index == 2 ? "تصویر دوم محصول" : ""}
+                                    </strong>
+                                </div>
                                 <div
                                     className={`relative w-full aspect-w-16 aspect-h-11 lg:aspect-h-9  rounded-2xl overflow-hidden group border`}
                                 >
