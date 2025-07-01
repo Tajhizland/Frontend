@@ -238,7 +238,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         return (
             <div className="listingSection__wrap !border-b-0 !pb-0 dark:text-white">
 
-                <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white">
+                <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
                     <div dangerouslySetInnerHTML={{__html: product.review}}/>
                 </div>
                 {/* ---------- 6 ----------  */}
