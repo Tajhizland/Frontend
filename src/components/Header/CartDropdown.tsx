@@ -47,7 +47,7 @@ export default function CartDropdown() {
         const { title, code, price, id } = color;
 
         let guarantyPrice=0;
-        if(!item.guaranty.free)
+        if(item.guaranty.free==0)
         {
             guarantyPrice=GuarantyPrice(item.color.price)??0;
         }
@@ -84,7 +84,7 @@ export default function CartDropdown() {
                                         {item.guaranty.name}
                                     </span>
                                     {
-                                        (!item.guaranty || item.guaranty.free)  ?
+                                        (item.guaranty.free==null || item.guaranty.free)  ?
                                             <span className="text-xs text-slate-500 dark:text-slate-400">
                                                 (رایگان)
                                             </span>
@@ -124,7 +124,7 @@ export default function CartDropdown() {
         cart && cart.map((item) => {
 
         let guarantyPrice=0;
-        if(!item.guaranty.free)
+        if(item.guaranty.free==0)
         {
             guarantyPrice=GuarantyPrice(item.color.price)??0;
         }

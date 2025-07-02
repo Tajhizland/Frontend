@@ -130,7 +130,7 @@ const CheckoutPage = () => {
 
     const renderProduct = (item: CartResponse, index: number) => {
         let guarantyPrice = 0;
-        if (!item.guaranty.free) {
+        if (item.guaranty && item.guaranty.free==0) {
             guarantyPrice = GuarantyPrice(item.color.price) ?? 0;
         }
         return (
@@ -167,7 +167,7 @@ const CheckoutPage = () => {
                                     {item.guaranty.name}
                                 </span>
                                 {
-                                    (!item.guaranty || item.guaranty.free)  ?
+                                    (item.guaranty.free==null || item.guaranty.free)  ?
                                         <span className="text-xs text-slate-500 dark:text-slate-400">
                                             (رایگان)
                                         </span>
@@ -333,7 +333,7 @@ const CheckoutPage = () => {
     const renderSumGuarantyPrice = () => {
         let sumPrice: number = 0;
         cart.map((item) => {
-            if (!item.guaranty.free) {
+            if (item.guaranty && item.guaranty.free==0) {
                 sumPrice += GuarantyPrice(item.color.price) ?? 0;
             }
         })
