@@ -2,13 +2,13 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {PaymentResponse} from "@/services/types/payment";
 
 export const paymentRequest = async <T extends ServerResponse<PaymentResponse>>
-( ) => {
-    return axios.post<T, SuccessResponseType<T>>("payment/request" )
+(useWallet: boolean) => {
+    return axios.post<T, SuccessResponseType<T>>("payment/request", {wallet: useWallet})
         .then((res) => res?.data?.result?.data)
 };
 
 export const paymentByWallet = async <T extends ServerResponse<PaymentResponse>>
-( ) => {
-    return axios.post<T, SuccessResponseType<T>>("payment/wallet" )
+() => {
+    return axios.post<T, SuccessResponseType<T>>("payment/wallet")
         .then((res) => res?.data?.result?.data)
 };

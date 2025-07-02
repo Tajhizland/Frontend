@@ -1,7 +1,7 @@
 "use client";
 
 
-import {useMemo, useState} from "react";
+import React, {useMemo, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ShippingAddress from "../../../components/Checkout/ShippingAddress";
 import Image from "next/image";
@@ -28,6 +28,7 @@ import CartController from "@/components/CartController/CartController";
 import Prices from "@/components/Price/Prices";
 import Badge from "@/shared/Badge/Badge";
 import ContactInfo from "@/components/Checkout/ContactInfo";
+import MySwitch from "@/shared/Switch/MySwitch";
 
 const CheckoutPage = () => {
     const router = useRouter();
@@ -35,6 +36,7 @@ const CheckoutPage = () => {
     const [user] = useUser();
 
     const [acceptRule, setAcceptRule] = useState(false);
+    const [useWallet, setUseWallet] = useState(false);
     // if (!user) {
     //     router.push("/login");
     // }
@@ -56,7 +58,7 @@ const CheckoutPage = () => {
     });
 
     async function payment() {
-        let response = await paymentRequest();
+        let response = await paymentRequest(useWallet);
         if (response.type == "payment")
             window.location.href = response.path;
         else
@@ -450,14 +452,46 @@ const CheckoutPage = () => {
                                     {(user?.wallet ?? 0).toLocaleString()} تومان
                                 </span>
                             </div>
+                            <hr className={"mt-4"}/>
+                            <div
+                                className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
+                                <div className={"flex items-center gap-1"}>
+                                    استفاده از موجودی کیف پول
+                                </div>
+                                <span>
+                                      <MySwitch
+                                          label=" "
+                                          desc=" "
+                                          enabled={!useWallet}
+                                          onChange={() => {
+                                              setUseWallet(!useWallet)
+                                          }}
+                                      />
+                                </span>
+                            </div>
+                            {
+                                useWallet &&
+                                <>
+                                <div>
+                                    مبلغ
+                                    {" "}
+                                    {(user?.wallet ?? 0).toLocaleString()} تومان
+                                    از سفارش شما کسر میگردد
+                                </div>
+                                    <div>
+                                        مبلغ قابل پرداخت :
+                                        {(sumDiscountedPrice - (user?.wallet ?? 0)).toLocaleString()} تومان
+                                    </div>
+                                </>
+                            }
                         </div>
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
                                        disabled={!allow || !acceptRule || sumDiscountedPrice <= 0}>پرداخت</ButtonPrimary>
 
-                        <ButtonPrimary className="mt-4 w-full" onClick={paymentWallet}
-                                       disabled={sumDiscountedPrice > (user?.wallet ?? 0) || !allow || !acceptRule || sumDiscountedPrice <= 0}>
-                        پرداخت با کیف پول
-                        </ButtonPrimary>
+                        {/*<ButtonPrimary className="mt-4 w-full" onClick={paymentWallet}*/}
+                        {/*               disabled={sumDiscountedPrice > (user?.wallet ?? 0) || !allow || !acceptRule || sumDiscountedPrice <= 0}>*/}
+                        {/*پرداخت با کیف پول*/}
+                        {/*</ButtonPrimary>*/}
 
                         <div className={"flex items-center gap-2 mt-5 justify-center"}>
                             <Checkbox name={"rule"} onChange={() => {
