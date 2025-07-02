@@ -61,6 +61,8 @@ const CheckoutPage = () => {
         let response = await paymentRequest(useWallet);
         if (response.type == "payment")
             window.location.href = response.path;
+        else if (response.type == "paid")
+            router.push("/thank_you_page")
         else
             router.push("/thank_you_page/limit")
     }
@@ -472,15 +474,21 @@ const CheckoutPage = () => {
                             {
                                 useWallet &&
                                 <>
-                                <div>
-                                    مبلغ
-                                    {" "}
-                                    {(user?.wallet ?? 0).toLocaleString()} تومان
-                                    از سفارش شما کسر میگردد
-                                </div>
+                                    <div>
+                                        مبلغ
+                                        {" "}
+                                        {(user?.wallet ?? 0).toLocaleString()} تومان
+                                        از سفارش شما کسر میگردد
+                                    </div>
                                     <div>
                                         مبلغ قابل پرداخت :
-                                        {(sumDiscountedPrice - (user?.wallet ?? 0)).toLocaleString()} تومان
+                                        {
+                                            (
+                                                (sumDiscountedPrice - (user?.wallet ?? 0)) > 0 ?
+                                                    (sumDiscountedPrice - (user?.wallet ?? 0))
+                                                    :
+                                                    0
+                                            ).toLocaleString()} تومان
                                     </div>
                                 </>
                             }
