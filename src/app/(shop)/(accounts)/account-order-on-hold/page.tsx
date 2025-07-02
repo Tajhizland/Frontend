@@ -10,9 +10,13 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Counter2 from "@/components/Counter/Counter2";
 import Badge from "@/shared/Badge/Badge";
 import Prices from "@/components/Price/Prices";
+import MySwitch from "@/shared/Switch/MySwitch";
+import {useUser} from "@/services/globalState/GlobalState";
 
 const AccountOrder = () => {
     const [page, setPage] = useState(1);
+    const [useWallet, setUseWallet] = useState(false);
+    const [user] = useUser();
 
     const OnHoldOrderStatus = ["در انتظار تایید", "تایید شده", "رد شده"];
     const {data: data} = useQuery({
@@ -100,7 +104,25 @@ const AccountOrder = () => {
 
                     {
                         (item.status == 1 && item.expire_date_time*1000>Date.now() )? <div className={"flex flex-col gap-y-2"}>
-
+                            <div
+                                className="flex flex-col items-center font-semibold text-slate-900 dark:text-slate-200 text-xs  ">
+                                <div className={"flex items-center gap-1 text-xs"}>
+                                    استفاده از موجودی کیف پول
+                                </div>
+                                <span>
+                                    {(user?.wallet ?? 0).toLocaleString()} تومان
+                                </span>
+                                <span>
+                                      <MySwitch
+                                          label=" "
+                                          desc=" "
+                                          enabled={!useWallet}
+                                          onChange={() => {
+                                              setUseWallet(!useWallet)
+                                          }}
+                                      />
+                                </span>
+                            </div>
                             <ButtonPrimary onClick={() => {
                                 paymentHandle(item.id)
                             }}>پرداخت</ButtonPrimary>
