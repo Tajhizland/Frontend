@@ -84,7 +84,7 @@ export default function CartDropdown() {
                                         {item.guaranty.name}
                                     </span>
                                     {
-                                        item.guaranty.free ?
+                                        (!item.guaranty || item.guaranty.free)  ?
                                             <span className="text-xs text-slate-500 dark:text-slate-400">
                                                 (رایگان)
                                             </span>

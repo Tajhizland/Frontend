@@ -40,7 +40,7 @@ export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
                                         contentClass="border-orange-500" image={false}/>
                             </td>
                             <td className="px-4 py-2 text-center">
-                                <Prices price={item.guaranty.free ? 0 : GuarantyPrice(item.color.price)}
+                                <Prices price={   (!item.guaranty || item.guaranty.free) ? 0 : GuarantyPrice(item.color.price)}
                                         priceClass="mx-auto" contentClass="border-orange-500" image={false}/>
                             </td>
                             <td className="px-4 py-2 text-center">
@@ -73,7 +73,7 @@ export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
                             <span><Prices price={item.color.discountedPrice}/></span>
 
                             <span className="font-semibold">هزینه گارانتی:</span>
-                            <span><Prices price={item.guaranty.free ? 0 : GuarantyPrice(item.color.price)}/></span>
+                            <span><Prices price={   (!item.guaranty || item.guaranty.free)  ? 0 : GuarantyPrice(item.color.price)}/></span>
 
                             <span className="font-semibold">قیمت نهایی:</span>
                             <span>

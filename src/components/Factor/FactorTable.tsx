@@ -45,7 +45,7 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                             <td className="px-4 py-2 text-center">
                                 <Prices
                                     price={
-                                        item.guaranty ? (item.guaranty.free ? 0 : GuarantyPrice(item.price)) : 0
+                                        item.guaranty ? (   (!item.guaranty || item.guaranty.free)  ? 0 : GuarantyPrice(item.price)) : 0
                                     }
                                     priceClass="mx-auto"
                                     contentClass="border-orange-500"
