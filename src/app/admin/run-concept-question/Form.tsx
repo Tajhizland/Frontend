@@ -4,16 +4,9 @@ import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
-import Uploader from "@/shared/Uploader/Uploader";
-import {NewsResponse} from "@/services/types/news";
-import TinyEditor from "@/shared/Editor/TinyEditor";
 import {useMutation, useQuery} from "react-query";
-import {getList} from "@/services/api/admin/blogCategory";
-import SunEditors from "@/shared/Editor/SunEditors";
 import {RunConceptQuestionResponse} from "@/services/types/runConceptQuestion";
-import {categoryList} from "@/services/api/admin/category";
 import {list} from "@/services/api/admin/runConceptQuestion";
-import {getCity} from "@/services/api/shop/city";
 import {getByQuestionId} from "@/services/api/admin/runConceptAnswer";
 
 interface Form {
@@ -79,11 +72,11 @@ export default function Form({data, submit}: Form) {
                         <option value={1} selected={data?.parent_question == null}>
                             ندارد
                         </option>
-                        answers && answers.map((item) => (
-                        <option key={item.id} value={item.id}>
-                            {item.answer}
-                        </option>
-                        ))
+                        {answers && answers.map((item) => (
+                            <option key={item.id} value={item.id}>
+                                {item.answer}
+                            </option>
+                        ))}
                     </Select>
                 </div>
             </div>
