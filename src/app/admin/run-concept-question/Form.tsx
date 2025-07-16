@@ -55,7 +55,7 @@ export default function Form({data, submit}: Form) {
                 </div>
                 <div>
                     <Label>پرسش وابسته</Label>
-                    <Select name={"parent_question"}>
+                    <Select name={"parent_question"} onChange={(e)=>{changeQuestion(Number(e.target.value))}}>
                         <option value={1} selected={data?.parent_question == null}>
                             ندارد
                         </option>
