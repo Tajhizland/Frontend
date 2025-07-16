@@ -8,6 +8,13 @@ export const find = async <T extends ServerResponse<RunConceptAnswerResponse>>
     return axios.get<T, SuccessResponseType<T>>("admin/run-concept-answer/find/" + id)
         .then((res) => res?.data?.result?.data)
 };
+export const getByQuestionId = async <T extends ServerResponse<RunConceptAnswerResponse[]>>
+(
+    id: number
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/run-concept-answer/question/" + id)
+        .then((res) => res?.data?.result?.data)
+};
 
 export const store = async <T extends ServerResponse<unknown>>
 (

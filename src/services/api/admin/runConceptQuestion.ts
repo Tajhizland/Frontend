@@ -9,6 +9,13 @@ export const find = async <T extends ServerResponse<RunConceptQuestionResponse>>
         .then((res) => res?.data?.result?.data)
 };
 
+export const list = async <T extends ServerResponse<RunConceptQuestionResponse[]>>
+(
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/run-concept-question/list")
+        .then((res) => res?.data?.result?.data)
+};
+
 export const store = async <T extends ServerResponse<unknown>>
 (
     params:{

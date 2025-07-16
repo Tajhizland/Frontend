@@ -12,6 +12,12 @@ interface Form {
 }
 
 export default function Form({data, submit}: Form) {
+    const {data: questionLists} = useQuery({
+        queryKey: [`question-list`],
+        queryFn: () => list(),
+        staleTime: 5000,
+    });
+
     return (<>
         <form action={submit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
@@ -37,12 +43,11 @@ export default function Form({data, submit}: Form) {
                 <div>
                     <Label>پرسش </Label>
                     <Select name={"run_concept_question_id"}>
-                        <option value={1} selected={data?.run_concept_question_id == 1}>
-                            فعال
-                        </option>
-                        <option value={0} selected={data?.run_concept_question_id == 0}>
-                            غیر فعال
-                        </option>
+                        {
+                            questionLists && questionLists.map((item) => (<option key={item.id} value={item.id}>
+                                {item.question}
+                            </option>))
+                        }
                     </Select>
                 </div>
             </div>
