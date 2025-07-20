@@ -14,6 +14,8 @@ export default function Page() {
             {
                 id: e.id,
                 name: e.name,
+                last_name: e.last_name,
+                national_code: e.national_code,
                 username: e.username,
                 email: e.email,
                 gender:e.gender+"",
