@@ -10,6 +10,8 @@ export const update = async <T extends ServerResponse<unknown>>
     params: {
         id: number;
         name: string;
+        last_name: string;
+        national_code: string;
         username: string;
         email: string;
         gender: string;
@@ -47,6 +49,6 @@ export const getOnHoldOrder = async <T extends ServerResponse<OnHoldOrderRespons
     id: number | string,
     page: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/user/find/" + id + "?page=" + page)
+    return axios.get<T, SuccessResponseType<T>>("admin/user/on-hold-order/" + id + "?page=" + page)
         .then((res) => res?.data?.result)
 };

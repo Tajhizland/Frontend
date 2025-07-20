@@ -5,7 +5,7 @@ import {OrderResponse} from "@/services/types/order";
 import {OrderItemResponse} from "@/services/types/orderItem";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
 import Image from "next/image";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useQuery} from "react-query";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {Route} from "next";
@@ -13,6 +13,10 @@ import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import Prices from "@/components/Price/Prices";
 import {useParams} from "next/navigation";
 import {getOrder} from "@/services/api/admin/user";
+import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import PageTitle from "@/shared/PageTitle/PageTitle";
+import Panel from "@/shared/Panel/Panel";
+import UserTab from "@/components/Tabs/UserTab";
 
 const AccountOrder = () => {
     const {id} = useParams();
@@ -122,17 +126,37 @@ const AccountOrder = () => {
     };
 
     return (
-        <div className="space-y-10 sm:space-y-12  dark:text-white">
-            {/* HEADING */}
-            {order?.data?.map((item) => (<>
-                {renderOrder(item)
-                }      </>))}
+        <>
+            <Breadcrump breadcrumb={[
+                {
+                    title: "کاربران",
+                    href: "user"
+                },
+                {
+                    title: "ویرایش کاربر",
+                    href: "user/update/" + id
+                }
+            ]}/>
+            <Panel>
+                <PageTitle>
+                    سفارشات معلق کاربر
+                </PageTitle>
+                <UserTab id={id + ""}/>
 
-            <div className="flex !mt-20 justify-center items-center">
-                <AdminPagination currentPage={order?.meta?.current_page ?? 1}
-                                 totalPages={order?.meta?.last_page ?? 1} onPageChange={(p) => changePageHandle(p)}/>
-            </div>
-        </div>
+                <div className="space-y-10 sm:space-y-12  dark:text-white">
+                    {/* HEADING */}
+                    {order?.data?.map((item) => (<>
+                        {renderOrder(item)
+                        }      </>))}
+
+                    <div className="flex !mt-20 justify-center items-center">
+                        <AdminPagination currentPage={order?.meta?.current_page ?? 1}
+                                         totalPages={order?.meta?.last_page ?? 1}
+                                         onPageChange={(p) => changePageHandle(p)}/>
+                    </div>
+                </div>
+            </Panel>
+        </>
     );
 };
 

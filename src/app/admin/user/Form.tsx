@@ -21,6 +21,14 @@ export default function Form({ data, submit  }: Form) {
                     <Input name={"name"} defaultValue={data?.name}/>
                 </div>
                 <div>
+                    <Label>نام خانوادگی </Label>
+                    <Input className="mt-1.5" defaultValue={data?.last_name} name={"last_name"}/>
+                </div>
+                <div>
+                    <Label>کد ملی </Label>
+                    <Input className="mt-1.5" defaultValue={data?.national_code} name={"national_code"}/>
+                </div>
+                <div>
                     <Label>نام کاربری</Label>
                     <Input name={"username"} defaultValue={data?.username}/>
                 </div>

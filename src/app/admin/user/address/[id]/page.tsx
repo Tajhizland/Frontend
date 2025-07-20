@@ -5,6 +5,10 @@ import {AddressResponse} from "@/services/types/address";
 import {Switch} from "@headlessui/react";
 import {getAddress} from "@/services/api/admin/user";
 import {useParams} from "next/navigation";
+import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import PageTitle from "@/shared/PageTitle/PageTitle";
+import Panel from "@/shared/Panel/Panel";
+import UserTab from "@/components/Tabs/UserTab";
 
 const Page = () => {
     const {id} = useParams();
@@ -101,14 +105,31 @@ const Page = () => {
 
     return (
         <>
-            <div className="space-y-10 sm:space-y-12  dark:text-white">
-
+            <Breadcrump breadcrumb={[
                 {
-                    address && address.map((item, index) => (<Fragment key={index}>
-                        {renderItem(item)}
-                    </Fragment>))
+                    title: "کاربران",
+                    href: "user"
+                },
+                {
+                    title: "ویرایش کاربر",
+                    href: "user/update/" + id
                 }
-            </div>
+            ]}/>
+            <Panel>
+                <PageTitle>
+                    آدرس کاربر
+                </PageTitle>
+
+                <UserTab id={id + ""}/>
+                <div className="space-y-10 sm:space-y-12  dark:text-white">
+
+                    {
+                        address && address.map((item, index) => (<Fragment key={index}>
+                            {renderItem(item)}
+                        </Fragment>))
+                    }
+                </div>
+            </Panel>
         </>
     );
 };

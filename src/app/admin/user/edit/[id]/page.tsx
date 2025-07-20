@@ -7,6 +7,7 @@ import {findById, update} from "@/services/api/admin/user";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 import {useQuery} from "react-query";
+import UserTab from "@/components/Tabs/UserTab";
 
 export default  function Page()
 {
@@ -21,6 +22,8 @@ export default  function Page()
             {
                 id:Number(id),
                 name: e.get("name") as string,
+                last_name: e.get("last_name") as string,
+                national_code: e.get("national_code") as string,
                 gender: e.get("gender") as string,
                 email: e.get("email") as string,
                 username: e.get("username") as string,
@@ -45,6 +48,8 @@ export default  function Page()
             <PageTitle>
                ویرایش کاربر
             </PageTitle>
+            <UserTab id={id + ""}/>
+
             <div>
                 <Form submit={submit}  data={data}/>
             </div>
