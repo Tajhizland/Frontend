@@ -10,9 +10,11 @@ import {chargeRequest} from "@/services/api/shop/charge";
 import walletIcon from "@/images/wallet.png"
 import Image from "next/image";
 import toman from "@/images/toman.svg";
+import {FaEye} from "react-icons/fa";
 
 const AccountOrder = () => {
     const [user] = useUser();
+    const [showWallet, setShowWallet] = useState(true);
     const queryClient = useQueryClient();
     const [price, setPrice] = useState(0);
 
@@ -33,10 +35,26 @@ const AccountOrder = () => {
                             <div>
                                 <Alert type={"success"}>
                                     <div className={"flex items-center justify-between w-full"}>
-                        <span>
+                                        <div className={"flex items-center gap-2"}>
+                                              <span>
                         اعتبار کیف پول
                             </span>
-                                        <Prices price={user?.wallet ?? 0}/>
+                                            <FaEye className={"cursor-pointer"} onClick={() => {
+                                                setShowWallet(!showWallet)
+                                            }}/>
+
+                                        </div>
+
+                                        {showWallet ?
+                                            <Prices price={user?.wallet ?? 0}/>
+                                            :
+                                            <div className={"py-1.5"}>
+                                                {
+                                                    '*'.repeat(user?.wallet?.toString().length ?? 0)
+                                                }
+
+                                            </div>
+                                        }
 
                                     </div>
                                 </Alert>
