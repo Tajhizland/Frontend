@@ -25,6 +25,9 @@ import SectionGroup from "@/components/Group/SectionGroup";
 import Link from "next/link";
 import {FaCodeCompare} from "react-icons/fa6";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import {MdCompare} from "react-icons/md";
+import {FaShareAlt} from "react-icons/fa";
+import ShareButton from "@/shared/Button/ShareButton";
 
 
 interface ProductPageProps {
@@ -194,18 +197,21 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     </h2>
                     <div className="flex items-center mt-4 sm:mt-5">
                         {/*{renderStatus()}*/}
-                        <div className="mr-auto flex justify-between gap-2 items-center w-full">
+                        <div className="mr-auto flex justify-end gap-2 items-center w-full">
+
+                            <LikeSaveBtns like={product.favorite} productId={product.id}/>
                             <Link href={"/compare/" + product.id}>
                                 <div
-                                    className=" w-fit gap-5 border  flex items-center justify-center px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
+                                    className=" w-fit gap-2 flex items-center justify-center px-4 py-2 rounded-xl bg-white text-slate-800 cursor-pointer text-sm  z-10"
                                 >
-                                         <FaCodeCompare/>
-                                        <span>
-                                        مقایسه محصول
+                                    <MdCompare/>
+                                    <span>
+                                        مقایسه کالا
                                             </span>
                                 </div>
-                            </Link>
-                            <LikeSaveBtns like={product.favorite} productId={product.id}/>
+                            </Link
+                            >
+                            <ShareButton  />
 
                         </div>
                     </div>
@@ -238,7 +244,8 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         return (
             <div className="listingSection__wrap !border-b-0 !pb-0 dark:text-white">
 
-                <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
+                <div
+                    className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
                     <div dangerouslySetInnerHTML={{__html: product.review}}/>
                 </div>
                 {/* ---------- 6 ----------  */}

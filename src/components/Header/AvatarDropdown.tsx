@@ -20,6 +20,7 @@ import Image from "next/image";
 import Avatar from "@/components/Avatar/Avatar";
 import Prices from "@/components/Price/Prices";
 import {FaEye} from "react-icons/fa";
+import {TbBasketCheck, TbBasketExclamation} from "react-icons/tb";
 
 export default function AvatarDropdown() {
 
@@ -160,7 +161,7 @@ export default function AvatarDropdown() {
                                             {/* ------------------ 1 --------------------- */}
                                             <Link
                                                 href={"/account"}
-                                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                                className="flex items-center p-2  -m-2 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                                 onClick={() => close()}
                                             >
                                                 <div
@@ -196,50 +197,12 @@ export default function AvatarDropdown() {
                                             {/* ------------------ 2 --------------------- */}
                                             <Link
                                                 href={"/account-order"}
-                                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                                className="flex items-center p-2  -m-2 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                                 onClick={() => close()}
                                             >
                                                 <div
                                                     className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
-                                                    <svg
-                                                        width="24"
-                                                        height="24"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                    >
-                                                        <path
-                                                            d="M8 12.2H15"
-                                                            stroke="currentColor"
-                                                            strokeWidth="1.5"
-                                                            strokeMiterlimit="10"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                        <path
-                                                            d="M8 16.2H12.38"
-                                                            stroke="currentColor"
-                                                            strokeWidth="1.5"
-                                                            strokeMiterlimit="10"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                        <path
-                                                            d="M10 6H14C16 6 16 5 16 4C16 2 15 2 14 2H10C9 2 8 2 8 4C8 6 9 6 10 6Z"
-                                                            stroke="currentColor"
-                                                            strokeWidth="1.5"
-                                                            strokeMiterlimit="10"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                        <path
-                                                            d="M16 4.02002C19.33 4.20002 21 5.43002 21 10V16C21 20 20 22 15 22H9C4 22 3 20 3 16V10C3 5.44002 4.67 4.20002 8 4.02002"
-                                                            stroke="currentColor"
-                                                            strokeWidth="1.5"
-                                                            strokeMiterlimit="10"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                    </svg>
+                                                    <TbBasketCheck className={"w-6 h-6"} />
                                                 </div>
                                                 <div className="mr-4">
                                                     <p className="text-sm font-medium ">{"سفارش ها"}</p>
@@ -248,25 +211,12 @@ export default function AvatarDropdown() {
 
                                             <Link
                                                 href={"/account-order-on-hold"}
-                                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                                className="flex items-center p-2  -m-2 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                                 onClick={() => close()}
                                             >
                                                 <div
                                                     className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
-                                                    <svg
-                                                        width="24"
-                                                        height="24"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                    >
-                                                        <path
-                                                            d="M12.62 20.81C12.28 20.93 11.72 20.93 11.38 20.81C8.48 19.82 2 15.69 2 8.68998C2 5.59998 4.49 3.09998 7.56 3.09998C9.38 3.09998 10.99 3.97998 12 5.33998C13.01 3.97998 14.63 3.09998 16.44 3.09998C19.51 3.09998 22 5.59998 22 8.68998C22 15.69 15.52 19.82 12.62 20.81Z"
-                                                            stroke="currentColor"
-                                                            strokeWidth="1.5"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                    </svg>
+                                                    <TbBasketExclamation className={"w-6 h-6"} />
                                                 </div>
                                                 <div className="mr-4">
                                                     <p className="text-sm font-medium ">{"سفارش های معلق"}</p>
@@ -276,7 +226,7 @@ export default function AvatarDropdown() {
                                             {/* ------------------ 2 --------------------- */}
                                             <Link
                                                 href={"/account-savelists"}
-                                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                                className="flex items-center p-2  -m-2 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                                 onClick={() => close()}
                                             >
                                                 <div
@@ -306,7 +256,7 @@ export default function AvatarDropdown() {
 
                                             {/* ------------------ 2 --------------------- */}
                                             <div
-                                                className="flex items-center justify-between p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                                                className="flex items-center justify-between p-2  -m-2 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
                                                 <div className="flex items-center">
                                                     <div
                                                         className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
@@ -350,7 +300,7 @@ export default function AvatarDropdown() {
                                             {/* ------------------ 2 --------------------- */}
                                             <Link
                                                 href={"/"}
-                                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                                className="flex items-center p-2  -m-2 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                                 onClick={() => close()}
                                             >
                                                 <div
@@ -413,7 +363,7 @@ export default function AvatarDropdown() {
 
                                             {/* ------------------ 2 --------------------- */}
                                             <div
-                                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                                className="flex items-center p-2  -m-2 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                                 onClick={() => {
                                                     logoutHandle();
                                                     close()
