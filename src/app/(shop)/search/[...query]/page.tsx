@@ -67,7 +67,7 @@ const PageSearch = (props: BrandPageProps) => {
                                 <Input
                                     className="shadow-lg border-0 dark:border"
                                     id="search-input"
-                                    type="search"
+                                    type="text"
                                     defaultValue={query}
                                     onChange={(e) => setQuery(e.target.value)}
                                     placeholder="عبارت مورد نظر خود را جستجو کنید"
