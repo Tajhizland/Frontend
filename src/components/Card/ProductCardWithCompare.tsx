@@ -14,6 +14,7 @@ import LikeButton from "@/shared/Button/LikeButton";
 import Prices from "@/components/Price/Prices";
 import SmallTimer from "@/components/Timer/SmallTimer";
 import {FaCodeCompare} from "react-icons/fa6";
+import {MdCompare, MdOutlineCompare} from "react-icons/md";
 
 export interface ProductCardProps {
     className?: string;
@@ -205,9 +206,9 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                                 className="absolute top-3 end-3 z-10 hidden sm:flex"/>
                     <div  title={'مقایسه'} className="absolute top-3 end-14 z-10 hidden sm:flex" onClick={addToCompare}>
                         <div
-                            className={` w-fit gap-5  flex items-center justify-center px-2 py-2 rounded-full text-slate-500 cursor-pointer z-10 hover:bg-slate-200 bg-white  ${isProductInCompareList?"text-[#ef4444]":" "}`}
+                            className={` w-fit gap-5  flex items-center justify-center px-2 py-2 rounded-full text-slate-500 cursor-pointer z-10  ${isProductInCompareList?"bg-[#ef4444] text-white":" hover:bg-slate-200 bg-white "}`}
                         >
-                            <FaCodeCompare/>
+                            <MdOutlineCompare className={"w-5 h-5"}/>
                         </div>
                     </div>
                     <div className={" "}>
