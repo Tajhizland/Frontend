@@ -206,7 +206,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                                 className="absolute top-3 end-3 z-10 hidden sm:flex"/>
                     <div  title={'مقایسه'} className="absolute top-3 end-14 z-10 hidden sm:flex" onClick={addToCompare}>
                         <div
-                            className={` w-fit gap-5  flex items-center justify-center px-2 py-2 rounded-full text-slate-500 cursor-pointer z-10  ${isProductInCompareList?"bg-[#ef4444] text-white":" hover:bg-slate-200 bg-white "}`}
+                            className={` w-fit gap-5  flex items-center justify-center px-2 py-2 rounded-full text-slate-500 cursor-pointer z-10  ${isProductInCompareList?" bg-orange-600 text-white":" hover:bg-slate-200 bg-white "}`}
                         >
                             <MdOutlineCompare className={"w-5 h-5"}/>
                         </div>
