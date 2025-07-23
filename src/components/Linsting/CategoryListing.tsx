@@ -130,9 +130,9 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
                 compareList.length > 0 &&
                 <div
                     className={`
-        flex gap-2 sm:gap-4 rounded-2xl overflow-hidden whitespace-nowrap fixed z-50 
-        md:right-1/2 md:translate-x-1/2 
-        bottom-20 right-2 sm:right-1/2 sm:translate-x-1/2 w-fit 
+        flex gap-2 sm:gap-4 rounded-2xl overflow-hidden whitespace-nowrap fixed z-50
+        md:right-1/2 md:translate-x-1/2
+        bottom-[65px] right-2 sm:right-1/2 sm:translate-x-1/2 w-fit
         bg-white bg-opacity-70 p-2 sm:p-3
       `}
                     >
