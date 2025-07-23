@@ -130,41 +130,49 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
                 compareList.length > 0 &&
                 <div
                     className={`
-        flex gap-2 sm:gap-4 rounded-2xl overflow-hidden whitespace-nowrap fixed z-50
-        md:right-1/2 md:translate-x-1/2
-        bottom-[65px] right-2 sm:right-1/2 sm:translate-x-1/2 w-fit
-        bg-white bg-opacity-80 p-2 sm:p-3 shadow-lg
+       rounded-2xl overflow-hidden whitespace-nowrap fixed z-50
+        md:right-1/2 md:translate-x-1/2 border
+        bottom-[70px] right-2 sm:right-1/2 sm:translate-x-1/2 w-fit
+        bg-white bg-opacity-80 p-1 sm:p-3 shadow-lg 
       `}
-                    >
-                    <div onClick={() => {
-                        setCompare(true)
-                    }}
-                         className={" flex flex-col gap-1 rounded-r-2xl flex-shrink-0 justify-center items-center text-black  shadow-xl bg-[#fcb415]   w-20 h-20 font-bold text-sm cursor-pointer hover:bg-opacity-80 text-center"}>
-                        مقایسه
-                        <br/>
-                        {compareList.length > 1 ? compareList.length : ""}
-                        {" "}
-                        کالا
-                    </div>
+                >
+                    <div className={" flex gap-2 sm:gap-4  relative"}>
 
-                    {
-                        compareList.map((item: ProductResponse) => (
-                            <div key={item.id}
-                                 className="relative w-20   bg-slate-50 dark:bg-slate-300 overflow-hidden z-1 group border">
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.data[0]?.url}`}
-                                    className="object-cover w-full h-full drop-shadow-xl flex "
-                                    fill
-                                    sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                                    alt="product"
-                                />
+                        <div onClick={() => {
+                            setCompare(true)
+                        }}
+                             className={" flex flex-col gap-1 rounded-r-2xl flex-shrink-0 justify-center items-center text-black  shadow-xl bg-[#fcb415]   w-16 sm:w-20 h-16 sm:h-20 font-bold text-xs sm:text-sm cursor-pointer hover:bg-opacity-80 text-center"}>
+                            مقایسه
+                            <br/>
+                            {compareList.length > 1 ? compareList.length : ""}
+                            {" "}
+                            کالا
+                        </div>
+
+                        {
+                            compareList.map((item: ProductResponse) => (
+                                <div key={item.id}
+                                     className="relative w-16 sm:w-20   bg-slate-50 dark:bg-slate-300 overflow-hidden z-1 group border">
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.data[0]?.url}`}
+                                        className="object-cover w-full h-full drop-shadow-xl flex "
+                                        fill
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                                        alt="product"
+                                    />
+                                </div>
+                            ))
+                        }
+                        <div className={"flex justify-center items-center"}>
+                            <div onClick={() => {
+                                setCompareList([])
+                            }}
+                                 className={"flex items-center justify-center cursor-pointer  rounded-full bg-red-500 text-white font-bold w-4 h-4"}>
+                                x
                             </div>
-                        ))
-                    }
-                    <ButtonClose onClick={() => {
-                        setCompareList([])
-                    }} className={"flex items-center"}/>
+                        </div>
 
+                    </div>
                 </div>
             }
 
