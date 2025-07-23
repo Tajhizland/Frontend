@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /var/www/html/Frontend
-            git pull origin master
+            git pull frontend master
             npm i -f
             npm run build
 
