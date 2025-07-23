@@ -66,7 +66,7 @@ const AccountOrder = () => {
                                          setPrice(200000000)
                                      }}
                                 >
-                                    <Alert type={"success"}>
+                                    <Alert containerClassName={"px-5"} type={"success"}>
                                            <span
                                                className={`text-green-500 !leading-none text-xs sm:text-sm flex items-center gap-1 font-bold  priceFont`}>
                                                {new Intl.NumberFormat('en-US').format(200)}
@@ -83,7 +83,7 @@ const AccountOrder = () => {
                                      }}
                                 >
 
-                                    <Alert type={"success"}>
+                                    <Alert containerClassName={"px-5"} type={"success"}>
                                            <span
                                                className={`text-green-500 !leading-none text-xs sm:text-sm flex items-center gap-1 font-bold  priceFont`}>
                                                {new Intl.NumberFormat('en-US').format(100)}
@@ -100,7 +100,7 @@ const AccountOrder = () => {
                                      }}
                                 >
 
-                                    <Alert type={"success"}>
+                                    <Alert containerClassName={"px-5"} type={"success"}>
                                            <span
                                                className={`text-green-500 !leading-none text-xs sm:text-sm flex items-center gap-1 font-bold  priceFont`}>
                                                {new Intl.NumberFormat('en-US').format(50)}
@@ -129,8 +129,8 @@ const AccountOrder = () => {
                                 شارژ کیف پول
                             </ButtonPrimary>
                         </div>
-                        <div className={"flex-[2]"}>
-                            <Image src={walletIcon} alt={"walletIcon"}/>
+                        <div className={"flex-[2] "}>
+                            <Image src={walletIcon} alt={"walletIcon"} className={"w-32 sm:w-full"}/>
                         </div>
                     </div>
 

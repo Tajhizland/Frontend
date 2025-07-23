@@ -133,13 +133,13 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
         flex gap-2 sm:gap-4 rounded-2xl overflow-hidden whitespace-nowrap fixed z-50
         md:right-1/2 md:translate-x-1/2
         bottom-[65px] right-2 sm:right-1/2 sm:translate-x-1/2 w-fit
-        bg-white bg-opacity-70 p-2 sm:p-3
+        bg-white bg-opacity-80 p-2 sm:p-3 shadow-lg
       `}
                     >
                     <div onClick={() => {
                         setCompare(true)
                     }}
-                         className={" flex flex-col gap-1 rounded-r-2xl flex-shrink-0 justify-center items-center text-black  shadow-xl bg-orange-600   w-20 h-20 font-bold text-sm cursor-pointer hover:bg-opacity-80 text-center"}>
+                         className={" flex flex-col gap-1 rounded-r-2xl flex-shrink-0 justify-center items-center text-black  shadow-xl bg-[#fcb415]   w-20 h-20 font-bold text-sm cursor-pointer hover:bg-opacity-80 text-center"}>
                         مقایسه
                         <br/>
                         {compareList.length > 1 ? compareList.length : ""}
