@@ -28,7 +28,7 @@ export default function Page() {
         mutateAsync: searchCompareHandler,
         isLoading: searchCompareLoading,
     } = useMutation({
-        mutationKey: ["city"],
+        mutationKey: ["search-compare-product"],
         mutationFn: (e: any) =>
             search({query: e.target.value, categoryIds: product?.category_ids ?? []}),
     });
@@ -124,80 +124,101 @@ export default function Page() {
                     انتخاب محصول
                 </ButtonPrimary>
 
-                <div
-                    className={`grid gap-5 text-xs sm:text-sm font-bold text-slate-800 dark:text-white`}
-                    style={{
-                        gridTemplateColumns: `repeat(${2 + displayedCompareProducts.length}, minmax(0, 1fr))`,
-                    }}
-                >
-                    {/* ستون عنوان ویژگی‌ها */}
-                    <div className="flex flex-col divide-y">
-                        <div className="w-[100px] h-[100px]"></div>
-                        <h2 className="py-5 line-clamp-1">نام محصول</h2>
-                        {product.productOptions.data.map((option, index) => (
-                            <div key={index} className="py-5 font-bold">
-                                {option.option_title}
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* ستون محصول اصلی */}
-                    <div className="flex flex-col divide-y">
-                        <div className="w-[100px] h-[100px]">
-                            <Image
-                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
-                                alt="image"
-                                width={100}
-                                height={100}
-                            />
-                        </div>
-                        <div className="py-5">
-                            <h2 className="line-clamp-1">{product.name}</h2>
-                        </div>
-                        {product.productOptions.data.map((option, index) => (
-                            <div key={index} className="py-5 line-clamp-1 whitespace-nowrap">
-                                {!option.value?.trim() ? "---" : option.value}
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* ستون محصولات مقایسه‌ای */}
-                    {displayedCompareProducts.map((compareProduct, i) => (
-                        <div key={i} className="flex flex-col divide-y relative">
-                            <div className="w-[100px] h-[100px] relative">
+                <div className="flex flex-col gap-5 divide-y mt-5">
+                    <div
+                        className={`grid gap-5 text-xs sm:text-sm font-bold text-slate-800 dark:text-white`}
+                        style={{
+                            gridTemplateColumns: `repeat(${1 + displayedCompareProducts.length}, minmax(0, 1fr))`,
+                        }}
+                    >
+                        <div
+                            className="flex flex-col relative border rounded-xl justify-center items-center">
+                            <div className="w-fit h-full relative">
                                 <Image
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${compareProduct.images.data[0].url}`}
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
                                     alt="image"
-                                    width={100}
-                                    height={100}
+                                    width={250}
+                                    height={250}
                                 />
+
+                            </div>
+                            <div className="py-5">
+                                <h2 className="line-clamp-1">{product.name}</h2>
+                            </div>
+                            <button
+                                onClick={() =>
+                                    setCompareProducts((prev) => prev.filter((p) => p.id !== product.id))
+                                }
+                                className="absolute top-0 left-0 text-red-500 text-xs bg-white rounded px-1"
+                            >
+                                ✕
+                            </button>
+                        </div>
+                        {displayedCompareProducts.map((product, i) => (
+                            <div key={i}
+                                 className="flex flex-col relative border rounded-xl justify-center items-center">
+                                <div className="w-fit h-full relative">
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
+                                        alt="image"
+                                        width={250}
+                                        height={250}
+                                    />
+
+                                </div>
+                                <div className="py-5">
+                                    <h2 className="line-clamp-1">{product.name}</h2>
+                                </div>
                                 <button
                                     onClick={() =>
-                                        setCompareProducts((prev) =>
-                                            prev.filter((p) => p.id !== compareProduct.id)
-                                        )
+                                        setCompareProducts((prev) => prev.filter((p) => p.id !== product.id))
                                     }
                                     className="absolute top-0 left-0 text-red-500 text-xs bg-white rounded px-1"
                                 >
                                     ✕
                                 </button>
                             </div>
-                            <div className="py-5">
-                                <h2 className="line-clamp-1">{compareProduct.name}</h2>
-                            </div>
-                            {product.productOptions.data.map((mainOption, index) => {
-                                const matchedOption = compareProduct.productOptions.data.find(
-                                    (opt) => opt.option_item_id === mainOption.option_item_id
-                                );
-                                return (
-                                    <div key={index} className="py-5 line-clamp-1 whitespace-nowrap">
-                                        {!matchedOption?.value?.trim() ? "---" : matchedOption.value}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
+                    <div className="flex flex-col divide-y">
+                        {product.productOptions.data.map((option, index) => (
+                            <div key={index} className={"flex flex-col gap-1"}>
+                                <div key={index} className="py-5 font-bold">
+                                    {option.option_title}
+                                </div>
+                                <div
+                                    className={`grid gap-2 text-xs sm:text-sm font-bold text-slate-800 dark:text-white overflow-hidden`}
+                                    style={{
+                                        gridTemplateColumns: `repeat(${1 + displayedCompareProducts.length}, minmax(0, 1fr))`,
+                                    }}
+                                >
+                                    <div className="flex flex-col divide-y relative">
+                                        <div
+                                            className="py-5 line-clamp-1 whitespace-nowrap text-center">
+                                            {option.value}
+                                        </div>
+                                    </div>
+                                    {/* ستون محصولات مقایسه‌ای */}
+                                    {displayedCompareProducts.map((product2, i) => (
+                                        <div key={i} className="flex flex-col divide-y relative">
+                                            <div key={index}
+                                                 className="py-5 line-clamp-1 whitespace-nowrap text-center">
+                                                {!product2.productOptions.data.find(
+                                                    (opt) => opt.option_item_id === product.productOptions.data[index].option_item_id
+                                                )?.value?.trim() ? "---" :
+                                                    //@ts-ignore
+                                                    product2?.productOptions?.data?.find(
+                                                        (opt) => opt?.option_item_id === product.productOptions.data[index]?.option_item_id
+                                                    ).value}
+                                            </div>
+
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
             </div>
         </>
     );
