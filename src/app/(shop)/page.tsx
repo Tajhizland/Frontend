@@ -19,6 +19,7 @@ import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSli
 import React from "react";
 import SectionBrand from "@/components/Section/SectionBrand";
 import {BsChevronCompactRight} from "react-icons/bs";
+import SectionSuggestProduct from "@/components/Section/SectionSuggestProduct";
 
 export const dynamic = 'force-dynamic';
 
@@ -97,6 +98,8 @@ export default async function Homepage() {
         <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10  dark:bg-neutral-900">
             <SectionTwinBanner banners={response.banners2.data}/>
             <SectionBrand data={response.brands.data}/>
+            <SectionSuggestProduct/>
+
             <div className="relative py-5 lg:py-10">
                 <BackgroundSection/>
                 <SectionConcept data={response.concepts.data}/>
