@@ -28,7 +28,7 @@ import IconDiscount from "@/components/Icon/IconDiscount";
 import NotifyAddTocart from "@/components/Product/NotifyAddTocart";
 import BagIcon from "@/components/Icon/BagIcon";
 import SmallTimer from "@/components/Timer/SmallTimer";
-import {storeCategoryViewHistory, storeCategoryViewHistoryIp} from "@/services/api/shop/categoryViewHistory";
+import {storeCategoryViewHistory} from "@/services/api/shop/categoryViewHistory";
 
 export default function ProductSidebar({product}: { product: ProductResponse }) {
     const colors = product.colors.data;
@@ -45,13 +45,6 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
         queryFn: () => storeCategoryViewHistory({category_id: product.category_id}),
         enabled: !!user,
     });
-
-    useQuery({
-        queryKey: ['store-category-view-ip'],
-        queryFn: () => storeCategoryViewHistoryIp({category_id:  product.category_id}),
-        enabled: !user,
-    });
-
     const notifyAddTocart = () => {
         toast.custom(
             (t: any) => (
