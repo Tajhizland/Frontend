@@ -17,12 +17,13 @@ export default function SectionSuggestProduct() {
 
     const {data: data} = useQuery({
         queryKey: [`suggest-product`],
-        queryFn: () => {
-            if (user)
-                suggestProduct()
-            else
-                suggestIpProduct()
-        },
+        queryFn: () => suggestProduct(),
+        staleTime: 5000,
+        enabled: !!user
+    });
+    const {data: data2} = useQuery({
+        queryKey: [`suggest-product-ip`],
+        queryFn: () => suggestIpProduct(),
         staleTime: 5000,
     });
 
@@ -65,8 +66,6 @@ export default function SectionSuggestProduct() {
         };
     }, [sliderRef]);
 
-    if (!data)
-        return;
     return (
         <div className={`nc-SectionLinkedProductSlider `}>
             <div ref={sliderRef} className={`flow-root  `}>
@@ -79,12 +78,18 @@ export default function SectionSuggestProduct() {
                     محصولات پیشنهادی
                 </Heading>
                 <div className={"grid grid-cols-5"}>
-                    {//@ts-ignore
-                        data && data.map((item, index) => (
+                    {user  ? (data && data.map((item, index) => (
+                        <li key={index} className={`glide__slide  `}>
+                            <ProductCard2 data={item}/>
+                        </li>
+                    )))
+                    :
+                        (data2 && data2.map((item, index) => (
                             <li key={index} className={`glide__slide  `}>
                                 <ProductCard2 data={item}/>
                             </li>
-                        ))}
+                        )))
+                    }
                 </div>
                 {/*<div className="glide__track" data-glide-el="track" style={{direction: "rtl"}}>*/}
                 {/*    <ul className="glide__slides">*/}
