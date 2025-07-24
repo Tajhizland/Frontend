@@ -65,7 +65,7 @@ export default function SectionSuggestProduct() {
         };
     }, [sliderRef]);
 
-    if (!user || !data)
+    if (!data)
         return;
     return (
         <div className={`nc-SectionLinkedProductSlider `}>
@@ -81,10 +81,10 @@ export default function SectionSuggestProduct() {
                 <div className={"grid grid-cols-5"}>
                     {//@ts-ignore
                         data && data.map((item, index) => (
-                        <li key={index} className={`glide__slide  `}>
-                            <ProductCard2 data={item}/>
-                        </li>
-                    ))}
+                            <li key={index} className={`glide__slide  `}>
+                                <ProductCard2 data={item}/>
+                            </li>
+                        ))}
                 </div>
                 {/*<div className="glide__track" data-glide-el="track" style={{direction: "rtl"}}>*/}
                 {/*    <ul className="glide__slides">*/}
