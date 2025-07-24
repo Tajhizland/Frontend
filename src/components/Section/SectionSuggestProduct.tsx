@@ -5,7 +5,7 @@ import Glide from "@glidejs/glide/dist/glide.esm";
 import Heading from "@/components/Heading/Heading";
 import {useQuery} from "react-query";
 import {useUser} from "@/services/globalState/GlobalState";
-import {suggestProduct} from "@/services/api/shop/categoryViewHistory";
+import {suggestIpProduct, suggestProduct} from "@/services/api/shop/categoryViewHistory";
 import ProductCard2 from "@/components/Card/ProductCard2";
 
 export default function SectionSuggestProduct() {
@@ -17,9 +17,13 @@ export default function SectionSuggestProduct() {
 
     const {data: data} = useQuery({
         queryKey: [`suggest-product`],
-        queryFn: () => suggestProduct(),
+        queryFn: () => {
+            if (user)
+                suggestProduct()
+            else
+                suggestIpProduct()
+        },
         staleTime: 5000,
-        enabled: !!user
     });
 
     useEffect(() => {
@@ -61,8 +65,8 @@ export default function SectionSuggestProduct() {
         };
     }, [sliderRef]);
 
-    if(!user || !data)
-        return ;
+    if (!user || !data)
+        return;
     return (
         <div className={`nc-SectionLinkedProductSlider `}>
             <div ref={sliderRef} className={`flow-root  `}>
@@ -75,7 +79,8 @@ export default function SectionSuggestProduct() {
                     محصولات پیشنهادی
                 </Heading>
                 <div className={"grid grid-cols-5"}>
-                    {data && data.map((item, index) => (
+                    {//@ts-ignore
+                        data && data.map((item, index) => (
                         <li key={index} className={`glide__slide  `}>
                             <ProductCard2 data={item}/>
                         </li>

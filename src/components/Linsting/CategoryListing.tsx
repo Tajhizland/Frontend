@@ -16,7 +16,7 @@ import {ProductResponse} from "@/services/types/product";
 import Compare from "@/components/Compare/Compare";
 import {FaCodeCompare} from "react-icons/fa6";
 import {toast} from "react-hot-toast";
-import {storeCategoryViewHistory} from "@/services/api/shop/categoryViewHistory";
+import {storeCategoryViewHistory, storeCategoryViewHistoryIp} from "@/services/api/shop/categoryViewHistory";
 import {useUser} from "@/services/globalState/GlobalState";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,6 +37,11 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
         queryKey: ['store-category-view'],
         queryFn: () => storeCategoryViewHistory({category_id: response.category.id}),
         enabled: !!user,
+    });
+    useQuery({
+        queryKey: ['store-category-view-ip'],
+        queryFn: () => storeCategoryViewHistoryIp({category_id: response.category.id}),
+        enabled: !user,
     });
 
     const {
