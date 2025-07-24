@@ -5,7 +5,7 @@ import Glide from "@glidejs/glide/dist/glide.esm";
 import Heading from "@/components/Heading/Heading";
 import {useQuery} from "react-query";
 import {useUser} from "@/services/globalState/GlobalState";
-import {suggestIpProduct, suggestProduct} from "@/services/api/shop/categoryViewHistory";
+import {suggestProduct} from "@/services/api/shop/categoryViewHistory";
 import ProductCard2 from "@/components/Card/ProductCard2";
 
 export default function SectionSuggestProduct() {
@@ -20,11 +20,6 @@ export default function SectionSuggestProduct() {
         queryFn: () => suggestProduct(),
         staleTime: 5000,
         enabled: !!user
-    });
-    const {data: data2} = useQuery({
-        queryKey: [`suggest-product-ip`],
-        queryFn: () => suggestIpProduct(),
-        staleTime: 5000,
     });
 
     useEffect(() => {
@@ -66,6 +61,8 @@ export default function SectionSuggestProduct() {
         };
     }, [sliderRef]);
 
+    if(!user || !data)
+        return ;
     return (
         <div className={`nc-SectionLinkedProductSlider `}>
             <div ref={sliderRef} className={`flow-root  `}>
@@ -78,18 +75,11 @@ export default function SectionSuggestProduct() {
                     محصولات پیشنهادی
                 </Heading>
                 <div className={"grid grid-cols-5"}>
-                    {user  ? (data && data.map((item, index) => (
+                    {data && data.map((item, index) => (
                         <li key={index} className={`glide__slide  `}>
                             <ProductCard2 data={item}/>
                         </li>
-                    )))
-                    :
-                        (data2 && data2.map((item, index) => (
-                            <li key={index} className={`glide__slide  `}>
-                                <ProductCard2 data={item}/>
-                            </li>
-                        )))
-                    }
+                    ))}
                 </div>
                 {/*<div className="glide__track" data-glide-el="track" style={{direction: "rtl"}}>*/}
                 {/*    <ul className="glide__slides">*/}
