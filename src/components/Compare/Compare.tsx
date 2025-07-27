@@ -35,12 +35,12 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
         if (isMobile) {
             setIsButtonDisabled(compareProducts.length >= 2);
         } else {
-            setIsButtonDisabled(compareProducts.length >= 3);
+            setIsButtonDisabled(compareProducts.length >= 4);
         }
     }, [compareProducts, isMobile]);
 
     // محدود کردن تعداد محصولات نمایش‌داده‌شده بر اساس دستگاه
-    const displayedCompareProducts = isMobile ? compareProducts.slice(0, 2) : compareProducts.slice(0, 3);
+    const displayedCompareProducts = isMobile ? compareProducts.slice(0, 2) : compareProducts.slice(0, 4);
 
     const {
         data: newProduct,
@@ -139,16 +139,12 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                         مقایسه محصولات
                     </h2>
 
-                    <ButtonPrimary className={"mt-5"} onClick={() => setOpenModal(true)} disabled={isButtonDisabled}>
-                        انتخاب محصول
-                    </ButtonPrimary>
-
                     {/* ستون عنوان ویژگی‌ها */}
                     <div className="flex flex-col gap-5 divide-y mt-5">
                         <div
                             className={`grid gap-5 text-xs sm:text-sm font-bold text-slate-800 dark:text-white`}
                             style={{
-                                gridTemplateColumns: `repeat(${displayedCompareProducts.length}, minmax(0, 1fr))`,
+                                gridTemplateColumns: `repeat(${displayedCompareProducts.length + (isButtonDisabled ? 0 : 1)}, minmax(0, 1fr))`,
                             }}
                         >
                             {displayedCompareProducts.map((product, i) => (
@@ -176,6 +172,14 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                                     </button>
                                 </div>
                             ))}
+                            {!isButtonDisabled && <div
+                                className="flex flex-col relative justify-center items-center">
+
+                                <ButtonPrimary className={"mt-5"} onClick={() => setOpenModal(true)}
+                                               disabled={isButtonDisabled}>
+                                    انتخاب محصول
+                                </ButtonPrimary>
+                            </div>}
                         </div>
 
                         {allOptions.map((option, index) => (
@@ -186,21 +190,22 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                                 <div
                                     className={`grid gap-2 text-xs sm:text-sm font-bold text-slate-800 dark:text-white`}
                                     style={{
-                                        gridTemplateColumns: `repeat(${displayedCompareProducts.length}, minmax(0, 1fr))`,
+                                        gridTemplateColumns: `repeat(${displayedCompareProducts.length + (isButtonDisabled ? 0 : 1)}, minmax(0, 1fr))`,
                                     }}
                                 >
 
                                     {/* ستون محصولات مقایسه‌ای */}
                                     {displayedCompareProducts.map((product, i) => (
                                         <div key={i} className="flex flex-col divide-y relative">
-                                            <div key={index} className="py-5 line-clamp-1 whitespace-nowrap text-center">
+                                            <div key={index}
+                                                 className="py-5 line-clamp-1 whitespace-nowrap text-center">
                                                 {!product.productOptions.data.find(
                                                     (opt) => opt.option_item_id === allOptions[index].option_item_id
                                                 )?.value?.trim() ? "---" :
                                                     //@ts-ignore
                                                     product?.productOptions?.data?.find(
-                                                    (opt) => opt?.option_item_id === allOptions[index]?.option_item_id
-                                                ).value}
+                                                        (opt) => opt?.option_item_id === allOptions[index]?.option_item_id
+                                                    ).value}
                                             </div>
 
                                         </div>
