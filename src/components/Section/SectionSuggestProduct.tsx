@@ -37,7 +37,7 @@ export default function SectionSuggestProduct() {
                 >
                     محصولات پیشنهادی
                 </Heading>
-                <div className={"grid grid-cols-5"}>
+                <ul className={"grid grid-cols-3 md:grid-cols-6"}>
                     {user  ? (data && data.map((item, index) => (
                         <li key={index} className={`glide__slide  `}>
                             <ProductCard2 data={item}/>
@@ -50,7 +50,7 @@ export default function SectionSuggestProduct() {
                             </li>
                         )))
                     }
-                </div>
+                </ul>
                 {/*<div className="glide__track" data-glide-el="track" style={{direction: "rtl"}}>*/}
                 {/*    <ul className="glide__slides">*/}
                 {/*       */}
