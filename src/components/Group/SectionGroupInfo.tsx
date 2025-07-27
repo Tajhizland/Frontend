@@ -1,109 +1,38 @@
-import React from "react";
+"use client"
+import React, {useState} from "react";
 import {
     ClockIcon,
     SparklesIcon,
 } from "@heroicons/react/24/outline";
 
-import {findProductByUrl} from "@/services/api/shop/product";
 import ProductSidebar from "@/components/Product/ProductSidebar";
-import ProductImage from "../../../../components/Product/ProductImage";
-import ProductComment from "../../../../components/Product/ProductComment";
-import {Metadata} from "next";
-import Script from "next/script";
-import {stripHTML} from "@/hooks/StripHtml";
+import ProductImage from "@/components/Product/ProductImage";
+import ProductComment from "@/components/Product/ProductComment";
 import TextExpander from "@/shared/TextExpander/TextExpander";
 import {ProductResponse} from "@/services/types/product";
-import Policy from "../../../../components/Product/Policy";
-import SectionLinkedProductSlider from "@/components/Section/SectionLinkedProductSlider";
-import IconDiscount from "@/components/Icon/IconDiscount";
+import Policy from "@/components/Product/Policy";
 import LikeSaveBtns from "@/shared/Button/LikeSaveBtns";
 import Accordion from "@/components/Accordion/Accordion";
-import SectionVideo from "@/components/Section/SectionVideo";
 import Badge from "@/shared/Badge/Badge";
 import SectionProductVideo from "@/components/Section/SectionProductVideo";
 import SectionGroup from "@/components/Group/SectionGroup";
 import Link from "next/link";
-import {FaCodeCompare} from "react-icons/fa6";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import {MdCompare} from "react-icons/md";
-import {FaShareAlt} from "react-icons/fa";
 import ShareButton from "@/shared/Button/ShareButton";
+import {GroupProductResponse} from "@/services/types/groupProduct";
+import SectionLinkedProductSlider from "@/components/Section/SectionLinkedProductSlider";
 
+export default function SectionGroupInfo({groupItems, relatedProduct}:
+                                         {
+                                             groupItems: GroupProductResponse[] ,
+                                             relatedProduct:ProductResponse[]
+                                         }
+) {
 
-interface ProductPageProps {
-    params: Promise<{
-        url: [string];
-    }>
-}
+    const [product, setProduct] = useState<ProductResponse | undefined>(groupItems[0].product);
 
-// export async function generateStaticParams() {
-//     const products = await productSitemap();
-//     return products.map((product) => ({
-//         url: product.url.split("/"),
-//     }));
-// }
-
-export async function generateMetadata(props: ProductPageProps): Promise<Metadata> {
-    const params = await props.params;
-    let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
-    let product = productResponse.product;
-
-    return {
-        title: product.meta_title ?? product.name,
-        description: product.meta_description ?? stripHTML(product.description),
-        twitter: {
-            title: product.meta_title ?? product.name,
-            description: product.meta_description ?? stripHTML(product.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
-
-        },
-        openGraph: {
-            title: product.meta_title ?? product.name,
-            description: product.meta_description ?? stripHTML(product.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/product/${product.url}`,
-            type: "website",
-        },
-        robots: "index , follow",
-        other: {
-            product_id: product?.id,
-            product_name: product?.name,
-            product_price: product?.min_price,
-            product_old_price: product?.min_price,
-            availability: product.status == 1 ? "instock" : "outofstock",
-            guarantee: product?.guaranties.data[0] ? product?.guaranties.data[0]?.name ?? "" : ""
-        }
-
-    }
-}
-
-const ProductDetailPage2 = async (props: ProductPageProps) => {
-    const params = await props.params;
-    let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
-    let product = productResponse.product;
-    let relatedProduct = productResponse.relatedProduct.data;
-
-    const structuredData = {
-        "@context": "https://schema.org/",
-        "@type": "Product",
-        "name": product.name,
-        "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
-        "description": product.description,
-        "sku": product.id,
-        "offers": {
-            "@type": "Offer",
-            "url": product.url,
-            "priceCurrency": "IRR",
-            "price": product.min_price,
-            "itemCondition": "https://schema.org/NewCondition",
-            "availability": "https://schema.org/InStock"
-        },
-        "brand": {
-            "@type": "Brand",
-            "name": product.brand
-        }
-    };
-
+    if (!product)
+        return;
     const renderMixDiscount = (product: ProductResponse) => {
         let maxDiscount = 0;
         product.colors.data.map((item) => {
@@ -211,7 +140,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                                 </div>
                             </Link
                             >
-                            <ShareButton  />
+                            <ShareButton/>
 
                         </div>
                     </div>
@@ -256,9 +185,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
 
     return (
         <>
-            <Script type="application/ld+json" id="schema">
-                {JSON.stringify(structuredData)}
-            </Script>
+
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
                 {product.images.data.length > 0 && <ProductImage productImages={product.images.data}/>}
                 {/* MAIn */}
@@ -266,14 +193,13 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     {/* CONTENT */}
                     <div className="w-full lg:w-3/5 xl:w-2/3 space-y-10 lg:pl-14 lg:space-y-14">
                         {renderSection1()}
-                        {/* {renderSection2()} */}
                     </div>
 
                     {/* SIDEBAR */}
                     <div className="flex-grow">
                         <div className="hidden lg:block sticky top-36 dark:bg-black/20">
-                            {/*{renderSectionSidebar()}*/}
-                            <ProductSidebar product={product}/>
+                            <SectionGroup groupItems={groupItems} setProduct={setProduct}/>
+
                         </div>
                     </div>
                 </main>
@@ -284,8 +210,6 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     {/*
         {renderReviews()} */}
                     <ProductComment comments={product.comments.data} productId={product.id}/>
-
-                    <hr className="border-slate-200 dark:border-slate-700"/>
                     <SectionLinkedProductSlider
                         heading="محصولات مرتبط"
                         subHeading=""
@@ -302,5 +226,3 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         </>
     );
 };
-
-export default ProductDetailPage2;

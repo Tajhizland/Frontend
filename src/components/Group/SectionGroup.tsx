@@ -29,9 +29,10 @@ import {StarIcon} from "@heroicons/react/24/solid";
 
 type Props = {
     groupItems: GroupProductResponse[];
+    setProduct: (product: ProductResponse) => void
 };
 
-export default function ProductGroupFilter({groupItems}: Props) {
+export default function ProductGroupFilter({groupItems, setProduct}: Props) {
     const [selectedValues, setSelectedValues] = useState<Record<string, string | null>>({});
     const [selectedColor, setSelectedColor] = useState<ColorResponse>(groupItems?.[0].product.colors.data?.[0])
     const [selectedGuaranty, setSelectedGuaranty] = useState<GuarantyResponse>()
@@ -68,7 +69,7 @@ export default function ProductGroupFilter({groupItems}: Props) {
                 );
             });
         });
-
+        setProduct(matchedItem?.product ?? null);
         return matchedItem?.product ?? null;
     }, [groupItems, selectedValues]);
 
@@ -89,7 +90,7 @@ export default function ProductGroupFilter({groupItems}: Props) {
         return item ? item.count : 0;
     };
 
-    const notifyAddTocart = (product :ProductResponse) => {
+    const notifyAddTocart = (product: ProductResponse) => {
         toast.custom(
             (t: any) => (
                 <NotifyAddTocart
@@ -107,7 +108,7 @@ export default function ProductGroupFilter({groupItems}: Props) {
     };
 
 
-    async function addToCartHandle(product:ProductResponse) {
+    async function addToCartHandle(product: ProductResponse) {
         if (!user) {
             toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
             return;
@@ -171,6 +172,7 @@ export default function ProductGroupFilter({groupItems}: Props) {
             }
         }
     }
+
     const renderMaxDiscountTime = () => {
         let timer = null;
         const now = new Date();
@@ -304,7 +306,8 @@ export default function ProductGroupFilter({groupItems}: Props) {
                                     sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
                                     alt="guaranty"
                                 /></div>
-                                <small className={`text-xs  max-w-xs flex-shrink-0 ${selectedGuaranty?.id==item.id?"text-primary-6000":"text-slate-600 dark:text-white"}`}>
+                                <small
+                                    className={`text-xs  max-w-xs flex-shrink-0 ${selectedGuaranty?.id == item.id ? "text-primary-6000" : "text-slate-600 dark:text-white"}`}>
                                     {item.name}
                                 </small>
 
@@ -406,74 +409,74 @@ export default function ProductGroupFilter({groupItems}: Props) {
                     <p className="text-gray-500 mt-2">محصولی یافت نشد.</p>
                 ) : (
                     <ul className=" pl-5 mt-2">
-                             <li key={product.id} className={" "}>
-                                <div className={"flex flex-col gap-5"}>
-                                    <span>{product.name} </span>
+                        <li key={product.id} className={" "}>
+                            <div className={"flex flex-col gap-5"}>
+                                <span>{product.name} </span>
 
-                                    <div className="flex items-center justify-between   gap-x-5">
-                                        <div className="flex text-2xl font-semibold">
-                                            {renderStatus()}
-                                            <div className={"flex justify-start mr-5"}>
-                                                {renderMaxDiscountTime() != null &&
-                                                    <SmallTimer date={renderMaxDiscountTime() ?? ""}/>
-                                                }
-                                            </div>
+                                <div className="flex items-center justify-between   gap-x-5">
+                                    <div className="flex text-2xl font-semibold">
+                                        {renderStatus()}
+                                        <div className={"flex justify-start mr-5"}>
+                                            {renderMaxDiscountTime() != null &&
+                                                <SmallTimer date={renderMaxDiscountTime() ?? ""}/>
+                                            }
                                         </div>
+                                    </div>
 
-                                        <a
-                                            href="#reviews"
-                                            className="flex items-center text-sm font-medium"
-                                        >
-                                            <div className="">
-                                                <StarIcon className="w-5 h-5 pb-[1px] text-orange-400"/>
-                                            </div>
-                                            <span className="mr-1.5 flex">
+                                    <a
+                                        href="#reviews"
+                                        className="flex items-center text-sm font-medium"
+                                    >
+                                        <div className="">
+                                            <StarIcon className="w-5 h-5 pb-[1px] text-orange-400"/>
+                                        </div>
+                                        <span className="mr-1.5 flex">
                                 <span>{product.rating} </span>
                                 <span className="text-slate-700 dark:text-slate-400 underline">
                                     {product.comments.data.length} نظر
                                 </span>
                             </span>
-                                        </a>
-                                    </div>
-                                    <div className="mt-6 gap-y-3 lg:gap-y-7">
-                                        <div className="">{renderVariants()}</div>
-
-                                        <div className="flex justify-between items-center">
-                                            {/*{renderDelay()}*/}
-                                        </div>
-                                        <div className="flex  items-center max-h-24 my-5">
-                                            {renderBrand()}
-                                        </div>
-                                        <div className="flex justify-between items-center">
-                                            {renderGuaranty()}
-                                        </div>
-                                        {/*<div className="">{renderSizeList()}</div>*/}
-                                    </div>
-                                    {selectedColor.statusLabel != "disable" ? <div className="flex  gap-x-3.5">
-                                        <div
-                                            className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full dark:text-white">
-
-                                            <CartController
-                                                inCart={checkColorInCart() > 0 ? true : false}
-                                                defaultValue={checkColorInCart() != 0 ? checkColorInCart() : 1}
-                                                onChange={setSelectedCount}
-                                                max={selectedColor.stock}
-                                                removeHandle={removeHandle}
-                                                decreaseHandel={decreaseHandle}
-                                                increaseHandle={increaseHandle}
-                                            />
-                                        </div>
-                                        {checkColorInCart() == 0 && selectedCount > 0 && <ButtonPrimary
-                                            onClick={addToCartHandle}
-                                            className="flex-1 flex-shrink-0"
-                                        >
-                                            <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
-                                            <span className="mr-3">افزودن به سبد خرید</span>
-                                        </ButtonPrimary>
-                                        }
-                                    </div> : ""}
+                                    </a>
                                 </div>
-                            </li>
+                                <div className="mt-6 gap-y-3 lg:gap-y-7">
+                                    <div className="">{renderVariants()}</div>
+
+                                    <div className="flex justify-between items-center">
+                                        {/*{renderDelay()}*/}
+                                    </div>
+                                    <div className="flex  items-center max-h-24 my-5">
+                                        {renderBrand()}
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        {renderGuaranty()}
+                                    </div>
+                                    {/*<div className="">{renderSizeList()}</div>*/}
+                                </div>
+                                {selectedColor.statusLabel != "disable" ? <div className="flex  gap-x-3.5">
+                                    <div
+                                        className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full dark:text-white">
+
+                                        <CartController
+                                            inCart={checkColorInCart() > 0 ? true : false}
+                                            defaultValue={checkColorInCart() != 0 ? checkColorInCart() : 1}
+                                            onChange={setSelectedCount}
+                                            max={selectedColor.stock}
+                                            removeHandle={removeHandle}
+                                            decreaseHandel={decreaseHandle}
+                                            increaseHandle={increaseHandle}
+                                        />
+                                    </div>
+                                    {checkColorInCart() == 0 && selectedCount > 0 && <ButtonPrimary
+                                        onClick={addToCartHandle}
+                                        className="flex-1 flex-shrink-0"
+                                    >
+                                        <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
+                                        <span className="mr-3">افزودن به سبد خرید</span>
+                                    </ButtonPrimary>
+                                    }
+                                </div> : ""}
+                            </div>
+                        </li>
                     </ul>
                 )}
             </div>
