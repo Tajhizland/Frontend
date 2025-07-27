@@ -11,13 +11,14 @@ export interface CardCategoryProps {
 
     name: string;
     color?: string;
+    imageBaseUrl?: string;
     url?: string;
 }
 
 const CardCategory: FC<CardCategoryProps> = ({
                                                    className = "",
                                                    featuredImage = ".",
-
+    imageBaseUrl="category",
                                                    name,
                                                    color = "bg-rose-50",
                                                    url,
@@ -33,7 +34,7 @@ const CardCategory: FC<CardCategoryProps> = ({
                     <div className="flex justify-center md:justify-center items-center">
                         <NcImage
                             alt=""
-                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${featuredImage}`}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${imageBaseUrl}/${featuredImage}`}
                             containerClassName={`w-20 h-20 sm:w-[6rem] sm:h-[6rem] rounded-full overflow-hidden z-0 ${color}`}
                             width={80}
                             height={80}
