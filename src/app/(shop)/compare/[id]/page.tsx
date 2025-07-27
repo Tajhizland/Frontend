@@ -47,7 +47,7 @@ export default function Page() {
         if (isMobile) {
             setIsButtonDisabled(compareProducts.length >= 1);
         } else {
-            setIsButtonDisabled(compareProducts.length >= 2);
+            setIsButtonDisabled(compareProducts.length >= 3);
         }
     }, [compareProducts, isMobile]);
 
@@ -102,7 +102,7 @@ export default function Page() {
     const displayedCompareProducts =
         typeof window !== "undefined" && window.innerWidth < 768
             ? compareProducts.slice(0, 1)
-            : compareProducts.slice(0, 2);
+            : compareProducts.slice(0, 3);
 
     return (
         <>
@@ -120,15 +120,13 @@ export default function Page() {
                 <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                     مقایسه محصولات
                 </h2>
-                <ButtonPrimary onClick={() => setOpenModal(true)} disabled={isButtonDisabled}>
-                    انتخاب محصول
-                </ButtonPrimary>
+
 
                 <div className="flex flex-col gap-5 divide-y mt-5">
                     <div
                         className={`grid gap-5 text-xs sm:text-sm font-bold text-slate-800 dark:text-white`}
                         style={{
-                            gridTemplateColumns: `repeat(${1 + displayedCompareProducts.length}, minmax(0, 1fr))`,
+                            gridTemplateColumns: `repeat(${1 + displayedCompareProducts.length + (isButtonDisabled ? 0 : 1)}, minmax(0, 1fr))`,
                         }}
                     >
                         <div
@@ -179,46 +177,55 @@ export default function Page() {
                                 </button>
                             </div>
                         ))}
+
+                        {!isButtonDisabled && <div
+                            className="flex flex-col relative justify-center items-center">
+
+                            <ButtonPrimary className={"mt-5"} onClick={() => setOpenModal(true)}
+                                           disabled={isButtonDisabled}>
+                                انتخاب محصول
+                            </ButtonPrimary>
+                        </div>}
                     </div>
                 </div>
-                    <div className="flex flex-col divide-y">
-                        {product.productOptions.data.map((option, index) => (
-                            <div key={index} className={"flex flex-col gap-1"}>
-                                <div key={index} className="py-5 font-bold">
-                                    {option.option_title}
-                                </div>
-                                <div
-                                    className={`grid gap-2 text-xs sm:text-sm font-bold text-slate-800 dark:text-white overflow-hidden`}
-                                    style={{
-                                        gridTemplateColumns: `repeat(${1 + displayedCompareProducts.length}, minmax(0, 1fr))`,
-                                    }}
-                                >
-                                    <div className="flex flex-col divide-y relative">
-                                        <div
-                                            className="py-5 line-clamp-1 whitespace-nowrap text-center">
-                                            {option.value}
-                                        </div>
-                                    </div>
-                                    {/* ستون محصولات مقایسه‌ای */}
-                                    {displayedCompareProducts.map((product2, i) => (
-                                        <div key={i} className="flex flex-col divide-y relative">
-                                            <div key={index}
-                                                 className="py-5 line-clamp-1 whitespace-nowrap text-center">
-                                                {!product2.productOptions.data.find(
-                                                    (opt) => opt.option_item_id === product.productOptions.data[index].option_item_id
-                                                )?.value?.trim() ? "---" :
-                                                    //@ts-ignore
-                                                    product2?.productOptions?.data?.find(
-                                                        (opt) => opt?.option_item_id === product.productOptions.data[index]?.option_item_id
-                                                    ).value}
-                                            </div>
-
-                                        </div>
-                                    ))}
-                                </div>
+                <div className="flex flex-col divide-y">
+                    {product.productOptions.data.map((option, index) => (
+                        <div key={index} className={"flex flex-col gap-1"}>
+                            <div key={index} className="py-5 font-bold">
+                                {option.option_title}
                             </div>
-                        ))}
-                    </div>
+                            <div
+                                className={`grid gap-2 text-xs sm:text-sm font-bold text-slate-800 dark:text-white overflow-hidden`}
+                                style={{
+                                    gridTemplateColumns: `repeat(${1 + displayedCompareProducts.length + (isButtonDisabled ? 0 : 1)}, minmax(0, 1fr))`,
+                                }}
+                            >
+                                <div className="flex flex-col divide-y relative">
+                                    <div
+                                        className="py-5 line-clamp-1 whitespace-nowrap text-center">
+                                        {option.value}
+                                    </div>
+                                </div>
+                                {/* ستون محصولات مقایسه‌ای */}
+                                {displayedCompareProducts.map((product2, i) => (
+                                    <div key={i} className="flex flex-col divide-y relative">
+                                        <div key={index}
+                                             className="py-5 line-clamp-1 whitespace-nowrap text-center">
+                                            {!product2.productOptions.data.find(
+                                                (opt) => opt.option_item_id === product.productOptions.data[index].option_item_id
+                                            )?.value?.trim() ? "---" :
+                                                //@ts-ignore
+                                                product2?.productOptions?.data?.find(
+                                                    (opt) => opt?.option_item_id === product.productOptions.data[index]?.option_item_id
+                                                ).value}
+                                        </div>
+
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </>
     );
