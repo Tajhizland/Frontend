@@ -22,6 +22,10 @@ import Image from "next/image";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
 import ButtonClose from "@/shared/Button/ButtonClose";
+import CategoryCard from "@/components/Card/CategoryCard";
+import GroupCard from "@/components/Card/GroupCard";
+import {IoIosArrowDropleftCircle} from "react-icons/io";
+import SectionGroupSlider from "@/components/Section/SectionGroupSlider";
 
 const PageCollection = ({response, url, breadcrump}: { response: any, url: string, breadcrump: BreadcrumbType[] }) => {
     const router = useRouter();
@@ -138,7 +142,7 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
        rounded-2xl overflow-hidden whitespace-nowrap fixed z-50
         md:right-1/2 md:translate-x-1/2 border
         bottom-[70px] right-2 sm:right-1/2 sm:translate-x-1/2 w-fit
-        bg-white bg-opacity-80 p-1 sm:p-3 shadow-lg 
+        bg-white bg-opacity-80 p-1 sm:p-3 shadow-lg
       `}
                 >
                     <div className={" flex gap-2 sm:gap-4  relative"}>
@@ -190,6 +194,61 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
 
                 <div className="space-y-5">
                     <ShopBreadcrump breadcrumb={breadcrump}/>
+
+                    {
+                        response?.groups?.data && response?.groups?.data.length > 0 && (<>
+                            <hr className="border-slate-200 dark:border-slate-700"/>
+                            <div className={"flex flex-col sm:flex-row rounded-3xl overflow-hidden w-full"}>
+                                <div className={"bg-[#fcb415] w-full sm:w-52  px-2 flex flex-col gap-4 p-2 justify-center items-center "}>
+                            <span>
+                                انتخاب سریع
+                            </span>
+                                    <strong className={" font-extrabold"}>
+                                        انواع
+                                    </strong>
+                                    <strong className={"text-center font-extrabold"}>
+                                        {
+                                            breadcrump[0].title
+                                        }
+                                    </strong>
+                                    <Link href={breadcrump[0].href}>
+                                        <div className="flex items-center relative gap-x-2">
+                                    <span
+                                        className="text-xs sm:text-sm font-semibold whitespace-nowrap text-slate-800 ">مشاهده همه  </span>
+                                            <IoIosArrowDropleftCircle className={"w-4 h-4 text-slate-800 "}/>
+                                        </div>
+                                    </Link>
+                                </div>
+
+                                <div className={"flex w-full"}>
+                                    <SectionGroupSlider
+                                        data={response?.groups?.data}
+                                    />
+                                </div>
+
+                                {/*<div*/}
+                                {/*    className="grid grid-cols-2 md:grid-cols-5 overflow-x-auto  gap-1  lg:gap-5 text-center  bg-stone-100  py-4 px-2 w-full">*/}
+
+                                {/*    {*/}
+                                {/*        response?.groups?.data?.map((item, index) => (*/}
+
+                                {/*            <GroupCard*/}
+                                {/*                featuredImage={`${item?.images?.data[0]?.url}`}*/}
+                                {/*                imageBaseUrl={"product"}*/}
+                                {/*                name={item?.name}*/}
+                                {/*                url={item.url}*/}
+                                {/*                key={item.id}*/}
+                                {/*                color={"bg-orange-50"}*/}
+                                {/*                {...item}*/}
+                                {/*            />*/}
+                                {/*        ))*/}
+                                {/*    }*/}
+
+                                {/*</div>*/}
+                            </div>
+                        </>)
+
+                    }
 
                     {/* HEADING */}
 
