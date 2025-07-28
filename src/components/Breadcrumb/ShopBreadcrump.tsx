@@ -1,11 +1,11 @@
 import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 import Link from "next/link";
 
-export default function ShopBreadcrump({breadcrumb , baseUrl="/"}: { breadcrumb: BreadcrumbType[] ,baseUrl?:string }) {
+export default function ShopBreadcrump({breadcrumb , baseUrl="/" ,bg}: { breadcrumb: BreadcrumbType[] ,baseUrl?:string,bg?:string }) {
     return (<>
              <div
-                className="p-3 bg-white ">
-                <nav className="flex bg-white  rounded-lg flex-wrap" aria-label="Breadcrumb">
+                className={`p-3 ${bg?bg:"bg-white"}`}>
+                <nav className={`"flex  ${bg?bg:"bg-white"}  rounded-lg flex-wrap"`} aria-label="Breadcrumb">
                     <ol className="inline-flex items-center space-x-1  flex-wrap ">
                         <li className="inline-flex items-center">
                             <Link href={"/"}

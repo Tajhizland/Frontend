@@ -211,7 +211,7 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
                                             breadcrump[0].title
                                         }
                                     </strong>
-                                    <Link href={breadcrump[0].href}>
+                                    <Link href={"/category-group/"+response.category?.url}>
                                         <div className="flex items-center relative gap-x-2">
                                     <span
                                         className="text-xs sm:text-sm font-semibold whitespace-nowrap text-slate-800 ">مشاهده همه  </span>
