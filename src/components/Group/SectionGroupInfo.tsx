@@ -5,7 +5,6 @@ import {
     SparklesIcon,
 } from "@heroicons/react/24/outline";
 
-import ProductSidebar from "@/components/Product/ProductSidebar";
 import ProductImage from "@/components/Product/ProductImage";
 import ProductComment from "@/components/Product/ProductComment";
 import TextExpander from "@/shared/TextExpander/TextExpander";
@@ -147,7 +146,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
                 </div>
                 {/*  */}
                 <div className="block lg:hidden">
-                    <ProductSidebar product={product}/>
+                    <SectionGroup groupItems={groupItems} setProduct={setProduct}/>
                 </div>
 
                 {/*  */}
@@ -191,6 +190,8 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
                 {/* MAIn */}
                 <main className="container relative z-10 mt-9 sm:mt-11 flex ">
                     {/* CONTENT */}
+
+
                     <div className="w-full lg:w-3/5 xl:w-2/3 space-y-10 lg:pl-14 lg:space-y-14">
                         {renderSection1()}
                     </div>
