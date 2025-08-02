@@ -106,7 +106,7 @@ export const getOptionItemByOption = async <T extends ServerResponse<OptionItems
 export const sortOptionItem = async <T extends ServerResponse<unknown>>
 (
     param: {
-        option: {
+        optionItem: {
             id: number
             sort: number
         }[]

@@ -129,7 +129,7 @@ export default function Page() {
             request.push({id: item.id, sort: index});
         });
         try {
-            let response = await sortOptionItem({option: request});
+            let response = await sortOptionItem({optionItem: request});
             toast.success(response?.message as string);
             queryClient.invalidateQueries([`OptionItemOfCategory`, id]);
         } catch (error) {
