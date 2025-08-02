@@ -83,3 +83,15 @@ export const setToCategory = async <T extends ServerResponse<unknown>>
     return axios.post<T, SuccessResponseType<T>>("admin/category/option/set/", params)
         .then((res) => res?.data)
 };
+export const sortOption = async <T extends ServerResponse<unknown>>
+(
+    param:{
+        option: {
+            id: number
+            sort: number
+        }[]
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/category/option/sort",param)
+        .then((res) => res?.data)
+};
