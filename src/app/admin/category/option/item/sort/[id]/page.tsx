@@ -144,8 +144,8 @@ export default function Page() {
                 breadcrumb={[
                     {title: "دسته بندی", href: "category"},
                     {title: "ویرایش دسته بندی", href: `category/edit/${id}`},
-                    {title: "ویرایش ویژگی ها", href: `category/OptionItem/${id}`},
-                    {title: "سورت", href: `category/OptionItem/sort/${id}`},
+                    {title: "ویرایش ویژگی ها", href: `category/option/${id}`},
+                    {title: "سورت", href: `category/option/item/sort/${id}`},
                 ]}
             />
             <Panel>
