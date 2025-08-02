@@ -1,27 +1,29 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import CategoryTab from "@/components/Tabs/CategoryTab";
+
 ;
 
 import Panel from "@/shared/Panel/Panel";
-import { useParams, useRouter } from "next/navigation";
-import { useQuery, useQueryClient } from "react-query";
-import { findByCategoryId, setToCategory } from "@/services/api/admin/option";
-import { useState } from "react";
+import {useParams, useRouter} from "next/navigation";
+import {useQuery, useQueryClient} from "react-query";
+import {findByCategoryId, setToCategory} from "@/services/api/admin/option";
+import {useState} from "react";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import OptionForm from "@/app/admin/category/option/[id]/OptionForm";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import { toast } from "react-hot-toast";
+import {toast} from "react-hot-toast";
 import Spinner from "@/shared/Loading/Spinner";
-import { Route } from "next";
+import {Route} from "next";
+import Link from "next/link";
 
 export default function Page() {
     const [extraOption, setExtraOption] = useState(0);
     const queryClient = useQueryClient();
     const router = useRouter();
 
-    const { id } = useParams();
-    const { data: data, isLoading } = useQuery({
+    const {id} = useParams();
+    const {data: data, isLoading} = useQuery({
         queryKey: [`option-info`],
         queryFn: () => findByCategoryId(Number(id)),
         staleTime: 5000,
@@ -80,6 +82,7 @@ export default function Page() {
             window.location.reload()
         }
     }
+
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -94,22 +97,28 @@ export default function Page() {
                 title: "ویرایش ویژگی دسته‌بندی",
                 href: "category/option/" + id
             }
-        ]} />
+        ]}/>
         <Panel>
 
-            <CategoryTab id={id + ""} />
-            {isLoading && <Spinner />}
-
+            <CategoryTab id={id + ""}/>
+            {isLoading && <Spinner/>}
+            <div>
+                <Link href={"/admin/category/option/sort/" + id}>
+                    <ButtonPrimary>
+                        سورت کردن ویژگی ها
+                    </ButtonPrimary>
+                </Link>
+            </div>
             <form action={submit}>
                 {
                     data && data.map((option, index) => (<>
-                        <OptionForm option={option} index={index} />
-                        <hr className="my-5" />
+                        <OptionForm option={option} index={index}/>
+                        <hr className="my-5"/>
                     </>))
                 }
-                {Array.from({ length: extraOption }).map((_, index) => (
+                {Array.from({length: extraOption}).map((_, index) => (
                     <>
-                        <OptionForm index={index + (data?.length != undefined ? data?.length : 0)} />
+                        <OptionForm index={index + (data?.length != undefined ? data?.length : 0)}/>
                     </>
                 ))}
                 <ButtonCircle type="button" className={"w-48 bg-orange-600"} onClick={handleAddForm}>
