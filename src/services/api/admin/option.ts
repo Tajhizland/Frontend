@@ -100,7 +100,7 @@ export const getOptionItemByOption = async <T extends ServerResponse<OptionItems
 (
     id: number
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/category/option-item/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/category/option-item/" + id)
         .then((res) => res?.data?.result?.data)
 };
 export const sortOptionItem = async <T extends ServerResponse<unknown>>
