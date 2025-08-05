@@ -17,12 +17,15 @@ import {BsCoin} from "react-icons/bs";
 import {createRef, Fragment, useState} from "react";
 import NcModal from "@/shared/NcModal/NcModal";
 import {findById, updateColorPrice} from "@/services/api/admin/color";
+import {findById as FindProduct} from "@/services/api/admin/product";
+
 import Input from "@/shared/Input/Input";
 import {useQuery, useQueryClient} from "react-query";
 import Spinner from "@/shared/Loading/Spinner";
 import Select from "@/shared/Select/Select";
-import Label from "@/shared/Label/Label";
 import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
+import {FaEye} from "react-icons/fa";
+import {useRouter} from "next/navigation";
 
 export default function Page() {
     const [modal, setModal] = useState(false)
@@ -30,6 +33,7 @@ export default function Page() {
     const [sumColorSize, setSumColorSize] = useState<number>(0)
     const queryClient = useQueryClient();
     const dateRef = createRef<HTMLInputElement>();
+    const router = useRouter();
 
     async function submit(e: ProductResponse) {
 
@@ -66,7 +70,7 @@ export default function Page() {
                 status: Number(e.get(`color[${i}][status]`)),
                 stock: Number(e.get(`color[${i}][stock]`)),
                 delivery_delay: Number(e.get(`color[${i}][delivery_delay]`)),
-                discount_expire_time:  (e.get(`color[${i}][discount_expire_time]`))+"",
+                discount_expire_time: (e.get(`color[${i}][discount_expire_time]`)) + "",
             };
 
             colors.push(colorData);
@@ -98,6 +102,17 @@ export default function Page() {
             action: (id: number) => {
                 setProductID(id);
                 setModal(true);
+            }
+        },
+        {
+            label: <FaEye className={"text-black w-5 h-5"} title={"مشاهده"}/>,
+            type: "action",
+            colorClass: "bg-white text-white border border-slate-900 outline-none ",
+            action: async (id: number) => {
+                let product = await FindProduct(id);
+                if (product) {
+                    router.push("/product/" + product.url)
+                }
             }
         },
     ]
@@ -143,7 +158,7 @@ export default function Page() {
                                         ref={dateRef}
                                         type={"hidden"}
                                         name={`color[${index}][discount_expire_time]`}
-                                        defaultValue={item.discount_expire_time??""}/>
+                                        defaultValue={item.discount_expire_time ?? ""}/>
                                 </div>
                                 <div>
                                     <label>قیمت پس از تخفیف</label>
