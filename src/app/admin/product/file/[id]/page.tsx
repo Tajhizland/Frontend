@@ -66,7 +66,7 @@ export default function Page() {
             }
         ]}/>
         <Panel>
-            <ProductTab id={id + ""}/>
+            <ProductTab id={id + ""}   url={productInfo?.url??""} />
             <div className="flex flex-col gap-y-4">
                 <form action={submit}>
                     <SimpleUploader name={"file"}/>

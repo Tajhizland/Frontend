@@ -16,6 +16,8 @@ import {deleteProductVideo, findById, setProductVideo} from "@/services/api/admi
 import NcImage from "@/shared/NcImage/NcImage";
 import {FaTrash} from "react-icons/fa";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import {findByProductId} from "@/services/api/admin/option";
+import {findById as productFindById} from "@/services/api/admin/product";
 
 export default function Page() {
     const {id} = useParams();
@@ -28,6 +30,11 @@ export default function Page() {
     const {data: data, isLoading: isLoading} = useQuery({
         queryKey: [`product_info`],
         queryFn: () => findById(Number(id)),
+        staleTime: 5000,
+    });
+    const {data: productInfo} = useQuery({
+        queryKey: [`product-info`],
+        queryFn: () => productFindById(Number(id)),
         staleTime: 5000,
     });
 
@@ -118,12 +125,14 @@ export default function Page() {
             hasButton={false}
         />
         <Panel>
-            <ProductTab id={id + ""}/>
+            <ProductTab id={id + ""} url={productInfo?.url ?? ""}/>
 
             <div className={"flex flex-col gap-4"}>
                 <div className={"flex flex-col gap-1"}>
                     <label>عنوان</label>
-                    <Input name={"title"} onChange={(e)=>{setTitle(e.target.value)}}/>
+                    <Input name={"title"} onChange={(e) => {
+                        setTitle(e.target.value)
+                    }}/>
                 </div>
                 <div>
                     <ButtonSecondary onClick={() => {
@@ -157,7 +166,9 @@ export default function Page() {
                             </span>
                         </div>
                         <div>
-                            <ButtonPrimary onClick={()=>{deleteVideo(item.id)}}>
+                            <ButtonPrimary onClick={() => {
+                                deleteVideo(item.id)
+                            }}>
                                 <FaTrash/>
                             </ButtonPrimary>
                         </div>

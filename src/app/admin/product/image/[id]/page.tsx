@@ -65,7 +65,7 @@ export default function Page() {
             }
         ]}/>
         <Panel>
-            <ProductTab id={id + ""}/>
+            <ProductTab id={id + ""}   url={productInfo?.url??""} />
             <Link href={"/admin/product/image/sort/"+id}>
                 <ButtonPrimary>
                     سورت کردن

@@ -60,7 +60,7 @@ export default function Page() {
             <PageTitle>
                 ویرایش محصول
             </PageTitle>
-            <ProductTab id={id + ""} />
+            <ProductTab id={id + ""} url={data?.url??""}/>
 
             <div>
                 <Form data={data} submit={submit} colorCount={colorCount} setColorCount={setColorCount} />
