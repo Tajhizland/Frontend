@@ -122,7 +122,7 @@ export default function Page() {
             hasButton={false}
         />
         <Panel>
-            <ProductTab id={id + ""}/>
+            <ProductTab id={id + ""} url={""}/>
             <div className={"flex flex-col gap-y-10"}>
 
                 <div>

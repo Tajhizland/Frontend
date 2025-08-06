@@ -1,17 +1,16 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import ProductTab from "@/components/Tabs/ProductTab";
 import {getFiles, remove, upload} from "@/services/api/admin/fileManager";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
 import Uploader from "@/shared/Uploader/Uploader";
 import {TrashIcon} from "@heroicons/react/24/solid";
-import Image from "next/image";
 import {useParams} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
 import {toast} from "react-hot-toast";
 import NcImage from "@/shared/NcImage/NcImage";
 import React from "react";
+import CategoryTab from "@/components/Tabs/CategoryTab";
 
 export default function Page() {
     const {id} = useParams();
@@ -54,7 +53,7 @@ export default function Page() {
             }
         ]}/>
         <Panel>
-            <ProductTab id={id + ""}/>
+            <CategoryTab id={id + ""}/>
             <div className="flex flex-col gap-y-4">
                 <form action={submit}>
                     <Uploader name={"file"}/>
