@@ -18,3 +18,12 @@ export const search = async <T extends ServerResponse<ProductResponse[]>>
     return axios.post<T, SuccessResponseType<T>>("compare/search",params)
         .then((res) => res?.data?.result?.data)
 };
+export const allProduct = async <T extends ServerResponse<ProductResponse[]>>
+(
+    params: {
+        categoryIds: number[]
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("compare/category/product",params)
+        .then((res) => res?.data?.result?.data)
+};
