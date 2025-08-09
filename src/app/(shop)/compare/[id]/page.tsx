@@ -93,30 +93,27 @@ export default function Page() {
                                 <span>{item.name}</span>
                             </div>
                         )) :
-                        (all && all.length > 0 && all.map((product, index) => (
+                        (all && all.length > 0 && all.map((item) => (
 
-                            <div key={index}
-                                 className="flex flex-col relative border rounded-xl justify-center items-center">
-                                <div className="w-fit h-full relative">
-                                    <Image
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
-                                        alt="image"
-                                        width={250}
-                                        height={250}
-                                    />
-
-                                </div>
-                                <div className="py-5">
-                                    <h2 className="line-clamp-1">{product.name}</h2>
-                                </div>
-                                <button
-                                    onClick={() =>
-                                        setCompareProducts((prev) => prev.filter((p) => p.id !== product.id))
+                            <div
+                                key={item.id}
+                                className="flex justify-between items-center border shadow rounded pl-5 cursor-pointer hover:bg-slate-100"
+                                onClick={() => {
+                                    if (!compareProducts.find((p) => p.id === item.id)) {
+                                        setCompareProducts((prev) => [...prev, item]);
                                     }
-                                    className="absolute top-0 left-0 text-red-500 text-xs bg-white rounded px-1"
-                                >
-                                    ✕
-                                </button>
+                                    setOpenModal(false);
+                                }}
+                            >
+                                <div className="w-[100px] h-[100px]">
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                        alt="image"
+                                        width={100}
+                                        height={100}
+                                    />
+                                </div>
+                                <span>{item.name}</span>
                             </div>
                         )))
                     }

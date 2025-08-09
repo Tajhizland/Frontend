@@ -6,8 +6,8 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonClose from "@/shared/Button/ButtonClose";
 import NcModal from "@/shared/NcModal/NcModal";
 import Input from "@/shared/Input/Input";
-import {useMutation} from "react-query";
-import {search} from "@/services/api/shop/compare";
+import {useMutation, useQuery} from "react-query";
+import {allProduct, search} from "@/services/api/shop/compare";
 
 interface ComparePageProps {
     compareList: ProductResponse[];
@@ -38,6 +38,14 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
             setIsButtonDisabled(compareProducts.length >= 4);
         }
     }, [compareProducts, isMobile]);
+
+
+    const {data: all} = useQuery({
+        queryKey: ["all-product"],
+        queryFn: () => allProduct({categoryIds: compareList?.[0].category_ids ?? []}),
+        staleTime: 5000,
+        enabled: !!compareList
+    });
 
     // محدود کردن تعداد محصولات نمایش‌داده‌شده بر اساس دستگاه
     const displayedCompareProducts = isMobile ? compareProducts.slice(0, 2) : compareProducts.slice(0, 4);
@@ -88,7 +96,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
             </div>
             <div className="mt-5 max-h-96 overflow-y-scroll">
                 <div className="flex flex-col gap-y-5">
-                    {newProduct &&
+                    {(newProduct && newProduct.length > 0) ?
                         newProduct.map((item) => (
                             <div
                                 key={item.id}
@@ -110,7 +118,31 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                                 </div>
                                 <span>{item.name}</span>
                             </div>
-                        ))}
+                        ))
+                        :
+                        (all && all.length > 0 && all.map((item) => (
+                            <div
+                                key={item.id}
+                                className="flex justify-between items-center border shadow rounded pl-5 cursor-pointer hover:bg-slate-100"
+                                onClick={() => {
+                                    if (!compareProducts.find((p) => p.id === item.id)) {
+                                        setCompareProducts((prev) => [...prev, item]);
+                                    }
+                                    setOpenModal(false);
+                                }}
+                            >
+                                <div className="w-[100px] h-[100px]">
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                        alt="image"
+                                        width={100}
+                                        height={100}
+                                    />
+                                </div>
+                                <span>{item.name}</span>
+                            </div>
+                        )))
+                    }
                 </div>
             </div>
         </div>
