@@ -28,7 +28,7 @@ export default function Page() {
         queryKey: ["all-product"],
         queryFn: () => allProduct({categoryIds: product?.category_ids ?? []}),
         staleTime: 5000,
-        enabled:!!product
+        enabled: !!product
     });
 
     const {
@@ -70,7 +70,7 @@ export default function Page() {
             </div>
             <div className="mt-5 max-h-96 overflow-y-scroll">
                 <div className="flex flex-col gap-y-5">
-                    {newProduct &&
+                    {(newProduct && newProduct.length > 0) ?
                         newProduct.map((item) => (
                             <div
                                 key={item.id}
@@ -92,7 +92,34 @@ export default function Page() {
                                 </div>
                                 <span>{item.name}</span>
                             </div>
-                        ))}
+                        )) :
+                        (all && all.length > 0 && all.map((product, index) => (
+
+                            <div key={index}
+                                 className="flex flex-col relative border rounded-xl justify-center items-center">
+                                <div className="w-fit h-full relative">
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
+                                        alt="image"
+                                        width={250}
+                                        height={250}
+                                    />
+
+                                </div>
+                                <div className="py-5">
+                                    <h2 className="line-clamp-1">{product.name}</h2>
+                                </div>
+                                <button
+                                    onClick={() =>
+                                        setCompareProducts((prev) => prev.filter((p) => p.id !== product.id))
+                                    }
+                                    className="absolute top-0 left-0 text-red-500 text-xs bg-white rounded px-1"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        )))
+                    }
                 </div>
             </div>
         </div>
@@ -160,7 +187,7 @@ export default function Page() {
                                 ✕
                             </button>
                         </div>
-                        {(displayedCompareProducts && displayedCompareProducts.length > 0) ?displayedCompareProducts.map((product, i) => (
+                        {displayedCompareProducts.map((product, i) => (
                             <div key={i}
                                  className="flex flex-col relative border rounded-xl justify-center items-center">
                                 <div className="w-fit h-full relative">
@@ -184,35 +211,7 @@ export default function Page() {
                                     ✕
                                 </button>
                             </div>
-                        ))
-                        :
-                            (all && all.length > 0 && all.map((product,index)=>(
-
-                                <div key={index}
-                                     className="flex flex-col relative border rounded-xl justify-center items-center">
-                                    <div className="w-fit h-full relative">
-                                        <Image
-                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
-                                            alt="image"
-                                            width={250}
-                                            height={250}
-                                        />
-
-                                    </div>
-                                    <div className="py-5">
-                                        <h2 className="line-clamp-1">{product.name}</h2>
-                                    </div>
-                                    <button
-                                        onClick={() =>
-                                            setCompareProducts((prev) => prev.filter((p) => p.id !== product.id))
-                                        }
-                                        className="absolute top-0 left-0 text-red-500 text-xs bg-white rounded px-1"
-                                    >
-                                        ✕
-                                    </button>
-                                </div>
-                            )))
-                        }
+                        ))}
 
                         {!isButtonDisabled && <div
                             className="flex flex-col relative justify-center items-center">
