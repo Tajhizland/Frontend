@@ -42,15 +42,21 @@ const DataTable = <T,>({ columns, apiUrl, buttons, onEdit, onDelete }: DataTable
     const [editedData, setEditedData] = useState<any[]>([]);
     const [confirmDeleteModal, setConfirmDeleteModal] = useState<boolean>(false);
     const [rowIndexId, setRowIndexId] = useState<number>(0);
-    const [visibleColumns, setVisibleColumns] = useState<string[]>(() => {
-        // Initialize from localStorage or show all columns by default
-        const saved = localStorage.getItem(tableStorageKey);
-        return saved ? JSON.parse(saved) : columns.map(col => col.key as string);
-    });
+    const [visibleColumns, setVisibleColumns] = useState<string[]>([]);
 
+    // Initialize visibleColumns from localStorage only on the client side
     useEffect(() => {
-        // Save visible columns to localStorage whenever they change
-        localStorage.setItem(tableStorageKey, JSON.stringify(visibleColumns));
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem(tableStorageKey);
+            setVisibleColumns(saved ? JSON.parse(saved) : columns.map(col => col.key as string));
+        }
+    }, []);
+
+    // Save visibleColumns to localStorage whenever it changes
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(tableStorageKey, JSON.stringify(visibleColumns));
+        }
     }, [visibleColumns]);
 
     useEffect(() => {
@@ -187,13 +193,13 @@ const DataTable = <T,>({ columns, apiUrl, buttons, onEdit, onDelete }: DataTable
             {/*<div className="mb-1">*/}
             {/*    <div className="flex flex-wrap gap-4">*/}
             {/*        {columns.map((col) => (*/}
-            {/*            <label key={col.key as string} className="flex items-center gap-1">*/}
+            {/*            <label key={col.key as string} className="flex items-center gap-2">*/}
             {/*                <input*/}
             {/*                    type="checkbox"*/}
             {/*                    checked={visibleColumns.includes(col.key as string)}*/}
             {/*                    onChange={() => handleColumnVisibilityChange(col.key as string)}*/}
             {/*                />*/}
-            {/*                <span className={"text-xs font-bold"}>{col.header}</span>*/}
+            {/*                <span className={"text-xs"}>{col.header}</span>*/}
             {/*            </label>*/}
             {/*        ))}*/}
             {/*    </div>*/}
