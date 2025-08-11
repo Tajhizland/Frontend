@@ -1,20 +1,21 @@
 "use client";
 
-import { useState, ChangeEvent, useEffect} from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import CustomSelect from "@/shared/CustomSelect/CustomSelect";
 import Input from "@/shared/Input/Input";
-import {FaEdit, FaSort, FaSortDown, FaSortUp} from "react-icons/fa";
+import { FaEdit, FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
 import Link from "next/link";
 import Button from "@/shared/Button/Button";
-import {DataTableAction, DataTableButtons, DataTableLink, DataTableProps} from "@/shared/DataTable/type";
-import {UrlObject} from "node:url";
+import { DataTableAction, DataTableButtons, DataTableLink, DataTableProps } from "@/shared/DataTable/type";
+import { UrlObject } from "node:url";
 import axios from "@/services/axios";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
 import Spinner from "@/shared/Loading/Spinner";
 import NcModal from "@/shared/NcModal/NcModal";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import {IoIosWarning} from "react-icons/io";
+import { IoIosWarning } from "react-icons/io";
+import { usePathname } from "next/navigation";
 import SelectPagination from "@/shared/Pagination/SelectPagination";
 
 type optionType = {
@@ -22,8 +23,10 @@ type optionType = {
     value: string | number;
 };
 
+const DataTable = <T,>({ columns, apiUrl, buttons, onEdit, onDelete }: DataTableProps<T>) => {
+    const pathname = usePathname();
+    const tableStorageKey = `visibleColumns-${pathname}`;
 
-const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableProps<T>) => {
     const [filterValues, setFilterValues] = useState<{ [key: string]: any }>({});
     const [sortConfig, setSortConfig] = useState<{
         key: keyof T | null;
@@ -35,30 +38,34 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
     const [data, setData] = useState<T[]>([]);
     const [meta, setMeta] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [editingRow, setEditingRow] = useState<number | null>(null); // Track which row is being edited
-    const [editedData, setEditedData] = useState<any[]>([]); // Editable data state
-    const [confirmDeleteModal, setConfirmDeleteModal] = useState<boolean>(false); // Editable data state
-    const [rowIndexId, setRowIndexId] = useState<number>(0); // Editable data state
+    const [editingRow, setEditingRow] = useState<number | null>(null);
+    const [editedData, setEditedData] = useState<any[]>([]);
+    const [confirmDeleteModal, setConfirmDeleteModal] = useState<boolean>(false);
+    const [rowIndexId, setRowIndexId] = useState<number>(0);
+    const [visibleColumns, setVisibleColumns] = useState<string[]>(() => {
+        // Initialize from localStorage or show all columns by default
+        const saved = localStorage.getItem(tableStorageKey);
+        return saved ? JSON.parse(saved) : columns.map(col => col.key as string);
+    });
 
     useEffect(() => {
-        // Fetch data when filter values or sort config changes
+        // Save visible columns to localStorage whenever they change
+        localStorage.setItem(tableStorageKey, JSON.stringify(visibleColumns));
+    }, [visibleColumns]);
+
+    useEffect(() => {
         fetchData();
     }, [filterValues, sortConfig]);
 
-    // Function to fetch data from API
     const fetchData = async (page: number = 1) => {
         setLoading(true);
         try {
             const queryParams = new URLSearchParams();
-
             queryParams.append("page", page + "");
-            // Add sorting parameters
             if (sortConfig.key) {
                 const sortDirection = sortConfig.direction === "asc" ? "" : "-";
                 queryParams.append('sort', `${sortDirection}${sortConfig.key as string}`);
             }
-
-            // Add filter parameters
             Object.keys(filterValues).forEach((key) => {
                 const value = filterValues[key];
                 if (value) {
@@ -69,13 +76,11 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                     }
                 }
             });
-
             const response = await axios.get(`${apiUrl}?${queryParams.toString()}`)
-                .then((res) => res?.data?.result)
+                .then((res) => res?.data?.result);
             setData(response?.data);
             setEditedData(response?.data);
             setMeta(response?.meta);
-
         } catch (error) {
             console.error("Failed to fetch data:", error);
         } finally {
@@ -83,18 +88,16 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
         }
     };
 
-    // Handler to apply filters
     const handleFilterChange = (columnKey: keyof T, value: any) => {
-        setFilterValues((prev) => ({...prev, [columnKey]: value}));
+        setFilterValues((prev) => ({ ...prev, [columnKey]: value }));
     };
 
-    // Handler to apply sorting
     const handleSort = (columnKey: keyof T) => {
         let direction: "asc" | "desc" = "asc";
         if (sortConfig.key === columnKey && sortConfig.direction === "asc") {
             direction = "desc";
         }
-        setSortConfig({key: columnKey, direction});
+        setSortConfig({ key: columnKey, direction });
     };
 
     const handleEditClick = (rowIndex: number) => {
@@ -114,17 +117,25 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
         rowIndex: number
     ) => {
         const newValue = e.target.value;
-        const updatedRow = {...editedData[rowIndex], [columnKey]: newValue};
+        const updatedRow = { ...editedData[rowIndex], [columnKey]: newValue };
         const updatedData = [...editedData];
         updatedData[rowIndex] = updatedRow;
         setEditedData(updatedData);
     };
 
     const handleDateChange = (date: Date | null, columnKey: keyof T, rowIndex: number) => {
-        const updatedRow = {...editedData[rowIndex], [columnKey]: date};
+        const updatedRow = { ...editedData[rowIndex], [columnKey]: date };
         const updatedData = [...editedData];
         updatedData[rowIndex] = updatedRow;
         setEditedData(updatedData);
+    };
+
+    const handleColumnVisibilityChange = (columnKey: string) => {
+        setVisibleColumns(prev =>
+            prev.includes(columnKey)
+                ? prev.filter(key => key !== columnKey)
+                : [...prev, columnKey]
+        );
     };
 
     function isLink(button: DataTableButtons): button is DataTableLink {
@@ -139,22 +150,21 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
         return (
             <div className={"flex flex-col gap-y-10 text-right"}>
                 <div className={"flex justify-between items-center"}>
-                         <span className={"font-bold"}>
-                     آیا از حذف این آیتم اطمینان دارید ؟
-                 </span>
-                    <IoIosWarning className={"text-rose-500 w-10 h-10"}/>
+                    <span className={"font-bold"}>
+                        آیا از حذف این آیتم اطمینان دارید ؟
+                    </span>
+                    <IoIosWarning className={"text-rose-500 w-10 h-10"} />
                 </div>
-
                 <div className={"flex gap-x-2"}>
                     <ButtonPrimary
                         onClick={async () => {
                             onDelete && await onDelete(editedData[rowIndexId].id);
                             fetchData(meta.current_page);
                             setConfirmDeleteModal(false);
-                        }
-                        }>بله</ButtonPrimary>
+                        }}
+                    >بله</ButtonPrimary>
                     <ButtonSecondary onClick={() => {
-                        setConfirmDeleteModal(false)
+                        setConfirmDeleteModal(false);
                     }}>خیر</ButtonSecondary>
                 </div>
             </div>
@@ -163,44 +173,55 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
 
     return (
         <>
-            {
-                confirmDeleteModal &&
+            {confirmDeleteModal && (
                 <NcModal
                     isOpenProp={confirmDeleteModal}
-                    onCloseModal={() => {
-                        setConfirmDeleteModal(false)
-                    }}
+                    onCloseModal={() => setConfirmDeleteModal(false)}
                     contentExtraClass="max-w-4xl"
                     renderContent={renderContent}
                     triggerText={""}
                     modalTitle={"هشدار"}
                     hasButton={false}
                 />
-            }
+            )}
+            {/*<div className="mb-1">*/}
+            {/*    <div className="flex flex-wrap gap-4">*/}
+            {/*        {columns.map((col) => (*/}
+            {/*            <label key={col.key as string} className="flex items-center gap-1">*/}
+            {/*                <input*/}
+            {/*                    type="checkbox"*/}
+            {/*                    checked={visibleColumns.includes(col.key as string)}*/}
+            {/*                    onChange={() => handleColumnVisibilityChange(col.key as string)}*/}
+            {/*                />*/}
+            {/*                <span className={"text-xs font-bold"}>{col.header}</span>*/}
+            {/*            </label>*/}
+            {/*        ))}*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            {/*<hr/>*/}
             <div className="relative overflow-x-scroll shadow-md sm:rounded-lg w-full">
                 <table className="w-full text-sm rtl:text-right text-slate-900 text-center border">
-                    <thead className="text-xs uppercase bg-slate-50 border-b border-slate-400 ">
-                    <tr className={"text-slate-900 "}>
-                        {columns.map((col) => (
+                    <thead className="text-xs uppercase bg-slate-50 border-b border-slate-400">
+                    <tr className={"text-slate-900"}>
+                        {columns.filter(col => visibleColumns.includes(col.key as string)).map((col) => (
                             <th
-                                className={"text-center p-3 text-nowrap whitespace-nowrap  font-bold"}
+                                className={"text-center p-3 text-nowrap whitespace-nowrap font-bold"}
                                 key={col.key as string}
                                 onClick={() => (col.hasSort !== false ? handleSort(col.key) : undefined)}
                             >
                                 <div
-                                    className={` flex flex-row gap-x-2 justify-center  ${col.hasSort !== false ? "cursor-pointer" : ""
-                                    }`}
+                                    className={`flex flex-row gap-x-2 justify-center ${col.hasSort !== false ? "cursor-pointer" : ""}`}
                                 >
                                     {col.header}
                                     {col.hasSort !== false ? (
                                         sortConfig.key === col.key ? (
                                             sortConfig.direction === "asc" ? (
-                                                <FaSortUp className={"text-orange-500"}/>
+                                                <FaSortUp className={"text-orange-500"} />
                                             ) : (
-                                                <FaSortDown className={"text-orange-500"}/>
+                                                <FaSortDown className={"text-orange-500"} />
                                             )
                                         ) : (
-                                            <FaSort className={"text-orange-500"}/>
+                                            <FaSort className={"text-orange-500"} />
                                         )
                                     ) : (
                                         ""
@@ -208,17 +229,11 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                 </div>
                             </th>
                         ))}
-                        <th
-                            className={"text-center p-3 text-nowrap whitespace-nowrap"}>
-                            عملیات
-                        </th>
-                        <th
-                            className={"text-center p-3 text-nowrap whitespace-nowrap"}>
-                        </th>
+                        <th className={"text-center p-3 text-nowrap whitespace-nowrap"}>عملیات</th>
+                        <th className={"text-center p-3 text-nowrap whitespace-nowrap"}></th>
                     </tr>
-
                     <tr className={"text-slate-900 bg-white"}>
-                        {columns.map((col) => (
+                        {columns.filter(col => visibleColumns.includes(col.key as string)).map((col) => (
                             <th key={col.key as string} className={"text-center p-3"}>
                                 {col.hasFilter !== false ? (
                                     <>
@@ -229,16 +244,11 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                                 onChange={(e) => handleFilterChange(col.key, e.target.value)}
                                                 value={filterValues[col.key as string] || ""}
                                             />
-                                        ) : col.filterType === "date" ? (<></>
-                                            // <DatePicker
-                                            //     selected={filterValues[col.key as string] || null}
-                                            //     onChange={(date) => handleFilterChange(col.key, date)}
-                                            //     dateFormat="yyyy/MM/dd"
-                                            //     placeholderText={`Filter ${col.header}`}
-                                            // />
+                                        ) : col.filterType === "date" ? (
+                                            <></>
                                         ) : (
                                             <Input
-                                                className={"whitespace-nowrap text-nowrap min-w-[150px] "}
+                                                className={"whitespace-nowrap text-nowrap min-w-[150px]"}
                                                 type="text"
                                                 placeholder={`فیلتر ${col.header}`}
                                                 onChange={(e) => handleFilterChange(col.key, e.target.value)}
@@ -252,19 +262,20 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                             </th>
                         ))}
                         <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     {loading ? (
                         <tr>
-                            <td colSpan={columns.length + 2} className="text-center p-3">
-                                <Spinner/>
+                            <td colSpan={visibleColumns.length + 2} className="text-center p-3">
+                                <Spinner />
                             </td>
                         </tr>
                     ) : (
                         editedData && editedData.map((row, rowIndex) => (
                             <tr key={rowIndex}>
-                                {columns.map((col) => {
+                                {columns.filter(col => visibleColumns.includes(col.key as string)).map((col) => {
                                     const cellValue = row[col.key];
                                     let content: any;
 
@@ -281,15 +292,7 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                                 />
                                             );
                                         } else if (col.filterType === "date") {
-                                            content = (<></>
-                                                // <DatePicker
-                                                //     selected={cellValue as Date}
-                                                //     onChange={(date) =>
-                                                //         handleDateChange(date, col.key, rowIndex)
-                                                //     }
-                                                //     dateFormat="yyyy/MM/dd"
-                                                // />
-                                            );
+                                            content = (<></>);
                                         } else {
                                             content = (
                                                 <Input
@@ -320,45 +323,43 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                     {editingRow === rowIndex ? (
                                         <>
                                             <div className={"flex gap-x-2 justify-center"}>
-
                                                 <Button
                                                     onClick={() => {
-                                                        (onEdit != undefined && onEdit(editedData[rowIndex]));
-                                                        setEditingRow(null)
+                                                        onEdit && onEdit(editedData[rowIndex]);
+                                                        setEditingRow(null);
                                                     }}
                                                     className={"bg-teal-500 text-white"}
                                                     sizeClass={"py-1 px-3 sm:py-1 h-8 sm:px-6 h-8"}
-                                                    fontSize={" text-sm"}>
+                                                    fontSize={"text-sm"}
+                                                >
                                                     ذخیره
                                                 </Button>
-
                                                 <Button
                                                     onClick={() => setEditingRow(null)}
                                                     className={"bg-red-500 text-white"}
                                                     sizeClass={"py-1 px-3 sm:py-1 h-8 sm:px-6 h-8"}
-                                                    fontSize={" text-sm"}>
+                                                    fontSize={"text-sm"}
+                                                >
                                                     انصراف
                                                 </Button>
-
                                             </div>
-
                                         </>
                                     ) : (
                                         <>
-                                            {onEdit && <button
-                                                className="px-3 py-1  rounded"
-                                                onClick={() => {
-                                                    handleEditClick(rowIndex);
-                                                }}
-                                            >
-                                                <FaEdit className={"w-6 h-6"}/>
-                                            </button>}
+                                            {onEdit && (
+                                                <button
+                                                    className="px-3 py-1 rounded"
+                                                    onClick={() => handleEditClick(rowIndex)}
+                                                >
+                                                    <FaEdit className={"w-6 h-6"} />
+                                                </button>
+                                            )}
                                             {onDelete && (
                                                 <button
                                                     className="px-3 py-1 bg-red-500 text-white rounded"
                                                     onClick={() => {
                                                         setConfirmDeleteModal(true);
-                                                        setRowIndexId(rowIndex)
+                                                        setRowIndexId(rowIndex);
                                                     }}
                                                 >
                                                     حذف
@@ -369,31 +370,37 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                                 </td>
                                 <td className={"text-center p-3 border-b"}>
                                     <div className={"flex gap-x-2 justify-center"}>
-                                        {
-                                            buttons.map((button) => (<>
-                                                {
-                                                    isLink(button) ?
-                                                        <Link href={button.href(row.id) as UrlObject}>
-                                                            <Button className={button.colorClass}
-                                                                    sizeClass={"py-1 px-3 sm:py-1 h-8 sm:px-6 h-8"}
-                                                                    fontSize={" text-sm"}>
-                                                                {button.label}
-                                                            </Button>
-                                                        </Link>
-                                                        : ""
-                                                }
-                                                {
-                                                    isAction(button) ?
-                                                        <Button className={button.colorClass}
-                                                                sizeClass={"py-1 px-3 sm:py-1 h-8 sm:px-6 h-8"}
-                                                                fontSize={" text-sm"} onClick={() => {
+                                        {buttons.map((button) => (
+                                            <>
+                                                {isLink(button) ? (
+                                                    <Link href={button.href(row.id) as UrlObject}>
+                                                        <Button
+                                                            className={button.colorClass}
+                                                            sizeClass={"py-1 px-3 sm:py-1 h-8 sm:px-6 h-8"}
+                                                            fontSize={"text-sm"}
+                                                        >
+                                                            {button.label}
+                                                        </Button>
+                                                    </Link>
+                                                ) : (
+                                                    ""
+                                                )}
+                                                {isAction(button) ? (
+                                                    <Button
+                                                        className={button.colorClass}
+                                                        sizeClass={"py-1 px-3 sm:py-1 h-8 sm:px-6 h-8"}
+                                                        fontSize={"text-sm"}
+                                                        onClick={() => {
                                                             button.action(row.id);
-                                                            // fetchData(meta.current_page)
-                                                        }}>{button.label}</Button>
-                                                        : ""
-                                                }
-                                            </>))
-                                        }
+                                                        }}
+                                                    >
+                                                        {button.label}
+                                                    </Button>
+                                                ) : (
+                                                    ""
+                                                )}
+                                            </>
+                                        ))}
                                     </div>
                                 </td>
                             </tr>
@@ -401,25 +408,18 @@ const DataTable = <T, >({columns, apiUrl, buttons, onEdit, onDelete}: DataTableP
                     )}
                     </tbody>
                 </table>
-
             </div>
             <div className={"mt-5 mx-auto flex items-center gap-5"}>
                 <SelectPagination
                     currentPage={meta.current_page}
                     totalPages={Math.ceil(meta.total / meta.per_page)}
-                    onPageChange={(n) => {
-                        fetchData(n);
-                    }}
+                    onPageChange={(n) => fetchData(n)}
                 />
-
                 <AdminPagination
                     currentPage={meta.current_page}
                     totalPages={Math.ceil(meta.total / meta.per_page)}
-                    onPageChange={(n) => {
-                        fetchData(n);
-                    }}
+                    onPageChange={(n) => fetchData(n)}
                 />
-
             </div>
         </>
     );
