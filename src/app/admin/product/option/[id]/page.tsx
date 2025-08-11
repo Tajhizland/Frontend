@@ -1,15 +1,12 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import FormComponent from "@/components/Form/Product/ColorForm";
 import Label from "@/shared/Label/Label";
 import ProductTab from "@/components/Tabs/ProductTab";
 import { findByProductId, set } from "@/services/api/admin/option";
-import ButtonCircle from "@/shared/Button/ButtonCircle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import Spinner from "@/shared/Loading/Spinner";
 import Panel from "@/shared/Panel/Panel";
-import Select from "@/shared/Select/Select";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -19,6 +16,7 @@ import {findById as productFindById} from "@/services/api/admin/product";
 export default function Page() {
     const { id } = useParams();
     const queryClient = useQueryClient();
+    const [searchQuery, setSearchQuery] = useState("");
 
     const { data: data, isLoading: isLoading } = useQuery({
         queryKey: [`option-info`],
@@ -77,35 +75,63 @@ export default function Page() {
             <ProductTab id={id + ""}   url={productInfo?.url??""} />
             {
                 isLoading ? <Spinner /> : <>
+                    <div className="mb-5">
+                        <Label>جستجو بر اساس عنوان ویژگی</Label>
+                        <Input
+                            type="text"
+                            placeholder="جستجو..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
                     <form action={submit}>
-                        {
-                            data?.map((option) => (<>
+                        {data?.map((option) => (
+                            <div key={option.title}>
                                 <div className={"flex flex-col gap-y-5"}>
                                     <div>
                                         <Label>{option.title}</Label>
                                     </div>
                                     <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
-                                        {
-                                            option.optionItems?.data.map((item) => (<>
-                                                <div>
-                                                    <Label>
-                                                        {item.title}
-                                                    </Label>
-                                                    <Input type={"hidden"} name={`option[${item.id}][item_id]`} value={item.id} />
-
-                                                    <Input name={`option[${item.id}][value]`} defaultValue={item.productOption?.value} />
+                                        {option.optionItems?.data.map((item) => {
+                                            // بررسی مطابقت با عبارت جستجو
+                                            const isVisible = item.title
+                                                .toLowerCase()
+                                                .includes(searchQuery.toLowerCase());
+                                            return (
+                                                <div
+                                                    key={item.id}
+                                                    className={isVisible ? "" : "hidden"} // مخفی کردن با CSS
+                                                >
+                                                    <Label>{item.title}</Label>
+                                                    <Input
+                                                        type={"hidden"}
+                                                        name={`option[${item.id}][item_id]`}
+                                                        value={item.id}
+                                                    />
+                                                    <Input
+                                                        name={`option[${item.id}][value]`}
+                                                        defaultValue={item.productOption?.value}
+                                                    />
                                                 </div>
-                                            </>))
-                                        }
+                                            );
+                                        })}
                                     </div>
                                 </div>
                                 <hr className="my-5" />
-                            </>))
-                        }
+                            </div>
+                        ))}
+                        {data?.every((option) =>
+                            option.optionItems?.data.every(
+                                (item) =>
+                                    !item.title.toLowerCase().includes(searchQuery.toLowerCase())
+                            )
+                        ) && (
+                            <div className="text-center text-gray-500">
+                                هیچ آپشنی با این عنوان یافت نشد.
+                            </div>
+                        )}
                         <div className={"flex justify-center my-5"}>
-                            <ButtonPrimary type={"submit"}>
-                                ذخیره
-                            </ButtonPrimary>
+                            <ButtonPrimary type={"submit"}>ذخیره</ButtonPrimary>
                         </div>
                     </form>
                 </>
