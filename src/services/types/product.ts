@@ -10,10 +10,12 @@ import {PriceResponse} from "@/services/types/price";
 import {PopularProductResponse} from "@/services/types/popularProduct";
 import {ProductVideoResponse} from "@/services/types/productVideo";
 import {GroupProductResponse} from "@/services/types/groupProduct";
+import {breadcrumbResponse} from "@/services/types/category";
 
 export type ProductPageResponse = {
     product: ProductResponse;
     relatedProduct: { data: ProductResponse[] };
+    breadcrumb: { data: breadcrumbResponse[] };
 }
 export type SpecialProductPageResponse = {
     data: ProductResponse;

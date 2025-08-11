@@ -1,7 +1,7 @@
 import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 import Link from "next/link";
 
-export default function ShopBreadcrump({breadcrumb , baseUrl="/" ,bg}: { breadcrumb: BreadcrumbType[] ,baseUrl?:string,bg?:string }) {
+export default function ShopBreadcrump({breadcrumb , baseUrl="/" ,bg ,lastHasLink=false}: { breadcrumb: BreadcrumbType[] ,baseUrl?:string,bg?:string,lastHasLink?:boolean }) {
     return (<>
              <div
                 className={`p-3 ${bg?bg:"bg-white"}`}>
@@ -30,7 +30,7 @@ export default function ShopBreadcrump({breadcrumb , baseUrl="/" ,bg}: { breadcr
                                                   d="m1 9 4-4-4-4"/>
                                         </svg>
                                         {
-                                            index==breadcrumb.length-1?<div className="ms-1 text-xs font-bold text-gray-700 hover:text-[#fcb415] md:ms-2 cursor-pointer">
+                                            (index==breadcrumb.length-1 && !lastHasLink)?<div className="ms-1 text-xs font-bold text-gray-700 hover:text-[#fcb415] md:ms-2 cursor-pointer">
                                                     {item.title}
                                             </div>
                                                 :

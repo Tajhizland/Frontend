@@ -28,6 +28,8 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import {MdCompare} from "react-icons/md";
 import {FaShareAlt} from "react-icons/fa";
 import ShareButton from "@/shared/Button/ShareButton";
+import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
+import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 
 
 interface ProductPageProps {
@@ -211,7 +213,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                                 </div>
                             </Link
                             >
-                            <ShareButton  />
+                            <ShareButton/>
 
                         </div>
                     </div>
@@ -254,12 +256,25 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         );
     };
 
+    const renderBreadcrump = () => {
+        let breadcrumbs: BreadcrumbType[] = [];
+        productResponse.breadcrumb.data.map((breadcrumb) => {
+            breadcrumbs.push({title: breadcrumb.name, href: breadcrumb.url});
+        })
+        console.log("breadcrumbs",breadcrumbs)
+        return breadcrumbs;
+    }
+
     return (
         <>
             <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
+                <div className="container mt-8 sm:mt-10">
+                    <ShopBreadcrump breadcrumb={renderBreadcrump()} lastHasLink={true}/>
+                </div>
+
                 {product.images.data.length > 0 && <ProductImage productImages={product.images.data}/>}
                 {/* MAIn */}
                 <main className="container relative z-10 mt-9 sm:mt-11 flex ">
