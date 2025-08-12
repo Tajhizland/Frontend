@@ -14,6 +14,7 @@ interface CategoryPageProps {
         page?: string;
     }>
 }
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(props: CategoryPageProps): Promise<Metadata> {
     const searchParams = await props.searchParams;
