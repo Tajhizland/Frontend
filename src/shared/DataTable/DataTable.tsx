@@ -191,21 +191,21 @@ const DataTable = <T,>({ columns, apiUrl, buttons, onEdit, onDelete }: DataTable
                     hasButton={false}
                 />
             )}
-            {/*<div className="mb-1">*/}
-            {/*    <div className="flex flex-wrap gap-4">*/}
-            {/*        {columns.map((col) => (*/}
-            {/*            <label key={col.key as string} className="flex items-center gap-2">*/}
-            {/*                <input*/}
-            {/*                    type="checkbox"*/}
-            {/*                    checked={visibleColumns.includes(col.key as string)}*/}
-            {/*                    onChange={() => handleColumnVisibilityChange(col.key as string)}*/}
-            {/*                />*/}
-            {/*                <span className={"text-xs"}>{col.header}</span>*/}
-            {/*            </label>*/}
-            {/*        ))}*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-            {/*<hr/>*/}
+            <div className="mb-1">
+                <div className="flex flex-wrap gap-4">
+                    {columns.map((col) => (
+                        <label key={col.key as string} className="flex items-center gap-2">
+                            <input
+                                type="checkbox"
+                                checked={visibleColumns.includes(col.key as string)}
+                                onChange={() => handleColumnVisibilityChange(col.key as string)}
+                            />
+                            <span className={"text-xs"}>{col.header}</span>
+                        </label>
+                    ))}
+                </div>
+            </div>
+            <hr/>
             <div className="relative overflow-x-scroll shadow-md sm:rounded-lg w-full">
                 <table className="w-full text-sm rtl:text-right text-slate-900 text-center border">
                     <thead className="text-xs uppercase bg-slate-50 border-b border-slate-400">
