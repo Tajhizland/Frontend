@@ -28,7 +28,7 @@ export default function Page() {
     const {id} = useParams();
 
     const {data} = useQuery({
-        queryKey: [`group-product`],
+        queryKey: [`group-product`, Number(id)],
         queryFn: () => getProduct(Number(id)),
         staleTime: 5000,
     });
@@ -84,14 +84,14 @@ export default function Page() {
                 productId: productId
             }
         )
-        queryClient.refetchQueries(['group-product']);
+        queryClient.refetchQueries(['group-product', Number(id)]);
         toast.success(response?.message as string)
     }
 
     async function removeHandler(id: number) {
         let response = await deleteProduct(id);
         if (response?.success) {
-            queryClient.refetchQueries(['group-product']);
+            queryClient.refetchQueries(['group-product', Number(id)]);
             toast.success(response?.message as string)
         }
     }

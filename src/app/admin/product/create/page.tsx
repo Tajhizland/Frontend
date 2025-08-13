@@ -11,10 +11,7 @@ import {useMutation} from "react-query";
 
 export default function Page() {
     const [colorCount, setColorCount] = useState(1)
-
     const router = useRouter();
-
-
 
     const mutation = useMutation({
         mutationKey: [`store-product`],
@@ -24,7 +21,7 @@ export default function Page() {
             });
         },
         onSuccess: (data) => {
-            toast.success(data?.message??"")
+            toast.success(data?.message ?? "")
             router.push("/admin/product");
         },
     });

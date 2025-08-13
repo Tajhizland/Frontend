@@ -2,29 +2,30 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Label from "@/shared/Label/Label";
 import ProductTab from "@/components/Tabs/ProductTab";
-import { findByProductId, set } from "@/services/api/admin/option";
+import {findByProductId, set} from "@/services/api/admin/option";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import Spinner from "@/shared/Loading/Spinner";
 import Panel from "@/shared/Panel/Panel";
-import { useParams } from "next/navigation";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
+import {useParams} from "next/navigation";
+import {useState} from "react";
+import {toast} from "react-hot-toast";
 import {useQuery, useQueryClient} from "react-query";
 import {findById as productFindById} from "@/services/api/admin/product";
 
 export default function Page() {
-    const { id } = useParams();
+    const {id} = useParams();
     const queryClient = useQueryClient();
     const [searchQuery, setSearchQuery] = useState("");
 
-    const { data: data, isLoading: isLoading } = useQuery({
-        queryKey: [`option-info`],
+    const {data: data, isLoading: isLoading} = useQuery({
+        queryKey: [`option-info`, Number(id)],
         queryFn: () => findByProductId(Number(id)),
         staleTime: 5000,
     });
+
     async function submit(e: FormData) {
-         let options: {
+        let options: {
             value: string,
             item_id: string,
 
@@ -32,11 +33,11 @@ export default function Page() {
         data?.map((option) => {
             option.optionItems?.data.map((item) => {
 
-            options.push({
-                item_id: e.get(`option[${item.id}][item_id]`) as string,
-                value: e.get(`option[${item.id}][value]`) as string,
+                options.push({
+                    item_id: e.get(`option[${item.id}][item_id]`) as string,
+                    value: e.get(`option[${item.id}][value]`) as string,
+                })
             })
-        })
         })
 
         let response = await set({
@@ -44,12 +45,12 @@ export default function Page() {
             option: options
         })
         if (response?.success) {
-            queryClient.refetchQueries(['option-info']);
+            queryClient.refetchQueries(['option-info', Number(id)]);
             toast.success(response?.message as string);
         }
-     }
+    }
 
-    const { data: productInfo } = useQuery({
+    const {data: productInfo} = useQuery({
         queryKey: [`product-info`],
         queryFn: () => productFindById(Number(id)),
         staleTime: 5000,
@@ -62,19 +63,19 @@ export default function Page() {
                 href: "product"
             },
             {
-                title: "ویرایش محصول"+" ( "+productInfo?.name+" )",
+                title: "ویرایش محصول" + " ( " + productInfo?.name + " )",
                 href: "product/edit/" + id
             },
             {
                 title: "ویرایش آپشن محصول",
                 href: "product/option/" + id
             }
-        ]} />
+        ]}/>
         <Panel>
 
-            <ProductTab id={id + ""}   url={productInfo?.url??""} />
+            <ProductTab id={id + ""} url={productInfo?.url ?? ""}/>
             {
-                isLoading ? <Spinner /> : <>
+                isLoading ? <Spinner/> : <>
                     <div className="mb-5">
                         <Label>جستجو بر اساس عنوان ویژگی</Label>
                         <Input
@@ -117,7 +118,7 @@ export default function Page() {
                                         })}
                                     </div>
                                 </div>
-                                <hr className="my-5" />
+                                <hr className="my-5"/>
                             </div>
                         ))}
                         {data?.every((option) =>

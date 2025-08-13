@@ -13,7 +13,7 @@ export default   function Page()
 {
     const { id } = useParams();
     const {data: data } = useQuery({
-        queryKey: [`concept_info`],
+        queryKey: [`concept_info`, Number(id)],
         queryFn: () =>findById(Number(id)),
         staleTime: 5000,
     });

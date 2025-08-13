@@ -20,7 +20,7 @@ export default function Page() {
     const queryClient = useQueryClient();
     const [files, setFiles] = useState<File[]>([]);
     const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`product_image`],
+        queryKey: [`product_image`, Number(id)],
         queryFn: () => getByProductId(Number(id)),
         staleTime: 5000,
     });
@@ -33,14 +33,14 @@ export default function Page() {
 
         let response = await upload({product_id: Number(id), image: formData.getAll("image") as File[]})
         if (response?.success) {
-            queryClient.refetchQueries(['product_image']);
+            queryClient.refetchQueries(['product_image', Number(id)]);
             toast.success(response?.message as string);
         }
     }
     async function removeImage(id:number) {
         let response = await remove(id)
         if (response?.success) {
-            queryClient.refetchQueries(['product_image']);
+            queryClient.refetchQueries(['product_image', Number(id)]);
             toast.success(response?.message as string);
         }
     }

@@ -16,7 +16,7 @@ export default function Page() {
     const {id} = useParams();
     const queryClient = useQueryClient();
     const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`files`],
+        queryKey: [`files`, Number(id)],
         queryFn: () => getFiles({model_id: Number(id), model_type: "category"}),
         staleTime: 5000,
     });
@@ -24,7 +24,7 @@ export default function Page() {
     async function submit(e: FormData) {
         let response = await upload({model_id: Number(id), file: e.get("file") as File, model_type: "category"})
         if (response?.success) {
-            queryClient.refetchQueries(['files']);
+            queryClient.refetchQueries(['files', Number(id)]);
             toast.success(response?.message as string);
         }
     }
@@ -32,7 +32,7 @@ export default function Page() {
     async function removeFile(id: number) {
         let response = await remove(id)
         if (response?.success) {
-            queryClient.refetchQueries(['files']);
+            queryClient.refetchQueries(['files', Number(id)]);
             toast.success(response?.message as string);
         }
     }

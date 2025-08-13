@@ -13,7 +13,7 @@ import NewsTab from "@/components/Tabs/NewsTab";
 export default function Page() {
     const {id} = useParams();
     const {data: data} = useQuery({
-        queryKey: [`news-info`],
+        queryKey: [`news-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });

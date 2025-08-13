@@ -4,30 +4,26 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import toast from "react-hot-toast";
 import Form from "@/app/admin/category/Form";
-import {store} from "@/services/api/admin/category";
+import {store, update} from "@/services/api/admin/category";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import {useMutation} from "react-query";
 
 export default function Page() {
     const router = useRouter();
 
-    async function submit(e: FormData) {
-        let response = await store(
-            {
-                name: e.get("name") as string,
-                url: e.get("url") as string,
-                status: e.get("status") as string,
-                description: e.get("description") as string,
-                image: e.get("image") as File,
-                parent_id: e.get("parent_id") as string,
-                type: e.get("type") as string
-            }
-        )
-        toast.success(response?.message as string)
-        router.push("/admin/category");
-
-    }
-
+    const mutation = useMutation({
+        mutationKey: [`store-category`],
+        mutationFn: async (formData: any) => {
+            return store({
+                ...formData,
+            });
+        },
+        onSuccess: (data) => {
+            toast.success(data?.message ?? "")
+            router.push("/admin/category");
+        },
+    });
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -44,7 +40,7 @@ export default function Page() {
                 ایجاد دسته‌بندی جدید
             </PageTitle>
             <div>
-                <Form submit={submit}/>
+                <Form submit={mutation.mutateAsync}/>
             </div>
         </Panel>
 

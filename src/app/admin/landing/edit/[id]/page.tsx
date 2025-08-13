@@ -13,7 +13,7 @@ export default   function Page() {
     const {id} = useParams();
 
     const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`landing_info`],
+        queryKey: [`landing_info`, Number(id)],
         queryFn: () => findLandingById(Number(id)),
         staleTime: 5000,
     });

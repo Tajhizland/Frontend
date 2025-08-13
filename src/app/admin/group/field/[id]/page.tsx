@@ -19,7 +19,7 @@ export default function Page() {
     const {id} = useParams();
 
     const {data} = useQuery({
-        queryKey: [`group-field`],
+        queryKey: [`group-field`, Number(id)],
         queryFn: () => getField(Number(id)),
         staleTime: 5000,
     });
@@ -31,7 +31,7 @@ export default function Page() {
                 title: title
             }
         )
-        queryClient.refetchQueries(['group-field']);
+        queryClient.refetchQueries(['group-field', Number(id)]);
 
         setTitle("");
         toast.success(response?.message as string)
@@ -39,7 +39,7 @@ export default function Page() {
 
     async function removeHandler(id: number) {
         let response = await deleteField(id);
-        queryClient.refetchQueries(['group-field']);
+        queryClient.refetchQueries(['group-field', Number(id)]);
         toast.success(response?.message as string)
     }
 

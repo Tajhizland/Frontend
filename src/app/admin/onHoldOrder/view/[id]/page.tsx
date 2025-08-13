@@ -15,7 +15,7 @@ export default function Page() {
     const {id} = useParams();
 
     const {data: data} = useQuery({
-        queryKey: [`onhold-order-info`],
+        queryKey: [`onhold-order-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });

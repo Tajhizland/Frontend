@@ -22,7 +22,7 @@ export default function Page() {
     const queryClient = useQueryClient();
 
     const { data: data, isLoading: isLoading } = useQuery({
-        queryKey: [`concept-items`],
+        queryKey: [`concept-items`, Number(id)],
         queryFn: () => getItems(Number(id)),
         staleTime: 5000,
     });
@@ -38,7 +38,7 @@ export default function Page() {
             return;
         let response = await setItem({ category_id: selectedCategory, concept_id: Number(id) })
         if (response?.success) {
-            queryClient.refetchQueries(['concept-items']);
+            queryClient.refetchQueries(['concept-items', Number(id)]);
             toast.success(response?.message as string);
         }
     }
@@ -46,14 +46,14 @@ export default function Page() {
     async function deleteItemHandle(id: number) {
         let response = await deleteItem(id)
         if (response?.success) {
-            queryClient.refetchQueries(['concept-items']);
+            queryClient.refetchQueries(['concept-items', Number(id)]);
             toast.success(response?.message as string);
         }
     }
     async function editDisplayHandle(e:FormData) {
         let response = await editDisplay({id:e.get("id") as string , display:e.get("display") as string})
         if (response?.success) {
-            queryClient.refetchQueries(['concept-items']);
+            queryClient.refetchQueries(['concept-items', Number(id)]);
             toast.success(response?.message as string);
         }
     }

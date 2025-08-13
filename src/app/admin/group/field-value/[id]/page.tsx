@@ -12,7 +12,7 @@ export default function Page() {
     const {id} = useParams();
 
     const {data} = useQuery({
-        queryKey: [`group-field-value`],
+        queryKey: [`group-field-value`, Number(id)],
         queryFn: () => getFieldValue(Number(id)),
         staleTime: 5000,
     });

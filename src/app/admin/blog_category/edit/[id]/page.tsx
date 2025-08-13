@@ -14,7 +14,7 @@ export default  function Page()
     const queryClient = useQueryClient();
 
     const { data: data } = useQuery({
-        queryKey: [`blogCategory-info`],
+        queryKey: [`blogCategory-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
@@ -27,7 +27,7 @@ export default  function Page()
                 url: e.get("url") as string,
             }
         )
-        queryClient.refetchQueries(['blogCategory-info']);
+        queryClient.refetchQueries(['blogCategory-info', Number(id)]);
 
         toast.success(response?.message as string)
 

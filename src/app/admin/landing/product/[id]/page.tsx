@@ -36,7 +36,7 @@ export default function Page() {
     const [serachResponse, setSearchResponse] = useState<ProductResponse[]>();
 
     const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`landing-product`],
+        queryKey: [`landing-product`, Number(id)],
         queryFn: () => getLandingProducts(Number(id)),
         staleTime: 5000,
     });
@@ -49,7 +49,7 @@ export default function Page() {
     async function add(productId: any) {
         let response = await setProductLanding({product_id: Number(productId), landing_id: Number(id)})
         if (response?.success) {
-            queryClient.refetchQueries(['landing-product']);
+            queryClient.refetchQueries(['landing-product', Number(id)]);
             toast.success(response?.message as string);
         }
     }
@@ -57,7 +57,7 @@ export default function Page() {
     async function deleteItemHandle(id: number) {
         let response = await deleteLandingProducts(id)
         if (response?.success) {
-            queryClient.refetchQueries(['landing-product']);
+            queryClient.refetchQueries(['landing-product', Number(id)]);
             toast.success(response?.message as string);
         }
     }

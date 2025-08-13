@@ -12,7 +12,7 @@ export default  function Page()
 {
     const { id } = useParams();
      const { data: data } = useQuery({
-        queryKey: [`poster-info`],
+        queryKey: [`poster-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });

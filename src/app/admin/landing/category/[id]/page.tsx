@@ -29,7 +29,7 @@ export default function Page() {
     const queryClient = useQueryClient();
 
     const { data: data, isLoading: isLoading } = useQuery({
-        queryKey: [`landing-category`],
+        queryKey: [`landing-category`, Number(id)],
         queryFn: () => getLandingCategory(Number(id)),
         staleTime: 5000,
     });
@@ -46,7 +46,7 @@ export default function Page() {
             return;
         let response = await setCategoryLanding({ category_id: Number(selectedCategory), landing_id: Number(id) })
         if (response?.success) {
-            queryClient.refetchQueries(['landing-category']);
+            queryClient.refetchQueries(['landing-category', Number(id)]);
             toast.success(response?.message as string);
         }
     }
@@ -54,7 +54,7 @@ export default function Page() {
     async function deleteItemHandle(id: number) {
         let response = await deleteLandingCategory(id)
         if (response?.success) {
-            queryClient.refetchQueries(['landing-category']);
+            queryClient.refetchQueries(['landing-category', Number(id)]);
             toast.success(response?.message as string);
         }
     }

@@ -16,7 +16,7 @@ export default function Page() {
     const {id} = useParams();
     const queryClient = useQueryClient();
     const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`files`],
+        queryKey: [`files`, Number(id)],
         queryFn: () => getFiles({model_id:Number(id) ,model_type:"concept"}),
         staleTime: 5000,
     });

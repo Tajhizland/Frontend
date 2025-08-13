@@ -13,7 +13,7 @@ export default function Page() {
     const queryClient = useQueryClient();
 
     const {data: data} = useQuery({
-        queryKey: [`comment-info`],
+        queryKey: [`comment-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
@@ -21,14 +21,14 @@ export default function Page() {
     async function acceptHandle() {
         let response = await accept(Number(id));
         toast.success(response?.message as string)
-        queryClient.refetchQueries(['comment-info']);
+        queryClient.refetchQueries(['comment-info', Number(id)]);
 
     }
 
     async function rejectHandle() {
         let response = await reject(Number(id));
         toast.success(response?.message as string)
-        queryClient.refetchQueries(['comment-info']);
+        queryClient.refetchQueries(['comment-info', Number(id)]);
 
     }
 

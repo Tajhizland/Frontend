@@ -24,7 +24,7 @@ export default function Page() {
 
     const {id} = useParams();
     const {data: data, isLoading} = useQuery({
-        queryKey: [`option-info`],
+        queryKey: [`option-info`, Number(id)],
         queryFn: () => findByCategoryId(Number(id)),
         staleTime: 5000,
     });
@@ -77,7 +77,7 @@ export default function Page() {
         const formattedData = convertData(formDataObject);
         let response = await setToCategory(formattedData)
         if (response?.success) {
-            queryClient.refetchQueries(['option-info']);
+            queryClient.refetchQueries(['option-info', Number(id)]);
             toast.success(response.message as string);
             window.location.reload()
         }

@@ -2,30 +2,30 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import FormComponent from "@/components/Form/Product/ColorForm";
 import ProductTab from "@/components/Tabs/ProductTab";
-import { findById, set } from "@/services/api/admin/color";
+import {findById, set} from "@/services/api/admin/color";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Spinner from "@/shared/Loading/Spinner";
 import Panel from "@/shared/Panel/Panel";
-import { useParams } from "next/navigation";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
-import { useQuery, useQueryClient } from "react-query";
-import { findById as productFindById  } from "@/services/api/admin/product";
+import {useParams} from "next/navigation";
+import {useState} from "react";
+import {toast} from "react-hot-toast";
+import {useQuery, useQueryClient} from "react-query";
+import {findById as productFindById} from "@/services/api/admin/product";
 
 export default function Page() {
     const [extraColor, setExtraColor] = useState(0);
-    const { id } = useParams();
+    const {id} = useParams();
     const queryClient = useQueryClient();
 
-    const { data: data, isLoading: isLoading } = useQuery({
-        queryKey: [`color-info`],
+    const {data: data, isLoading: isLoading} = useQuery({
+        queryKey: [`color-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
 
-    const { data: productInfo } = useQuery({
-        queryKey: [`product-info`],
+    const {data: productInfo} = useQuery({
+        queryKey: [`product-info`, Number(id)],
         queryFn: () => productFindById(Number(id)),
         staleTime: 5000,
     });
@@ -34,10 +34,12 @@ export default function Page() {
     function handleAddForm() {
         setExtraColor(extraColor + 1);
     }
+
     function sumColorSize() {
         let sum = (data?.length != undefined ? data.length : 0) + extraColor
         return sum;
     }
+
     async function submit(e: FormData) {
         const colors = [];
         for (let i = 0; i < (sumColorSize()); i++) {
@@ -54,17 +56,18 @@ export default function Page() {
             };
             colors.push(colorData);
         }
-       let response = await set({
+        let response = await set({
             product_id: Number(id),
             color: colors
         })
-        if(response && response?.success) {
+        if (response && response?.success) {
             toast.success(response.message as string)
             setExtraColor(0);
             queryClient.invalidateQueries(['color-info']);
         }
 
     }
+
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -72,19 +75,19 @@ export default function Page() {
                 href: "product"
             },
             {
-                title: "ویرایش محصول"+" ( "+productInfo?.name+" )",
+                title: "ویرایش محصول" + " ( " + productInfo?.name + " )",
                 href: "product/edit/" + id
             },
             {
                 title: "ویرایش رنگ محصول",
                 href: "product/color/" + id
             }
-        ]} />
+        ]}/>
         <Panel>
 
-             <ProductTab id={id+""}  url={productInfo?.url??""}/>
+            <ProductTab id={id + ""} url={productInfo?.url ?? ""}/>
             {
-                isLoading ? <Spinner /> : <>
+                isLoading ? <Spinner/> : <>
                     <form action={submit}>
                         {
                             data?.map((item, index) => (<>
@@ -101,19 +104,19 @@ export default function Page() {
                                     discount_expire_time={item.discount_expire_time}
                                     discount_expire_time_fa={item.discount_expire_time_fa}
                                 />
-                                <hr />
+                                <hr/>
                             </>))
                         }
 
-                        {Array.from({ length: extraColor }).map((_, index) => (
+                        {Array.from({length: extraColor}).map((_, index) => (
                             <>
                                 <FormComponent
-                                    key={index} index={index + (data?.length != undefined ? data?.length : 0)} />
-                                <hr className={"my-5"} />
+                                    key={index} index={index + (data?.length != undefined ? data?.length : 0)}/>
+                                <hr className={"my-5"}/>
                             </>
                         ))}
 
-                        <ButtonCircle type="button"  className={"w-48 bg-orange-600"} onClick={handleAddForm}>
+                        <ButtonCircle type="button" className={"w-48 bg-orange-600"} onClick={handleAddForm}>
                             +
                         </ButtonCircle>
                         <div className={"flex justify-center my-5"}>

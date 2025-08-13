@@ -12,7 +12,7 @@ export default  function Page()
 {
     const { id } = useParams();
      const { data: data } = useQuery({
-        queryKey: [`trusted-brand-info`],
+        queryKey: [`trusted-brand-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });

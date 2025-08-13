@@ -20,7 +20,7 @@ export default function Page() {
 
     const { id } = useParams();
     const { data: data ,isLoading } = useQuery({
-        queryKey: [`filter-info`],
+        queryKey: [`filter-info`, Number(id)],
         queryFn: () => findByCategoryId(Number(id)),
         staleTime: 5000,
     });
@@ -70,7 +70,7 @@ export default function Page() {
         const formattedFilterData = convertFilterData(formDataObject);
         let response=await setToCategory(formattedFilterData)
         if (response?.success) {
-            queryClient.refetchQueries(['filter-info']);
+            queryClient.refetchQueries(['filter-info', Number(id)]);
             toast.success(response.message as string)
             window.location.reload();
         }

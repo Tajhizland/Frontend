@@ -13,7 +13,7 @@ export default function Page() {
     const queryClient = useQueryClient();
 
     const {data: data} = useQuery({
-        queryKey: [`contact-info`],
+        queryKey: [`contact-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
@@ -21,7 +21,7 @@ export default function Page() {
     async function deleteHandle() {
         let response = await remove(Number(id));
         toast.success(response?.message as string)
-        queryClient.refetchQueries(['contact-info']);
+        queryClient.refetchQueries(['contact-info', Number(id)]);
     }
 
     return (<>

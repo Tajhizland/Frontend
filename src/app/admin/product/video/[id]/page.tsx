@@ -28,12 +28,12 @@ export default function Page() {
     const [serachResponse, setSearchResponse] = useState<VlogResponse[]>();
 
     const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`product_info`],
+        queryKey: [`product_info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
     const {data: productInfo} = useQuery({
-        queryKey: [`product-info`],
+        queryKey: [`product-info`, Number(id)],
         queryFn: () => productFindById(Number(id)),
         staleTime: 5000,
     });

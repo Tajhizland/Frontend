@@ -20,7 +20,7 @@ export default function Page() {
     const [progress, setProgress] = useState(0);
     const [loading, setLoading] = useState(false);
     const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`files`],
+        queryKey: [`files`, Number(id)],
         queryFn: () => getFiles({model_id:Number(id) ,model_type:"page"}),
         staleTime: 5000,
     });
@@ -38,7 +38,7 @@ export default function Page() {
     async function removeFile(id: number) {
         let response = await remove(id)
         if (response?.success) {
-            queryClient.refetchQueries(['files']);
+            queryClient.refetchQueries(['files', Number(id)]);
             toast.success(response?.message as string);
         }
     }

@@ -12,7 +12,7 @@ export default  function Page()
 {
     const { id } = useParams();
      const { data: data } = useQuery({
-        queryKey: [`gateway-info`],
+        queryKey: [`gateway-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });

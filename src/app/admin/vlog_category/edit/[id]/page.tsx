@@ -12,7 +12,7 @@ import PageTab from "@/components/Tabs/PageTab";
 export default function Page() {
     const {id} = useParams();
     const {data: data} = useQuery({
-        queryKey: [`vlog_category-info`],
+        queryKey: [`vlog_category-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });

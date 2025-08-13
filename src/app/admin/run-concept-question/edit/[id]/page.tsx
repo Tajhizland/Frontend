@@ -11,7 +11,7 @@ import {find, update} from "@/services/api/admin/runConceptQuestion";
 export default function Page() {
     const {id} = useParams();
     const {data: data} = useQuery({
-        queryKey: [`run-concept-question-info`],
+        queryKey: [`run-concept-question-info`, Number(id)],
         queryFn: () => find(Number(id)),
         staleTime: 5000,
     });

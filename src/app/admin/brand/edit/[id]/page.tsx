@@ -15,7 +15,7 @@ export default   function Page()
     const { id } = useParams();
 
     const {data: data } = useQuery({
-        queryKey: [`brand_info`],
+        queryKey: [`brand_info`, Number(id)],
         queryFn: () =>findById(Number(id)),
         staleTime: 5000,
     });

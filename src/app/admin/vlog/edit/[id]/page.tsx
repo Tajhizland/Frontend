@@ -18,7 +18,7 @@ export default function Page() {
     const queryClient = useQueryClient();
     const {id} = useParams();
     const {data: data} = useQuery({
-        queryKey: [`vlog-info`],
+        queryKey: [`vlog-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
@@ -38,7 +38,7 @@ export default function Page() {
                 setProgress: setProgress, // فرستادن تابع برای نمایش درصد آپلود
             }
         )
-        queryClient.invalidateQueries(['vlog-info']);
+        queryClient.invalidateQueries(['vlog-info', Number(id)]);
         setLoading(false);
         toast.success(response?.message as string)
     }

@@ -33,7 +33,7 @@ export default function Page() {
     const queryClient = useQueryClient();
 
     const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`landing-banner`],
+        queryKey: [`landing-banner`, Number(id)],
         queryFn: () => getLandingBanner(Number(id)),
         staleTime: 5000,
     });
@@ -49,7 +49,7 @@ export default function Page() {
             landing_id: Number(id)
         })
         if (response?.success) {
-            queryClient.refetchQueries(['landing-banner']);
+            queryClient.refetchQueries(['landing-banner', Number(id)]);
             toast.success(response?.message as string);
         }
     }
@@ -57,7 +57,7 @@ export default function Page() {
     async function deleteItemHandle(id: number) {
         let response = await deleteLandingBanner(id)
         if (response?.success) {
-            queryClient.refetchQueries(['landing-banner']);
+            queryClient.refetchQueries(['landing-banner', Number(id)]);
             toast.success(response?.message as string);
         }
     }

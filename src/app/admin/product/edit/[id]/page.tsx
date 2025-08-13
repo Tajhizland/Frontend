@@ -16,7 +16,7 @@ export default function Page() {
     const queryClient = useQueryClient();
 
     const {data: data} = useQuery({
-        queryKey: [`product-info`],
+        queryKey: [`product-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
@@ -31,38 +31,10 @@ export default function Page() {
             });
         },
         onSuccess: (data) => {
-            toast.success(data?.message??"")
-            queryClient.invalidateQueries([`product-info`]);
+            toast.success(data?.message ?? "")
+            queryClient.invalidateQueries([`product-info`, Number(id)]);
         },
-    });
-
-    // async function submit(e: FormData) {
-    //     console.log("form", e.get("name"));
-    //     return;
-    //     let response = await update(
-    //         {
-    //             id: e.get("id") as string,
-    //             name: e.get("name") as string,
-    //             url: e.get("url") as string,
-    //             status: Number(e.get("status")),
-    //             brand_id: Number(e.get("brand_id")),
-    //             description: e.get("description") as string,
-    //             meta_description: e.get("meta_description") as string,
-    //             meta_title: e.get("meta_title") as string,
-    //             study: e.get("study") as string,
-    //             review: e.get("review") as string,
-    //             categoryId: e.get("category_id") as string,
-    //             type: e.get("type") as string,
-    //             guaranty_id: (e.get("guaranty_id")) as string,
-    //             guaranty_time: Number(e.get("guaranty_time"))
-    //         }
-    //     )
-    //     if (response?.success) {
-    //         toast.success(response?.message as string);
-    //         queryClient.invalidateQueries([`product-info`]);
-    //     }
-    // }
-
+    }); 
     return (<>
         <Breadcrump breadcrumb={[
             {

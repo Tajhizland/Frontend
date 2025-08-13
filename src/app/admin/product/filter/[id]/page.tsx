@@ -21,12 +21,12 @@ export default function Page() {
     const queryClient = useQueryClient();
 
     const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`filter-info`],
+        queryKey: [`filter-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
-    const { data: productInfo } = useQuery({
-        queryKey: [`product-info`],
+    const {data: productInfo} = useQuery({
+        queryKey: [`product-info`, Number(id)],
         queryFn: () => productFindById(Number(id)),
         staleTime: 5000,
     });
@@ -62,7 +62,7 @@ export default function Page() {
                 href: "product"
             },
             {
-                title: "ویرایش محصول"+" ( "+productInfo?.name+" )",
+                title: "ویرایش محصول" + " ( " + productInfo?.name + " )",
                 href: "product/edit/" + id
             },
             {
@@ -72,7 +72,7 @@ export default function Page() {
         ]}/>
         <Panel>
 
-            <ProductTab id={id + ""}  url={productInfo?.url??""}/>
+            <ProductTab id={id + ""} url={productInfo?.url ?? ""}/>
             {
                 isLoading ? <Spinner/> : <>
                     <form action={submit}>

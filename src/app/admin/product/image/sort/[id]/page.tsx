@@ -132,7 +132,7 @@ export default function Page() {
     const [images, setImages] = useState<ProductImageResponse[]>([]);
 
     const {data, isLoading} = useQuery({
-        queryKey: [`get-image-sort`],
+        queryKey: [`get-image-sort`, Number(id)],
         queryFn: () => getImageSortByProductId(Number(id)),
         staleTime: 5000,
     });
@@ -151,7 +151,7 @@ export default function Page() {
         try {
             let response = await sortImage({image: request});
             toast.success(response?.message as string);
-            queryClient.invalidateQueries([`get-image-sort`]);
+            queryClient.invalidateQueries([`get-image-sort`, Number(id)]);
         } catch (error) {
             toast.error("خطایی رخ داد");
         }
