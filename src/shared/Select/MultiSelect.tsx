@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 "use client"
 import React, {useEffect, useState} from "react";
 import Select from "react-select";
@@ -6,8 +6,9 @@ import Select from "react-select";
 export default function MultiSelect({
                                         className = "",
                                         name = "",
-                                        options  ,
-                                        defaultValue  ,
+                                        options,
+                                        defaultValue,
+                                        inputProps,           // ⬅️ اضافه شد: برای {...register("xxx")}
                                         ...args
                                     }) {
 
@@ -16,19 +17,27 @@ export default function MultiSelect({
     );
 
     const [defaultValues, setDefaultValues] = useState(defaultValue);
+
     const handleChange = (selectedOptions) => {
         const values = selectedOptions ? selectedOptions.map((opt) => opt.value) : [];
         setSelectedValues(values);
         setDefaultValues(selectedOptions);
+
+        // ⬅️ اگر با RHF رجیستر شده، تغییر را به RHF هم اعلام کن
+        if (inputProps?.onChange) {
+            inputProps.onChange({
+                target: { name, value: JSON.stringify(values) }
+            });
+        }
     };
-    useEffect(()=>{
+
+    useEffect(() => {
         setSelectedValues(defaultValue.map((option) => option.value));
-    },[defaultValue])
-    useEffect(()=>{
-        setDefaultValues(defaultValue)
-    },[defaultValue])
+    }, [defaultValue]);
 
-
+    useEffect(() => {
+        setDefaultValues(defaultValue);
+    }, [defaultValue]);
 
     return (
         <>
@@ -41,10 +50,12 @@ export default function MultiSelect({
                 className={className}
                 {...args}
             />
-             <input
+            <input
                 type="hidden"
                 name={name}
                 value={JSON.stringify(selectedValues)}
+                readOnly
+                {...inputProps}   // ⬅️ اینجا register رو پخش می‌کنیم
             />
         </>
     );

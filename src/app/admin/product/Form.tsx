@@ -4,7 +4,7 @@ import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Textarea from "@/shared/Textarea/Textarea";
-import React, {useMemo} from "react";
+import React, {useEffect, useMemo} from "react";
 import {categoryList} from "@/services/api/admin/category"
 import {useQuery} from "react-query";
 import {brandList} from "@/services/api/admin/brand";
@@ -13,10 +13,11 @@ import TinyEditor from "@/shared/Editor/TinyEditor";
 import {guarantyLists} from "@/services/api/admin/guaranty";
 import MultiSelect from "@/shared/Select/MultiSelect";
 import SunEditors from "@/shared/Editor/SunEditors";
+import {Controller, useForm} from "react-hook-form";
 
 interface productForm {
     data?: ProductResponse;
-    submit: (e: FormData) => void;
+    submit: (formData: any) => Promise<any>;
     setColorCount: (e: number) => void;
     colorCount: number
 }
@@ -26,8 +27,6 @@ type optionType = {
     label: string;
 };
 export default function Form({data, submit, setColorCount, colorCount}: productForm) {
-
-
     const handleAddForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setColorCount(colorCount + 1);
@@ -63,71 +62,116 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
 
 
     const renderCategoryDefaultValue = () => {
-        return options?.filter((option) => data?.category_ids.includes(option.value))
+        if (options)
+            return options?.filter((option) => data?.category_ids.includes(option.value))
+        return [];
     }
     const renderGuarantyDefaultValue = () => {
-        return guarantyOptions?.filter((option) => data?.guaranty_ids.includes(option.value))
+        if (guarantyOptions)
+            return guarantyOptions?.filter((option) => data?.guaranty_ids.includes(option.value))
+        return []
     }
-    const categoryDefaultValue = useMemo(() => renderCategoryDefaultValue(), [options]);
-    const guarantyDefaultValue = useMemo(() => renderGuarantyDefaultValue(), [guarantyOptions]);
+    const categoryDefaultValue = useMemo(() => renderCategoryDefaultValue(), [data]);
+    const guarantyDefaultValue = useMemo(() => renderGuarantyDefaultValue(), [data]);
+
+    const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
+        defaultValues: {
+            name: "",
+            status: "1",
+            type: "product",
+            url: "",
+            categoryId: "",
+            guaranty_id: "",
+            guaranty_time: "",
+            brand_id: "",
+            description: "",
+            review: "",
+            meta_title: "",
+            meta_description: "",
+        },
+    });
+
+    useEffect(() => {
+        if (data) {
+            setValue("name", data.name);
+            setValue("status", data.status?.toString());
+            setValue("type", data.type);
+            setValue("url", data.url);
+            setValue("categoryId", JSON.stringify(categoryDefaultValue?.map(opt => opt.value) ?? []));
+            setValue("guaranty_id", JSON.stringify(guarantyDefaultValue?.map(opt => opt.value) ?? []));
+            setValue("guaranty_time", data.guaranty_time?.toString());
+            setValue("brand_id", data.brand_id?.toString());
+            setValue("description", data.description);
+            setValue("review", data.review);
+            setValue("meta_title", data.meta_title);
+            setValue("meta_description", data.meta_description);
+        }
+    }, [data, setValue]);
     return (<>
 
-        <form action={submit}>
+        <form onSubmit={handleSubmit(submit)}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <Input type="hidden" name={"id"} value={data?.id}/>
 
                 <div>
                     <Label>نام محصول</Label>
-                    <Input name={"name"} defaultValue={data?.name}/>
+                    <Input {...register("name")} />
                 </div>
                 <div>
                     <Label>وضعیت محصول</Label>
-                    <Select name={"status"}>
-                        <option value={1} selected={data?.status == 1}>
+                    <Select {...register("status")}>
+                        <option value={1}>
                             فعال
                         </option>
-                        <option value={0} selected={data?.status == 0}>
+                        <option value={0}>
                             غیر فعال
                         </option>
                     </Select>
                 </div>
                 <div>
                     <Label>نوع محصول</Label>
-                    <Select name={"type"}>
-                        <option value={"product"} selected={data?.type == "product"}>
+                    <Select {...register("type")} >
+                        <option value={"product"}>
                             محصول عادی
                         </option>
-                        <option value={"group"} selected={data?.type == "group"}>
+                        <option value={"group"}>
                             محصول گروهی
                         </option>
                     </Select>
                 </div>
                 <div>
                     <Label>ادرس محصول</Label>
-                    <Input name={"url"} defaultValue={data?.url}/>
+                    <Input  {...register("url")} />
                 </div>
                 <div>
                     <Label>دسته بندی محصول</Label>
 
                     {options && categoryDefaultValue &&
-                        <MultiSelect name={"category_id"} options={options} defaultValue={categoryDefaultValue}/>}
+                        <MultiSelect
+                            inputProps={register("categoryId")}
+                            name={"categoryId"} options={options}
+                            defaultValue={categoryDefaultValue}
+                        />
+                    }
 
                 </div>
                 <div>
                     <Label>گارانتی</Label>
                     {guarantyOptions && guarantyDefaultValue != undefined &&
-                        <MultiSelect name={"guaranty_id"} options={guarantyOptions}
-                                     defaultValue={guarantyDefaultValue}/>}
+                        <MultiSelect
+                            inputProps={register("guaranty_id")}
+                            name={"guaranty_id"} options={guarantyOptions}
+                            defaultValue={guarantyDefaultValue}/>}
 
                 </div>
                 <div>
                     <Label>مدت زمان گارانتی</Label>
-                    <Input name={"guaranty_time"} defaultValue={data?.guaranty_time}/>
+                    <Input  {...register("guaranty_time")}  />
                 </div>
                 <div>
                     <Label>برند محصول</Label>
-                    <Select name={"brand_id"}>
-                        <option value={undefined} selected={data?.guaranty_id == null}>
+                    <Select  {...register("brand_id")}  >
+                        <option value={""}>
                             بدون برند
                         </option>
                         {
@@ -146,20 +190,42 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
 
                 <div>
                     <Label>توضیحات محصول</Label>
-                    <SunEditors name={"description"} value={data?.description}/>
+                    <Controller
+                        name="description"
+                        control={control}
+                        render={({field}) => (
+                            <SunEditors
+                                name={field.name}
+                                value={field.value}
+                                onChange={field.onChange}
+                            />
+                        )}
+                    />
+
                     {/*<TinyEditor name={"description"} value={data?.description}/>*/}
                 </div>
                 <div>
                     <Label>بررسی تخصصی</Label>
-                    <SunEditors name={"review"} value={data?.review}/>
+                    <Controller
+                        name="review"
+                        control={control}
+                        render={({field}) => (
+                            <SunEditors
+                                name={field.name}
+                                value={field.value}
+                                onChange={field.onChange}
+                            />
+                        )}
+                    />
+
                 </div>
                 <div>
                     <Label>عنوان سئو</Label>
-                    <Textarea name={"meta_title"} defaultValue={data?.meta_title}/>
+                    <Textarea  {...register("meta_title")}  />
                 </div>
                 <div>
                     <Label>توضیحات سئو</Label>
-                    <Textarea name={"meta_description"} defaultValue={data?.meta_description}/>
+                    <Textarea  {...register("meta_description")}  />
                 </div>
             </div>
             <hr className={"my-5"}/>
