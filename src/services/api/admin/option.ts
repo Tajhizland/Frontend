@@ -51,14 +51,14 @@ export const set = async <T extends ServerResponse<unknown>>(
         .then((res) => res?.data);
 };
 
-export const findByProductId = async <T extends ServerResponse<OptionResponse[]>>
+export const findByProductId = async <T extends ServerResponse<OptionItemsResponse[]>>
 (
     id: number | string
 ) => {
     return axios.get<T, SuccessResponseType<T>>("admin/product/option/get/" + id)
         .then((res) => res?.data?.result?.data)
 };
-export const findByCategoryId = async <T extends ServerResponse<OptionResponse[]>>
+export const findByCategoryId = async <T extends ServerResponse<OptionItemsResponse[]>>
 (
     id: number | string
 ) => {
@@ -113,5 +113,17 @@ export const sortOptionItem = async <T extends ServerResponse<unknown>>
     }
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/category/option-item/sort", param)
+        .then((res) => res?.data)
+};
+export const updateProductOption = async <T extends ServerResponse<unknown>>
+(
+    param: {
+        id: number;
+        productId: number;
+        value: string;
+        option_item_id: number;
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/product/option/update-product-option", param)
         .then((res) => res?.data)
 };

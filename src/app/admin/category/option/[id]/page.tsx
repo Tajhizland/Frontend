@@ -8,7 +8,7 @@ import Panel from "@/shared/Panel/Panel";
 import {useParams, useRouter} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
 import {findByCategoryId, setToCategory} from "@/services/api/admin/option";
-import {useState} from "react";
+import {Fragment, useState} from "react";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import OptionForm from "@/app/admin/category/option/[id]/OptionForm";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -16,6 +16,7 @@ import {toast} from "react-hot-toast";
 import Spinner from "@/shared/Loading/Spinner";
 import {Route} from "next";
 import Link from "next/link";
+import OptionItemForm from "@/app/admin/category/option/[id]/OptionItemForm";
 
 export default function Page() {
     const [extraOption, setExtraOption] = useState(0);
@@ -109,27 +110,22 @@ export default function Page() {
                     </ButtonPrimary>
                 </Link>
             </div>
-            <form action={submit}>
+            <div className={"flex flex-col gap-5"}>
                 {
-                    data && data.map((option, index) => (<>
-                        <OptionForm option={option} index={index}/>
+                    data && data.map((option, index) => (<Fragment key={index}>
+                        <OptionItemForm data={option} categoryId={Number(id)}/>
                         <hr className="my-5"/>
-                    </>))
+                    </Fragment>))
                 }
                 {Array.from({length: extraOption}).map((_, index) => (
                     <>
-                        <OptionForm index={index + (data?.length != undefined ? data?.length : 0)}/>
+                        <OptionItemForm categoryId={Number(id)}/>
                     </>
                 ))}
                 <ButtonCircle type="button" className={"w-48 bg-orange-600"} onClick={handleAddForm}>
                     +
                 </ButtonCircle>
-                <div className={"flex justify-center my-5"}>
-                    <ButtonPrimary type={"submit"}>
-                        ذخیره
-                    </ButtonPrimary>
-                </div>
-            </form>
+            </div>
         </Panel>
 
     </>)
