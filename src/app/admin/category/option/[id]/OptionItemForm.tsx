@@ -39,6 +39,7 @@ export default function OptionItemForm({data, categoryId}: optionItemProps) {
     useEffect(() => {
         setValue("categoryId", categoryId.toString());
         if (data) {
+            //@ts-ignore
             setValue("id", data.id?.toString());
             setValue("title", data.title);
             setValue("status", data.status.toString());

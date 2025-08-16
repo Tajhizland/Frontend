@@ -115,6 +115,21 @@ export const sortOptionItem = async <T extends ServerResponse<unknown>>
     return axios.post<T, SuccessResponseType<T>>("admin/category/option-item/sort", param)
         .then((res) => res?.data)
 };
+export const updateOption = async <T extends ServerResponse<unknown>>
+(
+    param: {
+        optionItem: {
+            id: number;
+            categoryId: number;
+            title: string;
+            status: number;
+        }
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/category/option/update", param)
+        .then((res) => res?.data)
+};
+
 export const updateProductOption = async <T extends ServerResponse<unknown>>
 (
     param: {
