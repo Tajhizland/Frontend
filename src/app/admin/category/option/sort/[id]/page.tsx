@@ -4,7 +4,6 @@ import Panel from "@/shared/Panel/Panel";
 import {useParams} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
 import React, {useEffect, useState} from "react";
-import {OptionResponse} from "@/services/types/option";
 import {toast} from "react-hot-toast";
 import {
     DndContext,
@@ -27,6 +26,7 @@ import CategoryTab from "@/components/Tabs/CategoryTab";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Spinner from "@/shared/Loading/Spinner";
 import {findByCategoryId, sortOption} from "@/services/api/admin/option";
+import {OptionItemsResponse} from "@/services/types/optionItem";
 
 interface SortableItemProps {
     id: string;
@@ -62,8 +62,8 @@ const SortableItem: React.FC<SortableItemProps> = ({id, children}) => {
 };
 
 const OptionList: React.FC<{
-    options: OptionResponse[];
-    setOptions: React.Dispatch<React.SetStateAction<OptionResponse[]>>;
+    options: OptionItemsResponse[];
+    setOptions: React.Dispatch<React.SetStateAction<OptionItemsResponse[]>>;
 }> = ({options, setOptions}) => {
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -109,7 +109,7 @@ const OptionList: React.FC<{
 export default function Page() {
     const {id} = useParams();
     const queryClient = useQueryClient();
-    const [options, setOptions] = useState<OptionResponse[]>([]);
+    const [options, setOptions] = useState<OptionItemsResponse[]>([]);
 
     const {data, isLoading} = useQuery({
         queryKey: [`optionOfCategory`, id],

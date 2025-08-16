@@ -8,7 +8,7 @@ import Input from "@/shared/Input/Input";
 import Spinner from "@/shared/Loading/Spinner";
 import Panel from "@/shared/Panel/Panel";
 import {useParams} from "next/navigation";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {toast} from "react-hot-toast";
 import {useQuery, useQueryClient} from "react-query";
 import {findById as productFindById} from "@/services/api/admin/product";
@@ -30,7 +30,13 @@ export default function Page() {
         queryFn: () => productFindById(Number(id)),
         staleTime: 5000,
     });
-
+    const filteredOptions = useMemo(() => {
+        if (!data) return [];
+        if (!searchQuery.trim()) return data;
+        return data.filter((option: any) =>
+            option?.title?.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    }, [data, searchQuery]);
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -60,11 +66,18 @@ export default function Page() {
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                     </div>
-                    <div className={"flex flex-col gap-5"}>
-                        {data?.map((option, index) => (
-                            <ProductOptionForm productId={Number(id)} data={option} key={index}/>
-                        ))}
-
+                    <div className="flex flex-col gap-5">
+                        {filteredOptions.length > 0 ? (
+                            filteredOptions.map((option: any, index: number) => (
+                                <ProductOptionForm
+                                    productId={Number(id)}
+                                    data={option}
+                                    key={index}
+                                />
+                            ))
+                        ) : (
+                            <p className="text-gray-500 text-sm">هیچ ویژگی‌ای یافت نشد</p>
+                        )}
                     </div>
                 </>
             }
