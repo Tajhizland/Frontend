@@ -48,7 +48,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
 
     useQuery({
         queryKey: ['store-category-view-ip'],
-        queryFn: () => storeCategoryViewHistoryIp({category_id:  product.category_id}),
+        queryFn: () => storeCategoryViewHistoryIp({category_id: product.category_id}),
         enabled: !user,
     });
 
@@ -73,13 +73,13 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
         if (selectedColor.discountedPrice == selectedColor.price) {
             return <Prices price={selectedColor.price}/>
         }
-        return <div className={"flex items-center gap-2"}>
+        return <div className={"flex items-center gap-1 lg:gap-2 flex-col lg:flex-row"}>
             <del className={"text-sm text-red-500"}>
                 {
                     new Intl.NumberFormat('fa').format(selectedColor.price)
                 }
             </del>
-            <Prices price={selectedColor.discountedPrice}/>
+            <Prices priceClass={"!text-sm"} price={selectedColor.discountedPrice}/>
         </div>
     }
     const renderMaxDiscountTime = () => {
@@ -114,7 +114,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                                 {selectedColor.color_name}
                             </span>
                         </span>
-                        <div className={"flex mt-3"}>
+                        <div className={"mt-3 hidden lg:flex"}>
                             {selectedColor.discountedPrice ? renderMainPrice() :
                                 <Badge name={"ناموجود"} color={"red"}/>}
                         </div>
@@ -401,7 +401,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                     </div>
                 </div>
                 {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
-                {selectedColor.statusLabel != "disable" ? <div className="flex  gap-x-3.5">
+                {selectedColor.statusLabel != "disable" ? <div className="hidden lg:flex   gap-x-3.5">
                     <div
                         className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full dark:text-white">
 
@@ -426,6 +426,35 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                 </div> : ""}
                 <div className="hidden lg:flex">
                     <Policy/>
+                </div>
+                <div
+                    className={"fixed bottom-20 right-2 flex items-center lg:hidden rounded-3xl z-40 bg-white shadow-xl pl-4  gap-2 border"}>
+                    {(checkColorInCart() == 0 && selectedCount > 0) ? <ButtonPrimary
+                            onClick={addToCartHandle}
+                            className="flex-1 flex-shrink-0"
+                        >
+                            <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
+                            <span className="mr-3">افزودن به سبد خرید</span>
+                        </ButtonPrimary>
+                        :
+                        <div
+                            className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full dark:text-white">
+
+                            <CartController
+                                inCart={checkColorInCart() > 0 ? true : false}
+                                defaultValue={checkColorInCart() != 0 ? checkColorInCart() : 1}
+                                onChange={setSelectedCount}
+                                max={selectedColor.stock}
+                                removeHandle={removeHandle}
+                                decreaseHandel={decreaseHandle}
+                                increaseHandle={increaseHandle}
+                            />
+                        </div>
+                    }
+                    <div className={"flex "}>
+                        {selectedColor.discountedPrice ? renderMainPrice() :
+                            <Badge name={"ناموجود"} color={"red"}/>}
+                    </div>
                 </div>
 
                 {/* SUM */}
