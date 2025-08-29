@@ -52,7 +52,10 @@ export default function Page() {
             <SampleTab/>
             <div className="flex flex-col gap-y-4">
                 <form action={submit}>
-                    <Uploader name={"image"}  onFilesSelected={setFiles}/>
+
+                    <Uploader name={"image"}
+                              //@ts-ignore
+                              onChange={(file)=>{setFiles(file)}}/>
                     <ButtonPrimary>
                         آپلود
                     </ButtonPrimary>

@@ -32,20 +32,20 @@ export default function OptionForm({option, index}: { option?: OptionResponse, i
             </div>
             <hr className="my-5"/>
             <Input name={`option[${index}][id]`} type={"hidden"} value={option?.id}/>
-            <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 my-2"}>
-                {
-                    option?.optionItems?.data.map((item, itemIndex) => (<>
-                        <OptionItemForm optionIndex={index} itemIndex={itemIndex} itemId={item.id} status={item.status}
-                                        title={item.title}/>
-                    </>))
-                }
-                {Array.from({length: extraItem}).map((_, itemIndex) => (
-                    <>
-                        <OptionItemForm optionIndex={index}
-                                        itemIndex={itemIndex + (option?.optionItems?.data?.length != undefined ? option?.optionItems?.data?.length : 0)}/>
-                    </>
-                ))}
-            </div>
+            {/*<div className={"grid grid-cols-1 md:grid-cols-2 gap-5 my-2"}>*/}
+            {/*    {*/}
+            {/*        option?.optionItems?.data.map((item, itemIndex) => (<>*/}
+            {/*            <OptionItemForm optionIndex={index} itemIndex={itemIndex} itemId={item.id} status={item.status}*/}
+            {/*                            title={item.title}/>*/}
+            {/*        </>))*/}
+            {/*    }*/}
+            {/*    {Array.from({length: extraItem}).map((_, itemIndex) => (*/}
+            {/*        <>*/}
+            {/*            <OptionItemForm optionIndex={index}*/}
+            {/*                            itemIndex={itemIndex + (option?.optionItems?.data?.length != undefined ? option?.optionItems?.data?.length : 0)}/>*/}
+            {/*        </>*/}
+            {/*    ))}*/}
+            {/*</div>*/}
 
             <ButtonCircle type="button" className={"w-48 bg-orange-600"} onClick={handleAddForm}>
                 +
