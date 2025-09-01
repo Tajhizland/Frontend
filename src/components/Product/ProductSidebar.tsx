@@ -73,7 +73,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
         if (selectedColor.discountedPrice == selectedColor.price) {
             return <Prices price={selectedColor.price}/>
         }
-        return <div className={"flex items-center gap-1 lg:gap-2 flex-col lg:flex-row"}>
+        return <div className={"flex items-center gap-0 lg:gap-2 flex-col lg:flex-row"}>
             <del className={"text-sm text-red-500"}>
                 {
                     new Intl.NumberFormat('fa').format(selectedColor.price)
@@ -431,14 +431,14 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                     className={"fixed bottom-20 right-2 flex items-center lg:hidden rounded-3xl z-40 bg-white shadow-xl pl-4  gap-2 border"}>
                     {(checkColorInCart() == 0 && selectedCount > 0) ? <ButtonPrimary
                             onClick={addToCartHandle}
-                            className="flex-1 flex-shrink-0"
+                            className="flex-1 flex-shrink-0 !rounded-l-none"
                         >
                             <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
-                            <span className="mr-3">افزودن به سبد خرید</span>
+                            <span className="  text-sm whitespace-nowrap">افزودن به سبد خرید</span>
                         </ButtonPrimary>
                         :
                         <div
-                            className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full dark:text-white">
+                            className="flex flex-1 items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full dark:text-white">
 
                             <CartController
                                 inCart={checkColorInCart() > 0 ? true : false}
@@ -451,7 +451,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                             />
                         </div>
                     }
-                    <div className={"flex "}>
+                    <div className={"flex flex-1"}>
                         {selectedColor.discountedPrice ? renderMainPrice() :
                             <Badge name={"ناموجود"} color={"red"}/>}
                     </div>

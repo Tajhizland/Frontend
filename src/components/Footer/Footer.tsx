@@ -95,8 +95,8 @@ const Footer: React.FC = () => {
             <div
                 className="container grid grid-cols-2 gap-y-10 md:grid-cols-4 lg:grid-cols-4 ">
                 <div
-                    className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col md:border-l">
-                    <div className="col-span-2 md:col-span-1">
+                    className="grid grid-cols-4 gap-2 sm:gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col md:border-l">
+                    <div className="col-span-2 md:col-span-1 flex sm:block justify-center items-center">
                         <Logo/>
                     </div>
                     <div className="col-span-2 flex items-center md:col-span-3">

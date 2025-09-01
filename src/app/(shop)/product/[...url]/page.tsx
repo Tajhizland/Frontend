@@ -271,7 +271,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 {JSON.stringify(structuredData)}
             </Script>
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
-                <div className="container mt-8 sm:mt-10">
+                <div className="container mt-2 sm:mt-10">
                     <ShopBreadcrump breadcrumb={renderBreadcrump()} lastHasLink={true}/>
                 </div>
 

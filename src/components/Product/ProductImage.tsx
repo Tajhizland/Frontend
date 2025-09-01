@@ -21,7 +21,7 @@ export default function ProductImage({ productImages }: { productImages: Product
     return (<>
 
 <>
-        <header className="container mt-8 sm:mt-10">
+        <header className="container mt-2 sm:mt-10">
           <div className="relative ">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-6">
               <div
