@@ -32,6 +32,7 @@ export const columns: Column<ProductResponse>[] = [
     },
     {key: 'category', header: 'دسته محصول', filterType: 'input', editable: true},
     {key: 'brand_name', header: 'برند محصول', filterType: 'input', editable: true},
+    {key: 'images_count', header: 'تعداد عکس', filterType: 'input', editable: false},
     {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
 
 
@@ -126,7 +127,7 @@ export const buttons: DataTableButtons[] = [
             };
         }
     }, {
-        label: <BsCoin   className={"text-black w-5 h-5"} title={"ویرایش قیمت"}/>,
+        label: <BsCoin className={"text-black w-5 h-5"} title={"ویرایش قیمت"}/>,
         type: "link",
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
         href: (value: any): UrlObject => {
@@ -135,11 +136,11 @@ export const buttons: DataTableButtons[] = [
             };
         }
     }, {
-        label: <BsCoin   className={"text-black w-5 h-5"} title={"ویرایش قیمت"}/>,
+        label: <BsCoin className={"text-black w-5 h-5"} title={"ویرایش قیمت"}/>,
         type: "action",
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        action:(id:number)=>{
-             console.log(id);
+        action: (id: number) => {
+            console.log(id);
         }
     },
 ]

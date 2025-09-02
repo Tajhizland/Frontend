@@ -60,6 +60,7 @@ export type ProductResponse = {
     usage_video: string;
     created_at: string;
     updated_at: string;
+    images_count: number;
     unboxing?: VlogResponse;
     intro?: VlogResponse;
     usage?: VlogResponse;

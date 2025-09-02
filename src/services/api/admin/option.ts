@@ -133,10 +133,12 @@ export const updateOption = async <T extends ServerResponse<unknown>>
 export const updateProductOption = async <T extends ServerResponse<unknown>>
 (
     param: {
-        id: number;
-        productId: number;
-        value: string;
-        option_item_id: number;
+        options: {
+            id: number;
+            productId: number;
+            value: string;
+            option_item_id: number;
+        }[]
     }
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/product/option/update-product-option", param)

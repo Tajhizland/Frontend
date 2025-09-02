@@ -190,9 +190,9 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
                     setCompare(false)
                 }} compareList={compareList} setCompareList={setCompareList}/>
             }
-            <div className="container py-5 lg:pb-28 lg:pt-14 space-y-5 ">
+            <div className="container py-2 lg:pb-28 lg:pt-14 space-y-5 ">
 
-                <div className="space-y-5">
+                <div className="space-y-2 sm:space-y-5">
                     <ShopBreadcrump breadcrumb={breadcrump}/>
 
                     {
@@ -256,7 +256,7 @@ const PageCollection = ({response, url, breadcrump}: { response: any, url: strin
                         response?.children?.data && response?.children?.data.length > 0 && (<>
                             <hr className="border-slate-200 dark:border-slate-700"/>
                             <div
-                                className="flex overflow-x-auto  gap-1  lg:gap-5 text-center py-4">
+                                className="flex overflow-x-auto  gap-1  lg:gap-5 text-center py-2">
                                 {
                                     response?.children?.data?.map((item, index) => (
                                         <CategoryCircleCard2
