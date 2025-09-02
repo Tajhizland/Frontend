@@ -111,7 +111,7 @@ export default function Page() {
             action: async (id: number) => {
                 let product = await FindProduct(id);
                 if (product) {
-                    router.push("/product/" + product.url)
+                    window.open(`/product/${product.url}`, '_blank');
                 }
             }
         },
