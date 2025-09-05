@@ -36,6 +36,6 @@ export const register = async <T extends ServerResponse<TokenResponse>>
     }
 ) => {
     return axios.post("auth/register", params)
-        .then((res) => res?.data)
+        .then((res) => res?.data?.result.data)
 };
 
