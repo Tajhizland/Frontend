@@ -25,7 +25,7 @@ const VlogCard: FC<Card13Props> = ({className = "", data}) => {
                         {data.title}
                     </Link>
                 </h2>
-                <span className="sm:block my-3 text-slate-500 dark:text-slate-400 max-w-sm sm:max-w-2xl">
+                <span className="sm:block my-3 text-slate-500 dark:text-slate-400 max-w-sm sm:max-w-2xl min-w-[10rem] sm:min-w-[20rem]">
                     <span className="line-clamp-2 text-xs">
                         <div dangerouslySetInnerHTML={{__html: stripHTML(data.description)}}/>
                     </span>
