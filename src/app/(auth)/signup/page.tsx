@@ -53,8 +53,11 @@ const PageSignUp = () => {
             password_confirmation: e.get("password_confirmation") as string
         })
         if (res) {
+            console.log("res",res)
+            console.log("restoken",res.token)
             setCookie('token', res.token);
-            router.push("/")
+            window.location.href="/";
+            // router.push("/")
         }
     }
 
