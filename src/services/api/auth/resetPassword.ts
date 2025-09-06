@@ -33,6 +33,6 @@ export const resetPassword = async <T extends ServerResponse<TokenResponse>>
     }
 ) => {
     return axios.post("auth/reset_password", params)
-        .then((res) => res?.data)
+        .then((res) => res?.data?.result?.data)
 };
 
