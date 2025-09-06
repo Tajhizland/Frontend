@@ -207,10 +207,10 @@ export default function Page() {
                 </table>
             </div>
             <div className={"flex mt-10  gap-x-5"}>
-            <ButtonPrimary onClick={accept}>
+            <ButtonPrimary onClick={acceptHandle}>
                 تایید سفارش
             </ButtonPrimary>
-            <ButtonPrimary onClick={reject}>
+            <ButtonPrimary onClick={rejectHandle}>
                 رد سفارش
             </ButtonPrimary>
             </div>
