@@ -24,7 +24,7 @@ export const registerVerifyCode = async <T extends ServerResponse<UnknownRespons
 };
 
 
-export const register = async <T extends ServerResponse<TokenResponse>>
+export const registerUser = async <T extends ServerResponse<TokenResponse>>
 (
     params: {
         mobile: string;

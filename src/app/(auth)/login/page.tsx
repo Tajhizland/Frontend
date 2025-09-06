@@ -1,5 +1,5 @@
 "use client"
-import React, {FC, useState} from "react";
+import React, {useState} from "react";
 
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -9,8 +9,6 @@ import {setCookie} from "cookies-next";
 import {useRouter} from "next/navigation";
 import {useForm} from "react-hook-form";
 import {useMutation} from "react-query";
-import {update} from "@/services/api/shop/address";
-import {toast} from "react-hot-toast";
 
 
 const PageLogin = () => {
@@ -81,7 +79,8 @@ const PageLogin = () => {
                                        {...register("password")}
                                 />
                             </label>
-                            <ButtonPrimary type="submit" loading={actionLogin.isLoading || isLogin}>ادامه</ButtonPrimary>
+                            <ButtonPrimary type="submit"
+                                           loading={actionLogin.isLoading || isLogin}>ادامه</ButtonPrimary>
                         </form>
 
                         {/* ==== */}

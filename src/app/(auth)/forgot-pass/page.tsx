@@ -1,19 +1,25 @@
 "use client"
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
-import {register, registerSendCode, registerVerifyCode} from "@/services/api/auth/register";
 import Counter from "@/components/Counter/Counter";
 import {resetPassword, resetPasswordSendCode, resetPasswordVerifyCode} from "@/services/api/auth/resetPassword";
 import {useRouter} from "next/navigation";
 import {setCookie} from "cookies-next";
+import {useForm} from "react-hook-form";
+import {useMutation} from "react-query";
 
 const PageForgotPass = ({}) => {
     const [step, setStep] = useState(1);
     const [resend, setResend] = useState(false);
     const [mobile, setMobile] = useState("");
+    const [initialSeconds, setInitialSeconds] = useState(120);
+
+    useEffect(() => {
+        setInitialSeconds(120);
+    }, [step]);
     const router = useRouter();
 
     function nextStep() {
@@ -34,24 +40,78 @@ const PageForgotPass = ({}) => {
             setResend(false);
     }
 
-    async function verifyCode(e: FormData) {
-        let response = await resetPasswordVerifyCode({mobile: e.get("mobile") as string, code: e.get("code") as string})
-        if (response?.success)
+
+    const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
+        defaultValues: {
+            mobile: "",
+            code: "",
+            password: "",
+            password_confirmation: "",
+        },
+    });
+
+    const actionSendCode = useMutation({
+        mutationKey: [`reset-password-send-code`],
+        mutationFn: async (formData: any) => {
+            setMobile(formData.mobile);
+            return resetPasswordSendCode({
+                mobile: formData.mobile,
+            });
+        },
+        onSuccess: (response) => {
+            if (!response)
+                return;
+            nextStep();
+        },
+    });
+    const actionResetPasswordVerifyCode = useMutation({
+        mutationKey: [`reset-password-verify-code`],
+        mutationFn: async (formData: any) => {
+            setMobile(formData.mobile);
+            return resetPasswordVerifyCode({
+                mobile: formData.mobile,
+                code: formData.code,
+            });
+        },
+        onSuccess: (response) => {
+            if (!response)
+                return;
             nextStep()
-    }
+        },
+    });
 
-    async function setPassword(e: FormData) {
-        let res = await resetPassword({
-            mobile: e.get("mobile") as string,
-            password: e.get("password") as string,
-            password_confirmation: e.get("password_confirmation") as string
-        })
-        if (res) {
-            setCookie('token', res.token);
-            router.push("/")
+    const actionSetPassword = useMutation({
+        mutationKey: [`reset-password-final`],
+        mutationFn: async (formData: any) => {
+            setMobile(formData.mobile);
+            return resetPassword({
+                mobile: formData.mobile,
+                password: formData.password,
+                password_confirmation: formData.password_confirmation,
+            });
+        },
+        onSuccess: (response) => {
+            if (!response)
+                return;
+            setCookie('token', response.token);
+            window.location.href = "/";
+        },
+    });
 
-        }
-    }
+
+    const onSubmitSendCode = async (formData: any) => {
+        await actionSendCode.mutateAsync(formData);
+    };
+
+
+    const onSubmitVerifyCode = async (formData: any) => {
+        await actionResetPasswordVerifyCode.mutateAsync(formData);
+    };
+
+
+    const onSubmitResetPassword = async (formData: any) => {
+        await actionSetPassword.mutateAsync(formData);
+    };
 
 
     return (
@@ -75,36 +135,36 @@ const PageForgotPass = ({}) => {
 
             <div className="max-w-md mx-auto space-y-6">
                 {/* FORM */}
-                {step == 1 && <form className="grid grid-cols-1 gap-6" action={sendCode}>
+                {step == 1 && <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmitSendCode)}>
                     <label className="block">
             <span className="text-neutral-800 dark:text-neutral-200">
              شماره موبایل
             </span>
                         <Input
                             type="text"
-                            name={"mobile"}
+                            {...register("mobile")}
                             placeholder="شماره موبایل"
                             className="mt-1 text-[16px]"
                         />
                     </label>
-                    <ButtonPrimary type="submit">ادامه</ButtonPrimary>
+                    <ButtonPrimary type="submit" loading={actionSendCode.isLoading} >ادامه</ButtonPrimary>
                 </form>}
 
-                {step == 2 && <form className="grid grid-cols-1 gap-6" action={verifyCode}>
+                {step == 2 && <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmitVerifyCode)}>
                     <label className="block">
                         <div className="flex flex-col gap-y-2">
               <span className="text-neutral-800 dark:text-neutral-200">
-               کد ثبت نام
+               کد بازیابی
               </span>
                         </div>
                         <Input
-                            name={"code"}
+                            {...register("code")}
                             type="text"
                             placeholder="کد بازیابی"
                             className="mt-1  text-[16px]"
                         />
                         <Input
-                            name={"mobile"}
+                            {...register("mobile")}
                             type="hidden"
                             value={mobile}
                         />
@@ -115,7 +175,7 @@ const PageForgotPass = ({}) => {
                             resend ? <span className={"text-green-600 cursor-pointer"} onClick={actionResend}>
                                   ارسال مجدد کد
                             </span> :
-                                <>  <Counter initialSeconds={120} end={() => {
+                                <>  <Counter initialSeconds={initialSeconds} end={() => {
                                     setResend(true)
                                 }}/>
                                     <span>
@@ -127,30 +187,30 @@ const PageForgotPass = ({}) => {
 
                     </div>
 
-                    <ButtonPrimary type="submit">ادامه</ButtonPrimary>
+                    <ButtonPrimary type="submit" loading={actionResetPasswordVerifyCode.isLoading} >ادامه</ButtonPrimary>
                 </form>}
 
-                {step == 3 && <form className="grid grid-cols-1 gap-6" action={setPassword}>
+                {step == 3 && <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmitResetPassword)}>
                     <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 کلمه عبور
               </span>
-                        <Input type={"password"} placeholder="کلمه عبور" className="mt-1" name={"password"}/>
+                        <Input type={"password"} placeholder="کلمه عبور" className="mt-1" {...register("password")} />
 
                     </label>
                     <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
 تکرار کلمه عبور              </span>
-                        <Input type={"password"} placeholder="تکرار کلمه عبور" className="mt-1"
-                               name={"password_confirmation"}/>
+                        <Input type={"password"}  {...register("password_confirmation")} placeholder="تکرار کلمه عبور" className="mt-1"
+                                />
                         <Input
-                            name={"mobile"}
+                            {...register("code")}
                             type="hidden"
                             value={mobile}
                         />
                     </label>
 
-                    <ButtonPrimary type="submit">ادامه</ButtonPrimary>
+                    <ButtonPrimary type="submit" loading={actionSetPassword.isLoading}>ادامه</ButtonPrimary>
                 </form>}
 
                 {/* ==== */}
