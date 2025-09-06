@@ -6,17 +6,17 @@ import {
     PopoverPanel,
     Transition,
 } from "@headlessui/react";
-import { getCart, removeCartItem } from "@/services/api/shop/cart";
+import {getCart, removeCartItem} from "@/services/api/shop/cart";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";
 import Link from "next/link";
-import { useQuery } from "react-query";
-import { CartResponse } from "@/services/types/cart";
-import { reduxRemoveFromCart, setCart, useCart,  useUser } from "@/services/globalState/GlobalState";
-import { toast } from "react-hot-toast";
-import { Route } from "next";
-import { GuarantyPrice } from "@/hooks/GuarantyPrice";
+import {useQuery} from "react-query";
+import {CartResponse} from "@/services/types/cart";
+import {reduxRemoveFromCart, setCart, useCart, useUser} from "@/services/globalState/GlobalState";
+import {toast} from "react-hot-toast";
+import {Route} from "next";
+import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import Prices from "@/components/Price/Prices";
 
 export default function CartDropdown() {
@@ -24,7 +24,7 @@ export default function CartDropdown() {
     const [cart] = useCart();
     const [user] = useUser();
 
-    const { data, isSuccess } = useQuery({
+    const {data, isSuccess} = useQuery({
         queryKey: ['cart'],
         queryFn: () => getCart(),
         staleTime: 5000,
@@ -36,20 +36,19 @@ export default function CartDropdown() {
 
 
     async function removeFromCart(id: number, guarantyId: number | undefined) {
-        let response = await removeCartItem({ productColorId: id, guaranty_id: guarantyId });
+        let response = await removeCartItem({productColorId: id, guaranty_id: guarantyId});
         reduxRemoveFromCart(id, guarantyId);
         toast.success(response.message as string)
     }
 
     const renderProduct = (item: CartResponse, index: number, close: () => void) => {
-        const { product, count, color } = item;
-        const { name, url, image } = product;
-        const { title, code, price, id } = color;
+        const {product, count, color} = item;
+        const {name, url, image} = product;
+        const {title, code, price, id, discountedPrice} = color;
 
-        let guarantyPrice=0;
-        if(item.guaranty.free==0)
-        {
-            guarantyPrice=GuarantyPrice(item.color.price)??0;
+        let guarantyPrice = 0;
+        if (item.guaranty.free == 0) {
+            guarantyPrice = GuarantyPrice(item.color.price) ?? 0;
         }
         return (
             <div key={index} className="flex py-5 last:pb-0">
@@ -84,18 +83,21 @@ export default function CartDropdown() {
                                         {item.guaranty.name}
                                     </span>
                                     {
-                                        (item.guaranty.free==null || item.guaranty.free)  ?
+                                        (item.guaranty.free == null || item.guaranty.free) ?
                                             <span className="text-xs text-slate-500 dark:text-slate-400">
                                                 (رایگان)
                                             </span>
                                             :
-                                            <span className={`text-xs text-slate-500 dark:text-slate-400`}>{new Intl.NumberFormat('en-US').format(GuarantyPrice(item.color.price))} تومان </span>
+                                            <span
+                                                className={`text-xs text-slate-500 dark:text-slate-400`}>{new Intl.NumberFormat('en-US').format(GuarantyPrice(item.color.price))} تومان </span>
 
                                     }
 
                                 </div>
                             </div>
-                            <Prices price={price+guarantyPrice} className="whitespace-nowrap" />
+                            <Prices
+                                price={((!discountedPrice || discountedPrice == 0) ? price : discountedPrice) + guarantyPrice}
+                                className="whitespace-nowrap"/>
                         </div>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-xs">
@@ -123,21 +125,20 @@ export default function CartDropdown() {
         let sumPrice = 0;
         cart && cart.map((item) => {
 
-        let guarantyPrice=0;
-        if(item.guaranty.free==0)
-        {
-            guarantyPrice=GuarantyPrice(item.color.price)??0;
-        }
-        if(item.color.discountedPrice)
-            sumPrice += (item.color.discountedPrice+guarantyPrice)*item.count;
-        else
-            sumPrice += (item.color.price+guarantyPrice)*item.count;
+            let guarantyPrice = 0;
+            if (item.guaranty.free == 0) {
+                guarantyPrice = GuarantyPrice(item.color.price) ?? 0;
+            }
+            if (item.color.discountedPrice)
+                sumPrice += (item.color.discountedPrice + guarantyPrice) * item.count;
+            else
+                sumPrice += (item.color.price + guarantyPrice) * item.count;
         })
         return sumPrice;
     }
     return (
         <Popover className="relative z-50 hidden lg:block">
-            {({ open, close }) => (
+            {({open, close}) => (
                 <>
                     <PopoverButton
                         className={`
@@ -190,7 +191,7 @@ export default function CartDropdown() {
                             />
                         </svg>
 
-                        <Link className="block md:hidden absolute inset-0" href={"/cart"} />
+                        <Link className="block md:hidden absolute inset-0" href={"/cart"}/>
                     </PopoverButton>
                     <Transition
                         enter="transition ease-out duration-200"
@@ -218,7 +219,8 @@ export default function CartDropdown() {
                                     <div className="bg-neutral-50 dark:bg-slate-900 p-5">
                                         <p className="flex justify-between font-semibold text-slate-900 dark:text-slate-100">
                                             <span>قیمت کل</span>
-                                            <span className={`text-slate-900 !leading-none `}>{new Intl.NumberFormat('en-US').format(renderSumPrice())} تومان </span>
+                                            <span
+                                                className={`text-slate-900 !leading-none `}>{new Intl.NumberFormat('en-US').format(renderSumPrice())} تومان </span>
                                         </p>
                                         <div className="flex gap-x-2 mt-5">
                                             <ButtonSecondary

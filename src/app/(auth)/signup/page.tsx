@@ -1,5 +1,5 @@
 "use client"
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import facebookSvg from "@/images/Facebook.svg";
 import twitterSvg from "@/images/Twitter.svg";
 import googleSvg from "@/images/Google.svg";
@@ -15,9 +15,14 @@ import {useRouter} from "next/navigation";
 
 const PageSignUp = () => {
     const [step, setStep] = useState(1);
+    const [initialSeconds, setInitialSeconds] = useState(1);
     const [resend, setResend] = useState(false);
     const [mobile, setMobile] = useState("");
     const router = useRouter();
+
+    useEffect(() => {
+        setInitialSeconds(120);
+    }, [step]);
 
     function nextStep() {
         setStep(step + 1);
@@ -29,6 +34,10 @@ const PageSignUp = () => {
         let response = await registerSendCode({mobile: mobile})
         if (response?.success)
             nextStep()
+    }
+
+    async function changeMobile() {
+        setStep(step - 1);
     }
 
     async function actionResend() {
@@ -73,7 +82,7 @@ const PageSignUp = () => {
                     <div className="max-w-md mx-auto space-y-6 ">
 
                         {/* FORM */}
-                        {step == 1 && <form className="grid grid-cols-1 gap-6" action={sendCode} >
+                        {step == 1 && <form className="grid grid-cols-1 gap-6" action={sendCode}>
                             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
                شماره ‌همراه
@@ -88,20 +97,22 @@ const PageSignUp = () => {
                             <ButtonPrimary type="submit">ادامه</ButtonPrimary>
                         </form>}
 
-                        {step == 2 && <form className="grid grid-cols-1 gap-6" action={verifyCode} >
+                        {step == 2 && <form className="grid grid-cols-1 gap-6" action={verifyCode}>
                             <label className="block">
                                 <div className="flex flex-col gap-y-2">
-              <span className="text-neutral-800 dark:text-neutral-200">
-               کد ثبت نام
-              </span>
+
+                                    <small className={"text-neutral-600 dark:text-neutral-100 font-bold"}>
+                                        کد یکبار مصرف به شماره تماس {mobile} ارسال شد
+                                    </small>
                                     <small className={"text-neutral-600 dark:text-neutral-100"}>
                                         کد ارسال شده به شماره موبایل خود را وارد نمایید و سپس روی ادامه کلیک کنید :
                                     </small>
+
                                 </div>
                                 <Input
                                     name={"code"}
                                     type="text"
-                                    placeholder="کد ثبت نام"
+                                    placeholder="کد یکبار مصرف"
                                     className="mt-1"
                                 />
                                 <Input
@@ -110,13 +121,14 @@ const PageSignUp = () => {
                                     value={mobile}
                                 />
                             </label>
+
                             <div className={"flex gap-x-2"}>
 
                                 {
                                     resend ? <span className={"text-green-600 cursor-pointer"} onClick={actionResend}>
                                   ارسال مجدد کد
                             </span> :
-                                        <>  <Counter initialSeconds={120} end={() => {
+                                        <>  <Counter initialSeconds={initialSeconds} end={() => {
                                             setResend(true)
                                         }}/>
                                             <span>
@@ -127,11 +139,15 @@ const PageSignUp = () => {
 
 
                             </div>
-
+                            <span className={"text-sm font-bold text-primary-700 cursor-pointer"}
+                                  onClick={changeMobile}>
+                                اصلاح شماره
+                            </span>
                             <ButtonPrimary type="submit">ادامه</ButtonPrimary>
+
                         </form>}
 
-                        {step == 3 && <form className="grid grid-cols-1 gap-6" action={setPassword} >
+                        {step == 3 && <form className="grid grid-cols-1 gap-6" action={setPassword}>
                             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 نام
