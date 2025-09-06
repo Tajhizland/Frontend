@@ -1,5 +1,5 @@
 "use client"
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -7,19 +7,42 @@ import Link from "next/link";
 import {login} from "@/services/api/auth/login";
 import {setCookie} from "cookies-next";
 import {useRouter} from "next/navigation";
+import {useForm} from "react-hook-form";
+import {useMutation} from "react-query";
+import {update} from "@/services/api/shop/address";
+import {toast} from "react-hot-toast";
 
 
 const PageLogin = () => {
     const router = useRouter();
+    const [isLogin, setIsLogin] = useState(false);
 
-    async function action(e: FormData) {
-        let params = {username: e.get("username") as string, password: e.get("password") as string}
-        let res = await login(params)
-        if (res) {
-            setCookie('token', res.token);
+    const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
+        defaultValues: {
+            username: "",
+            password: "",
+        },
+    });
+
+    const actionLogin = useMutation({
+        mutationKey: [`login`],
+        mutationFn: async (formData: any) => {
+            return login({
+                ...formData,
+            });
+        },
+        onSuccess: (response) => {
+            if (!response)
+                return;
+            setIsLogin(true);
+            setCookie('token', response.token);
             router.push("/")
-        }
-    }
+        },
+    });
+
+    const onSubmit = async (formData: any) => {
+        await actionLogin.mutateAsync(formData);
+    };
 
     return (
         <>
@@ -35,14 +58,14 @@ const PageLogin = () => {
                     </h2>
                     <div className="max-w-md mx-auto space-y-6">
                         {/* FORM */}
-                        <form className="grid grid-cols-1 gap-6" action={action}>
+                        <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmit)}>
                             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
                 شماره موبایل
               </span>
                                 <Input
                                     type="text"
-                                    name={"username"}
+                                    {...register("username")}
                                     placeholder="شماره موبایل"
                                     className="mt-1"
                                 />
@@ -55,10 +78,10 @@ const PageLogin = () => {
                 </Link>
               </span>
                                 <Input type="password" className="mt-1"
-                                       name={"password"}
+                                       {...register("password")}
                                 />
                             </label>
-                            <ButtonPrimary type="submit">ادامه</ButtonPrimary>
+                            <ButtonPrimary type="submit" loading={actionLogin.isLoading || isLogin}>ادامه</ButtonPrimary>
                         </form>
 
                         {/* ==== */}

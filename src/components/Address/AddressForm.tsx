@@ -16,7 +16,7 @@ export default function AddressForm({address, close}: { address?: AddressRespons
     const queryClient = useQueryClient();
 
     const saveAddress = useMutation({
-        mutationKey: [`confirm_register`],
+        mutationKey: [`save-address`],
         mutationFn: async (formData: any) => {
             return update({
                 id: address?.id,
