@@ -133,7 +133,9 @@ const AccountOrder = () => {
     }
     const renderCreateContent = () => {
         return <div className={"text-right"}>
-            <AddressForm/>
+            <AddressForm close={() => {
+                setShowCreateModal(false)
+            }}/>
         </div>
     }
 

@@ -10,29 +10,29 @@ import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getProvince} from "@/services/api/shop/province";
 import {getCity} from "@/services/api/shop/city";
 import Label from "@/shared/Label/Label";
+import {useForm} from "react-hook-form";
 
-export default function AddressForm({address , close}: { address?: AddressResponse , close?: () => void }) {
+export default function AddressForm({address, close}: { address?: AddressResponse, close?: () => void }) {
     const queryClient = useQueryClient();
 
-    async function saveAddress(e: FormData) {
-         let response = await update({
-            id: address?.id,
-            city_id: e.get("city_id") as string,
-            title: e.get("title") as string,
-            province_id: e.get("province_id") as string,
-            tell: e.get("tell") as string,
-            zip_code: e.get("zip_code") as string,
-            address: e.get("address") as string,
-            mobile: e.get("mobile") as string,
-        })
-        if(response?.success) {
+    const saveAddress = useMutation({
+        mutationKey: [`confirm_register`],
+        mutationFn: async (formData: any) => {
+            return update({
+                id: address?.id,
+                ...formData,
+            });
+        },
+        onSuccess: (response) => {
+            if (!response)
+                return;
             queryClient.invalidateQueries(['my-address']);
             queryClient.invalidateQueries(['address']);
 
             toast.success(response?.message as string);
             close && close()
-        }
-    }
+        },
+    });
 
     const {data: provinces} = useQuery({
         queryKey: ['province'],
@@ -59,21 +59,49 @@ export default function AddressForm({address , close}: { address?: AddressRespon
     }, []);
 
 
+    const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
+        defaultValues: {
+            title: "",
+            province_id: "1",
+            city_id: "1",
+            address: "",
+            tell: "",
+            zip_code: "",
+            mobile: "",
+        },
+    });
+    useEffect(() => {
+        if (address) {
+            setValue("title", address.title);
+            setValue("province_id", address.province_id.toString());
+            setValue("city_id", address.city_id.toString());
+            setValue("address", address.address);
+            setValue("tell", address.tell);
+            setValue("zip_code", address.zip_code);
+            setValue("mobile", address.mobile);
+        }
+    }, [address, setValue]);
+
+    const onSubmit = async (formData: any) => {
+        await saveAddress.mutateAsync(formData);
+    };
+
+
     return (<>
-        <form action={saveAddress}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             {/* ============ */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3 ">
                 <div>
                     <Label className="text-sm  dark:text-white">عنوان آدرس</Label>
-                    <Input className="mt-1.5" defaultValue={address?.title} name={"title"}/>
+                    <Input className="mt-1.5"  {...register("title")}/>
                 </div>
                 <div>
                     <Label className="text-sm  dark:text-white">استان</Label>
-                    <Select name={"province_id"} onChange={(e) => {
+                    <Select  {...register("province_id")} onChange={(e) => {
                         changeProvince(Number(e.target.value))
                     }}>
                         {
-                            provinces && provinces?.map((item , index) => (
+                            provinces && provinces?.map((item, index) => (
                                 <option key={index} value={item.id as number} selected={address?.province_id == item.id}>
                                     {item.name}
                                 </option>
@@ -84,7 +112,7 @@ export default function AddressForm({address , close}: { address?: AddressRespon
                 <div>
                     <Label className="text-sm  dark:text-white">شهر</Label>
 
-                    <Select name={"city_id"}>
+                    <Select  {...register("city_id")}>
                         {
                             citys && citys?.map((item) => (<>
                                 <option value={item.id} selected={address?.city_id == item.id}>
@@ -103,14 +131,13 @@ export default function AddressForm({address , close}: { address?: AddressRespon
                     <Input
                         className="mt-1.5"
                         placeholder=""
-                        name={"address"}
-                        defaultValue={address?.address}
+                        {...register("address")}
                         type={"text"}
                     />
                 </div>
                 <div className="sm:w-1/3">
                     <Label className="text-sm  dark:text-white">تلفن</Label>
-                    <Input className="mt-1.5" defaultValue={address?.tell} name={"tell"}/>
+                    <Input className="mt-1.5" {...register("tell")}/>
                 </div>
             </div>
 
@@ -118,11 +145,11 @@ export default function AddressForm({address , close}: { address?: AddressRespon
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
                 <div>
                     <Label className="text-sm  dark:text-white">کد پستی</Label>
-                    <Input className="mt-1.5" defaultValue={address?.zip_code} name={"zip_code"}/>
+                    <Input className="mt-1.5" {...register("zip_code")}/>
                 </div>
                 <div>
                     <Label className="text-sm  dark:text-white">شماره همراه</Label>
-                    <Input className="mt-1.5" defaultValue={address?.mobile} name={"mobile"}/>
+                    <Input className="mt-1.5"  {...register("mobile")}/>
                 </div>
 
             </div>

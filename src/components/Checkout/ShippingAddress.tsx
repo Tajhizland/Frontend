@@ -200,7 +200,7 @@ const ShippingAddress: FC<Props> = ({
         return <div className={"text-right"}>
             <AddressForm
                 close={() => {
-                    setShowEditModal(false)
+                    setShowCreateModal(false)
                 }}
             />
         </div>
