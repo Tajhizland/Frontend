@@ -29,6 +29,7 @@ export const update = async <T extends ServerResponse<unknown>>
     return axios.post<T, SuccessResponseType<T>>("address/update" , params)
         .then((res) => res?.data)
 };
+
 export const changeActiveAddress = async <T extends ServerResponse<unknown>>
 (params:{
     id:number ,

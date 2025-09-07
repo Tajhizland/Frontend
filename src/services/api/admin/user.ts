@@ -52,3 +52,29 @@ export const getOnHoldOrder = async <T extends ServerResponse<OnHoldOrderRespons
     return axios.get<T, SuccessResponseType<T>>("admin/user/on-hold-order/" + id + "?page=" + page)
         .then((res) => res?.data?.result)
 };
+
+export const updateAdminAddress = async <T extends ServerResponse<unknown>>
+(params: {
+     id?: number,
+     user_id: number,
+     city_id: string,
+     title: string,
+     province_id: string,
+     tell: string,
+     mobile: string,
+     zip_code: string,
+     address: string,
+ }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/user/address/update", params)
+        .then((res) => res?.data)
+};
+export const adminChangeActiveAddress = async <T extends ServerResponse<unknown>>
+(params: {
+     id: number,
+     user_id: number,
+ }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/user/address/active/change", params)
+        .then((res) => res?.data)
+};
