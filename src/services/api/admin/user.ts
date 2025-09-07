@@ -78,3 +78,12 @@ export const adminChangeActiveAddress = async <T extends ServerResponse<unknown>
     return axios.post<T, SuccessResponseType<T>>("admin/user/address/active/change", params)
         .then((res) => res?.data)
 };
+export const adminUpdateWallet = async <T extends ServerResponse<unknown>>
+(params: {
+     wallet: number,
+     user_id: number,
+ }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/user/wallet", params)
+        .then((res) => res?.data)
+};
