@@ -130,7 +130,7 @@ const ProductCard2: FC<ProductCardProps> = ({
     const checkStock = (product: ProductResponse) => {
         let hasStock = false;
         product.colors.data.map((item) => {
-            if (item.stock > 0 && item.status == 1) {
+            if (item.stock > 0 && (item.status == 1 || item.status == 2)) {
                 hasStock = true;
                 return hasStock;
             }

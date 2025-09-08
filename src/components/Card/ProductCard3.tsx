@@ -72,7 +72,7 @@ const ProductCard3: FC<ProductCardProps> = ({
             let minPrice = data?.colors.data[0].price ?? 0;
             let minDiscountedPrice = data?.colors.data[0].discountedPrice ?? 0;
             data?.colors.data.map((item) => {
-                if (item.price < minPrice && item.status == 1 && item.price > 0) {
+                if (item.price < minPrice && (item.status == 1 || item.status == 2)&& item.price > 0) {
                     minPrice = item.price;
                     minDiscountedPrice = item.discountedPrice;
                 }
@@ -141,7 +141,7 @@ const ProductCard3: FC<ProductCardProps> = ({
     const checkStock = (product: ProductResponse) => {
         let hasStock = false;
         product.colors.data.map((item) => {
-            if (item.stock > 0 && item.status == 1) {
+            if (item.stock > 0 && (item.status == 1 || item.status == 2)) {
                 hasStock = true;
                 return hasStock;
             }
@@ -152,7 +152,7 @@ const ProductCard3: FC<ProductCardProps> = ({
         let minPrice = product.colors.data[0].price;
         let minDiscountedPrice = product.colors.data[0].discountedPrice;
         product.colors.data.map((item) => {
-            if (item.price < minPrice && item.status == 1 && item.price > 0) {
+            if (item.price < minPrice && (item.status == 1 || item.status == 2) && item.price > 0) {
                 minPrice = item.price;
                 minDiscountedPrice = item.discountedPrice;
             }
