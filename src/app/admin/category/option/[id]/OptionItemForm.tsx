@@ -23,9 +23,12 @@ export default function OptionItemForm({data, categoryId}: optionItemProps) {
                 ...formData,
             });
         },
-        onSuccess: (data) => {
-            toast.success(data?.message ?? "")
+        onSuccess: (response) => {
+            toast.success(response?.message ?? "")
             queryClient.refetchQueries(['option-info', Number(categoryId)]);
+            if (!data) {
+                mutation.reset();
+            }
 
         },
     });
