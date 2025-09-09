@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import {useEffect} from "react";
 import {OptionItemsResponse} from "@/services/types/optionItem";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {useMutation} from "react-query";
+import {useMutation, useQueryClient} from "react-query";
 import toast from "react-hot-toast";
 import {updateOption} from "@/services/api/admin/option";
 
@@ -14,6 +14,7 @@ interface optionItemProps {
 }
 
 export default function OptionItemForm({data, categoryId}: optionItemProps) {
+    const queryClient = useQueryClient();
 
     const mutation = useMutation({
         mutationKey: [`update-option`],
@@ -24,6 +25,8 @@ export default function OptionItemForm({data, categoryId}: optionItemProps) {
         },
         onSuccess: (data) => {
             toast.success(data?.message ?? "")
+            queryClient.refetchQueries(['option-info', Number(categoryId)]);
+
         },
     });
 
