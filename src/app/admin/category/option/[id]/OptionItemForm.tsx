@@ -28,12 +28,13 @@ export default function OptionItemForm({data, categoryId}: optionItemProps) {
             queryClient.refetchQueries(['option-info', Number(categoryId)]);
             if (!data) {
                 mutation.reset();
+                reset()
             }
 
         },
     });
 
-    const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
+    const {register, handleSubmit, control, formState: {errors}, setValue, reset} = useForm({
         defaultValues: {
             categoryId: "",
             id: null,
