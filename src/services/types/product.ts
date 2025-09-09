@@ -14,6 +14,7 @@ import {breadcrumbResponse} from "@/services/types/category";
 
 export type ProductPageResponse = {
     product: ProductResponse;
+    options: { data: ProductOptionResponse[] };
     relatedProduct: { data: ProductResponse[] };
     breadcrumb: { data: breadcrumbResponse[] };
 }

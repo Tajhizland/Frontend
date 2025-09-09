@@ -158,7 +158,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         return null;
     };
     const renderOption = () => {
-        const options = product.productOptions.data
+        const options = productResponse.options.data
             .map((item) => (item.value && item.value != "" && item.value != " ") ? `<tr class=""><td class="py-4 text-neutral-600 dark:text-white ">${item.option_title}</td><td class="text-right text-black border-b dark:text-white "> ${item.value}</td></tr>` : "")
             .join("");
 
@@ -261,7 +261,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         productResponse.breadcrumb.data.map((breadcrumb) => {
             breadcrumbs.push({title: breadcrumb.name, href: breadcrumb.url});
         })
-        console.log("breadcrumbs",breadcrumbs)
+        console.log("breadcrumbs", breadcrumbs)
         return breadcrumbs;
     }
 
