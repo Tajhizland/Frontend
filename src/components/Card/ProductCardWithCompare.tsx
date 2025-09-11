@@ -21,16 +21,16 @@ export interface ProductCardProps {
     data?: ProductResponse;
     isLiked?: boolean;
     isProductInCompareList?: boolean;
-    addToCompare?: ()=>void;
+    addToCompare?: () => void;
 }
 
 const ProductCardWithCompare: FC<ProductCardProps> = ({
-                                               className = "",
-                                               data,
+                                                          className = "",
+                                                          data,
                                                           addToCompare,
                                                           isProductInCompareList,
-                                               isLiked,
-                                           }) => {
+                                                          isLiked,
+                                                      }) => {
 
 
     const [showModalQuickView, setShowModalQuickView] = useState(false);
@@ -118,7 +118,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
     const checkStock = (product: ProductResponse) => {
         let hasStock = false;
         product.colors.data.map((item) => {
-            if (item.stock > 0 && item.status == 1) {
+            if (item.stock > 0 && (item.status == 1 || item.status == 2)) {
                 hasStock = true;
                 return hasStock;
             }
@@ -130,7 +130,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
         let minPrice = product?.colors?.data[0]?.price;
         let minDiscountedPrice = product?.colors?.data[0]?.discountedPrice;
         product.colors.data.map((item) => {
-            if (item.price < minPrice && item.status == 1 && item.price > 0) {
+            if (item.price < minPrice && (item.status == 1 || item.status == 2) && item.price > 0) {
                 minPrice = item.price;
                 minDiscountedPrice = item.discountedPrice;
             }
@@ -193,7 +193,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                         />
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 transition-all hidden group-hover:block"
-                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[2]?.url??data?.images?.data[0]?.url}`}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[2]?.url ?? data?.images?.data[0]?.url}`}
                             priority
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
@@ -204,9 +204,9 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
 
                     <LikeButton liked={data?.favorite} likeHandle={likeHandle}
                                 className="absolute top-3 end-3 z-10 hidden sm:flex"/>
-                    <div  title={'مقایسه'} className="absolute top-3 end-14 z-10 hidden sm:flex" onClick={addToCompare}>
+                    <div title={'مقایسه'} className="absolute top-3 end-14 z-10 hidden sm:flex" onClick={addToCompare}>
                         <div
-                            className={` w-fit gap-5  flex items-center justify-center px-2 py-2 rounded-full text-slate-500 cursor-pointer z-10  ${isProductInCompareList?" bg-[#fcb415] text-white":" hover:bg-slate-200 bg-white "}`}
+                            className={` w-fit gap-5  flex items-center justify-center px-2 py-2 rounded-full text-slate-500 cursor-pointer z-10  ${isProductInCompareList ? " bg-[#fcb415] text-white" : " hover:bg-slate-200 bg-white "}`}
                         >
                             <MdOutlineCompare className={"w-5 h-5"}/>
                         </div>
@@ -227,9 +227,9 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                         </div>
                         {/*<LikeButton liked={data?.favorite} likeHandle={likeHandle}*/}
                         {/*            className="  z-10 sm:hidden flex"/>*/}
-                        <div  title={'مقایسه'} className=" z-10 flex sm:hidden" onClick={addToCompare}>
+                        <div title={'مقایسه'} className=" z-10 flex sm:hidden" onClick={addToCompare}>
                             <div
-                                className={` w-fit gap-5  flex items-center justify-center p-2 rounded-xl text-slate-500 cursor-pointer   z-10 ${isProductInCompareList?" bg-[#fcb415]  text-white":"bg-white hover:bg-slate-200 "}`}
+                                className={` w-fit gap-5  flex items-center justify-center p-2 rounded-xl text-slate-500 cursor-pointer   z-10 ${isProductInCompareList ? " bg-[#fcb415]  text-white" : "bg-white hover:bg-slate-200 "}`}
                             >
                                 <MdOutlineCompare className={"w-4 h-4"}/>
 
