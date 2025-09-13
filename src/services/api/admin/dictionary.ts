@@ -36,6 +36,6 @@ export const removeById = async <T extends ServerResponse<DictionaryResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/dictionary/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/dictionary/delete/" + id)
         .then((res) => res?.data)
 };
