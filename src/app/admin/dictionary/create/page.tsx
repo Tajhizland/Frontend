@@ -2,8 +2,8 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import Form from "@/app/admin/faq/Form";
-import {store} from "@/services/api/admin/faq";
+import Form from "@/app/admin/dictionary/Form";
+import {store} from "@/services/api/admin/dictionary";
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
 
@@ -14,30 +14,29 @@ export default function Page()
     async function submit(e: FormData) {
         let response=await store(
             {
-                question: e.get("question") as string,
-                answer: e.get("answer") as string,
-                status: e.get("status") as string,
+                original_word: e.get("original_word") as string,
+                mean: e.get("mean") as string, 
             }
         )
 
         toast.success(response?.message as string)
-        router.push("/admin/faq");
+        router.push("/admin/dictionary");
     }
 
     return(<>
         <Breadcrump breadcrumb={[
             {
-                title: "پرسش های متداول",
-                href: "faq"
+                title: "دیکشنری",
+                href: "dictionary"
             },
             {
-                title: "افزودن پرسش های متداول",
-                href: "faq/create"
+                title: "افزودن دیکشنری",
+                href: "dictionary/create"
             }
         ]}/>
         <Panel>
             <PageTitle>
-                افزودن پرسش جدید
+                افزودن دیکشنری جدید
             </PageTitle>
             <div>
                 <Form submit={submit} />
