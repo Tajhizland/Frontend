@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import {GiSevenPointedStar, GiTargetPoster} from "react-icons/gi";
 import {VscLayoutMenubar} from "react-icons/vsc";
-import {TbAlignBoxCenterTop, TbBrandApple} from "react-icons/tb";
+import {TbAlignBoxCenterTop, TbBrandApple, TbLanguage} from "react-icons/tb";
 import {SiElectronbuilder, SiPagespeedinsights, SiWayland} from "react-icons/si";
 import {
     FaBell,
@@ -272,6 +272,24 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
             {
                 title: "افزودن منو",
                 url: "/menu/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }
+        ]
+    }, {
+        title: "دیکشنری",
+        url: "/",
+        icon: <TbLanguage className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت دیکشنری",
+                url: "/dictionary",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن دیکشنری",
+                url: "/dictionary/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
 
             }
