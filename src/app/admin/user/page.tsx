@@ -55,14 +55,14 @@ export default function Page() {
                 };
             }
         },
-        // {
-        //     label: loadingLogin ? "در حال ورود" : "ورود",
-        //     type: "action",
-        //     colorClass: "bg-white text-black border border-slate-900 outline-none ",
-        //     action: (id: number) => {
-        //         loginToUser(id)
-        //     }
-        // },
+        {
+            label: loadingLogin ? "در حال ورود" : "ورود",
+            type: "action",
+            colorClass: "bg-white text-black border border-slate-900 outline-none ",
+            action: (id: number) => {
+                loginToUser(id)
+            }
+        },
     ]
 
     return (<>
