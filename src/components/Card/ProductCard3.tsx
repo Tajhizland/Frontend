@@ -50,7 +50,7 @@ const ProductCard3: FC<ProductCardProps> = ({
         data?.colors.data.map((item) => {
             if (item.statusLabel != "") {
                 status = item.statusLabel;
-                if (item.discount > 0) {
+                if (item.discount > 0 && item.discountedPrice < item.price) {
                     discounted = item.discount;
                 }
             }
@@ -72,7 +72,7 @@ const ProductCard3: FC<ProductCardProps> = ({
             let minPrice = data?.colors.data[0].price ?? 0;
             let minDiscountedPrice = data?.colors.data[0].discountedPrice ?? 0;
             data?.colors.data.map((item) => {
-                if (item.price < minPrice && (item.status == 1 || item.status == 2)&& item.price > 0) {
+                if (item.price < minPrice && (item.status == 1 || item.status == 2) && item.price > 0) {
                     minPrice = item.price;
                     minDiscountedPrice = item.discountedPrice;
                 }

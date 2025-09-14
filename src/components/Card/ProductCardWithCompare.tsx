@@ -72,7 +72,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
         data?.colors.data.map((item) => {
             if (item.statusLabel != "") {
                 status = item.statusLabel;
-                if (item.discount > 0) {
+                if (item.discount > 0 && item.discountedPrice < item.price) {
                     discounted = item.discount;
                 }
             }
