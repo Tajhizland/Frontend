@@ -91,6 +91,6 @@ export const adminUpdateWallet = async <T extends ServerResponse<unknown>>
 export const adminLoginUser = async <T extends ServerResponse<TokenResponse>>
 (id: number
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/user/login/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/user/login/" + id)
         .then((res) => res?.data?.result?.data)
 };

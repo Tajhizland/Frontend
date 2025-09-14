@@ -3,7 +3,7 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/user/TableRow";
+import {columns} from "@/app/admin/user/TableRow";
 import {adminLoginUser, update} from "@/services/api/admin/user";
 import {toast} from "react-hot-toast";
 import {UserResponse} from "@/services/types/user";
@@ -56,12 +56,11 @@ export default function Page() {
             }
         },
         {
-            label: loadingLogin ? "در حال ورود" :"ورود",
+            label: loadingLogin ? "در حال ورود" : "ورود",
             type: "action",
             colorClass: "bg-white text-white border border-slate-900 outline-none ",
             action: (id: number) => {
-                setId(id);
-                setModal(true);
+                loginToUser(id)
             }
         },
     ]
