@@ -59,7 +59,7 @@ export default function ProductTab({id, url}: { id: string, url: string }) {
                     </>))
                 }
                 <li className="me-2">
-                    <Link href={"/product/" + url}
+                    <Link target={"_blank"} href={"/product/" + url}
                           className={`inline-flex items-center justify-center p-4 border-b-2   rounded-t-lg hover:text-gray-600 hover:border-gray-300  group gap-x-2  `}>
                         مشاهده محصول
                     </Link>
