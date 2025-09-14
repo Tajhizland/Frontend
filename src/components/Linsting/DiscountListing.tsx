@@ -24,9 +24,9 @@ const DiscountListing = ({response}: { response }) => {
         isFetchingNextPage,
         refetch,
     } = useInfiniteQuery(
-        ["discountedProducts",filter],
+        ["discountedProducts", filter],
         async ({pageParam = 1}) => {
-            const result = await getDiscountedProducts(pageParam ,  filter ? `filter[category]=${filter}` : ""); // فراخوانی getDiscountedProducts به صورت صفحه‌بندی شده
+            const result = await getDiscountedProducts(pageParam, filter ? `filter[category]=${filter}` : ""); // فراخوانی getDiscountedProducts به صورت صفحه‌بندی شده
             return result.data;
         },
         {
@@ -112,7 +112,7 @@ const DiscountListing = ({response}: { response }) => {
 
             <div className="flex flex-col">
                 <div
-                    className="flex hiddenScrollbar overflow-x-auto lg:flex-wrap lg:justify-items-center lg:items-center lg:justify-center lg:grid-cols-8 xl:grid-cols-10 gap-1  lg:gap-5 text-center">
+                    className="container p-0 flex overflow-x-auto lg:justify-items-center lg:items-center lg:justify-center  lg:gap-5 text-center">
                     {
                         response?.category?.data?.map((item, index) => (
                             <CategoryCircleCard
