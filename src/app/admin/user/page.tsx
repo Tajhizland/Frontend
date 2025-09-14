@@ -35,7 +35,7 @@ export default function Page() {
     const loginToUser = async (id: number) => {
         setLoadingLogin(true);
 
-        const response = adminLoginUser(id);
+        const response = await adminLoginUser(id);
         if (response) {
             setCookie('token', response?.token);
             window.location.href = "/";
