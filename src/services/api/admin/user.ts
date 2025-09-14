@@ -3,6 +3,7 @@ import {UserResponse} from "@/services/types/user";
 import {OnHoldOrderResponse} from "@/services/types/onHoldOrder";
 import {OrderResponse} from "@/services/types/order";
 import {AddressResponse} from "@/services/types/address";
+import {TokenResponse} from "@/services/types/auth";
 
 
 export const update = async <T extends ServerResponse<unknown>>
@@ -86,4 +87,10 @@ export const adminUpdateWallet = async <T extends ServerResponse<unknown>>
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/user/wallet", params)
         .then((res) => res?.data)
+};
+export const adminLoginUser = async <T extends ServerResponse<TokenResponse>>
+(id: number
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/user/login/" + id)
+        .then((res) => res?.data?.result?.data)
 };
