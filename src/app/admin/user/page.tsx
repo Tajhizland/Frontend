@@ -37,7 +37,7 @@ export default function Page() {
 
         const response = adminLoginUser(id);
         if (response) {
-            setCookie('token', response.token);
+            setCookie('token', response?.token);
             window.location.href = "/";
         }
         setLoadingLogin(false);
