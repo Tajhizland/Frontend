@@ -11,11 +11,12 @@ import {UserPlusIcon} from "@heroicons/react/24/solid";
 import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
 import {useState} from "react";
 import Spinner from "@/shared/Loading/Spinner";
+import Link from "next/link";
 
 export default function Page() {
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
-    const {data: data, isSuccess , isLoading} = useQuery({
+    const {data: data, isSuccess, isLoading} = useQuery({
         queryKey: [`dashboard`, fromDate, toDate],
         queryFn: () => dashboard(fromDate, toDate),
         staleTime: 5000,
@@ -25,34 +26,42 @@ export default function Page() {
         <Breadcrump breadcrumb={[]}/>
         <Panel>
             <div className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"}>
-                <Panel className={"!bg-rose-500 text-white text-center "}>
-                    <div className={"flex flex-col gap-y-2 items-center"}>
-                        <FaFileInvoiceDollar className={"w-8 h-8"}/>
-                        <span className={"font-bold"}>سفارش جدید</span>
-                        <span className={"font-bold"}>{data?.newOrder}</span>
-                    </div>
-                </Panel>
-                <Panel className={"!bg-slate-800 text-white text-center"}>
-                    <div className={"flex flex-col gap-y-2 items-center"}>
-                        <FaComment className={"w-8 h-8"}/>
-                        <span className={"font-bold"}>کامنت جدید</span>
-                        <span className={"font-bold"}>{data?.newComment}</span>
-                    </div>
-                </Panel>
-                <Panel className={"!bg-teal-500 text-white text-center"}>
-                    <div className={"flex flex-col gap-y-2 items-center"}>
-                        <MdOutlinePendingActions className={"w-8 h-8"}/>
-                        <span className={"font-bold"}>  سفارش معلق جدید</span>
-                        <span className={"font-bold"}>{data?.newOnHoldOrder}</span>
-                    </div>
-                </Panel>
-                <Panel className={"!bg-indigo-500 text-white text-center"}>
-                    <div className={"flex flex-col gap-y-2  items-center"}>
-                        <UserPlusIcon className={"w-8 h-8"}/>
-                        <span className={"font-bold"}>کاربر جدید</span>
-                        <span className={"font-bold"}>{data?.newUser}</span>
-                    </div>
-                </Panel>
+                <Link href={"/admin/order"}>
+                    <Panel className={"!bg-rose-500 text-white text-center "}>
+                        <div className={"flex flex-col gap-y-2 items-center"}>
+                            <FaFileInvoiceDollar className={"w-8 h-8"}/>
+                            <span className={"font-bold"}>سفارش جدید</span>
+                            <span className={"font-bold"}>{data?.newOrder}</span>
+                        </div>
+                    </Panel>
+                </Link>
+                <Link href={"/admin/comment"}>
+                    <Panel className={"!bg-slate-800 text-white text-center"}>
+                        <div className={"flex flex-col gap-y-2 items-center"}>
+                            <FaComment className={"w-8 h-8"}/>
+                            <span className={"font-bold"}>کامنت جدید</span>
+                            <span className={"font-bold"}>{data?.newComment}</span>
+                        </div>
+                    </Panel>
+                </Link>
+                <Link href={"/admin/onHoldOrder"}>
+                    <Panel className={"!bg-teal-500 text-white text-center"}>
+                        <div className={"flex flex-col gap-y-2 items-center"}>
+                            <MdOutlinePendingActions className={"w-8 h-8"}/>
+                            <span className={"font-bold"}>  سفارش معلق جدید</span>
+                            <span className={"font-bold"}>{data?.newOnHoldOrder}</span>
+                        </div>
+                    </Panel>
+                </Link>
+                <Link href={"/admin/user"}>
+                    <Panel className={"!bg-indigo-500 text-white text-center"}>
+                        <div className={"flex flex-col gap-y-2  items-center"}>
+                            <UserPlusIcon className={"w-8 h-8"}/>
+                            <span className={"font-bold"}>کاربر جدید</span>
+                            <span className={"font-bold"}>{data?.newUser}</span>
+                        </div>
+                    </Panel>
+                </Link>
             </div>
         </Panel>
 
@@ -86,7 +95,7 @@ export default function Page() {
                         نمودار تعداد بازدید از صفحات
                     </PageTitle>
                     {
-                        isLoading && <Spinner />
+                        isLoading && <Spinner/>
                     }
                     {isSuccess &&
                         <LineChart data={data.viewLog} XLabel={"تاریخ"} YLabel={"تعداد بازدید "} label={"تعداد"}
@@ -99,7 +108,7 @@ export default function Page() {
                         نمودار تعداد بازدید از سایت
                     </PageTitle>
                     {
-                        isLoading && <Spinner />
+                        isLoading && <Spinner/>
                     }
                     {isSuccess &&
                         <LineChart data={data.viewIpLog} XLabel={"تاریخ"} YLabel={"تعداد بازدید"} label={"تعداد"}
@@ -112,7 +121,7 @@ export default function Page() {
                         نمودار تعداد فروش
                     </PageTitle>
                     {
-                        isLoading && <Spinner />
+                        isLoading && <Spinner/>
                     }
                     {isSuccess &&
                         <LineChart data={data.totalCount} XLabel={"تاریخ"} YLabel={"تعداد فروش "} label={"تعداد"}
@@ -125,7 +134,7 @@ export default function Page() {
                         نمودار مقدار فروش
                     </PageTitle>
                     {
-                        isLoading && <Spinner />
+                        isLoading && <Spinner/>
                     }
                     {isSuccess &&
                         <LineChart data={data.totalPrice} XLabel={"تاریخ"} YLabel={"فروش (تومان)"} label={"تومان"}

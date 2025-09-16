@@ -26,6 +26,7 @@ import Select from "@/shared/Select/Select";
 import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
 import {FaEye} from "react-icons/fa";
 import {useRouter} from "next/navigation";
+import Image from "next/image";
 
 export default function Page() {
     const [modal, setModal] = useState(false)
@@ -131,9 +132,27 @@ export default function Page() {
             return <Spinner/>
         setSumColorSize(colors?.length ?? 0);
         return (<>
-            <strong className={"text-center mx-auto flex justify-center"}>
-                {colors && colors[0]?.product?.name}
-            </strong>
+            <div className={"text-center mx-auto flex justify-center items-center"}>
+                <div>
+                    {
+                        colors && colors[0]?.product?.images?.data?.length > 0 ?
+                            <Image className={"w-16 h-16 mx-auto"}
+                                   width={50}
+                                   height={50}
+                                   alt={"image"}
+                                   src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${colors[0]?.product?.images?.data?.[0]?.url}`}
+                            />
+                            :
+                            <span>
+                        -
+                    </span>
+                    }
+                </div>
+                <strong className={"text-center "}>
+                    {colors && colors[0]?.product?.name}
+                </strong>
+
+            </div>
             <form action={updateColor}>
                 {colors && colors.map((item, index) => (
                     <Fragment key={index}>
