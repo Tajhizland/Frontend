@@ -428,7 +428,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                     <Policy/>
                 </div>
                 <div
-                    className={"fixed bottom-20 right-2 flex items-center lg:hidden rounded-3xl z-40 bg-white shadow-xl pl-4  gap-2 border"}>
+                    className={"fixed bottom-20 right-2 flex items-center lg:hidden rounded-3xl z-40 bg-white shadow-xl pl-4  gap-2 border w-[18rem]"}>
                     {(checkColorInCart() == 0 && selectedCount > 0) ? <ButtonPrimary
                             onClick={addToCartHandle}
                             className="flex-1 flex-shrink-0 !rounded-l-none"
@@ -451,7 +451,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                             />
                         </div>
                     }
-                    <div className={"flex flex-1"}>
+                    <div className={"flex flex-1 items-center justify-center "}>
                         {selectedColor.discountedPrice ? renderMainPrice() :
                             <Badge name={"ناموجود"} color={"red"}/>}
                     </div>
