@@ -135,7 +135,7 @@ export default function Page() {
             <div className={"text-center mx-auto flex justify-center items-center"}>
                 <div>
                     {
-                        (colors && colors?.[0] && colors?.[0]?.product?.images?.data?.length > 0) ?
+                        (colors?.[0]?.product?.images?.data && colors[0].product.images.data.length > 0) ?
                             <Image className={"w-16 h-16 mx-auto"}
                                    width={50}
                                    height={50}
