@@ -12,11 +12,13 @@ export const columns: Column<ProductResponse>[] = [
         key: 'images', header: 'تصویر', hasFilter: false, hasSort: false, editable: false,
         render: (value) => <div className={"w-16 h-16"}>
             {
+                //@ts-ignore
                 value?.data?.length > 0 ?
                     <Image className={"w-16 h-16 mx-auto"}
                            width={50}
                            height={50}
                            alt={"image"}
+                        //@ts-ignore
                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${value?.data?.[0]?.url}`}
                     />
                     :
