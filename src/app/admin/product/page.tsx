@@ -135,12 +135,12 @@ export default function Page() {
             <div className={"text-center mx-auto flex justify-center items-center"}>
                 <div>
                     {
-                        colors && colors[0]?.product?.images?.data?.length > 0 ?
+                        colors && colors?.[0]?.product?.images?.data?.length > 0 ?
                             <Image className={"w-16 h-16 mx-auto"}
                                    width={50}
                                    height={50}
                                    alt={"image"}
-                                   src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${colors[0]?.product?.images?.data?.[0]?.url}`}
+                                   src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${colors?.[0]?.product?.images?.data?.[0]?.url}`}
                             />
                             :
                             <span>
