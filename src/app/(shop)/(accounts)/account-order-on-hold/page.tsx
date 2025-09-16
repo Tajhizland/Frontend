@@ -148,6 +148,15 @@ const AccountOrder = () => {
     return (
         <div className="space-y-10 sm:space-y-12  dark:text-white">
             {/* HEADING */}
+            <div className={"text-sm sm:text-base"}>
+                <span>
+                    سفارش معلق : سفارش هایی که در انتظار تایید یا رد توسط تجهیزلند هستند.
+                </span>
+                <br/>
+                <span className={"text-green-600"}>
+                    سفارش های شما پس از تایید در سبد خرید شما قرار خواهند گرفت و شما از طریق درگاه پرداخت اینترنتی قادر به پراخت خواهید شد.
+                </span>
+            </div>
             {data?.data?.map((item) => (<>
                 {renderOrder(item)
                 }      </>))}
