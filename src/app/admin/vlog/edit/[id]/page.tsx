@@ -65,7 +65,7 @@ export default function Page() {
             </PageTitle>
             <PageTab id={id + ""}/>
             <div>
-                <Form data={data} submit={submitHandler.mutateAsync} loading={loading}/>
+                <Form data={data} submit={submitHandler.mutateAsync} loading={submitHandler.isLoading}/>
             </div>
             <div className="w-full bg-gray-200 rounded-md mt-4">
                 <div
