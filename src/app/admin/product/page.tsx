@@ -34,7 +34,7 @@ export default function Page() {
     const queryClient = useQueryClient();
     const dateRef = createRef<HTMLInputElement>();
     const router = useRouter();
-
+    const [discountExpire, setDiscountExpire] = useState('');
     async function submit(e: ProductResponse) {
 
         let response = await update(
@@ -120,7 +120,11 @@ export default function Page() {
         queryKey: [`color-info`, productId, modal],
         queryFn: () => findById(productId ?? 0),
         staleTime: 5000,
-        enabled: !!productId
+        enabled: !!productId,
+        onSuccess: (data: any) => {
+            setDiscountExpire(data.discount_expire_time_fa)
+        }
+
     });
 
     const renderContent = () => {
@@ -148,17 +152,15 @@ export default function Page() {
                                 <div>
                                     <label>زمان انقضای تخفیف</label>
                                     <PersianDatePicker
-                                        value={item.discount_expire_time_fa}
-                                        onChange={(date) => {
-                                            if (dateRef.current) {
-                                                dateRef.current.value = date;
-                                            }
-                                        }}/>
+                                        value={discountExpire}
+                                        onChange={(date) => setDiscountExpire(date)}
+                                    />
                                     <input
-                                        ref={dateRef}
-                                        type={"hidden"}
+                                        type="hidden"
                                         name={`color[${index}][discount_expire_time]`}
-                                        defaultValue={item.discount_expire_time ?? ""}/>
+                                        value={discountExpire}
+                                        readOnly
+                                    />
                                 </div>
                                 <div>
                                     <label>قیمت پس از تخفیف</label>
