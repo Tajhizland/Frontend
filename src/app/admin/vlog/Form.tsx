@@ -94,7 +94,7 @@ export default function Form({ data, submit ,loading }: Form) {
             </div>
             <hr className={"my-5"}/>
             <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"} disabled={loading}>
+                <ButtonPrimary type={"submit"} disabled={loading} loading={loading}>
                     <div className={"flex items-center gap-2"}>
                     ذخیره
                     {

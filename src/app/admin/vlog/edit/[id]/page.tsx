@@ -7,10 +7,13 @@ import {update} from "@/services/api/admin/vlog";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 import {findById} from "@/services/api/admin/vlog";
-import {useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import PageTab from "@/components/Tabs/PageTab";
 import React, {useState} from "react";
 import {BarLoader} from "react-spinners";
+import {logout} from "@/services/api/auth/logout";
+import {deleteCookie, setCookie} from "cookies-next";
+import {registerUser} from "@/services/api/auth/register";
 
 export default function Page() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -23,25 +26,27 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    async function submit(e: FormData) {
-        setLoading(true);
-        let response = await update(
-            {
-                id: Number(id),
-                title: e.get("title") as string,
-                categoryId: e.get("categoryId") as string,
-                url: e.get("url") as string,
-                status: e.get("status") as string,
-                video: e.get("video") as File,
-                poster: e.get("poster") as File,
-                description: e.get("description") as string,
-                setProgress: setProgress, // فرستادن تابع برای نمایش درصد آپلود
-            }
-        )
-        queryClient.invalidateQueries(['vlog-info', Number(id)]);
-        setLoading(false);
-        toast.success(response?.message as string)
-    }
+
+    const submitHandler = useMutation({
+        mutationKey: [`edit-vlog`, Number(id)],
+        mutationFn: async (e:any) => {
+             return update({
+                 id: Number(id),
+                 title: e.get("title") as string,
+                 categoryId: e.get("categoryId") as string,
+                 url: e.get("url") as string,
+                 status: e.get("status") as string,
+                 video: e.get("video") as File,
+                 poster: e.get("poster") as File,
+                 description: e.get("description") as string,
+                 setProgress: setProgress,
+            });
+        },
+        onSuccess: (response) => {
+            queryClient.invalidateQueries(['vlog-info', Number(id)]);
+            toast.success(response?.message as string)
+        },
+    });
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -60,7 +65,7 @@ export default function Page() {
             </PageTitle>
             <PageTab id={id + ""}/>
             <div>
-                <Form data={data} submit={submit} loading={loading}/>
+                <Form data={data} submit={submitHandler.mutateAsync} loading={loading}/>
             </div>
             <div className="w-full bg-gray-200 rounded-md mt-4">
                 <div

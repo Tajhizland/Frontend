@@ -14,7 +14,7 @@ import {DataTableButtons} from "@/shared/DataTable/type";
 import {HiMiniPencil} from "react-icons/hi2";
 import {UrlObject} from "node:url";
 import {BsCoin} from "react-icons/bs";
-import {createRef, Fragment, useState} from "react";
+import {createRef, Fragment, useEffect, useState} from "react";
 import NcModal from "@/shared/NcModal/NcModal";
 import {findById, updateColorPrice} from "@/services/api/admin/color";
 import {findById as FindProduct} from "@/services/api/admin/product";
@@ -26,7 +26,6 @@ import Select from "@/shared/Select/Select";
 import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
 import {FaEye} from "react-icons/fa";
 import {useRouter} from "next/navigation";
-import Image from "next/image";
 
 export default function Page() {
     const [modal, setModal] = useState(false)
@@ -35,7 +34,7 @@ export default function Page() {
     const queryClient = useQueryClient();
     const dateRef = createRef<HTMLInputElement>();
     const router = useRouter();
-    const [discountExpire, setDiscountExpire] = useState('');
+
     async function submit(e: ProductResponse) {
 
         let response = await update(
@@ -121,12 +120,25 @@ export default function Page() {
         queryKey: [`color-info`, productId, modal],
         queryFn: () => findById(productId ?? 0),
         staleTime: 5000,
-        enabled: !!productId,
-        onSuccess: (data: any) => {
-            setDiscountExpire(data.discount_expire_time_fa)
-        }
-
+        enabled: !!productId
     });
+
+
+    const [discountExpires, setDiscountExpires] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (colors) {
+            setDiscountExpires(colors.map(c => c.discount_expire_time ?? ''));
+        }
+    }, [colors]);
+
+    const handleChangeDiscountExpire = (index: number, date: string) => {
+        setDiscountExpires(prev => {
+            const newArr = [...prev];
+            newArr[index] = date;
+            return newArr;
+        });
+    };
 
     const renderContent = () => {
         if (!productId)
@@ -136,27 +148,9 @@ export default function Page() {
             return <Spinner/>
         setSumColorSize(colors?.length ?? 0);
         return (<>
-            <div className={"text-center mx-auto flex justify-center items-center"}>
-                <div>
-                    {
-                        (colors?.[0]?.product?.images?.data && colors[0].product.images.data.length > 0) ?
-                            <Image className={"w-16 h-16 mx-auto"}
-                                   width={50}
-                                   height={50}
-                                   alt={"image"}
-                                   src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${colors?.[0]?.product?.images?.data?.[0]?.url}`}
-                            />
-                            :
-                            <span>
-                        -
-                    </span>
-                    }
-                </div>
-                <strong className={"text-center "}>
-                    {colors && colors[0]?.product?.name}
-                </strong>
-
-            </div>
+            <strong className={"text-center mx-auto flex justify-center"}>
+                {colors && colors[0]?.product?.name}
+            </strong>
             <form action={updateColor}>
                 {colors && colors.map((item, index) => (
                     <Fragment key={index}>
@@ -171,13 +165,13 @@ export default function Page() {
                                 <div>
                                     <label>زمان انقضای تخفیف</label>
                                     <PersianDatePicker
-                                        value={discountExpire}
-                                        onChange={(date) => setDiscountExpire(date)}
+                                        value={discountExpires[index] ?? item.discount_expire_time_fa}
+                                        onChange={(date) => handleChangeDiscountExpire(index, date)}
                                     />
                                     <input
                                         type="hidden"
                                         name={`color[${index}][discount_expire_time]`}
-                                        value={discountExpire}
+                                        value={discountExpires[index] ?? ''}
                                         readOnly
                                     />
                                 </div>
