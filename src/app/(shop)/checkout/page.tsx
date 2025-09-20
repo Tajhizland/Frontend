@@ -494,7 +494,9 @@ const CheckoutPage = () => {
                             }
                         </div>
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
-                                       disabled={!allow || !acceptRule || sumDiscountedPrice <= 0}>پرداخت</ButtonPrimary>
+                                       disabled={!allow || !acceptRule || sumDiscountedPrice <= 0 ||
+                                           (sumDiscountedPrice > 200000000 && !useWallet)
+                        }>پرداخت</ButtonPrimary>
 
                         {/*<ButtonPrimary className="mt-4 w-full" onClick={paymentWallet}*/}
                         {/*               disabled={sumDiscountedPrice > (user?.wallet ?? 0) || !allow || !acceptRule || sumDiscountedPrice <= 0}>*/}
@@ -503,7 +505,7 @@ const CheckoutPage = () => {
 
                         {
                             (sumDiscountedPrice > 200000000)
-                                ? <strong className={"text-[#fcb415] font-bold text-sm"}>
+                                ? <strong className={"text-green-600 font-bold text-sm"}>
                                     برای سفارش‌های با مبلغ بیش از ۲۰۰ میلیون تومان، به دلیل محدودیت سقف درگاه بانکی، امکان
                                     پرداخت مستقیم از طریق بانک وجود ندارد. لطفاً کیف پول خود را در هر نوبت تا سقف ۲۰۰ میلیون
                                     تومان شارژ کنید و سپس پرداخت را با استفاده از موجودی کیف پول انجام دهید.
