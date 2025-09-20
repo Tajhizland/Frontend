@@ -130,7 +130,7 @@ const CheckoutPage = () => {
 
     const renderProduct = (item: CartResponse, index: number) => {
         let guarantyPrice = 0;
-        if (item.guaranty && item.guaranty.free==0) {
+        if (item.guaranty && item.guaranty.free == 0) {
             guarantyPrice = GuarantyPrice(item.color.price) ?? 0;
         }
         return (
@@ -167,7 +167,7 @@ const CheckoutPage = () => {
                                     {item.guaranty.name}
                                 </span>
                                 {
-                                    (item.guaranty.free==null || item.guaranty.free)  ?
+                                    (item.guaranty.free == null || item.guaranty.free) ?
                                         <span className="text-xs text-slate-500 dark:text-slate-400">
                                             (رایگان)
                                         </span>
@@ -333,7 +333,7 @@ const CheckoutPage = () => {
     const renderSumGuarantyPrice = () => {
         let sumPrice: number = 0;
         cart.map((item) => {
-            if (item.guaranty && item.guaranty.free==0) {
+            if (item.guaranty && item.guaranty.free == 0) {
                 sumPrice += GuarantyPrice(item.color.price) ?? 0;
             }
         })
@@ -501,6 +501,16 @@ const CheckoutPage = () => {
                         {/*پرداخت با کیف پول*/}
                         {/*</ButtonPrimary>*/}
 
+                        {
+                            (sumDiscountedPrice > 200000000)
+                                ? <strong className={"text-[#fcb415] font-bold text-sm"}>
+                                    برای سفارش‌های با مبلغ بیش از ۲۰۰ میلیون تومان، به دلیل محدودیت سقف درگاه بانکی، امکان
+                                    پرداخت مستقیم از طریق بانک وجود ندارد. لطفاً کیف پول خود را در هر نوبت تا سقف ۲۰۰ میلیون
+                                    تومان شارژ کنید و سپس پرداخت را با استفاده از موجودی کیف پول انجام دهید.
+                                </strong>
+                                :
+                                ""
+                        }
                         <div className={"flex items-center gap-2 mt-5 justify-center"}>
                             <Checkbox name={"rule"} onChange={() => {
                                 setAcceptRule(!acceptRule)
