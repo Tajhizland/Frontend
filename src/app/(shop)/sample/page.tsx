@@ -34,7 +34,7 @@ export default async function page() {
     let response = await findSample();
     return (<>
         <div className={"mt-14 container "}>
-            <SectionSampleInfo info={response.info}/>
+            <SectionSampleInfo info={response.info} poster={response.poster}/>
         </div>
         <div className={"mt-14 container space-y-5"}>
             <div className={"text-lg text-center mx-auto"}>
