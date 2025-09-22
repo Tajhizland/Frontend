@@ -88,8 +88,8 @@ export default function Page() {
                 href: "sample"
             },
             {
-                title: "تصاویر",
-                href: "sample/image"
+                title: "ویدیو ها",
+                href: "sample/video"
             }
         ]}/>
         <Panel>

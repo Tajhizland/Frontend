@@ -63,3 +63,29 @@ export const deleteVideo = async <T extends ServerResponse<unknown[]>>
         .then((res) => res?.data)
 };
 
+
+export const sortSampleVideo = async <T extends ServerResponse<unknown>>
+(
+    param:{
+        video: {
+            id: number
+            sort: number
+        }[]
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/sample/video/sort",param)
+        .then((res) => res?.data)
+};
+
+export const sortSampleImage = async <T extends ServerResponse<unknown>>
+(
+    param:{
+        image: {
+            id: number
+            sort: number
+        }[]
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/sample/image/sort",param)
+        .then((res) => res?.data)
+};
