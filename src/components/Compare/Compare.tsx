@@ -110,7 +110,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                             >
                                 <div className="w-[100px] h-[100px]">
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.data?.[0]?.url}`}
                                         alt="image"
                                         width={100}
                                         height={100}
@@ -133,7 +133,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                             >
                                 <div className="w-[100px] h-[100px]">
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.data?.[0]?.url}`}
                                         alt="image"
                                         width={100}
                                         height={100}

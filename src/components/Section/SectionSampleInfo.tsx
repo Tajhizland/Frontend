@@ -2,7 +2,6 @@
 import React, {FC, useState} from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import Textarea from "@/shared/Textarea/Textarea";
@@ -13,15 +12,16 @@ import {getProvince} from "@/services/api/shop/province";
 import {getCity} from "@/services/api/shop/city";
 import NcModal from "@/shared/NcModal/NcModal";
 import Label from "@/shared/Label/Label";
-import logo from "@/images/poster.png";
 import {SampleResponse} from "@/services/types/sample";
+import {PosterResponse} from "@/services/types/poster";
 
 export interface SectionPromo1Props {
     className?: string;
-    info: SampleResponse
+    info: SampleResponse;
+    poster: PosterResponse;
 }
 
-const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info}) => {
+const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info, poster}) => {
     const [modal, setModal] = useState(false);
 
     async function submitHandle(e: FormData) {
@@ -154,46 +154,46 @@ const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info}) => {
 
             />
 
-        <div
-            className={`nc-SectionPromo1 relative flex flex-col-reverse md:flex-row items-center bg-neutral-100 rounded-xl gap-5 py-5  ${className}`}
-        >
-
             <div
-                className="relative flex-shrink-0 mb-16 lg:mb-0 lg:mr-10 md:w-2/5 overflow-auto bg-white max-h-[500px] rounded-lg flex flex-col gap-5 p-4 flex-[1] ">
-                <h2 className="font-semibold text-lg   !leading-[1.2] tracking-tight text-[#fcb415]">
-                    راه اندازی مجموعتو به تجهیزلند بسپار
-                </h2>
-                <div className=" ">
+                className={`nc-SectionPromo1 relative flex flex-col-reverse md:flex-row items-center bg-neutral-100 rounded-xl gap-5 sm:py-5  ${className}`}
+            >
+                <div
+                    className="relative flex-shrink-0 sm:mb-16 lg:mb-0 lg:mr-10 md:w-2/5 overflow-auto bg-white max-h-[500px] rounded-lg flex flex-col gap-5 p-4 flex-[1] ">
+                    <h2 className="font-semibold text-lg   !leading-[1.2] tracking-tight text-[#fcb415]">
+                        راه اندازی مجموعتو به تجهیزلند بسپار
+                    </h2>
+                    <div className=" ">
                 <span
                     className="font-semibold  text-base !leading-[1.2] tracking-tight text-slate-700 dark:text-white ">
                     مشاوره و راه اندازی صفر تا صد کافه , رستوران و فست فود
                 </span>
+                    </div>
+                    <div className={"text-sm"}>
+                        <p className={"break-words"}>
+                            {info.content}
+                        </p>
+                    </div>
+                    <ButtonPrimary onClick={() => {
+                        setModal(true)
+                    }} className=" text-xs sm:text-sm w-fit mx-auto">
+                        دریافت نوبت مشاوره
+                    </ButtonPrimary>
                 </div>
-                <div className={"text-sm"}>
-                    <p className={"break-words"}>
-                        {info.content}
-                    </p>
+                <div
+                    className="relative flex-[1] max-w-xl lg:max-w-none flex flex-col gap-5 justify-center items-center">
+                    <NcImage
+                        alt=""
+                        width={1080}
+                        height={1080}
+                        containerClassName="block"
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/poster/${poster.image}`}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className=""
+                    />
+
                 </div>
-                <ButtonPrimary onClick={() => {
-                    setModal(true)
-                }} className=" text-xs sm:text-sm w-fit mx-auto">
-                    دریافت نوبت مشاوره
-                </ButtonPrimary>
-            </div>
-            <div className="relative flex-[1] max-w-xl lg:max-w-none flex flex-col gap-5 justify-center items-center">
-                <NcImage
-                    alt=""
-                    width={1080}
-                    height={1080}
-                    containerClassName="block"
-                    src={logo}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className=""
-                />
 
             </div>
-
-        </div>
         </>
     );
 };
