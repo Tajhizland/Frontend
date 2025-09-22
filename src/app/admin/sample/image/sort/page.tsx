@@ -23,9 +23,8 @@ import {
 import {CSS} from "@dnd-kit/utilities";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Spinner from "@/shared/Loading/Spinner";
-import {sortVlog} from "@/services/api/admin/vlog";
 import Image from "next/image";
-import {getImages} from "@/services/api/admin/sample";
+import {getImages, sortSampleImage} from "@/services/api/admin/sample";
 import {SampleImageResponse} from "@/services/types/sampleImage";
 
 interface SortableItemProps {
@@ -144,7 +143,7 @@ export default function Page() {
             request.push({id: item.id, sort: index});
         });
         try {
-            let response = await sortVlog({vlog: request});
+            let response = await sortSampleImage({image: request});
             toast.success(response?.message as string);
             queryClient.invalidateQueries([`sample_image`]);
         } catch (error) {

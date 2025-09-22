@@ -23,8 +23,7 @@ import {
 import {CSS} from "@dnd-kit/utilities";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Spinner from "@/shared/Loading/Spinner";
-import {  sortVlog} from "@/services/api/admin/vlog";
-import { getVideo} from "@/services/api/admin/sample";
+import {getVideo, sortSampleVideo} from "@/services/api/admin/sample";
 import {SampleVideoResponse} from "@/services/types/sampleVideo";
 import Image from "next/image";
 
@@ -103,17 +102,12 @@ const ProductList: React.FC<{
                                         className={`relative w-full aspect-w-16 aspect-h-9   rounded-2xl overflow-hidden group border`}
                                     >
                                         <Image
-                                            alt=""
-                                            fill
-                                            className="w-full h-full object-cover"
-                                            src={`${process.env.NEXT_PUBLIC_video_BASE_URL}/vlog/${video?.vlog?.poster}`}
-
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${video?.vlog?.poster}`}
+                                            alt={"image"} width={720} height={100} className="w-full h-full"
                                         />
                                     </div>
                                 </div>
-
                             </div>
-
                         </SortableItem>
                     ))}
                 </div>
@@ -145,9 +139,11 @@ export default function Page() {
             request.push({id: item.id, sort: index});
         });
         try {
-            let response = await sortVlog({vlog: request});
-            toast.success(response?.message as string);
-            queryClient.invalidateQueries([`sample_video`]);
+            let response = await sortSampleVideo({video: request});
+            if (response?.success) {
+                toast.success(response?.message as string);
+                queryClient.invalidateQueries([`sample_video`]);
+            }
         } catch (error) {
             toast.error("خطایی رخ داد");
         }
