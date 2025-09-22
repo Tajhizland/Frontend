@@ -172,7 +172,7 @@ const SectionPromo1: FC<SectionPromo1Props> = ({className = "" , logo}) => {
                         دریافت نوبت مشاوره
                     </ButtonPrimary>
                     <ButtonSecondary
-                        href="/"
+                        href="/sample"
                         className="border border-slate-100 dark:border-slate-700 text-xs sm:text-sm"
                     >
                         نمونه پروژه های تجهیز شده
