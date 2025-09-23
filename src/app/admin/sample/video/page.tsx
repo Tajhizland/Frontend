@@ -6,7 +6,7 @@ import Image from "next/image";
 import {useQuery, useQueryClient} from "react-query";
 import {toast} from "react-hot-toast";
 import {useState} from "react";
-import {  deleteVideo, getVideo, setVideo} from "@/services/api/admin/sample";
+import {deleteVideo, getVideo, setVideo} from "@/services/api/admin/sample";
 import SampleTab from "@/components/Tabs/SampleTab";
 import Input from "@/shared/Input/Input";
 import {VlogResponse} from "@/services/types/vlog";
@@ -14,6 +14,7 @@ import {search} from "@/services/api/admin/vlog";
 import PageLink from "@/shared/PageLink/PageLink";
 import NcModal from "@/shared/NcModal/NcModal";
 import {TrashIcon} from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 export default function Page() {
     const queryClient = useQueryClient();
@@ -98,6 +99,9 @@ export default function Page() {
                 <ButtonPrimary onClick={() => {
                     setShowModal(true)
                 }}> افزودن</ButtonPrimary>
+                <Link href={"/admin/sample/video/sort"}>
+                    <ButtonPrimary> سورت کردن</ButtonPrimary>
+                </Link>
             </PageLink>
             <NcModal
                 isOpenProp={showModal}
@@ -118,7 +122,9 @@ export default function Page() {
                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item?.vlog?.poster}`}
 
                                 alt={"image"} width={720} height={100} className="w-full h-full"/>
-                            <TrashIcon className="w-8 h-8 text-red-500 cursor-pointer " onClick={()=>{removeVideo(item.id)}}/>
+                            <TrashIcon className="w-8 h-8 text-red-500 cursor-pointer " onClick={() => {
+                                removeVideo(item.id)
+                            }}/>
                         </div>
                     </>))
                 }

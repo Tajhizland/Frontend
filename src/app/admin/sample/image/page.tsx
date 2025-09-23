@@ -10,6 +10,8 @@ import {useState} from "react";
 import {deleteImage, getImages, uploadImage} from "@/services/api/admin/sample";
 import SampleTab from "@/components/Tabs/SampleTab";
 import Uploader from "@/shared/Uploader/Uploader";
+import PageLink from "@/shared/PageLink/PageLink";
+import Link from "next/link";
 
 export default function Page() {
     const queryClient = useQueryClient();
@@ -50,6 +52,11 @@ export default function Page() {
         ]}/>
         <Panel>
             <SampleTab/>
+            <PageLink>
+                <Link href={"/admin/sample/image/sort"}>
+                    <ButtonPrimary> سورت کردن</ButtonPrimary>
+                </Link>
+            </PageLink>
             <div className="flex flex-col gap-y-4">
                 <form action={submit}>
 
