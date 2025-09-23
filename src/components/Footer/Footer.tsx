@@ -151,12 +151,14 @@ const Footer: React.FC = () => {
                 </div>
                 {widgetMenus.map(renderWidgetMenuItem)}
                 <div className={"flex flex-col gap-2 mr-5 col-span-2 lg:col-span-1 items-start"}>
+                    <Link href={"/branch"} className={"w-full"}>
                     <div className={"w-full rounded-2xl overflow-hidden"}>
                         <Image className={"object-contain"}
                                src={posterTajhizland}
                                alt={"تومان"}
                         />
                     </div>
+                    </Link>
                     <div className={"flex items-start gap-1"}>
                         <IoLocationSharp className={"w-4 h-4"}/>
                         <strong>
