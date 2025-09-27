@@ -1,14 +1,14 @@
 "use client";
 
-import React, { createRef, useState } from "react";
-import { useMutation } from "react-query";
-import { FaBorderAll, FaExternalLinkAlt } from "react-icons/fa";
-import { FaMagnifyingGlass } from "react-icons/fa6";
+import React, {createRef, useState} from "react";
+import {useMutation} from "react-query";
+import {FaBorderAll, FaExternalLinkAlt} from "react-icons/fa";
+import {FaMagnifyingGlass} from "react-icons/fa6";
 import Link from "next/link";
-import { Route } from "next";
-import { PiSmileySad } from "react-icons/pi";
-import { search } from "@/services/api/shop/search";
-import { useRouter } from "next/navigation";
+import {Route} from "next";
+import {PiSmileySad} from "react-icons/pi";
+import {search} from "@/services/api/shop/search";
+import {useRouter} from "next/navigation";
 import Logo from "@/shared/Logo/Logo";
 import Image from "next/image";
 import {MdOutlineOndemandVideo} from "react-icons/md";
@@ -19,8 +19,8 @@ export interface NavMobileProps {
 }
 
 const SearchBoxMobile: React.FC<NavMobileProps> = ({
-    onClickClose,
-}) => {
+                                                       onClickClose,
+                                                   }) => {
     const [open, setOpen] = useState<Boolean>(false);
     const inputRef = createRef<HTMLInputElement>();
 
@@ -36,7 +36,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
         mutationKey: [`search`],
         mutationFn: (query: string) => {
             if (query.trim()) {
-                return search({ query });
+                return search({query});
             }
             return Promise.reject();
         },
@@ -78,7 +78,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                 >
                     <div
                         className="bg-neutral-100 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded  ">
-                        <FaMagnifyingGlass className={"text-neutral-500 w-4 h-4"} onClick={handleSearch} />
+                        <FaMagnifyingGlass className={"text-neutral-500 w-4 h-4"} onClick={handleSearch}/>
                         <input
                             onChange={(e) => {
                                 searchHandle(e.target.value)
@@ -89,7 +89,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                     handleSearch();
                                 }
                             }}
-                           ref={inputRef}
+                            ref={inputRef}
                             type="text"
                             placeholder="جستجو"
                             className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-sm"
@@ -97,7 +97,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                         />
 
                     </div>
-                    <input type="submit" hidden value="" />
+                    <input type="submit" hidden value=""/>
                 </div>
 
             </div>
@@ -119,7 +119,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
 
 
                 <span className="absolute right-2 top-2 p-1">
-                    <ButtonClose onClick={onClickClose} />
+                    <ButtonClose onClick={onClickClose}/>
                 </span>
                 <div className={"flex justify-center "}>
                     <Logo imageClassName={"h-8"}/>
@@ -130,9 +130,12 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                         className="  w-full bg-white  dark:bg-slate-900 z-50   rounded     overflow-y-scroll whitespace-nowrap overflow-x-hidden">
 
                         <div className="flex flex-col relative  ">
+                            <strong className={"text-center py-4"}>
+                                  محصولات
+                            </strong>
                             {
-                                data.data.length > 0 ? data.data.map((item) => (<>
-                                        <Link href={"/product/" + item.url as Route}  onClick={onClickClose}>
+                                data?.data?.products.data.length > 0 ? data.data?.products?.data.map((item) => (<>
+                                        <Link href={"/product/" + item.url as Route} onClick={onClickClose}>
                                             <div
                                                 className="flex items-center justify-between  py-2 px-1 hover:bg-stone-100 dark:bg-black/30 dark:hover:bg-black/20 ">
                                                 <div className="flex items-center gap-x-5  ">
@@ -162,21 +165,66 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                             <PiSmileySad className={"text-neutral-500 dark:text-white w-14 h-14"}/>
                                         </div>
                                         <span className={"text-sm text-neutral-800 dark:text-white font-bold"}>
-                                            موردی یافت نشد !
+                                            محصولی یافت نشد !
                                         </span>
                                     </div>
                             }
-                            {data.data.length > 0 && <div
+                            {data?.data?.products.data.length > 0 && <div
                                 className="flex items-center gap-x-5 border-t p-5 bg-stone-100  dark:bg-slate-800  dark:hover:bg-slate-700 hover:bg-stone-200 text-center cursor-pointer"
                                 onClick={handleSearch}>
                                 <div>
                                     <FaBorderAll className={"text-neutral-500 dark:text-white"}/>
                                 </div>
                                 <span className={"text-sm text-neutral-800 dark:text-white font-bold"}>
-                                    مشاهده همه
+                                    مشاهده همه محصولات
                                 </span>
                             </div>}
-                            <div
+                            <hr/>
+                            <strong className={"text-center py-4"}>
+                                ویدیو ها
+                            </strong>
+                            {
+                                data?.data?.vlogs?.data.length > 0 ? data?.data?.vlogs?.data.map((item) => (<>
+
+
+                                        <Link href={"/vlog/" + item.url as Route} onClick={onClickClose}>
+                                            <div
+                                                className="flex items-center justify-between  py-2 px-1 hover:bg-stone-100 dark:bg-black/30 dark:hover:bg-black/20 ">
+                                                <div className="flex items-center gap-x-5  ">
+                                                    <div className={" flex-shrink-0"}>
+                                                        <Image alt="productImage"
+                                                               src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
+                                                               width={70}
+                                                               height={50}/>
+
+                                                    </div>
+                                                    <div>
+                                                    <span
+                                                        className={"text-xs text-neutral-800 font-bold  dark:text-white flex-shrink-0 whitespace-normal"}> {item.title}  </span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <FaExternalLinkAlt className={" text-neutral-400 dark:text-white"}/>
+                                                </div>
+                                            </div>
+
+                                        </Link>
+
+                                    </>))
+                                    :
+                                    <div
+                                        className="flex items-center gap-x-5 border-t p-5  justify-center  text-center "
+                                        onClick={handleSearch}>
+                                        <div>
+                                            <PiSmileySad className={"text-neutral-500"}/>
+                                        </div>
+                                        <span className={"text-sm text-neutral-800 font-bold"}>
+                                            ویدیویی یافت نشد !
+                                        </span>
+                                    </div>
+                            }
+
+                            {data?.data?.products.data.length > 0 && <div
                                 className="flex items-center gap-x-5 border-t p-5 bg-stone-100  dark:bg-slate-800  dark:hover:bg-slate-700 hover:bg-stone-200 text-center cursor-pointer"
                                 onClick={handleSearchVlog}>
                                 <div>
@@ -185,7 +233,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                 <span className={"text-sm text-neutral-800 dark:text-white font-bold"}>
                                     جستجو در ولاگ
                                 </span>
-                            </div>
+                            </div>}
                         </div>
                     </div>}
 

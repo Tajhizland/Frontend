@@ -22,6 +22,7 @@ import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import Navigation from "@/components/Header/Navigation/Navigation";
 import {FiChevronRight} from "react-icons/fi";
+import {HeaderSearchResponse} from "@/services/types/serach";
 
 export interface MainNav2LoggedProps {
 }
@@ -29,7 +30,7 @@ export interface MainNav2LoggedProps {
 const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const inputRef = createRef<HTMLInputElement>();
     const [showSearchForm, setShowSearchForm] = useState(false);
-    const [searchResponse, setSearchResponse] = useState<ProductResponse[]>()
+    const [searchResponse, setSearchResponse] = useState<HeaderSearchResponse>()
     const pathname = usePathname();
     const router = useRouter();
 
@@ -173,8 +174,12 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             <XMarkIcon className="w-5 h-5 mr-5 dark:text-white"/>
                         </button>
                         <div className="flex flex-col   ">
+                            <strong className={"text-center py-4"}>
+                                محصولات
+                            </strong>
+
                             {
-                                searchResponse.length > 0 ? searchResponse.map((item) => (<>
+                                searchResponse?.products?.data.length > 0 ? searchResponse?.products?.data.map((item) => (<>
                                         <Link href={"/product/" + item.url as Route}
                                               onChange={() => setSearchResponse(undefined)}>
                                             <div
@@ -207,21 +212,67 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                             <PiSmileySad className={"text-neutral-500"}/>
                                         </div>
                                         <span className={"text-sm text-neutral-800 font-bold"}>
-                                            موردی یافت نشد !
+                                            محصولی یافت نشد !
                                         </span>
                                     </div>
                             }
-                            {searchResponse.length > 0 && <div
+                            {searchResponse.products?.data.length > 0 && <div
                                 className="flex items-center gap-x-5 border-t p-5 bg-stone-100 dark:bg-slate-900 dark:hover:bg-slate-800  hover:bg-stone-200 text-center cursor-pointer"
                                 onClick={handleSearch}>
                                 <div>
                                     <FaBorderAll className={"text-neutral-500 dark:text-white"}/>
                                 </div>
                                 <span className={"text-sm text-neutral-800 font-bold dark:text-white"}>
-                                    مشاهده همه
+                                    مشاهده همه محصولات
                                 </span>
                             </div>}
-                            <div
+
+                            <hr/>
+                            <strong className={"text-center py-4"}>
+                                ویدیو ها
+                            </strong>
+
+                            {
+                                searchResponse?.vlogs?.data.length > 0 ? searchResponse?.vlogs?.data.map((item) => (<>
+                                        <Link href={"/vlog/" + item.url as Route}
+                                              onChange={() => setSearchResponse(undefined)}>
+                                            <div
+                                                className="flex items-center justify-between  py-2 px-5 hover:bg-stone-100 dark:hover:bg-neutral-800 ">
+                                                <div className="flex items-center gap-x-5  ">
+                                                    <div className={""}>
+                                                        <FaMagnifyingGlass className={" text-neutral-400"}/>
+                                                    </div>
+                                                    <div className={""}>
+                                                        <Image alt="productImage"
+                                                               src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
+                                                               width={100}
+                                                               height={50}/>
+                                                    </div>
+                                                    <span
+                                                        className={"text-sm text-neutral-800 font-bold dark:text-white "}> {item.title}  </span>
+                                                </div>
+                                                <div>
+                                                    <FaExternalLinkAlt className={" text-neutral-400"}/>
+                                                </div>
+                                            </div>
+
+                                        </Link>
+                                    </>))
+                                    :
+                                    <div
+                                        className="flex items-center gap-x-5 border-t p-5  justify-center  text-center "
+                                        onClick={handleSearch}>
+                                        <div>
+                                            <PiSmileySad className={"text-neutral-500"}/>
+                                        </div>
+                                        <span className={"text-sm text-neutral-800 font-bold"}>
+                                            ویدیویی یافت نشد !
+                                        </span>
+                                    </div>
+                            }
+
+
+                            {searchResponse.vlogs?.data.length > 0 &&  <div
                                 className="flex items-center gap-x-5 border-t p-5 bg-stone-100 dark:bg-slate-900 dark:hover:bg-slate-800  hover:bg-stone-200 text-center cursor-pointer"
                                 onClick={handleSearchVlog}>
                                 <div>
@@ -230,7 +281,9 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                 <span className={"text-sm text-neutral-800 font-bold dark:text-white"}>
                                     جستجو در ولاگ
                                 </span>
-                            </div>
+                            </div>}
+
+
                         </div>
                     </div>}
             </div>

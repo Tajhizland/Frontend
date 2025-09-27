@@ -1,8 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
-import {SearchResponse} from "@/services/types/serach";
+import {HeaderSearchResponse, SearchResponse} from "@/services/types/serach";
 import {ProductResponse} from "@/services/types/product";
 
-export const search = async <T extends ServerResponse<ProductResponse[]>>
+export const search = async <T extends ServerResponse<HeaderSearchResponse>>
 (
     params: {
         query: string
