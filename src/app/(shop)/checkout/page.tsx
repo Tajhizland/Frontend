@@ -409,11 +409,25 @@ const CheckoutPage = () => {
                                 }
                             </div>
                             <div className="mt-4  flex justify-between py-2.5">
+                                <span>نام  </span>
+                                <span className="font-semibold text-slate-900 dark:text-slate-200">
+                                    {user?.name}
+                                </span>
+                            </div>
+                            <div className="flex justify-between py-2.5">
+                                <span>نام خانوادگی</span>
+                                <span className="font-semibold text-slate-900 dark:text-slate-200">
+                                    {user?.last_name}
+                                </span>
+                            </div>
+
+                            <div className="flex justify-between py-2.5">
                                 <span>زمان آماده سازی</span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">
                                     {maxDeliveryDelay} روز
                                 </span>
                             </div>
+
                             <div className="flex justify-between py-2.5">
                                 <span>محصولات</span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">
@@ -496,7 +510,7 @@ const CheckoutPage = () => {
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
                                        disabled={!allow || !acceptRule || sumDiscountedPrice <= 0 ||
                                            (sumDiscountedPrice > 200000000 && !useWallet)
-                        }>پرداخت</ButtonPrimary>
+                                       }>پرداخت</ButtonPrimary>
 
                         {/*<ButtonPrimary className="mt-4 w-full" onClick={paymentWallet}*/}
                         {/*               disabled={sumDiscountedPrice > (user?.wallet ?? 0) || !allow || !acceptRule || sumDiscountedPrice <= 0}>*/}

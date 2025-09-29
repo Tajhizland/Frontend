@@ -112,7 +112,7 @@ const DiscountListing = ({response}: { response }) => {
 
             <div className="flex flex-col">
                 <div
-                    className="container p-0 flex overflow-x-auto lg:justify-items-center lg:items-center lg:justify-center  lg:gap-5 text-center">
+                    className="container p-0 flex overflow-x-auto lg:justify-items-center lg:items-center lg:gap-5 text-center">
                     {
                         response?.category?.data?.map((item, index) => (
                             <CategoryCircleCard
