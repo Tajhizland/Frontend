@@ -7,23 +7,28 @@ import {store} from "@/services/api/admin/dictionary";
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
 
-export default function Page()
-{
+export default function Page() {
     const router = useRouter();
 
-    async function submit(e: FormData) {
-        let response=await store(
-            {
-                original_word: e.get("original_word") as string,
-                mean: e.get("mean") as string, 
-            }
-        )
-
-        toast.success(response?.message as string)
+    async function submit(data: { original_words: string[]; mean: string }) {
+        let success = true;
+        for (let word of data.original_words) {
+            if (word == "")
+                continue;
+            let response = await store({
+                original_word: word,
+                mean: data.mean,
+            });
+            if (!response?.success)
+                success = false;
+        }
+        if (success)
+            toast.success("عملیات با موفقیت انجام شد");
         router.push("/admin/dictionary");
     }
 
-    return(<>
+
+    return (<>
         <Breadcrump breadcrumb={[
             {
                 title: "دیکشنری",
@@ -39,7 +44,7 @@ export default function Page()
                 افزودن دیکشنری جدید
             </PageTitle>
             <div>
-                <Form submit={submit} />
+                <Form submit={submit}/>
             </div>
         </Panel>
     </>)

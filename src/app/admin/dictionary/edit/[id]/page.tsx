@@ -3,7 +3,7 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form from "@/app/admin/dictionary/Form";
-import {update, findById} from "@/services/api/admin/dictionary";
+import {update, findById, store} from "@/services/api/admin/dictionary";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 import {useQuery} from "react-query";
@@ -16,15 +16,15 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    async function submit(e: FormData) {
-        let response = await update(
-            {
-                id: Number(id),
-                original_word: e.get("original_word") as string,
-                mean: e.get("mean") as string,
-            }
-        )
-        toast.success(response?.message as string)
+    async function submit(data: { original_words: string[]; mean: string }) {
+        let word = data.original_words[0];
+        let response = await update({
+            id: Number(id),
+            original_word: word,
+            mean: data.mean,
+        });
+        if (response?.success)
+            toast.success("عملیات با موفقیت انجام شد");
     }
 
     return (<>
@@ -43,7 +43,7 @@ export default function Page() {
                 ویرایش دیکشنری
             </PageTitle>
             <div>
-                <Form data={data} submit={submit}/>
+                {data&&<Form data={data} submit={submit}/>}
             </div>
         </Panel>
 
