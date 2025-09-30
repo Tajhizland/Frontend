@@ -11,23 +11,19 @@ interface FormProps {
 }
 
 export default function Form({ data, submit }: FormProps) {
-    const [originalWords, setOriginalWords] = useState<string[]>(
-        data?.original_word ? [data.original_word] : [""]
-    );
+    const [inputValue, setInputValue] = useState<string>(data?.original_word || "");
     const [mean, setMean] = useState<string>(data?.mean || "");
 
-    const handleAddWord = () => {
-        setOriginalWords([...originalWords, ""]);
-    };
-
-    const handleChangeWord = (index: number, value: string) => {
-        const newWords = [...originalWords];
-        newWords[index] = value;
-        setOriginalWords(newWords);
-    };
+    // حالت ویرایش فقط یک کلمه رو داخل آرایه برمی‌گردونه
+    const originalWords = data
+        ? [inputValue] // در حالت ویرایش
+        : inputValue
+            .split(",") // در حالت ایجاد
+            .map((w) => w.trim())
+            .filter((w) => w.length > 0);
 
     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault(); // مهم! جلوی submit فرم مرورگر
+        e.preventDefault();
         submit({ original_words: originalWords, mean });
     };
 
@@ -35,31 +31,30 @@ export default function Form({ data, submit }: FormProps) {
         <form onSubmit={handleSubmit}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
-                    <Label>کلمه اصلی</Label>
-                    {originalWords.map((word, index) => (
-                        <div key={index} className="flex items-center gap-2 my-1">
-                            <Input
-                                value={word}
-                                onChange={(e) => handleChangeWord(index, e.target.value)}
-                            />
-                            {!data && index === originalWords.length - 1 && (
-                                <button
-                                    type="button"
-                                    onClick={handleAddWord}
-                                    className="text-white bg-blue-500 px-2 py-1 rounded"
-                                >
-                                    +
-                                </button>
-                            )}
-                        </div>
-                    ))}
+                    <Label>
+                        کلمات اصلی {data ? "" : "(با , جدا کن)"}
+                    </Label>
+                    <Input
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        placeholder={
+                            data
+                                ? "کلمه اصلی"
+                                : "مثلاً: اسپرسو, اسپر سو, اسسپرسوو"
+                        }
+                    />
+                    {/* فقط در حالت ایجاد لیست نمایش بده */}
+                    {!data && originalWords.length > 0 && (
+                        <ul className="mt-2 list-disc list-inside text-sm text-gray-700">
+                            {originalWords.map((word, index) => (
+                                <li key={index}>{word}</li>
+                            ))}
+                        </ul>
+                    )}
                 </div>
                 <div>
                     <Label>معنی</Label>
-                    <Input
-                        value={mean}
-                        onChange={(e) => setMean(e.target.value)}
-                    />
+                    <Input value={mean} onChange={(e) => setMean(e.target.value)} />
                 </div>
             </div>
             <hr className={"my-5"} />
