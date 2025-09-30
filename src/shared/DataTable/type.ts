@@ -12,7 +12,7 @@ export type Column<T> = {
 };
 export type optionType = {
     label:string;
-    value:string|number;
+    value:string|number|boolean;
 };
 
 export type DataTableProps<T> = {

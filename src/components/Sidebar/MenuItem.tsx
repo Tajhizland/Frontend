@@ -387,6 +387,12 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         url: "/user",
         icon: <FaUsers className="h-6 w-6 text-gray-500"/>,
 
+    },
+    {
+        title: "مدیریت ادمین ها",
+        url: "/admin",
+        icon: <FaUsers className="h-6 w-6 text-gray-500"/>,
+
     }, {
         title: "مدیریت پیام ها",
         url: "/contact",
