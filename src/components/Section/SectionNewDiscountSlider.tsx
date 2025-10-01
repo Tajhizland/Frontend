@@ -159,7 +159,7 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                     <div className={"hidden lg:block"}>
                         {renderDesktopHeader()}
                     </div>
-                     <div className="glide__track  pr-5 " data-glide-el="track" style={{direction: "rtl"}}>
+                     <div className="glide__track  pr-5 w-full " data-glide-el="track" style={{direction: "rtl"}}>
 
                         <ul className="glide__slides  flex-grow flex items-center ">
                             {data && data.map((item, index) => (

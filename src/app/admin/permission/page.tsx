@@ -20,7 +20,7 @@ export default function Page() {
             colorClass: "bg-white text-white border border-slate-900 outline-none ",
             href: (value: any): UrlObject => {
                 return {
-                    pathname: 'edit/' + value,
+                    pathname: '/permission/edit/' + value,
                 };
             }
         }
