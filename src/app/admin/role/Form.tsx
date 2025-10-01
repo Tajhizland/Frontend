@@ -63,7 +63,7 @@ export default function Form({data, submit}: FormProps) {
                             value={perm.id}
                             {...register("permissions")}
                             defaultChecked={data?.permissions?.data?.some(
-                                (p: any) => p.id === perm.id
+                                (p: any) => p.id == perm.id
                             )}
                         />
                         {perm.name}
