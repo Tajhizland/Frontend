@@ -23,11 +23,10 @@ export default function Form({data, submit}: FormProps) {
     const {register, handleSubmit, setValue, watch} = useForm({
         defaultValues: {
             name: "",
-            permissions: [] as number[], // آرایه پرمیشن‌ها
+            permissions: [] as number[],
         },
     });
 
-    // وقتی دیتا اومد مقدار اولیه ست کن
     useEffect(() => {
         if (data) {
             setValue("name", data.name);
@@ -38,8 +37,8 @@ export default function Form({data, submit}: FormProps) {
         }
     }, [data, setValue]);
 
-    // برای مشاهده لحظه‌ای (مثلاً Debug)
-    const selectedPermissions = watch("permissions");
+    // state انتخاب‌شده‌ها
+    const selectedPermissions = watch("permissions") || [];
 
     return (
         <form onSubmit={handleSubmit(submit)}>
@@ -62,9 +61,18 @@ export default function Form({data, submit}: FormProps) {
                             type="checkbox"
                             value={perm.id}
                             {...register("permissions")}
-                            defaultChecked={data?.permissions?.data?.some(
-                                (p: any) => p.id == perm.id
-                            )}
+                            checked={selectedPermissions.includes(perm.id)}
+                            onChange={(e) => {
+                                const value = Number(e.target.value);
+                                if (e.target.checked) {
+                                    setValue("permissions", [...selectedPermissions, value]);
+                                } else {
+                                    setValue(
+                                        "permissions",
+                                        selectedPermissions.filter((id: number) => id !== value)
+                                    );
+                                }
+                            }}
                         />
                         {perm.name}
                     </label>
