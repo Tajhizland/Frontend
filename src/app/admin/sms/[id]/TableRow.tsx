@@ -11,16 +11,7 @@ export const columns: Column<SmsLogItemResponse>[] = [
         key: 'is_send',
         header: 'ارسال شده',
         editable: true,
-        filterType: 'select',
-        selectOptions: [
-            {
-                label: "بله",
-                value: true
-            },
-            {
-                label: "خیر",
-                value: false
-            }],
+        filterType: 'input', 
         render: (value) => value == true ? <Badge name={"بله"} color={"green"}/> :
             <Badge name={"خیر"} color={"indigo"}/>,
 
