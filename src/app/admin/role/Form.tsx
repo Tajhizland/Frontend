@@ -33,7 +33,7 @@ export default function Form({data, submit}: FormProps) {
             setValue("name", data.name);
             setValue(
                 "permissions",
-                data.permissions?.map((p: any) => p.id) || []
+                data.permissions?.data?.map((p: any) => p.id) || []
             );
         }
     }, [data, setValue]);
@@ -62,7 +62,7 @@ export default function Form({data, submit}: FormProps) {
                             type="checkbox"
                             value={perm.id}
                             {...register("permissions")}
-                            defaultChecked={data?.permissions?.some(
+                            defaultChecked={data?.permissions?.data?.some(
                                 (p: any) => p.id === perm.id
                             )}
                         />
