@@ -52,7 +52,8 @@ export default function Page() {
             <UserTab id={id + ""}/>
 
             <div>
-                <Form submit={submit} data={data}/>
+                {data && <Form submit={submit} data={data}/>
+                }
             </div>
         </Panel>
     </>)
