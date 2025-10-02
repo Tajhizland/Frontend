@@ -4,12 +4,13 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import {findById, store, update} from "@/services/api/admin/role";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {QueryClient, useMutation, useQuery} from "react-query";
 import Form from "@/app/admin/role/Form";
 import {toast} from "react-hot-toast";
 
 export default function Page() {
     const {id} = useParams();
+    const queryClient = new QueryClient();
     const {data} = useQuery({
         queryKey: [`role-info`, id],
         queryFn: () => findById(Number(id)),
@@ -22,6 +23,7 @@ export default function Page() {
         },
         onSuccess: (response) => {
             if (response.success) {
+                queryClient.invalidateQueries([`role-info`, id]);
                 toast.success(response.message as string);
 
             }
