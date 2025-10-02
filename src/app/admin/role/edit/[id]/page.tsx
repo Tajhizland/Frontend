@@ -2,7 +2,7 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import {findById, store} from "@/services/api/admin/role";
+import {findById, store, update} from "@/services/api/admin/role";
 import {useParams} from "next/navigation";
 import {useMutation, useQuery} from "react-query";
 import Form from "@/app/admin/role/Form";
@@ -18,7 +18,7 @@ export default function Page() {
     const storeRole = useMutation({
         mutationKey: [`update-role`, id],
         mutationFn: async (formData: any) => {
-            return store({...formData});
+            return update({...formData});
         },
         onSuccess: (response) => {
             if (response.success) {
