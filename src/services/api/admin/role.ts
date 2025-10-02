@@ -18,6 +18,7 @@ export const update = async <T extends ServerResponse<unknown>>
     params: {
         id: number | string,
         name: string,
+        permission: number[],
     }
 ) => {
 
