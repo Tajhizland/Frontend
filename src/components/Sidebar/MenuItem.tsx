@@ -14,7 +14,7 @@ import {
     FaCommentDots,
     FaFileVideo,
     FaHome,
-    FaQuestionCircle,
+    FaQuestionCircle, FaSms,
     FaTruckMoving,
     FaUsers
 } from "react-icons/fa";
@@ -125,6 +125,10 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         title: "محصولات گروهی",
         url: "/group",
         icon: <CubeIcon className="h-6 w-6 text-gray-500"/>,
+    },    {
+        title: "محصولات گروهی",
+        url: "/sms",
+        icon: <FaSms className="h-6 w-6 text-gray-500"/>,
     },
     {
         title: "لندینگ ها",
