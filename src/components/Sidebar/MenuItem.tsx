@@ -126,7 +126,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         url: "/group",
         icon: <CubeIcon className="h-6 w-6 text-gray-500"/>,
     },    {
-        title: "محصولات گروهی",
+        title: "ارسال پیامک",
         url: "/sms",
         icon: <FaSms className="h-6 w-6 text-gray-500"/>,
     },
