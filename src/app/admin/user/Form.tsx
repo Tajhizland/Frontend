@@ -5,13 +5,21 @@ import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
 import {UserResponse} from "@/services/types/user";
+import {useQuery} from "react-query";
+import {list} from "@/services/api/admin/role";
 
 interface Form {
     data?: UserResponse;
     submit: (e: FormData) => void;
 }
 
-export default function Form({ data, submit  }: Form) {
+export default function Form({data, submit}: Form) {
+    const [role, setRole] = React.useState(data?.role ?? "user");
+    const {data: roles} = useQuery({
+        queryKey: ['all-role'],
+        queryFn: () => list(),
+        staleTime: 5000,
+    });
 
     return (<>
         <form action={submit} method={"post"}>
@@ -34,9 +42,9 @@ export default function Form({ data, submit  }: Form) {
                 </div>
                 <div>
                     <Label>جنسیت</Label>
-                    <Select name={"gender"} >
-                        <option value={1} selected={data?.gender==1}>مرد</option>
-                        <option value={0}  selected={data?.gender==0}>زن</option>
+                    <Select name={"gender"}>
+                        <option value={1} selected={data?.gender == 1}>مرد</option>
+                        <option value={0} selected={data?.gender == 0}>زن</option>
                     </Select>
                 </div>
                 <div>
@@ -45,7 +53,9 @@ export default function Form({ data, submit  }: Form) {
                 </div>
                 <div>
                     <Label>نقش کاربر</Label>
-                    <Select name={"role"}>
+                    <Select name={"role"} onChange={(e) => {
+                        setRole(e.target.value)
+                    }}>
                         <option value={"user"} selected={data?.role == "user"}>
                             کاربر
                         </option>
@@ -55,6 +65,18 @@ export default function Form({ data, submit  }: Form) {
                     </Select>
                 </div>
 
+                {role == "admin" && <div>
+                    <Label> سطح دسترسی</Label>
+                    <Select name={"role_id"}>
+                        {
+                            roles?.map((item) => (
+                                <option value={item.id} key={item.id}>
+                                    {item.name}
+                                </option>
+                            ))
+                        }
+                    </Select>
+                </div>}
             </div>
 
             <hr className={"my-5"}/>

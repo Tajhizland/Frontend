@@ -18,6 +18,7 @@ export const update = async <T extends ServerResponse<unknown>>
     params: {
         id: number | string,
         name: string,
+        permission: number[],
     }
 ) => {
 
@@ -31,7 +32,7 @@ export const findById = async <T extends ServerResponse<RoleResponse>>
     return axios.get<T, SuccessResponseType<T>>("admin/role/find/" + id)
         .then((res) => res?.data?.result?.data)
 };
-export const list = async <T extends ServerResponse<RoleResponse>>
+export const list = async <T extends ServerResponse<RoleResponse[]>>
 () => {
     return axios.get<T, SuccessResponseType<T>>("admin/role/list")
         .then((res) => res?.data?.result?.data)

@@ -17,6 +17,7 @@ export const update = async <T extends ServerResponse<unknown>>
         email: string;
         gender: string;
         role: string;
+        role_id?: number;
     }
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/user/update", params)

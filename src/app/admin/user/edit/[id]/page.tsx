@@ -9,31 +9,32 @@ import {useParams} from "next/navigation";
 import {useQuery} from "react-query";
 import UserTab from "@/components/Tabs/UserTab";
 
-export default  function Page()
-{
-    const { id } = useParams();
-    const { data: data } = useQuery({
+export default function Page() {
+    const {id} = useParams();
+    const {data: data} = useQuery({
         queryKey: [`user-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
+
     async function submit(e: FormData) {
-        let response=await update(
+        let response = await update(
             {
-                id:Number(id),
+                id: Number(id),
                 name: e.get("name") as string,
                 last_name: e.get("last_name") as string,
                 national_code: e.get("national_code") as string,
                 gender: e.get("gender") as string,
                 email: e.get("email") as string,
                 username: e.get("username") as string,
-                role: e.get("role") as string ,
+                role: e.get("role") as string,
+                role_id: Number(e.get("role_id")),
             }
         )
         toast.success(response?.message as string)
     }
 
-    return(<>
+    return (<>
         <Breadcrump breadcrumb={[
             {
                 title: "کاربران",
@@ -41,17 +42,18 @@ export default  function Page()
             },
             {
                 title: "ویرایش کاربر",
-                href: "user/update/"+id
+                href: "user/update/" + id
             }
         ]}/>
         <Panel>
             <PageTitle>
-               ویرایش کاربر
+                ویرایش کاربر
             </PageTitle>
             <UserTab id={id + ""}/>
 
             <div>
-                <Form submit={submit}  data={data}/>
+                {data && <Form submit={submit} data={data}/>
+                }
             </div>
         </Panel>
     </>)

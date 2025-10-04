@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import {GiSevenPointedStar, GiTargetPoster} from "react-icons/gi";
 import {VscLayoutMenubar} from "react-icons/vsc";
-import {TbAlignBoxCenterTop, TbBrandApple, TbLanguage} from "react-icons/tb";
+import {TbBrandApple, TbLanguage} from "react-icons/tb";
 import {SiElectronbuilder, SiPagespeedinsights, SiWayland} from "react-icons/si";
 import {
     FaBell,
@@ -14,17 +14,23 @@ import {
     FaCommentDots,
     FaFileVideo,
     FaHome,
-    FaQuestionCircle,
+    FaQuestionCircle, FaSms,
     FaTruckMoving,
     FaUsers
 } from "react-icons/fa";
-import {MdCoffeeMaker, MdFolderSpecial, MdOutlineDashboardCustomize, MdOutlineWaterfallChart} from "react-icons/md";
+import {
+    MdCoffeeMaker,
+    MdFolderSpecial,
+    MdOutlineDashboardCustomize,
+    MdOutlinePrivacyTip,
+    MdOutlineWaterfallChart
+} from "react-icons/md";
 import {TfiLayoutSlider} from "react-icons/tfi";
 import {FaMessage} from "react-icons/fa6";
 import {PiShippingContainerDuotone} from "react-icons/pi";
 import {ImCoinDollar, ImImages} from "react-icons/im";
 import {IoMdSettings} from "react-icons/io";
-import {RiDiscountPercentFill} from "react-icons/ri";
+import {RiAdminLine, RiChatPrivateLine, RiDiscountPercentFill} from "react-icons/ri";
 
 import type {JSX} from "react";
 
@@ -57,7 +63,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 url: "/product/discounted",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
 
-            },{
+            }, {
                 title: "مدیریت محصولات محدود شده",
                 url: "/product/limited",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
@@ -119,6 +125,10 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         title: "محصولات گروهی",
         url: "/group",
         icon: <CubeIcon className="h-6 w-6 text-gray-500"/>,
+    },    {
+        title: "ارسال پیامک",
+        url: "/sms",
+        icon: <FaSms className="h-6 w-6 text-gray-500"/>,
     },
     {
         title: "لندینگ ها",
@@ -391,9 +401,22 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
     {
         title: "مدیریت ادمین ها",
         url: "/admin",
-        icon: <FaUsers className="h-6 w-6 text-gray-500"/>,
+        icon: <RiAdminLine className="h-6 w-6 text-gray-500"/>,
 
-    }, {
+    },
+    {
+        title: "مدیریت نقش ها",
+        url: "/role",
+        icon: <MdOutlinePrivacyTip className="h-6 w-6 text-gray-500"/>,
+
+    },
+    {
+        title: "مدیریت دسترسی ها",
+        url: "/permission",
+        icon: <RiChatPrivateLine className="h-6 w-6 text-gray-500"/>,
+
+    },
+    {
         title: "مدیریت پیام ها",
         url: "/contact",
         icon: <FaMessage className="h-6 w-6 text-gray-500"/>,
