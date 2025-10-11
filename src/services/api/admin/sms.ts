@@ -4,7 +4,8 @@ export const smsSend = async <T extends ServerResponse<unknown>>
 (
     params: {
         type: string,
-        message: string
+        message: string,
+        userIds: number[]
     }
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/sms/send", params)

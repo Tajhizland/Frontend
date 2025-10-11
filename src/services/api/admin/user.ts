@@ -95,3 +95,9 @@ export const adminLoginUser = async <T extends ServerResponse<TokenResponse>>
     return axios.get<T, SuccessResponseType<T>>("admin/user/login/" + id)
         .then((res) => res?.data?.result?.data)
 };
+
+export const getAllUser = async <T extends ServerResponse<UserResponse[]>>
+() => {
+    return axios.get<T, SuccessResponseType<T>>("admin/user/all")
+        .then((res) => res?.data?.result?.data)
+};
