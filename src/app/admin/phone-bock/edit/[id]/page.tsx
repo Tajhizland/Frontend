@@ -2,23 +2,23 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import {findById, update} from "@/services/api/admin/permission";
 import {useParams} from "next/navigation";
 import {useMutation, useQuery} from "react-query";
-import Form from "@/app/admin/permission/Form";
+import Form from "@/app/admin/phone-bock/Form";
 import {toast} from "react-hot-toast";
+import {findPhoneBockById, updatePhoneBock} from "@/services/api/admin/phoneBock";
 
 export default function Page() {
     const {id} = useParams();
     const {data} = useQuery({
-        queryKey: [`permission-info`, id],
-        queryFn: () => findById(Number(id)),
+        queryKey: [`phone-bock-info`, id],
+        queryFn: () => findPhoneBockById(Number(id)),
         staleTime: 5000,
     });
-    const updatePermission = useMutation({
-        mutationKey: [`update-permission`, id],
+    const updatePhoneBockMutation = useMutation({
+        mutationKey: [`update-phone-bock`, id],
         mutationFn: async (formData: any) => {
-            return update({id: Number(id), ...formData});
+            return updatePhoneBock({id: Number(id), ...formData});
         },
         onSuccess: (response) => {
             if (response.success) {
@@ -31,20 +31,20 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "دسترسی",
-                href: "permission"
+                title: "دفترچه تلفن",
+                href: "phone-bock"
             },
             {
-                title: "ویرایش دسترسی  ",
-                href: "permission/edit/" + id
+                title: "ویرایش مخاطب",
+                href: "phone-bock/edit/" + id
             }
         ]}/>
         <Panel>
             <PageTitle>
-                ویرایش دسترسی
+                ویرایش مخاطب
             </PageTitle>
             <div>
-                <Form data={data} submit={updatePermission.mutateAsync}/>
+                <Form data={data} submit={updatePhoneBockMutation.mutateAsync}/>
             </div>
         </Panel>
     </>)

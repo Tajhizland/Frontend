@@ -3,7 +3,7 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import DataTable from "@/shared/DataTable/DataTable";
-import {columns} from "@/app/admin/sms/TableRow";
+import {columns} from "@/app/admin/phone-bock/TableRow";
 import {DataTableButtons} from "@/shared/DataTable/type";
 import {HiMiniPencil} from "react-icons/hi2";
 import {UrlObject} from "node:url";
@@ -15,12 +15,12 @@ export default function Page() {
 
     const buttons: DataTableButtons[] = [
         {
-            label: <HiMiniPencil className={"text-black w-5 h-5"} title={"مشاهده"}/>,
+            label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
             type: "link",
             colorClass: "bg-white text-white border border-slate-900 outline-none ",
             href: (value: any): UrlObject => {
                 return {
-                    pathname: 'sms/' + value,
+                    pathname: 'phone-bock/edit/' + value,
                 };
             }
         }
@@ -29,30 +29,29 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "پیامک ها",
-                href: "sms"
+                title: "دفترچه تلفن",
+                href: "phone-bock"
             }
         ]}/>
         <Panel>
             <PageTitle>
-                مدیریت پیامک ها
+                مدیریت دفترچه تلفن
             </PageTitle>
             <PageTitle>
-                <Link href={"/admin/sms/send"}>
+                <Link href={"/admin/phone-bock/create"}>
                     <ButtonPrimary>
-                        ارسال پیامک به کاربران
+                       ایجاد
                     </ButtonPrimary>
                 </Link>
                 <Link href={"/admin/phone-bock/sms"}>
                     <ButtonPrimary>
-                         ارسال پیامک به مخاطبان
+                       ارسال پیامک
                     </ButtonPrimary>
                 </Link>
             </PageTitle>
 
             <DataTable
-
-                apiUrl={"admin/sms/dataTable"}
+                apiUrl={"admin/phone-bock/dataTable"}
                 columns={columns}
                 buttons={buttons}
             />

@@ -130,7 +130,27 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         title: "محصولات گروهی",
         url: "/group",
         icon: <CubeIcon className="h-6 w-6 text-gray-500"/>,
-    }, {
+    },
+    {
+        title: "دفترچه تلفن",
+        url: "/",
+        icon: <SiWayland className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت دفترچه تلفن",
+                url: "/phone-bock",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن دفترچه تلفن ",
+                url: "/phone-bock/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }
+        ]
+    },
+    {
         title: "ارسال پیامک",
         url: "/sms",
         icon: <FaSms className="h-6 w-6 text-gray-500"/>,
@@ -148,7 +168,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
             },
             {
                 title: "افزودن لندینگ ",
-                url: "/landinf/create",
+                url: "/landing/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
 
             }

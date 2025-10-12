@@ -6,27 +6,21 @@ import Link from "next/link";
 import Textarea from "@/shared/Textarea/Textarea";
 import "suneditor/dist/css/suneditor.min.css";
 import {useMutation, useQuery} from "react-query";
-import {smsSend} from "@/services/api/admin/sms";
+import {smsSendToContact} from "@/services/api/admin/sms";
 import toast from "react-hot-toast";
-import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import {getUserByType} from "@/services/api/admin/user";
+import {getPhoneBockList} from "@/services/api/admin/phoneBock";
 import {redirect} from "next/navigation";
 import Spinner from "@/shared/Loading/Spinner";
 
 export default function Page() {
-    const types = [
-        {key: "کاربرانی که سفارش داشتند", value: "has_order"},
-        {key: "کاربرانی که سفارشی ثبت نکرده اند", value: "has_not_order"},
-        {key: "کاربرانی که سبد خرید فعال دارن", value: "has_active_cart"},
-        {key: "همه کاربران", value: "all"},
-    ];
+
 
     const mutation = useMutation({
-        mutationKey: [`send-sms`],
-        mutationFn: async (formData: any) => smsSend(formData),
+        mutationKey: [`send-sms-to-contact`],
+        mutationFn: async (formData: any) => smsSendToContact(formData),
         onSuccess: (data) => {
             if (data.success) {
                 toast.success(data.message as string);
@@ -35,29 +29,22 @@ export default function Page() {
             }
         },
     });
-
-
     const {
         register,
         handleSubmit,
         formState: {errors},
-        watch,
     } = useForm({
         defaultValues: {
-            type: "",
             message: "",
-            userIds: [] as number[], // اضافه کردن آرایه userIds
+            mobiles: [] as string[],
         },
     });
-    const selectType = watch("type");
 
-    const {data: users, isLoading} = useQuery({
-        queryKey: [`get-all-user`, selectType],
-        enabled: selectType != "",
-        queryFn: () => getUserByType({type: selectType}),
+    const {data: users , isLoading} = useQuery({
+        queryKey: [`get-phone-bock`],
+        queryFn: () => getPhoneBockList(),
     });
 
-    const selectedType = watch("type");
 
     const onSubmit = async (formData: any) => {
         // فقط زمانی که نوع انتخاب "custom" است، userIds را ارسال کن
@@ -92,29 +79,14 @@ export default function Page() {
                             )}
                         </div>
 
-                        {/* --- نوع ارسال --- */}
-                        <div>
-                            <Label>دسته ارسال</Label>
-                            <Select {...register("type", {required: "انتخاب نوع الزامی است"})}>
-                                <option value="">انتخاب کنید</option>
-                                {types.map((type, index) => (
-                                    <option value={type.value} key={index}>
-                                        {type.key}
-                                    </option>
-                                ))}
-                            </Select>
-                            {errors.type && (
-                                <p className="text-error text-xs">{errors.type.message}</p>
-                            )}
-                        </div>
-
                         {
-                            isLoading && <Spinner/>
+                            isLoading && <Spinner />
                         }
+
                         {/* --- انتخاب کاربران --- */}
                         {users && (
                             <div>
-                                <Label>انتخاب کاربران</Label>
+                                <Label>انتخاب مخاطبین</Label>
                                 <div
                                     className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3 max-h-[400px] overflow-y-auto border p-3 rounded-lg">
                                     {users?.map((user: any) => (
@@ -124,11 +96,11 @@ export default function Page() {
                                         >
                                             <input
                                                 type="checkbox"
-                                                value={user.id}
-                                                {...register("userIds")}
+                                                value={user.mobile}
+                                                {...register("mobiles")}
                                                 className="checkbox checkbox-primary"
                                             />
-                                            <span>{user.name} - {user.username}</span>
+                                            <span>{user.mobile} - {user.name}</span>
                                         </label>
                                     ))}
                                 </div>
