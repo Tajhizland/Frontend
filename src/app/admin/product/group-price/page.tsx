@@ -2,7 +2,7 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import {groupChangePrice, searchProductList} from "@/services/api/admin/product";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useRouter} from "next/navigation";
 import {QueryClient, useMutation, useQuery} from "react-query";
 import {categoryList} from "@/services/api/admin/category";
@@ -15,6 +15,8 @@ import Image from "next/image";
 import Input from "@/shared/Input/Input";
 import Label from "@/shared/Label/Label";
 import toast from "react-hot-toast";
+import MultiSelect from "@/shared/Select/MultiSelect";
+import SearchableSelect from "@/shared/Select/SearchableSelect";
 
 export default function Page() {
     const queryClient = new QueryClient();
@@ -87,6 +89,10 @@ export default function Page() {
             [id]: !prev[id],
         }));
     };
+    const options = categoryLists?.data.map((item) => ({
+        value: item.id,
+        label: item.name,
+    }));
 
     return (
         <>
@@ -98,30 +104,37 @@ export default function Page() {
             />
             <Panel>
                 <div className={"flex flex-col w-full gap-5"}>
-                    <Select
-                        onChange={(e) => setCategory(Number(e.target.value))}
-                        name={"category"}
-                        className={"text-black"}
-                    >
-                        <option>انتخاب کنید</option>
-                        {categoryLists?.data?.map((item) => (
-                            <option className={"text-black"} value={item.id} key={item.id}>
-                                {item.name}
-                            </option>
-                        ))}
-                    </Select>
-                    <Select
-                        onChange={(e) => setBrand(Number(e.target.value))}
-                        name={"brand"}
-                        className={"text-black"}
-                    >
-                        <option>انتخاب کنید</option>
-                        {brandLists?.data?.map((item) => (
-                            <option className={"text-black"} value={item.id} key={item.id}>
-                                {item.name}
-                            </option>
-                        ))}
-                    </Select>
+                    <SearchableSelect
+                        options={[
+                            {
+                                label: 'همه',
+                                value: ''
+                            },
+                            ...( categoryLists?.data?.map((item) => ({
+                                label: item.name,
+                                value: item.id.toString(),
+                            }))??[]),
+                        ]}
+                        //@ts-ignore
+                        value={category}
+                        onChange={(e) => setCategory(Number(e))}
+                    />
+                    <SearchableSelect
+                        options={[
+                            {
+                                label: 'همه',
+                                value: ''
+                            },
+                            ...( brandLists?.data?.map((item) => ({
+                                label: item.name,
+                                value: item.id.toString(),
+                            }))??[]),
+                        ]}
+                        //@ts-ignore
+                        value={brand}
+                        onChange={(e) => setBrand(Number(e))}
+                    />
+
                     <ButtonPrimary loading={searchMutation.isLoading} onClick={searchMutation.mutateAsync}>
                         جستجو
                     </ButtonPrimary>
