@@ -15,6 +15,7 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import {getUserByType} from "@/services/api/admin/user";
 import {redirect} from "next/navigation";
 import Spinner from "@/shared/Loading/Spinner";
+import {useMemo} from "react";
 
 export default function Page() {
     const types = [
@@ -36,20 +37,22 @@ export default function Page() {
         },
     });
 
-
     const {
         register,
         handleSubmit,
-        formState: {errors},
+        setValue,
         watch,
+        formState: {errors},
     } = useForm({
         defaultValues: {
             type: "",
             message: "",
-            userIds: [] as number[], // اضافه کردن آرایه userIds
+            userIds: [] as number[],
         },
     });
+
     const selectType = watch("type");
+    const selectedUserIds = watch("userIds");
 
     const {data: users, isLoading} = useQuery({
         queryKey: [`get-all-user`, selectType],
@@ -57,10 +60,26 @@ export default function Page() {
         queryFn: () => getUserByType({type: selectType}),
     });
 
-    const selectedType = watch("type");
+    // ✅ بررسی آیا همه انتخاب شده‌اند یا نه
+    const allSelected = useMemo(() => {
+        if (!users || users.length === 0) return false;
+        return selectedUserIds?.length === users.length;
+    }, [users, selectedUserIds]);
+
+    // 🔁 toggle بین انتخاب همه و لغو انتخاب همه
+    const handleToggleSelect = () => {
+        if (!users) return;
+        if (allSelected) {
+            setValue("userIds", []);
+        } else {
+            setValue(
+                "userIds",
+                users.map((u: any) => String(u.id)) // باید string باشه چون input checkbox value رشته‌ست
+            );
+        }
+    };
 
     const onSubmit = async (formData: any) => {
-        // فقط زمانی که نوع انتخاب "custom" است، userIds را ارسال کن
         if (formData.type === "custom" && (!formData.userIds || formData.userIds.length === 0)) {
             toast.error("حداقل یک کاربر را انتخاب کنید");
             return;
@@ -77,6 +96,7 @@ export default function Page() {
                     {title: "ارسال پیامک", href: "sms/send"},
                 ]}
             />
+
             <Panel>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid grid-cols-1 gap-x-5 gap-y-10">
@@ -108,15 +128,32 @@ export default function Page() {
                             )}
                         </div>
 
-                        {
-                            isLoading && <Spinner/>
-                        }
+                        {isLoading && <Spinner />}
+
                         {/* --- انتخاب کاربران --- */}
                         {users && (
                             <div>
-                                <Label>انتخاب کاربران</Label>
+                                <div className="flex items-center justify-between mb-2">
+                                    <Label>انتخاب کاربران</Label>
+
+                                    {/* 🔁 دکمه toggle */}
+                                    <ButtonPrimary
+                                        type="button"
+                                        onClick={handleToggleSelect}
+                                        sizeClass="px-4 py-1 text-sm"
+                                        className={`${
+                                            allSelected
+                                                ? "bg-red-600 hover:bg-red-700"
+                                                : "bg-blue-600 hover:bg-blue-700"
+                                        }`}
+                                    >
+                                        {allSelected ? "لغو انتخاب همه" : "انتخاب همه"}
+                                    </ButtonPrimary>
+                                </div>
+
                                 <div
-                                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3 max-h-[400px] overflow-y-auto border p-3 rounded-lg">
+                                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3 max-h-[400px] overflow-y-auto border p-3 rounded-lg"
+                                >
                                     {users?.map((user: any) => (
                                         <label
                                             key={user.id}
@@ -128,7 +165,9 @@ export default function Page() {
                                                 {...register("userIds")}
                                                 className="checkbox checkbox-primary"
                                             />
-                                            <span>{user.name} - {user.username}</span>
+                                            <span>
+                                                {user.name} - {user.username}
+                                            </span>
                                         </label>
                                     ))}
                                 </div>

@@ -14,10 +14,9 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import {getPhoneBockList} from "@/services/api/admin/phoneBock";
 import {redirect} from "next/navigation";
 import Spinner from "@/shared/Loading/Spinner";
+import {useEffect, useMemo, useState} from "react";
 
 export default function Page() {
-
-
     const mutation = useMutation({
         mutationKey: [`send-sms-to-contact`],
         mutationFn: async (formData: any) => smsSendToContact(formData),
@@ -29,9 +28,13 @@ export default function Page() {
             }
         },
     });
+
     const {
         register,
         handleSubmit,
+        setValue,
+        getValues,
+        watch,
         formState: {errors},
     } = useForm({
         defaultValues: {
@@ -40,14 +43,33 @@ export default function Page() {
         },
     });
 
-    const {data: users , isLoading} = useQuery({
+    const {data: users, isLoading} = useQuery({
         queryKey: [`get-phone-bock`],
         queryFn: () => getPhoneBockList(),
     });
 
+    const selectedMobiles = watch("mobiles");
+
+    // بررسی اینکه آیا همه انتخاب شده‌اند یا نه
+    const allSelected = useMemo(() => {
+        if (!users || users.length === 0) return false;
+        return selectedMobiles?.length === users.length;
+    }, [users, selectedMobiles]);
+
+    // toggle بین انتخاب همه و لغو انتخاب همه
+    const handleToggleSelect = () => {
+        if (!users) return;
+        if (allSelected) {
+            // لغو انتخاب همه
+            setValue("mobiles", []);
+        } else {
+            // انتخاب همه
+            const allMobiles = users.map((u: any) => u.mobile);
+            setValue("mobiles", allMobiles);
+        }
+    };
 
     const onSubmit = async (formData: any) => {
-        // فقط زمانی که نوع انتخاب "custom" است، userIds را ارسال کن
         if (formData.type === "custom" && (!formData.userIds || formData.userIds.length === 0)) {
             toast.error("حداقل یک کاربر را انتخاب کنید");
             return;
@@ -79,14 +101,29 @@ export default function Page() {
                             )}
                         </div>
 
-                        {
-                            isLoading && <Spinner />
-                        }
+                        {isLoading && <Spinner />}
 
                         {/* --- انتخاب کاربران --- */}
                         {users && (
                             <div>
-                                <Label>انتخاب مخاطبین</Label>
+                                <div className="flex items-center justify-between mb-2">
+                                    <Label>انتخاب مخاطبین</Label>
+
+                                    {/* 🔁 دکمه toggle */}
+                                    <ButtonPrimary
+                                        type="button"
+                                        onClick={handleToggleSelect}
+                                        sizeClass="px-4 py-1 text-sm"
+                                        className={`${
+                                            allSelected
+                                                ? "bg-red-600 hover:bg-red-700"
+                                                : "bg-blue-600 hover:bg-blue-700"
+                                        }`}
+                                    >
+                                        {allSelected ? "لغو انتخاب همه" : "انتخاب همه"}
+                                    </ButtonPrimary>
+                                </div>
+
                                 <div
                                     className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3 max-h-[400px] overflow-y-auto border p-3 rounded-lg">
                                     {users?.map((user: any) => (
