@@ -74,7 +74,7 @@ export default function Page() {
         } else {
             setValue(
                 "userIds",
-                users.map((u: any) => String(u.id)) // باید string باشه چون input checkbox value رشته‌ست
+                users.map((u: any) =>  (u.id))
             );
         }
     };
