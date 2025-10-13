@@ -74,7 +74,8 @@ export default function Page() {
         } else {
             setValue(
                 "userIds",
-                users.map((u: any) =>  (u.id))
+                //@ts-ignore
+                users.map((u: any) => String(u.id))
             );
         }
     };
@@ -128,7 +129,7 @@ export default function Page() {
                             )}
                         </div>
 
-                        {isLoading && <Spinner />}
+                        {isLoading && <Spinner/>}
 
                         {/* --- انتخاب کاربران --- */}
                         {users && (
