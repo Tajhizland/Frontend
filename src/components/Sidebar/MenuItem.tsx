@@ -147,6 +147,12 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 url: "/phone-bock/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
 
+            },
+            {
+                title: "افزودن دفترچه تلفن با اکسل",
+                url: "/phone-bock/excel",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
             }
         ]
     },

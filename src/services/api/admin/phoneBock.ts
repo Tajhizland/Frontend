@@ -39,10 +39,10 @@ export const getPhoneBockList = async <T extends ServerResponse<PhoneBockRespons
         .then((res) => res?.data?.result?.data)
 };
 export const phoneBockUploadExcel = async <T extends ServerResponse<PhoneBockResponse[]>>
-(file: File
+(params:{file: File}
 ) => {
     const formData = new FormData();
-    formData.append('excel_file', file);
+    formData.append('excel_file', params.file);
     return axios.post<T, SuccessResponseType<T>>("admin/phone-bock/excel", formData,
         {
             headers: {

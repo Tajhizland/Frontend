@@ -10,6 +10,7 @@ import {useMutation} from "react-query";
 import {toast} from "react-hot-toast";
 import {phoneBockUploadExcel} from "@/services/api/admin/phoneBock";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import Link from "next/link";
 
 export default function Page() {
     const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
@@ -21,8 +22,7 @@ export default function Page() {
     const uploadMutation = useMutation({
         mutationKey: [`phone-bock-upload-excel-file`],
         mutationFn: async (formData: any) => {
-            console.log("file",formData)
-            return phoneBockUploadExcel({
+             return phoneBockUploadExcel({
                 ...formData,
             });
         },
@@ -48,6 +48,14 @@ export default function Page() {
             <PageTitle>
                 افزودن گروهی مخاطب
             </PageTitle>
+             <PageTitle>
+                 <Link href={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/x.xlsx`}>
+                     <ButtonPrimary>
+                         دانلود نمونه فایل
+                     </ButtonPrimary>
+                 </Link>
+            </PageTitle>
+
             <div>
 
                 <form

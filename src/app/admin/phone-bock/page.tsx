@@ -48,6 +48,11 @@ export default function Page() {
                        ارسال پیامک
                     </ButtonPrimary>
                 </Link>
+                <Link href={"/admin/phone-bock/excel"}>
+                    <ButtonPrimary>
+                       افزودن با اکسل
+                    </ButtonPrimary>
+                </Link>
             </PageTitle>
 
             <DataTable
