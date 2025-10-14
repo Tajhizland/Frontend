@@ -34,8 +34,20 @@ export const findPhoneBockById = async <T extends ServerResponse<PhoneBockRespon
         .then((res) => res?.data?.result?.data)
 };
 export const getPhoneBockList = async <T extends ServerResponse<PhoneBockResponse[]>>
-(
-) => {
+() => {
     return axios.get<T, SuccessResponseType<T>>("admin/phone-bock/all")
         .then((res) => res?.data?.result?.data)
+};
+export const phoneBockUploadExcel = async <T extends ServerResponse<PhoneBockResponse[]>>
+(file: File
+) => {
+    const formData = new FormData();
+    formData.append('excel_file', file);
+    return axios.post<T, SuccessResponseType<T>>("admin/phone-bock/excel", formData,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+        .then((res) => res?.data)
 };
