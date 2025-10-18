@@ -45,6 +45,7 @@ export default function Page() {
                 status: e.status,
                 type: e.type,
                 brand_id: e.brand_id,
+                is_stock: e.is_stock,
                 description: e.description,
                 meta_description: e.meta_description,
                 meta_title: e.meta_title,

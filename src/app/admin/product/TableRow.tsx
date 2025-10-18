@@ -51,6 +51,24 @@ export const columns: Column<ProductResponse>[] = [
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },
+    {
+        key: 'is_stock',
+        header: 'دست دوم',
+        editable: true,
+        filterType: 'select',
+        selectOptions: [
+            {
+                label: "بله",
+                value: 1
+            },
+            {
+                label: "خیر",
+                value: 0
+            }],
+        render: (value) => value == 1 ? <Badge name={"بله"} color={"red"}/> :
+            <Badge name={"خیر"} color={"green"}/>,
+
+    },
     {key: 'category', header: 'دسته محصول', filterType: 'input', editable: true},
     {key: 'brand_name', header: 'برند محصول', filterType: 'input', editable: true},
     {key: 'images_count', header: 'تعداد عکس', filterType: 'input', editable: false},

@@ -49,6 +49,7 @@ export type ProductResponse = {
     guaranty: GuarantyResponse;
     min_price: number;
     rating: number;
+    is_stock: number;
     favorite: boolean;
     study: string;
     type: string;

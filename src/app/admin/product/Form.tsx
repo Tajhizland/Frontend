@@ -88,6 +88,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             review: "",
             meta_title: "",
             meta_description: "",
+            is_stock:0
         },
     });
 
@@ -104,6 +105,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             setValue("description", data.description);
             setValue("review", data.review);
             setValue("meta_title", data.meta_title);
+            setValue("is_stock", data.is_stock);
             setValue("meta_description", data.meta_description);
         }
     }, [data, setValue]);
@@ -136,6 +138,17 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                         </option>
                         <option value={"group"}>
                             محصول گروهی
+                        </option>
+                    </Select>
+                </div>
+                <div>
+                    <Label>کالای دست دوم </Label>
+                    <Select {...register("is_stock")} >
+                        <option value={1}>
+                            بله
+                        </option>
+                        <option value={0}>
+                            خیر
                         </option>
                     </Select>
                 </div>
