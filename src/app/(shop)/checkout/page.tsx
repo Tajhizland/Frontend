@@ -29,6 +29,7 @@ import Prices from "@/components/Price/Prices";
 import Badge from "@/shared/Badge/Badge";
 import ContactInfo from "@/components/Checkout/ContactInfo";
 import MySwitch from "@/shared/Switch/MySwitch";
+import ShippingMethod from "@/components/Checkout/ShippingMethod";
 
 const CheckoutPage = () => {
     const router = useRouter();
@@ -37,6 +38,7 @@ const CheckoutPage = () => {
 
     const [acceptRule, setAcceptRule] = useState(false);
     const [useWallet, setUseWallet] = useState(false);
+    const [shippingMethod, setShippingMethod] = useState(1);
     // if (!user) {
     //     router.push("/login");
     // }
@@ -58,7 +60,7 @@ const CheckoutPage = () => {
     });
 
     async function payment() {
-        let response = await paymentRequest(useWallet);
+        let response = await paymentRequest(useWallet , shippingMethod);
         if (response.type == "payment")
             window.location.href = response.path;
         else if (response.type == "paid")
@@ -98,7 +100,7 @@ const CheckoutPage = () => {
     }
 
     const [tabActive, setTabActive] = useState<
-        "ContactInfo" | "ShippingAddress" | "PaymentMethod"
+        "ContactInfo" | "ShippingAddress" | "ShippingMethod" | "PaymentMethod"
     >("ContactInfo");
 
     const handleScrollToEl = (id: string) => {
@@ -218,8 +220,21 @@ const CheckoutPage = () => {
                             handleScrollToEl("ShippingAddress");
                         }}
                         onCloseActive={() => {
-                            setTabActive("PaymentMethod");
-                            handleScrollToEl("PaymentMethod");
+                            setTabActive("ShippingMethod");
+                            handleScrollToEl("ShippingMethod");
+                        }}
+                    />
+                    <ShippingMethod
+                        setShippingMethod={setShippingMethod}
+                        shippingMethod={shippingMethod}
+                        isActive={tabActive === "ShippingMethod"}
+                        onOpenActive={() => {
+                            setTabActive("ShippingMethod");
+                            handleScrollToEl("ShippingMethod");
+                        }}
+                        onCloseActive={() => {
+                            setTabActive("ShippingAddress");
+                            handleScrollToEl("ShippingAddress");
                         }}
                     />
                 </div>
