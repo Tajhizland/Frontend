@@ -43,6 +43,7 @@ export default function Page() {
                 name: e.name,
                 url: e.url,
                 status: e.status,
+                is_stock: Number(e.is_stock),
                 type: e.type,
                 brand_id: e.brand_id,
                 description: e.description,
