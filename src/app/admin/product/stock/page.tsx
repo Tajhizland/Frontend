@@ -234,7 +234,7 @@ export default function Page() {
 
         <Panel>
             <PageTitle>
-                مدیریت محصولات
+                مدیریت محصولات کارکرده
             </PageTitle>
             <PageLink>
                 <Link href={"/admin/product/create"}>
