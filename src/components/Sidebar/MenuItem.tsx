@@ -59,7 +59,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
 
             },   {
                 title: "مدیریت محصولات کارکرده",
-                url: "/product",
+                url: "/product/stock",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
 
             }, {
