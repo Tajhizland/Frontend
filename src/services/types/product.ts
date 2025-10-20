@@ -10,7 +10,7 @@ import {PriceResponse} from "@/services/types/price";
 import {PopularProductResponse} from "@/services/types/popularProduct";
 import {ProductVideoResponse} from "@/services/types/productVideo";
 import {GroupProductResponse} from "@/services/types/groupProduct";
-import {breadcrumbResponse} from "@/services/types/category";
+import {breadcrumbResponse, CategoryResponse} from "@/services/types/category";
 
 export type ProductPageResponse = {
     product: ProductResponse;
@@ -30,9 +30,7 @@ export type DiscountedProductPageResponse = {
 }
 export type StockProductPageResponse = {
     data: ProductResponse;
-    banner: { data: BannerResponse[] };
-    discounts: { data: PopularProductResponse[] };
-    discountTimer: PriceResponse;
+    category: { data: CategoryResponse[] };
 }
 export type ProductResponse = {
     id: number;

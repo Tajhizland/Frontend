@@ -2,12 +2,10 @@
 "use client";
 import React, {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/navigation";
-import {getDiscountedProducts, getStockProductsPaginate} from "@/services/api/shop/product";
+import {getStockProductsPaginate} from "@/services/api/shop/product";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import {useInfiniteQuery} from "react-query";
 import ProductCard from "@/components/Card/ProductCard";
-import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
-import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSlider";
 import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
 import {CgSwap} from "react-icons/cg";
 
@@ -90,8 +88,26 @@ const StockListing = ({response}: { response }) => {
     return (
         <div className={`nc-PageSearch dark:bg-neutral-900 py-16 lg:pb-28 lg:pt-20 `} data-nc-id="PageSearch">
 
+            <div className="flex flex-col">
+                <div
+                    className="container p-0 flex overflow-x-auto lg:justify-items-center lg:items-center lg:gap-5 text-center">
+                    {
+                        response?.category?.data?.map((item, index) => (
+                            <CategoryCircleCard
+                                category={item}
+                                active={item.id === filter}
+                                key={index}
+                                onClick={() => changeFilter(item.id)}/>
+                        ))
+                    }
+                </div>
+                <div className={"flex justify-center border-b lg:hidden"}>
+                    <CgSwap className={" w-8 h-8 text-neutral-400"}/>
+                </div>
+            </div>
+
             <div className="container space-y-10 lg:space-y-14">
-                <div className="  space-y-16 lg:space-y-28">
+                <div className="  space-y-16  ">
                     <main>
                         {/* LOOP ITEMS */}
                         <div
