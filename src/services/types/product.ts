@@ -28,6 +28,12 @@ export type DiscountedProductPageResponse = {
     discounts: { data: PopularProductResponse[] };
     discountTimer: PriceResponse;
 }
+export type StockProductPageResponse = {
+    data: ProductResponse;
+    banner: { data: BannerResponse[] };
+    discounts: { data: PopularProductResponse[] };
+    discountTimer: PriceResponse;
+}
 export type ProductResponse = {
     id: number;
     name: string;

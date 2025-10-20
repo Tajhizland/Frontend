@@ -238,7 +238,11 @@ const ProductCard: FC<ProductCardProps> = ({
                         </div>
                     }
 
-
+                    {data?.is_stock &&
+                        <div className={"flex justify-end sm:justify-start"}>
+                            <Badge name={"کارکرده"} color={"yellow"}/>
+                        </div>
+                    }
                 </div>
 
             </div>
