@@ -209,6 +209,11 @@ const ProductCard: FC<ProductCardProps> = ({
                     <div className="hidden sm:block">
                         {renderVariants()}
                     </div>
+                         {data?.is_stock &&
+                        <div className={"flex justify-end sm:justify-start"}>
+                            <Badge name={"کارکرده"} color={"yellow"}/>
+                        </div>
+                    }
                     <div>
                         <h2 className="nc-ProductCard__title text-xs lg:text-base font-semibold transition-colors dark:text-white">
                             {data?.name}
@@ -238,11 +243,7 @@ const ProductCard: FC<ProductCardProps> = ({
                         </div>
                     }
 
-                    {data?.is_stock &&
-                        <div className={"flex justify-end sm:justify-start"}>
-                            <Badge name={"کارکرده"} color={"yellow"}/>
-                        </div>
-                    }
+               
                 </div>
 
             </div>

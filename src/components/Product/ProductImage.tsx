@@ -117,7 +117,7 @@ export default function ProductImage({productImages}: { productImages: ProductIm
                نمایش تمام تصاویر
               </span>
                     </div>
-                    {productImages.length>5 && <div className={"items-center justify-center hidden md:flex"}>
+                    {productImages.length>5 && <div className={"items-center justify-center hidden md:flex gap-1"}>
                         {
                             productImages.slice(0, 5)?.map((item, index) => (
                                 <div

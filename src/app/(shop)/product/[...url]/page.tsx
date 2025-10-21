@@ -4,15 +4,15 @@ import {
     SparklesIcon,
 } from "@heroicons/react/24/outline";
 
-import {findProductByUrl} from "@/services/api/shop/product";
+import { findProductByUrl } from "@/services/api/shop/product";
 import ProductSidebar from "@/components/Product/ProductSidebar";
 import ProductImage from "../../../../components/Product/ProductImage";
 import ProductComment from "../../../../components/Product/ProductComment";
-import {Metadata} from "next";
+import { Metadata } from "next";
 import Script from "next/script";
-import {stripHTML} from "@/hooks/StripHtml";
+import { stripHTML } from "@/hooks/StripHtml";
 import TextExpander from "@/shared/TextExpander/TextExpander";
-import {ProductResponse} from "@/services/types/product";
+import { ProductResponse } from "@/services/types/product";
 import Policy from "../../../../components/Product/Policy";
 import SectionLinkedProductSlider from "@/components/Section/SectionLinkedProductSlider";
 import IconDiscount from "@/components/Icon/IconDiscount";
@@ -23,12 +23,12 @@ import Badge from "@/shared/Badge/Badge";
 import SectionProductVideo from "@/components/Section/SectionProductVideo";
 import SectionGroup from "@/components/Group/SectionGroup";
 import Link from "next/link";
-import {FaCodeCompare} from "react-icons/fa6";
+import { FaCodeCompare } from "react-icons/fa6";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import {MdCompare} from "react-icons/md";
-import {FaShareAlt} from "react-icons/fa";
+import { MdCompare } from "react-icons/md";
+import { FaShareAlt } from "react-icons/fa";
 import ShareButton from "@/shared/Button/ShareButton";
-import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
+import { BreadcrumbType } from "@/components/Breadcrumb/BreadcrumbType";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 
 
@@ -131,7 +131,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         if (status == "new") {
             return (
                 <div className={CLASSES}>
-                    <SparklesIcon className="w-3.5 h-3.5"/>
+                    <SparklesIcon className="w-3.5 h-3.5" />
                     <span className="mr-1 leading-none">محصول جدید</span>
                 </div>
             );
@@ -141,16 +141,16 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 <div className={CLASSES}>
                     <Badge color={"red"} name={
                         <span className="mr-1 leading-none  text-red-500 text-xs">
-                             {renderMixDiscount(product)} % تخفیف
-                         </span>
-                    }/>
+                            {renderMixDiscount(product)} % تخفیف
+                        </span>
+                    } />
                 </div>
             );
         }
         if (status === "limited edition") {
             return (
                 <div className={CLASSES}>
-                    <ClockIcon className="w-3.5 h-3.5"/>
+                    <ClockIcon className="w-3.5 h-3.5" />
                     <span className="mr-1 leading-none">{status}</span>
                 </div>
             );
@@ -194,49 +194,56 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         return (
             <div className="listingSection__wrap !space-y-6">
                 <div>
-                    <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold dark:text-white">
-                        {product.name}
-                    </h2>
+                    <div className="flex items-center gap-2">
+                        <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold dark:text-white">
+                            {product.name}
+                        </h2>
+                        {product?.is_stock &&
+                            <div className={"flex justify-end sm:justify-start"}>
+                                <Badge name={"کارکرده"} color={"yellow"} />
+                            </div>
+                        }
+                    </div>
                     <div className="flex items-center mt-4 sm:mt-5">
                         {/*{renderStatus()}*/}
                         <div className="mr-auto flex justify-end gap-2 items-center w-full">
 
-                            <LikeSaveBtns like={product.favorite} productId={product.id}/>
+                            <LikeSaveBtns like={product.favorite} productId={product.id} />
                             <Link href={"/compare/" + product.id}>
                                 <div
                                     className=" w-fit gap-2 flex items-center justify-center px-4 py-2 rounded-xl bg-white text-slate-800 cursor-pointer text-sm  z-10"
                                 >
-                                    <MdCompare/>
+                                    <MdCompare />
                                     <span>
                                         مقایسه کالا
-                                            </span>
+                                    </span>
                                 </div>
                             </Link
                             >
-                            <ShareButton/>
+                            <ShareButton />
 
                         </div>
                     </div>
                 </div>
                 {/*  */}
                 <div className="block lg:hidden">
-                    <ProductSidebar product={product}/>
+                    <ProductSidebar product={product} />
                 </div>
 
                 {/*  */}
                 {/*  */}
                 <h2 className={"font-semibold block lg:hidden"}>توضیحات </h2>
-                <TextExpander text={product.description}/>
+                <TextExpander text={product.description} />
                 <Accordion
-                    data={renderAccordianData()}/>
+                    data={renderAccordianData()} />
                 {/*<SectionVideo intro_video={product.intro}*/}
                 {/*              unboxing_video={product.unboxing}*/}
                 {/*             usage_video={product.usage} />*/}
 
-                <SectionProductVideo videos={product.videos.data}/>
+                <SectionProductVideo videos={product.videos.data} />
 
                 <div className="lg:hidden  ">
-                    <Policy/>
+                    <Policy />
                 </div>
 
             </div>
@@ -248,7 +255,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
 
                 <div
                     className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
-                    <div dangerouslySetInnerHTML={{__html: product.review}}/>
+                    <div dangerouslySetInnerHTML={{ __html: product.review }} />
                 </div>
                 {/* ---------- 6 ----------  */}
 
@@ -259,7 +266,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
     const renderBreadcrump = () => {
         let breadcrumbs: BreadcrumbType[] = [];
         productResponse.breadcrumb.data.map((breadcrumb) => {
-            breadcrumbs.push({title: breadcrumb.name, href: breadcrumb.url});
+            breadcrumbs.push({ title: breadcrumb.name, href: breadcrumb.url });
         })
         console.log("breadcrumbs", breadcrumbs)
         return breadcrumbs;
@@ -272,10 +279,10 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
             </Script>
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
                 <div className="container mt-2 sm:mt-10">
-                    <ShopBreadcrump breadcrumb={renderBreadcrump()} lastHasLink={true}/>
+                    <ShopBreadcrump breadcrumb={renderBreadcrump()} lastHasLink={true} />
                 </div>
 
-                {product.images.data.length > 0 && <ProductImage productImages={product.images.data}/>}
+                {product.images.data.length > 0 && <ProductImage productImages={product.images.data} />}
                 {/* MAIn */}
                 <main className="container relative z-10 mt-9 sm:mt-11 flex ">
                     {/* CONTENT */}
@@ -288,19 +295,19 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     <div className="flex-grow">
                         <div className="hidden lg:block sticky top-36 dark:bg-black/20">
                             {/*{renderSectionSidebar()}*/}
-                            <ProductSidebar product={product}/>
+                            <ProductSidebar product={product} />
                         </div>
                     </div>
                 </main>
 
                 {/* OTHER SECTION */}
                 <div className="container pb-24 lg:pb-28 pt-14 space-y-14">
-                    <hr className="border-slate-200 dark:border-slate-700"/>
+                    <hr className="border-slate-200 dark:border-slate-700" />
                     {/*
         {renderReviews()} */}
-                    <ProductComment comments={product.comments.data} productId={product.id}/>
+                    <ProductComment comments={product.comments.data} productId={product.id} />
 
-                    <hr className="border-slate-200 dark:border-slate-700"/>
+                    <hr className="border-slate-200 dark:border-slate-700" />
                     <SectionLinkedProductSlider
                         heading="محصولات مرتبط"
                         subHeading=""
