@@ -93,7 +93,7 @@ export default function Page() {
             colorClass: "bg-white text-white border border-slate-900 outline-none ",
             href: (value: any): UrlObject => {
                 return {
-                    pathname: 'product/edit/' + value,
+                    pathname: '/admin/product/edit/' + value,
                 };
             }
         }, {
