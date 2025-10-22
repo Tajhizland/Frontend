@@ -4,7 +4,7 @@ import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Textarea from "@/shared/Textarea/Textarea";
-import React, {useEffect, useMemo} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {categoryList} from "@/services/api/admin/category"
 import {useQuery} from "react-query";
 import {brandList} from "@/services/api/admin/brand";
@@ -14,6 +14,9 @@ import {guarantyLists} from "@/services/api/admin/guaranty";
 import MultiSelect from "@/shared/Select/MultiSelect";
 import SunEditors from "@/shared/Editor/SunEditors";
 import {Controller, useForm} from "react-hook-form";
+import NcModal from "@/shared/NcModal/NcModal";
+import Image from "next/image";
+import {search} from "@/services/api/admin/product";
 
 interface productForm {
     data?: ProductResponse;
@@ -27,6 +30,15 @@ type optionType = {
     label: string;
 };
 export default function Form({data, submit, setColorCount, colorCount}: productForm) {
+    const [showModal, setShowModal] = useState(false);
+    const [serachResponse, setSearchResponse] = useState<ProductResponse[]>();
+
+    async function searchHandle(query: string) {
+        let response = await search({query: query});
+        setSearchResponse(response);
+
+    }
+
     const handleAddForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setColorCount(colorCount + 1);
@@ -114,9 +126,55 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
         }
     }, [data, setValue]);
 
-    const isStock = watch("is_stock")
+    const isStock = watch("is_stock");
+    const renderContent = () => {
+        return (
+            <div>
+                <div className="mt-8 relative rounded-md shadow-sm">
+                    <Input type={"text"} placeholder="جستجوی نام محصول" onChange={(e) => {
+                        searchHandle(e.target.value)
+                    }}/>
+                </div>
+                <div className=" mt-5 max-h-96 overflow-y-scroll ">
+                    <div className="flex flex-col gap-y-5">
+                        {
+                            serachResponse && serachResponse.map((item) => (<>
+                                <div
+                                    className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
+                                    onClick={() => {
+                                        setValue("stock_of", item.id)
+                                    }}>
+                                    <div className="w-[100px] h-[100px]">
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                            alt={"image"} width={100} height={100}/>
+                                    </div>
+                                    <span>
+                                        {item.name}
+                            </span>
+                                </div>
+                            </>))
+                        }
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (<>
 
+        <NcModal
+            isOpenProp={showModal}
+            onCloseModal={() => {
+                setShowModal(false)
+            }}
+            contentExtraClass="max-w-4xl"
+            renderContent={renderContent}
+            triggerText={""}
+            modalTitle="افزودن"
+            hasButton={false}
+
+        />
         <form onSubmit={handleSubmit(submit)}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <Input type="hidden" name={"id"} value={data?.id}/>
@@ -165,9 +223,12 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                     </div>
                 }
                 {
-                    isStock && <div>
+                    isStock && <div className={"flex flex-col gap-1"}>
                         <Label> مهلت تست</Label>
-                        <ButtonPrimary>
+                        <ButtonPrimary onClick={(e) => {
+                            e.preventDefault();
+                            setShowModal(true)
+                        }}>
                             انتخاب محصول
                         </ButtonPrimary>
                         <Input type={"hidden"} {...register("stock_of")} />
