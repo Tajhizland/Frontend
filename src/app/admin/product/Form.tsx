@@ -220,23 +220,29 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                     </Select>
                 </div>
                 {
-                    isStock && <div>
+                    isStock == 1 && <div className={"flex flex-col gap-1"}>
+                        <Label>محصول نو</Label>
+                        <div className={"flex  gap-1 items-center"}>
+                            <ButtonPrimary className={"w-fit"} onClick={(e) => {
+                                e.preventDefault();
+                                setShowModal(true)
+                            }}>
+                                انتخاب محصول
+                            </ButtonPrimary>
+                            <span
+                                className={"text-sm text-green-600 font-bold"}>
+                                {stockOf ? stockOf.name : data?.stockOf?.name}
+                            </span>
+                        </div>
+                    </div>
+                }
+                {
+                    isStock == 1 && <div>
                         <Label> مهلت تست</Label>
                         <Input {...register("testing_time")} />
                     </div>
                 }
-                {
-                    isStock && <div className={"flex flex-col gap-1"}>
-                        <Label>محصول نو</Label>
-                        <span className={"text-sm text-green-600 font-bold"}>{stockOf ? stockOf.name : data?.stockOf?.name}</span>
-                        <ButtonPrimary onClick={(e) => {
-                            e.preventDefault();
-                            setShowModal(true)
-                        }}>
-                            انتخاب محصول
-                        </ButtonPrimary>
-                    </div>
-                }
+
                 <div>
                     <Label>ادرس محصول</Label>
                     <Input  {...register("url")} />
@@ -253,7 +259,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                     }
 
                 </div>
-                <div>
+                {isStock == 0 && <div>
                     <Label>گارانتی</Label>
                     {guarantyOptions && guarantyDefaultValue != undefined &&
                         <MultiSelect
@@ -261,11 +267,11 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                             name={"guaranty_id"} options={guarantyOptions}
                             defaultValue={guarantyDefaultValue}/>}
 
-                </div>
-                <div>
+                </div>}
+                {isStock == 0 && <div>
                     <Label>مدت زمان گارانتی</Label>
                     <Input  {...register("guaranty_time")}  />
-                </div>
+                </div>}
                 <div>
                     <Label>برند محصول</Label>
                     <Select  {...register("brand_id")}  >
