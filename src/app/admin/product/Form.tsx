@@ -31,6 +31,7 @@ type optionType = {
 };
 export default function Form({data, submit, setColorCount, colorCount}: productForm) {
     const [showModal, setShowModal] = useState(false);
+    const [stockOf, setStockOf] = useState<ProductResponse>();
     const [serachResponse, setSearchResponse] = useState<ProductResponse[]>();
 
     async function searchHandle(query: string) {
@@ -142,7 +143,9 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                                 <div
                                     className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
                                     onClick={() => {
-                                        setValue("stock_of", item.id)
+                                        setValue("stock_of", item.id);
+                                        setStockOf(item);
+                                        setShowModal(false);
                                     }}>
                                     <div className="w-[100px] h-[100px]">
                                         <Image
@@ -224,14 +227,14 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                 }
                 {
                     isStock && <div className={"flex flex-col gap-1"}>
-                        <Label> مهلت تست</Label>
+                        <Label>محصول نو</Label>
+                        <span className={"text-sm text-green-600 font-bold"}>{stockOf ? stockOf.name : data?.stockOf?.name}</span>
                         <ButtonPrimary onClick={(e) => {
                             e.preventDefault();
                             setShowModal(true)
                         }}>
                             انتخاب محصول
                         </ButtonPrimary>
-                        <Input type={"hidden"} {...register("stock_of")} />
                     </div>
                 }
                 <div>
