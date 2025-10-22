@@ -69,6 +69,7 @@ export const columns: Column<ProductResponse>[] = [
     {key: 'category', header: 'دسته محصول', filterType: 'input', editable: true},
     {key: 'brand_name', header: 'برند محصول', filterType: 'input', editable: true},
     {key: 'images_count', header: 'تعداد عکس', filterType: 'input', editable: false},
+    {key: 'testing_time', header: 'مهلت تست', filterType: 'input', editable: false},
     {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
 
 

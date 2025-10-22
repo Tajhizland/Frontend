@@ -72,6 +72,7 @@ export type ProductResponse = {
     unboxing?: VlogResponse;
     intro?: VlogResponse;
     usage?: VlogResponse;
+    stockOf?: ProductResponse;
     guaranties: {
         data: GuarantyResponse[]
     };
