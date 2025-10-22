@@ -74,7 +74,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
     const categoryDefaultValue = useMemo(() => renderCategoryDefaultValue(), [data]);
     const guarantyDefaultValue = useMemo(() => renderGuarantyDefaultValue(), [data]);
 
-    const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
+    const {register, handleSubmit, control, formState: {errors}, setValue, watch} = useForm({
         defaultValues: {
             name: "",
             status: "1",
@@ -88,7 +88,9 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             review: "",
             meta_title: "",
             meta_description: "",
-            is_stock:0
+            is_stock: 0,
+            testing_time: 0,
+            stock_of: 0,
         },
     });
 
@@ -107,8 +109,12 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             setValue("meta_title", data.meta_title);
             setValue("is_stock", data.is_stock);
             setValue("meta_description", data.meta_description);
+            setValue("stock_of", data.stock_of);
+            setValue("testing_time", data.testing_time);
         }
     }, [data, setValue]);
+
+    const isStock = watch("is_stock")
     return (<>
 
         <form onSubmit={handleSubmit(submit)}>
@@ -152,6 +158,21 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                         </option>
                     </Select>
                 </div>
+                {
+                    isStock && <div>
+                        <Label> مهلت تست</Label>
+                        <Input {...register("testing_time")} />
+                    </div>
+                }
+                {
+                    isStock && <div>
+                        <Label> مهلت تست</Label>
+                        <ButtonPrimary>
+                            انتخاب محصول
+                        </ButtonPrimary>
+                        <Input type={"hidden"} {...register("stock_of")} />
+                    </div>
+                }
                 <div>
                     <Label>ادرس محصول</Label>
                     <Input  {...register("url")} />

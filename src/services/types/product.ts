@@ -36,6 +36,8 @@ export type ProductResponse = {
     id: number;
     name: string;
     url: string;
+    stock_of: number;
+    testing_time: number;
     status: number;
     view: number;
     description: string;
