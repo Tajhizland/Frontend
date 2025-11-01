@@ -48,6 +48,7 @@ const PageCollection = async (props: CategoryPageProps) => {
     const params = await props.params;
     const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
     let response = await findCategoryByUrl(decodeURIComponent(params.url.join("/")), "", page)
+ 
     const breadcrumbStructuredData = {
         "@context": "https://schema.org/",
         "@type": "BreadcrumbList",
