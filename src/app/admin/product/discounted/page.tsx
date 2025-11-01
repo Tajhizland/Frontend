@@ -54,6 +54,8 @@ export default function Page() {
                 guaranty_time: e.guaranty_time,
                 categoryId: JSON.stringify(e.category_ids) as string,
                 review: e.review,
+                stock_of: e.stock_of,
+                testing_time: e.testing_time,
             }
         )
         toast.success(response?.message as string)
@@ -234,7 +236,7 @@ export default function Page() {
 
         <Panel>
             <PageTitle>
-                 مدیریت محصولات تخفیفی
+                مدیریت محصولات تخفیفی
             </PageTitle>
             <PageLink>
                 <Link href={"/admin/product/create"}>

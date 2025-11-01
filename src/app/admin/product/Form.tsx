@@ -4,7 +4,7 @@ import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Textarea from "@/shared/Textarea/Textarea";
-import React, {useEffect, useMemo} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {categoryList} from "@/services/api/admin/category"
 import {useQuery} from "react-query";
 import {brandList} from "@/services/api/admin/brand";
@@ -14,6 +14,9 @@ import {guarantyLists} from "@/services/api/admin/guaranty";
 import MultiSelect from "@/shared/Select/MultiSelect";
 import SunEditors from "@/shared/Editor/SunEditors";
 import {Controller, useForm} from "react-hook-form";
+import NcModal from "@/shared/NcModal/NcModal";
+import Image from "next/image";
+import {search} from "@/services/api/admin/product";
 
 interface productForm {
     data?: ProductResponse;
@@ -27,6 +30,16 @@ type optionType = {
     label: string;
 };
 export default function Form({data, submit, setColorCount, colorCount}: productForm) {
+    const [showModal, setShowModal] = useState(false);
+    const [stockOf, setStockOf] = useState<ProductResponse>();
+    const [serachResponse, setSearchResponse] = useState<ProductResponse[]>();
+
+    async function searchHandle(query: string) {
+        let response = await search({query: query});
+        setSearchResponse(response);
+
+    }
+
     const handleAddForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setColorCount(colorCount + 1);
@@ -74,7 +87,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
     const categoryDefaultValue = useMemo(() => renderCategoryDefaultValue(), [data]);
     const guarantyDefaultValue = useMemo(() => renderGuarantyDefaultValue(), [data]);
 
-    const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
+    const {register, handleSubmit, control, formState: {errors}, setValue, watch} = useForm({
         defaultValues: {
             name: "",
             status: "1",
@@ -88,7 +101,9 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             review: "",
             meta_title: "",
             meta_description: "",
-            is_stock:0
+            is_stock: 0,
+            testing_time: 0,
+            stock_of: 0,
         },
     });
 
@@ -107,10 +122,62 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             setValue("meta_title", data.meta_title);
             setValue("is_stock", data.is_stock);
             setValue("meta_description", data.meta_description);
+            setValue("stock_of", data.stock_of);
+            setValue("testing_time", data.testing_time);
         }
     }, [data, setValue]);
+
+    const isStock = watch("is_stock");
+    const renderContent = () => {
+        return (
+            <div>
+                <div className="mt-8 relative rounded-md shadow-sm">
+                    <Input type={"text"} placeholder="جستجوی نام محصول" onChange={(e) => {
+                        searchHandle(e.target.value)
+                    }}/>
+                </div>
+                <div className=" mt-5 max-h-96 overflow-y-scroll ">
+                    <div className="flex flex-col gap-y-5">
+                        {
+                            serachResponse && serachResponse.map((item) => (<>
+                                <div
+                                    className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
+                                    onClick={() => {
+                                        setValue("stock_of", item.id);
+                                        setStockOf(item);
+                                        setShowModal(false);
+                                    }}>
+                                    <div className="w-[100px] h-[100px]">
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                            alt={"image"} width={100} height={100}/>
+                                    </div>
+                                    <span>
+                                        {item.name}
+                            </span>
+                                </div>
+                            </>))
+                        }
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (<>
 
+        <NcModal
+            isOpenProp={showModal}
+            onCloseModal={() => {
+                setShowModal(false)
+            }}
+            contentExtraClass="max-w-4xl"
+            renderContent={renderContent}
+            triggerText={""}
+            modalTitle="افزودن"
+            hasButton={false}
+
+        />
         <form onSubmit={handleSubmit(submit)}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <Input type="hidden" name={"id"} value={data?.id}/>
@@ -152,6 +219,30 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                         </option>
                     </Select>
                 </div>
+                {
+                    isStock == 1 && <div className={"flex flex-col gap-1"}>
+                        <Label>محصول نو</Label>
+                        <div className={"flex  gap-1 items-center"}>
+                            <ButtonPrimary className={"w-fit"} onClick={(e) => {
+                                e.preventDefault();
+                                setShowModal(true)
+                            }}>
+                                انتخاب محصول
+                            </ButtonPrimary>
+                            <span
+                                className={"text-sm text-green-600 font-bold"}>
+                                {stockOf ? stockOf.name : data?.stockOf?.name}
+                            </span>
+                        </div>
+                    </div>
+                }
+                {
+                    isStock == 1 && <div>
+                        <Label> مهلت تست</Label>
+                        <Input {...register("testing_time")} />
+                    </div>
+                }
+
                 <div>
                     <Label>ادرس محصول</Label>
                     <Input  {...register("url")} />
@@ -168,7 +259,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                     }
 
                 </div>
-                <div>
+                {isStock == 0 && <div>
                     <Label>گارانتی</Label>
                     {guarantyOptions && guarantyDefaultValue != undefined &&
                         <MultiSelect
@@ -176,11 +267,11 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                             name={"guaranty_id"} options={guarantyOptions}
                             defaultValue={guarantyDefaultValue}/>}
 
-                </div>
-                <div>
+                </div>}
+                {isStock == 0 && <div>
                     <Label>مدت زمان گارانتی</Label>
                     <Input  {...register("guaranty_time")}  />
-                </div>
+                </div>}
                 <div>
                     <Label>برند محصول</Label>
                     <Select  {...register("brand_id")}  >
