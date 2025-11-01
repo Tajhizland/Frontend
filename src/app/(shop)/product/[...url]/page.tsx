@@ -103,7 +103,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         },
         "brand": {
             "@type": "Brand",
-            "name": product.brand
+            "name": product.brand_name
         }
     };
 
