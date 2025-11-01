@@ -48,28 +48,31 @@ const PageCollection = async (props: CategoryPageProps) => {
     const params = await props.params;
     const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
     let response = await findCategoryByUrl(decodeURIComponent(params.url.join("/")), "", page)
-    const structuredData = {
+    const breadcrumbStructuredData = {
         "@context": "https://schema.org/",
-        "@type": "ItemList",
-        "name": response.category.name,
-        "description": response.category.description,
-        "itemListElement": response.products.data.map((product, index) => ({
-            "@type": "Product",
-            "position": index + 1,
-            "name": product.name,
-            "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0]?product.images.data[0].url:""}`,
-            "description": product.description,
-            "sku": product.id,
-            "offers": {
-                "@type": "Offer",
-                "url": product.url,
-                "priceCurrency": "IRR",
-                "price": product.min_price,
-                "itemCondition": "https://schema.org/NewCondition",
-                "availability": "https://schema.org/InStock"
-            }
-        }))
+        "@type": "BreadcrumbList",
+        "itemListElement":
+            [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "item": {
+                        "@id": `${process.env.NEXT_PUBLIC_WEBSITE_URL}`,
+                        "name": "خانه"
+                    }
+                },
+                ...response.breadcrumb.data.map((breadcrumb, index) => ({
+                    "@type": "ListItem",
+                    "position": index + 2,
+                    "item":
+                        {
+                            "@id": `${process.env.NEXT_PUBLIC_WEBSITE_URL}/${breadcrumb.url}`,
+                            "name": breadcrumb.name,
+                        }
+                }))
+            ]
     };
+ 
     const renderBreadcrump=()=>{
         let breadcrumbs:BreadcrumbType[]=[];
         response.breadcrumb.data.map((breadcrumb)=>{
@@ -79,7 +82,7 @@ const PageCollection = async (props: CategoryPageProps) => {
     }
     return (<>
             <Script type="application/ld+json" id="schema">
-                {JSON.stringify(structuredData)}
+                {JSON.stringify(breadcrumbStructuredData)}
             </Script>
             <CategoryListing response={response} breadcrump={renderBreadcrump()} url={decodeURIComponent(params.url.join("/"))}/>
         </>
