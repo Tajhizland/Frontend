@@ -97,7 +97,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
             "@type": "Offer",
             "url": product.url,
             "priceCurrency": "IRR",
-            "price": product.min_price,
+            "price": product.colors.data?.[0]?.price ?? 0,
             "itemCondition": "https://schema.org/NewCondition",
             "availability": "https://schema.org/InStock"
         },
