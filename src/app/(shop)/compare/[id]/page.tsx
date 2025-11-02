@@ -10,6 +10,15 @@ import {ProductResponse} from "@/services/types/product";
 import NcModal from "@/shared/NcModal/NcModal";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
+
+export const metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
+
 export default function Page() {
     const {id} = useParams();
     const [compareProducts, setCompareProducts] = useState<ProductResponse[]>([]);
