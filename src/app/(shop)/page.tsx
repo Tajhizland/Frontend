@@ -22,32 +22,32 @@ import SectionSuggestProduct from "@/components/Section/SectionSuggestProduct";
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata(): Promise<Metadata> {
-  try {
-    const siteUrl = process.env.NEXT_PUBLIC_WEBSITE_URL || "";
+// export async function generateMetadata(): Promise<Metadata> {
+//   try {
+//     const siteUrl = process.env.NEXT_PUBLIC_WEBSITE_URL || "";
 
-    return {
-      title: "تجهیزلند",
-      description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-      twitter: {
-        title: "تجهیزلند",
-        description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-        images: logo?.src || `${siteUrl}/images/lightLogo.png`,
-      },
-      openGraph: {
-        title: "تجهیزلند",
-        description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-        images: logo?.src || `${siteUrl}/images/lightLogo.png`,
-        url: siteUrl,
-        type: "website",
-      },
-      robots: "index, follow",
-    };
-  } catch (e) {
-    console.error("Metadata generation failed:", e);
-    return { title: "تجهیزلند" };
-  }
-}
+//     return {
+//       title: "تجهیزلند",
+//       description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+//       twitter: {
+//         title: "تجهیزلند",
+//         description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+//         images: logo?.src || `${siteUrl}/images/lightLogo.png`,
+//       },
+//       openGraph: {
+//         title: "تجهیزلند",
+//         description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+//         images: logo?.src || `${siteUrl}/images/lightLogo.png`,
+//         url: siteUrl,
+//         type: "website",
+//       },
+//       robots: "index, follow",
+//     };
+//   } catch (e) {
+//     console.error("Metadata generation failed:", e);
+//     return { title: "تجهیزلند" };
+//   }
+// }
 
 export default async function Homepage() {
   let response: any = {};

@@ -11,6 +11,7 @@ module.exports = {
         "/api/*",
         "/account-address",
         "/account",
+        "/account-wallet",
         "/account-billing",
         "/account-order",
         "/account-order-on-hold",
@@ -18,16 +19,27 @@ module.exports = {
         "/account-savelists",
         "/cart",
         "/login",
+        "/thank_you_page",
+        "/failed_payment",
         "/forgot-pass",
         "/signup",
         "/checkout/*",
+        "/checkout",
         "/thank_you_page/*",
-        "/403/",
+        "/403",
         "/factor/*",
     ],
 
+
     additionalPaths: async (config) => {
         const result = [];
+
+        result.push({
+            loc: '/',
+            changefreq: 'daily',
+            priority: 0.8,
+            lastmod: new Date().toISOString(),
+        });
 
         result.push({
             loc: '/product/discounted',

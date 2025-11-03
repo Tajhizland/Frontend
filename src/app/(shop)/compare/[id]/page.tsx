@@ -1,33 +1,33 @@
 "use client";
-import {useMutation, useQuery} from "react-query";
-import {useParams} from "next/navigation";
-import {allProduct, find, search} from "@/services/api/shop/compare";
+import { useMutation, useQuery } from "react-query";
+import { useParams } from "next/navigation";
+import { allProduct, find, search } from "@/services/api/shop/compare";
 import Spinner from "@/shared/Loading/Spinner";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Input from "@/shared/Input/Input";
-import {ProductResponse} from "@/services/types/product";
+import { ProductResponse } from "@/services/types/product";
 import NcModal from "@/shared/NcModal/NcModal";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
- 
+
 
 export default function Page() {
-    const {id} = useParams();
+    const { id } = useParams();
     const [compareProducts, setCompareProducts] = useState<ProductResponse[]>([]);
     const [openModal, setOpenModal] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-    const {data: product} = useQuery({
+    const { data: product } = useQuery({
         queryKey: ["compare-find"],
         queryFn: () => find(Number(id)),
         staleTime: 5000,
     });
 
 
-    const {data: all} = useQuery({
+    const { data: all } = useQuery({
         queryKey: ["all-product"],
-        queryFn: () => allProduct({categoryIds: product?.category_ids ?? []}),
+        queryFn: () => allProduct({ categoryIds: product?.category_ids ?? [] }),
         staleTime: 5000,
         enabled: !!product
     });
@@ -39,7 +39,7 @@ export default function Page() {
     } = useMutation({
         mutationKey: ["search-compare-product"],
         mutationFn: (e: any) =>
-            search({query: e.target.value, categoryIds: product?.category_ids ?? []}),
+            search({ query: e.target.value, categoryIds: product?.category_ids ?? [] }),
     });
 
     useEffect(() => {
@@ -126,7 +126,7 @@ export default function Page() {
     if (!product) {
         return (
             <div className="flex justify-center items-center w-full h-screen">
-                <Spinner/>
+                <Spinner />
             </div>
         );
     }
@@ -139,6 +139,9 @@ export default function Page() {
 
     return (
         <>
+            <head>
+                <meta name="robots" content="noindex,nofollow" />
+            </head>
             <NcModal
                 isOpenProp={openModal}
                 onCloseModal={() => setOpenModal(false)}
@@ -187,7 +190,7 @@ export default function Page() {
                         </div>
                         {displayedCompareProducts.map((product, i) => (
                             <div key={i}
-                                 className="flex flex-col relative border rounded-xl justify-center items-center">
+                                className="flex flex-col relative border rounded-xl justify-center items-center">
                                 <div className="w-fit h-full relative">
                                     <Image
                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
@@ -215,7 +218,7 @@ export default function Page() {
                             className="flex flex-col relative justify-center items-center">
 
                             <ButtonPrimary className={"mt-5"} onClick={() => setOpenModal(true)}
-                                           disabled={isButtonDisabled}>
+                                disabled={isButtonDisabled}>
                                 انتخاب محصول
                             </ButtonPrimary>
                         </div>}
@@ -243,7 +246,7 @@ export default function Page() {
                                 {displayedCompareProducts.map((product2, i) => (
                                     <div key={i} className="flex flex-col divide-y relative">
                                         <div key={index}
-                                             className="py-5 line-clamp-1 whitespace-nowrap text-center">
+                                            className="py-5 line-clamp-1 whitespace-nowrap text-center">
                                             {!product2.productOptions.data.find(
                                                 (opt) => opt.option_item_id === product.productOptions.data[index].option_item_id
                                             )?.value?.trim() ? "---" :
