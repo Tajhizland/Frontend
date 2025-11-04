@@ -29,6 +29,8 @@ import NotifyAddTocart from "@/components/Product/NotifyAddTocart";
 import BagIcon from "@/components/Icon/BagIcon";
 import SmallTimer from "@/components/Timer/SmallTimer";
 import {storeCategoryViewHistory, storeCategoryViewHistoryIp} from "@/services/api/shop/categoryViewHistory";
+import ProductCard from "@/components/Card/ProductCard";
+import {Alert} from "@/shared/Alert/Alert";
 
 export default function ProductSidebar({product}: { product: ProductResponse }) {
     const colors = product.colors.data;
@@ -353,7 +355,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
 
     return (<>
         <div className="listingSectionSidebar__wrap lg:shadow-lg">
-            <div className="space-y-7 lg:space-y-8">
+            <div className="space-y-3">
                 {/* PRICE */}
                 <div className="">
                     {/* ---------- 1 HEADING ----------  */}
@@ -425,8 +427,24 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                     }
                 </div> : ""}
                 <div className="hidden lg:flex">
-                    <Policy/>
+                    {!product.is_stock && <Policy/>}
                 </div>
+                {product.is_stock && <div className={"flex flex-col gap-1 max-w-sm"}>
+                    <Alert type={"success"}>
+                        <p className={"text-sm"}>
+                            سلامت این محصول مورد تایید تجهیزلند بوده و دارای {product.testing_time} روز مهلت تست میباشد
+                            .
+                        </p>
+                    </Alert>
+
+                </div>}
+                {product.is_stock && <div className={"flex flex-col gap-1 pt-5 "}>
+                    <p className={""}> محصول نوی این محصول</p>
+                    <div className={"w-48"}>
+                        <ProductCard data={product.stockOf}/>
+
+                    </div>
+                </div>}
                 <div
                     className={"fixed bottom-20 right-2 flex items-center lg:hidden rounded-3xl z-40 bg-white shadow-xl pl-4  gap-2 border w-[18rem]"}>
                     {(checkColorInCart() == 0 && selectedCount > 0) ? <ButtonPrimary
