@@ -440,7 +440,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                 </div>}
                 {product.is_stock && <div className={"flex flex-col gap-1 pt-5 "}>
                     <p className={""}> محصول نوی این محصول</p>
-                    <div className={"w-full sm:w-40"}>
+                    <div className={"w-full sm:w-48"}>
                         <ProductCard data={product.stockOf}/>
 
                     </div>
