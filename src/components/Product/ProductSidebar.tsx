@@ -429,7 +429,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                 <div className="hidden lg:flex">
                     {!product.is_stock && <Policy/>}
                 </div>
-                {product.is_stock && <div className={"flex flex-col gap-1 max-w-sm"}>
+                {product.is_stock && <div className={"flex flex-col gap-1 "}>
                     <Alert type={"success"}>
                         <p className={"text-sm"}>
                             سلامت این محصول مورد تایید تجهیزلند بوده و دارای {product.testing_time} روز مهلت تست میباشد
@@ -440,7 +440,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                 </div>}
                 {product.is_stock && <div className={"flex flex-col gap-1 pt-5 "}>
                     <p className={""}> محصول نوی این محصول</p>
-                    <div className={"w-48"}>
+                    <div className={"w-full sm:w-40"}>
                         <ProductCard data={product.stockOf}/>
 
                     </div>

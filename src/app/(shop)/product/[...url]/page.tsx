@@ -314,13 +314,6 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     <ProductComment comments={product.comments.data} productId={product.id}/>
 
                     <hr className="border-slate-200 dark:border-slate-700"/>
-                    <div className={"flex flex-col gap-4"}>
-                        <h3 className={"text-2xl font-bold"}>محصول اصلی </h3>
-                        <div className={"grid md:grid-cols-5"}>
-                            <ProductCard data={product.stockOf}/>
-                        </div>
-                    </div>
-                    <hr className="border-slate-200 dark:border-slate-700"/>
                     <SectionLinkedProductSlider
                         heading="محصولات مرتبط"
                         subHeading=""
