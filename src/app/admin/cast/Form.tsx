@@ -22,7 +22,8 @@ interface Form {
 export default function Form({data, submit}: Form) {
     const [showModal, setShowModal] = useState(false);
     const [serachResponse, setSearchResponse] = useState<VlogResponse[]>();
-    const [vlogId, setVlogId] = useState<Number>(data?.vlog_id??0);
+    const [vlogId, setVlogId] = useState<Number>(data?.vlog_id ?? 0);
+    const [vlog, setVlog] = useState(data?.vlog);
     const renderContent = () => {
         async function searchVlog(query: string) {
             let response = await search(query);
@@ -44,8 +45,8 @@ export default function Form({data, submit}: Form) {
                                     className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
                                     onClick={() => {
                                         setVlogId(item.id);
+                                        setVlog(item);
                                         setShowModal(false);
-
                                     }}>
                                     <div className="w-[100px] h-[100px]">
                                         <Image
@@ -126,6 +127,9 @@ export default function Form({data, submit}: Form) {
                 }}>
                     انتخاب ولاگ
                 </ButtonSecondary>
+                {
+                    vlog?.title
+                }
                 <Input type={"hidden"} name={"vlog_id"} value={vlogId?.toString()}/>
 
             </div>

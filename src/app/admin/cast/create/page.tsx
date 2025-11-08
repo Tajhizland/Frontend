@@ -24,8 +24,9 @@ export default function Page() {
             }
         )
         toast.success(response?.message as string)
-        router.push("/admin/cast");
-
+        if (response?.success) {
+            router.push("/admin/cast");
+        }
     }
 
     return (<>
