@@ -57,7 +57,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 url: "/product",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
 
-            },   {
+            }, {
                 title: "مدیریت محصولات کارکرده",
                 url: "/product/stock",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
@@ -180,6 +180,24 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
             {
                 title: "افزودن لندینگ ",
                 url: "/landing/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }
+        ]
+    }, {
+        title: "تجهیزکست",
+        url: "/",
+        icon: <SiWayland className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت cast",
+                url: "/cast",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن cast ",
+                url: "/cast/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
 
             }
