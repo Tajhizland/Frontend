@@ -67,27 +67,29 @@ export default function Form({ data, submit, loading = false }: Form) {
         );
     };
 
-        const { register, handleSubmit, control, formState: { errors }, setValue } = useForm({
-            defaultValues: {
-                title: "",
-                url: "",
-                status: "1",
-                vlog_id: "",
-                audio: "",
-                image: "",
-                description: "",
-            },
-        });
+    const { register, handleSubmit, control, formState: { errors }, setValue } = useForm({
+        defaultValues: {
+            title: "",
+            url: "",
+            status: "1",
+            vlog_id: "",
+            audio: "",
+            image: "",
+            description: "",
+        },
 
-        useEffect(() => {
-            if (data) {
-                setValue("title", data.title);
-                setValue("url", data.url);
-                setValue("status", data.status.toString());
-                setValue("vlog_id", data.vlog_id.toString());
-                setValue("description", data.description);
-            }
-        }, [data, setValue]);
+    });
+
+    useEffect(() => {
+        if (data) {
+            setValue("title", data.title);
+            setValue("url", data.url);
+            setValue("status", data.status.toString());
+            setValue("vlog_id", data.vlog_id.toString());
+            setValue("description", data.description);
+            setVlog(data?.vlog);
+        }
+    }, [data, setValue]);
 
     return (<>
         <NcModal
