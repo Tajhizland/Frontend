@@ -29,7 +29,10 @@ export const store = async <T extends ServerResponse<unknown>>
 
 
     return axios.post<T, SuccessResponseType<T>>("admin/cast/store", formData,
-       {
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
             onUploadProgress: (progressEvent) => {
                 //@ts-ignore
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -65,8 +68,10 @@ export const update = async <T extends ServerResponse<unknown>>
         formData.append('audio', params.audio);
     }
     return axios.post<T, SuccessResponseType<T>>("admin/cast/update", formData,
-    {
-            onUploadProgress: (progressEvent) => {
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }, onUploadProgress: (progressEvent) => {
                 //@ts-ignore
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                 if (params.setProgress) params.setProgress(percentCompleted);
