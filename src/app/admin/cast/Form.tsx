@@ -197,8 +197,8 @@ export default function Form({ data, submit, loading = false }: Form) {
                         containerClassName="w-full h-fit flex justify-center"
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/cast/image/${data.image}`}
                         className="object-contain rounded-2xl w-full h-full"
-                        width={720}
-                        height={720}
+                        width={250}
+                        height={250}
                     />
                 </div>
             </div> : ""}
