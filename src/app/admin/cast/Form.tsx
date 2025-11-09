@@ -3,7 +3,7 @@ import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import NcImage from "@/shared/NcImage/NcImage";
 import SunEditors from "@/shared/Editor/SunEditors";
@@ -13,11 +13,12 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";
 import { search } from "@/services/api/admin/vlog";
 import { VlogResponse } from "@/services/types/vlog";
+import { Controller, useForm } from "react-hook-form";
 
 interface Form {
     data?: CastResponse;
     loading?: boolean;
-    submit: (e: FormData) => void;
+    submit: (formData: any) => Promise<any>;
 }
 
 export default function Form({ data, submit, loading = false }: Form) {
@@ -30,7 +31,6 @@ export default function Form({ data, submit, loading = false }: Form) {
             let response = await search(query);
             setSearchResponse(response);
         }
-
         return (
             <div>
                 <div className="mt-8 relative rounded-md shadow-sm">
@@ -46,6 +46,7 @@ export default function Form({ data, submit, loading = false }: Form) {
                                     className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
                                     onClick={() => {
                                         setVlogId(item.id);
+                                        setValue("vlog_id", item.id.toString())
                                         setVlog(item);
                                         setShowModal(false);
                                     }}>
@@ -66,6 +67,28 @@ export default function Form({ data, submit, loading = false }: Form) {
         );
     };
 
+        const { register, handleSubmit, control, formState: { errors }, setValue } = useForm({
+            defaultValues: {
+                title: "",
+                url: "",
+                status: "1",
+                vlog_id: "",
+                audio: "",
+                image: "",
+                description: "",
+            },
+        });
+
+        useEffect(() => {
+            if (data) {
+                setValue("title", data.title);
+                setValue("url", data.url);
+                setValue("status", data.status.toString());
+                setValue("vlog_id", data.vlog_id.toString());
+                setValue("description", data.description);
+            }
+        }, [data, setValue]);
+
     return (<>
         <NcModal
             isOpenProp={showModal}
@@ -78,23 +101,23 @@ export default function Form({ data, submit, loading = false }: Form) {
             modalTitle="افزودن"
             hasButton={false}
         />
-        <form action={submit}>
+        <form onSubmit={handleSubmit(submit)}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>نام </Label>
-                    <Input name={"title"} defaultValue={data?.title} />
+                    <Input  {...register("title")} />
                 </div>
                 <div>
                     <Label>ادرس </Label>
-                    <Input name={"url"} defaultValue={data?.url} />
+                    <Input {...register("url")} />
                 </div>
                 <div>
                     <Label>وضعیت </Label>
-                    <Select name={"status"}>
-                        <option value={1} selected={data?.status == 1}>
+                    <Select  {...register("status")} >
+                        <option value={1} >
                             فعال
                         </option>
-                        <option value={0} selected={data?.status == 0}>
+                        <option value={0} >
                             غیر فعال
                         </option>
                     </Select>
@@ -107,14 +130,38 @@ export default function Form({ data, submit, loading = false }: Form) {
 
                 <div>
                     <Label>توضیحات برند</Label>
-                    <SunEditors name={"description"} value={data?.description} />
+                    <Controller
+                        name="description"
+                        control={control}
+                        render={({ field }) => (
+                            <SunEditors
+                                name={field.name}
+                                value={field.value}
+                                onChange={field.onChange}
+                            />
+                        )}
+                    />
 
                 </div>
 
             </div>
             <div>
                 <Label>فایل صوتی</Label>
-                <Uploader name={"audio"} />
+                <Controller
+                    name="audio"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                        <>
+                            <Uploader
+                                name="audio"
+                                onChange={field.onChange}
+                            />
+                            {fieldState.error && (
+                                <p className="text-error text-xs">{fieldState.error.message}</p>
+                            )}
+                        </>
+                    )}
+                />
             </div>
             {data?.audio ? <div className={"max-w-lg flex justify-center mx-auto"}>
                 <div className="flex justify-center items-center">
@@ -125,7 +172,21 @@ export default function Form({ data, submit, loading = false }: Form) {
 
             <div>
                 <Label>تصویر </Label>
-                <Uploader name={"image"} />
+                <Controller
+                    name="image"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                        <>
+                            <Uploader
+                                name="image"
+                                onChange={field.onChange}
+                            />
+                            {fieldState.error && (
+                                <p className="text-error text-xs">{fieldState.error.message}</p>
+                            )}
+                        </>
+                    )}
+                />
             </div>
             {data?.image ? <div className={"max-w-lg flex justify-center mx-auto"}>
                 <div className="flex justify-center items-center">
@@ -149,7 +210,7 @@ export default function Form({ data, submit, loading = false }: Form) {
                 {
                     vlog?.title
                 }
-                <Input type={"hidden"} name={"vlog_id"} value={vlogId?.toString()} />
+                <Input type={"hidden"} {...register("vlog_id")} />
 
             </div>
             <hr className={"my-5"} />

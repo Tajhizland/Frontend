@@ -6,13 +6,12 @@ import Form from "@/app/admin/cast/Form";
 import { findById, update } from "@/services/api/admin/cast";
 import toast from "react-hot-toast";
 import { useParams } from "next/navigation";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useState } from "react";
 
 export default function Page() {
     const { id } = useParams();
-    const [progress, setProgress] = useState(0);
-    const [loading, setLoading] = useState(false);
+    const [progress, setProgress] = useState(0); 
 
     const { data: data } = useQuery({
         queryKey: [`cast_info`, Number(id)],
@@ -20,27 +19,17 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    async function submit(e: FormData) {
-
-        setLoading(true);
-        let response = await update(
-            {
-                id: Number(id),
-                title: e.get("title") as string,
-                url: e.get("url") as string,
-                status: Number(e.get("status")),
-                vlog_id: Number(e.get("vlog_id")),
-                audio: e.get("audio") as File,
-                image: e.get("image") as File,
-                description: e.get("description") as string,
-                setProgress: setProgress,
+    const updateCast = useMutation({
+        mutationKey: [`update-cast`],
+        mutationFn: async (formData: any) => {
+            return update({ ...formData, setProgress: setProgress });
+        },
+        onSuccess: (response) => {
+            if (response.success) {
+                toast.success(response.message as string);
             }
-        )
-        if (response.success) {
-            toast.success(response?.message as string)
-        }
-        setLoading(false);
-    }
+        },
+    });
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -58,7 +47,7 @@ export default function Page() {
                 ویرایش cast
             </PageTitle>
             <div>
-                <Form submit={submit} data={data} loading={loading} />
+                <Form submit={updateCast.mutateAsync} data={data} loading={updateCast.isLoading} />
             </div>
 
             {progress > 0 && <div className="w-full bg-gray-200 rounded-md mt-4">

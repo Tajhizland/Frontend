@@ -7,33 +7,24 @@ import { store } from "@/services/api/admin/cast";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useMutation } from "react-query";
 
 export default function Page() {
     const router = useRouter();
-    const [loading, setLoading] = useState(false);
     const [progress, setProgress] = useState(0);
 
-    async function submit(e: FormData) {
-
-        setLoading(true);
-        let response = await store(
-            {
-                title: e.get("title") as string,
-                url: e.get("url") as string,
-                status: Number(e.get("status")),
-                vlog_id: Number(e.get("vlog_id")),
-                audio: e.get("audio") as File,
-                image: e.get("image") as File,
-                description: e.get("description") as string,
-                setProgress: setProgress,
+    const storeCast = useMutation({
+        mutationKey: [`store-cast`],
+        mutationFn: async (formData: any) => {
+            return store({ ...formData, setProgress: setProgress });
+        },
+        onSuccess: (response) => {
+            if (response.success) {
+                toast.success(response.message as string);
+                router.push("/admin/cast");
             }
-        )
-        toast.success(response?.message as string)
-        if (response?.success) {
-            router.push("/admin/cast");
-        }
-        setLoading(false);
-    }
+        },
+    });
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -51,7 +42,7 @@ export default function Page() {
                 ایجاد cast جدید
             </PageTitle>
             <div>
-                <Form submit={submit} loading={loading} />
+                <Form submit={storeCast.mutateAsync} loading={storeCast.isLoading} />
             </div>
             {progress > 0 && <div className="w-full bg-gray-200 rounded-md mt-4">
                 <div
