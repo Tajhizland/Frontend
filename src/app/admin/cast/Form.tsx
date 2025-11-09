@@ -3,23 +3,24 @@ import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import NcImage from "@/shared/NcImage/NcImage";
 import SunEditors from "@/shared/Editor/SunEditors";
-import {CastResponse} from "@/services/types/cast";
+import { CastResponse } from "@/services/types/cast";
 import NcModal from "@/shared/NcModal/NcModal";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";
-import {search} from "@/services/api/admin/vlog";
-import {VlogResponse} from "@/services/types/vlog";
+import { search } from "@/services/api/admin/vlog";
+import { VlogResponse } from "@/services/types/vlog";
 
 interface Form {
     data?: CastResponse;
+    loading?: boolean;
     submit: (e: FormData) => void;
 }
 
-export default function Form({data, submit}: Form) {
+export default function Form({ data, submit, loading = false }: Form) {
     const [showModal, setShowModal] = useState(false);
     const [serachResponse, setSearchResponse] = useState<VlogResponse[]>();
     const [vlogId, setVlogId] = useState<Number>(data?.vlog_id ?? 0);
@@ -35,7 +36,7 @@ export default function Form({data, submit}: Form) {
                 <div className="mt-8 relative rounded-md shadow-sm">
                     <Input type={"text"} placeholder="جستجوی نام ویدیو" onChange={(e) => {
                         searchVlog(e.target.value)
-                    }}/>
+                    }} />
                 </div>
                 <div className=" mt-5 max-h-96 overflow-y-scroll ">
                     <div className="flex flex-col gap-y-5">
@@ -51,7 +52,7 @@ export default function Form({data, submit}: Form) {
                                     <div className="w-[100px] h-[100px]">
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
-                                            alt={"image"} width={100} height={100}/>
+                                            alt={"image"} width={100} height={100} />
                                     </div>
                                     <span>
                                         {item.title}
@@ -81,11 +82,11 @@ export default function Form({data, submit}: Form) {
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>نام </Label>
-                    <Input name={"title"} defaultValue={data?.title}/>
+                    <Input name={"title"} defaultValue={data?.title} />
                 </div>
                 <div>
                     <Label>ادرس </Label>
-                    <Input name={"url"} defaultValue={data?.url}/>
+                    <Input name={"url"} defaultValue={data?.url} />
                 </div>
                 <div>
                     <Label>وضعیت </Label>
@@ -101,41 +102,30 @@ export default function Form({data, submit}: Form) {
 
             </div>
 
-            <hr className={"my-5"}/>
+            <hr className={"my-5"} />
             <div className={"grid grid-cols-1 gap-5"}>
 
                 <div>
                     <Label>توضیحات برند</Label>
-                    <SunEditors name={"description"} value={data?.description}/>
+                    <SunEditors name={"description"} value={data?.description} />
 
                 </div>
 
             </div>
             <div>
                 <Label>فایل صوتی</Label>
-                <Uploader name={"audio"}/>
+                <Uploader name={"audio"} />
             </div>
             {data?.audio ? <div className={"max-w-lg flex justify-center mx-auto"}>
                 <div className="flex justify-center items-center">
-                    <audio src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/cast/audio/${data.audio}`} controls/>
+                    <audio src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/cast/audio/${data.audio}`} controls />
                 </div>
             </div> : ""}
 
-            <div>
-                <ButtonSecondary onClick={() => {
-                    setShowModal(true)
-                }}>
-                    انتخاب ولاگ
-                </ButtonSecondary>
-                {
-                    vlog?.title
-                }
-                <Input type={"hidden"} name={"vlog_id"} value={vlogId?.toString()}/>
 
-            </div>
             <div>
                 <Label>تصویر </Label>
-                <Uploader name={"image"}/>
+                <Uploader name={"image"} />
             </div>
             {data?.image ? <div className={"max-w-lg flex justify-center mx-auto"}>
                 <div className="flex justify-center items-center">
@@ -149,9 +139,22 @@ export default function Form({data, submit}: Form) {
                     />
                 </div>
             </div> : ""}
-            <hr className={"my-5"}/>
+
+            <div className="mt-5">
+                <ButtonSecondary onClick={() => {
+                    setShowModal(true)
+                }}>
+                    انتخاب ولاگ
+                </ButtonSecondary>
+                {
+                    vlog?.title
+                }
+                <Input type={"hidden"} name={"vlog_id"} value={vlogId?.toString()} />
+
+            </div>
+            <hr className={"my-5"} />
             <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"}>
+                <ButtonPrimary type={"submit"} loading={loading}>
                     ذخیره
                 </ButtonPrimary>
             </div>
