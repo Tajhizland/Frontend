@@ -29,8 +29,8 @@ import NotifyAddTocart from "@/components/Product/NotifyAddTocart";
 import BagIcon from "@/components/Icon/BagIcon";
 import SmallTimer from "@/components/Timer/SmallTimer";
 import {storeCategoryViewHistory, storeCategoryViewHistoryIp} from "@/services/api/shop/categoryViewHistory";
-import ProductCard from "@/components/Card/ProductCard";
-import {Alert} from "@/shared/Alert/Alert";
+ import {Alert} from "@/shared/Alert/Alert";
+import HorizontalProductCard from "@/components/Card/HorizontalProductCard";
 
 export default function ProductSidebar({product}: { product: ProductResponse }) {
     const colors = product.colors.data;
@@ -438,10 +438,12 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                     </Alert>
 
                 </div>}
-                {product.is_stock && <div className={"flex flex-col gap-1 pt-5 "}>
-                    <p className={""}> محصول نوی این محصول</p>
-                    <div className={"w-full sm:w-48"}>
-                        <ProductCard data={product.stockOf}/>
+                {product.is_stock && <div className={"flex flex-col gap-2 pt-5 "}>
+                    <p className={""}>
+                        نمونه مشابه و نو این محصول کارکرده در تجهیزلند
+                    </p>
+                    <div className={"w-full  "}>
+                        <HorizontalProductCard data={product.stockOf}/>
 
                     </div>
                 </div>}

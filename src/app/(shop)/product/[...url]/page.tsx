@@ -199,15 +199,17 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                         <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold dark:text-white">
                             {product.name}
                         </h2>
-                        {product?.is_stock &&
+                        {product?.is_stock ?
                             <div className={"flex justify-end sm:justify-start"}>
                                 <Badge name={"کارکرده"} color={"yellow"}/>
                             </div>
+                            :<></>
                         }
-                        {product?.is_stock &&
+                        {product?.is_stock ?
                             <div className={"flex justify-end sm:justify-start"}>
                                 <Badge name={product.testing_time + " " + "روز مهلت تست"} color={"green"}/>
                             </div>
+                            :<></>
                         }
                     </div>
                     <div className="flex items-center mt-4 sm:mt-5">
