@@ -11,7 +11,7 @@ import { useState } from "react";
 
 export default function Page() {
     const { id } = useParams();
-    const [progress, setProgress] = useState(0); 
+    const [progress, setProgress] = useState(0);
 
     const { data: data } = useQuery({
         queryKey: [`cast_info`, Number(id)],
@@ -22,7 +22,7 @@ export default function Page() {
     const updateCast = useMutation({
         mutationKey: [`update-cast`],
         mutationFn: async (formData: any) => {
-            return update({ ...formData, setProgress: setProgress });
+            return update({ id: Number(id), ...formData, setProgress: setProgress });
         },
         onSuccess: (response) => {
             if (response.success) {
