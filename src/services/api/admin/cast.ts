@@ -57,6 +57,7 @@ export const update = async <T extends ServerResponse<unknown>>
         }
     ) => {
     const formData = new FormData();
+    formData.append('id', params.id.toString());
     formData.append('title', params.title);
     formData.append('url', params.url);
     formData.append('description', params.description);
