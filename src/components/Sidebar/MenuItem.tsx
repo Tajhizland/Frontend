@@ -57,7 +57,13 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 url: "/product",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
 
-            }, {
+            },
+            {
+                title: "محصولات گروهی",
+                url: "/group",
+                icon: <CubeIcon className="h-6 w-6 text-gray-500"/>,
+            },
+            {
                 title: "مدیریت محصولات کارکرده",
                 url: "/product/stock",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
@@ -80,8 +86,133 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
 
             },
             {
-                title: "افزودن محصول",
-                url: "/product/create",
+                title: "محصولات محصولات پر تخفیف",
+                url: "/popular_product",
+                icon: <RiDiscountPercentFill className="h-6 w-6 text-gray-500"/>,
+            },
+        ]
+    },
+    {
+        title: "سفارش ها",
+        url: "/",
+        icon: <PiShippingContainerDuotone className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "سفارشات",
+                url: "/order",
+                icon: <PiShippingContainerDuotone className="h-6 w-6 text-gray-500"/>,
+            },
+
+            {
+                title: "سفارشات معلق",
+                url: "/onHoldOrder",
+                icon: <PiShippingContainerDuotone className="h-6 w-6 text-gray-500"/>,
+            },
+
+            {
+                title: "مدیریت تراکنش های کیف پول",
+                url: "/wallet-transaction",
+                icon: <ImCoinDollar className="h-6 w-6 text-gray-500"/>,
+            },
+            {
+                title: "مدیریت تراکنش ها",
+                url: "/transaction",
+                icon: <ImCoinDollar className="h-6 w-6 text-gray-500"/>,
+            },
+        ]
+    }, {
+        title: "کاربران",
+        url: "/",
+        icon: <PiShippingContainerDuotone className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت کاربران",
+                url: "/user",
+                icon: <FaUsers className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "اعلان ها",
+                url: "/notification",
+                icon: <FaBell className="h-6 w-6 text-gray-500"/>,
+            },
+            {
+                title: "مدیریت کامنت ها",
+                url: "/comment",
+                icon: <FaCommentDots className="h-6 w-6 text-gray-500"/>,
+            },
+            {
+                title: "مدیریت پیام ها",
+                url: "/contact",
+                icon: <FaMessage className="h-6 w-6 text-gray-500"/>,
+
+            },
+        ]
+    },
+
+    {
+        title: " پیامک",
+        url: "/",
+        icon: <FaSms className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: " پیامک",
+                url: "/sms",
+                icon: <FaSms className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "مدیریت دفترچه تلفن",
+                url: "/phone-bock",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن دفترچه تلفن ",
+                url: "/phone-bock/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن دفترچه تلفن با اکسل",
+                url: "/phone-bock/excel",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }
+        ]
+    },
+    {
+        title: "ولاگ ها",
+        url: "/",
+        icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت ولاگ ها",
+                url: "/vlog",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن ولاگ",
+                url: "/vlog/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "ولاگ های صفحه اصلی",
+                url: "/homepage_vlog",
+                icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "مدیریت دسته بندی ولاگ ها",
+                url: "/vlog_category",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن دسته بندی ولاگ",
+                url: "/vlog_category/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
 
             }
@@ -106,85 +237,9 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
             }
         ]
     },
-    {
-        title: "سفارشات",
-        url: "/order",
-        icon: <PiShippingContainerDuotone className="h-6 w-6 text-gray-500"/>,
-    },
-    {
-        title: "سفارشات معلق",
-        url: "/onHoldOrder",
-        icon: <PiShippingContainerDuotone className="h-6 w-6 text-gray-500"/>,
-    },
-    {
-        title: "مدیریت تراکنش های کیف پول",
-        url: "/wallet-transaction",
-        icon: <ImCoinDollar className="h-6 w-6 text-gray-500"/>,
-    },
-    {
-        title: "مدیریت تراکنش ها",
-        url: "/transaction",
-        icon: <ImCoinDollar className="h-6 w-6 text-gray-500"/>,
-    },
-    {
-        title: "نمونه پروژه ها",
-        url: "/sample",
-        icon: <SiElectronbuilder className="h-6 w-6 text-gray-500"/>,
-    },
-    {
-        title: "محصولات گروهی",
-        url: "/group",
-        icon: <CubeIcon className="h-6 w-6 text-gray-500"/>,
-    },
-    {
-        title: "دفترچه تلفن",
-        url: "/",
-        icon: <SiWayland className="h-6 w-6 text-gray-500"/>,
-        sub: [
-            {
-                title: "مدیریت دفترچه تلفن",
-                url: "/phone-bock",
-                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
 
-            },
-            {
-                title: "افزودن دفترچه تلفن ",
-                url: "/phone-bock/create",
-                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
 
-            },
-            {
-                title: "افزودن دفترچه تلفن با اکسل",
-                url: "/phone-bock/excel",
-                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
-
-            }
-        ]
-    },
     {
-        title: "ارسال پیامک",
-        url: "/sms",
-        icon: <FaSms className="h-6 w-6 text-gray-500"/>,
-    },
-    {
-        title: "لندینگ ها",
-        url: "/",
-        icon: <SiWayland className="h-6 w-6 text-gray-500"/>,
-        sub: [
-            {
-                title: "مدیریت لندینگ",
-                url: "/landing",
-                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
-
-            },
-            {
-                title: "افزودن لندینگ ",
-                url: "/landing/create",
-                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
-
-            }
-        ]
-    }, {
         title: "تجهیزکست",
         url: "/",
         icon: <SiWayland className="h-6 w-6 text-gray-500"/>,
@@ -223,7 +278,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         ]
     },
     {
-        title: "بنر ها",
+        title: "بنر و اسلایدر",
         url: "/",
         icon: <ImImages className="h-6 w-6 text-gray-500"/>,
         sub: [
@@ -231,52 +286,20 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 title: "مدیریت بنر ها",
                 url: "/banner",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
-
             },
             {
-                title: "افزودن بنر",
-                url: "/banner/create",
-                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
-
-            }
-        ]
-    }, {
-        title: "ولاگ ها",
-        url: "/",
-        icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
-        sub: [
-            {
-                title: "مدیریت ولاگ ها",
-                url: "/vlog",
+                title: "مدیریت اسلابدر",
+                url: "/slider",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
-
             },
             {
-                title: "افزودن ولاگ",
-                url: "/vlog/create",
-                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
-
-            }
-        ]
-    }, {
-        title: "دسته بندی ولاگ",
-        url: "/",
-        icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
-        sub: [
-            {
-                title: "مدیریت دسته بندی ولاگ ها",
-                url: "/vlog_category",
-                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
-
+                title: "مدیریت پوستر ها",
+                url: "/poster",
+                icon: <GiTargetPoster className="h-6 w-6 text-gray-500"/>,
             },
-            {
-                title: "افزودن دسته بندی ولاگ",
-                url: "/vlog_category/create",
-                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
-
-            }
         ]
-    }, {
+    },
+    {
         title: "بلاگ ها",
         url: "/",
         icon: <NewspaperIcon className="h-6 w-6 text-gray-500"/>,
@@ -292,14 +315,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 url: "/news/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
 
-            }
-        ]
-    },
-    {
-        title: "دسته بندی بلاگ",
-        url: "/",
-        icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
-        sub: [
+            },
             {
                 title: "مدیریت دسته بندی بلاگ ها",
                 url: "/blog_category",
@@ -314,6 +330,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
             }
         ]
     },
+
     {
         title: "گارانتی",
         url: "/guaranty",
@@ -351,27 +368,9 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
 
             }
         ]
-    }, {
-        title: "دیکشنری",
-        url: "/",
-        icon: <TbLanguage className="h-6 w-6 text-gray-500"/>,
-        sub: [
-            {
-                title: "مدیریت دیکشنری",
-                url: "/dictionary",
-                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
-
-            },
-            {
-                title: "افزودن دیکشنری",
-                url: "/dictionary/create",
-                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
-
-            }
-        ]
     },
     {
-        title: "صفحات",
+        title: "صفحات و لندینگ",
         url: "/",
         icon: <SiPagespeedinsights className="h-6 w-6 text-gray-500"/>,
         sub: [
@@ -386,30 +385,34 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 url: "/page/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
 
-            }
-        ]
-    },
-    {
-        title: "پرسش های متداول",
-        url: "/",
-        icon: <FaQuestionCircle className="h-6 w-6 text-gray-500"/>,
-        sub: [
+            },
+            {
+                title: "مدیریت لندینگ",
+                url: "/landing",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن لندینگ ",
+                url: "/landing/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }, {
+                title: "نمونه پروژه ها",
+                url: "/sample",
+                icon: <SiElectronbuilder className="h-6 w-6 text-gray-500"/>,
+            },
             {
                 title: "مدیریت پرسش های متداول",
                 url: "/faq",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
 
             },
-            {
-                title: "افزودن پرسش های متداول",
-                url: "/faq/create",
-                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
-
-            }
         ]
     },
+
     {
-        title: "concept",
+        title: "لاین محصولات صفحه اصلی",
         url: "/",
         icon: <MdCoffeeMaker className="h-6 w-6 text-gray-500"/>,
         sub: [
@@ -418,89 +421,6 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 url: "/concept",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
 
-            },
-            {
-                title: "افزودن concept",
-                url: "/concept/create",
-                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
-
-            }
-        ]
-    },
-    {
-        title: "اسلابدر",
-        url: "/slider",
-        icon: <TfiLayoutSlider className="h-6 w-6 text-gray-500"/>,
-        sub: [
-            {
-                title: "مدیریت اسلابدر",
-                url: "/slider",
-                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
-
-            },
-            {
-                title: "افزودن اسلابدر",
-                url: "/slider/create",
-                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
-
-            }
-        ]
-    },
-    {
-        title: "مدیریت کاربران",
-        url: "/user",
-        icon: <FaUsers className="h-6 w-6 text-gray-500"/>,
-
-    },
-    {
-        title: "مدیریت ادمین ها",
-        url: "/admin",
-        icon: <RiAdminLine className="h-6 w-6 text-gray-500"/>,
-
-    },
-    {
-        title: "مدیریت نقش ها",
-        url: "/role",
-        icon: <MdOutlinePrivacyTip className="h-6 w-6 text-gray-500"/>,
-
-    },
-    {
-        title: "مدیریت دسترسی ها",
-        url: "/permission",
-        icon: <RiChatPrivateLine className="h-6 w-6 text-gray-500"/>,
-
-    },
-    {
-        title: "مدیریت پیام ها",
-        url: "/contact",
-        icon: <FaMessage className="h-6 w-6 text-gray-500"/>,
-
-    },
-    // {
-    //     title: "مدیریت مرجوعی ها",
-    //     url: "/returned",
-    //     icon: <ShoppingBagIcon className="h-6 w-6 text-gray-500" />,
-    //  },
-
-    {
-        title: "اعلان ها",
-        url: "/notification",
-        icon: <FaBell className="h-6 w-6 text-gray-500"/>,
-    },
-    {
-        title: "مدیریت کامنت ها",
-        url: "/comment",
-        icon: <FaCommentDots className="h-6 w-6 text-gray-500"/>,
-    },
-    {
-        title: "صفحه اصلی",
-        url: "/",
-        icon: <FaHome className="h-6 w-6 text-gray-500"/>,
-        sub: [
-            {
-                title: "مدیریت پوستر ها",
-                url: "/poster",
-                icon: <GiTargetPoster className="h-6 w-6 text-gray-500"/>,
             },
             {
                 title: "مدیریت برند های تجهیز شده",
@@ -513,24 +433,14 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 icon: <MdFolderSpecial className="h-6 w-6 text-gray-500"/>,
             },
             {
-                title: "محصولات محصولات پر تخفیف",
-                url: "/popular_product",
-                icon: <RiDiscountPercentFill className="h-6 w-6 text-gray-500"/>,
-            },
-            {
-                title: "ولاگ های صفحه اصلی",
-                url: "/homepage_vlog",
-                icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
-
-            },
-            {
                 title: "دسته بندی های پرطرفدار",
                 url: "/homepage_category",
                 icon: <MdOutlineWaterfallChart className="h-6 w-6 text-gray-500"/>,
             },
         ]
-
     },
+
+
     {
         title: "تنظیمات",
         url: "/",
@@ -547,7 +457,32 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 url: "/delivery",
                 icon: <FaTruckMoving className="h-6 w-6 text-gray-500"/>,
 
-            }
+            },
+
+            {
+                title: "مدیریت ادمین ها",
+                url: "/admin",
+                icon: <RiAdminLine className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "مدیریت نقش ها",
+                url: "/role",
+                icon: <MdOutlinePrivacyTip className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "مدیریت دسترسی ها",
+                url: "/permission",
+                icon: <RiChatPrivateLine className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "مدیریت دیکشنری",
+                url: "/dictionary",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
         ]
 
     },
