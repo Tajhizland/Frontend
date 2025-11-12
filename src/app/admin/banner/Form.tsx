@@ -38,6 +38,10 @@ export default function Form({data, submit}: Form) {
             value:"home_page5"
         },
         {
+            title:"هوم پیج محصولات کار کرده",
+            value:"home_page6"
+        },
+        {
             title:"ولاگ",
             value:"vlog"
         },  {
@@ -66,7 +70,7 @@ export default function Form({data, submit}: Form) {
                     <Select name={"type"} >
                         {
                             types.map((item,index)=>(<option value={item.value} key={index} selected={data?.type==item.value}>
-                                {item.value}
+                                {item.title}
                             </option>))
                         }
                     </Select>
