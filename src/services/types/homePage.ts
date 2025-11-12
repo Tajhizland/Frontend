@@ -20,6 +20,7 @@ export type HomePageResponse = {
     banners2: { data: BannerResponse[] };
     banners3: { data: BannerResponse[] };
     banners4: { data: BannerResponse[] };
+    bannersStock: { data: BannerResponse[] };
     banners5: { data: BannerResponse[] };
     homepageCategories: { data: HomepageCategoryResponse[] };
     desktopSliders: { data: SliderResponse[] };

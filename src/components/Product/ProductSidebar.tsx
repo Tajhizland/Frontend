@@ -393,7 +393,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
                         <div className="flex justify-between items-center">
                             {/*{renderDelay()}*/}
                         </div>
-                        <div className="flex  items-center max-h-24 my-5">
+                        <div className="flex  items-center max-h-24 sm:mt-5 ">
                             {renderBrand()}
                         </div>
                         <div className="flex justify-between items-center">

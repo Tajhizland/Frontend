@@ -4,10 +4,14 @@ import {Route} from "next";
 import Image from "next/image";
 import React from "react";
 
-export default function SectionSingleBanner({banner}: { banner: BannerResponse }) {
+export default function SectionSingleBanner({banner, w = "aspect-w-2 sm:aspect-w-3 lg:aspect-w-4", h = "aspect-h-1"}: {
+    banner: BannerResponse,
+    w?: string,
+    h?: string
+}) {
     return (
         <div
-            className={`relative w-full aspect-w-2 sm:aspect-w-3  lg:aspect-w-4 aspect-h-1 rounded-2xl overflow-hidden group border`}
+            className={`relative w-full   rounded-2xl overflow-hidden group border ${w} ${h}`}
         >
             <Link href={banner.url as Route} title={"link"}>
                 <Image
