@@ -1,6 +1,4 @@
-import {Metadata} from "next";
 import React from "react";
-import logo from "@/images/lightLogo.png";
 import {homePage} from "@/services/api/shop/homePage";
 import MobileHero from "@/components/Hero/MobileHero";
 import Hero from "@/components/Hero/Hero";
@@ -20,6 +18,10 @@ import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSli
 import SectionBrand from "@/components/Section/SectionBrand";
 import SectionSuggestProduct from "@/components/Section/SectionSuggestProduct";
 import Script from "next/script";
+import blackFriday from "@/images/blackFriday.png";
+import Image from "next/image";
+import Timer from "@/components/Timer/Timer";
+import TimerHMS from "@/components/Timer/TimerHMS";
 
 export const dynamic = 'force-dynamic';
 
@@ -75,6 +77,10 @@ export default async function Homepage() {
             <div className="relative overflow-hidden lg:mt-10 dark:bg-neutral-900">
 
                 {/* Hero */}
+                <div className={"w-full h-20 bg-black flex items-center justify-center gap-4 mb-4 sm:mb-0"}>
+                    <Image width={150} height={50} src={blackFriday} alt={"blackFriday"}/>
+                    <TimerHMS date="2025-11-22T00:00:00" />
+                </div>
                 <div className="hidden sm:block">
                     <Hero data={response.desktopSliders?.data || []}/>
                 </div>
