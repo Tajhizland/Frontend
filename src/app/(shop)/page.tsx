@@ -18,39 +18,39 @@ import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSli
 import SectionBrand from "@/components/Section/SectionBrand";
 import SectionSuggestProduct from "@/components/Section/SectionSuggestProduct";
 import Script from "next/script";
-import blackFriday from "@/images/blackFriday.png";
+import logo from "@/images/lightLogo.png";
 import Image from "next/image";
-import Timer from "@/components/Timer/Timer";
 import TimerHMS from "@/components/Timer/TimerHMS";
+import {Metadata} from "next";
 
 export const dynamic = 'force-dynamic';
 
-// export async function generateMetadata(): Promise<Metadata> {
-//   try {
-//     const siteUrl = process.env.NEXT_PUBLIC_WEBSITE_URL || "";
+export async function generateMetadata(): Promise<Metadata> {
+    try {
+        const siteUrl = process.env.NEXT_PUBLIC_WEBSITE_URL || "";
 
-//     return {
-//       title: "تجهیزلند",
-//       description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-//       twitter: {
-//         title: "تجهیزلند",
-//         description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-//         images: logo?.src || `${siteUrl}/images/lightLogo.png`,
-//       },
-//       openGraph: {
-//         title: "تجهیزلند",
-//         description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-//         images: logo?.src || `${siteUrl}/images/lightLogo.png`,
-//         url: siteUrl,
-//         type: "website",
-//       },
-//       robots: "index, follow",
-//     };
-//   } catch (e) {
-//     console.error("Metadata generation failed:", e);
-//     return { title: "تجهیزلند" };
-//   }
-// }
+        return {
+            title: "تجهیزلند",
+            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+            twitter: {
+                title: "تجهیزلند",
+                description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+                images: logo?.src || `${siteUrl}/images/lightLogo.png`,
+            },
+            openGraph: {
+                title: "تجهیزلند",
+                description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
+                images: logo?.src || `${siteUrl}/images/lightLogo.png`,
+                url: siteUrl,
+                type: "website",
+            },
+            robots: "index, follow",
+        };
+    } catch (e) {
+        console.error("Metadata generation failed:", e);
+        return {title: "تجهیزلند"};
+    }
+}
 
 export default async function Homepage() {
     let response: any = {};
@@ -77,10 +77,23 @@ export default async function Homepage() {
             <div className="relative overflow-hidden lg:mt-10 dark:bg-neutral-900">
 
                 {/* Hero */}
-                <div className={"w-full h-20 bg-black flex items-center justify-center gap-4 mb-4 sm:mb-0"}>
-                    <Image width={150} height={50} src={blackFriday} alt={"blackFriday"}/>
-                    <TimerHMS date="2025-11-22T00:00:00" />
-                </div>
+                {
+                    response.campaign &&
+                    <div
+                        className={`w-full h-20 flex items-center justify-center gap-4 mb-4 sm:mb-0 `}
+                        style={{background:`${response.campaign.color}`}}
+
+                    >
+                        <Image
+                            width={150}
+                            height={50}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/campaign/${response.campaign.logo}`}
+                            alt={"campaign"}/>
+                        <TimerHMS date={response.campaign.end_date}/>
+                    </div>
+
+                }
+
                 <div className="hidden sm:block">
                     <Hero data={response.desktopSliders?.data || []}/>
                 </div>

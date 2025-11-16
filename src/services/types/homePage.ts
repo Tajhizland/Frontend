@@ -12,10 +12,12 @@ import {PosterResponse} from "@/services/types/poster";
 import {PriceResponse} from "@/services/types/price";
 import SectionTrustedBrand from "@/components/Section/SectionTrustedBrand";
 import {TrustedBrandResponse} from "@/services/types/trustedBrand";
+import {CampaignResponse} from "@/services/types/campaign";
 
 export type HomePageResponse = {
     popularProducts: { data: PopularProductResponse[] };
     discount: PriceResponse;
+    campaign?: CampaignResponse;
     banners: { data: BannerResponse[] };
     banners2: { data: BannerResponse[] };
     banners3: { data: BannerResponse[] };
