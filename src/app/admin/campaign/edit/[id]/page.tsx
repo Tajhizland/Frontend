@@ -34,17 +34,17 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "چشنواره",
+                title: "جشنواره",
                 href: "campaign"
             },
             {
-                title: "ویرایش چشنواره",
+                title: "ویرایش جشنواره",
                 href: "campaign/edit/" + id
             }
         ]}/>
         <Panel>
             <PageTitle>
-                ویرایش چشنواره
+                ویرایش جشنواره
             </PageTitle>
             <div>
                 {data && <Form submit={updateCampaign.mutateAsync} data={data} loading={updateCampaign.isLoading}/>

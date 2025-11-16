@@ -29,17 +29,17 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "چشنواره",
+                title: "جشنواره",
                 href: "campaign"
             },
             {
-                title: "افزودن چشنواره جدید",
+                title: "افزودن جشنواره جدید",
                 href: "campaign/create"
             }
         ]} />
         <Panel>
             <PageTitle>
-                ایجاد چشنواره جدید
+                ایجاد جشنواره جدید
             </PageTitle>
             <div>
                 <Form submit={storeCampaign.mutateAsync} loading={storeCampaign.isLoading} />
