@@ -7,7 +7,6 @@ import duration from "dayjs/plugin/duration";
 dayjs.extend(duration);
 
 export default function TimerHMS({ date }: { date: string }) {
-    const targetDate = dayjs(date);
     const [timeLeft, setTimeLeft] = useState({
         hours: 0,
         minutes: 0,
@@ -15,6 +14,8 @@ export default function TimerHMS({ date }: { date: string }) {
     });
 
     useEffect(() => {
+        const targetDate = dayjs(date); // ← منتقل شد داخل useEffect
+
         const updateTimer = () => {
             const now = dayjs();
             const diff = targetDate.diff(now);
@@ -33,13 +34,12 @@ export default function TimerHMS({ date }: { date: string }) {
             });
         };
 
-        updateTimer(); // اولین بار سریع اجرا شود
-        const interval = setInterval(updateTimer, 1000); // هر ثانیه آپدیت شود
+        updateTimer();
+        const interval = setInterval(updateTimer, 1000);
 
         return () => clearInterval(interval);
-    }, [targetDate]);
+    }, [date]); // ← این درست‌ترین دیپندنسی است
 
-    // برای نمایش دو رقمی
     const pad = (num: number) => String(num).padStart(2, "0");
 
     return (
