@@ -29,9 +29,9 @@ export const columns: Column<CampaignResponse>[] = [
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },
-    { key: 'start_date', header: 'تاریخ شروع', filterType: 'input', editable: false },
-    { key: 'end_date', header: 'تاریخ پایان', filterType: 'input', editable: false },
-    { key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false },
+    { key: 'start_date_fa', header: 'تاریخ شروع', filterType: 'date', editable: false },
+    { key: 'end_date_fa', header: 'تاریخ پایان', filterType: 'date', editable: false },
+    { key: 'created_at', header: 'تاریخ ایجاد', filterType: 'date', editable: false },
 
 ];
 export const buttons: DataTableButtons[] = [
