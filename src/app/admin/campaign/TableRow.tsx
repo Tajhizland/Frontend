@@ -3,13 +3,14 @@ import {HiMiniPencil} from "react-icons/hi2";
 import Badge from "@/shared/Badge/Badge";
 import { UrlObject } from "url";
 import {CastResponse} from "@/services/types/cast";
+import {CampaignResponse} from "@/services/types/campaign";
 
 
-export const columns: Column<CastResponse>[] = [
-   
+export const columns: Column<CampaignResponse>[] = [
+
     {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'title', header: 'نام  ', filterType: 'input', editable: true},
-    {key: 'url', header: 'آدرس  ', filterType: 'input', editable: true},
+    {key: 'color', header: 'کد رنگ  ', filterType: 'input', editable: true},
     {
         key: 'status',
         header: 'وضعیت',
@@ -28,6 +29,8 @@ export const columns: Column<CastResponse>[] = [
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },
+    { key: 'start_date', header: 'تاریخ شروع', filterType: 'input', editable: false },
+    { key: 'end_date', header: 'تاریخ پایان', filterType: 'input', editable: false },
     { key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false },
 
 ];
@@ -38,7 +41,7 @@ export const buttons: DataTableButtons[] = [
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
         href : (value: any): UrlObject => {
             return {
-                pathname: 'cast/edit/'+value,
+                pathname: 'campaign/edit/'+value,
             };
         }
     },

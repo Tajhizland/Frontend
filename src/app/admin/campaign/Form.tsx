@@ -6,12 +6,6 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect, useState} from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import NcImage from "@/shared/NcImage/NcImage";
-import SunEditors from "@/shared/Editor/SunEditors";
-import NcModal from "@/shared/NcModal/NcModal";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import Image from "next/image";
-import {search} from "@/services/api/admin/vlog";
-import {VlogResponse} from "@/services/types/vlog";
 import {Controller, useForm} from "react-hook-form";
 import {CampaignResponse} from "@/services/types/campaign";
 import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
@@ -26,7 +20,7 @@ export default function Form({data, submit, loading = false}: Form) {
     const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
         defaultValues: {
             title: "",
-            color: "",
+            color: "#000",
             status: "1",
             start_date: "",
             end_date: "",
@@ -143,7 +137,7 @@ export default function Form({data, submit, loading = false}: Form) {
                     <NcImage
                         alt=""
                         containerClassName="w-full h-fit flex justify-center"
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/campaign/image/${data.banner}`}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/campaign/${data.banner}`}
                         className="object-contain rounded-2xl w-full h-full"
                         width={250}
                         height={250}
