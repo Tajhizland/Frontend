@@ -2,7 +2,6 @@ import {Column, DataTableButtons} from "@/shared/DataTable/type";
 import {HiMiniPencil} from "react-icons/hi2";
 import Badge from "@/shared/Badge/Badge";
 import { UrlObject } from "url";
-import {CastResponse} from "@/services/types/cast";
 import {CampaignResponse} from "@/services/types/campaign";
 
 
