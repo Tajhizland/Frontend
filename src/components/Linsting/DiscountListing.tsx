@@ -10,6 +10,9 @@ import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSlider";
 import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
 import {CgSwap} from "react-icons/cg";
+import Link from "next/link";
+import {Route} from "next";
+import Image from "next/image";
 
 const DiscountListing = ({response}: { response }) => {
     const router = useRouter();
@@ -90,10 +93,24 @@ const DiscountListing = ({response}: { response }) => {
     return (
         <div className={`nc-PageSearch dark:bg-neutral-900 py-16 lg:pb-28 lg:pt-20 `} data-nc-id="PageSearch">
             <div className="container space-y-10 lg:space-y-14">
-                <SectionSingleBanner banner={
-                    response.campaign ?
-                        response.campaign.banner :
-                        response.banner.data[0]}/>
+
+                {(response.campaign && response.campaign.banner) ?
+                    <div
+                        className={`relative w-full   rounded-2xl overflow-hidden group border aspect-w-2 sm:aspect-w-3 lg:aspect-w-4 aspect-h-1`}
+                    >
+                        <div>
+                            <Image
+                                alt=""
+                                fill
+                                className="w-full h-full object-cover"
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/campaign/${response.campaign.banner}`}
+                            />
+                        </div>
+
+                    </div>
+                    :
+                    <SectionSingleBanner banner={response.banner.data[0]}/>
+                }
             </div>
             <hr className="border-slate-200 dark:border-slate-700 mt-10 lg:mt-14"/>
 
