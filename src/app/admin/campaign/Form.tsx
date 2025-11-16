@@ -35,8 +35,8 @@ export default function Form({data, submit, loading = false}: Form) {
             setValue("title", data.title);
             setValue("color", data.color);
             setValue("status", data.status.toString());
-            setValue("start_date", data.start_date);
-            setValue("end_date", data.end_date);
+            setValue("start_date", data.start_date_fa);
+            setValue("end_date", data.end_date_fa);
             setValue("banner", data.banner);
             setValue("logo", data.logo);
         }
