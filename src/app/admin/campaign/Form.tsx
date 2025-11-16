@@ -35,8 +35,8 @@ export default function Form({data, submit, loading = false}: Form) {
             setValue("title", data.title);
             setValue("color", data.color);
             setValue("status", data.status.toString());
-            setValue("start_date", data.start_date_fa);
-            setValue("end_date", data.end_date_fa);
+            setValue("start_date", data.start_date);
+            setValue("end_date", data.end_date);
             setValue("banner", data.banner);
             setValue("logo", data.logo);
         }
@@ -67,7 +67,7 @@ export default function Form({data, submit, loading = false}: Form) {
                 <div>
                     <Label>زمان شروع</Label>
                     <PersianDatePicker
-                        value={data?.start_date}
+                        value={data?.start_date_fa}
                         onChange={(date) => {
                             setValue("start_date", date)
                         }}/>
@@ -75,7 +75,7 @@ export default function Form({data, submit, loading = false}: Form) {
                 <div>
                     <Label>زمان پایان</Label>
                     <PersianDatePicker
-                        value={data?.end_date}
+                        value={data?.end_date_fa}
                         onChange={(date) => {
                             setValue("end_date", date)
                         }}/>
