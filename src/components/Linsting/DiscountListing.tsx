@@ -90,7 +90,10 @@ const DiscountListing = ({response}: { response }) => {
     return (
         <div className={`nc-PageSearch dark:bg-neutral-900 py-16 lg:pb-28 lg:pt-20 `} data-nc-id="PageSearch">
             <div className="container space-y-10 lg:space-y-14">
-                <SectionSingleBanner banner={response.banner.data[0]}/>
+                <SectionSingleBanner banner={
+                    response.campaign ?
+                        response.campaign.banner :
+                        response.banner.data[0]}/>
             </div>
             <hr className="border-slate-200 dark:border-slate-700 mt-10 lg:mt-14"/>
 

@@ -11,9 +11,11 @@ import {PopularProductResponse} from "@/services/types/popularProduct";
 import {ProductVideoResponse} from "@/services/types/productVideo";
 import {GroupProductResponse} from "@/services/types/groupProduct";
 import {breadcrumbResponse, CategoryResponse} from "@/services/types/category";
+import {CampaignResponse} from "@/services/types/campaign";
 
 export type ProductPageResponse = {
     product: ProductResponse;
+    campaign?: CampaignResponse;
     options: { data: ProductOptionResponse[] };
     relatedProduct: { data: ProductResponse[] };
     breadcrumb: { data: breadcrumbResponse[] };
@@ -24,6 +26,7 @@ export type SpecialProductPageResponse = {
 }
 export type DiscountedProductPageResponse = {
     data: ProductResponse;
+    campaign?: CampaignResponse;
     banner: { data: BannerResponse[] };
     discounts: { data: PopularProductResponse[] };
     discountTimer: PriceResponse;
