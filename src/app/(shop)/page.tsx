@@ -81,7 +81,7 @@ export default async function Homepage() {
                     response.campaign &&
                     <div
                         className={`w-full h-20 flex items-center justify-center gap-4 mb-4 sm:mb-0 `}
-                        style={{background:`${response.campaign.color}`}}
+                        style={{background: `${response.campaign.background_color}`}}
 
                     >
                         <Image
@@ -90,6 +90,13 @@ export default async function Homepage() {
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/campaign/${response.campaign.logo}`}
                             alt={"campaign"}/>
                         <TimerHMS date={response.campaign.end_date}/>
+                        <div className={"font-bold hidden sm:block sm:text-sm"}
+                             style={{color: `${response.campaign.color}`}}>
+                            <p>تا پایان</p>
+                            <p>
+                                {response.campaign.title}
+                            </p>
+                        </div>
                     </div>
 
                 }

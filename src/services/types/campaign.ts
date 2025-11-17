@@ -3,6 +3,8 @@ export type CampaignResponse = {
     banner: string;
     logo: string;
     color: string;
+    discount_logo: string;
+    background_color: string;
     title: string;
     status: number;
     start_date_fa: string;
