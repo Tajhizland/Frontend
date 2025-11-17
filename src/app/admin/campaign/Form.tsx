@@ -59,11 +59,11 @@ export default function Form({data, submit, loading = false}: Form) {
                     <Input  {...register("title")} />
                 </div>
                 <div>
-                    <Label>رنگ </Label>
+                    <Label>رنگ متن </Label>
                     <Input type={"color"} {...register("color")} />
                 </div>
                 <div>
-                    <Label>رنگ </Label>
+                    <Label>رنگ پس زمینه</Label>
                     <Input type={"color"} {...register("background_color")} />
                 </div>
                 <div>

@@ -259,6 +259,24 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         ]
     },
     {
+        title: "جشنواره ها",
+        url: "/",
+        icon: <RiDiscountPercentFill className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت جشنواره ها",
+                url: "/campaign",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن جشنواره",
+                url: "/campaign/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }
+        ]
+    }, {
         title: "برند ها",
         url: "/product",
         icon: <TbBrandApple className="h-6 w-6 text-gray-500"/>,
