@@ -117,12 +117,14 @@ const DiscountListing = ({response}: { response }) => {
             <div
                 className="container  my-5 sm:my-10 px-5  lg:px-0  relative overflow-hidden">
                 <SectionNewDiscountSlider
+                    campaign={response.campaign}
                     timer={response?.discountTimer?.discount_expire_time}
                     data={response.discounts.data}
                     subHeading={""}
                 />
                 <div
-                    className="absolute w-24 h-24 bg-[#fcb415] rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
+                    style={{backgroundColor: response.campaign ? response.campaign.background_color : "#fcb415"}}
+                    className="absolute w-24 h-24  rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
                     <div className="w-20 h-20 bg-white rounded-full"></div>
                 </div>
 

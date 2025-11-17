@@ -12,6 +12,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Timer from "@/components/Timer/Timer";
 import ProductCard3 from "@/components/Card/ProductCard3";
 import {CampaignResponse} from "@/services/types/campaign";
+import Image from "next/image";
 
 export interface SectionSliderProductCardProps {
     className?: string;
@@ -88,25 +89,54 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
             <div className={"absolute w-10 h-10 bg-white rounded-full -left-6 -bottom-5 "}></div>
             <div className={"absolute w-10 h-10 bg-white rounded-full -right-6 -bottom-5 "}></div>
 
-            <div className={"flex flex-col items-center gap-2"}>
-                <div>
-                    <strong className={"font-bold text-xl  "}>
-                        پیشنهاد
-                        محصولات
-                        پرتخفیف تا
-                    </strong>
-                </div>
-                <div className={"flex items-center gap-2"}>
+            {
+                campaign ?
+                    <div className={"flex flex-col items-center gap-2"}>
+                        <Image
+                            width={150}
+                            height={50}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/campaign/${campaign.discount_logo}`}
+                            alt={"campaign"}/>
+                        <strong className={"text-white text-3xl"}>
+                            تا
+                            <span className={"text-red-600"}>
+                            {" "}
+                                60 %
+                                {" "}
+                            </span>
+                            تخفیف
+                        </strong>
+                        <div>
+                            <Link href={"/product/discounted"} className="block relative group">
+                                <div className="flex items-center relative gap-x-2">
+                                    <span
+                                        className="text-xs sm:text-sm font-semibold whitespace-nowrap text-white ">مشاهده همه  </span>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                    :
+                    <div className={"flex flex-col items-center gap-2"}>
+                        <div>
+                            <strong className={"font-bold text-xl  "}>
+                                پیشنهاد
+                                محصولات
+                                پرتخفیف تا
+                            </strong>
+                        </div>
+                        <div className={"flex items-center gap-2"}>
                          <span className={"font-bold  text-4xl text-red-600"}>
                             % 20
                         </span>
-                    <div>
-                        {timer && <Timer date={timer} label={true}/>}
+                            <div>
+                                {timer && <Timer date={timer} label={true}/>}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div
-                style={{backgroundColor: campaign ? campaign.background_color : "#fcb415"}}
+            }
+
+            {!campaign && <div
+                style={{backgroundColor: "#fcb415"}}
                 className={"absolute -bottom-2"}>
                 <Link href={"/product/discounted"} className="block relative group">
                     <div className="flex items-center relative gap-x-2">
@@ -115,39 +145,73 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                         <IoIosArrowDropleftCircle className={"w-4 h-4 text-slate-800 "}/>
                     </div>
                 </Link>
-            </div>
+            </div>}
         </div>
     }
     const renderDesktopHeader = () => {
-        return <div className={"flex flex-col items-center w-64 gap-5 border-l-4 border-dashed pl-5 relative"}>
+        return <div
+            className={"flex flex-col items-center w-64 gap-5 border-l-4 border-dashed pl-5 relative justify-center h-full"}>
             <div className={"absolute w-10 h-10 bg-white rounded-full -left-5 -top-10 hidden md:block"}></div>
             <div className={"absolute w-10 h-10 bg-white rounded-full -left-5 -bottom-10 hidden md:block"}></div>
-            <div className={" "}>
-                <strong className={"font-bold xl:text-2xl lg:text-xl text-center flex"}>
-                    پیشنهاد
-                    <br/>
-                    محصولات
-                    <br/>
-                    پرتخفیف تا
-                </strong>
-            </div>
-            <div>
-                <strong className={"font-bold xl:text-6xl lg:text-5xl text-red-600"}>
-                    % 20
-                </strong>
-            </div>
-            <div>
-                {timer && <Timer date={timer} label={true}/>}
-            </div>
-            <div className={"mt-5"}>
-                <Link href={"/product/discounted"} className="block relative group">
-                    <div className="flex items-center relative gap-x-2">
+
+            {
+                campaign ? <div className={"flex flex-col gap-4 justify-center items-center h-full"}>
+                        <Image
+                            width={150}
+                            height={50}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/campaign/${campaign.discount_logo}`}
+                            alt={"campaign"}/>
+                        <strong className={"text-white text-3xl"}>
+                            تا
+                            <span className={"text-red-600"}>
+                            {" "}
+                                60 %
+                                {" "}
+                            </span>
+                            تخفیف
+                        </strong>
+                        <div>
+                            <Link href={"/product/discounted"} className="block relative group">
+                                <div className="flex items-center relative gap-x-2">
+                                    <span
+                                        className="text-xs sm:text-sm font-semibold whitespace-nowrap text-white ">مشاهده همه  </span>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                    :
+                    <>
+
+                        <div className={" "}>
+                            <strong className={"font-bold xl:text-2xl lg:text-xl text-center flex"}>
+                                پیشنهاد
+                                <br/>
+                                محصولات
+                                <br/>
+                                پرتخفیف تا
+                            </strong>
+                        </div>
+                        <div>
+                            <strong className={"font-bold xl:text-6xl lg:text-5xl text-red-600"}>
+                                % 20
+                            </strong>
+                        </div>
+                        <div>
+                            {timer && <Timer date={timer} label={true}/>}
+                        </div>
+                        <div className={"mt-5"}>
+                            <Link href={"/product/discounted"} className="block relative group">
+                                <div className="flex items-center relative gap-x-2">
                                     <span
                                         className="text-xs sm:text-sm font-semibold whitespace-nowrap text-slate-800 ">نمایش همه  </span>
-                        <IoIosArrowDropleftCircle className={"w-4 h-4 text-slate-800 "}/>
-                    </div>
-                </Link>
-            </div>
+                                    <IoIosArrowDropleftCircle className={"w-4 h-4 text-slate-800 "}/>
+                                </div>
+                            </Link>
+                        </div>
+                    </>
+            }
+
+
         </div>
 
     }
