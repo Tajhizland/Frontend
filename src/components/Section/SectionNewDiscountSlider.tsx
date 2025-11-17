@@ -11,6 +11,7 @@ import ProductCard2 from "@/components/Card/ProductCard2";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Timer from "@/components/Timer/Timer";
 import ProductCard3 from "@/components/Card/ProductCard3";
+import {CampaignResponse} from "@/services/types/campaign";
 
 export interface SectionSliderProductCardProps {
     className?: string;
@@ -21,11 +22,13 @@ export interface SectionSliderProductCardProps {
     subHeading?: string;
     timer?: string;
     data?: PopularProductResponse[];
+    campaign?: CampaignResponse;
 }
 
 const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                                                                          className = "",
                                                                          itemClassName = "",
+                                                                         campaign,
                                                                          headingFontClassName,
                                                                          headingClassName = "pl-2",
                                                                          heading,
@@ -89,20 +92,22 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                 <div>
                     <strong className={"font-bold text-xl  "}>
                         پیشنهاد
-                         محصولات
-                         پرتخفیف تا
+                        محصولات
+                        پرتخفیف تا
                     </strong>
                 </div>
                 <div className={"flex items-center gap-2"}>
                          <span className={"font-bold  text-4xl text-red-600"}>
                             % 20
                         </span>
-                     <div>
+                    <div>
                         {timer && <Timer date={timer} label={true}/>}
                     </div>
                 </div>
             </div>
-            <div className={"absolute -bottom-2 bg-[#fcb415]"}>
+            <div
+                style={{backgroundColor: campaign ? campaign.background_color : "#fcb415"}}
+                className={"absolute -bottom-2"}>
                 <Link href={"/product/discounted"} className="block relative group">
                     <div className="flex items-center relative gap-x-2">
                                     <span
@@ -151,15 +156,19 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
 
             <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
 
-                <div className={"bg-[#fcb415] py-5 lg:pr-10 rounded-2xl relative mt-5 flex lg:pl-4 flex-col lg:flex-row gap-5"}>
-                    <div className="absolute w-20 h-20 bg-white rounded-full -right-14 top-1/2 -translate-y-1/2 hidden lg:block"></div>
+                <div
+                    style={{backgroundColor: campaign ? campaign.background_color : "#fcb415"}}
+
+                    className={" py-5 lg:pr-10 rounded-2xl relative mt-5 flex lg:pl-4 flex-col lg:flex-row gap-5"}>
+                    <div
+                        className="absolute w-20 h-20 bg-white rounded-full -right-14 top-1/2 -translate-y-1/2 hidden lg:block"></div>
                     <div className={"block lg:hidden"}>
                         {renderMobileHeader()}
                     </div>
                     <div className={"hidden lg:block"}>
                         {renderDesktopHeader()}
                     </div>
-                     <div className="glide__track  pr-5 w-full " data-glide-el="track" style={{direction: "rtl"}}>
+                    <div className="glide__track  pr-5 w-full " data-glide-el="track" style={{direction: "rtl"}}>
 
                         <ul className="glide__slides  flex-grow flex items-center ">
                             {data && data.map((item, index) => (

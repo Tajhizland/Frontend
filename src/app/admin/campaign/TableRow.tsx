@@ -10,6 +10,7 @@ export const columns: Column<CampaignResponse>[] = [
     {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
     {key: 'title', header: 'نام  ', filterType: 'input', editable: true},
     {key: 'color', header: 'کد رنگ  ', filterType: 'input', editable: true},
+    {key: 'background_color', header: 'کد رنگ پس زمینه ', filterType: 'input', editable: true},
     {
         key: 'status',
         header: 'وضعیت',

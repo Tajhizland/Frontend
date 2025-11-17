@@ -9,6 +9,8 @@ export const store = async <T extends ServerResponse<unknown>>
         color: string,
         logo: File,
         banner?: File,
+        discount_logo: File,
+        background_color: string,
         status: number,
         start_date: string,
         end_date: string,
@@ -22,8 +24,10 @@ export const store = async <T extends ServerResponse<unknown>>
     formData.append('color', params.color);
     formData.append('start_date', params.start_date);
     formData.append('end_date', params.end_date);
+    formData.append('background_color', params.background_color);
     formData.append('status', params.status.toString());
     formData.append('logo', params.logo);
+    formData.append('discount_logo', params.discount_logo);
     if (params.banner)
         formData.append('banner', params.banner);
 
@@ -49,6 +53,8 @@ export const update = async <T extends ServerResponse<unknown>>
         color: string,
         logo?: File,
         banner?: File,
+        discount_logo?: File,
+        background_color: string,
         status: number,
         start_date: string,
         end_date: string,
@@ -62,6 +68,10 @@ export const update = async <T extends ServerResponse<unknown>>
     formData.append('start_date', params.start_date);
     formData.append('end_date', params.end_date);
     formData.append('status', params.status.toString());
+    formData.append('background_color', params.background_color);
+    if (params.discount_logo)
+        formData.append('discount_logo', params.discount_logo);
+
     if (params.logo)
         formData.append('logo', params.logo);
     if (params.banner)

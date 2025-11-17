@@ -26,11 +26,13 @@ export default function Form({data, submit, loading = false}: Form) {
         defaultValues: {
             title: "",
             color: "#000",
+            background_color: "#000",
             status: "1",
             start_date: "",
             end_date: "",
             banner: "",
             logo: "",
+            discount_logo: "",
         },
 
     });
@@ -44,6 +46,8 @@ export default function Form({data, submit, loading = false}: Form) {
             setValue("end_date", data.end_date);
             setValue("banner", data.banner);
             setValue("logo", data.logo);
+            setValue("discount_logo", data.discount_logo);
+            setValue("background_color", data.background_color);
         }
     }, [data, setValue]);
 
@@ -57,6 +61,10 @@ export default function Form({data, submit, loading = false}: Form) {
                 <div>
                     <Label>رنگ </Label>
                     <Input type={"color"} {...register("color")} />
+                </div>
+                <div>
+                    <Label>رنگ </Label>
+                    <Input type={"color"} {...register("background_color")} />
                 </div>
                 <div>
                     <Label>وضعیت </Label>
@@ -118,7 +126,7 @@ export default function Form({data, submit, loading = false}: Form) {
                                     }}
                                     plugins={[<TimePicker key={0} position="bottom" hideSeconds/>]}
                                 />
-                             </div>
+                            </div>
                         )}
                     />
                 </div>
@@ -148,6 +156,36 @@ export default function Form({data, submit, loading = false}: Form) {
                         alt=""
                         containerClassName="w-full h-fit flex justify-center"
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/campaign/${data.logo}`}
+                        className="object-contain rounded-2xl w-full h-full"
+                        width={250}
+                        height={250}
+                    />
+                </div>
+            </div> : ""}
+            <div>
+                <Label> لوگو تخفیف</Label>
+                <Controller
+                    name="discount_logo"
+                    control={control}
+                    render={({field, fieldState}) => (
+                        <>
+                            <Uploader
+                                name="discount_logo"
+                                onChange={field.onChange}
+                            />
+                            {fieldState.error && (
+                                <p className="text-error text-xs">{fieldState.error.message}</p>
+                            )}
+                        </>
+                    )}
+                />
+            </div>
+            {data?.discount_logo ? <div className={"max-w-lg flex justify-center mx-auto"}>
+                <div className="flex justify-center items-center">
+                    <NcImage
+                        alt=""
+                        containerClassName="w-full h-fit flex justify-center"
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/campaign/${data.discount_logo}`}
                         className="object-contain rounded-2xl w-full h-full"
                         width={250}
                         height={250}

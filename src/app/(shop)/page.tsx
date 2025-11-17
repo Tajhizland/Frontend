@@ -118,12 +118,14 @@ export default async function Homepage() {
                 {/* New Discount Slider */}
                 <div className="container my-0 px-5 lg:px-0 relative overflow-hidden">
                     <SectionNewDiscountSlider
+                        campaign={response?.campaign}
                         timer={response?.discount?.discount_expire_time}
                         data={response.popularProducts?.data || []}
                         subHeading={""}
                     />
                     <div
-                        className="absolute w-24 h-24 bg-[#fcb415] rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
+                        style={{backgroundColor: response.campaign ? response.campaign.background_color : "#fcb415"}}
+                        className="absolute w-24 h-24 rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
                         <div className="w-20 h-20 bg-white rounded-full flex items-center justify-start">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={0.6}
                                  stroke="currentColor" className="h-12 w-12">
