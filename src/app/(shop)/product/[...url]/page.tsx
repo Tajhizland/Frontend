@@ -203,13 +203,13 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                             <div className={"flex justify-end sm:justify-start"}>
                                 <Badge name={"کارکرده"} color={"yellow"}/>
                             </div>
-                            :<></>
+                            : <></>
                         }
                         {product?.is_stock ?
                             <div className={"flex justify-end sm:justify-start"}>
                                 <Badge name={product.testing_time + " " + "روز مهلت تست"} color={"green"}/>
                             </div>
-                            :<></>
+                            : <></>
                         }
                     </div>
                     <div className="flex items-center mt-4 sm:mt-5">
@@ -235,7 +235,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 </div>
                 {/*  */}
                 <div className="block lg:hidden">
-                    <ProductSidebar product={product}/>
+                    <ProductSidebar product={product} campaign={productResponse.campaign}/>
                 </div>
 
                 {/*  */}
@@ -303,7 +303,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     <div className="flex-grow">
                         <div className="hidden lg:block sticky top-36 dark:bg-black/20">
                             {/*{renderSectionSidebar()}*/}
-                            <ProductSidebar product={product}/>
+                            <ProductSidebar product={product} campaign={productResponse.campaign}/>
                         </div>
                     </div>
                 </main>

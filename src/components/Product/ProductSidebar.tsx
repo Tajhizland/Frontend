@@ -29,10 +29,12 @@ import NotifyAddTocart from "@/components/Product/NotifyAddTocart";
 import BagIcon from "@/components/Icon/BagIcon";
 import SmallTimer from "@/components/Timer/SmallTimer";
 import {storeCategoryViewHistory, storeCategoryViewHistoryIp} from "@/services/api/shop/categoryViewHistory";
- import {Alert} from "@/shared/Alert/Alert";
+import {Alert} from "@/shared/Alert/Alert";
 import HorizontalProductCard from "@/components/Card/HorizontalProductCard";
+import Image from "next/image";
+import {CampaignResponse} from "@/services/types/campaign";
 
-export default function ProductSidebar({product}: { product: ProductResponse }) {
+export default function ProductSidebar({product, campaign}: { product: ProductResponse, campaign?: CampaignResponse }) {
     const colors = product.colors.data;
     const guaranty = product.guaranties.data;
     const [selectedColor, setSelectedColor] = useState<ColorResponse>(colors[0])
@@ -100,6 +102,36 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
         return timer;
     };
 
+    const renderCampaign = () => {
+         if (!campaign)
+            return null;
+        return (<div
+            style={{backgroundColor: campaign.background_color}}
+            className={"flex justify-between items-center w-full rounded p-2"}>
+             <div>
+                <Image width={150}
+                       height={50}
+                       alt={"campaign"}
+                       src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/campaign/${campaign.logo}`}
+                />
+            </div>
+            <div className={"font-bold text-xs sm:text-sm"} style={{color: campaign.color}}>
+                <p>سود شما در {campaign.title}</p>
+                <div className={"flex items-center gap-1"}>
+                    <p>
+                        {
+                            new Intl.NumberFormat('fa').format(selectedColor.price - selectedColor.discountedPrice)
+                        }
+                    </p>
+
+                    <p>
+                        تومان
+                    </p>
+
+                </div>
+            </div>
+        </div>)
+    }
     const renderVariants = () => {
         if (!colors || !colors.length) {
             return null;
@@ -388,6 +420,7 @@ export default function ProductSidebar({product}: { product: ProductResponse }) 
 
                     {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
                     <div className="mt-6 gap-y-3 lg:gap-y-7">
+                        <div className="">{renderCampaign()}</div>
                         <div className="">{renderVariants()}</div>
 
                         <div className="flex justify-between items-center">

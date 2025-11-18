@@ -18,6 +18,7 @@ export type HomePageResponse = {
     popularProducts: { data: PopularProductResponse[] };
     discount: PriceResponse;
     campaign?: CampaignResponse;
+    pending_campaign?: CampaignResponse;
     banners: { data: BannerResponse[] };
     banners2: { data: BannerResponse[] };
     banners3: { data: BannerResponse[] };

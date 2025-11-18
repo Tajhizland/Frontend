@@ -100,6 +100,23 @@ export default async function Homepage() {
                     </div>
 
                 }
+                {
+                    response.pending_campaign && !response.campaign &&
+                    <div
+                        className={`w-full h-20 flex items-center justify-center gap-4 mb-4 sm:mb-0 `}
+                        style={{background: `${response.pending_campaign.background_color}`}}
+
+                    >
+                        <Image
+                            width={150}
+                            height={50}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/campaign/${response.pending_campaign.logo}`}
+                            alt={"campaign"}/>
+                        <TimerHMS date={response.pending_campaign.start_date}/>
+
+                    </div>
+
+                }
 
                 <div className="hidden sm:block">
                     <Hero data={response.desktopSliders?.data || []}/>
