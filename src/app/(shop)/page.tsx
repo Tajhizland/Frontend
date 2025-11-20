@@ -119,11 +119,21 @@ export default async function Homepage() {
                 }
 
                 <div className="hidden sm:block">
-                    <Hero data={response.desktopSliders?.data || []}/>
+                    {
+                        response.campaign && response.campaign.desktopSliders?.data && response.campaign.desktopSliders?.data.length > 0 ?
+                            <Hero data={response.campaign.desktopSliders?.data || []}/>
+                            :
+                            <Hero data={response.desktopSliders?.data || []}/>
+                    }
                 </div>
                 <div className="block sm:hidden container">
                     <div className="rounded-2xl overflow-hidden !p-0">
-                        <MobileHero data={response.mobileSliders?.data || []}/>
+                        {
+                            response.campaign && response.campaign.mobileSliders?.data && response.campaign.mobileSliders?.data.length > 0 ?
+                                <MobileHero data={response.campaign.mobileSliders?.data || []}/>
+                                :
+                                <MobileHero data={response.mobileSliders?.data || []}/>
+                        }
                     </div>
                 </div>
 

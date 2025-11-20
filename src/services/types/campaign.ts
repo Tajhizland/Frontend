@@ -1,3 +1,5 @@
+import {CampaignSliderResponse} from "@/services/types/campaignSlider";
+
 export type CampaignResponse = {
     id: number;
     banner: string;
@@ -13,4 +15,6 @@ export type CampaignResponse = {
     end_date: string;
     created_at: string;
     updated_at: string;
+
+    sliders: { data: CampaignSliderResponse[]; }
 }

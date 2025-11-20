@@ -6,15 +6,19 @@ import useInterval from "beautiful-react-hooks/useInterval";
 import useHorizontalSwipe from "beautiful-react-hooks/useHorizontalSwipe";
 import {SliderResponse} from "@/services/types/slider";
 import Link from "next/link";
+import {BaseSlider} from "@/services/types/baseSlider";
 
-export interface SectionHero2Props {
+export interface SectionHero2Props<T> {
     className?: string;
-    data: SliderResponse[]
+    data: T[];
 }
 
 let TIME_OUT: NodeJS.Timeout | null = null;
 
-const MobileHero: FC<SectionHero2Props> = ({className = "", data}) => {
+const MobileHero = <T extends BaseSlider>({
+                                              className = "",
+                                              data
+                                          }: SectionHero2Props<T>) => {
     // =================
 
     const ref = useRef<HTMLDivElement>(null);
