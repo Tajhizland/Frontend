@@ -45,4 +45,14 @@ export const buttons: DataTableButtons[] = [
             };
         }
     },
+    {
+        label: <span className={"text-black"}>اسلایدر</span>,
+        type: "link",
+        colorClass: "bg-white text-white border border-slate-900 outline-none ",
+        href : (value: any): UrlObject => {
+            return {
+                pathname: 'campaign/'+value+"/slider",
+            };
+        }
+    },
 ]

@@ -1,0 +1,11 @@
+export type CampaignSliderResponse={
+    id:number ;
+    campaign_id:number ;
+    title:string ;
+    url:string ;
+    image:string ;
+    type:string ;
+    status:number ;
+    created_at:string ;
+    updated_at:string ;
+}

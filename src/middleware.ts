@@ -54,7 +54,7 @@ export async function middleware(request: NextRequest) {
 
         // بررسی تطبیق دقیق یا بر اساس الگو
         const hasAccess = permissions.some((perm: string) => {
-            // تبدیل perm به regex pattern — مثل product/edit/[id] → ^product/edit/[^/]+$
+            // تبدیل perm به regex pattern — مثل product/edit/[row] → ^product/edit/[^/]+$
             const pattern = "^" + perm.replace(/\[.*?\]/g, "[^/]+") + "$";
             const regex = new RegExp(pattern);
             return regex.test(currentPath);
