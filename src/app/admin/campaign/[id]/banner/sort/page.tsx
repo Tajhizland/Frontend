@@ -123,7 +123,7 @@ export default function Page() {
 
     const {data, isLoading} = useQuery({
         queryKey: [`bannerList`],
-        queryFn: () => getBannerList(),
+        queryFn: () => getBannerList("home_page"),
         staleTime: 5000,
     });
 
