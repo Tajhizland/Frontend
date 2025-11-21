@@ -46,7 +46,7 @@ export default function Form({data, submit, isLoading}: Form) {
 
 
     return (<>
-        <form action={submit}>
+        <form onSubmit={handleSubmit(submit)}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>آدرس </Label>
