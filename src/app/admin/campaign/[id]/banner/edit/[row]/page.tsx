@@ -13,7 +13,7 @@ export default function Page() {
     const {id, row} = useParams();
     const {data: data} = useQuery({
         queryKey: [`campaign-banner-info`, Number(id)],
-        queryFn: () => findById(Number(id)),
+        queryFn: () => findById(Number(row)),
         staleTime: 5000,
     });
 
