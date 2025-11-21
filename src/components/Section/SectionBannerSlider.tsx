@@ -9,8 +9,9 @@ import Link from "next/link";
 import {Route} from "next";
 import {BannerResponse} from "@/services/types/banner";
 import Heading from "@/components/Heading/Heading";
+import {BaseBanner} from "@/services/types/baseBanner";
 
-const SectionBannerSlider = ({data}: { data: BannerResponse[] }) => {
+const SectionBannerSlider = <T extends BaseBanner>({ data }: { data: T[] }) => {
     const sliderRef = useRef(null);
 
     const [isShow, setIsShow] = useState(false);

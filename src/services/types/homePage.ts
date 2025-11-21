@@ -13,6 +13,7 @@ import {PriceResponse} from "@/services/types/price";
 import SectionTrustedBrand from "@/components/Section/SectionTrustedBrand";
 import {TrustedBrandResponse} from "@/services/types/trustedBrand";
 import {CampaignResponse} from "@/services/types/campaign";
+import {CampaignBannerResponse} from "@/services/types/campaignBanner";
 
 export type HomePageResponse = {
     popularProducts: { data: PopularProductResponse[] };
@@ -28,6 +29,8 @@ export type HomePageResponse = {
     homepageCategories: { data: HomepageCategoryResponse[] };
     desktopSliders: { data: SliderResponse[] };
     mobileSliders: { data: SliderResponse[] };
+    homepageBanner: { data: CampaignBannerResponse[] };
+    homepage2Banner: { data: CampaignBannerResponse[] };
     brands: { data: BrandResponse[] };
     trustedBrands: { data: TrustedBrandResponse[] };
     news: { data: NewsResponse[] };

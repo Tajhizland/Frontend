@@ -139,7 +139,12 @@ export default async function Homepage() {
 
                 {/* Banner Slider */}
                 <div className="dark:bg-neutral-900">
-                    <SectionBannerSlider data={response.banners?.data || []}/>
+                    {
+                        response.campaign && response.campaign.homepageBanner?.data && response.campaign.homepageBanner?.data.length > 0 ?
+                            <SectionBannerSlider data={response.campaign.homepageBanner?.data || []}/>
+                            :
+                            <SectionBannerSlider data={response.banners?.data || []}/>
+                    }
                 </div>
 
                 {/* New Discount Slider */}
@@ -164,7 +169,13 @@ export default async function Homepage() {
 
                 {/* Main Sections */}
                 <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10 dark:bg-neutral-900">
-                    <SectionTwinBanner banners={response.banners2?.data || []}/>
+                    {
+                        response.campaign && response.campaign.homepage2Banner?.data && response.campaign.homepage2Banner?.data.length > 0 ?
+                            <SectionTwinBanner banners={response.campaign.homepage2Banner?.data || []}/>
+                            :
+                            <SectionTwinBanner banners={response.banners2?.data || []}/>
+                    }
+
 
                     {response.bannersStock?.data?.length > 0 &&
                         <SectionSingleBanner
