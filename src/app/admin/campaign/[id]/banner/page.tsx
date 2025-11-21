@@ -9,7 +9,7 @@ import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {Route} from "next";
 import {toast} from "react-hot-toast";
-import {deleteBanner} from "@/services/api/admin/banner";
+import {deleteBanner} from "@/services/api/admin/campaignBanner";
 import {useParams} from "next/navigation";
 
 export default function Page() {
