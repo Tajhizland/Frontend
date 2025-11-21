@@ -1,5 +1,5 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
-import {BannerResponse} from "@/services/types/banner";
+import {CampaignBannerResponse} from "@/services/types/campaignBanner";
 
 export const store = async <T extends ServerResponse<unknown>>
 (
@@ -40,7 +40,7 @@ export const update = async <T extends ServerResponse<unknown>>
         .then((res) => res?.data);
 };
 
-export const deleteBanner = async <T extends ServerResponse<BannerResponse>>
+export const deleteBanner = async <T extends ServerResponse<unknown>>
 (
     id: number | string
 ) => {
@@ -48,7 +48,7 @@ export const deleteBanner = async <T extends ServerResponse<BannerResponse>>
         .then((res) => res?.data)
 };
 
-export const findById = async <T extends ServerResponse<BannerResponse>>
+export const findById = async <T extends ServerResponse<CampaignBannerResponse>>
 (
     id: number | string
 ) => {
@@ -56,7 +56,7 @@ export const findById = async <T extends ServerResponse<BannerResponse>>
         .then((res) => res?.data?.result?.data)
 };
 
-export const getBannerList = async <T extends ServerResponse<BannerResponse[]>>
+export const getBannerList = async <T extends ServerResponse<CampaignBannerResponse[]>>
 (type: string) => {
     return axios.get<T, SuccessResponseType<T>>("admin/campaign-banner/list/" + type)
         .then((res) => res?.data?.result)
