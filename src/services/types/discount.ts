@@ -1,8 +1,11 @@
 export type DiscountResponse = {
     id: number,
-    discount: number;
-    campaign_id: number;
-    product_color_id: number;
+    status: number;
+    title: string;
+    start_date: string;
+    end_date: string;
+    start_date_fa: string;
+    end_date_fa: string;
     created_at: string,
     updated_at: string,
 }

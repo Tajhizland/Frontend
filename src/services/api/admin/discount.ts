@@ -4,11 +4,10 @@ import {DiscountResponse} from "@/services/types/discount";
 export const store = async <T extends ServerResponse<unknown>>
 (
     params: {
-        campaign_id: string,
-        discounts: {
-            discount: number,
-            product_color_id: number
-        }[]
+        title: string,
+        status: number,
+        start_date: string,
+        end_date: string,
     }
 ) => {
 
@@ -20,22 +19,21 @@ export const update = async <T extends ServerResponse<unknown>>
 (
     params: {
         id: number,
-        discount: number,
+        title: string,
+        status: number,
+        start_date: string,
+        end_date: string,
     }
 ) => {
 
     return axios.post<T, SuccessResponseType<T>>("admin/discount/update", params)
         .then((res) => res?.data);
 };
-export const getDiscountList = async <T extends ServerResponse<DiscountResponse[]>>
-(id: number) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/discount/get/" + id)
-        .then((res) => res?.data?.result?.data)
-};
-export const removeById = async <T extends ServerResponse<unknown>>
+
+export const find = async <T extends ServerResponse<DiscountResponse>>
 (
     id: number
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/discount/delete/" + id)
-        .then((res) => res?.data)
+    return axios.get<T, SuccessResponseType<T>>("admin/discount/find/" + id)
+        .then((res) => res?.data?.result?.data)
 };
