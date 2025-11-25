@@ -2,24 +2,23 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import Form from "@/app/admin/discount/Form";
-import {find, update} from "@/services/api/admin/discount";
+import {find, getItem, update} from "@/services/api/admin/discount";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 import {useMutation, useQuery} from "react-query";
 import {useState} from "react";
 
 export default function Page() {
-    const {id} = useParams(); 
+    const {id} = useParams();
 
     const {data: data} = useQuery({
-        queryKey: [`discount_info`, Number(id)],
-        queryFn: () => find(Number(id)),
+        queryKey: [`discount_item_info`, Number(id)],
+        queryFn: () => getItem(Number(id)),
         staleTime: 5000,
     });
 
-    const updateDiscount = useMutation({
-        mutationKey: [`update-discount`],
+    const setDiscountItem = useMutation({
+        mutationKey: [`set-discount-item`],
         mutationFn: async (formData: any) => {
             return update({id: Number(id), ...formData });
         },
@@ -46,8 +45,8 @@ export default function Page() {
                 ویرایش تخفیف
             </PageTitle>
             <div>
-                {data && <Form submit={updateDiscount.mutateAsync} data={data} loading={updateDiscount.isLoading}/>
-                }            </div>
+
+            </div>
 
         </Panel>
     </>)
