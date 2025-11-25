@@ -40,9 +40,9 @@ export const buttons: DataTableButtons[] = [
             };
         }
     }, {
-        label: <span>ویرایش آیتم ها</span>,
+        label: <span className={"text-black text-sm"}>ویرایش آیتم ها</span>,
         type: "link",
-        colorClass: "bg-white text-white border border-slate-900 outline-none ",
+        colorClass: " border border-slate-900 outline-none ",
         href: (value: any): UrlObject => {
             return {
                 pathname: 'discount/item/' + value,
