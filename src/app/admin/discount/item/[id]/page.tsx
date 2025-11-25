@@ -102,7 +102,7 @@ export default function Page() {
                 ]}
             />
             <Panel>
-                <Link href={"/discount/item/" + id + "view"}>
+                <Link href={"/admin/discount/item/" + id + "view"}>
                     <ButtonPrimary className={"w-fit !bg-[#fcb415]"}>
                         مشاهده همه محصولات تخفیف خورده
                     </ButtonPrimary>
