@@ -214,7 +214,8 @@ export default function Page() {
                                     هزینه ارسال :
                                 </span>
                                     <span>
-                                        <Prices price={data?.delivery_price} priceClass={"mx-auto "}/>
+                                        به عهده خریدار
+                                        {/*<Prices price={data?.delivery_price} priceClass={"mx-auto "}/>*/}
                                  </span>
                                 </div>
                             </th>

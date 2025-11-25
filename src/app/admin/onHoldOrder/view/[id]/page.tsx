@@ -20,13 +20,14 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    async function acceptHandle(){
+    async function acceptHandle() {
         let response = await accept({
             id: Number(id)
         })
         toast.success(response?.message as string);
     }
-    async function rejectHandle(){
+
+    async function rejectHandle() {
         let response = await reject({
             id: Number(id)
         })
@@ -88,7 +89,7 @@ export default function Page() {
                     <div className="flex flex-col divide-y   text-gray-500">
                         <div className="flex py-2 justify-between">
                             <span>وضعیت : </span>
-                            <span>{OrderStatus[Number(data?.status??0)]}</span>
+                            <span>{OrderStatus[Number(data?.status ?? 0)]}</span>
                         </div>
                         <div className="flex py-2 justify-between">
                             <span>تاریخ : </span>
@@ -187,7 +188,9 @@ export default function Page() {
                                     هزینه ارسال :
                                 </span>
                                 <span>
-                                        <Prices price={data?.delivery_price} priceClass={"mx-auto "}/>
+                                                                            به عهده خریدار
+
+                                    {/*<Prices price={data?.delivery_price} priceClass={"mx-auto "}/>*/}
                                  </span>
                             </div>
                         </th>
@@ -207,12 +210,12 @@ export default function Page() {
                 </table>
             </div>
             <div className={"flex mt-10  gap-x-5"}>
-            <ButtonPrimary onClick={acceptHandle}>
-                تایید سفارش
-            </ButtonPrimary>
-            <ButtonPrimary onClick={rejectHandle}>
-                رد سفارش
-            </ButtonPrimary>
+                <ButtonPrimary onClick={acceptHandle}>
+                    تایید سفارش
+                </ButtonPrimary>
+                <ButtonPrimary onClick={rejectHandle}>
+                    رد سفارش
+                </ButtonPrimary>
             </div>
         </Panel>
 

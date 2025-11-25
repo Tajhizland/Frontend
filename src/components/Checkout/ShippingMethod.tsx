@@ -67,6 +67,9 @@ const ShippingMethod: FC<Props> = ({
                             <FaTruck/>
                         </div>
                         <p className="font-medium"> {item.name} </p>
+                        <small className={"text-slate-600 dark:text-slate-300"}>
+                            (هزینه ارسال با مشتری)
+                        </small>
                     </label>
 
                 </div>
@@ -80,7 +83,7 @@ const ShippingMethod: FC<Props> = ({
                 <div className="p-6 flex flex-col sm:flex-row items-start justify-between">
                     <div className="flex items-center">
             <span className="hidden sm:block">
-               <FaSignsPost />
+               <FaSignsPost/>
             </span>
                         <div className="sm:mr-8">
                             <h3 className=" text-slate-700 dark:text-slate-400 flex ">

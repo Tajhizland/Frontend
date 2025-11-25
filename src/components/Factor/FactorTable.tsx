@@ -81,7 +81,8 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                             <div className="flex items-center gap-x-4 justify-center">
                                 <span>هزینه ارسال :</span>
                                 <span>
-                    <Prices price={order?.delivery_price} priceClass="mx-auto " image={false}/>
+                                    با مشتری است
+                    {/*<Prices price={order?.delivery_price} priceClass="mx-auto " image={false}/>*/}
                   </span>
                             </div>
                         </th>
