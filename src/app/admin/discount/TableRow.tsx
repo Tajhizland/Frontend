@@ -5,9 +5,9 @@ import {UrlObject} from "node:url";
 import {DiscountResponse} from "@/services/types/discount";
 
 export const columns: Column<DiscountResponse>[] = [
-    { key: 'id', header: 'شناسه', filterType: 'input', editable: false },
-    { key: 'title', header: 'نام', filterType: 'input', editable: true },
-     {
+    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
+    {key: 'title', header: 'نام', filterType: 'input', editable: true},
+    {
         key: 'status',
         header: 'وضعیت',
         editable: true,
@@ -25,18 +25,27 @@ export const columns: Column<DiscountResponse>[] = [
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },
-    { key: 'start_date', header: 'تاریخ شروع', filterType: 'input', editable: false },
-    { key: 'end_date', header: 'تاریخ پایان', filterType: 'input', editable: false },
-    { key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false },
+    {key: 'start_date', header: 'تاریخ شروع', filterType: 'input', editable: false},
+    {key: 'end_date', header: 'تاریخ پایان', filterType: 'input', editable: false},
+    {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
 ];
 export const buttons: DataTableButtons[] = [
     {
         label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
         type: "link",
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        href : (value: any): UrlObject => {
+        href: (value: any): UrlObject => {
             return {
-                pathname: 'discount/edit/'+value,
+                pathname: 'discount/edit/' + value,
+            };
+        }
+    }, {
+        label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش آیتم ها"}/>,
+        type: "link",
+        colorClass: "bg-white text-white border border-slate-900 outline-none ",
+        href: (value: any): UrlObject => {
+            return {
+                pathname: 'discount/item/' + value,
             };
         }
     },

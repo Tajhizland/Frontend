@@ -1,4 +1,5 @@
 import {ProductResponse} from "@/services/types/product";
+import {DiscountItemResponse} from "@/services/types/discountItem";
 
 export type ColorResponse = {
     id: number,
@@ -16,6 +17,7 @@ export type ColorResponse = {
     delivery_delay: number,
     stock: number,
     product?: ProductResponse,
+    discountItem?: { data: DiscountItemResponse[] },
     created_at: string,
     updated_at: string,
 }
