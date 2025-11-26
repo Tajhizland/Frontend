@@ -43,7 +43,7 @@ export default function Page() {
             const initialDiscounts: Record<number, number> = {};
             res.forEach((product) => {
                 product.colors.data.forEach((color) => {
-                    initialDiscounts[color.id] = color?.discountItem?.data?.[0]?.discount ?? 0;
+                    initialDiscounts[color.id] = color?.discountItem?.data?.[0]?.discount_price ?? 0;
                 });
             });
 
