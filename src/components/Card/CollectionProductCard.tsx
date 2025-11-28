@@ -42,24 +42,23 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
         return hasStock;
     }
 
-
     const renderMinPrice = (product: ProductResponse) => {
         let minPrice = product?.colors?.data[0]?.price;
-        let minDiscountedPrice = product?.colors?.data[0]?.discountedPrice;
+        let minDiscountedPrice = product.colors.data[0].price;
         product.colors.data.map((item) => {
-            if (item.price < minPrice && item.status == 1 && item.price > 0) {
+            if (item.price <= minPrice && item.status == 1 && item.price > 0) {
                 minPrice = item.price;
-                minDiscountedPrice = item.discountedPrice;
+                if (item?.discountItem?.data?.[0])
+                    minDiscountedPrice = item?.discountItem?.data?.[0]?.discount_price;
+                else
+                    minDiscountedPrice = item?.price;
             }
         })
-
         if (checkStock(product)) {
             if (minDiscountedPrice == minPrice)
-                return <div className={"flex items-center gap-2 w-full justify-end flex-1"}>
-                    <Prices price={minPrice}/>
-                </div>
+                return <Prices price={minPrice}/>
             else
-                return <div className={"flex flex-col-reverse items-center gap-2 w-full justify-end flex-1"}>
+                return <div className={"flex items-center gap-2"}>
                     <del className={"text-xs text-red-500"}>
                         {
                             new Intl.NumberFormat('fa').format(minPrice)
@@ -71,6 +70,7 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
         }
         return <Badge color={"red"} name={"ناموجود"}/>;
     }
+
 
     return (
         <div className={`group relative   ${className}`}>
