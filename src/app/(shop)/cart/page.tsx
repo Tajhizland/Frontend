@@ -136,7 +136,7 @@ const CartPage = () => {
                                     </div>
                                 </div>
                                 <div className="  flex-1  flex justify-end ">
-                                    <Prices price={(item.color.price + guarantyPrice) * item.count} className="mt-0.5"/>
+                                    <Prices price={(item.color.discountedPrice??item.color.price + guarantyPrice) * item.count} className="mt-0.5"/>
                                 </div>
 
                                 <div className=" block text-center relative">

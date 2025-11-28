@@ -74,7 +74,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
     };
 
     const renderMainPrice = () => {
-        if (selectedColor.discountedPrice == selectedColor.price) {
+        if (!selectedColor.discountItem?.data?.[0]?.discount_price || (selectedColor.discountItem?.data?.[0]?.discount_price == selectedColor.price)) {
             return <Prices price={selectedColor.price}/>
         }
         return <div className={"flex items-center gap-0 lg:gap-2 flex-col lg:flex-row"}>
@@ -83,32 +83,34 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                     new Intl.NumberFormat('fa').format(selectedColor.price)
                 }
             </del>
-            <Prices priceClass={"!text-sm"} price={selectedColor.discountedPrice}/>
+            <Prices priceClass={"!text-sm"} price={selectedColor.discountItem?.data?.[0]?.discount_price}/>
         </div>
     }
     const renderMaxDiscountTime = () => {
         let timer = null;
         const now = new Date();
 
+        const discountItem = selectedColor.discountItem?.data?.[0];
+
+
         if (
-            selectedColor.discount_expire_time &&
-            selectedColor.discountedPrice != selectedColor.price
+            discountItem && discountItem.discount
         ) {
-            const expireDate = new Date(selectedColor.discount_expire_time);
+            const expireDate = new Date(discountItem.discount.end_date);
             if (expireDate > now) {
-                timer = selectedColor.discount_expire_time;
+                timer = discountItem.discount.end_date;
             }
         }
         return timer;
     };
 
     const renderCampaign = () => {
-         if (!campaign)
+        if (!campaign)
             return null;
         return (<div
             style={{backgroundColor: campaign.background_color}}
             className={"flex justify-between items-center w-full rounded p-2"}>
-             <div>
+            <div>
                 <Image width={150}
                        height={50}
                        alt={"campaign"}
@@ -149,7 +151,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                             </span>
                         </span>
                         <div className={"mt-3 hidden lg:flex"}>
-                            {selectedColor.discountedPrice ? renderMainPrice() :
+                            {selectedColor.price ? renderMainPrice() :
                                 <Badge name={"ناموجود"} color={"red"}/>}
                         </div>
                     </div>
@@ -354,13 +356,18 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                 </div>
             );
         }
-        if (selectedColor.discount != 0 && selectedColor.discountedPrice != 0 && selectedColor.discountedPrice != selectedColor.price) {
+        if (selectedColor.discountItem && selectedColor.discountItem.data?.[0] && selectedColor.discountItem.data?.[0].discount_price != selectedColor.price) {
+            const price = selectedColor.price;
+            const discountedPrice = selectedColor.discountItem.data?.[0]?.discount_price;
+
+            const discountPercent = Math.round(((price - discountedPrice) / price) * 100);
+
             return (
                 <div className={CLASSES}>
 
                     <Badge color={"red"} name={
                         <span className="mr-1 leading-none  text-red-500 text-xs">
-                          {selectedColor.discount} % تخفیف
+                          {discountPercent} % تخفیف
                          </span>
                     }/>
                 </div>

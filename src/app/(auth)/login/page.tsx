@@ -83,6 +83,19 @@ const PageLogin = () => {
                                            loading={actionLogin.isLoading || isLogin}>ادامه</ButtonPrimary>
                         </form>
 
+
+                        <span className={"text-sm "}>
+                            ورود شما به تجهیزلند به معنای پذیرش
+                            {" "}
+                            <Link href={"/page/rule"} className={"text-[#fcb415]"}>
+                                قوانین و مقررات
+                            </Link>
+                            {" "}
+
+                            سایت تجهیزلند هست
+                        </span>
+
+
                         {/* ==== */}
                         <span className="block text-center text-neutral-700 dark:text-neutral-300">
            حساب کاربری ندارید ؟ {` `}
@@ -90,6 +103,8 @@ const PageLogin = () => {
               ایجاد حساب کاربری
             </Link>
           </span>
+
+
                     </div>
                 </div>
             </div>

@@ -43,7 +43,7 @@ const PageSignUp = () => {
     const actionVerifyCode = useMutation({
         mutationKey: [`register-verify-code`],
         mutationFn: async (formData: any) => {
-             return registerVerifyCode({
+            return registerVerifyCode({
                 mobile: formData.mobile,
                 code: formData.code
             });
@@ -240,6 +240,17 @@ const PageSignUp = () => {
 
                                 <ButtonPrimary type="submit" loading={actionSetPassword.isLoading}>ادامه</ButtonPrimary>
                             </form>}
+
+                        <span className={"text-sm "}>
+                            ورود شما به تجهیزلند به معنای پذیرش
+                            {" "}
+                            <Link href={"/page/rule"} className={"text-[#fcb415]"}>
+                                قوانین و مقررات
+                            </Link>
+                            {" "}
+
+                            سایت تجهیزلند هست
+                        </span>
 
                         {/* ==== */}
                         <span className="block text-center text-neutral-700 dark:text-neutral-300">

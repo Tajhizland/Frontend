@@ -46,33 +46,31 @@ const ProductCard2: FC<ProductCardProps> = ({
 
     const renderStatus = () => {
         let status = "";
-        let discounted = 0;
+
+        let minPrice = data?.colors?.data[0]?.price ?? 1;
+        let minDiscountedPrice = data?.colors?.data[0]?.price ?? 1;
         data?.colors.data.map((item) => {
-            if (item.statusLabel != "") {
-                status = item.statusLabel;
-                if (item.discount > 0 && item.discountedPrice < item.price) {
-                    discounted = item.discount;
-                }
+            if (item.price <= minPrice && item.status == 1 && item.price > 0) {
+                minPrice = item.price;
+                if (item?.discountItem?.data?.[0])
+                    minDiscountedPrice = item?.discountItem?.data?.[0]?.discount_price;
+                else
+                    minDiscountedPrice = item?.price;
             }
         })
+        const discountPercent = Math.round(((minPrice - minDiscountedPrice) / minPrice) * 100);
+
+
         if (!status) {
             return null;
         }
         const CLASSES =
             " flex items-center text-slate-700 text-slate-900 dark:text-slate-300  dark:bg-slate-900 absolute top-3 start-3 bg-white rounded-full p-1 lg:p-2 text-xs";
-        if (status == "new") {
-            return (
-                <div className={CLASSES}>
-                    <SparklesIcon className="w-3.5 h-3.5"/>
-                    <span className="mr-1 leading-none">محصول جدید</span>
-                </div>
-            );
-        }
-        if (discounted != 0) {
+        if (discountPercent != 0) {
             return (
                 <div className={CLASSES}>
                     <Badge color={"discount"} name={
-                        <span className="mr-1 leading-none    text-xs">{discounted}
+                        <span className="mr-1 leading-none    text-xs">{discountPercent}
                             <b>
                                 %
                             </b>
@@ -81,6 +79,15 @@ const ProductCard2: FC<ProductCardProps> = ({
                 </div>
             );
         }
+        if (status == "new") {
+            return (
+                <div className={CLASSES}>
+                    <SparklesIcon className="w-3.5 h-3.5"/>
+                    <span className="mr-1 leading-none">محصول جدید</span>
+                </div>
+            );
+        }
+
 
         if (status === "limited edition") {
             return (
@@ -139,14 +146,16 @@ const ProductCard2: FC<ProductCardProps> = ({
     }
     const renderMinPrice = (product: ProductResponse) => {
         let minPrice = product?.colors?.data[0]?.price;
-        let minDiscountedPrice = product?.colors?.data[0]?.discountedPrice;
+        let minDiscountedPrice = product.colors.data[0].price;
         product.colors.data.map((item) => {
-            if (item.price < minPrice && item.status == 1 && item.price > 0) {
+            if (item.price <= minPrice && item.status == 1 && item.price > 0) {
                 minPrice = item.price;
-                minDiscountedPrice = item.discountedPrice;
+                if (item?.discountItem?.data?.[0])
+                    minDiscountedPrice = item?.discountItem?.data?.[0]?.discount_price;
+                else
+                    minDiscountedPrice = item?.price;
             }
         })
-
         if (checkStock(product)) {
             if (minDiscountedPrice == minPrice)
                 return <Prices price={minPrice}/>

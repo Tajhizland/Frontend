@@ -60,7 +60,7 @@ const CheckoutPage = () => {
     });
 
     async function payment() {
-        let response = await paymentRequest(useWallet , shippingMethod);
+        let response = await paymentRequest(useWallet, shippingMethod);
         if (response.type == "payment")
             window.location.href = response.path;
         else if (response.type == "paid")
@@ -179,7 +179,7 @@ const CheckoutPage = () => {
                                 }
                             </div>
                             <div className="flex flex-1 sm:flex justify-end">
-                                <Prices price={item.color.price} className="mt-0.5"/>
+                                <Prices price={item.color.discountedPrice ?? item.color.price} className="mt-0.5"/>
                             </div>
                         </div>
 
@@ -187,18 +187,18 @@ const CheckoutPage = () => {
 
                     <div className="flex mt-auto pt-4 items-start justify-between text-sm flex-col sm:flex-row gap-1">
                         <div className=" sm:block text-center relative">
-                            <CartController className="relative z-10"
-                                            defaultValue={item.count}
-                                            increaseHandle={() => {
-                                                increaseHandle(item.color.id as number, item.guaranty.id as number)
-                                            }}
-                                            decreaseHandel={() => {
-                                                decreaseHandle(item.color.id as number, item.guaranty.id as number)
-                                            }}
-                                            removeHandle={() => {
-                                                removeHandle(item.color.id as number, item.guaranty.id as number)
-                                            }}
-                            />
+                            {/*<CartController className="relative z-10"*/}
+                            {/*                defaultValue={item.count}*/}
+                            {/*                increaseHandle={() => {*/}
+                            {/*                    increaseHandle(item.color.id as number, item.guaranty.id as number)*/}
+                            {/*                }}*/}
+                            {/*                decreaseHandel={() => {*/}
+                            {/*                    decreaseHandle(item.color.id as number, item.guaranty.id as number)*/}
+                            {/*                }}*/}
+                            {/*                removeHandle={() => {*/}
+                            {/*                    removeHandle(item.color.id as number, item.guaranty.id as number)*/}
+                            {/*                }}*/}
+                            {/*/>*/}
                         </div>
                         {!item.hasStock
                             ? renderStatusSoldout()

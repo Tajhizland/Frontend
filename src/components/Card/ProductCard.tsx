@@ -62,20 +62,39 @@ const ProductCard: FC<ProductCardProps> = ({
 
     const renderStatus = () => {
         let status = "";
-        let discounted = 0;
+
+        let minPrice = data?.colors?.data[0]?.price ?? 1;
+        let minDiscountedPrice = data?.colors?.data[0]?.price ?? 1;
         data?.colors.data.map((item) => {
-            if (item.statusLabel != "") {
-                status = item.statusLabel;
-                if (item.discount > 0 && item.discountedPrice < item.price) {
-                    discounted = item.discount;
-                }
+            if (item.price <= minPrice && item.status == 1 && item.price > 0) {
+                minPrice = item.price;
+                if (item?.discountItem?.data?.[0])
+                    minDiscountedPrice = item?.discountItem?.data?.[0]?.discount_price;
+                else
+                    minDiscountedPrice = item?.price;
             }
         })
+        const discountPercent = Math.round(((minPrice - minDiscountedPrice) / minPrice) * 100);
+
         if (!status) {
             return null;
         }
         const CLASSES =
             " flex items-center text-slate-700 text-slate-900 dark:text-slate-300 absolute top-0.5 start-0.5 sm:top-3 sm:start-3 bg-white rounded-full p-1 lg:p-2 text-xs";
+        if (discountPercent != 0) {
+            return (
+                <div className={CLASSES}>
+                    <Badge color={"discount"} name={
+                        <span className="mr-1 leading-none  text-white text-xs">{discountPercent}
+                            <b>
+                                %
+                            </b>
+                        </span>
+                    }/>
+                </div>
+            );
+        }
+
         if (status == "new") {
             return (
                 <div className={CLASSES}>
@@ -84,19 +103,7 @@ const ProductCard: FC<ProductCardProps> = ({
                 </div>
             );
         }
-        if (discounted != 0) {
-            return (
-                <div className={CLASSES}>
-                    <Badge color={"discount"} name={
-                        <span className="mr-1 leading-none  text-white text-xs">{discounted}
-                            <b>
-                                %
-                            </b>
-                                   </span>
-                    }/>
-                </div>
-            );
-        }
+
 
         if (status === "limited edition") {
             return (
@@ -122,14 +129,17 @@ const ProductCard: FC<ProductCardProps> = ({
 
     const renderMinPrice = (product: ProductResponse) => {
         let minPrice = product?.colors?.data[0]?.price;
-        let minDiscountedPrice = product?.colors?.data[0]?.discountedPrice;
+        let minDiscountedPrice = product?.colors?.data[0]?.price;
         product.colors.data.map((item) => {
-            if (item.price < minPrice && item.status == 1 && item.price > 0) {
+            if (item.price <= minPrice && item.status == 1 && item.price > 0) {
                 minPrice = item.price;
-                minDiscountedPrice = item.discountedPrice;
+                if (item?.discountItem?.data?.[0])
+                    minDiscountedPrice = item?.discountItem?.data?.[0]?.discount_price;
+                else
+                    minDiscountedPrice = item?.price;
             }
         })
-
+        minDiscountedPrice = 4;
         if (checkStock(product)) {
             if (minDiscountedPrice == minPrice)
                 return <div className={"flex items-center gap-2 w-full justify-end"}>

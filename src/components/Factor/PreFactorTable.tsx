@@ -36,7 +36,7 @@ export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
                                 <Prices price={item.color.price} priceClass="mx-auto" contentClass="border-orange-500" image={false}/>
                             </td>
                             <td className="px-4 py-2 text-center">
-                                <Prices price={item.color.discountedPrice} priceClass="mx-auto"
+                                <Prices price={item.color.discountedPrice??item.color.price} priceClass="mx-auto"
                                         contentClass="border-orange-500" image={false}/>
                             </td>
                             <td className="px-4 py-2 text-center">
@@ -45,7 +45,7 @@ export default function PreFactorTable({cart}: { cart: CartResponse[] }) {
                             </td>
                             <td className="px-4 py-2 text-center">
                                 <Prices
-                                    price={item.color.discountedPrice * item.count + (item.guaranty.free ? 0 : GuarantyPrice(item.color.price) ?? 0)}
+                                    price={(item.color.discountedPrice??item.color.price) * item.count + (item.guaranty.free ? 0 : GuarantyPrice(item.color.price) ?? 0)}
                                     priceClass="mx-auto" contentClass="border-orange-500" image={false}/>
                             </td>
                         </tr>

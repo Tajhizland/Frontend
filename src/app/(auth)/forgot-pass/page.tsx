@@ -147,7 +147,7 @@ const PageForgotPass = ({}) => {
                             className="mt-1 text-[16px]"
                         />
                     </label>
-                    <ButtonPrimary type="submit" loading={actionSendCode.isLoading} >ادامه</ButtonPrimary>
+                    <ButtonPrimary type="submit" loading={actionSendCode.isLoading}>ادامه</ButtonPrimary>
                 </form>}
 
                 {step == 2 && <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmitVerifyCode)}>
@@ -187,7 +187,7 @@ const PageForgotPass = ({}) => {
 
                     </div>
 
-                    <ButtonPrimary type="submit" loading={actionResetPasswordVerifyCode.isLoading} >ادامه</ButtonPrimary>
+                    <ButtonPrimary type="submit" loading={actionResetPasswordVerifyCode.isLoading}>ادامه</ButtonPrimary>
                 </form>}
 
                 {step == 3 && <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmitResetPassword)}>
@@ -201,8 +201,9 @@ const PageForgotPass = ({}) => {
                     <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
 تکرار کلمه عبور              </span>
-                        <Input type={"password"}  {...register("password_confirmation")} placeholder="تکرار کلمه عبور" className="mt-1"
-                                />
+                        <Input type={"password"}  {...register("password_confirmation")} placeholder="تکرار کلمه عبور"
+                               className="mt-1"
+                        />
                         <Input
                             {...register("code")}
                             type="hidden"
@@ -212,7 +213,16 @@ const PageForgotPass = ({}) => {
 
                     <ButtonPrimary type="submit" loading={actionSetPassword.isLoading}>ادامه</ButtonPrimary>
                 </form>}
+                <span className={"text-sm "}>
+                            ورود شما به تجهیزلند به معنای پذیرش
+                    {" "}
+                    <Link href={"/page/rule"} className={"text-[#fcb415]"}>
+                                قوانین و مقررات
+                            </Link>
+                    {" "}
 
+                    سایت تجهیزلند هست
+                        </span>
                 {/* ==== */}
                 <span className="block text-center text-neutral-700 dark:text-neutral-300">
           برگشت به صفحه {` `}
