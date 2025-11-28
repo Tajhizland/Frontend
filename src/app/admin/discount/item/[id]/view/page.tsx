@@ -54,7 +54,7 @@ export default function Page() {
                                     <del className={"text-red-600"}>
                                         {item.productColor?.price}
                                     </del>
-                                    <Prices price={item.discount ?? 0}/>
+                                    <Prices price={item.discount_price ?? 0}/>
 
                                 </div>
                             </div>
