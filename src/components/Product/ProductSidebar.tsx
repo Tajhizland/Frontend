@@ -121,8 +121,9 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                 <p>سود شما در {campaign.title}</p>
                 <div className={"flex items-center gap-1"}>
                     <p>
-                        {
-                            new Intl.NumberFormat('fa').format(selectedColor.price - selectedColor.discountedPrice)
+                        {selectedColor.discountItem?.data?.[0] ?
+                            new Intl.NumberFormat('fa').format(selectedColor.price - selectedColor.discountItem?.data?.[0]?.discount_price)
+                            : 0
                         }
                     </p>
 

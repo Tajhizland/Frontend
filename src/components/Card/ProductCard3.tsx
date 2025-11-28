@@ -173,18 +173,19 @@ const ProductCard3: FC<ProductCardProps> = ({
         return <Badge color={"red"} name={"ناموجود"}/>;
     }
 
+
     const renderMixDiscountTime = () => {
         let timer = null;
         const now = new Date();
 
         data?.colors.data.forEach((item) => {
             if (
-                item.discount_expire_time &&
-                item.discountedPrice != item.price
+                item.discountItem?.data?.[0] &&
+                item.discountItem?.data?.[0]?.discount
             ) {
-                const expireDate = new Date(item.discount_expire_time);
+                const expireDate = new Date(item.discountItem?.data?.[0]?.discount?.end_date);
                 if (expireDate > now) {
-                    timer = item.discount_expire_time;
+                    timer = item.discountItem?.data?.[0]?.discount?.end_date;
                 }
             }
         });
