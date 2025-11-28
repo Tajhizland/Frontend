@@ -21,10 +21,10 @@ export interface ProductCardProps {
 }
 
 const HorizontalProductCard: FC<ProductCardProps> = ({
-                                               className = "",
-                                               data,
-                                               isLiked,
-                                           }) => {
+                                                         className = "",
+                                                         data,
+                                                         isLiked,
+                                                     }) => {
 
 
     const [showModalQuickView, setShowModalQuickView] = useState(false);
@@ -62,38 +62,45 @@ const HorizontalProductCard: FC<ProductCardProps> = ({
 
     const renderStatus = () => {
         let status = "";
-        let discounted = 0;
+
+
+        let minPrice = data?.colors?.data[0]?.price ?? 1;
+        let minDiscountedPrice = data?.colors?.data[0]?.price ?? 1;
         data?.colors.data.map((item) => {
-            if (item.statusLabel != "") {
-                status = item.statusLabel;
-                if (item.discount > 0 && item.discountedPrice < item.price) {
-                    discounted = item.discount;
-                }
+            if (item.price <= minPrice && item.status == 1 && item.price > 0) {
+                minPrice = item.price;
+                if (item?.discountItem?.data?.[0])
+                    minDiscountedPrice = item?.discountItem?.data?.[0]?.discount_price;
+                else
+                    minDiscountedPrice = item?.price;
             }
         })
+        const discountPercent = Math.round(((minPrice - minDiscountedPrice) / minPrice) * 100);
+
         if (!status) {
             return null;
         }
         const CLASSES =
             " flex items-center text-slate-700 text-slate-900 dark:text-slate-300 absolute top-0.5 start-0.5  bg-white rounded-full p-1 lg:p-2 text-xs";
-        if (status == "new") {
-            return (
-                <div className={CLASSES}>
-                    <SparklesIcon className="w-3.5 h-3.5"/>
-                    <span className="mr-1 leading-none text-xs">محصول جدید</span>
-                </div>
-            );
-        }
-        if (discounted != 0) {
+
+        if (discountPercent != 0) {
             return (
                 <div className={CLASSES}>
                     <Badge color={"discount"} name={
-                        <span className="mr-1 leading-none  text-white text-xs">{discounted}
+                        <span className="mr-1 leading-none  text-white text-xs">{discountPercent}
                             <b>
                                 %
                             </b>
                                    </span>
                     }/>
+                </div>
+            );
+        }
+        if (status == "new") {
+            return (
+                <div className={CLASSES}>
+                    <SparklesIcon className="w-3.5 h-3.5"/>
+                    <span className="mr-1 leading-none text-xs">محصول جدید</span>
                 </div>
             );
         }
@@ -156,12 +163,12 @@ const HorizontalProductCard: FC<ProductCardProps> = ({
 
         data?.colors.data.forEach((item) => {
             if (
-                item.discount_expire_time &&
-                item.discountedPrice != item.price
+                item.discountItem?.data?.[0] &&
+                item.discountItem?.data?.[0]?.discount
             ) {
-                const expireDate = new Date(item.discount_expire_time);
+                const expireDate = new Date(item.discountItem?.data?.[0]?.discount?.end_date);
                 if (expireDate > now) {
-                    timer = item.discount_expire_time;
+                    timer = item.discountItem?.data?.[0]?.discount?.end_date;
                 }
             }
         });

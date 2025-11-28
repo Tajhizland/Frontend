@@ -178,12 +178,13 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
         const now = new Date();
 
         if (
-            selectedColor.discount_expire_time &&
-            selectedColor.discountedPrice != selectedColor.price
+            selectedColor.discountItem?.data &&
+            selectedColor.discountItem?.data?.[0] &&
+            selectedColor.discountItem?.data?.[0]?.discount
         ) {
-            const expireDate = new Date(selectedColor.discount_expire_time);
+            const expireDate = new Date(selectedColor.discountItem?.data?.[0]?.discount.end_date);
             if (expireDate > now) {
-                timer = selectedColor.discount_expire_time;
+                timer = selectedColor.discountItem?.data?.[0]?.discount.end_date;
             }
         }
         return timer;
@@ -197,6 +198,22 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
         }
         const CLASSES =
             "text-sm flex items-center text-slate-700 text-slate-900 dark:text-slate-300";
+        if (selectedColor.discountItem && selectedColor.discountItem?.data?.[0] && selectedColor.discountItem?.data?.[0].discount_price != selectedColor.price) {
+
+            const discountPercent = Math.round(((selectedColor.price - selectedColor.discountItem?.data?.[0].discount_price) / selectedColor.price) * 100);
+
+            return (
+                <div className={CLASSES}>
+
+                    <Badge color={"red"} name={
+                        <span className="mr-1 leading-none  text-red-500 text-xs">
+                          {discountPercent}
+                            % تخفیف
+                         </span>
+                    }/>
+                </div>
+            );
+        }
         if (status == "new") {
             return (
                 <div className={CLASSES}>
@@ -205,18 +222,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
                 </div>
             );
         }
-        if (selectedColor.discount != 0 && selectedColor.discountedPrice != 0 && selectedColor.discountedPrice != selectedColor.price) {
-            return (
-                <div className={CLASSES}>
 
-                    <Badge color={"red"} name={
-                        <span className="mr-1 leading-none  text-red-500 text-xs">
-                          {selectedColor.discount} % تخفیف
-                         </span>
-                    }/>
-                </div>
-            );
-        }
         if (status === "disable") {
             return (
                 <div className={CLASSES}>

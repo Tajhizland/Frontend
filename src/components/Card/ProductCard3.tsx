@@ -190,6 +190,7 @@ const ProductCard3: FC<ProductCardProps> = ({
             }
         });
 
+        console.log("Timer ", timer)
         return timer;
     };
 
