@@ -139,7 +139,6 @@ const ProductCard: FC<ProductCardProps> = ({
                     minDiscountedPrice = item?.price;
             }
         })
-        minDiscountedPrice = 4;
         if (checkStock(product)) {
             if (minDiscountedPrice == minPrice)
                 return <div className={"flex items-center gap-2 w-full justify-end"}>
