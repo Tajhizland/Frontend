@@ -104,6 +104,10 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             is_stock: 0,
             testing_time: 0,
             stock_of: 0,
+            width: 0,
+            height: 0,
+            length: 0,
+            weight: 0,
         },
     });
 
@@ -124,6 +128,10 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             setValue("meta_description", data.meta_description);
             setValue("stock_of", data.stock_of);
             setValue("testing_time", data.testing_time);
+            setValue("width", data.width);
+            setValue("height", data.height);
+            setValue("length", data.length);
+            setValue("weight", data.weight);
         }
     }, [data, setValue]);
 
@@ -258,6 +266,22 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                         />
                     }
 
+                </div>
+                <div>
+                    <Label>وزن محصول</Label>
+                    <Input  {...register("weight")} />
+                </div>
+                <div>
+                    <Label>طول محصول</Label>
+                    <Input  {...register("length")} />
+                </div>
+                <div>
+                    <Label>عرض محصول</Label>
+                    <Input  {...register("width")} />
+                </div>
+                <div>
+                    <Label>ارتفاع محصول</Label>
+                    <Input  {...register("height")} />
                 </div>
                 {isStock == 0 && <div>
                     <Label>گارانتی</Label>

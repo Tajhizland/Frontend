@@ -33,6 +33,10 @@ export const columns: Column<ProductResponse>[] = [
     {key: 'name', header: 'نام محصول', filterType: 'input', editable: true},
     {key: 'view', header: 'تعداد بازدید', filterType: 'input', editable: false},
     {key: 'url', header: 'آدرس محصول', filterType: 'input', editable: true},
+    {key: 'width', header: 'عرض محصول', filterType: 'input', editable: true},
+    {key: 'height', header: 'ارتفاع محصول', filterType: 'input', editable: true},
+    {key: 'length', header: 'طول محصول', filterType: 'input', editable: true},
+    {key: 'weight', header: 'وزن محصول', filterType: 'input', editable: true},
     {
         key: 'status',
         header: 'وضعیت',
