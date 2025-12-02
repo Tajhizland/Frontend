@@ -12,6 +12,7 @@ import {ProductVideoResponse} from "@/services/types/productVideo";
 import {GroupProductResponse} from "@/services/types/groupProduct";
 import {breadcrumbResponse, CategoryResponse} from "@/services/types/category";
 import {CampaignResponse} from "@/services/types/campaign";
+import {DiscountItemResponse} from "@/services/types/discountItem";
 
 export type ProductPageResponse = {
     product: ProductResponse;
@@ -29,7 +30,7 @@ export type DiscountedProductPageResponse = {
     campaign?: CampaignResponse;
     banner: { data: BannerResponse[] };
     discounts: { data: PopularProductResponse[] };
-    discountTimer: PriceResponse;
+    discountTimer: DiscountItemResponse;
 }
 export type StockProductPageResponse = {
     data: ProductResponse;

@@ -181,8 +181,7 @@ const ProductCard2: FC<ProductCardProps> = ({
 
         data?.colors.data.forEach((item) => {
             if (
-                item.discountItem?.data?.[0] &&
-                item.discountItem?.data?.[0]?.discount
+                item.discountItem?.data?.[0]
             ) {
                 const expireDate = new Date(item.discountItem?.data?.[0]?.discount_expire_time);
                 if (expireDate > now) {
