@@ -17,6 +17,11 @@ import SearchableSelect from "@/shared/Select/SearchableSelect";
 import {setItem} from "@/services/api/admin/discount";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Link from "next/link";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import {toMySqlDateTime} from "@/utils/dateFormat";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
 export default function Page() {
     const {id} = useParams();
@@ -25,6 +30,8 @@ export default function Page() {
     const [brand, setBrand] = useState<number>();
     const [response, setResponse] = useState<ProductResponse[]>([]);
     const [discountValues, setDiscountValues] = useState<Record<number, number>>({});
+    const [expireDates, setExpireDates] = useState<Record<number, string>>({});
+    const [expireDatesFa, setExpireDatesFa] = useState<Record<number, string>>({});
     const router = useRouter();
 
     // Mutation برای جستجو
@@ -41,26 +48,33 @@ export default function Page() {
             setResponse(res);
             // مقداردهی اولیه تخفیف‌ها
             const initialDiscounts: Record<number, number> = {};
+            const initialDates: Record<number, string> = {};
+            const initialDatesFa: Record<number, string> = {};
             res.forEach((product) => {
                 product.colors.data.forEach((color) => {
                     initialDiscounts[color.id] = color?.discountItem?.data?.[0]?.discount_price ?? 0;
+                    initialDates[color.id] = color?.discountItem?.data?.[0]?.discount_expire_time ?? "";
+                    initialDatesFa[color.id] = color?.discountItem?.data?.[0]?.discount_expire_time_fa ?? "";
                 });
             });
 
             setDiscountValues(initialDiscounts);
+            setExpireDates(initialDates);
+            setExpireDatesFa(initialDatesFa);
         },
     });
     // Mutation برای جستجو
     const actionMutation = useMutation({
         mutationKey: [`product-group-action`],
         mutationFn: async () => {
-            let discount: { product_color_id: number; discount_price: number }[] = [];
+            let discount: { product_color_id: number; discount_price: number, expire_date?: string; }[] = [];
 
             response.forEach((product) => {
                 product.colors.data.forEach((color) => {
                     discount.push({
                         product_color_id: color.id,
                         discount_price: discountValues[color.id],
+                        ...(expireDates[color.id] && {discount_expire_time: expireDates[color.id]}),
                     });
                 });
             });
@@ -167,7 +181,7 @@ export default function Page() {
                                 <div className="font-medium">{item.name}</div>
                                 {item.colors.data.map((color) => (
                                     <div
-                                        className={"flex items-center gap-4 w-full"}
+                                        className={"flex items-center gap-4 w-full flex-col sm:flex-row"}
                                         key={color.id}
                                     >
                                         {color.color_name}
@@ -184,6 +198,37 @@ export default function Page() {
                                                 }))
                                             }
                                         />
+
+                                        <DatePicker
+                                            inputClass={"block w-full border-neutral-200 focus:border-rose-600 focus:ring-0 focus:ring-rose-600 focus:ring-opacity-50 bg-white disabled:bg-neutral-200  h-11 px-4 py-3 text-sm font-normal rounded-2xl"}
+                                            className="custom-date-picker flex-shrink-0 w-full"
+                                            calendar={persian}        // تقویم شمسی (Jalali)
+                                            locale={persian_fa}      // متن/اعداد فارسی
+                                            value={expireDatesFa[color.id] || ""}
+                                            format="YYYY/MM/DD HH:mm" // فرمت نمایش در input
+                                            onChange={(d) => {
+                                                if (!d?.isValid)
+                                                    return;
+                                                const mysqlFormatted = toMySqlDateTime(d);
+                                                setExpireDates((prev) => ({
+                                                    ...prev,
+                                                    [color.id]: mysqlFormatted,
+                                                }))
+                                            }}
+                                            plugins={[<TimePicker key={0} position="bottom" hideSeconds/>]}
+                                        />
+                                        <span className={"text-red-600 cursor-pointer text-xs whitespace-nowrap"} onClick={()=>{
+                                            setExpireDates((prev) => ({
+                                                ...prev,
+                                                [color.id]: "",
+                                            }))
+                                            setExpireDatesFa((prev) => ({
+                                                ...prev,
+                                                [color.id]: "",
+                                            }))
+                                        }}>
+                                            حذف تاریخ
+                                        </span>
 
 
                                     </div>

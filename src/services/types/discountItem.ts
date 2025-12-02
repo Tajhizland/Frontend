@@ -7,6 +7,8 @@ export type DiscountItemResponse = {
     discount_price: number,
     productColor?: ColorResponse,
     discount?: DiscountResponse,
+    discount_expire_time: string,
+    discount_expire_time_fa: string,
     created_at: string,
     updated_at: string,
 }
