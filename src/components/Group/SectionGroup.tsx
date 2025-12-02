@@ -182,9 +182,9 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
             selectedColor.discountItem?.data?.[0] &&
             selectedColor.discountItem?.data?.[0]?.discount
         ) {
-            const expireDate = new Date(selectedColor.discountItem?.data?.[0]?.discount.end_date);
+            const expireDate = new Date(selectedColor.discountItem?.data?.[0]?.discount_expire_time);
             if (expireDate > now) {
-                timer = selectedColor.discountItem?.data?.[0]?.discount.end_date;
+                timer = selectedColor.discountItem?.data?.[0]?.discount_expire_time;
             }
         }
         return timer;

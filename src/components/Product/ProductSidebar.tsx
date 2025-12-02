@@ -96,9 +96,9 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
         if (
             discountItem && discountItem.discount
         ) {
-            const expireDate = new Date(discountItem.discount.end_date);
+            const expireDate = new Date(discountItem.discount_expire_time);
             if (expireDate > now) {
-                timer = discountItem.discount.end_date;
+                timer = discountItem.discount_expire_time;
             }
         }
         return timer;

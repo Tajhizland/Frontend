@@ -168,9 +168,9 @@ const ProductCard: FC<ProductCardProps> = ({
                 item.discountItem?.data?.[0] &&
                 item.discountItem?.data?.[0]?.discount
             ) {
-                const expireDate = new Date(item.discountItem?.data?.[0]?.discount?.end_date);
+                const expireDate = new Date(item.discountItem?.data?.[0]?.discount_expire_time);
                 if (expireDate > now) {
-                    timer = item.discountItem?.data?.[0]?.discount?.end_date;
+                    timer = item.discountItem?.data?.[0]?.discount_expire_time;
                 }
             }
         });
