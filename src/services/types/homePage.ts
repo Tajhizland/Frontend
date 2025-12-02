@@ -2,22 +2,20 @@ import {ConceptResponse} from "@/services/types/concept";
 import {SliderResponse} from "@/services/types/slider";
 import {SpecialProductResponse} from "@/services/types/specialProduct";
 import {HomepageCategoryResponse} from "@/services/types/homepageCategory";
-import {PopularCategoryResponse} from "@/services/types/popularCategory";
 import {PopularProductResponse} from "@/services/types/popularProduct";
 import {BrandResponse} from "@/services/types/brand";
 import {NewsResponse} from "@/services/types/news";
 import {BannerResponse} from "@/services/types/banner";
 import {VlogResponse} from "@/services/types/vlog";
 import {PosterResponse} from "@/services/types/poster";
-import {PriceResponse} from "@/services/types/price";
-import SectionTrustedBrand from "@/components/Section/SectionTrustedBrand";
 import {TrustedBrandResponse} from "@/services/types/trustedBrand";
 import {CampaignResponse} from "@/services/types/campaign";
 import {CampaignBannerResponse} from "@/services/types/campaignBanner";
+import {DiscountItemResponse} from "@/services/types/discountItem";
 
 export type HomePageResponse = {
     popularProducts: { data: PopularProductResponse[] };
-    discount: PriceResponse;
+    discount: DiscountItemResponse;
     campaign?: CampaignResponse;
     pending_campaign?: CampaignResponse;
     banners: { data: BannerResponse[] };
