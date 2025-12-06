@@ -46,8 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
             },
             robots: "index, follow",
         };
-    } catch (e) {
-        console.error("Metadata generation failed:", e);
+    } catch (e) { 
         return {title: "تجهیزلند"};
     }
 }
