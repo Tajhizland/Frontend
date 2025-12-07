@@ -3,15 +3,15 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import DataTable from "@/shared/DataTable/DataTable";
-import {columns} from "@/app/admin/admin/TableRow";
-import {adminLoginUser, update} from "@/services/api/admin/user";
-import {toast} from "react-hot-toast";
-import {UserResponse} from "@/services/types/user";
-import {DataTableButtons} from "@/shared/DataTable/type";
-import {HiMiniPencil} from "react-icons/hi2";
-import {UrlObject} from "node:url";
-import {setCookie} from "cookies-next";
-import {useState} from "react";
+import { columns } from "@/app/admin/admin/TableRow";
+import { adminLoginUser, update } from "@/services/api/admin/user";
+import { toast } from "react-hot-toast";
+import { UserResponse } from "@/services/types/user";
+import { DataTableButtons } from "@/shared/DataTable/type";
+import { HiMiniPencil } from "react-icons/hi2";
+import { UrlObject } from "node:url";
+import { setCookie } from "cookies-next";
+import { useState } from "react";
 
 export default function Page() {
     const [loadingLogin, setLoadingLogin] = useState(false);
@@ -37,7 +37,12 @@ export default function Page() {
 
         const response = await adminLoginUser(id);
         if (response) {
-            setCookie('token', response?.token);
+            let oneYear = Date.now() + 365 * 24 * 60 * 60 * 1000;
+            setCookie('token', response.token, {
+                domain: "tajhizland.com",
+                path: "/",
+                expires: new Date(oneYear),
+            });
             window.location.href = "/";
         }
         setLoadingLogin(false);
@@ -46,7 +51,7 @@ export default function Page() {
 
     const buttons: DataTableButtons[] = [
         {
-            label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
+            label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"} />,
             type: "link",
             colorClass: "bg-white text-white border border-slate-900 outline-none ",
             href: (value: any): UrlObject => {
@@ -71,7 +76,7 @@ export default function Page() {
                 title: "ادمین ها",
                 href: "admin"
             }
-        ]}/>
+        ]} />
         <Panel>
             <PageTitle>
                 مدیریت ادمین ها

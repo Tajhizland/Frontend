@@ -1,21 +1,21 @@
 "use client"
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
-import {login} from "@/services/api/auth/login";
-import {setCookie} from "cookies-next";
-import {useRouter} from "next/navigation";
-import {useForm} from "react-hook-form";
-import {useMutation} from "react-query";
+import { login } from "@/services/api/auth/login";
+import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 
 
 const PageLogin = () => {
     const router = useRouter();
     const [isLogin, setIsLogin] = useState(false);
 
-    const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
+    const { register, handleSubmit, control, formState: { errors }, setValue } = useForm({
         defaultValues: {
             username: "",
             password: "",
@@ -33,7 +33,12 @@ const PageLogin = () => {
             if (!response)
                 return;
             setIsLogin(true);
-            setCookie('token', response.token);
+            let oneYear = Date.now() + 365 * 24 * 60 * 60 * 1000;
+            setCookie('token', response.token, {
+                domain: "tajhizland.com",
+                path: "/",
+                expires: new Date(oneYear),
+            });
             router.push("/")
         },
     });
@@ -58,9 +63,9 @@ const PageLogin = () => {
                         {/* FORM */}
                         <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmit)}>
                             <label className="block">
-              <span className="text-neutral-800 dark:text-neutral-200">
-                شماره موبایل
-              </span>
+                                <span className="text-neutral-800 dark:text-neutral-200">
+                                    شماره موبایل
+                                </span>
                                 <Input
                                     type="text"
                                     {...register("username")}
@@ -69,18 +74,18 @@ const PageLogin = () => {
                                 />
                             </label>
                             <label className="block">
-              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                رمز‌عبور
-                <Link href="/forgot-pass" className="text-sm text-green-600">
-                 رمز‌عبور خود را فراموش کردید ؟
-                </Link>
-              </span>
+                                <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                                    رمز‌عبور
+                                    <Link href="/forgot-pass" className="text-sm text-green-600">
+                                        رمز‌عبور خود را فراموش کردید ؟
+                                    </Link>
+                                </span>
                                 <Input type="password" className="mt-1"
-                                       {...register("password")}
+                                    {...register("password")}
                                 />
                             </label>
                             <ButtonPrimary type="submit"
-                                           loading={actionLogin.isLoading || isLogin}>ادامه</ButtonPrimary>
+                                loading={actionLogin.isLoading || isLogin}>ادامه</ButtonPrimary>
                         </form>
 
 
@@ -98,11 +103,11 @@ const PageLogin = () => {
 
                         {/* ==== */}
                         <span className="block text-center text-neutral-700 dark:text-neutral-300">
-           حساب کاربری ندارید ؟ {` `}
+                            حساب کاربری ندارید ؟ {` `}
                             <Link className="text-green-600" href="/signup">
-              ایجاد حساب کاربری
-            </Link>
-          </span>
+                                ایجاد حساب کاربری
+                            </Link>
+                        </span>
 
 
                     </div>

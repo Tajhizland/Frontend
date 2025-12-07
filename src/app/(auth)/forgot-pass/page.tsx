@@ -1,17 +1,17 @@
 "use client"
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
 import Counter from "@/components/Counter/Counter";
-import {resetPassword, resetPasswordSendCode, resetPasswordVerifyCode} from "@/services/api/auth/resetPassword";
-import {useRouter} from "next/navigation";
-import {setCookie} from "cookies-next";
-import {useForm} from "react-hook-form";
-import {useMutation} from "react-query";
+import { resetPassword, resetPasswordSendCode, resetPasswordVerifyCode } from "@/services/api/auth/resetPassword";
+import { useRouter } from "next/navigation";
+import { setCookie } from "cookies-next";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 
-const PageForgotPass = ({}) => {
+const PageForgotPass = ({ }) => {
     const [step, setStep] = useState(1);
     const [resend, setResend] = useState(false);
     const [mobile, setMobile] = useState("");
@@ -29,19 +29,19 @@ const PageForgotPass = ({}) => {
     async function sendCode(e: FormData) {
         let mobile = e.get("mobile") as string;
         setMobile(mobile);
-        let response = await resetPasswordSendCode({mobile: mobile})
+        let response = await resetPasswordSendCode({ mobile: mobile })
         if (response?.success)
             nextStep()
     }
 
     async function actionResend() {
-        let response = await resetPasswordSendCode({mobile: mobile})
+        let response = await resetPasswordSendCode({ mobile: mobile })
         if (response?.success)
             setResend(false);
     }
 
 
-    const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
+    const { register, handleSubmit, control, formState: { errors }, setValue } = useForm({
         defaultValues: {
             mobile: "",
             code: "",
@@ -93,7 +93,12 @@ const PageForgotPass = ({}) => {
         onSuccess: (response) => {
             if (!response)
                 return;
-            setCookie('token', response.token);
+            let oneYear = Date.now() + 365 * 24 * 60 * 60 * 1000;
+            setCookie('token', response.token, {
+                domain: "tajhizland.com",
+                path: "/",
+                expires: new Date(oneYear),
+            });
             window.location.href = "/";
         },
     });
@@ -121,15 +126,15 @@ const PageForgotPass = ({}) => {
                     فراموشی کلمه عبور
                 </h2>
                 {step == 1 && <span className="block text-sm mt-4 text-neutral-700 sm:text-base dark:text-neutral-200">
- شماره موبایلی که قبلا با آن ثبت نام کرده اید را وارد نمایید و سپس روی ادامه کلیک کنید          </span>}
+                    شماره موبایلی که قبلا با آن ثبت نام کرده اید را وارد نمایید و سپس روی ادامه کلیک کنید          </span>}
                 {step == 2 && <span className="block text-sm mt-4 text-neutral-700 sm:text-base dark:text-neutral-200">
-                          کد ارسال شده به شماره موبایل خود را وارد نمایید و سپس روی ادامه کلیک کنید
-          </span>}
+                    کد ارسال شده به شماره موبایل خود را وارد نمایید و سپس روی ادامه کلیک کنید
+                </span>}
                 {step == 3 && <span className="block text-sm mt-4 text-neutral-700 sm:text-base dark:text-neutral-200">
                     کلمه عبور جدید خود را وارد کنید و سپس روی ادامه کلیک کنید
                 </span>}
                 {step == 3 && <span className="block text-sm mt-4 text-neutral-700 sm:text-base dark:text-neutral-200">
-                   کلمه عبور باید حداقل ۸ حرف باشد
+                    کلمه عبور باید حداقل ۸ حرف باشد
                 </span>}
             </header>
 
@@ -137,9 +142,9 @@ const PageForgotPass = ({}) => {
                 {/* FORM */}
                 {step == 1 && <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmitSendCode)}>
                     <label className="block">
-            <span className="text-neutral-800 dark:text-neutral-200">
-             شماره موبایل
-            </span>
+                        <span className="text-neutral-800 dark:text-neutral-200">
+                            شماره موبایل
+                        </span>
                         <Input
                             type="text"
                             {...register("mobile")}
@@ -153,9 +158,9 @@ const PageForgotPass = ({}) => {
                 {step == 2 && <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmitVerifyCode)}>
                     <label className="block">
                         <div className="flex flex-col gap-y-2">
-              <span className="text-neutral-800 dark:text-neutral-200">
-               کد بازیابی
-              </span>
+                            <span className="text-neutral-800 dark:text-neutral-200">
+                                کد بازیابی
+                            </span>
                         </div>
                         <Input
                             {...register("code")}
@@ -173,14 +178,14 @@ const PageForgotPass = ({}) => {
 
                         {
                             resend ? <span className={"text-green-600 cursor-pointer"} onClick={actionResend}>
-                                  ارسال مجدد کد
+                                ارسال مجدد کد
                             </span> :
                                 <>  <Counter initialSeconds={initialSeconds} end={() => {
                                     setResend(true)
-                                }}/>
+                                }} />
                                     <span>
-                                تا ارسال مجدد کد
-                            </span>
+                                        تا ارسال مجدد کد
+                                    </span>
                                 </>
                         }
 
@@ -192,17 +197,17 @@ const PageForgotPass = ({}) => {
 
                 {step == 3 && <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmitResetPassword)}>
                     <label className="block">
-              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                کلمه عبور
-              </span>
+                        <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                            کلمه عبور
+                        </span>
                         <Input type={"password"} placeholder="کلمه عبور" className="mt-1" {...register("password")} />
 
                     </label>
                     <label className="block">
-              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-تکرار کلمه عبور              </span>
+                        <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                            تکرار کلمه عبور              </span>
                         <Input type={"password"}  {...register("password_confirmation")} placeholder="تکرار کلمه عبور"
-                               className="mt-1"
+                            className="mt-1"
                         />
                         <Input
                             {...register("code")}
@@ -214,26 +219,26 @@ const PageForgotPass = ({}) => {
                     <ButtonPrimary type="submit" loading={actionSetPassword.isLoading}>ادامه</ButtonPrimary>
                 </form>}
                 <span className={"text-sm "}>
-                            ورود شما به تجهیزلند به معنای پذیرش
+                    ورود شما به تجهیزلند به معنای پذیرش
                     {" "}
                     <Link href={"/page/rule"} className={"text-[#fcb415]"}>
-                                قوانین و مقررات
-                            </Link>
+                        قوانین و مقررات
+                    </Link>
                     {" "}
 
                     سایت تجهیزلند هست
-                        </span>
+                </span>
                 {/* ==== */}
                 <span className="block text-center text-neutral-700 dark:text-neutral-300">
-          برگشت به صفحه {` `}
+                    برگشت به صفحه {` `}
                     <Link href="/login" className="text-green-600">
-           ورود
-          </Link>
+                        ورود
+                    </Link>
                     {` / `}
                     <Link href="/signup" className="text-green-600">
-            ثبت نام
-          </Link>
-        </span>
+                        ثبت نام
+                    </Link>
+                </span>
             </div>
         </div>
     );

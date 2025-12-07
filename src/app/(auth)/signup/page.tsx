@@ -1,14 +1,14 @@
 "use client"
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
-import {registerSendCode, registerUser, registerVerifyCode} from "@/services/api/auth/register";
+import { registerSendCode, registerUser, registerVerifyCode } from "@/services/api/auth/register";
 import Counter from "@/components/Counter/Counter";
-import {setCookie} from "cookies-next";
-import {useRouter} from "next/navigation";
-import {useForm} from "react-hook-form";
-import {useMutation} from "react-query";
+import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 
 const PageSignUp = () => {
     const [step, setStep] = useState(1);
@@ -70,7 +70,12 @@ const PageSignUp = () => {
         onSuccess: (response) => {
             if (!response)
                 return;
-            setCookie('token', response.token);
+            let oneYear = Date.now() + 365 * 24 * 60 * 60 * 1000;
+            setCookie('token', response.token, {
+                domain: "tajhizland.com",
+                path: "/",
+                expires: new Date(oneYear),
+            });
             window.location.href = "/";
         },
     });
@@ -80,12 +85,12 @@ const PageSignUp = () => {
     }
 
     async function actionResend() {
-        let response = await registerSendCode({mobile: mobile})
+        let response = await registerSendCode({ mobile: mobile })
         if (response?.success)
             setResend(false);
     }
 
-    const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
+    const { register, handleSubmit, control, formState: { errors }, setValue } = useForm({
         defaultValues: {
             mobile: "",
             code: "",
@@ -128,9 +133,9 @@ const PageSignUp = () => {
                         {step == 1 &&
                             <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmitSendCode)}>
                                 <label className="block">
-              <span className="text-neutral-800 dark:text-neutral-200">
-               شماره ‌همراه
-              </span>
+                                    <span className="text-neutral-800 dark:text-neutral-200">
+                                        شماره ‌همراه
+                                    </span>
                                     <Input
                                         {...register("mobile")}
                                         type="text"
@@ -172,23 +177,23 @@ const PageSignUp = () => {
                                     {
                                         resend ?
                                             <span className={"text-green-600 cursor-pointer"} onClick={actionResend}>
-                                  ارسال مجدد کد
-                            </span> :
+                                                ارسال مجدد کد
+                                            </span> :
                                             <>  <Counter initialSeconds={initialSeconds} end={() => {
                                                 setResend(true)
-                                            }}/>
+                                            }} />
                                                 <span>
-                                تا ارسال مجدد کد
-                            </span>
+                                                    تا ارسال مجدد کد
+                                                </span>
                                             </>
                                     }
 
 
                                 </div>
                                 <span className={"text-sm font-bold text-primary-700 cursor-pointer"}
-                                      onClick={changeMobile}>
-                                اصلاح شماره
-                            </span>
+                                    onClick={changeMobile}>
+                                    اصلاح شماره
+                                </span>
                                 <ButtonPrimary type="submit" loading={actionVerifyCode.isLoading}>ادامه</ButtonPrimary>
 
                             </form>}
@@ -196,41 +201,41 @@ const PageSignUp = () => {
                         {step == 3 &&
                             <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit(onSubmitSetPassword)}>
                                 <label className="block">
-              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                نام
-              </span>
-                                    <Input type={"text"} placeholder="نام" className="mt-1"   {...register("name")}/>
+                                    <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                                        نام
+                                    </span>
+                                    <Input type={"text"} placeholder="نام" className="mt-1"   {...register("name")} />
 
                                 </label>
                                 <label className="block">
-              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                نام خانوادگی
-              </span>
+                                    <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                                        نام خانوادگی
+                                    </span>
                                     <Input type={"text"} placeholder="نام خانوادگی"
-                                           className="mt-1"   {...register("last_name")}/>
+                                        className="mt-1"   {...register("last_name")} />
 
                                 </label>
                                 <label className="block">
-              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                کد ملی
-              </span>
+                                    <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                                        کد ملی
+                                    </span>
                                     <Input type={"text"} placeholder="کد ملی"
-                                           className="mt-1"   {...register("national_code")}/>
+                                        className="mt-1"   {...register("national_code")} />
 
                                 </label>
                                 <label className="block">
-              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                کلمه عبور
-              </span>
+                                    <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                                        کلمه عبور
+                                    </span>
                                     <Input type={"password"} placeholder="کلمه عبور"
-                                           className="mt-1"   {...register("password")}/>
+                                        className="mt-1"   {...register("password")} />
 
                                 </label>
                                 <label className="block">
-              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-تکرار کلمه عبور              </span>
+                                    <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                                        تکرار کلمه عبور              </span>
                                     <Input type={"password"} placeholder="تکرار کلمه عبور" className="mt-1"
-                                           {...register("password_confirmation")}/>
+                                        {...register("password_confirmation")} />
                                     <Input
                                         name={"mobile"}
                                         type="hidden"
@@ -254,11 +259,11 @@ const PageSignUp = () => {
 
                         {/* ==== */}
                         <span className="block text-center text-neutral-700 dark:text-neutral-300">
-            قلا ثبت‌نام کرده اید ؟ {` `}
+                            قلا ثبت‌نام کرده اید ؟ {` `}
                             <Link className="text-green-600" href="/login">
-             وارد شوید
-            </Link>
-          </span>
+                                وارد شوید
+                            </Link>
+                        </span>
                     </div>
                 </div>
             </div>
