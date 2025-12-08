@@ -64,7 +64,7 @@ export default async function Homepage() {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "تجهیزلند",
-        "alternateName": ["tajhizland", "j[idcgkn"],
+        "alternateName": ["tajhizland", "j[idcgkn" ],
         "url": "https://tajhizland.ir"
     }
     return (
