@@ -2,8 +2,7 @@ import type { NextConfig } from "next";
 import withPWA from "@ducanh2912/next-pwa";
 
 const nextConfig: NextConfig = {
-    images: {
-        disableStaticImages: true,
+    images: { 
         remotePatterns: [
             {
                 protocol: 'https',
