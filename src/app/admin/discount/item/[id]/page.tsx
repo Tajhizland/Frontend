@@ -27,6 +27,7 @@ export default function Page() {
     const {id} = useParams();
     const queryClient = new QueryClient();
     const [category, setCategory] = useState<number>();
+    const [searchQuery, setSearchQuery] = useState<string>("");
     const [brand, setBrand] = useState<number>();
     const [response, setResponse] = useState<ProductResponse[]>([]);
     const [discountValues, setDiscountValues] = useState<Record<number, number>>({});
@@ -41,6 +42,7 @@ export default function Page() {
             return searchProductList({
                 brandId: Number(brand),
                 categoryId: Number(category),
+                searchQuery: searchQuery,
                 discountId: Number(id)
             });
         },
@@ -122,6 +124,13 @@ export default function Page() {
                     </ButtonPrimary>
                 </Link>
                 <div className={"flex flex-col w-full gap-5"}>
+                    <Input
+                        placeholder={"جستجو"}
+                        value={searchQuery}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value)
+                        }}
+                    />
                     <SearchableSelect
                         options={[
                             {
@@ -217,16 +226,17 @@ export default function Page() {
                                             }}
                                             plugins={[<TimePicker key={0} position="bottom" hideSeconds/>]}
                                         />
-                                        <span className={"text-red-600 cursor-pointer text-xs whitespace-nowrap"} onClick={()=>{
-                                            setExpireDates((prev) => ({
-                                                ...prev,
-                                                [color.id]: "",
-                                            }))
-                                            setExpireDatesFa((prev) => ({
-                                                ...prev,
-                                                [color.id]: "",
-                                            }))
-                                        }}>
+                                        <span className={"text-red-600 cursor-pointer text-xs whitespace-nowrap"}
+                                              onClick={() => {
+                                                  setExpireDates((prev) => ({
+                                                      ...prev,
+                                                      [color.id]: "",
+                                                  }))
+                                                  setExpireDatesFa((prev) => ({
+                                                      ...prev,
+                                                      [color.id]: "",
+                                                  }))
+                                              }}>
                                             حذف تاریخ
                                         </span>
 

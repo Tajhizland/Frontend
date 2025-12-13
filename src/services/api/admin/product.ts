@@ -101,6 +101,7 @@ export const searchProductList = async <T extends ServerResponse<ProductResponse
     categoryId: number | null,
     brandId: number | null,
     discountId?: number,
+    searchQuery: string,
 }) => {
     return axios.post<T, SuccessResponseType<T>>("admin/product/search-list", params)
         .then((res) => res?.data?.result?.data)
