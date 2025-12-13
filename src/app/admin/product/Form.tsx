@@ -270,7 +270,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                 <div>
                     <Label>اندازه بسته پستی</Label>
                     <Select  {...register("box_id")} >
-                        <option value={undefined}>
+                        <option value={""}>
                             انتخاب کنید
                         </option>
                         <option value={1}>
