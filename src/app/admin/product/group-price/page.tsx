@@ -62,8 +62,8 @@ export default function Page() {
                 percent: Number(percent)
             });
         },
-        onSuccess: (res) => {
-            queryClient.invalidateQueries([`search-product-list`]);
+        onSuccess: async (res) => {
+            await searchMutation.mutateAsync();
             toast.success(res.message as string);
         },
     });
@@ -110,10 +110,10 @@ export default function Page() {
                                 label: 'همه',
                                 value: ''
                             },
-                            ...( categoryLists?.data?.map((item) => ({
+                            ...(categoryLists?.data?.map((item) => ({
                                 label: item.name,
                                 value: item.id.toString(),
-                            }))??[]),
+                            })) ?? []),
                         ]}
                         //@ts-ignore
                         value={category}
@@ -125,10 +125,10 @@ export default function Page() {
                                 label: 'همه',
                                 value: ''
                             },
-                            ...( brandLists?.data?.map((item) => ({
+                            ...(brandLists?.data?.map((item) => ({
                                 label: item.name,
                                 value: item.id.toString(),
-                            }))??[]),
+                            })) ?? []),
                         ]}
                         //@ts-ignore
                         value={brand}
