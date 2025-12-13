@@ -268,7 +268,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                     <Input  {...register("weight")} />
                 </div>
                 <div>
-                    <Label>طول محصول</Label>
+                    <Label>ندازه بسته</Label>
                     <Select  {...register("box_id")} >
                         <option>
                             انتخاب کنید
