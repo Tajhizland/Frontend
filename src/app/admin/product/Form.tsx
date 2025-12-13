@@ -268,9 +268,9 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                     <Input  {...register("weight")} />
                 </div>
                 <div>
-                    <Label>ندازه بسته</Label>
+                    <Label>اندازه بسته پستی</Label>
                     <Select  {...register("box_id")} >
-                        <option>
+                        <option value={undefined}>
                             انتخاب کنید
                         </option>
                         <option value={1}>
