@@ -260,7 +260,7 @@ export default function Page() {
                                                        }))
 
                                                    }}/>
-                                            <label>نمایش در اسلایدر تخفیف</label>
+                                            <label className={"whitespace-nowrap"}>نمایش در اسلایدر تخفیف</label>
 
                                         </div>
 
