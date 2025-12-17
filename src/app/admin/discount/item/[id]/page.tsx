@@ -218,6 +218,7 @@ export default function Page() {
                                             }
                                         />
 
+
                                         <DatePicker
                                             inputClass={"block w-full border-neutral-200 focus:border-rose-600 focus:ring-0 focus:ring-rose-600 focus:ring-opacity-50 bg-white disabled:bg-neutral-200  h-11 px-4 py-3 text-sm font-normal rounded-2xl"}
                                             className="custom-date-picker flex-shrink-0 w-full"
@@ -236,18 +237,6 @@ export default function Page() {
                                             }}
                                             plugins={[<TimePicker key={0} position="bottom" hideSeconds/>]}
                                         />
-                                        <div className={"flex-col flex gap-1"}>
-                                            <label>نمایش در اسلایدر تخفیف</label>
-                                            <input type={"checkbox"} checked={top[color.id] ? true : false}
-                                                   onChange={(e) => {
-                                                       setTop((prev) => ({
-                                                           ...prev,
-                                                           [color.id]: Number(e.target.checked),
-                                                       }))
-
-                                                   }}/>
-
-                                        </div>
                                         <span className={"text-red-600 cursor-pointer text-xs whitespace-nowrap"}
                                               onClick={() => {
                                                   setExpireDates((prev) => ({
@@ -261,6 +250,19 @@ export default function Page() {
                                               }}>
                                             حذف تاریخ
                                         </span>
+
+                                        <div className={"flex items-center gap-1 whitespace-nowrap"}>
+                                            <input type={"checkbox"} checked={top[color.id] ? true : false}
+                                                   onChange={(e) => {
+                                                       setTop((prev) => ({
+                                                           ...prev,
+                                                           [color.id]: Number(e.target.checked),
+                                                       }))
+
+                                                   }}/>
+                                            <label>نمایش در اسلایدر تخفیف</label>
+
+                                        </div>
 
 
                                     </div>
