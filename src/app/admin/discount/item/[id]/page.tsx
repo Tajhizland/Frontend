@@ -32,6 +32,7 @@ export default function Page() {
     const [response, setResponse] = useState<ProductResponse[]>([]);
     const [discountValues, setDiscountValues] = useState<Record<number, number>>({});
     const [expireDates, setExpireDates] = useState<Record<number, string>>({});
+    const [top, setTop] = useState<Record<number, number>>({});
     const [expireDatesFa, setExpireDatesFa] = useState<Record<number, string>>({});
     const router = useRouter();
 
@@ -52,30 +53,39 @@ export default function Page() {
             const initialDiscounts: Record<number, number> = {};
             const initialDates: Record<number, string> = {};
             const initialDatesFa: Record<number, string> = {};
+            const initialTop: Record<number, number> = {};
             res.forEach((product) => {
                 product.colors.data.forEach((color) => {
                     initialDiscounts[color.id] = color?.discountItem?.data?.[0]?.discount_price ?? 0;
                     initialDates[color.id] = color?.discountItem?.data?.[0]?.discount_expire_time ?? "";
                     initialDatesFa[color.id] = color?.discountItem?.data?.[0]?.discount_expire_time_fa ?? "";
+                    initialTop[color.id] = color?.discountItem?.data?.[0]?.top ?? 0;
                 });
             });
 
             setDiscountValues(initialDiscounts);
             setExpireDates(initialDates);
             setExpireDatesFa(initialDatesFa);
+            setTop(initialTop);
         },
     });
     // Mutation برای جستجو
     const actionMutation = useMutation({
         mutationKey: [`product-group-action`],
         mutationFn: async () => {
-            let discount: { product_color_id: number; discount_price: number, expire_date?: string; }[] = [];
+            let discount: {
+                product_color_id: number;
+                discount_price: number,
+                top: number,
+                expire_date?: string;
+            }[] = [];
 
             response.forEach((product) => {
                 product.colors.data.forEach((color) => {
                     discount.push({
                         product_color_id: color.id,
                         discount_price: discountValues[color.id],
+                        top: top[color.id],
                         ...(expireDates[color.id] && {discount_expire_time: expireDates[color.id]}),
                     });
                 });
@@ -226,6 +236,18 @@ export default function Page() {
                                             }}
                                             plugins={[<TimePicker key={0} position="bottom" hideSeconds/>]}
                                         />
+                                        <div className={"flex-col flex gap-1"}>
+                                            <label>نمایش در اسلایدر تخفیف</label>
+                                            <input type={"checkbox"} checked={top[color.id] ? true : false}
+                                                   onChange={(e) => {
+                                                       setTop((prev) => ({
+                                                           ...prev,
+                                                           [color.id]: Number(e.target.checked),
+                                                       }))
+
+                                                   }}/>
+
+                                        </div>
                                         <span className={"text-red-600 cursor-pointer text-xs whitespace-nowrap"}
                                               onClick={() => {
                                                   setExpireDates((prev) => ({

@@ -5,6 +5,7 @@ export type DiscountItemResponse = {
     id: number,
     product_color_id: number,
     discount_price: number,
+    top: number,
     productColor?: ColorResponse,
     discount?: DiscountResponse,
     discount_expire_time: string,

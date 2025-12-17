@@ -54,6 +54,7 @@ export const setItem = async <T extends ServerResponse<unknown>>
         discount: {
             product_color_id: number,
             discount_price: number,
+            top: number,
             discount_expire_time?: string,
         }[]
 
