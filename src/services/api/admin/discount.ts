@@ -85,3 +85,24 @@ export const deleteItem = async <T extends ServerResponse<unknown>>
     return axios.delete<T, SuccessResponseType<T>>("admin/discount/item/" + id)
         .then((res) => res?.data)
 };
+
+export const getTop = async <T extends ServerResponse<DiscountItemResponse[]>>
+(
+    id: number
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/discount/top-item/" + id)
+        .then((res) => res?.data?.result?.data)
+};
+
+export const sortTop = async <T extends ServerResponse<DiscountItemResponse[]>>
+(
+    param: {
+        discounts: {
+            id: number
+            sort: number
+        }[]
+    }
+) => {
+    return axios.get<T, SuccessResponseType<T>>("admin/discount/top-item/sort")
+        .then((res) => res?.data)
+};

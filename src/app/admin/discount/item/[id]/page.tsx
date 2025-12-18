@@ -133,6 +133,11 @@ export default function Page() {
                         مشاهده همه محصولات تخفیف خورده
                     </ButtonPrimary>
                 </Link>
+                <Link href={"/admin/discount/item/" + id + "/sort"}>
+                    <ButtonPrimary className={"w-fit !bg-rose-500"}>
+                        سورت کردن تخفیف های برتر
+                    </ButtonPrimary>
+                </Link>
                 <div className={"flex flex-col w-full gap-5"}>
                     <Input
                         placeholder={"جستجو"}
