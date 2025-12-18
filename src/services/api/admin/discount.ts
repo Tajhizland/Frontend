@@ -103,6 +103,6 @@ export const sortTop = async <T extends ServerResponse<DiscountItemResponse[]>>
         }[]
     }
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/discount/top-item/sort")
+    return axios.post<T, SuccessResponseType<T>>("admin/discount/top-item/sort",param)
         .then((res) => res?.data)
 };
