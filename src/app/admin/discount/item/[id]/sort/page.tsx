@@ -27,6 +27,7 @@ import Image from "next/image";
 import {DiscountItemResponse} from "@/services/types/discountItem";
 import {getTop, sortTop} from "@/services/api/admin/discount";
 import {useParams} from "next/navigation";
+import Prices from "@/components/Price/Prices";
 
 interface SortableItemProps {
     id: string;
@@ -107,6 +108,20 @@ const ProductList: React.FC<{
                                         sizes="300px"
                                         className="h-full w-full object-contain object-center"
                                     />
+                                </div>
+                                <div className={"py-5 flex flex-col gap-2"}>
+                                    <div className="font-medium">{discount.productColor?.product?.name}</div>
+                                    <div
+                                        className={"flex items-center gap-4 w-full"}
+                                        key={discount.productColor?.id}
+                                    >
+                                        {discount.productColor?.color_name}
+                                        <del className={"text-red-600"}>
+                                            {discount.productColor?.price}
+                                        </del>
+                                        <Prices price={discount.discount_price ?? 0}/>
+
+                                    </div>
                                 </div>
                             </div>
                         </SortableItem>
