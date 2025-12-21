@@ -13,6 +13,7 @@ import Timer from "@/components/Timer/Timer";
 import ProductCard3 from "@/components/Card/ProductCard3";
 import {CampaignResponse} from "@/services/types/campaign";
 import Image from "next/image";
+import {ProductResponse} from "@/services/types/product";
 
 export interface SectionSliderProductCardProps {
     className?: string;
@@ -22,7 +23,7 @@ export interface SectionSliderProductCardProps {
     headingClassName?: string;
     subHeading?: string;
     timer?: string;
-    data?: PopularProductResponse[];
+    data?: ProductResponse[];
     campaign?: CampaignResponse;
 }
 
@@ -238,7 +239,7 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                             {data && data.map((item, index) => (
                                 <li key={index}
                                     className={`glide__slide  rounded-3xl overflow-hidden ${itemClassName}`}>
-                                    <ProductCard3 data={item.product}/>
+                                    <ProductCard3 data={item}/>
                                 </li>
                             ))}
                             <li className={`glide__slide ${itemClassName}`}>

@@ -151,7 +151,7 @@ export default async function Homepage() {
                     <SectionNewDiscountSlider
                         campaign={response?.campaign}
                         timer={response?.discount?.discount_expire_time}
-                        data={response.popularProducts?.data || []}
+                        data={response.topDiscountedProducts?.data || []}
                         subHeading={""}
                     />
                     <div

@@ -12,9 +12,11 @@ import {TrustedBrandResponse} from "@/services/types/trustedBrand";
 import {CampaignResponse} from "@/services/types/campaign";
 import {CampaignBannerResponse} from "@/services/types/campaignBanner";
 import {DiscountItemResponse} from "@/services/types/discountItem";
+import {ProductResponse} from "@/services/types/product";
 
 export type HomePageResponse = {
     popularProducts: { data: PopularProductResponse[] };
+    topDiscountedProducts: { data: ProductResponse[] };
     discount: DiscountItemResponse;
     campaign?: CampaignResponse;
     pending_campaign?: CampaignResponse;

@@ -119,7 +119,7 @@ const DiscountListing = ({response}: { response }) => {
                 <SectionNewDiscountSlider
                     campaign={response.campaign}
                     timer={response?.discountTimer?.discount_expire_time}
-                    data={response.discounts.data}
+                    data={response.topDiscountedProducts?.data || []}
                     subHeading={""}
                 />
                 <div

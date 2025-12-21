@@ -27,6 +27,7 @@ export type SpecialProductPageResponse = {
 }
 export type DiscountedProductPageResponse = {
     data: ProductResponse;
+    topDiscountedProducts: { data: ProductResponse[] };
     campaign?: CampaignResponse;
     banner: { data: BannerResponse[] };
     discounts: { data: PopularProductResponse[] };
