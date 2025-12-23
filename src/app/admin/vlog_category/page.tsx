@@ -18,6 +18,7 @@ export default function Page() {
             {
                 id: e.id,
                 name: e.name as string,
+                url: e.url as string,
                 status: Number(e.status) ,
             }
         )

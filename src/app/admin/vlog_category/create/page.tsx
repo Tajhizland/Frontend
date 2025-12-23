@@ -15,6 +15,7 @@ export default function Page() {
         let response = await store(
             {
                 name: e.get("name") as string,
+                url: e.get("url") as string,
                 status: Number(e.get("status")),
             }
         )

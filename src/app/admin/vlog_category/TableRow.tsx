@@ -7,6 +7,7 @@ import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 export const columns: Column<VlogCategoryResponse>[] = [
     { key: 'id', header: 'شناسه', filterType: 'input', editable: false },
     { key: 'name', header: 'عنوان', filterType: 'input', editable: true },
+    { key: 'url', header: 'آدرس', filterType: 'input', editable: true },
     {
         key: 'status',
         header: 'وضعیت',
