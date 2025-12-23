@@ -75,7 +75,9 @@ export type ProductResponse = {
     updated_at: string;
     images_count: number;
     weight: number;
-    box_id: number;
+    length: number;
+    width: number;
+    height: number;
 
     unboxing?: VlogResponse;
     intro?: VlogResponse;

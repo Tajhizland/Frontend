@@ -57,8 +57,9 @@ export default function Page() {
                 stock_of: e.stock_of,
                 testing_time: e.testing_time,
                 weight: e.weight,
-                box_id: e.box_id,
-            }
+                length: e.length,
+                height: e.height,
+                width: e.width,            }
         )
         toast.success(response?.message as string)
 

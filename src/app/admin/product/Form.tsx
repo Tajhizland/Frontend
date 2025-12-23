@@ -105,7 +105,9 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             testing_time: 0,
             stock_of: 0,
             weight: 0,
-            box_id: 0,
+            length: 0,
+            width: 0,
+            height: 0,
         },
     });
 
@@ -126,7 +128,9 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             setValue("meta_description", data.meta_description);
             setValue("stock_of", data.stock_of);
             setValue("testing_time", data.testing_time);
-            setValue("box_id", data.box_id);
+            setValue("length", data.length);
+            setValue("width", data.width);
+            setValue("height", data.height);
             setValue("weight", data.weight);
         }
     }, [data, setValue]);
@@ -268,52 +272,64 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                     <Input  {...register("weight")} />
                 </div>
                 <div>
-                    <Label>اندازه بسته پستی</Label>
-                    <Select  {...register("box_id")} >
-                        <option value={""}>
-                            انتخاب کنید
-                        </option>
-                        <option value={1}>
-                            سایز ۱- (15*10*10 cm)
-                        </option>
-                        <option value={2}>
-                            سایز ۲ - (20*15*10 cm)
-                        </option>
-                        <option value={3}>
-                            سایز۳ - (20*20*15 cm)
-                        </option>
-                        <option value={4}>
-                            سایز ۴ - (30*20*20 cm)
-                        </option>
-                        <option value={5}>
-                            سایز ۵ - (35*25*20 cm)
-                        </option>
-                        <option value={6}>
-                            سایز ۶ - (45*25*20 cm)
-                        </option>
-                        <option value={7}>
-                            سایز ۷ - (40*30*25 cm)
-                        </option>
-                        <option value={8}>
-                            سایز ۸ -(45*40*30 cm)
-                        </option>
-                        <option value={9}>
-                            سایز ۹ - (55*45*35 cm)
-                        </option>
-                        <option value={10}>
-                            9 به بالا
-                        </option>
-                        <option value={11}>
-                            پاکت A5
-                        </option>
-                        <option value={12}>
-                            پاکت A4
-                        </option>
-                        <option value={13}>
-                            پاکت A3
-                        </option>
-                    </Select>
+                    <Label>طول محصول</Label>
+                    <Input  {...register("length")} />
                 </div>
+                <div>
+                    <Label>عرض محصول</Label>
+                    <Input  {...register("width")} />
+                </div>
+                <div>
+                    <Label>ارتفاع محصول</Label>
+                    <Input  {...register("height")} />
+                </div>
+                {/*<div>*/}
+                {/*    <Label>اندازه بسته پستی</Label>*/}
+                {/*    <Select  {...register("box_id")} >*/}
+                {/*        <option value={""}>*/}
+                {/*            انتخاب کنید*/}
+                {/*        </option>*/}
+                {/*        <option value={1}>*/}
+                {/*            سایز ۱- (15*10*10 cm)*/}
+                {/*        </option>*/}
+                {/*        <option value={2}>*/}
+                {/*            سایز ۲ - (20*15*10 cm)*/}
+                {/*        </option>*/}
+                {/*        <option value={3}>*/}
+                {/*            سایز۳ - (20*20*15 cm)*/}
+                {/*        </option>*/}
+                {/*        <option value={4}>*/}
+                {/*            سایز ۴ - (30*20*20 cm)*/}
+                {/*        </option>*/}
+                {/*        <option value={5}>*/}
+                {/*            سایز ۵ - (35*25*20 cm)*/}
+                {/*        </option>*/}
+                {/*        <option value={6}>*/}
+                {/*            سایز ۶ - (45*25*20 cm)*/}
+                {/*        </option>*/}
+                {/*        <option value={7}>*/}
+                {/*            سایز ۷ - (40*30*25 cm)*/}
+                {/*        </option>*/}
+                {/*        <option value={8}>*/}
+                {/*            سایز ۸ -(45*40*30 cm)*/}
+                {/*        </option>*/}
+                {/*        <option value={9}>*/}
+                {/*            سایز ۹ - (55*45*35 cm)*/}
+                {/*        </option>*/}
+                {/*        <option value={10}>*/}
+                {/*            9 به بالا*/}
+                {/*        </option>*/}
+                {/*        <option value={11}>*/}
+                {/*            پاکت A5*/}
+                {/*        </option>*/}
+                {/*        <option value={12}>*/}
+                {/*            پاکت A4*/}
+                {/*        </option>*/}
+                {/*        <option value={13}>*/}
+                {/*            پاکت A3*/}
+                {/*        </option>*/}
+                {/*    </Select>*/}
+                {/*</div>*/}
 
                 {isStock == 0 && <div>
                     <Label>گارانتی</Label>
