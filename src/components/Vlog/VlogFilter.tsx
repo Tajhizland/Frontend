@@ -24,9 +24,10 @@ import {FiChevronRight} from "react-icons/fi";
 
 type SelectedFilters = Record<string, string[] | string>;
 
-export default function VlogFilter({changeFilter, defualtSearch}: {
+export default function VlogFilter({changeFilter, defualtSearch, hasFilter = true}: {
     changeFilter: (filters: string) => void,
     defualtSearch?: string
+    hasFilter?: boolean
 }) {
     const {data: categoryList} = useQuery({
         queryKey: [`vlog_category-list`],
@@ -463,7 +464,7 @@ export default function VlogFilter({changeFilter, defualtSearch}: {
 
                                             {/* --------- */}
                                             {/* ---- */}
-                                            <div className="py-7">
+                                            {hasFilter && <div className="py-7">
                                                 <h3 className="text-xl font-medium">دسته بندی </h3>
                                                 <div className="mt-6 relative ">
                                                     <div className="relative flex flex-col space-y-8">
@@ -482,7 +483,7 @@ export default function VlogFilter({changeFilter, defualtSearch}: {
 
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>}
 
                                             {/* --------- */}
                                             {/* ---- */}
@@ -571,7 +572,7 @@ export default function VlogFilter({changeFilter, defualtSearch}: {
                     size=" w-11 h-11"
                     type="submit"
                 >
-                    <FiChevronRight className={"w-4 h-4"} />
+                    <FiChevronRight className={"w-4 h-4"}/>
 
                 </ButtonCircle>
                 <span
@@ -629,7 +630,7 @@ export default function VlogFilter({changeFilter, defualtSearch}: {
                             size=" w-11 h-11"
                             type="submit"
                         >
-                            <FiChevronRight className={"w-4 h-4"} />
+                            <FiChevronRight className={"w-4 h-4"}/>
 
                         </ButtonCircle>
                         <span

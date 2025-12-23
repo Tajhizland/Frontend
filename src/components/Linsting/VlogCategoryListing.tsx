@@ -127,13 +127,13 @@ export default function VlogCategoryListing({response, search, url}: { response:
 
     return (
         <div className="nc-PageCollection dark:bg-neutral-900">
-            <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
-                <div className="space-y-10 lg:space-y-14">
+                 <div className="container py-5 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
+                     <div className="space-y-5 lg:space-y-5">
                     <SectionSingleBanner banner={response.banner.data[0]}/>
 
                     <main>
                         {/* TABS FILTER */}
-                        <VlogFilter changeFilter={handleFilterChange} defualtSearch={search}/>
+                        <VlogFilter changeFilter={handleFilterChange} defualtSearch={search} hasFilter={false}/>
                         {/* LOOP ITEMS */}
                         <div className="grid grid-cols-1 lg:grid-cols-12 mt-8 lg:mt-10 gap-10">
                             <div className="hidden lg:block lg:col-span-3">
@@ -161,7 +161,7 @@ export default function VlogCategoryListing({response, search, url}: { response:
                     {/* HEADING */}
                     <div className="max-w-screen-sm">
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
-                            تجهیزلند ولاگ
+                            {response.category.name}
                         </h2>
                     </div>
                 </div>
