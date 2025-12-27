@@ -137,7 +137,7 @@ export default function Form({data, submit, loading = false}: Form) {
                     </Select>
                 </div>
                 <div>
-                    <Label>وضعیت </Label>
+                    <Label>دسته بندی </Label>
                     <Select  {...register("category_id")} >
                         {categorys?.map((item) => (
                             <option key={item.id} value={item.id}>
