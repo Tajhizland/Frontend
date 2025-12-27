@@ -95,7 +95,7 @@ export default function Form({data, submit, loading = false}: Form) {
         if (data) {
             setValue("title", data.title);
             setValue("url", data.url);
-            setValue("category_id", data.category_id.toString());
+            setValue("category_id", data.category_id?.toString());
             setValue("status", data.status.toString());
             setValue("vlog_id", data.vlog_id.toString());
             setValue("description", data.description);
