@@ -12,7 +12,7 @@ export const store = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/castCategory/store", params,)
+    return axios.post<T, SuccessResponseType<T>>("admin/cast-category/store", params,)
         .then((res) => res?.data)
 };
 
@@ -26,15 +26,14 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/castCategory/update", params,)
+    return axios.post<T, SuccessResponseType<T>>("admin/cast-category/update", params,)
         .then((res) => res?.data)
 };
 
 
 export const get = async <T extends ServerResponse<CastCategoryResponse[]>>
-(
-) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/castCategory/get")
+() => {
+    return axios.get<T, SuccessResponseType<T>>("admin/cast-category/get")
         .then((res) => res?.data?.result?.data)
 };
 
@@ -42,6 +41,6 @@ export const findById = async <T extends ServerResponse<CastCategoryResponse>>
 (
     id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/castCategory/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/cast-category/find/" + id)
         .then((res) => res?.data?.result?.data)
 };
