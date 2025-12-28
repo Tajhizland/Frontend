@@ -152,7 +152,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                             </span>
                         </span>
                         <div className={"mt-3 hidden lg:flex"}>
-                            {selectedColor.price ? renderMainPrice() :
+                            {(selectedColor?.stock > 0 && selectedColor.price) ? renderMainPrice() :
                                 <Badge name={"ناموجود"} color={"red"}/>}
                         </div>
                     </div>
