@@ -1,7 +1,5 @@
 import React, {useState} from "react";
-import {useQuery} from "react-query";
 import Checkbox from "@/shared/Checkbox/Checkbox";
-import {getCastCategory} from "@/services/api/shop/castCategory";
 import {CastCategoryResponse} from "@/services/types/castCategory";
 
 type SelectedFilters = Record<string, string[] | string>;
