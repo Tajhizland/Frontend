@@ -33,8 +33,8 @@ export default function Page() {
                 href: "cast"
             },
             {
-                title: "افزودن cast جدید",
-                href: "cast/create"
+                title: "افزودن tajhizcast جدید",
+                href: "tajhizcast/create"
             }
         ]} />
         <Panel>

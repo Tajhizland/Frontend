@@ -10,7 +10,7 @@ import React from "react";
 export default function CastCard({cast}: { cast: CastResponse }) {
     return (
         <Link
-            href={"/cast/" + cast.url}
+            href={"/tajhizcast/" + cast.url}
             className={`nc-BlogCard relative flex flex-col sm:flex-row sm:items-center group border rounded-2xl py-4 px-4 sm:mx-10 transition-all hover:shadow-xl`}
             data-nc-id="BlogCard"
         >

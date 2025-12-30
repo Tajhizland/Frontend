@@ -38,7 +38,7 @@ export const buttons: DataTableButtons[] = [
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
         href : (value: any): UrlObject => {
             return {
-                pathname: 'cast-category/edit/'+value,
+                pathname: 'tajhizcast-category/edit/'+value,
             };
         }
     },

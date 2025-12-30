@@ -29,12 +29,12 @@ export default function Page() {
     return (<>
         <Breadcrump breadcrumb={[
             {
-                title: "دسته cast",
-                href: "cast-category"
+                title: "دسته tajhizcast",
+                href: "tajhizcast-category"
             },
             {
-                title: "افزودن دسته cast جدید",
-                href: "cast-category/create"
+                title: "افزودن دسته tajhizcast جدید",
+                href: "tajhizcast-category/create"
             }
         ]}/>
         <Panel>

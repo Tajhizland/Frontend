@@ -72,7 +72,7 @@ export default function Form({data, submit, loading = false}: Form) {
     };
 
     const {data: categorys} = useQuery({
-        queryKey: ['cast-category-get'],
+        queryKey: ['tajhizcast-category-get'],
         queryFn: () => get(),
         staleTime: 5000,
     });

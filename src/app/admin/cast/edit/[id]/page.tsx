@@ -38,7 +38,7 @@ export default function Page() {
                 href: "cast"
             },
             {
-                title: "ویرایش cast",
+                title: "ویرایش tajhizcast",
                 href: "product/edit/" + id
             }
         ]} />
