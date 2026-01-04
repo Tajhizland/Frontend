@@ -40,12 +40,12 @@ export default function Form({data, submit, loading = false}: Form) {
             setValue("code", data.code);
             setValue("start_time", data.start_time);
             setValue("end_time", data.end_time);
-            setValue("status", data.status.toString());
-            setValue("price", data.price.toString());
-            setValue("percent", data.percent.toString());
-            setValue("min_order_value", data.min_order_value.toString());
-            setValue("max_order_value", data.max_order_value.toString());
-            setValue("user_id", data.user_id.toString());
+            setValue("status", data.status?.toString());
+            setValue("price", data.price?.toString());
+            setValue("percent", data.percent?.toString());
+            setValue("min_order_value", data.min_order_value?.toString());
+            setValue("max_order_value", data.max_order_value?.toString());
+            setValue("user_id", data.user_id?.toString());
 
         }
     }, [data, setValue]);
