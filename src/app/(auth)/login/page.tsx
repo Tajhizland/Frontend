@@ -35,7 +35,7 @@ const PageLogin = () => {
             setIsLogin(true);
             let oneYear = Date.now() + 365 * 24 * 60 * 60 * 1000;
             setCookie('token', response.token, {
-                domain: "tajhizland.com",
+                // domain: "tajhizland.com",
                 path: "/",
                 expires: new Date(oneYear),
             });
