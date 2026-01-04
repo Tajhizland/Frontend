@@ -8,10 +8,6 @@ import localFont from "next/font/local";
 import {QueryClient, QueryClientProvider} from "react-query";
 import AutoLoading from "@/app/(shop)/AutoLoading";
 import {Suspense} from "react";
-import BottomNavigation from "@/components/BottomNavigation/BottomNavigation";
-import Footer from "@/components/Footer/Footer";
-import Header from "@/components/Header/Header";
-import InstallPWAButton from "@/components/Pwa/InstallPWAButton";
 import Footprint from "@/components/Footprint/Footprint";
 import TajhizcastHeader from "@/components/Header/TajhizcastHeader";
 

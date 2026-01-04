@@ -9,6 +9,7 @@ import Heading from "@/components/Heading/Heading";
 import VideoPlayer2 from "@/shared/VideoPlayer/VideoPlayer2";
 import HlsVideoPlayer from "@/shared/VideoPlayer/HlsVideoPlayer";
 import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
+import {GoEye} from "react-icons/go";
 
 interface PageProps {
     params: Promise<{
@@ -71,11 +72,11 @@ export default async function Page(props: PageProps) {
                         fill
                         alt="vlog"
                     />
-                    <span className="py-2.5 px-2 dark:text-white">{item.title}</span>
+                    <span className="py-2.5 px-2 dark:text-white text-xs sm:text-sm">{item.title}</span>
                     <div className="flex justify-between items-center py-1 px-2 text-neutral-500 dark:text-white">
                         <div className="flex items-center gap-x-2">
-                            <FaEye/>
-                            <span>{item.view}</span>
+                            <GoEye/>
+                            <span className={"text-xs sm:text-sm"}>{item.view}</span>
                         </div>
                         <span className="text-xs">{item.created_at}</span>
                     </div>
@@ -90,7 +91,7 @@ export default async function Page(props: PageProps) {
                 >
                     ولاگ های مرتبط
                 </Heading>
-                <div  className="grid grid-cols-2 lg:grid-cols-4 gap-10">
+                <div  className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-10">
                     {
                         response.relatedVlogs.data.map((item) => (<>
                             {renderVlogCard(item)}

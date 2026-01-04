@@ -10,6 +10,7 @@ export const store = async <T extends ServerResponse<unknown>>
             audio: File,
             image: File,
             vlog_id: number,
+            category_id: number,
             status: number,
             description: string,
             setProgress?: (progress: number) => void
@@ -23,6 +24,7 @@ export const store = async <T extends ServerResponse<unknown>>
     formData.append('description', params.description);
     formData.append('status', params.status.toString());
     formData.append('vlog_id', params.vlog_id.toString());
+    formData.append('category_id', params.category_id.toString());
     formData.append('status', params.status.toString());
     formData.append('audio', params.audio);
     formData.append('image', params.image);
@@ -51,6 +53,7 @@ export const update = async <T extends ServerResponse<unknown>>
             audio?: File,
             image?: File,
             vlog_id: number,
+            category_id: number,
             status: number,
             description: string,
             setProgress?: (progress: number) => void
@@ -63,6 +66,7 @@ export const update = async <T extends ServerResponse<unknown>>
     formData.append('description', params.description);
     formData.append('status', params.status.toString());
     formData.append('vlog_id', params.vlog_id.toString());
+    formData.append('category_id', params.category_id.toString());
     formData.append('status', params.status.toString());
 
     if (params.audio) {

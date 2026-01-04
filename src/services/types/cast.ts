@@ -1,5 +1,12 @@
 import {VlogResponse} from "@/services/types/vlog";
+import {CategoryResponse} from "@/services/types/category";
+import {CastCategoryResponse} from "@/services/types/castCategory";
 
+export type CastListingResponse = {
+    listing: { data: CastResponse[] };
+    mostViewed: { data: CastResponse[] };
+    category: { data: CastCategoryResponse[] };
+}
 export type CastResponse = {
     id: number;
     image: string;
@@ -9,7 +16,9 @@ export type CastResponse = {
     url: string;
     status: number;
     vlog_id: number;
+    category_id: number;
     vlog?: VlogResponse;
+    castCategory?: CategoryResponse;
     created_at: string;
     updated_at: string;
 }

@@ -68,15 +68,6 @@ export async function generateMetadata(props: ProductPageProps): Promise<Metadat
             type: "website",
         },
         robots: "index , follow",
-        other: {
-            product_id: product?.id,
-            product_name: product?.name,
-            product_price: product?.min_price,
-            product_old_price: product?.min_price,
-            availability: product.status == 1 ? "instock" : "outofstock",
-            guarantee: product?.guaranties.data[0] ? product?.guaranties.data[0]?.name ?? "" : ""
-        }
-
     }
 }
 

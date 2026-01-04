@@ -108,3 +108,46 @@ body {
 .goftino-wakeup{
     bottom: 65px!important;
 }
+
+
+
+
+
+
+
+
+
+
+
+.rhap_container {
+    background-color: #1e293b !important; /* زمینه تیره */
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.rhap_progress-filled {
+    background-color: #3b82f6 !important; /* رنگ پیشرفت آبی */
+}
+
+.rhap_progress-indicator {
+    background-color: #3b82f6 !important;
+    box-shadow: 0 0 8px #3b82f6;
+}
+
+.rhap_volume-indicator {
+    background-color: #3b82f6 !important;
+}
+
+.rhap_button-clear {
+    color: #e2e8f0 !important; /* آیکون‌ها سفید */
+}
+
+.rhap_time {
+    color: #e2e8f0 !important;
+}
+
+.rhap_additional-controls,
+.rhap_volume-controls {
+    color: #e2e8f0 !important;
+}

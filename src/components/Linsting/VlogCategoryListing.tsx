@@ -1,23 +1,24 @@
 //@ts-nocheck
 "use client";
-import React, { useRef, useEffect, useState } from "react";
-import { useInfiniteQuery } from "react-query";
-import { getVlogByCategoryPaginated, getVlogPaginated } from "@/services/api/shop/vlog";
-import { VlogResponse } from "@/services/types/vlog";
+import React, {useRef, useEffect, useState} from "react";
+import {useInfiniteQuery} from "react-query";
+import {getVlogByCategoryPaginated, getVlogPaginated} from "@/services/api/shop/vlog";
+import {VlogResponse} from "@/services/types/vlog";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
-import { FaEye } from "react-icons/fa";
+import {FaEye} from "react-icons/fa";
 import VlogFilter from "@/components/Vlog/VlogFilter";
 import WidgetFilter from "../Vlog/WidgetFilter";
-import { Route } from "next";
+import {Route} from "next";
 import VlogCardSkeleton from "@/components/Skeleton/VlogCardSkeleton";
-import { FaCirclePlay } from "react-icons/fa6";
+import {FaCirclePlay} from "react-icons/fa6";
 import VlogMiniPost from "@/components/Vlog/VlogMiniPost";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
+import {GoEye} from "react-icons/go";
 
-export default function VlogCategoryListing({ response, search, url }: { response: any, search?: string, url: string }) {
+export default function VlogCategoryListing({response, search, url}: { response: any, search?: string, url: string }) {
     const observer = useRef<IntersectionObserver | null>(null);
     const lastElementRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
@@ -32,7 +33,7 @@ export default function VlogCategoryListing({ response, search, url }: { respons
         isFetchingNextPage,
     } = useInfiniteQuery(
         ["vlogs", filter], // فیلترها را در queryKey ارسال می‌کنیم
-        async ({ pageParam = 1, queryKey }) => {
+        async ({pageParam = 1, queryKey}) => {
             const filters = queryKey[1]; // دریافت فیلترها از queryKey
             const result = await getVlogByCategoryPaginated(url, pageParam, filters);
             return result.listing;
@@ -80,7 +81,7 @@ export default function VlogCategoryListing({ response, search, url }: { respons
 
     useEffect(() => {
         if (page > 1) {
-            router.replace(`?page=${page}`, { scroll: false });
+            router.replace(`?page=${page}`, {scroll: false});
         }
     }, [page, router]);
 
@@ -104,14 +105,14 @@ export default function VlogCategoryListing({ response, search, url }: { respons
                     />
                     <div
                         className="absolute top-0 left-0 bg-black/70 w-full h-full group-hover:flex justify-center items-center hidden">
-                        <FaCirclePlay className="text-white w-8 h-8 animate-pulse" />
+                        <FaCirclePlay className="text-white w-8 h-8 animate-pulse"/>
                     </div>
                 </div>
-                <span className="py-2.5 px-2 dark:text-white">{item.title}</span>
-                <div className="flex justify-between items-center py-1 px-2 text-neutral-500 dark:text-white">
+                <span className="py-2.5 px-2 dark:text-white text-xs sm:text-sm">{item.title}</span>
+                <div className="flex justify-between items-center  px-2 text-neutral-500 dark:text-white">
                     <div className="flex items-center gap-x-2">
-                        <FaEye />
-                        <span>{item.view}</span>
+                        <GoEye/>
+                        <span className={"text-xs sm:text-sm"}>{item.view}</span>
                     </div>
                     <span className="text-xs">{item.created_at}</span>
                 </div>
@@ -126,31 +127,30 @@ export default function VlogCategoryListing({ response, search, url }: { respons
 
     return (
         <div className="nc-PageCollection dark:bg-neutral-900">
-            <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
-                <div className="space-y-10 lg:space-y-14">
-                    <SectionSingleBanner banner={response.banner.data[0]} />
+                 <div className="container py-5 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
+                     <div className="space-y-5 lg:space-y-5">
+                    <SectionSingleBanner banner={response.banner.data[0]}/>
 
                     <main>
                         {/* TABS FILTER */}
-                        <VlogFilter changeFilter={handleFilterChange} defualtSearch={search} />
+                        <VlogFilter changeFilter={handleFilterChange} defualtSearch={search} hasFilter={false}/>
                         {/* LOOP ITEMS */}
                         <div className="grid grid-cols-1 lg:grid-cols-12 mt-8 lg:mt-10 gap-10">
                             <div className="hidden lg:block lg:col-span-3">
                                 <div className={"flex flex-col gap-10"}>
-                                    <WidgetFilter changeFilter={handleFilterChange} />
-                                    <VlogMiniPost vlogs={response.mostViewed.data} />
+                                    <VlogMiniPost vlogs={response.mostViewed.data}/>
                                 </div>
                             </div>
 
                             <div
                                 className="  lg:col-span-9  ">
                                 <div
-                                    className="grid   grid-cols-2 lg:grid-cols-3 gap-10">
+                                    className="grid   grid-cols-2 lg:grid-cols-3 gap-2 gap-y-7 sm:gap-5 sm:gap-y-7">
                                     {allVlogs.map((item: VlogResponse) => renderItem(item))}
                                 </div>
                                 <div ref={lastElementRef}
-                                    className="grid   grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
-                                    {isFetchingNextPage && <VlogCardSkeleton />}
+                                     className="grid   grid-cols-2 lg:grid-cols-3  gap-2 gap-y-7 sm:gap-5 sm:gap-y-7 mt-7">
+                                    {isFetchingNextPage && <VlogCardSkeleton/>}
                                 </div>
                             </div>
                         </div>
@@ -161,7 +161,7 @@ export default function VlogCategoryListing({ response, search, url }: { respons
                     {/* HEADING */}
                     <div className="max-w-screen-sm">
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
-                            تجهیزلند ولاگ
+                            {response.category.name}
                         </h2>
                     </div>
                 </div>

@@ -257,13 +257,18 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         icon: <SiWayland className="h-6 w-6 text-gray-500"/>,
         sub: [
             {
-                title: "مدیریت cast",
+                title: "مدیریت دسته بندی tajhizcast",
+                url: "/cast-category",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },     {
+                title: "مدیریت tajhizcast",
                 url: "/cast",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
 
             },
             {
-                title: "افزودن cast ",
+                title: "افزودن tajhizcast ",
                 url: "/cast/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
 

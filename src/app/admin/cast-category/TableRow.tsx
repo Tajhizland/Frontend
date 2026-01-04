@@ -3,14 +3,14 @@ import {HiMiniPencil} from "react-icons/hi2";
 import Badge from "@/shared/Badge/Badge";
 import { UrlObject } from "url";
 import {CastResponse} from "@/services/types/cast";
+import {CastCategoryResponse} from "@/services/types/castCategory";
 
 
-export const columns: Column<CastResponse>[] = [
+export const columns: Column<CastCategoryResponse>[] = [
    
     {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
-    {key: 'title', header: 'نام  ', filterType: 'input', editable: true},
-    {key: 'url', header: 'آدرس  ', filterType: 'input', editable: true},
-    {
+    {key: 'name', header: 'نام  ', filterType: 'input', editable: true},
+     {
         key: 'status',
         header: 'وضعیت',
         editable: true,
@@ -38,7 +38,7 @@ export const buttons: DataTableButtons[] = [
         colorClass: "bg-white text-white border border-slate-900 outline-none ",
         href : (value: any): UrlObject => {
             return {
-                pathname: 'tajhizcast/edit/'+value,
+                pathname: 'tajhizcast-category/edit/'+value,
             };
         }
     },
