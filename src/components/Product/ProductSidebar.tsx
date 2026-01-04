@@ -513,8 +513,9 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                         </div>
                     }
                     <div className={"flex flex-1 items-center justify-center "}>
-                        {selectedColor.discountedPrice ? renderMainPrice() :
+                        {(selectedColor?.stock > 0 && selectedColor.price) ? renderMainPrice() :
                             <Badge name={"ناموجود"} color={"red"}/>}
+
                     </div>
                 </div>
 
