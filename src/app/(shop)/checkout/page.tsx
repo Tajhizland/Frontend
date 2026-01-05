@@ -378,7 +378,7 @@ const CheckoutPage = () => {
         let sumPrice: number = 0;
         cart.map((item) => {
             if (item.guaranty && item.guaranty.free == 0) {
-                sumPrice += GuarantyPrice(item.color.price) ?? 0;
+                sumPrice +=((GuarantyPrice(item.color.price) ?? 0 )* item.count);
             }
         })
         return sumPrice;
