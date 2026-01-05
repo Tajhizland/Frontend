@@ -1,17 +1,19 @@
 "use client"
 import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
-import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import {Controller, useForm} from "react-hook-form";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian_fa from "react-date-object/locales/persian_fa";
 import persian from "react-date-object/calendars/persian";
 import DatePicker from "react-multi-date-picker";
 import {toMySqlDateTime} from "@/utils/dateFormat";
-import {DiscountResponse} from "@/services/types/discount";
 import {CouponResponse} from "@/services/types/coupon";
+import {useQuery} from "react-query";
+import {getUserByType} from "@/services/api/admin/user";
+import ReactSelect from "react-select";
+import Select from "@/shared/Select/Select";
 
 interface Form {
     data?: CouponResponse;
@@ -35,17 +37,28 @@ export default function Form({data, submit, loading = false}: Form) {
 
     });
 
+    const {data: users, isLoading} = useQuery({
+        queryKey: [`get-all-user`],
+        queryFn: () => getUserByType({type: "all"}),
+    });
+
+    type UserOption = {
+        value: number;
+        label: string;
+    };
+
+
     useEffect(() => {
         if (data) {
             setValue("code", data.code);
             setValue("start_time", data.start_time);
             setValue("end_time", data.end_time);
-            setValue("status", data.status.toString());
-            setValue("price", data.price.toString());
-            setValue("percent", data.percent.toString());
-            setValue("min_order_value", data.min_order_value.toString());
-            setValue("max_order_value", data.max_order_value.toString());
-            setValue("user_id", data.user_id.toString());
+            setValue("status", data.status?.toString());
+            setValue("price", data.price?.toString());
+            setValue("percent", data.percent?.toString());
+            setValue("min_order_value", data.min_order_value?.toString());
+            setValue("max_order_value", data.max_order_value?.toString());
+            setValue("user_id", data.user_id?.toString());
 
         }
     }, [data, setValue]);
@@ -86,14 +99,34 @@ export default function Form({data, submit, loading = false}: Form) {
                 </div>
                 <div>
                     <Label>کاربر </Label>
-                    <Select  {...register("user_id")} >
-                        <option value={""}>
-                            همه
-                        </option>
-                        <option value={0}>
-                            غیر فعال
-                        </option>
-                    </Select>
+                    <Controller
+                        name="user_id"
+                        control={control}
+                        render={({field}) => (
+                            <ReactSelect<UserOption, false>
+                                isClearable
+                                isSearchable
+                                placeholder="همه"
+                                options={users?.map(user => ({
+                                    value: user.id,
+                                    label: user.username,
+                                }))}
+                                onChange={(option) => field.onChange(option?.value ?? "")}
+                                value={
+                                    users
+                                        ? users
+                                        .map(user => ({
+                                            value: user.id,
+                                            label: user.username,
+                                        }))
+                                        // @ts-ignore
+                                        .find(opt => opt.value == field.value) ?? null
+                                        : null
+                                }
+                            />
+                        )}
+                    />
+
                 </div>
                 <div>
                     <Label>زمان شروع</Label>
