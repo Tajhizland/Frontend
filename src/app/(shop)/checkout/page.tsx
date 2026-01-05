@@ -30,6 +30,10 @@ import Badge from "@/shared/Badge/Badge";
 import ContactInfo from "@/components/Checkout/ContactInfo";
 import MySwitch from "@/shared/Switch/MySwitch";
 import ShippingMethod from "@/components/Checkout/ShippingMethod";
+import Input from "@/shared/Input/Input";
+import Label from "@/shared/Label/Label";
+import {check} from "@/services/api/shop/coupon";
+import {CouponResponse} from "@/services/types/coupon";
 
 const CheckoutPage = () => {
     const router = useRouter();
@@ -38,6 +42,8 @@ const CheckoutPage = () => {
 
     const [acceptRule, setAcceptRule] = useState(false);
     const [useWallet, setUseWallet] = useState(false);
+    const [coupon, setCoupon] = useState<CouponResponse>();
+    const [code, setCode] = useState("");
     const [shippingMethod, setShippingMethod] = useState(1);
     // if (!user) {
     //     router.push("/login");
@@ -59,8 +65,16 @@ const CheckoutPage = () => {
 
     });
 
+    async function checkCode() {
+        let response = await check(code);
+        if (response) {
+            setCoupon(response)
+        }
+    }
+
+
     async function payment() {
-        let response = await paymentRequest(useWallet, shippingMethod);
+        let response = await paymentRequest(useWallet, shippingMethod, code);
         if (response.type == "payment")
             window.location.href = response.path;
         else if (response.type == "paid")
@@ -318,6 +332,21 @@ const CheckoutPage = () => {
 
         return sumPrice - sumDiscount + sumGuarantyPrice;
     }
+    const renderCouponDiscount = () => {
+        if (!coupon)
+            return 0;
+        let discountAmount = 0;
+
+        if (coupon.price > 0) {
+            // تخفیف ثابت: مستقیماً مبلغ price کم می‌شه
+            discountAmount = coupon.price;
+        } else if (coupon.percent > 0) {
+            // تخفیف درصدی: درصد از مجموع سبد خرید
+            discountAmount = (coupon.percent / 100) * sumDiscountedPrice;
+        }
+
+        return discountAmount;
+    }
     const renderAllow = () => {
         let allow: boolean = true;
         cart.map((item) => {
@@ -361,6 +390,7 @@ const CheckoutPage = () => {
     const sumGuarantyPrice = useMemo(() => renderSumGuarantyPrice(), [cart, renderSumGuarantyPrice]);
     const sumDiscount = useMemo(() => renderDiscount(), [cart]);
     const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart]);
+    const couponDiscount = useMemo(() => renderCouponDiscount(), [coupon, cart]);
     const maxDeliveryDelay = useMemo(() => renderMaxDeliveryDelay(), [cart]);
 
     return (
@@ -368,6 +398,7 @@ const CheckoutPage = () => {
             {/*<head>*/}
             {/*    <title>پرداخت</title>*/}
             {/*</head>*/}
+
             <main className="container py-16 lg:pb-28 lg:pt-20 ">
                 <div className="mb-16">
                     <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold ">
@@ -404,12 +435,21 @@ const CheckoutPage = () => {
                             {/*<div>*/}
                             {/*    <Label className="text-sm">کد تخفیف</Label>*/}
                             {/*    <div className="flex mt-1.5">*/}
-                            {/*        <Input sizeClass="h-10 px-4 py-3" className="flex-1"/>*/}
+                            {/*        <Input sizeClass="h-10 px-4 py-3" className="flex-1" value={code} onChange={(e) => {*/}
+                            {/*            setCode(e.target.value)*/}
+                            {/*        }}/>*/}
                             {/*        <button*/}
+                            {/*            onClick={checkCode}*/}
                             {/*            className="text-neutral-700 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 rounded-2xl px-4 ml-3 font-medium text-sm bg-neutral-200/70 dark:bg-neutral-700 dark:hover:bg-neutral-800 w-24 flex justify-center items-center transition-colors">*/}
                             {/*            اعمال*/}
                             {/*        </button>*/}
                             {/*    </div>*/}
+                            {/*    {(coupon && couponDiscount > 0) && <div className={" mt-1.5"}>*/}
+                            {/*        <Alert type={"success"}>*/}
+                            {/*            کد تخفیف اعمال شد و مبلغ {couponDiscount} از سفارش شما کم شد*/}
+                            {/*        </Alert>*/}
+                            {/*    </div>}*/}
+
                             {/*</div>*/}
                             <div className="mt-4  flex justify-end py-2.5">
                                 {
@@ -484,6 +524,8 @@ const CheckoutPage = () => {
                                 </span>
                             </div>
                             <hr className={"mt-4"}/>
+
+
                             <div
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                 <div className={"flex items-center gap-1"}>
@@ -501,25 +543,38 @@ const CheckoutPage = () => {
                                 </span>
                             </div>
                             {
-                                useWallet &&
-                                <>
-                                    <div>
-                                        مبلغ
-                                        {" "}
-                                        {(user?.wallet ?? 0).toLocaleString()} تومان
-                                        از سفارش شما کسر میگردد
-                                    </div>
-                                    <div>
-                                        مبلغ قابل پرداخت :
-                                        {
-                                            (
-                                                (sumDiscountedPrice - (user?.wallet ?? 0)) > 0 ?
-                                                    (sumDiscountedPrice - (user?.wallet ?? 0))
-                                                    :
-                                                    0
-                                            ).toLocaleString()} تومان
-                                    </div>
-                                </>
+                                useWallet ?
+                                    <>
+                                        <div>
+                                            مبلغ
+                                            {" "}
+                                            {(user?.wallet ?? 0).toLocaleString()} تومان
+                                            از سفارش شما کسر میگردد
+                                        </div>
+                                        <div>
+                                            مبلغ قابل پرداخت :
+                                            {
+                                                (
+                                                    (sumDiscountedPrice - couponDiscount - (user?.wallet ?? 0)) > 0 ?
+                                                        (sumDiscountedPrice - couponDiscount - (user?.wallet ?? 0))
+                                                        :
+                                                        0
+                                                ).toLocaleString()} تومان
+                                        </div>
+                                    </>
+                                    :
+                                    couponDiscount > 0 ?
+                                        <div >
+                                            مبلغ قابل پرداخت :
+                                            {
+                                                (
+                                                    (sumDiscountedPrice - couponDiscount) > 0 ?
+                                                        (sumDiscountedPrice - couponDiscount)
+                                                        :
+                                                        0
+                                                ).toLocaleString()} تومان
+                                        </div>
+                                        : null
                             }
                         </div>
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
