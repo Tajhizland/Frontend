@@ -16,6 +16,7 @@ import ReactSelect from "react-select";
 import Select from "@/shared/Select/Select";
 import {resetPasswordSendCode} from "@/services/api/auth/resetPassword";
 import {generate} from "@/services/api/admin/coupon";
+import Badge from "@/shared/Badge/Badge";
 
 interface Form {
     data?: CouponResponse;
@@ -83,10 +84,15 @@ export default function Form({data, submit, loading = false}: Form) {
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>نام </Label>
-                    <Input  {...register("code")} />
-                    <ButtonPrimary onClick={generateCode.mutateAsync} className={"text-sm"}>
-                         ایجاد کد تصادفی
-                    </ButtonPrimary>
+                    <div className={"flex items-center gap-1"}>
+                        <Input  {...register("code")} />
+                        <div className={"cursor-pointer"} onClick={()=>{
+                            generateCode.mutateAsync()
+                        }}>
+                            <Badge name={"ایجاد کد تصادفی"} color={"blue"} />
+                        </div>
+                    </div>
+
                 </div>
                 <div>
                     <Label>وضعیت </Label>
