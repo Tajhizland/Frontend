@@ -246,6 +246,12 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 url: "/discount",
                 icon: <RiDiscountPercentFill className="h-6 w-6 text-gray-500"/>,
 
+            },
+            {
+                title: "مدیریت کد تخفیف ها",
+                url: "/coupon",
+                icon: <RiDiscountPercentFill className="h-6 w-6 text-gray-500"/>,
+
             }
         ]
     },
