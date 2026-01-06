@@ -10,10 +10,12 @@ import persian from "react-date-object/calendars/persian";
 import DatePicker from "react-multi-date-picker";
 import {toMySqlDateTime} from "@/utils/dateFormat";
 import {CouponResponse} from "@/services/types/coupon";
-import {useQuery} from "react-query";
+import {useMutation, useQuery} from "react-query";
 import {getUserByType} from "@/services/api/admin/user";
 import ReactSelect from "react-select";
 import Select from "@/shared/Select/Select";
+import {resetPasswordSendCode} from "@/services/api/auth/resetPassword";
+import {generate} from "@/services/api/admin/coupon";
 
 interface Form {
     data?: CouponResponse;
@@ -63,12 +65,28 @@ export default function Form({data, submit, loading = false}: Form) {
         }
     }, [data, setValue]);
 
+
+    const generateCode = useMutation({
+        mutationKey: [`generate-code`],
+        mutationFn: async () => {
+            return generate();
+        },
+        onSuccess: (response) => {
+            if (!response)
+                return;
+            setValue("code", response.code);
+        },
+    });
+
     return (<>
         <form onSubmit={handleSubmit(submit)}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>نام </Label>
                     <Input  {...register("code")} />
+                    <ButtonPrimary onClick={generateCode.mutateAsync} className={"text-sm"}>
+                         ایجاد کد تصادفی
+                    </ButtonPrimary>
                 </div>
                 <div>
                     <Label>وضعیت </Label>
