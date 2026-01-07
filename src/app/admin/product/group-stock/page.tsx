@@ -247,18 +247,21 @@ export default function Page() {
                                         key={color.id}
                                     >
                                         {color.color_name}
+                                        |
                                         <div className={"flex items-center gap-1"}>
                                             <span>وضعیت</span>
                                             <span>
                                                 {color.status==1?"فعال" : color.status==0?"غیر فعال" : color.status==2?"محدود" : "ناشناخته"}
                                             </span>
                                         </div>
+                                        |
                                         <div className={"flex items-center gap-1"}>
                                             <span>موجودی</span>
                                             <span>
                                                 {color.stock}
                                             </span>
                                         </div>
+                                        |
                                         <Prices price={color.price ?? 0}/>
                                     </div>
                                 ))}
