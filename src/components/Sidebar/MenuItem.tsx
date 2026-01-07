@@ -73,6 +73,11 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 url: "/product/group-price",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
 
+            }, {
+                title: "تغییر گروهی وضعیت",
+                url: "/product/group-price",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
             },
             {
                 title: "مدیریت محصولات تخفیفی",
