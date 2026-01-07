@@ -75,7 +75,7 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
 
             }, {
                 title: "تغییر گروهی وضعیت",
-                url: "/product/group-price",
+                url: "/product/group-stock",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
 
             },
