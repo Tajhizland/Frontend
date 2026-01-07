@@ -114,7 +114,7 @@ export default function Page() {
             <Breadcrump
                 breadcrumb={[
                     {title: "محصولات", href: "product"},
-                    {title: "تغییر گروهی قیمت", href: "product/create"},
+                    {title: "تغییر گروهی وضعیت", href: "product/group-stock"},
                 ]}
             />
             <Panel>
@@ -250,7 +250,7 @@ export default function Page() {
                                         <div className={"flex items-center gap-1"}>
                                             <span>وضعیت</span>
                                             <span>
-                                                {color.statusLabel}
+                                                {color.status==1?"فعال" : color.status==0?"غیر فعال" : color.status==2?"محدود" : "ناشناخته"}
                                             </span>
                                         </div>
                                         <div className={"flex items-center gap-1"}>
