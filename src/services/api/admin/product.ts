@@ -114,3 +114,19 @@ export const groupChangePrice = async <T extends ServerResponse<unknown>>
     return axios.post<T, SuccessResponseType<T>>("admin/product/group-change", params)
         .then((res) => res?.data)
 };
+export const groupChangeStock = async <T extends ServerResponse<unknown>>
+(params: {
+    stock: number,
+    ids: number[],
+}) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/product/group-change-stock", params)
+        .then((res) => res?.data)
+};
+export const groupChangeStatus = async <T extends ServerResponse<unknown>>
+(params: {
+    status: number,
+    ids: number[],
+}) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/product/group-change-status", params)
+        .then((res) => res?.data)
+};
