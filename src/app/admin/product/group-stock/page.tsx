@@ -167,6 +167,7 @@ export default function Page() {
                                 setAction(e.target.value)
                             }}
                         >
+                            <option value={""}>انتخاب کنید</option>
                             <option value={"stock"}>ویرایش موجودی</option>
                             <option value={"status"}>ویرایش وضعیت</option>
                         </Select>
@@ -246,6 +247,18 @@ export default function Page() {
                                         key={color.id}
                                     >
                                         {color.color_name}
+                                        <div className={"flex items-center gap-1"}>
+                                            <span>وضعیت</span>
+                                            <span>
+                                                {color.statusLabel}
+                                            </span>
+                                        </div>
+                                        <div className={"flex items-center gap-1"}>
+                                            <span>موجودی</span>
+                                            <span>
+                                                {color.stock}
+                                            </span>
+                                        </div>
                                         <Prices price={color.price ?? 0}/>
                                     </div>
                                 ))}
