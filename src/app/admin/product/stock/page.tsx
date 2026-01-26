@@ -59,7 +59,9 @@ export default function Page() {
                 weight: e.weight,
                 length: e.length,
                 height: e.height,
-                width: e.width,            }
+                width: e.width,
+                use_packet: e.use_packet,
+            }
         )
         toast.success(response?.message as string)
 

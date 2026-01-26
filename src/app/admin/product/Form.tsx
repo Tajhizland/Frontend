@@ -91,6 +91,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
         defaultValues: {
             name: "",
             status: "1",
+            use_packet: "0",
             type: "product",
             url: "",
             categoryId: "",
@@ -115,6 +116,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
         if (data) {
             setValue("name", data.name);
             setValue("status", data.status?.toString());
+            setValue("use_packet", data.use_packet?.toString());
             setValue("type", data.type);
             setValue("url", data.url);
             setValue("categoryId", JSON.stringify(categoryDefaultValue?.map(opt => opt.value) ?? []));
@@ -282,6 +284,17 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
                 <div>
                     <Label>ارتفاع محصول</Label>
                     <Input  {...register("height")} />
+                </div>
+                <div>
+                    <Label>ارسال در پاکت</Label>
+                    <Select {...register("use_packet")}>
+                        <option value={1}>
+                            فعال
+                        </option>
+                        <option value={0}>
+                            غیر فعال
+                        </option>
+                    </Select>
                 </div>
                 {/*<div>*/}
                 {/*    <Label>اندازه بسته پستی</Label>*/}

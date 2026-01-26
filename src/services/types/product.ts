@@ -77,6 +77,7 @@ export type ProductResponse = {
     weight: number;
     length: number;
     width: number;
+    use_packet: number;
     height: number;
 
     unboxing?: VlogResponse;

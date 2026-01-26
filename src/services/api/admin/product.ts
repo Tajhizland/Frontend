@@ -33,7 +33,10 @@ export const store = async <T extends ServerResponse<unknown>>
         stock_of: number,
         testing_time: number,
         weight: number,
-        box_id: number,
+        length: number,
+        height: number,
+        width: number,
+        use_packet: number,
     }
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/product/store", params)
@@ -64,6 +67,7 @@ export const update = async <T extends ServerResponse<unknown>>
         length: number,
         height: number,
         width: number,
+        use_packet: number,
     }
 ) => {
     return axios.post<T, SuccessResponseType<T>>("admin/product/update", params)
