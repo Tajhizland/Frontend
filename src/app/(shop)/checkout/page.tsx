@@ -45,6 +45,8 @@ const CheckoutPage = () => {
     const [coupon, setCoupon] = useState<CouponResponse>();
     const [code, setCode] = useState("");
     const [shippingMethod, setShippingMethod] = useState(1);
+    const [shippingPrice, setShippingPrice] = useState(0);
+
     // if (!user) {
     //     router.push("/login");
     // }
@@ -74,7 +76,7 @@ const CheckoutPage = () => {
 
 
     async function payment() {
-        let response = await paymentRequest(useWallet, shippingMethod, code);
+        let response = await paymentRequest(useWallet, shippingMethod,shippingPrice, code);
         if (response.type == "payment")
             window.location.href = response.path;
         else if (response.type == "paid")
@@ -240,6 +242,7 @@ const CheckoutPage = () => {
                     />
                     <ShippingMethod
                         setShippingMethod={setShippingMethod}
+                        setShippingPrice={setShippingPrice}
                         shippingMethod={shippingMethod}
                         isActive={tabActive === "ShippingMethod"}
                         onOpenActive={() => {
@@ -330,7 +333,7 @@ const CheckoutPage = () => {
     }
     const renderDiscountedPrice = () => {
 
-        return sumPrice - sumDiscount + sumGuarantyPrice;
+        return sumPrice - sumDiscount + sumGuarantyPrice + shippingPrice;
     }
     const renderCouponDiscount = () => {
         if (!coupon)
@@ -389,7 +392,7 @@ const CheckoutPage = () => {
     const limit = useMemo(() => renderLimit(), [cart]);
     const sumGuarantyPrice = useMemo(() => renderSumGuarantyPrice(), [cart, renderSumGuarantyPrice]);
     const sumDiscount = useMemo(() => renderDiscount(), [cart]);
-    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart]);
+    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart , shippingPrice]);
     const couponDiscount = useMemo(() => renderCouponDiscount(), [coupon, cart]);
     const maxDeliveryDelay = useMemo(() => renderMaxDeliveryDelay(), [cart]);
 
@@ -488,6 +491,13 @@ const CheckoutPage = () => {
                                 <span>محصولات</span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">
                                     {sumPrice.toLocaleString()} تومان
+                                </span>
+                            </div>
+
+ <div className="flex justify-between py-2.5">
+                                <span> هزینه ارسال  </span>
+                                <span className="font-semibold text-slate-900 dark:text-slate-200">
+                                    {shippingPrice == 0 ? "(هزینه ارسال با مشتری)" : shippingPrice.toLocaleString() + " تومان " }
                                 </span>
                             </div>
 

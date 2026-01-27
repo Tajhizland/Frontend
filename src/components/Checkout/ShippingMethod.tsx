@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FC, useState} from "react";
+import React, {FC,useEffect, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Radio from "@/shared/Radio/Radio";
 import {select} from "@/services/api/shop/delivery";
@@ -17,6 +17,8 @@ interface Props {
     onCloseActive: () => void;
     onOpenActive: () => void;
     setShippingMethod: (n: number) => void;
+    setShippingPrice: (n: number) => void;
+
 }
 
 const ShippingMethod: FC<Props> = ({
@@ -24,6 +26,7 @@ const ShippingMethod: FC<Props> = ({
                                        onCloseActive,
                                        setShippingMethod,
                                        shippingMethod,
+setShippingPrice ,
                                        onOpenActive,
                                    }) => {
     const [mothodActive, setMethodActive] = useState<number>(shippingMethod);
@@ -33,6 +36,12 @@ const ShippingMethod: FC<Props> = ({
         queryFn: () => getDelivery(),
         staleTime: 5000,
     });
+
+
+    useEffect(() => {
+        if (data)
+            setShippingPrice(data?.[0]?.price ?? 0);
+    }, [data]);
 
     async function submit() {
         let response = await select({id: selectedId})
@@ -51,6 +60,8 @@ const ShippingMethod: FC<Props> = ({
                         setMethodActive(item.id as any);
                         setSelectedId(item.id as any);
                         setShippingMethod(item.id);
+                        setShippingPrice(item.price);
+
                     }}
                 />
                 <div className="flex-1">
@@ -68,7 +79,7 @@ const ShippingMethod: FC<Props> = ({
                         </div>
                         <p className="font-medium"> {item.name} </p>
                         <small className={"text-slate-600 dark:text-slate-300"}>
-                            (هزینه ارسال با مشتری)
+                            {item?.price == 0 ? "(هزینه ارسال با مشتری)" : item?.price.toLocaleString() + " تومان "}
                         </small>
                     </label>
 
