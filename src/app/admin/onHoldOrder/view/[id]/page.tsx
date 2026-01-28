@@ -188,10 +188,10 @@ export default function Page() {
                                     هزینه ارسال :
                                 </span>
                                 <span>
-                                                                            به عهده خریدار
+                                    به عهده خریدار
+                                    {data?.delivery_price != 0 && <Prices price={data?.delivery_price} priceClass={"mx-auto "}/>}
 
-                                    {/*<Prices price={data?.delivery_price} priceClass={"mx-auto "}/>*/}
-                                 </span>
+                                  </span>
                             </div>
                         </th>
                         <th scope="row" colSpan={3} className="px-6 py-3 text-base text-center">

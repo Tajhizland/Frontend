@@ -19,6 +19,23 @@ export const store = async <T extends ServerResponse<unknown>>
     return axios.post<T, SuccessResponseType<T>>("admin/coupon/store", params)
         .then((res) => res?.data);
 };
+export const storeGroup = async <T extends ServerResponse<unknown>>
+(
+    params: {
+        start_time: string;
+        end_time: string;
+        status: number;
+        price: number;
+        percent: number;
+        min_order_value: number;
+        max_order_value: number;
+        userIds: number[]
+    }
+) => {
+
+    return axios.post<T, SuccessResponseType<T>>("admin/coupon/store-group", params)
+        .then((res) => res?.data);
+};
 
 export const update = async <T extends ServerResponse<unknown>>
 (
@@ -49,7 +66,7 @@ export const find = async <T extends ServerResponse<CouponResponse>>
 };
 export const generate = async <T extends ServerResponse<{ code: string }>>
 () => {
-    return axios.get<T, SuccessResponseType<T>>("admin/coupon/generate" )
+    return axios.get<T, SuccessResponseType<T>>("admin/coupon/generate")
         .then((res) => res?.data?.result?.data)
 };
 

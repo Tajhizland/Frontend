@@ -215,8 +215,8 @@ export default function Page() {
                                 </span>
                                     <span>
                                         به عهده خریدار
-                                        {/*<Prices price={data?.delivery_price} priceClass={"mx-auto "}/>*/}
-                                 </span>
+                                        {data?.delivery_price != 0 && <Prices price={data?.delivery_price} priceClass={"mx-auto "}/>}
+                                    </span>
                                 </div>
                             </th>
                             <th scope="row" colSpan={3} className="px-6 py-3 text-sm text-center">
