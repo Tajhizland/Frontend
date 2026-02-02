@@ -112,6 +112,10 @@ export default function Page() {
                                 <span>روش پرداخت: </span>
                                 <span>{data?.payment?.name}</span>
                             </div>
+                            {(data?.delivery_token) && <div className="flex py-2 justify-between">
+                                <span>کدپیگیری پستی: </span>
+                                <span>{data?.delivery_token}</span>
+                            </div>}
 
                         </div>
                     </div>
@@ -215,7 +219,8 @@ export default function Page() {
                                 </span>
                                     <span>
                                         به عهده خریدار
-                                        {data?.delivery_price != 0 && <Prices price={data?.delivery_price} priceClass={"mx-auto "}/>}
+                                        {data?.delivery_price != 0 &&
+                                            <Prices price={data?.delivery_price} priceClass={"mx-auto "}/>}
                                     </span>
                                 </div>
                             </th>

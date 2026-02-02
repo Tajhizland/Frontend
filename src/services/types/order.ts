@@ -13,6 +13,7 @@ export type OrderResponse = {
     payment_method: number;
     order_date: string;
     delivery_date: string;
+    delivery_token: string;
     created_at: string;
     orderInfo?:OrderInfoResponse;
     delivery?:DeliveryResponse;
