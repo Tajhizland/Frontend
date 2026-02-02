@@ -49,8 +49,8 @@ export default function Page() {
             }
         },
         {
-            label: "ثبت در تاپین",
-            colorClass: "bg-slate-900 text-white",
+            label: "ثبت تاپین",
+            colorClass: "bg-slate-900 text-white !text-xs",
             type: "action",
             action: (id: number) => {
                 setOrderId(id)
