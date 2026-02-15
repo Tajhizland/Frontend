@@ -213,39 +213,52 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                                 </ButtonPrimary>
                             </div>}
                         </div>
+                        {allOptions.map((option, index) => {
 
-                        {allOptions.map((option, index) => (
-                            <div key={index} className={"flex flex-col gap-1"}>
-                                <div className="py-5 font-bold text-black">
-                                    {option.option_title}
-                                </div>
-                                <div
-                                    className={`grid gap-2 text-xs sm:text-sm font-bold text-slate-800 dark:text-white`}
-                                    style={{
-                                        gridTemplateColumns: `repeat(${displayedCompareProducts.length + (isButtonDisabled ? 0 : 1)}, minmax(0, 1fr))`,
-                                    }}
-                                >
+                                const hasAnyValue = displayedCompareProducts.some(product =>
+                                    product.productOptions.data.find(
+                                        (opt) =>
+                                            opt.option_item_id === option.option_item_id &&
+                                            opt.value?.trim()
+                                    )
+                                );
 
-                                    {/* ستون محصولات مقایسه‌ای */}
-                                    {displayedCompareProducts.map((product, i) => (
-                                        <div key={i} className="flex flex-col divide-y relative">
-                                            <div key={index}
-                                                 className="py-5 line-clamp-1 whitespace-nowrap text-center">
-                                                {!product.productOptions.data.find(
-                                                    (opt) => opt.option_item_id === allOptions[index].option_item_id
-                                                )?.value?.trim() ? "---" :
-                                                    //@ts-ignore
-                                                    product?.productOptions?.data?.find(
-                                                        (opt) => opt?.option_item_id === allOptions[index]?.option_item_id
-                                                    ).value}
-                                            </div>
-
+                                if (!hasAnyValue) return null;
+                                return (
+                                    <div key={index} className={"flex flex-col gap-1"}>
+                                        <div className="py-5 font-bold text-black">
+                                            {option.option_title}
                                         </div>
-                                    ))}
-                                </div>
-                            </div>
+                                        <div
+                                            className={`grid gap-2 text-xs sm:text-sm font-bold text-slate-800 dark:text-white`}
+                                            style={{
+                                                gridTemplateColumns: `repeat(${displayedCompareProducts.length + (isButtonDisabled ? 0 : 1)}, minmax(0, 1fr))`,
+                                            }}
+                                        >
 
-                        ))}
+                                            {/* ستون محصولات مقایسه‌ای */}
+                                            {displayedCompareProducts.map((product, i) => (
+                                                <div key={i} className="flex flex-col divide-y relative">
+                                                    <div key={index}
+                                                         className="py-5 line-clamp-1 whitespace-nowrap text-center">
+                                                        {!product.productOptions.data.find(
+                                                            (opt) => opt.option_item_id === allOptions[index].option_item_id
+                                                        )?.value?.trim() ? "---" :
+                                                            //@ts-ignore
+                                                            product?.productOptions?.data?.find(
+                                                                (opt) => opt?.option_item_id === allOptions[index]?.option_item_id
+                                                            ).value}
+                                                    </div>
+
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                )
+                            }
+                        )
+                        }
                     </div>
 
                 </div>
