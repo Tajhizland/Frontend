@@ -72,6 +72,7 @@ const ShippingAddress: FC<Props> = ({
         })
         if (response) {
             queryClient.invalidateQueries(['address']);
+            queryClient.invalidateQueries(['get-shipping-methods']);
             toast.success(response?.message as string);
         }
     }
@@ -93,6 +94,7 @@ const ShippingAddress: FC<Props> = ({
         onSuccess: data => {
             queryClient.invalidateQueries(['my-address']);
             queryClient.invalidateQueries(['address']);
+            queryClient.invalidateQueries(['get-shipping-methods']);
 
         }
     });
