@@ -1,7 +1,7 @@
 "use client";
 
 
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ShippingAddress from "../../../components/Checkout/ShippingAddress";
 import Image from "next/image";
@@ -46,6 +46,7 @@ const CheckoutPage = () => {
     const [code, setCode] = useState("");
     const [shippingMethod, setShippingMethod] = useState(1);
     const [shippingPrice, setShippingPrice] = useState(0);
+    const [gateway, setGateway] = useState(1);
 
     // if (!user) {
     //     router.push("/login");
@@ -67,6 +68,19 @@ const CheckoutPage = () => {
 
     });
 
+    useEffect(() => {
+        if (useWallet) {
+            setGateway(1)
+        }
+
+    }, [useWallet]);
+    useEffect(() => {
+        if (gateway == 3) {
+            setUseWallet(false)
+        }
+
+    }, [gateway]);
+
     async function checkCode() {
         let response = await check(code);
         if (response) {
@@ -76,7 +90,7 @@ const CheckoutPage = () => {
 
 
     async function payment() {
-        let response = await paymentRequest(useWallet, shippingMethod,shippingPrice, code);
+        let response = await paymentRequest(useWallet, shippingMethod, shippingPrice, code, gateway);
         if (response.type == "payment")
             window.location.href = response.path;
         else if (response.type == "paid")
@@ -381,7 +395,7 @@ const CheckoutPage = () => {
         let sumPrice: number = 0;
         cart.map((item) => {
             if (item.guaranty && item.guaranty.free == 0) {
-                sumPrice +=((GuarantyPrice(item.color.price) ?? 0 )* item.count);
+                sumPrice += ((GuarantyPrice(item.color.price) ?? 0) * item.count);
             }
         })
         return sumPrice;
@@ -392,7 +406,7 @@ const CheckoutPage = () => {
     const limit = useMemo(() => renderLimit(), [cart]);
     const sumGuarantyPrice = useMemo(() => renderSumGuarantyPrice(), [cart, renderSumGuarantyPrice]);
     const sumDiscount = useMemo(() => renderDiscount(), [cart]);
-    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart , shippingPrice]);
+    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart, shippingPrice]);
     const couponDiscount = useMemo(() => renderCouponDiscount(), [coupon, cart]);
     const maxDeliveryDelay = useMemo(() => renderMaxDeliveryDelay(), [cart]);
 
@@ -474,10 +488,10 @@ const CheckoutPage = () => {
                                 </span>
                             </div>
 
- <div className="flex justify-between py-2.5">
+                            <div className="flex justify-between py-2.5">
                                 <span> هزینه ارسال  </span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                                    {shippingPrice == 0 ? "(هزینه ارسال با مشتری)" : shippingPrice.toLocaleString() + " تومان " }
+                                    {shippingPrice == 0 ? "(هزینه ارسال با مشتری)" : shippingPrice.toLocaleString() + " تومان "}
                                 </span>
                             </div>
 
@@ -573,7 +587,7 @@ const CheckoutPage = () => {
                                     </>
                                     :
                                     couponDiscount > 0 ?
-                                        <div >
+                                        <div>
                                             مبلغ قابل پرداخت :
                                             {
                                                 (
@@ -586,6 +600,25 @@ const CheckoutPage = () => {
                                         : null
                             }
                         </div>
+
+
+                        <div
+                            className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-8">
+                            <div className={"flex items-center gap-1"}>
+                                استفاده از پرداخت قسطی دیجی پی
+                            </div>
+                            <span>
+                                      <MySwitch
+                                          label=" "
+                                          desc=" "
+                                          enabled={gateway == 1}
+                                          onChange={() => {
+                                              setGateway(gateway == 1 ? 3 : 1)
+                                          }}
+                                      />
+                                </span>
+                        </div>
+
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
                                        disabled={!allow || !acceptRule || sumDiscountedPrice <= 0 ||
                                            (sumDiscountedPrice > 200000000 && !useWallet)
