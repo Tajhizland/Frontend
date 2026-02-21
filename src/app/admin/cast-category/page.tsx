@@ -15,7 +15,7 @@ export default function Page() {
         <Breadcrump breadcrumb={[
             {
                 title: "دسته tajhizcast",
-                href: "tajhizcast-category",
+                href: "cast-category",
             }
         ]}/>
         <Panel>
@@ -23,7 +23,7 @@ export default function Page() {
                 مدیریت دسته cast
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/tajhizcast-category/create"}}>
+                <Link href={{pathname: "/admin/cast-category/create"}}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

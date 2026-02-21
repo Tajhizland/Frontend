@@ -17,6 +17,7 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import {GoEye} from "react-icons/go";
+import {MdOutlineOndemandVideo} from "react-icons/md";
 
 export default function VlogCategoryListing({response, search, url}: { response: any, search?: string, url: string }) {
     const observer = useRef<IntersectionObserver | null>(null);
@@ -130,7 +131,29 @@ export default function VlogCategoryListing({response, search, url}: { response:
                  <div className="container py-5 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-28">
                      <div className="space-y-5 lg:space-y-5">
                     <SectionSingleBanner banner={response.banner.data[0]}/>
-
+                         {
+                             response?.categorys?.data && response?.categorys?.data.length > 0 && (<>
+                                 <hr className="border-slate-200 dark:border-slate-700"/>
+                                 <div
+                                     className="hidden sm:flex overflow-x-auto gap-5 text-center py-2 ">
+                                     {
+                                         response?.categorys?.data?.map((item, index) => (
+                                             <Link key={index} href={"/vlog/category/" + item?.url}
+                                                   className={"rounded-xl hover:shadow-2xl whitespace-nowrap border text-sm font-bold px-3 py-4 flex flex-col gap-1 items-center "}>
+                                                 <div className="p-5 rounded-full border">
+                                                     <MdOutlineOndemandVideo
+                                                         className="w-12 h-12 text-slate-700 dark:text-slate-200"/>
+                                                 </div>
+                                                 <span
+                                                     className="text-base font-bold text-slate-800 dark:text-slate-100 text-center leading-relaxed px-2">
+                                                {item.name}
+                                            </span>
+                                             </Link>
+                                         ))
+                                     }
+                                 </div>
+                             </>)
+                         }
                     <main>
                         {/* TABS FILTER */}
                         <VlogFilter changeFilter={handleFilterChange} defualtSearch={search} hasFilter={false}/>

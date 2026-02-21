@@ -147,7 +147,7 @@ export default async function Homepage() {
                 </div>
 
                 {/* New Discount Slider */}
-                <div className="container my-0 px-5 lg:px-0 relative overflow-hidden">
+                {response.topDiscountedProducts?.data?.length > 0 && <div className="container my-0 px-5 lg:px-0 relative overflow-hidden">
                     <SectionNewDiscountSlider
                         campaign={response?.campaign}
                         timer={response?.discount?.discount_expire_time}
@@ -164,7 +164,7 @@ export default async function Homepage() {
                             </svg>
                         </div>
                     </div>
-                </div>
+                </div>}
 
                 {/* Main Sections */}
                 <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10 dark:bg-neutral-900">
