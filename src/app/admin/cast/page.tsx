@@ -23,12 +23,12 @@ export default function Page() {
                 مدیریت cast
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/tajhizcast/create"}}>
+                <Link href={{pathname: "/admin/cast/create"}}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
             <DataTable
-                apiUrl={"admin/tajhizcast/dataTable"}
+                apiUrl={"admin/cast/dataTable"}
                 columns={columns}
                 buttons={buttons}
             />

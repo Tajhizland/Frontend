@@ -34,7 +34,7 @@ export default function Page() {
             },
             {
                 title: "افزودن tajhizcast جدید",
-                href: "tajhizcast/create"
+                href: "cast/create"
             }
         ]} />
         <Panel>

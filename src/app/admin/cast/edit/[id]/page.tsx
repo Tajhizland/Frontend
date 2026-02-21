@@ -39,7 +39,7 @@ export default function Page() {
             },
             {
                 title: "ویرایش tajhizcast",
-                href: "product/edit/" + id
+                href: "cast/edit/" + id
             }
         ]} />
         <Panel>
