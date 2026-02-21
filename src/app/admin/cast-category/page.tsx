@@ -28,7 +28,7 @@ export default function Page() {
                 </Link>
             </PageLink>
             <DataTable
-                apiUrl={"admin/tajhizcast-category/dataTable"}
+                apiUrl={"admin/cast-category/dataTable"}
                 columns={columns}
                 buttons={buttons}
             />
