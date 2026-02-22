@@ -24,7 +24,7 @@ export default function Page() {
     const [brand, setBrand] = useState<number>();
     const [action, setAction] = useState<string>("inc");
     const [stock, setStock] = useState<number>();
-    const [status, setStatus] = useState<number>();
+    const [status, setStatus] = useState<number>(1);
     const [response, setResponse] = useState<ProductResponse[]>([]);
     const [selectedProducts, setSelectedProducts] = useState<Record<number, boolean>>({});
 
