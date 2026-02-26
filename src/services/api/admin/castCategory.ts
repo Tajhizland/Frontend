@@ -8,11 +8,16 @@ export const store = async <T extends ServerResponse<unknown>>
     params: {
         name: string,
         status: number,
+        icon: File,
 
     }
 ) => {
+    const formData = new FormData();
+    formData.append('name', params.name.toString());
+    formData.append('status', params.status.toString());
+    formData.append('icon', params.icon);
 
-    return axios.post<T, SuccessResponseType<T>>("admin/cast-category/store", params,)
+    return axios.post<T, SuccessResponseType<T>>("admin/cast-category/store", formData)
         .then((res) => res?.data)
 };
 
@@ -22,11 +27,17 @@ export const update = async <T extends ServerResponse<unknown>>
         name: string,
         status: number,
         id: number,
+        icon?: File,
 
     }
 ) => {
-
-    return axios.post<T, SuccessResponseType<T>>("admin/cast-category/update", params,)
+    const formData = new FormData();
+    formData.append('id', params.id.toString());
+    formData.append('name', params.name.toString());
+    formData.append('status', params.status.toString());
+    if (params.icon)
+        formData.append('icon', params.icon);
+    return axios.post<T, SuccessResponseType<T>>("admin/cast-category/update", formData)
         .then((res) => res?.data)
 };
 

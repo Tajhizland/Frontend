@@ -5,10 +5,11 @@ import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect, useState} from "react";
 import {VlogResponse} from "@/services/types/vlog";
-import {useForm} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import {useQuery} from "react-query";
 import {get} from "@/services/api/admin/castCategory";
 import {CastCategoryResponse} from "@/services/types/castCategory";
+import Uploader from "@/shared/Uploader/Uploader";
 
 interface Form {
     data?: CastCategoryResponse;
@@ -20,6 +21,7 @@ export default function Form({data, submit, loading = false}: Form) {
     const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
         defaultValues: {
             name: "",
+            icon: "",
             status: "1",
 
         },
@@ -52,6 +54,24 @@ export default function Form({data, submit, loading = false}: Form) {
                     </Select>
                 </div>
 
+                <div className={"md:col-span-2"}>
+                    <Label>تصویر </Label>
+                    <Controller
+                        name="icon"
+                        control={control}
+                        render={({field, fieldState}) => (
+                            <>
+                                <Uploader
+                                    name="image"
+                                    onChange={field.onChange}
+                                />
+                                {fieldState.error && (
+                                    <p className="text-error text-xs">{fieldState.error.message}</p>
+                                )}
+                            </>
+                        )}
+                    />
+                </div>
             </div>
 
             <hr className={"my-5"}/>
