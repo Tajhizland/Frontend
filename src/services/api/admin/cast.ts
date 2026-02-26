@@ -69,6 +69,9 @@ export const update = async <T extends ServerResponse<unknown>>
     formData.append('category_id', params.category_id.toString());
     formData.append('status', params.status.toString());
 
+    if (params.image) {
+        formData.append('image', params.image);
+    }
     if (params.audio) {
         formData.append('audio', params.audio);
     }
