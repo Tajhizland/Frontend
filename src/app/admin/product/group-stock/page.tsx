@@ -1,7 +1,13 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
-import {groupChangePrice, groupChangeStatus, groupChangeStock, searchProductList} from "@/services/api/admin/product";
+import {
+    groupChangeDigipay,
+    groupChangePrice,
+    groupChangeStatus,
+    groupChangeStock,
+    searchProductList
+} from "@/services/api/admin/product";
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
 import {QueryClient, useMutation, useQuery} from "react-query";
@@ -25,6 +31,7 @@ export default function Page() {
     const [action, setAction] = useState<string>("inc");
     const [stock, setStock] = useState<number>();
     const [status, setStatus] = useState<number>(1);
+    const [digipay, setDigipay] = useState<number>(1);
     const [response, setResponse] = useState<ProductResponse[]>([]);
     const [selectedProducts, setSelectedProducts] = useState<Record<number, boolean>>({});
 
@@ -59,6 +66,22 @@ export default function Page() {
             return groupChangeStatus({
                 ids: ids,
                 status: Number(status)
+            });
+        },
+        onSuccess: async (res) => {
+            await searchMutation.mutateAsync();
+            toast.success(res.message as string);
+        },
+    });
+    const actionDigipayMutation = useMutation({
+        mutationKey: [`product-group-digipay`],
+        mutationFn: async () => {
+            const ids = Object.keys(selectedProducts)
+                .filter((id) => selectedProducts[Number(id)])
+                .map((id) => Number(id));
+            return groupChangeDigipay({
+                ids: ids,
+                digipay: Number(digipay)
             });
         },
         onSuccess: async (res) => {
@@ -170,6 +193,7 @@ export default function Page() {
                             <option value={""}>انتخاب کنید</option>
                             <option value={"stock"}>ویرایش موجودی</option>
                             <option value={"status"}>ویرایش وضعیت</option>
+                            <option value={"digipay"}>ویرایش دیجی پی</option>
                         </Select>
                     </div>
                     <hr/>
@@ -207,6 +231,24 @@ export default function Page() {
                         </Select>
 
                         <ButtonPrimary loading={actionStatusMutation.isLoading} onClick={actionStatusMutation.mutateAsync}>
+                            اعمال
+                        </ButtonPrimary>
+                    </div>
+                }{
+                    action == "digipay"
+                    &&
+                    <div className={"flex flex-col gap-2"}>
+                        <Label>
+                           پرداخت دیجی پی
+                        </Label>
+                        <Select onChange={(e) => {
+                            setDigipay(Number(e.target.value))
+                        }}>
+                            <option value={1} selected={digipay == 1}>فعال</option>
+                            <option value={0} selected={digipay == 0}>غیر فعال</option>
+                        </Select>
+
+                        <ButtonPrimary loading={actionDigipayMutation.isLoading} onClick={actionDigipayMutation.mutateAsync}>
                             اعمال
                         </ButtonPrimary>
                     </div>

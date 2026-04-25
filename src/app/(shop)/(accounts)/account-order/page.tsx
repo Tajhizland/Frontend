@@ -60,14 +60,13 @@ const AccountOrder = () => {
                             orderItem.guaranty ?
                                 orderItem.guaranty?.free ?
                                     <span className="text-xs text-slate-500 dark:text-slate-400">
-                                                    (رایگان)
+                                                    گارانتی (رایگان)
                               </span>
                                     :
                                     <Prices priceClass="text-xs text-slate-500 dark:text-slate-400"
                                             price={GuarantyPrice(orderItem.price)}/>
                                 :
                                 <span className="text-xs text-slate-500 dark:text-slate-400">
-                                                    (رایگان)
                           </span>
                         }
                     </div>

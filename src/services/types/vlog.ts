@@ -23,6 +23,7 @@ export type VlogResponse = {
     status: number;
     categoryId: number;
     view: number;
+    category: string;
     created_at: string,
     updated_at: string,
 }

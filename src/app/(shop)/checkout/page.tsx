@@ -47,6 +47,7 @@ const CheckoutPage = () => {
     const [shippingMethod, setShippingMethod] = useState(1);
     const [shippingPrice, setShippingPrice] = useState(0);
     const [gateway, setGateway] = useState(1);
+    const [allowDigipay, setAllowDigipay] = useState(true);
 
     // if (!user) {
     //     router.push("/login");
@@ -88,7 +89,14 @@ const CheckoutPage = () => {
         }
     }
 
-
+    useEffect(()=>{
+        cart.map((item)=>{
+            if(item.product?.allow_digipay==0)
+            {
+                setAllowDigipay(false);
+            }
+        })
+    },[cart])
     async function payment() {
         let response = await paymentRequest(useWallet, shippingMethod, shippingPrice, code, gateway);
         if (response.type == "payment")
@@ -552,7 +560,7 @@ const CheckoutPage = () => {
                             <div
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-8">
                                 <div className={"flex items-center gap-1"}>
-                                    استفاده از موجودی کیف پول
+                                    پرداخت با موجودی کیف پول
                                 </div>
                                 <span>
                                       <MySwitch
@@ -602,10 +610,10 @@ const CheckoutPage = () => {
                         </div>
 
 
-                        <div
+  {allowDigipay && <div
                             className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-8">
                             <div className={"flex items-center gap-1"}>
-                                استفاده از پرداخت قسطی دیجی پی
+                                پرداخت با دیجی پی
                             </div>
                             <span>
                                       <MySwitch
@@ -617,8 +625,7 @@ const CheckoutPage = () => {
                                           }}
                                       />
                                 </span>
-                        </div>
-
+                        </div>}
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
                                        disabled={!allow || !acceptRule || sumDiscountedPrice <= 0 ||
                                            (sumDiscountedPrice > 200000000 && !useWallet)

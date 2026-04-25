@@ -1,15 +1,13 @@
 import {Column, DataTableButtons} from "@/shared/DataTable/type";
 import {HiMiniPencil} from "react-icons/hi2";
-import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
-import {NewsResponse} from "@/services/types/news";
-import {PageResponse} from "@/services/types/page";
 import {UrlObject} from "node:url";
+import {VlogResponse} from "@/services/types/vlog";
 
-export const columns: Column<PageResponse>[] = [
+export const columns: Column<VlogResponse>[] = [
     { key: 'id', header: 'شناسه', filterType: 'input', editable: false },
     { key: 'title', header: 'عنوان', filterType: 'input', editable: true },
-    { key: 'url', header: 'آدرس محصول', filterType: 'input', editable: true },
+    { key: 'url', header: 'آدرس ', filterType: 'input', editable: true },
     {
         key: 'status',
         header: 'وضعیت',
@@ -27,6 +25,13 @@ export const columns: Column<PageResponse>[] = [
         render: (value) => value == 1 ? <Badge name={"فعال"} color={"green"}/> :
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
+    },   {
+        key: 'category',
+        header: 'دسته بندی',
+        editable: false,
+        hasFilter:false,
+        filterType: 'input',
+        render: (value) => value ,
     },
     { key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false },
 ];

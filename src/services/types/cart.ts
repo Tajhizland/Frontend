@@ -5,6 +5,7 @@ export type CartResponse = {
     hasStock:boolean ;
     product:{
         name:string ,
+        allow_digipay?:number ,
         url:string ,
         image:string ,
     };
