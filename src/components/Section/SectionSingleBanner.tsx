@@ -17,6 +17,7 @@ export default function SectionSingleBanner({banner, w = "aspect-w-2 sm:aspect-w
                 <Image
                     alt=""
                     fill
+                    unoptimized
                     className="w-full h-full object-cover"
                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${banner.image}`}
                 />

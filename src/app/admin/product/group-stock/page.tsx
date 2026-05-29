@@ -2,6 +2,7 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import {
+groupChangeDigipayPercent ,
     groupChangeDigipay,
     groupChangePrice,
     groupChangeStatus,
@@ -31,9 +32,11 @@ export default function Page() {
     const [action, setAction] = useState<string>("inc");
     const [stock, setStock] = useState<number>();
     const [status, setStatus] = useState<number>(1);
+    const [percent, setPercent] = useState<number>(0);
     const [digipay, setDigipay] = useState<number>(1);
     const [response, setResponse] = useState<ProductResponse[]>([]);
     const [selectedProducts, setSelectedProducts] = useState<Record<number, boolean>>({});
+    const [searchName, setSearchName] = useState<string>("");
 
     const router = useRouter();
 
@@ -42,6 +45,7 @@ export default function Page() {
         mutationKey: [`search-product-list`],
         mutationFn: async () => {
             return searchProductList({
+                searchQuery:searchName ,
                 brandId: Number(brand),
                 categoryId: Number(category)
             });
@@ -106,6 +110,22 @@ export default function Page() {
         },
     });
 
+   const actionDigipayExtraPriceMutation = useMutation({
+        mutationKey: [`product-group-extra-price`],
+        mutationFn: async () => {
+            const ids = Object.keys(selectedProducts)
+                .filter((id) => selectedProducts[Number(id)])
+                .map((id) => Number(id));
+            return groupChangeDigipayPercent({
+                ids: ids,
+                percent: Number(percent)
+            });
+        },
+        onSuccess: async (res) => {
+            await searchMutation.mutateAsync();
+            toast.success(res.message as string);
+        },
+    });
     // لیست دسته‌ها
     const {data: categoryLists} = useQuery({
         queryKey: [`category-list`],
@@ -131,6 +151,35 @@ export default function Page() {
         value: item.id,
         label: item.name,
     }));
+
+
+// تابع انتخاب همه محصولات
+    const selectAll = () => {
+        const newSelection: Record<number, boolean> = {};
+        response.forEach((item: ProductResponse) => {
+            newSelection[item.id] = true;
+        });
+        setSelectedProducts(newSelection);
+    };
+
+// تابع عدم انتخاب همه محصولات
+    const deselectAll = () => {
+        const newSelection: Record<number, boolean> = {};
+        response.forEach((item: ProductResponse) => {
+            newSelection[item.id] = false;
+        });
+        setSelectedProducts(newSelection);
+    };
+
+// تابع معکوس کردن انتخاب‌ها
+    const toggleSelectAll = () => {
+        const allSelected = response.length > 0 && response.every(item => selectedProducts[item.id]);
+        if (allSelected) {
+            deselectAll();
+        } else {
+            selectAll();
+        }
+    };
 
     return (
         <>
@@ -172,6 +221,7 @@ export default function Page() {
                         value={brand}
                         onChange={(e) => setBrand(Number(e))}
                     />
+                    <Input value={searchName} onChange={(e)=>{setSearchName(e.target.value)}} />
 
                     <ButtonPrimary loading={searchMutation.isLoading} onClick={searchMutation.mutateAsync}>
                         جستجو
@@ -194,6 +244,8 @@ export default function Page() {
                             <option value={"stock"}>ویرایش موجودی</option>
                             <option value={"status"}>ویرایش وضعیت</option>
                             <option value={"digipay"}>ویرایش دیجی پی</option>
+                            <option value={"digipay-percent"}>درصد هزینه دیجی پی</option>
+
                         </Select>
                     </div>
                     <hr/>
@@ -253,10 +305,59 @@ export default function Page() {
                         </ButtonPrimary>
                     </div>
                 }
-
+{
+                    action == "digipay-percent"
+                    &&
+                    <div className={"flex flex-col gap-2"}>
+                        <Label>
+                            دصد هزینه دیجی پی
+                        </Label>
+                        <Input
+                            value={stock}
+                            onChange={(e) => {
+                                setPercent(Number(e.target.value))
+                            }}
+                        />
+                        <ButtonPrimary loading={actionDigipayExtraPriceMutation.isLoading}
+                                       onClick={actionDigipayExtraPriceMutation.mutateAsync}>
+                            اعمال
+                        </ButtonPrimary>
+                    </div>
+                }
                 </div>
             </Panel>
             <Panel>
+                 <div className={"flex flex-col w-full text-sm"}>
+                    {/* هدر جدول با دکمه‌های انتخاب */}
+                    <div className={"border-b py-5 flex items-center justify-between gap-4 mb-4"}>
+                        <div className="flex items-center gap-4">
+                            <button
+                                onClick={selectAll}
+                                className="px-4 py-2 text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                            >
+                                انتخاب همه
+                            </button>
+                            <button
+                                onClick={deselectAll}
+                                className="px-4 py-2 text-sm bg-gray-500 text-white rounded-md hover:bg-gray-600 transition"
+                            >
+                                حذف همه
+                            </button>
+                            <button
+                                onClick={toggleSelectAll}
+                                className="px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
+                            >
+                                {response.length > 0 && response.every(item => selectedProducts[item.id])
+                                    ? 'عدم انتخاب همه'
+                                    : 'انتخاب همه'}
+                            </button>
+                        </div>
+                        <div className="text-sm text-gray-600">
+                            {Object.values(selectedProducts).filter(v => v).length} از {response.length} انتخاب شده
+                        </div>
+                    </div>
+                </div>
+
                 <div className={"flex flex-col w-full text-sm"}>
                     {response?.map((item) => (
                         <div

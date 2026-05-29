@@ -138,18 +138,25 @@ export default function VlogCategoryListing({response, search, url}: { response:
                                      className="hidden sm:flex overflow-x-auto gap-5 text-center py-2 ">
                                      {
                                          response?.categorys?.data?.map((item, index) => (
-                                             <Link key={index} href={"/vlog/category/" + item?.url}
-                                                   className={"rounded-xl hover:shadow-2xl whitespace-nowrap border text-sm font-bold px-3 py-4 flex flex-col gap-1 items-center "}>
-                                                 <div className="p-5 rounded-full border">
-                                                     <MdOutlineOndemandVideo
-                                                         className="w-12 h-12 text-slate-700 dark:text-slate-200"/>
-                                                 </div>
-                                                 <span
-                                                     className="text-base font-bold text-slate-800 dark:text-slate-100 text-center leading-relaxed px-2">
-                                                {item.name}
-                                            </span>
-                                             </Link>
-                                         ))
+  <Link key={index} href={"/vlog/category/" + item?.url}
+                                                   className={"rounded-xl whitespace-nowrap text-sm font-bold flex flex-col gap-1 items-center"}>
+                                                 {
+                                                     item?.icon ?
+                                                         <div className="flex-shrink-0 w-64 rounded-2xl overflow-hidden hover:shadow ">
+                                                             <NcImage
+                                                                 containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
+                                                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog-category/${item.icon}`}
+                                                                 className="object-cover w-full h-full drop-shadow-xl"
+                                                                 fill
+                                                                 alt="vlog"
+                                                             />
+                                                         </div>
+                                                         :
+                                                         <>
+
+                                                         </>
+                                                 }
+                                             </Link>                                         ))
                                      }
                                  </div>
                              </>)

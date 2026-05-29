@@ -22,6 +22,7 @@ import logo from "@/images/lightLogo.png";
 import Image from "next/image";
 import TimerHMS from "@/components/Timer/TimerHMS";
 import {Metadata} from "next";
+import SectionTrustedBrand from "@/components/Section/SectionTrustedBrand";
 
 export const dynamic = 'force-dynamic';
 
@@ -166,6 +167,15 @@ export default async function Homepage() {
                     </div>
                 </div>}
 
+
+         {response.bannersCast?.data?.length > 0 &&
+                    <div className={"mt-5 lg:mt-10 container p-0"}> <SectionSingleBanner
+                        w={"aspect-w-5 sm:aspect-w-13 lg:aspect-w-14"}
+                        h={"aspect-h-1"}
+                        banner={response.bannersCast.data[0]}
+                    />
+                    </div>}
+
                 {/* Main Sections */}
                 <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10 dark:bg-neutral-900">
                     {
@@ -203,7 +213,8 @@ export default async function Homepage() {
                 </div>
 
                 <SectionHomepageBlog data={response.news?.data || []}/>
-            </div>
+                <SectionTrustedBrand data={response.trustedBrands?.data || []} />
+              </div>
         </>
     );
 }

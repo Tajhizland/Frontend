@@ -519,7 +519,7 @@ const CheckoutPage = () => {
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                 <span> مجموع  </span>
                                 <span>
-                                    {sumDiscountedPrice.toLocaleString()} تومان
+                                    {(sumDiscountedPrice).toLocaleString()} تومان
                                 </span>
                             </div>
                             <div

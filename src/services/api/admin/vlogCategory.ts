@@ -1,5 +1,4 @@
-import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
-import {VlogResponse} from "@/services/types/vlog";
+import axios, {ServerResponse, SuccessResponseType} from "@/services/axios"; 
 import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 
 export const store = async <T extends ServerResponse<unknown>>
@@ -7,10 +6,19 @@ export const store = async <T extends ServerResponse<unknown>>
     params: {
         name: string,
         url: string,
+        icon?: File,
         status: number,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/store", params)
+
+    const formData = new FormData();
+    formData.append('name', params.name);
+    formData.append('url', params.url);
+    if (params.icon)
+        formData.append('icon', params.icon);
+    formData.append('status', params.status.toString());
+
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/store", formData)
         .then((res) => res?.data);
 };
 
@@ -20,11 +28,19 @@ export const update = async <T extends ServerResponse<unknown>>
         id: number | string,
         name: string,
         url: string,
+        icon?: File,
         status: number,
     }
 ) => {
+    const formData = new FormData();
+    formData.append('id', params.id.toString());
+    formData.append('name', params.name);
+    formData.append('url', params.url);
+    if (params.icon)
+        formData.append('icon', params.icon);
+    formData.append('status', params.status.toString());
 
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/update", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/update", formData)
         .then((res) => res?.data);
 };
 
@@ -37,8 +53,21 @@ export const findById = async <T extends ServerResponse<VlogCategoryResponse>>
 };
 
 export const getList = async <T extends ServerResponse<VlogCategoryResponse[]>>
-(
-) => {
+() => {
     return axios.get<T, SuccessResponseType<T>>("admin/vlog_category/list")
         .then((res) => res?.data?.result?.data)
+};
+
+
+export const sortVlogCategory = async <T extends ServerResponse<unknown>>
+(
+    param: {
+        vlogs: {
+            id: number
+            sort: number
+        }[]
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/sort",param)
+        .then((res) => res?.data)
 };

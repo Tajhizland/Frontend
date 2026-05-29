@@ -17,6 +17,8 @@ export default function Page() {
                 name: e.get("name") as string,
                 url: e.get("url") as string,
                 status: Number(e.get("status")),
+                icon: e.get("icon") as File,
+
             }
         )
         toast.success(response?.message as string)

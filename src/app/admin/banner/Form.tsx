@@ -17,6 +17,14 @@ interface Form {
 
 export default function Form({data, submit}: Form) {
     const types=[
+  {
+            title:"هوم پیج تجهیزکست",
+            value:"homepage_cast"
+        },
+{
+            title:"تجهیزکست",
+            value:"cast"
+        },
         {
             title:"هوم پیج (اصلی)",
             value:"home_page"

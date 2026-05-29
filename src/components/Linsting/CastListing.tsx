@@ -10,6 +10,7 @@ import {CastResponse} from "@/services/types/cast";
 import CastMiniPost from "@/components/Cast/CastMiniPost";
 import WidgetFilter from "@/components/Cast/WidgetFilter";
 import CastFilter from "@/components/Cast/CastFilter";
+import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 
 export default function CastListing({ response, search }: { response: any, search?: string }) {
     const observer = useRef<IntersectionObserver | null>(null);
@@ -89,7 +90,14 @@ export default function CastListing({ response, search }: { response: any, searc
         <div className="nc-PageCollection dark:bg-neutral-900">
             <div className="container py-5 lg:pb-28   space-y-16 sm:space-y-20 lg:space-y-28">
                 <div className="space-y-5 lg:space-y-5">
-                    <main>
+                    {response.banner?.data?.length > 0 &&
+                        <div className={"mt-5 lg:mt-10"}> <SectionSingleBanner
+                            w={"aspect-w-3 sm:aspect-w-4 lg:aspect-w-5"}
+                            h={"aspect-h-1"}
+                            banner={response.banner.data[0]}
+                        />
+                        </div>}
+                        <main>
                         {/* TABS FILTER */}
                         <CastFilter   changeFilter={handleFilterChange} defualtSearch={search} />
                         {/* LOOP ITEMS */}

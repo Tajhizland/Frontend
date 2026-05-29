@@ -26,6 +26,7 @@ export type HomePageResponse = {
     banners4: { data: BannerResponse[] };
     bannersStock: { data: BannerResponse[] };
     banners5: { data: BannerResponse[] };
+    bannersCast: { data: BannerResponse[] };
     homepageCategories: { data: HomepageCategoryResponse[] };
     desktopSliders: { data: SliderResponse[] };
     mobileSliders: { data: SliderResponse[] };

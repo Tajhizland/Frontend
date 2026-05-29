@@ -80,9 +80,9 @@ const SectionTrustedBrand: FC<SectionHomepageBrandProps> = ({
     }, [sliderRef]);
 
     return (
-        <div className={` ${className}`}>
+        <div className={`container md:pt-5  ${className}`}>
             <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
-                <Heading desc={subHeading} href="/brand" hasNextPrev>
+                <Heading desc={subHeading}  hasNextPrev>
                     {heading}
                 </Heading>
                 <div className="glide__track" data-glide-el="track" style={{direction: "rtl"}}>
@@ -92,7 +92,7 @@ const SectionTrustedBrand: FC<SectionHomepageBrandProps> = ({
                                 <NcImage
                                     alt={"logo"}
                                     containerClassName="w-full h-full flex justify-center"
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${item.logo}`}
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/trusted-brand/${item.logo}`}
                                     className="object-cover rounded-2xl w-full h-full"
                                     width={720}
                                     height={720}

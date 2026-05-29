@@ -5,6 +5,8 @@ import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
 import { VlogCategoryResponse } from "@/services/types/vlogCategory";
+import Uploader from "@/shared/Uploader/Uploader";
+import Image from "next/image";
 
 interface Form {
     data?: VlogCategoryResponse;
@@ -39,6 +41,27 @@ export default function Form({ data, submit }: Form) {
 
 
             </div>
+
+            <div className={"grid grid-cols-1 gap-5"}>
+                <div>
+                    <Label>تصویر</Label>
+                    <Uploader name={"icon"}/>
+                </div>
+                {data?.icon ? <div className={"container max-w-lg"}>
+                        <div
+                            className={`relative w-full aspect-w-16 aspect-h-11 lg:aspect-h-9  rounded-2xl overflow-hidden group border`}
+                        >
+                            <Image
+                                alt=""
+                                fill
+                                className="w-full h-full object-cover"
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog-category/${data.icon}`}
+                            />
+                        </div>
+                    </div>
+                    : ""}
+            </div>
+
             <hr className={"my-5"} />
             <div className={"flex justify-center my-5"}>
                 <ButtonPrimary type={"submit"}>

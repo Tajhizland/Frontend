@@ -61,9 +61,6 @@ const ProductCard3: FC<ProductCardProps> = ({
         const discountPercent = Math.round(((minPrice - minDiscountedPrice) / minPrice) * 100);
 
 
-        if (!status) {
-            return null;
-        }
         const CLASSES =
             " flex items-center text-slate-700 text-slate-900 dark:text-slate-300  dark:bg-slate-900 absolute top-1 start-1 lg:top-2 lg:start-2 bg-white rounded-full text-xs";
         if (discountPercent != 0) {
@@ -78,6 +75,9 @@ const ProductCard3: FC<ProductCardProps> = ({
                     }/>
                 </div>
             );
+        }
+    if (!status) {
+            return null;
         }
         if (status == "new") {
             return (
@@ -217,7 +217,7 @@ const ProductCard3: FC<ProductCardProps> = ({
 
                     </Link>
                     <LikeButton likeHandle={likeHandle} liked={data?.favorite} className="absolute top-3 end-3 z-10"/>
-                    {renderStatus()}
+                        {(data && checkStock(data)) ? renderStatus() : ""}
                     {renderGuaranty()}
 
                 </div>

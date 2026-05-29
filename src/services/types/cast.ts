@@ -1,11 +1,14 @@
 import {VlogResponse} from "@/services/types/vlog";
 import {CategoryResponse} from "@/services/types/category";
 import {CastCategoryResponse} from "@/services/types/castCategory";
+import {BannerResponse} from "@/services/types/banner";
 
 export type CastListingResponse = {
     listing: { data: CastResponse[] };
     mostViewed: { data: CastResponse[] };
     category: { data: CastCategoryResponse[] };
+    banner: { data: BannerResponse[] };
+
 }
 export type CastResponse = {
     id: number;

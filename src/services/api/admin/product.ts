@@ -143,3 +143,13 @@ export const groupChangeDigipay = async <T extends ServerResponse<unknown>>
     return axios.post<T, SuccessResponseType<T>>("admin/product/group-change-digipay", params)
         .then((res) => res?.data)
 };
+
+
+export const groupChangeDigipayPercent = async <T extends ServerResponse<unknown>>
+(params: {
+    percent: number,
+    ids: number[],
+}) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/product/group-change-percent", params)
+        .then((res) => res?.data)
+};

@@ -23,6 +23,7 @@ export default function Page() {
                 id: Number(id),
                 url: e.get("url") as string,
                 name: e.get("name") as string,
+                icon: e.get("icon") as File,
                 status: Number(e.get("status")),
             }
         )

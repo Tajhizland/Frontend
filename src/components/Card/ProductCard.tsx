@@ -76,9 +76,6 @@ const ProductCard: FC<ProductCardProps> = ({
         })
         const discountPercent = Math.round(((minPrice - minDiscountedPrice) / minPrice) * 100);
 
-        if (!status) {
-            return null;
-        }
         const CLASSES =
             " flex items-center text-slate-700 text-slate-900 dark:text-slate-300 absolute top-0.5 start-0.5 sm:top-3 sm:start-3 bg-white rounded-full p-1 lg:p-2 text-xs";
         if (discountPercent != 0) {
@@ -94,7 +91,9 @@ const ProductCard: FC<ProductCardProps> = ({
                 </div>
             );
         }
-
+    if (!status) {
+            return null;
+        }
         if (status == "new") {
             return (
                 <div className={CLASSES}>
@@ -201,7 +200,7 @@ const ProductCard: FC<ProductCardProps> = ({
                     <LikeButton liked={data?.favorite} likeHandle={likeHandle}
                                 className="absolute top-3 end-3 z-10 hidden sm:flex"/>
                     <div className={" "}>
-                        {renderStatus()}
+                      {(data && checkStock(data)) ? renderStatus() : ""}
                     </div>
                     {/*{  renderGroupButtons()}*/}
                 </div>
