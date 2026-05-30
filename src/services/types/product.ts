@@ -44,6 +44,7 @@ export type ProductResponse = {
     stock_of: number;
     testing_time: number;
     status: number;
+    digipay_extra_price: number;
     view: number;
     description: string;
     brand_id: number;

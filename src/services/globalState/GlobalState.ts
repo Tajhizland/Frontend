@@ -49,6 +49,7 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
         hasStock: true,
         product: {
             name: product.name,
+            digipay_extra_price: product.digipay_extra_price,
             url: product.url,
             image: product.images.data[0]?.url || "",
         },

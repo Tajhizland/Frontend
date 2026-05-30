@@ -89,14 +89,14 @@ const CheckoutPage = () => {
         }
     }
 
-    useEffect(()=>{
-        cart.map((item)=>{
-            if(item.product?.allow_digipay==0)
-            {
+    useEffect(() => {
+        cart.map((item) => {
+            if (item.product?.allow_digipay == 0) {
                 setAllowDigipay(false);
             }
         })
-    },[cart])
+    }, [cart])
+
     async function payment() {
         let response = await paymentRequest(useWallet, shippingMethod, shippingPrice, code, gateway);
         if (response.type == "payment")
@@ -409,6 +409,20 @@ const CheckoutPage = () => {
         return sumPrice;
     }
 
+    const renderExtraPrice = () => {
+        let extraPrice: number = 0;
+
+        cart?.forEach((item) => {
+            const basePrice = item.color.price * item.count;
+            const percent = item.product.digipay_extra_price || 0;
+
+            extraPrice += (basePrice * percent) / 100;
+        });
+
+        return extraPrice;
+    };
+
+
     const sumPrice = useMemo(() => renderSumPrice(), [cart]);
     const allow = useMemo(() => renderAllow(), [cart]);
     const limit = useMemo(() => renderLimit(), [cart]);
@@ -417,6 +431,7 @@ const CheckoutPage = () => {
     const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart, shippingPrice]);
     const couponDiscount = useMemo(() => renderCouponDiscount(), [coupon, cart]);
     const maxDeliveryDelay = useMemo(() => renderMaxDeliveryDelay(), [cart]);
+    const sumExtraPrice = useMemo(() => renderExtraPrice(), [cart, shippingPrice]);
 
     return (
         <div className="nc-CheckoutPage  dark:text-white dark:bg-slate-900">
@@ -515,13 +530,25 @@ const CheckoutPage = () => {
                                         {sumGuarantyPrice.toLocaleString()} تومان
                                     </span>
                             </div>
-                            <div
+                            {gateway == 3 && <div className="flex justify-between py-4">
+                                <span> هزینه پرداخت قسطی    </span>
+                                <span className="font-semibold text-slate-900 dark:text-slate-200">
+                                        {sumExtraPrice.toLocaleString()} تومان
+                                    </span>
+                            </div>}
+                            {gateway == 3 ? <div
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                 <span> مجموع  </span>
                                 <span>
-                                    {(sumDiscountedPrice).toLocaleString()} تومان
+                                    {(sumDiscountedPrice + sumExtraPrice).toLocaleString()} تومان
                                 </span>
-                            </div>
+                            </div> : <div
+                                className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
+                                <span> مجموع  </span>
+                                <span>
+                                    {sumDiscountedPrice.toLocaleString()} تومان
+                                </span>
+                            </div>}
                             <div
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                 <div className={"flex items-center gap-1"}>
@@ -610,7 +637,7 @@ const CheckoutPage = () => {
                         </div>
 
 
-  {allowDigipay && <div
+                        {allowDigipay && <div
                             className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-8">
                             <div className={"flex items-center gap-1"}>
                                 پرداخت با دیجی پی
