@@ -62,7 +62,7 @@ export default function Page() {
                 </ButtonPrimary>
             </div>
             <div className={"  text-center p-4 bg-green-100 text-green-800 rounded-2xl border-green-800"}>
-                {res}
+                {res.toLocaleString()}
             </div>
 
 
