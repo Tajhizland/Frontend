@@ -25,3 +25,10 @@ export const registerTapin = async <T extends ServerResponse<unknown>>
     return axios.post<T, SuccessResponseType<T>>("admin/order/tapin/" + id, params)
         .then((res) => res?.data)
 };
+export const digipayCalc = async <T extends ServerResponse<{ value: number }>>
+(
+    params: { start_date: string, end_date: string }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/order/digipay_calc", params)
+        .then((res) => res?.data?.result?.data)
+};

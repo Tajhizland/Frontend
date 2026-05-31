@@ -14,6 +14,8 @@ import {useMutation} from "react-query";
 import {useState} from "react";
 import NcModal from "@/shared/NcModal/NcModal";
 import TapinForm from "@/app/admin/order/TapinForm";
+import Link from "next/link";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export default function Page() {
     const [tapinModal, setTapinModal] = useState<boolean>(false);
@@ -88,6 +90,14 @@ export default function Page() {
             <PageTitle>
                 مدیریت سفارشات
             </PageTitle>
+
+            <div>
+                <Link href={"/admin/order/digipay"}>
+                    <ButtonPrimary>
+                    گزارش دیجی پی
+                    </ButtonPrimary>
+                </Link>
+            </div>
 
             <DataTable
                 onEdit={changeStatus}
