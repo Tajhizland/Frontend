@@ -9,8 +9,11 @@ export type OrderResponse = {
     price: number;
     delivery_price: number;
     final_price: number;
+    total_price: number;
+    use_wallet_price: number;
     status: number;
     payment_method: number;
+    delivery_method: number;
     order_date: string;
     delivery_date: string;
     delivery_token: string;

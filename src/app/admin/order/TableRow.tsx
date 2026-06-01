@@ -5,6 +5,8 @@ import Badge from "@/shared/Badge/Badge";
 import {UrlObject} from "node:url";
 import {OrderResponse} from "@/services/types/order";
 import {OrderStatus} from "@/app/admin/order/orderStatus";
+import {OrderDelivery} from "@/app/admin/order/orderDelivery";
+import {OrderGateway} from "@/app/admin/order/orderGateway";
 
 
 export const columns: Column<OrderResponse>[] = [
@@ -13,7 +15,9 @@ export const columns: Column<OrderResponse>[] = [
     {key: 'user_id', header: 'شناسه کاربر', filterType: 'input', editable: false},
     {key: 'price', header: 'قیمت', filterType: 'input', editable: false},
     {key: 'delivery_price', header: 'هزینه ارسال', filterType: 'input', editable: false},
-    {key: 'final_price', header: 'قیمت نهایی', filterType: 'input', editable: false},
+    {key: 'total_price', header: 'قیمت نهایی', filterType: 'input', editable: false},
+    {key: 'use_wallet_price', header: 'مبلغ کیف پول', filterType: 'input', editable: false},
+    {key: 'final_price', header: 'قیمت پرداختی', filterType: 'input', editable: false},
     {
         key: 'status',
         header: 'وضعیت',
@@ -23,8 +27,34 @@ export const columns: Column<OrderResponse>[] = [
             label: status,
             value: index
         }))
-    ,
-        render: (value) =>  <Badge name={OrderStatus[Number(value)]} color={(value==0||value==2||value==4)?"red":"green"}/>  ,
+        ,
+        render: (value) => <Badge name={OrderStatus[Number(value)]}
+                                  color={(value == 0 || value == 2 || value == 4) ? "red" : "green"}/>,
+
+    },
+    {
+        key: 'delivery_method',
+        header: 'روش ارسال',
+        editable: true,
+        filterType: 'select',
+        selectOptions: OrderDelivery.map((name, index) => ({
+            label: name,
+            value: (index + 1)
+        }))
+        ,
+        render: (value) => <Badge name={OrderDelivery[Number(value) - 1]} color={"green"}/>,
+
+    },    {
+        key: 'payment_method',
+        header: 'روش پرداخت',
+        editable: true,
+        filterType: 'select',
+        selectOptions: OrderGateway.map((name, index) => ({
+            label: name,
+            value: (index + 1)
+        }))
+        ,
+        render: (value) => <Badge name={OrderGateway[Number(value) - 1]} color={"green"}/>,
 
     },
     {key: 'created_at', header: 'تاریخ ثبت سفارش', filterType: 'input', editable: false},
