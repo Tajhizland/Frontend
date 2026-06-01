@@ -7,6 +7,7 @@ import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
 import {useState} from "react";
 import {useMutation} from "react-query";
 import {digipayCalc} from "@/services/api/admin/order";
+import Prices from "@/components/Price/Prices";
 
 export default function Page() {
 
@@ -62,7 +63,7 @@ export default function Page() {
                 </ButtonPrimary>
             </div>
             <div className={"  text-center p-4 bg-green-100 text-green-800 rounded-2xl border-green-800"}>
-                {res.toLocaleString()}
+                <Prices price={res}/>
             </div>
 
 
