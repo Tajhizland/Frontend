@@ -42,222 +42,181 @@ export default function Page() {
             <PageTitle>
                 مشاهده سفارش
             </PageTitle>
-            <div id={"print"}>
-                <div className={"grid grid-cols-1  lg:grid-cols-2 gap-5 "}>
-                    <div className="border rounded-2xl px-5  text-sm">
-                        <div className="flex flex-col divide-y   text-gray-500">
-
-                            <div className="flex py-2 justify-between">
-                                <span>نام : </span>
-                                <span>{data?.orderInfo?.name}</span>
+            <div id="print" className="print-container">
+                {/* اطلاعات خریدار و سفارش */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    {/* اطلاعات مشتری */}
+                    <div className="border border-gray-300 rounded-xl p-5 text-sm print:text-xs">
+                        <h3 className="font-bold text-base mb-3 border-b pb-2">اطلاعات خریدار</h3>
+                        <div className="space-y-2 text-gray-600">
+                            <div className="flex justify-between">
+                                <span>نام و نام خانوادگی:</span>
+                                <span className="font-medium">{data?.orderInfo?.name} {data?.orderInfo?.last_name}</span>
                             </div>
-                            <div className="flex py-2 justify-between">
-                                <span>نام خانوادگی : </span>
-                                <span>{data?.orderInfo?.last_name}</span>
-                            </div>
-                            <div className="flex py-2 justify-between">
-                                <span>کد ملی : </span>
+                            <div className="flex justify-between">
+                                <span>کد ملی:</span>
                                 <span>{data?.orderInfo?.national_code}</span>
                             </div>
-                            <div className="flex  py-2 justify-between">
-                                <span>موبایل : </span>
+                            <div className="flex justify-between">
+                                <span>موبایل:</span>
                                 <span>{data?.orderInfo?.mobile}</span>
                             </div>
-                            <div className="flex  py-2 justify-between">
-                                <span>تلفن : </span>
+                            <div className="flex justify-between">
+                                <span>تلفن:</span>
                                 <span>{data?.orderInfo?.tell}</span>
                             </div>
-                            <div className="flex  py-2 justify-between">
-                                <span>کد پستی : </span>
+                            <div className="flex justify-between">
+                                <span>کد پستی:</span>
                                 <span>{data?.orderInfo?.zip_code}</span>
                             </div>
-
-                            <div className="flex  py-2 justify-between">
-                                <span>استان : </span>
+                            <div className="flex justify-between">
+                                <span>استان:</span>
                                 <span>{data?.orderInfo?.province?.name}</span>
                             </div>
-                            <div className="flex  py-2 justify-between">
-                                <span>شهر : </span>
+                            <div className="flex justify-between">
+                                <span>شهر:</span>
                                 <span>{data?.orderInfo?.city?.name}</span>
                             </div>
-                            <div className="flex  py-2 justify-between">
-                                <span>آدرس : </span>
-                                <span>{data?.orderInfo?.address}</span>
+                            <div className="flex justify-between">
+                                <span>آدرس:</span>
+                                <span className="text-right leading-tight">{data?.orderInfo?.address}</span>
                             </div>
                         </div>
                     </div>
-                    <div className="border rounded-2xl px-5  text-sm">
-                        <div className="flex flex-col divide-y   text-gray-500">
-                            <div className="flex py-2 justify-between">
-                                <span>شماره سفارش : </span>
-                                <span>{data?.id}</span>
+
+                    {/* اطلاعات سفارش */}
+                    <div className="border border-gray-300 rounded-xl p-5 text-sm print:text-xs">
+                        <h3 className="font-bold text-base mb-3 border-b pb-2">اطلاعات سفارش</h3>
+                        <div className="space-y-2 text-gray-600">
+                            <div className="flex justify-between">
+                                <span>شماره سفارش:</span>
+                                <span className="font-medium">#{data?.id}</span>
                             </div>
-                            <div className="flex py-2 justify-between">
-                                <span>وضعیت : </span>
+                            <div className="flex justify-between">
+                                <span>وضعیت:</span>
                                 <span>{OrderStatus[Number(data?.status ?? 0)]}</span>
                             </div>
-                            <div className="flex py-2 justify-between">
-                                <span>تاریخ : </span>
+                            <div className="flex justify-between">
+                                <span>تاریخ ثبت:</span>
                                 <span>{data?.order_date}</span>
                             </div>
-                            <div className="flex py-2 justify-between">
-                                <span>تاریخ ارسال: </span>
+                            <div className="flex justify-between">
+                                <span>تاریخ ارسال:</span>
                                 <span>{data?.delivery_date}</span>
                             </div>
-                            <div className="flex py-2 justify-between">
-                                <span>روش ارسال: </span>
+                            <div className="flex justify-between">
+                                <span>روش ارسال:</span>
                                 <span>{data?.delivery?.name}</span>
                             </div>
-                            <div className="flex py-2 justify-between">
-                                <span>روش پرداخت: </span>
+                            <div className="flex justify-between">
+                                <span>روش پرداخت:</span>
                                 <span>{data?.payment?.name}</span>
                             </div>
-                            {(data?.delivery_token) && <div className="flex py-2 justify-between">
-                                <span>کدپیگیری پستی: </span>
-                                <span>{data?.delivery_token}</span>
-                            </div>}
-
+                            {data?.delivery_token && (
+                                <div className="flex justify-between">
+                                    <span>کد پیگیری پستی:</span>
+                                    <span className="font-medium">{data?.delivery_token}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
 
-                <div className="relative overflow-x-auto">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-100 ">
-
-                        <tr>
-                            <th className="px-4 py-2  whitespace-nowrap text-center">تصویر</th>
-                            <th className="px-4 py-2  whitespace-nowrap text-center">نام محصول</th>
-                            <th className="px-4 py-2  whitespace-nowrap text-center">رنگ</th>
-                            <th className="px-4 py-2  whitespace-nowrap text-center">تعداد</th>
-                            <th className="px-4 py-2  whitespace-nowrap text-center">قیمت</th>
-                            <th className="px-4 py-2  whitespace-nowrap text-center">تخفیف</th>
-                            <th className="px-4 py-2  whitespace-nowrap text-center">گارانتی</th>
-                            <th className="px-4 py-2  whitespace-nowrap text-center">قیمت گارانتی</th>
-                            <th className="px-4 py-2  whitespace-nowrap text-center">قیمت نهایی</th>
+                {/* جدول محصولات */}
+                <div className="overflow-x-auto mb-8">
+                    <table className="w-full border-collapse border border-gray-300 text-xs print:text-[10px]">
+                        <thead>
+                        <tr className="bg-gray-100">
+                            <th className="border border-gray-300 px-3 py-2 text-center">تصویر</th>
+                            <th className="border border-gray-300 px-3 py-2 text-center">نام محصول</th>
+                            <th className="border border-gray-300 px-3 py-2 text-center">رنگ</th>
+                            <th className="border border-gray-300 px-3 py-2 text-center">تعداد</th>
+                            <th className="border border-gray-300 px-3 py-2 text-center">قیمت واحد</th>
+                            <th className="border border-gray-300 px-3 py-2 text-center">تخفیف</th>
+                            <th className="border border-gray-300 px-3 py-2 text-center">گارانتی</th>
+                            <th className="border border-gray-300 px-3 py-2 text-center">هزینه گارانتی</th>
+                            <th className="border border-gray-300 px-3 py-2 text-center">جمع کل</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {
-                            data?.orderItems?.data.map((item) => (<>
-                                <tr className="bg-white border-b">
-                                    <th className="px-4 py-2  whitespace-nowrap text-center">
-                                        <div className="w-32 h-32 mx-auto">
-                                            <NcImage
-                                                width={100}
-                                                height={100}
-                                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.images.data[0].url}`}
-                                            />
-                                        </div>
-                                    </th>
-                                    <th className="px-4 py-2  whitespace-nowrap text-center">
-                                        <span>
-                                            {item.product.name}
-                                        </span>
-                                    </th>
-                                    <th className="px-4 py-2  whitespace-nowrap text-center">
-                                        <span>
-                                            {item.productColor.color_name}
-                                        </span>
-                                    </th>
-                                    <th className="px-4 py-2  whitespace-nowrap text-center">
-                                        {item.count}
-                                    </th>
-                                    <th className="px-4 py-2  whitespace-nowrap text-center">
-                                        <Prices price={item.price} priceClass={"mx-auto text-orange-500"}
-                                                contentClass={"border-orange-500"}/>
-                                    </th>
-                                    <th className="px-4 py-2  whitespace-nowrap text-center">
-                                        <Prices price={item.discount} priceClass={"mx-auto text-orange-500"}
-                                                contentClass={"border-orange-500"}/>
-                                    </th>
-                                    <th className="px-4 py-2  whitespace-nowrap text-center">
-                                        {item.guaranty?.name}
-                                    </th>
-                                    <th className="px-4 py-2  whitespace-nowrap text-center">
-                                        {
-                                            item.guaranty ?
-                                                item.guaranty?.free ?
-                                                    <span className="text-xs text-slate-500 dark:text-slate-400">
-                                                    (رایگان)
-                                                </span>
-                                                    :
-                                                    <Prices priceClass="text-xs text-slate-500 dark:text-slate-400"
-                                                            price={GuarantyPrice(item.price)}/>
-                                                :
-                                                <Prices priceClass="text-xs text-slate-500 dark:text-slate-400"
-                                                        price={GuarantyPrice(0)}/>
-                                        }
-                                    </th>
-
-                                    <th className="px-4 py-2  whitespace-nowrap text-center">
-                                        <Prices price={item.final_price * item.count}
-                                                priceClass={"mx-auto text-orange-500"}
-                                                contentClass={"border-orange-500"}/>
-                                    </th>
-                                </tr>
-                            </>))
-                        }
-
+                        {data?.orderItems?.data.map((item: any) => (
+                            <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
+                                <td className="border border-gray-300 p-2 text-center">
+                                    <div className="w-16 h-16 mx-auto">
+                                        <NcImage
+                                            width={64}
+                                            height={64}
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.images.data[0].url}`}
+                                            className="object-contain"
+                                        />
+                                    </div>
+                                </td>
+                                <td className="border border-gray-300 px-3 py-2 text-sm">{item.product.name}</td>
+                                <td className="border border-gray-300 px-3 py-2 text-center">{item.productColor.color_name}</td>
+                                <td className="border border-gray-300 px-3 py-2 text-center font-medium">{item.count}</td>
+                                <td className="border border-gray-300 px-3 py-2 text-center">
+                                    <Prices price={item.price} />
+                                </td>
+                                <td className="border border-gray-300 px-3 py-2 text-center">
+                                    <Prices price={item.discount} />
+                                </td>
+                                <td className="border border-gray-300 px-3 py-2 text-center text-sm">
+                                    {item.guaranty?.name || "—"}
+                                </td>
+                                <td className="border border-gray-300 px-3 py-2 text-center">
+                                    {item.guaranty ?
+                                        item.guaranty.free ?
+                                            <span className="text-emerald-600">(رایگان)</span> :
+                                            <Prices price={GuarantyPrice(item.price)} />
+                                        : "—"
+                                    }
+                                </td>
+                                <td className="border border-gray-300 px-3 py-2 text-center font-bold">
+                                    <Prices price={item.final_price * item.count} />
+                                </td>
+                            </tr>
+                        ))}
                         </tbody>
-                        <tfoot>
-                        <tr className="font-semibold text-gray-500   bg-gray-100 ">
-                            <th scope="row" colSpan={2} className="px-6 py-3 text-center text-sm">
-                                <div className={"flex items-center gap-x-4 justify-center"}>
-                                <span>
-                                    قیمت محصولات :
-                                </span>
-                                    <span>
-                                  <Prices price={data?.price} priceClass={"mx-auto "}/>
-                                </span>
-                                </div>
-                            </th>
-                            <th scope="row" colSpan={1} className="px-6 py-3 text-sm text-center">
-                                <div className={"flex items-center gap-x-4 justify-center"}>
-                                <span>
-                                    هزینه ارسال :
-                                </span>
-                                    <span>
-                                        به عهده خریدار
-                                        {data?.delivery_price != 0 &&
-                                            <Prices price={data?.delivery_price} priceClass={"mx-auto "}/>}
-                                    </span>
-                                </div>
-                            </th>
-                            <th scope="row" colSpan={2} className="px-6 py-3 text-sm text-center">
-                                <div className={"flex items-center gap-x-4 justify-center"}>
-                                <span>
-                                    مبلغ پرداختی :
-                                </span>
-                                    <span>
-                                     <Prices price={data?.final_price} priceClass={"mx-auto "}/>
-                                </span>
-                                </div>
-                            </th>
-                            <th scope="row" colSpan={2} className="px-6 py-3 text-sm text-center">
-                                <div className={"flex items-center gap-x-4 justify-center"}>
-                                <span>
-                                    کیف پول :
-                                </span>
-                                    <span>
-                                     <Prices price={data?.use_wallet_price} priceClass={"mx-auto "}/>
-                                </span>
-                                </div>
-                            </th>
-                            <th scope="row" colSpan={2} className="px-6 py-3 text-sm text-center">
-                                <div className={"flex items-center gap-x-4 justify-center"}>
-                                <span>
-                                    مجموع :
-                                </span>
-                                    <span>
-                                     <Prices price={data?.total_price} priceClass={"mx-auto "}/>
-                                </span>
-                                </div>
-                            </th>
-
-                        </tr>
-                        </tfoot>
                     </table>
+                </div>
+
+                {/* خلاصه مالی - شامل کیف پول */}
+                <div className="border border-gray-300 rounded-xl p-6 bg-gray-50 print:bg-white">
+                    <h3 className="font-bold mb-4 text-base print:text-sm">خلاصه مالی</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-sm print:text-xs">
+                        <div>
+                            <span className="block text-gray-500 mb-1">قیمت محصولات</span>
+                            <Prices price={data?.price} className="font-semibold" />
+                        </div>
+
+                        <div>
+                            <span className="block text-gray-500 mb-1">هزینه ارسال</span>
+                            <span className="font-medium">
+                    {data?.delivery_price === 0 ? "رایگان" : <Prices price={data?.delivery_price} />}
+                </span>
+                        </div>
+
+                        <div>
+                            <span className="block text-gray-500 mb-1">مبلغ پرداختی</span>
+                            <Prices price={data?.final_price} className="font-bold" />
+                        </div>
+
+                        <div>
+                            <span className="block text-gray-500 mb-1">استفاده از کیف پول</span>
+                            <Prices
+                                price={data?.use_wallet_price || 0}
+                                className="font-medium text-rose-600"
+                            />
+                        </div>
+
+                        <div className="">
+                            <span className="block text-gray-500 mb-1">مجموع نهایی</span>
+                            <Prices
+                                price={data?.total_price}
+                                className="font-bold text-lg print:text-base"
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </Panel>
