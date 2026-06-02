@@ -13,9 +13,11 @@ import Image from "next/image";
 import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
 import ProductCard from "@/components/Card/ProductCard";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
+import Spinner from "@/shared/Loading/Spinner";
 
 const BrandListing = ({response, url}: { response: BrandListingResponse, url: string }) => {
     const [filter, setFilter] = useState<number>();
+    const [loadingFilter, setLoadingFilter] = useState<boolean>(false);
     const router = useRouter();
     const observer = useRef<IntersectionObserver | null>(null);
     const lastElementRef = useRef<HTMLDivElement>(null);
@@ -142,24 +144,29 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
                             <CgSwap className={" w-8 h-8 text-neutral-400"}/>
                         </div>
                     </div>
-                    <main>
-                        {/* LOOP ITEMS */}
-                        <div
-                            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
-                            {allProducts.length === 0 && !isLoading
-                                ? <div></div>
-                                : allProducts.map((item, index) => (
-                                    <ProductCard data={item} key={index}/>
-                                ))
-                            }
-                        </div>
+                    {
+                        (isLoading || isFetching) ? <div><Spinner/></div>
+                            :
+                            <main>
+                                {/* LOOP ITEMS */}
+                                <div
+                                    className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
+                                    {allProducts.length === 0 && !isLoading
+                                        ? <div></div>
+                                        : allProducts.map((item, index) => (
+                                            <ProductCard data={item} key={index}/>
+                                        ))
+                                    }
+                                </div>
 
-                        {/* Loading more products indicator */}
-                        <div ref={lastElementRef}
-                             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
-                            {isFetchingNextPage && <ProductCardSkeleton/>}
-                        </div>
-                    </main>
+                                {/* Loading more products indicator */}
+                                <div ref={lastElementRef}
+                                     className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
+                                    {isFetchingNextPage && <ProductCardSkeleton/>}
+                                </div>
+                            </main>
+
+                    }
                     <hr/>
                     <div className="max-w-screen-sm">
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
