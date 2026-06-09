@@ -150,16 +150,35 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         return null;
     };
     const renderOption = () => {
-        const options = productResponse.options.data
-            .map((item) => (item.value && item.value != "" && item.value != " ") ? `<tr class=""><td class="py-4 text-neutral-600 dark:text-white ">${item.option_title}</td><td class="text-right text-black border-b dark:text-white "> ${item.value}</td></tr>` : "")
+        const optionSource = productResponse.product?.stockOf
+            ? productResponse.product.stockOf.productOptions.data
+            : productResponse.options.data;
+
+        const options = optionSource
+            .map((item) =>
+                item.value?.trim()
+                    ? `<tr>
+                        <td class="py-4 text-neutral-600 dark:text-white">
+                            ${item.option_title}
+                        </td>
+                        <td class="text-right text-black border-b dark:text-white">
+                            ${item.value}
+                        </td>
+                   </tr>`
+                    : ""
+            )
             .join("");
 
-        return `<div class="relative  ">
-    <table class="w-full text-sm text-center text-gray-500  dark:text-white rounded">${options}</table></div>`;
+        return `
+        <div class="relative">
+            <table class="w-full text-sm text-center text-gray-500 dark:text-white rounded">
+                ${options}
+            </table>
+        </div>
+    `;
     };
-
     const renderAccordianData = () => {
-        if (product.review) {
+        if (product.review || product?.stockOf?.review) {
             return [
                 {
                     name: "مشخصات محصول",
@@ -186,22 +205,24 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         return (
             <div className="listingSection__wrap !space-y-6">
                 <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex md:items-center md:flex-row flex-col-reverse gap-2">
                         <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold dark:text-white">
                             {product.name}
                         </h2>
-                        {product?.is_stock ?
-                            <div className={"flex justify-end sm:justify-start"}>
-                                <Badge name={"کارکرده"} color={"yellow"}/>
-                            </div>
-                            : <></>
-                        }
-                        {product?.is_stock ?
-                            <div className={"flex justify-end sm:justify-start"}>
-                                <Badge name={product.testing_time + " " + "روز مهلت تست"} color={"green"}/>
-                            </div>
-                            : <></>
-                        }
+                        <div className="flex items-center gap-2">
+                            {product?.is_stock ?
+                                <div className={"flex justify-end sm:justify-start"}>
+                                    <Badge name={"کارکرده"} color={"yellow"}/>
+                                </div>
+                                : <></>
+                            }
+                            {product?.is_stock ?
+                                <div className={"flex justify-end sm:justify-start"}>
+                                    <Badge name={product.testing_time + " " + "روز مهلت تست"} color={"green"}/>
+                                </div>
+                                : <></>
+                            }
+                        </div>
                     </div>
                     <div className="flex items-center mt-4 sm:mt-5">
                         {/*{renderStatus()}*/}
@@ -250,15 +271,31 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
     };
     const renderSection2 = () => {
         return (
-            <div className="listingSection__wrap !border-b-0 !pb-0 dark:text-white">
+            <>
+                {
+                    product?.stockOf ? <div className="listingSection__wrap !border-b-0 !pb-0 dark:text-white">
 
-                <div
-                    className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
-                    <div dangerouslySetInnerHTML={{__html: product.review}}/>
-                </div>
-                {/* ---------- 6 ----------  */}
+                            <div
+                                className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
+                                <div dangerouslySetInnerHTML={{__html: product.stockOf?.review}}/>
+                            </div>
+                            {/* ---------- 6 ----------  */}
 
-            </div>
+                        </div>
+
+                        :
+                        <div className="listingSection__wrap !border-b-0 !pb-0 dark:text-white">
+
+                            <div
+                                className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
+                                <div dangerouslySetInnerHTML={{__html: product.review}}/>
+                            </div>
+                            {/* ---------- 6 ----------  */}
+
+                        </div>
+                }
+
+            </>
         );
     };
 
