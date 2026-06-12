@@ -470,15 +470,15 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                 <div className="hidden lg:flex">
                     {!product.is_stock && <Policy/>}
                 </div>
-                {product.is_stock && <div className={"flex flex-col gap-1 "}>
-                    <Alert type={"success"}>
-                        <p className={"text-sm"}>
-                            سلامت این محصول مورد تایید تجهیزلند بوده و دارای {product.testing_time} روز مهلت تست میباشد
-                            .
-                        </p>
-                    </Alert>
+                {/*{product.is_stock && <div className={"flex flex-col gap-1 "}>*/}
+                {/*    <Alert type={"success"}>*/}
+                {/*        <p className={"text-sm"}>*/}
+                {/*            سلامت این محصول مورد تایید تجهیزلند بوده و دارای {product.testing_time} روز مهلت تست میباشد*/}
+                {/*            .*/}
+                {/*        </p>*/}
+                {/*    </Alert>*/}
 
-                </div>}
+                {/*</div>}*/}
                 {product.is_stock && <div className={"flex flex-col gap-2 pt-5 "}>
                     <p className={""}>
                         نمونه مشابه و نو این محصول کارکرده در تجهیزلند
