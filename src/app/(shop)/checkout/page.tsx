@@ -417,6 +417,10 @@ const CheckoutPage = () => {
             const percent = item.product.digipay_extra_price || 0;
 
             extraPrice += (basePrice * percent) / 100;
+
+            if (item.color.discountedPrice > 0)
+                extraPrice += Number((item.color.price - item.color.discountedPrice) * item.count);
+
         });
 
         return extraPrice;
