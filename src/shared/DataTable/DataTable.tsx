@@ -208,7 +208,7 @@ const DataTable = <T,>({ columns, apiUrl, buttons, onEdit, onDelete }: DataTable
                 </div>
             </div>
             <hr/>
-            <div className="relative overflow-x-scroll shadow-md sm:rounded-lg w-full">
+            <div className="relative overflow-x-scroll shadow-md sm:rounded-lg w-full min-h-96">
                 <table className="w-full text-sm rtl:text-right text-slate-900 text-center border">
                     <thead className="text-xs uppercase bg-slate-50 border-b border-slate-400">
                     <tr className={"text-slate-900"}>
