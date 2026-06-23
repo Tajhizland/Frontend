@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ChangeEvent, useEffect } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import CustomSelect from "@/shared/CustomSelect/CustomSelect";
 import Input from "@/shared/Input/Input";
 import { FaEdit, FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
@@ -17,6 +17,8 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import { IoIosWarning } from "react-icons/io";
 import { usePathname } from "next/navigation";
 import SelectPagination from "@/shared/Pagination/SelectPagination";
+import DatePicker from "react-multi-date-picker";
+import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
 
 
 type optionType = {
@@ -252,7 +254,10 @@ const DataTable = <T,>({ columns, apiUrl, buttons, onEdit, onDelete }: DataTable
                                                 value={filterValues[col.key as string] || ""}
                                             />
                                         ) : col.filterType === "date" ? (
-                                            <></>
+                                            <>
+                                                <PersianDatePicker onChange={(date) => handleFilterChange(col.key, date)}/>
+
+                                            </>
                                         ) : (
                                             <Input
                                                 className={"whitespace-nowrap text-nowrap min-w-[150px]"}

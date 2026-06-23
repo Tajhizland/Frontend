@@ -9,5 +9,6 @@ export type UserResponse = {
     username:string ;
     role:string ;
     avatar:string ;
+    created_at:string ;
 
 };

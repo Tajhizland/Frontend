@@ -29,6 +29,8 @@ export const columns: Column<UserResponse>[] = [
             <Badge name={"کاربر"} color={"indigo"}/>,
 
     },
+    {key: 'created_at', header: 'تاریخ ثبت نام', filterType: 'date', editable: true},
+
 
 ];
 export const buttons: DataTableButtons[] = [
