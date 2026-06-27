@@ -1,108 +1,166 @@
-"use client"
+"use client";
+
 import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
-import Uploader from "@/shared/Uploader/Uploader";
+import {Controller, useForm} from "react-hook-form";
 import {VlogResponse} from "@/services/types/vlog";
 import {useQuery} from "react-query";
-import {findById, getList} from "@/services/api/admin/vlogCategory";
-import NcImage from "@/shared/NcImage/NcImage";
+import {getList} from "@/services/api/admin/vlogCategory";
 import SunEditors from "@/shared/Editor/SunEditors";
-import Spinner from "@/shared/Loading/Spinner";
 import SimpleUploader from "@/shared/Uploader/SimpleUploader";
+import ImageField from "@/shared/Uploader/ImageField";
 
-interface Form {
+export type VlogFormValues = {
+    title: string;
+    url: string;
+    status: string;
+    categoryId: string;
+    description: string;
+    poster?: File | null;
+    video?: File | null;
+};
+
+interface Props {
     data?: VlogResponse;
-    loading:boolean;
-    submit: (e: FormData) => void;
+    onSubmit: (values: VlogFormValues) => Promise<any> | void;
+    loading?: boolean;
+    resetOnSuccess?: boolean;
 }
 
-export default function Form({ data, submit ,loading }: Form) {
+const base = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
 
+export default function Form({data, onSubmit, loading, resetOnSuccess}: Props) {
     const {data: categoryList} = useQuery({
         queryKey: [`vlog_category-list`],
         queryFn: () => getList(),
         staleTime: 5000,
     });
 
-    return (<>
-        <form action={submit}>
+    const {
+        register,
+        handleSubmit,
+        control,
+        reset,
+        formState: {errors},
+    } = useForm<VlogFormValues>({
+        defaultValues: {
+            title: data?.title ?? "",
+            url: data?.url ?? "",
+            status: data?.status != null ? String(data.status) : "1",
+            categoryId: data?.categoryId != null ? String(data.categoryId) : "",
+            description: data?.description ?? "",
+            poster: null,
+            video: null,
+        },
+    });
+
+    return (
+        <form
+            onSubmit={handleSubmit(async (values) => {
+                try {
+                    await onSubmit(values);
+                    if (resetOnSuccess) reset();
+                } catch {
+                    /* خطا توسط interceptor نمایش داده می‌شود */
+                }
+            })}
+        >
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>عنوان ولاگ</Label>
-                    <Input name={"title"} defaultValue={data?.title}/>
+                    <Input {...register("title", {required: "عنوان ولاگ الزامی است"})} />
+                    {errors.title && <p className="text-rose-500 text-xs mt-1">{errors.title.message}</p>}
                 </div>
                 <div>
                     <Label>ادرس ولاگ</Label>
-                    <Input name={"url"} defaultValue={data?.url}/>
+                    <Input {...register("url")} />
                 </div>
                 <div>
                     <Label>وضعیت ولاگ</Label>
-                    <Select name={"status"}>
-                        <option value={1} selected={data?.status == 1}>
-                            فعال
-                        </option>
-                        <option value={0} selected={data?.status == 0}>
-                            غیر فعال
-                        </option>
+                    <Select {...register("status")}>
+                        <option value={1}>فعال</option>
+                        <option value={0}>غیر فعال</option>
                     </Select>
                 </div>
                 <div>
                     <Label>دسته ولاگ</Label>
-                    <Select name={"categoryId"}>
-                        {
-                            categoryList && categoryList.map((item,index)=>(<>
-                                <option key={index}  value={item.id} selected={data?.categoryId == item.id}>
+                    <Select {...register("categoryId")}>
+                        {categoryList &&
+                            categoryList.map((item, index) => (
+                                <option key={index} value={item.id}>
                                     {item.name}
                                 </option>
-                            </>))
-                        }
+                            ))}
                     </Select>
                 </div>
-
             </div>
 
-            <hr className={"my-5"}/>
+            <hr className={"my-5"} />
             <div className={"grid grid-cols-1 gap-5"}>
-
                 <div>
                     <Label>توضیحات ولاگ</Label>
-                    <SunEditors name={"description"} value={data?.description} />
+                    <Controller
+                        name="description"
+                        control={control}
+                        render={({field}) => (
+                            <SunEditors
+                                name="description"
+                                value={field.value}
+                                onChange={field.onChange}
+                                onBlur={field.onBlur}
+                            />
+                        )}
+                    />
                 </div>
 
-            <div>
-                <Label>ویدیو  </Label>
-                <SimpleUploader name={"video"} />
-            </div>
-            <div>
-                <Label>پوستر  </Label>
-                <Uploader  name={"poster"}/>
-            </div>
-            {data?.poster ? <div className={"max-w-lg flex justify-center"}>
-
-                    <NcImage
-                        containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`}
-                        className="object-cover w-full h-full drop-shadow-xl"
-                        fill
-                        alt="vlog"
+                <div>
+                    <Label>ویدیو</Label>
+                    <Controller
+                        name="video"
+                        control={control}
+                        render={({field}) => (
+                            <SimpleUploader
+                                name="video"
+                                accept="video/*"
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                    field.onChange(e.target.files?.[0] ?? null)
+                                }
+                                onBlur={field.onBlur}
+                            />
+                        )}
                     />
-            </div> :""}
+                    {data?.video && (
+                        <p className="text-xs text-emerald-700 mt-1">ویدیوی فعلی بارگذاری شده است</p>
+                    )}
+                </div>
 
+                <div>
+                    <Label>پوستر</Label>
+                    <Controller
+                        name="poster"
+                        control={control}
+                        render={({field}) => (
+                            <ImageField
+                                name="poster"
+                                previousSrc={data?.poster ? `${base}/vlog/${data.poster}` : undefined}
+                                value={field.value}
+                                onChange={field.onChange}
+                                onBlur={field.onBlur}
+                            />
+                        )}
+                    />
+                </div>
             </div>
-            <hr className={"my-5"}/>
+
+            <hr className={"my-5"} />
             <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"} disabled={loading} loading={loading}>
-                    <div className={"flex items-center gap-2"}>
+                <ButtonPrimary type={"submit"} loading={loading} disabled={loading}>
                     ذخیره
-                    {
-                        loading && <div className={"w-4 h-4"}><Spinner  className={"!w-4 !h-4"} /> </div>
-                    }
-                    </div>
                 </ButtonPrimary>
             </div>
         </form>
-    </>)
+    );
 }

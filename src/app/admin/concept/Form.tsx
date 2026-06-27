@@ -1,62 +1,107 @@
-"use client"
+"use client";
+
 import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import React from "react";
-import Uploader from "@/shared/Uploader/Uploader";
-import {ConceptResponse} from "@/services/types/concept";
 import Textarea from "@/shared/Textarea/Textarea";
+import React from "react";
+import {Controller, useForm} from "react-hook-form";
+import {ConceptResponse} from "@/services/types/concept";
+import ImageField from "@/shared/Uploader/ImageField";
+import FormProgress from "@/shared/Progress/FormProgress";
 
-interface Form {
+export type ConceptFormValues = {
+    title: string;
+    status: string;
+    description: string;
+    icon?: File | null;
+};
+
+interface Props {
     data?: ConceptResponse;
-    submit: (e: FormData) => void;
+    onSubmit: (values: ConceptFormValues) => Promise<any> | void;
+    loading?: boolean;
+    progress?: number;
+    resetOnSuccess?: boolean;
 }
 
-export default function Form({ data, submit  }: Form) {
+const base = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
 
-    return (<>
-        <form action={submit}>
+export default function Form({data, onSubmit, loading, progress, resetOnSuccess}: Props) {
+    const {
+        register,
+        handleSubmit,
+        control,
+        reset,
+        formState: {errors},
+    } = useForm<ConceptFormValues>({
+        defaultValues: {
+            title: data?.title ?? "",
+            status: data?.status != null ? String(data.status) : "1",
+            description: data?.description != null ? String(data.description) : "",
+            icon: null,
+        },
+    });
+
+    return (
+        <form
+            onSubmit={handleSubmit(async (values) => {
+                try {
+                    await onSubmit(values);
+                    if (resetOnSuccess) reset();
+                } catch {
+                    /* خطا توسط interceptor نمایش داده می‌شود */
+                }
+            })}
+        >
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>عنوان</Label>
-                    <Input name={"title"} defaultValue={data?.title}/>
+                    <Input {...register("title", {required: "عنوان الزامی است"})} />
+                    {errors.title && <p className="text-rose-500 text-xs mt-1">{errors.title.message}</p>}
                 </div>
-
                 <div>
-                    <Label>وضعیت  </Label>
-                    <Select name={"status"}>
-                        <option value={1} selected={data?.status == "1"}>
-                            فعال
-                        </option>
-                        <option value={0} selected={data?.status == "0"}>
-                            غیر فعال
-                        </option>
+                    <Label>وضعیت</Label>
+                    <Select {...register("status")}>
+                        <option value={1}>فعال</option>
+                        <option value={0}>غیر فعال</option>
                     </Select>
                 </div>
-
             </div>
 
-            <hr className={"my-5"}/>
+            <hr className={"my-5"} />
             <div className={"grid grid-cols-1 gap-5"}>
-
                 <div>
-                    <Label>توضیحات  </Label>
-                    <Textarea name={"description"}>{data?.description}</Textarea>
-
+                    <Label>توضیحات</Label>
+                    <Textarea {...register("description")} />
                 </div>
+            </div>
 
+            <div className="mt-5">
+                <Label>آیکن</Label>
+                <Controller
+                    name="icon"
+                    control={control}
+                    render={({field}) => (
+                        <ImageField
+                            name="icon"
+                            previousSrc={data?.icon ? `${base}/concept/${data.icon}` : undefined}
+                            value={field.value}
+                            onChange={field.onChange}
+                            onBlur={field.onBlur}
+                        />
+                    )}
+                />
             </div>
-            <div>
-                <Label>آیکن  </Label>
-                <Uploader name={"icon"}/>
-            </div>
-            <hr className={"my-5"}/>
+
+            <hr className={"my-5"} />
+            <FormProgress loading={loading} progress={progress} />
             <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"}>
+                <ButtonPrimary type={"submit"} loading={loading} disabled={loading}>
                     ذخیره
                 </ButtonPrimary>
             </div>
         </form>
-    </>)
+    );
 }

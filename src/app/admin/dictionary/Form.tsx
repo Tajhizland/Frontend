@@ -1,52 +1,73 @@
-"use client"
+"use client";
+
 import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import React, { useState } from "react";
-import { DictionaryResponse } from "@/services/types/dictionary";
+import React from "react";
+import {useForm, useWatch} from "react-hook-form";
+import {DictionaryResponse} from "@/services/types/dictionary";
+import FormProgress from "@/shared/Progress/FormProgress";
 
-interface FormProps {
+export type DictionaryFormValues = {
+    original_word: string;
+    mean: string;
+};
+
+interface Props {
     data?: DictionaryResponse;
-    submit: (e: { original_words: string[]; mean: string }) => void;
+    onSubmit: (values: DictionaryFormValues) => Promise<any> | void;
+    loading?: boolean;
+    resetOnSuccess?: boolean;
 }
 
-export default function Form({ data, submit }: FormProps) {
-    const [inputValue, setInputValue] = useState<string>(data?.original_word || "");
-    const [mean, setMean] = useState<string>(data?.mean || "");
+export default function Form({data, onSubmit, loading, resetOnSuccess}: Props) {
+    const isEdit = !!data;
 
-    // حالت ویرایش فقط یک کلمه رو داخل آرایه برمی‌گردونه
-    const originalWords = data
-        ? [inputValue] // در حالت ویرایش
-        : inputValue
-            .split(",") // در حالت ایجاد
-            .map((w) => w.trim())
-            .filter((w) => w.length > 0);
+    const {
+        register,
+        handleSubmit,
+        control,
+        reset,
+        formState: {errors},
+    } = useForm<DictionaryFormValues>({
+        defaultValues: {
+            original_word: data?.original_word ?? "",
+            mean: data?.mean ?? "",
+        },
+    });
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        submit({ original_words: originalWords, mean });
-    };
+    const watchedWord = useWatch({control, name: "original_word"}) ?? "";
+    const previewWords = isEdit
+        ? []
+        : watchedWord
+              .split(",")
+              .map((w) => w.trim())
+              .filter((w) => w.length > 0);
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form
+            onSubmit={handleSubmit(async (values) => {
+                try {
+                    await onSubmit(values);
+                    if (resetOnSuccess) reset();
+                } catch {
+                    /* خطا توسط interceptor نمایش داده می‌شود */
+                }
+            })}
+        >
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
-                    <Label>
-                        کلمات اصلی {data ? "" : "(با , جدا کن)"}
-                    </Label>
+                    <Label>کلمات اصلی {isEdit ? "" : "(با , جدا کن)"}</Label>
                     <Input
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        placeholder={
-                            data
-                                ? "کلمه اصلی"
-                                : "مثلاً: اسپرسو, اسپر سو, اسسپرسوو"
-                        }
+                        {...register("original_word", {required: "کلمه اصلی الزامی است"})}
+                        placeholder={isEdit ? "کلمه اصلی" : "مثلاً: اسپرسو, اسپر سو, اسسپرسوو"}
                     />
-                    {/* فقط در حالت ایجاد لیست نمایش بده */}
-                    {!data && originalWords.length > 0 && (
+                    {errors.original_word && (
+                        <p className="text-rose-500 text-xs mt-1">{errors.original_word.message}</p>
+                    )}
+                    {!isEdit && previewWords.length > 0 && (
                         <ul className="mt-2 list-disc list-inside text-sm text-gray-700">
-                            {originalWords.map((word, index) => (
+                            {previewWords.map((word, index) => (
                                 <li key={index}>{word}</li>
                             ))}
                         </ul>
@@ -54,12 +75,17 @@ export default function Form({ data, submit }: FormProps) {
                 </div>
                 <div>
                     <Label>معنی</Label>
-                    <Input value={mean} onChange={(e) => setMean(e.target.value)} />
+                    <Input {...register("mean", {required: "معنی الزامی است"})} />
+                    {errors.mean && <p className="text-rose-500 text-xs mt-1">{errors.mean.message}</p>}
                 </div>
             </div>
+
             <hr className={"my-5"} />
+            <FormProgress loading={loading} />
             <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"}>ذخیره</ButtonPrimary>
+                <ButtonPrimary type={"submit"} loading={loading} disabled={loading}>
+                    ذخیره
+                </ButtonPrimary>
             </div>
         </form>
     );

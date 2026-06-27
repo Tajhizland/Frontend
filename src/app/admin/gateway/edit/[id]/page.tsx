@@ -1,53 +1,54 @@
-"use client"
+"use client";
+
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import Form from "@/app/admin/gateway/Form";
-import {update ,findById} from "@/services/api/admin/gateway";
+import Form, {GatewayFormValues} from "@/app/admin/gateway/Form";
+import {update, findById} from "@/services/api/admin/gateway";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
- import {useQuery} from "react-query";
+import {useMutation, useQuery} from "react-query";
 
-export default  function Page()
-{
-    const { id } = useParams();
-     const { data: data } = useQuery({
+export default function Page() {
+    const {id} = useParams();
+
+    const {data, isLoading} = useQuery({
         queryKey: [`gateway-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
-    async function submit(e: FormData) {
-        let response=await update(
-            {
-                id:Number(id),
-                name: e.get("name") as string,
-                status: e.get("status") as string,
-                description: e.get("description") as string,
 
-            }
-        )
-        toast.success(response?.message as string)
-    }
+    const mutation = useMutation({
+        mutationKey: ["update-gateway", Number(id)],
+        mutationFn: async (values: GatewayFormValues) => {
+            return update({
+                id: Number(id),
+                name: values.name,
+                status: values.status,
+                description: values.description,
+            });
+        },
+        onSuccess: (response) => {
+            if (response.success) toast.success(response.message as string);
+        },
+    });
 
-    return(<>
-        <Breadcrump breadcrumb={[
-            {
-                title: "تنظیمات درگاه پرداخت",
-                href: "gateway"
-            },
-            {
-                title: "ویرایش درگاه پرداخت",
-                href: "gateway/update/"+id
-            }
-        ]}/>
-        <Panel>
-            <PageTitle>
-                ویرایش بلاگ
-            </PageTitle>
-            <div>
-                <Form data={data} submit={submit} />
-            </div>
-        </Panel>
-
-    </>)
+    return (
+        <>
+            <Breadcrump
+                breadcrumb={[
+                    {title: "تنظیمات درگاه پرداخت", href: "gateway"},
+                    {title: "ویرایش درگاه پرداخت", href: "gateway/update/" + id},
+                ]}
+            />
+            <Panel>
+                <PageTitle>ویرایش درگاه پرداخت</PageTitle>
+                <div>
+                    {!isLoading && (
+                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isLoading} />
+                    )}
+                </div>
+            </Panel>
+        </>
+    );
 }

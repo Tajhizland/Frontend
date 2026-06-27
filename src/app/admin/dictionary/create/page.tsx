@@ -1,51 +1,48 @@
-"use client"
+"use client";
+
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import Form from "@/app/admin/dictionary/Form";
+import Form, {DictionaryFormValues} from "@/app/admin/dictionary/Form";
 import {store} from "@/services/api/admin/dictionary";
 import toast from "react-hot-toast";
-import {useRouter} from "next/navigation";
+import {useMutation} from "react-query";
 
 export default function Page() {
-    const router = useRouter();
+    const mutation = useMutation({
+        mutationKey: ["store-dictionary"],
+        mutationFn: async (values: DictionaryFormValues) => {
+            const words = values.original_word
+                .split(",")
+                .map((w) => w.trim())
+                .filter((w) => w.length > 0);
 
-    async function submit(data: { original_words: string[]; mean: string }) {
-        let success = true;
-        for (let word of data.original_words) {
-            if (word == "")
-                continue;
-            let response = await store({
-                original_word: word,
-                mean: data.mean,
-            });
-            if (!response?.success)
-                success = false;
-        }
-        if (success)
-            toast.success("عملیات با موفقیت انجام شد");
-        router.push("/admin/dictionary");
-    }
-
-
-    return (<>
-        <Breadcrump breadcrumb={[
-            {
-                title: "دیکشنری",
-                href: "dictionary"
-            },
-            {
-                title: "افزودن دیکشنری",
-                href: "dictionary/create"
+            let success = true;
+            for (const word of words) {
+                const response = await store({original_word: word, mean: values.mean});
+                if (!response?.success) success = false;
             }
-        ]}/>
-        <Panel>
-            <PageTitle>
-                افزودن دیکشنری جدید
-            </PageTitle>
-            <div>
-                <Form submit={submit}/>
-            </div>
-        </Panel>
-    </>)
+            return {success, message: "عملیات با موفقیت انجام شد"};
+        },
+        onSuccess: (response) => {
+            if (response.success) toast.success(response.message as string);
+        },
+    });
+
+    return (
+        <>
+            <Breadcrump
+                breadcrumb={[
+                    {title: "دیکشنری", href: "dictionary"},
+                    {title: "افزودن دیکشنری", href: "dictionary/create"},
+                ]}
+            />
+            <Panel>
+                <PageTitle>افزودن دیکشنری جدید</PageTitle>
+                <div>
+                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isLoading} resetOnSuccess />
+                </div>
+            </Panel>
+        </>
+    );
 }

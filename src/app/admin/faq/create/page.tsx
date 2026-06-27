@@ -1,47 +1,42 @@
-"use client"
+"use client";
+
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import Form from "@/app/admin/faq/Form";
+import Form, {FaqFormValues} from "@/app/admin/faq/Form";
 import {store} from "@/services/api/admin/faq";
 import toast from "react-hot-toast";
-import {useRouter} from "next/navigation";
+import {useMutation} from "react-query";
 
-export default function Page()
-{
-    const router = useRouter();
+export default function Page() {
+    const mutation = useMutation({
+        mutationKey: ["store-faq"],
+        mutationFn: async (values: FaqFormValues) => {
+            return store({
+                question: values.question,
+                answer: values.answer,
+                status: values.status,
+            });
+        },
+        onSuccess: (response) => {
+            if (response.success) toast.success(response.message as string);
+        },
+    });
 
-    async function submit(e: FormData) {
-        let response=await store(
-            {
-                question: e.get("question") as string,
-                answer: e.get("answer") as string,
-                status: e.get("status") as string,
-            }
-        )
-
-        toast.success(response?.message as string)
-        router.push("/admin/faq");
-    }
-
-    return(<>
-        <Breadcrump breadcrumb={[
-            {
-                title: "پرسش های متداول",
-                href: "faq"
-            },
-            {
-                title: "افزودن پرسش های متداول",
-                href: "faq/create"
-            }
-        ]}/>
-        <Panel>
-            <PageTitle>
-                افزودن پرسش جدید
-            </PageTitle>
-            <div>
-                <Form submit={submit} />
-            </div>
-        </Panel>
-    </>)
+    return (
+        <>
+            <Breadcrump
+                breadcrumb={[
+                    {title: "پرسش های متداول", href: "faq"},
+                    {title: "افزودن پرسش های متداول", href: "faq/create"},
+                ]}
+            />
+            <Panel>
+                <PageTitle>افزودن پرسش جدید</PageTitle>
+                <div>
+                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isLoading} resetOnSuccess />
+                </div>
+            </Panel>
+        </>
+    );
 }

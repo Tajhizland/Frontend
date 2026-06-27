@@ -2,6 +2,7 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {BannerResponse} from "@/services/types/banner";
 import {SliderResponse} from "@/services/types/slider";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {uploadConfig} from "@/services/uploadConfig";
 
 export const bannerTable = tableFetcher<SliderResponse>("admin/banner/dataTable");
 
@@ -11,6 +12,7 @@ export const store = async <T extends ServerResponse<unknown>>
         url: string,
         type: string,
         image: File | undefined,
+        setProgress?: (progress: number) => void,
     }
 ) => {
     const formData = new FormData();
@@ -19,11 +21,7 @@ export const store = async <T extends ServerResponse<unknown>>
     if (params.image) {
         formData.append('image', params.image);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/banner/store", formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    })
+    return axios.post<T, SuccessResponseType<T>>("admin/banner/store", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -34,6 +32,7 @@ export const update = async <T extends ServerResponse<unknown>>
         url: string,
         type: string,
         image: File | undefined,
+        setProgress?: (progress: number) => void,
     }
 ) => {
     const formData = new FormData();
@@ -43,11 +42,7 @@ export const update = async <T extends ServerResponse<unknown>>
     if (params.image) {
         formData.append('image', params.image);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/banner/update", formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    })
+    return axios.post<T, SuccessResponseType<T>>("admin/banner/update", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 

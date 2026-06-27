@@ -12,8 +12,8 @@ export const store = async <T extends ServerResponse<unknown>>
         url: string,
         status: number | string,
         categoryId: number | string,
-        video: File,
-        poster: File,
+        video: File | null,
+        poster: File | null,
         description: string,
         setProgress?: (progress: number) => void // تابع برای تغییر مقدار درصد آپلود
 
@@ -24,9 +24,11 @@ export const store = async <T extends ServerResponse<unknown>>
     formData.append('description', params.description);
     formData.append('url', params.url);
     formData.append('status', params.status.toString());
-    formData.append('video', params.video);
+    if (params.video)
+        formData.append('video', params.video);
     formData.append('categoryId', params.categoryId.toString());
-    formData.append('poster', params.poster);
+    if (params.poster)
+        formData.append('poster', params.poster);
     return axios.post<T, SuccessResponseType<T>>("admin/vlog/store", formData,
         {
             onUploadProgress: (progressEvent) => {

@@ -1,6 +1,7 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios"; 
 import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {uploadConfig} from "@/services/uploadConfig";
 
 export const vlogCategoryTable = tableFetcher<VlogCategoryResponse>("admin/vlog_category/dataTable");
 
@@ -9,8 +10,9 @@ export const store = async <T extends ServerResponse<unknown>>
     params: {
         name: string,
         url: string,
-        icon?: File,
+        icon?: File | null,
         status: number,
+        setProgress?: (progress: number) => void,
     }
 ) => {
 
@@ -21,7 +23,7 @@ export const store = async <T extends ServerResponse<unknown>>
         formData.append('icon', params.icon);
     formData.append('status', params.status.toString());
 
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/store", formData)
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/store", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -31,8 +33,9 @@ export const update = async <T extends ServerResponse<unknown>>
         id: number | string,
         name: string,
         url: string,
-        icon?: File,
+        icon?: File | null,
         status: number,
+        setProgress?: (progress: number) => void,
     }
 ) => {
     const formData = new FormData();
@@ -43,7 +46,7 @@ export const update = async <T extends ServerResponse<unknown>>
         formData.append('icon', params.icon);
     formData.append('status', params.status.toString());
 
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/update", formData)
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/update", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 

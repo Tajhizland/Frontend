@@ -1,73 +1,105 @@
-"use client"
+"use client";
+
 import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
-import { VlogCategoryResponse } from "@/services/types/vlogCategory";
-import Uploader from "@/shared/Uploader/Uploader";
-import Image from "next/image";
+import {Controller, useForm} from "react-hook-form";
+import {VlogCategoryResponse} from "@/services/types/vlogCategory";
+import ImageField from "@/shared/Uploader/ImageField";
+import FormProgress from "@/shared/Progress/FormProgress";
 
-interface Form {
+export type VlogCategoryFormValues = {
+    name: string;
+    url: string;
+    status: string;
+    icon?: File | null;
+};
+
+interface Props {
     data?: VlogCategoryResponse;
-    submit: (e: FormData) => void;
+    onSubmit: (values: VlogCategoryFormValues) => Promise<any> | void;
+    loading?: boolean;
+    progress?: number;
+    resetOnSuccess?: boolean;
 }
 
-export default function Form({ data, submit }: Form) {
+const base = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
 
-    return (<>
-        <form action={submit}>
+export default function Form({data, onSubmit, loading, progress, resetOnSuccess}: Props) {
+    const {
+        register,
+        handleSubmit,
+        control,
+        reset,
+        formState: {errors},
+    } = useForm<VlogCategoryFormValues>({
+        defaultValues: {
+            name: data?.name ?? "",
+            url: data?.url ?? "",
+            status: data?.status != null ? String(data.status) : "1",
+            icon: null,
+        },
+    });
+
+    return (
+        <form
+            onSubmit={handleSubmit(async (values) => {
+                try {
+                    await onSubmit(values);
+                    if (resetOnSuccess) reset();
+                } catch {
+                    /* خطا توسط interceptor نمایش داده می‌شود */
+                }
+            })}
+        >
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>نام دسته بندی ولاگ</Label>
-                    <Input name={"name"} defaultValue={data?.name} />
+                    <Input {...register("name", {required: "نام دسته بندی الزامی است"})} />
+                    {errors.name && <p className="text-rose-500 text-xs mt-1">{errors.name.message}</p>}
                 </div>
 
                 <div>
                     <Label>وضعیت دسته بندی ولاگ</Label>
-                    <Select name={"status"}>
-                        <option value={1} selected={data?.status == 1}>
-                            فعال
-                        </option>
-                        <option value={0} selected={data?.status == 0}>
-                            غیر فعال
-                        </option>
+                    <Select {...register("status")}>
+                        <option value={1}>فعال</option>
+                        <option value={0}>غیر فعال</option>
                     </Select>
                 </div>
                 <div>
-                    <Label>نام دسته بندی ولاگ</Label>
-                    <Input name={"url"} defaultValue={data?.url} />
+                    <Label>آدرس دسته بندی ولاگ</Label>
+                    <Input {...register("url")} />
                 </div>
-
-
             </div>
 
-            <div className={"grid grid-cols-1 gap-5"}>
+            <div className={"grid grid-cols-1 gap-5 mt-5"}>
                 <div>
                     <Label>تصویر</Label>
-                    <Uploader name={"icon"}/>
-                </div>
-                {data?.icon ? <div className={"container max-w-lg"}>
-                        <div
-                            className={`relative w-full aspect-w-16 aspect-h-11 lg:aspect-h-9  rounded-2xl overflow-hidden group border`}
-                        >
-                            <Image
-                                alt=""
-                                fill
-                                className="w-full h-full object-cover"
-                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog-category/${data.icon}`}
+                    <Controller
+                        name="icon"
+                        control={control}
+                        render={({field}) => (
+                            <ImageField
+                                name="icon"
+                                previousSrc={data?.icon ? `${base}/vlog-category/${data.icon}` : undefined}
+                                value={field.value}
+                                onChange={field.onChange}
+                                onBlur={field.onBlur}
                             />
-                        </div>
-                    </div>
-                    : ""}
+                        )}
+                    />
+                </div>
             </div>
 
             <hr className={"my-5"} />
+            <FormProgress loading={loading} progress={progress} />
             <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"}>
+                <ButtonPrimary type={"submit"} loading={loading} disabled={loading}>
                     ذخیره
                 </ButtonPrimary>
             </div>
         </form>
-    </>)
+    );
 }

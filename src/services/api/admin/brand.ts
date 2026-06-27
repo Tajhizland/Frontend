@@ -1,6 +1,7 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {BrandResponse} from "@/services/types/brand";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {uploadConfig} from "@/services/uploadConfig";
 
 export const brandTable = tableFetcher<BrandResponse>("admin/brand/dataTable");
 
@@ -16,7 +17,8 @@ export const store = async <T extends ServerResponse<unknown>>(
         status: number | string,
         image: File | null,
         banner: File | null,
-        description: string
+        description: string,
+        setProgress?: (progress: number) => void,
     }
 ) => {
     const formData = new FormData();
@@ -32,11 +34,7 @@ export const store = async <T extends ServerResponse<unknown>>(
         formData.append('banner', params.banner);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/brand/store", formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    })
+    return axios.post<T, SuccessResponseType<T>>("admin/brand/store", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -49,7 +47,8 @@ export const update = async <T extends ServerResponse<unknown>>
         status: number | string,
         image: File | null,
         banner: File | null,
-        description: string
+        description: string,
+        setProgress?: (progress: number) => void,
     }
 ) => {
     const formData = new FormData();
@@ -66,11 +65,7 @@ export const update = async <T extends ServerResponse<unknown>>
         formData.append('banner', params.banner);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/brand/update", formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    })
+    return axios.post<T, SuccessResponseType<T>>("admin/brand/update", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 export const findById = async <T extends ServerResponse<BrandResponse>>

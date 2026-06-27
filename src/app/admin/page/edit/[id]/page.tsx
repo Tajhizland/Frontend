@@ -1,57 +1,62 @@
-"use client"
+"use client";
+
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import Form from "@/app/admin/page/Form";
-import {update} from "@/services/api/admin/page";
+import Form, {PageFormValues} from "@/app/admin/page/Form";
+import {update, findById} from "@/services/api/admin/page";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {findById} from "@/services/api/admin/page";
-import {useQuery} from "react-query";
+import {useMutation, useQuery} from "react-query";
 import PageTab from "@/components/Tabs/PageTab";
+import {useState} from "react";
 
-export default  function Page()
-{
-    const { id } = useParams();
-     const { data: data } = useQuery({
+export default function Page() {
+    const {id} = useParams();
+    const [progress, setProgress] = useState(0);
+
+    const {data, isLoading} = useQuery({
         queryKey: [`page-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
-    async function submit(e: FormData) {
-        let response=await update(
-            {
-                id:Number(id),
-                title: e.get("title") as string,
-                url: e.get("url") as string,
-                status: e.get("status") as string,
-                 image: e.get("image") as File,
-                content: e.get("content") as string,
-            }
-        )
-        toast.success(response?.message as string)
-    }
 
-    return(<>
-        <Breadcrump breadcrumb={[
-            {
-                title: "صفحه",
-                href: "page"
-            },
-            {
-                title: "ویرایش صفحه",
-                href: "page/edit/"+id
-            }
-        ]}/>
-        <Panel>
-            <PageTitle>
-                ویرایش صفحه
-            </PageTitle>
-            <PageTab id={id+""} />
-            <div>
-                <Form data={data} submit={submit} />
-            </div>
-        </Panel>
+    const mutation = useMutation({
+        mutationKey: ["update-page", Number(id)],
+        mutationFn: async (values: PageFormValues) => {
+            return update({
+                id: Number(id),
+                title: values.title,
+                url: values.url,
+                status: values.status,
+                content: values.content,
+                image: values.image ?? null,
+                setProgress,
+            });
+        },
+        onSuccess: (response) => {
+            if (response.success) toast.success(response.message as string);
+        },
+        onSettled: () => setProgress(0),
+    });
 
-    </>)
+    return (
+        <>
+            <Breadcrump
+                breadcrumb={[
+                    {title: "صفحه", href: "page"},
+                    {title: "ویرایش صفحه", href: "page/edit/" + id},
+                ]}
+            />
+            <Panel>
+                <PageTitle>ویرایش صفحه</PageTitle>
+                <PageTab id={id + ""} />
+                <div>
+                    {!isLoading && (
+                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isLoading} progress={progress} />
+                    )}
+                </div>
+            </Panel>
+        </>
+    );
 }

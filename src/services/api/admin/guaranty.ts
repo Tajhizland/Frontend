@@ -1,6 +1,7 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {GuarantyResponse} from "@/services/types/guaranty";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {uploadConfig} from "@/services/uploadConfig";
 
 export const guarantyTable = tableFetcher<GuarantyResponse>("admin/guaranty/dataTable");
 
@@ -20,6 +21,7 @@ export const store = async <T extends ServerResponse<unknown>>
         status: number | string,
         icon: File | undefined,
         description: string,
+        setProgress?: (progress: number) => void,
     }
 ) => {
     const formData = new FormData();
@@ -31,7 +33,7 @@ export const store = async <T extends ServerResponse<unknown>>
     if (params.icon) {
         formData.append('icon', params.icon);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/guaranty/store", formData)
+    return axios.post<T, SuccessResponseType<T>>("admin/guaranty/store", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data)
 };
 export const update = async <T extends ServerResponse<unknown>>
@@ -44,6 +46,7 @@ export const update = async <T extends ServerResponse<unknown>>
         status: number | string,
         icon?: File | undefined,
         description: string,
+        setProgress?: (progress: number) => void,
     }
 ) => {
     const formData = new FormData();
@@ -56,7 +59,7 @@ export const update = async <T extends ServerResponse<unknown>>
     if (params.icon) {
         formData.append('icon', params.icon);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/guaranty/update", formData)
+    return axios.post<T, SuccessResponseType<T>>("admin/guaranty/update", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data)
 };
 

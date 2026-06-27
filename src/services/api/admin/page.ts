@@ -1,6 +1,7 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {PageResponse} from "@/services/types/page";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {uploadConfig} from "@/services/uploadConfig";
 
 export const pageTable = tableFetcher<PageResponse>("admin/page/dataTable");
 
@@ -11,7 +12,8 @@ export const store = async <T extends ServerResponse<unknown>>
         url:string,
         status:number|string,
         image: File | null,
-        content:string
+        content:string,
+        setProgress?: (progress: number) => void,
     }
 ) => {
     const formData = new FormData();
@@ -24,7 +26,7 @@ export const store = async <T extends ServerResponse<unknown>>
         formData.append('image', params.image);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/page/store", formData )
+    return axios.post<T, SuccessResponseType<T>>("admin/page/store", formData, uploadConfig(params.setProgress) )
         .then((res) => res?.data);
 };
 
@@ -36,7 +38,8 @@ export const update = async <T extends ServerResponse<unknown>>
         url:string,
         status:number|string,
         image: File | null,
-        content:string
+        content:string,
+        setProgress?: (progress: number) => void,
     }
 ) => {
     const formData = new FormData();
@@ -50,7 +53,7 @@ export const update = async <T extends ServerResponse<unknown>>
         formData.append('image', params.image);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/page/update", formData )
+    return axios.post<T, SuccessResponseType<T>>("admin/page/update", formData, uploadConfig(params.setProgress) )
         .then((res) => res?.data);
 };
 

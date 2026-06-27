@@ -1,18 +1,20 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {TrustedBrandResponse} from "@/services/types/trustedBrand";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {uploadConfig} from "@/services/uploadConfig";
 
 export const trustedBrandTable = tableFetcher<TrustedBrandResponse>("admin/trusted-brand/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
 (
     params: {
-        logo: File,
+        logo: File | null,
+        setProgress?: (progress: number) => void,
     }
 ) => {
     const formData = new FormData();
-    formData.append('logo', params.logo);
-    return axios.post<T, SuccessResponseType<T>>("admin/trusted-brand/store", formData)
+    if (params.logo) formData.append('logo', params.logo);
+    return axios.post<T, SuccessResponseType<T>>("admin/trusted-brand/store", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -20,14 +22,15 @@ export const update = async <T extends ServerResponse<unknown>>
 (
     params: {
         id: number,
-        logo: File,
+        logo: File | null,
+        setProgress?: (progress: number) => void,
     }
 ) => {
     const formData = new FormData();
     formData.append('id', params.id.toString());
-    formData.append('logo', params.logo);
+    if (params.logo) formData.append('logo', params.logo);
 
-    return axios.post<T, SuccessResponseType<T>>("admin/trusted-brand/update", formData)
+    return axios.post<T, SuccessResponseType<T>>("admin/trusted-brand/update", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
