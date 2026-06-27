@@ -1,37 +1,30 @@
-import {Column, DataTableButtons} from "@/shared/DataTable/type";
+import {defineColumns, defineActions} from "@/shared/Table/types";
 import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
 import {TransactionResponse} from "@/services/types/transaction";
 import {SliderResponse} from "@/services/types/slider";
-import {UrlObject} from "node:url";
 import Image from "next/image";
 
-export const columns: Column<SliderResponse>[] = [
+export const columns = defineColumns<SliderResponse>([
 
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
+    {key: 'id', header: 'شناسه', editable: false},
     {
         key: 'image',
         header: 'تصویر',
-        hasFilter: false,
-        hasSort: false,
-        render: (value) =><div className={"w-10 h-10"}><Image className={"w-10 h-10 mx-auto"}  width={50} height={50} alt={"image"}
-                                  src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${value}`}
+        filter: false,
+        sortable: false,
+        render: (row) =><div className={"w-10 h-10"}><Image className={"w-10 h-10 mx-auto"}  width={50} height={50} alt={"image"}
+                                  src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${row.image}`}
         />
         </div>
     },
-    {key: 'url', header: 'آدرس ', filterType: 'input', editable: false},
-    {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
-];
-export const buttons: DataTableButtons[] = [
+    {key: 'url', header: 'آدرس ', editable: false},
+    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
+]);
+export const actions = defineActions<SliderResponse>([
     {
         label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
-        type: "link",
-        colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        href : (value: any): UrlObject => {
-            return {
-                pathname: 'banner/edit/'+value,
-            };
-        }
+        href: (row) => `banner/edit/${row.id}`
     },
-]
+])

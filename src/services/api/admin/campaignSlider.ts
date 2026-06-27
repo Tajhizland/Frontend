@@ -1,5 +1,11 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {CampaignSliderResponse} from "@/services/types/campaignSlider";
+import {SliderResponse} from "@/services/types/slider";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+/** fetcher اسلایدرهای یک کمپین خاص — id را بگیر و fetcher بساز */
+export const campaignSliderTable = (id: string | string[] | undefined) =>
+    tableFetcher<SliderResponse>("admin/campaign-slider/dataTable/" + id);
 
 export const store = async <T extends ServerResponse<unknown>>
 (

@@ -5,14 +5,13 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/product/TableRow";
-import {update} from "@/services/api/admin/product";
+import Table from "@/shared/Table/Table";
+import {columns} from "@/app/admin/product/TableRow";
+import {update, productTable} from "@/services/api/admin/product";
 import {toast} from "react-hot-toast";
 import {ProductResponse} from "@/services/types/product";
-import {DataTableButtons} from "@/shared/DataTable/type";
+import {defineActions} from "@/shared/Table/types";
 import {HiMiniPencil} from "react-icons/hi2";
-import {UrlObject} from "node:url";
 import {BsCoin} from "react-icons/bs";
 import {createRef, Fragment, useEffect, useState} from "react";
 import NcModal from "@/shared/NcModal/NcModal";
@@ -93,37 +92,27 @@ export default function Page() {
 
     }
 
-    const buttons: DataTableButtons[] = [
+    const actions = defineActions<ProductResponse>([
         {
             label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
-            type: "link",
-            colorClass: "bg-white text-white border border-slate-900 outline-none ",
-            href: (value: any): UrlObject => {
-                return {
-                    pathname: 'product/edit/' + value,
-                };
-            }
+            href: (row) => `product/edit/${row.id}`,
         }, {
             label: <BsCoin className={"text-black w-5 h-5"} title={"ویرایش قیمت"}/>,
-            type: "action",
-            colorClass: "bg-white text-white border border-slate-900 outline-none ",
-            action: (id: number) => {
-                setProductID(id);
+            onClick: (row) => {
+                setProductID(row.id);
                 setModal(true);
             }
         },
         {
             label: <FaEye className={"text-black w-5 h-5"} title={"مشاهده"}/>,
-            type: "action",
-            colorClass: "bg-white text-white border border-slate-900 outline-none ",
-            action: async (id: number) => {
-                let product = await FindProduct(id);
+            onClick: async (row) => {
+                let product = await FindProduct(row.id);
                 if (product) {
                     window.open(`/product/${product.url}`, '_blank');
                 }
             }
         },
-    ]
+    ])
     const {data: colors, isLoading: isLoading} = useQuery({
         queryKey: [`color-info`, productId, modal],
         queryFn: () => findById(productId ?? 0),
@@ -248,11 +237,11 @@ export default function Page() {
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
+            <Table
                 onEdit={submit}
-                apiUrl={"admin/product/dataTable"}
+                fetcher={productTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

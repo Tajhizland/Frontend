@@ -2,18 +2,20 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/banner/TableRow";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/banner/TableRow";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {Route} from "next";
 import {toast} from "react-hot-toast";
-import {deleteBanner} from "@/services/api/admin/campaignBanner";
+import {deleteBanner, campaignBannerTable} from "@/services/api/admin/campaignBanner";
 import {useParams} from "next/navigation";
+import {useMemo} from "react";
 
 export default function Page() {
     const {id} = useParams();
+    const fetcher = useMemo(() => campaignBannerTable(id), [id]);
 
     async function removeItem(ids: any) {
         let response = await deleteBanner(ids);
@@ -43,11 +45,11 @@ export default function Page() {
                     <ButtonPrimary> سورت کردن بنر هوم پیج</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
+            <Table
                 onDelete={removeItem}
-                apiUrl={"admin/campaign-banner/dataTable/" + id}
+                fetcher={fetcher}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

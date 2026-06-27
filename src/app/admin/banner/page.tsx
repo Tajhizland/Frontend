@@ -2,14 +2,14 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/banner/TableRow";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/banner/TableRow";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {Route} from "next";
 import {toast} from "react-hot-toast";
-import {deleteBanner} from "@/services/api/admin/banner";
+import {deleteBanner, bannerTable} from "@/services/api/admin/banner";
 
 export default function Page() {
 
@@ -36,11 +36,11 @@ export default function Page() {
                     <ButtonPrimary> سورت کردن بنر هوم پیج</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
+            <Table
                 onDelete={removeItem}
-                apiUrl={"admin/banner/dataTable"}
+                fetcher={bannerTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
 
 

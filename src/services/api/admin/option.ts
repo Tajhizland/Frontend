@@ -1,6 +1,9 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {OptionResponse} from "@/services/types/option";
 import {OptionItemsResponse} from "@/services/types/optionItem";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const optionTable = tableFetcher<OptionResponse>("admin/option/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
 (

@@ -1,4 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
+import {PopularProductResponse} from "@/services/types/popularProduct";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const popularProductTable = tableFetcher<PopularProductResponse>("admin/popular_product/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
 (

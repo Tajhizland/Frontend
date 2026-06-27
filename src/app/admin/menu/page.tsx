@@ -5,9 +5,9 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/menu/TableRow";
-import {fastUpdate, removeMenuItem} from "@/services/api/admin/menu";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/menu/TableRow";
+import {fastUpdate, menuTable, removeMenuItem} from "@/services/api/admin/menu";
 import {toast} from "react-hot-toast";
 import {MenuResponse} from "@/services/types/menu";
 
@@ -46,12 +46,12 @@ export default function Page() {
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
+            <Table
                 onDelete={removeItem}
                 onEdit={submit}
-                apiUrl={"admin/menu/dataTable"}
+                fetcher={menuTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

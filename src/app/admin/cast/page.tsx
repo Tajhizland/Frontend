@@ -5,8 +5,9 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/cast/TableRow";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/cast/TableRow";
+import {castTable} from "@/services/api/admin/cast";
 
 export default function Page() {
 
@@ -27,10 +28,10 @@ export default function Page() {
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
-                apiUrl={"admin/cast/dataTable"}
+            <Table
+                fetcher={castTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

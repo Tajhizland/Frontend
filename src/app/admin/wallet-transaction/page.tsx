@@ -2,8 +2,9 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import {  columns} from "@/app/admin/wallet-transaction/TableRow";
+import {walletTransactionTable} from "@/services/api/admin/walletTransaction";
 export default function Page() {
 
 
@@ -18,10 +19,10 @@ export default function Page() {
             <PageTitle>
                 مدیریت تراکنش های کیف پول
             </PageTitle>
-            <DataTable
-                apiUrl={"admin/wallet-transaction/dataTable"}
+            <Table
+                fetcher={walletTransactionTable}
                 columns={columns}
-                buttons={[]}
+                actions={[]}
             />
         </Panel>
     </>)

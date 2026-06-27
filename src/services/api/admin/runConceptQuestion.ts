@@ -1,5 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {RunConceptQuestionResponse} from "@/services/types/runConceptQuestion";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const runConceptQuestionTable = tableFetcher<RunConceptQuestionResponse>("admin/run-concept-question/dataTable");
 
 export const find = async <T extends ServerResponse<RunConceptQuestionResponse>>
 (

@@ -1,19 +1,18 @@
-import {Column, DataTableButtons} from "@/shared/DataTable/type";
+import {defineColumns, defineActions} from "@/shared/Table/types";
 import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
-import {UrlObject} from "node:url";
 import {GatewayResponse} from "@/services/types/gateway";
 
-export const columns: Column<GatewayResponse>[] = [
-    { key: 'id', header: 'شناسه', filterType: 'input', editable: false },
-    { key: 'name', header: 'نام', filterType: 'input', editable: true },
+export const columns = defineColumns<GatewayResponse>([
+    { key: 'id', header: 'شناسه', editable: false },
+    { key: 'name', header: 'نام', editable: true },
      {
         key: 'status',
         header: 'وضعیت',
         editable: true,
-        filterType: 'select',
-        selectOptions: [
+        filter: 'select',
+        options: [
             {
                 label: "فعال",
                 value: 1
@@ -22,22 +21,16 @@ export const columns: Column<GatewayResponse>[] = [
                 label: "غیر فعال",
                 value: 0
             }],
-        render: (value) => value == 1 ? <Badge name={"فعال"} color={"green"}/> :
+        render: (row) => Number(row.status) === 1 ? <Badge name={"فعال"} color={"green"}/> :
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },
-    { key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false },
-];
-export const buttons: DataTableButtons[] = [
+    { key: 'created_at', header: 'تاریخ ایجاد', editable: false },
+]);
+export const actions = defineActions<GatewayResponse>([
     {
         label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
-        type: "link",
-        colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        href : (value: any): UrlObject => {
-            return {
-                pathname: 'gateway/edit/'+value,
-            };
-        }
+        href: (row) => `gateway/edit/${row.id}`,
     },
 
-]
+])

@@ -1,6 +1,6 @@
 import Select from "@/shared/Select/Select";
 import {ChangeEvent} from "react";
-import {optionType} from "@/shared/DataTable/type";
+import {SelectOption as optionType} from "@/shared/Table/types";
 
 
 type CustomSelectProps = {

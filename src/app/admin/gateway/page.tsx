@@ -5,10 +5,10 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/gateway/TableRow";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/gateway/TableRow";
 import {DeliveryResponse} from "@/services/types/delivery";
-import {update} from "@/services/api/admin/gateway";
+import {update, gatewayTable} from "@/services/api/admin/gateway";
 import {toast} from "react-hot-toast";
 import {GatewayResponse} from "@/services/types/gateway";
 
@@ -41,11 +41,11 @@ export default function Page() {
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
+            <Table
                 onEdit={submit}
-                apiUrl={"admin/gateway/dataTable"}
+                fetcher={gatewayTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

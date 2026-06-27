@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ClaudeCodeEditorTabs">
-    <option name="activeSessionId" value="db467cbc-6be6-49ae-8e1a-3e0eef3a6686" />
+    <option name="activeSessionId" value="71ce69f5-5e46-4601-8c2b-0f10750e840c" />
     <option name="openSessionIds">
       <list>
-        <option value="0f17185d-eb0d-4cb9-b254-8bea6268c752" />
         <option value="71ce69f5-5e46-4601-8c2b-0f10750e840c" />
-        <option value="db467cbc-6be6-49ae-8e1a-3e0eef3a6686" />
       </list>
     </option>
     <option name="sessionPaths">
       <map>
-        <entry key="0f17185d-eb0d-4cb9-b254-8bea6268c752" value="/sessions/new" />
         <entry key="71ce69f5-5e46-4601-8c2b-0f10750e840c" value="/sessions/b93df03c-27d5-49e1-b94e-df655ba63c0c" />
-        <entry key="db467cbc-6be6-49ae-8e1a-3e0eef3a6686" value="/sessions/new" />
       </map>
     </option>
     <option name="sessionTitles">
       <map>
-        <entry key="0f17185d-eb0d-4cb9-b254-8bea6268c752" value="Claude Code" />
         <entry key="71ce69f5-5e46-4601-8c2b-0f10750e840c" value="صفحه app/shop/checkout/page.tsx الان اگه محصول اس" />
-        <entry key="db467cbc-6be6-49ae-8e1a-3e0eef3a6686" value="Claude Code" />
       </map>
     </option>
   </component>

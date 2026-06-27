@@ -1,5 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios"; 
 import {VlogCategoryResponse} from "@/services/types/vlogCategory";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const vlogCategoryTable = tableFetcher<VlogCategoryResponse>("admin/vlog_category/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
 (

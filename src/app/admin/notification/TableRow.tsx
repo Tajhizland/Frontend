@@ -1,22 +1,22 @@
-import {Column, DataTableButtons} from "@/shared/DataTable/type";
+import {defineColumns, defineActions} from "@/shared/Table/types";
 import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
 import {TransactionResponse} from "@/services/types/transaction";
 import {NotificationResponse} from "@/services/types/notification";
 
-export const columns: Column<NotificationResponse>[] = [
+export const columns = defineColumns<NotificationResponse>([
 
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
-    {key: 'title', header: 'عنوان', filterType: 'input', editable: false},
-    {key: 'message', header: 'پیام', filterType: 'input', editable: false},
-    {key: 'link', header: 'لینک', filterType: 'input', editable: false},
-    {key: 'seen', header: 'مشاهده شده', filterType: 'input', editable: false},
-    {key: 'type', header: 'نوع', filterType: 'input', editable: false},
-    {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
+    {key: 'id', header: 'شناسه', editable: false},
+    {key: 'title', header: 'عنوان', editable: false},
+    {key: 'message', header: 'پیام', editable: false},
+    {key: 'link', header: 'لینک', editable: false},
+    {key: 'seen', header: 'مشاهده شده', editable: false},
+    {key: 'type', header: 'نوع', editable: false},
+    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
 
 
-];
-export const buttons: DataTableButtons[] = [
+]);
+export const actions = defineActions<NotificationResponse>([
 
-]
+])

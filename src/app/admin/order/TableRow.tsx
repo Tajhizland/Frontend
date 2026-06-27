@@ -1,76 +1,69 @@
-import {Column, DataTableButtons} from "@/shared/DataTable/type";
+import {defineColumns, defineActions} from "@/shared/Table/types";
 import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
-import {UrlObject} from "node:url";
 import {OrderResponse} from "@/services/types/order";
 import {OrderStatus} from "@/app/admin/order/orderStatus";
 import {OrderDelivery} from "@/app/admin/order/orderDelivery";
 import {OrderGateway} from "@/app/admin/order/orderGateway";
 
 
-export const columns: Column<OrderResponse>[] = [
+export const columns = defineColumns<OrderResponse>([
 
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
-    {key: 'user_id', header: 'شناسه کاربر', filterType: 'input', editable: false},
-    {key: 'price', header: 'قیمت', filterType: 'input', editable: false},
-    {key: 'delivery_price', header: 'هزینه ارسال', filterType: 'input', editable: false},
-    {key: 'total_price', header: 'قیمت نهایی', filterType: 'input', editable: false},
-    {key: 'use_wallet_price', header: 'مبلغ کیف پول', filterType: 'input', editable: false},
-    {key: 'final_price', header: 'قیمت پرداختی', filterType: 'input', editable: false},
+    {key: 'id', header: 'شناسه', editable: false},
+    {key: 'user_id', header: 'شناسه کاربر', editable: false},
+    {key: 'price', header: 'قیمت', editable: false},
+    {key: 'delivery_price', header: 'هزینه ارسال', editable: false},
+    {key: 'total_price', header: 'قیمت نهایی', editable: false},
+    {key: 'use_wallet_price', header: 'مبلغ کیف پول', editable: false},
+    {key: 'final_price', header: 'قیمت پرداختی', editable: false},
     {
         key: 'status',
         header: 'وضعیت',
         editable: true,
-        filterType: 'select',
-        selectOptions: OrderStatus.map((status, index) => ({
+        filter: 'select',
+        options: OrderStatus.map((status, index) => ({
             label: status,
             value: index
         }))
         ,
-        render: (value) => <Badge name={OrderStatus[Number(value)]}
-                                  color={(value == 0 || value == 2 || value == 4) ? "red" : "green"}/>,
+        render: (row) => <Badge name={OrderStatus[Number(row.status)]}
+                                  color={(Number(row.status) === 0 || Number(row.status) === 2 || Number(row.status) === 4) ? "red" : "green"}/>,
 
     },
     {
         key: 'delivery_method',
         header: 'روش ارسال',
         editable: true,
-        filterType: 'select',
-        selectOptions: OrderDelivery.map((name, index) => ({
+        filter: 'select',
+        options: OrderDelivery.map((name, index) => ({
             label: name,
             value: (index + 1)
         }))
         ,
-        render: (value) => <Badge name={OrderDelivery[Number(value) - 1]} color={"green"}/>,
+        render: (row) => <Badge name={OrderDelivery[Number(row.delivery_method) - 1]} color={"green"}/>,
 
     },    {
         key: 'payment_method',
         header: 'روش پرداخت',
         editable: true,
-        filterType: 'select',
-        selectOptions: OrderGateway.map((name, index) => ({
+        filter: 'select',
+        options: OrderGateway.map((name, index) => ({
             label: name,
             value: (index + 1)
         }))
         ,
-        render: (value) => <Badge name={OrderGateway[Number(value) - 1]} color={"green"}/>,
+        render: (row) => <Badge name={OrderGateway[Number(row.payment_method) - 1]} color={"green"}/>,
 
     },
-    {key: 'created_at', header: 'تاریخ ثبت سفارش', filterType: 'input', editable: false},
-    {key: 'delivery_date', header: 'تاریخ ارسال', filterType: 'input', editable: false},
+    {key: 'created_at', header: 'تاریخ ثبت سفارش', editable: false},
+    {key: 'delivery_date', header: 'تاریخ ارسال', editable: false},
 
-];
-export const buttons: DataTableButtons[] = [
+]);
+export const actions = defineActions<OrderResponse>([
 
     {
         label: <FaEye/>,
-        colorClass: "bg-slate-900 text-white",
-        type: "link",
-        href: (value: any): UrlObject => {
-            return {
-                pathname: 'order/view/' + value,
-            };
-        }
+        href: (row) => `order/view/${row.id}`
     },
-]
+])

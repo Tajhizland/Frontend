@@ -5,14 +5,14 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import { columns } from "@/app/admin/popular_product/TableRow";
 import { toast } from "react-hot-toast";
 import NcModal from "@/shared/NcModal/NcModal";
 import { useState } from "react";
 import Image from "next/image";
 import Input from "@/shared/Input/Input";
-import { store, remove } from "@/services/api/admin/popularProduct";
+import { store, remove, popularProductTable } from "@/services/api/admin/popularProduct";
 import { log } from "console";
 import { search } from "@/services/api/admin/product";
 import {ProductResponse} from "@/services/types/product";
@@ -91,11 +91,11 @@ export default function Page() {
                 hasButton={false}
 
             />
-            <DataTable
+            <Table
                 onDelete={removeItem}
-                apiUrl={"admin/popular_product/dataTable"}
+                fetcher={popularProductTable}
                 columns={columns}
-                buttons={[]}
+                actions={[]}
             />
         </Panel>
     </>)

@@ -1,5 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {TrustedBrandResponse} from "@/services/types/trustedBrand";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const trustedBrandTable = tableFetcher<TrustedBrandResponse>("admin/trusted-brand/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
 (

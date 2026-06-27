@@ -2,29 +2,24 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import {columns} from "@/app/admin/phone-bock/TableRow";
-import {DataTableButtons} from "@/shared/DataTable/type";
+import {defineActions} from "@/shared/Table/types";
 import {HiMiniPencil} from "react-icons/hi2";
-import {UrlObject} from "node:url";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import {PhoneBockResponse} from "@/services/types/phoneBock";
+import {phoneBockTable} from "@/services/api/admin/phoneBock";
 
 export default function Page() {
 
 
-    const buttons: DataTableButtons[] = [
+    const actions = defineActions<PhoneBockResponse>([
         {
             label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
-            type: "link",
-            colorClass: "bg-white text-white border border-slate-900 outline-none ",
-            href: (value: any): UrlObject => {
-                return {
-                    pathname: 'phone-bock/edit/' + value,
-                };
-            }
+            href: (row) => `phone-bock/edit/${row.id}`
         }
-    ]
+    ])
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -55,10 +50,10 @@ export default function Page() {
                 </Link>
             </PageTitle>
 
-            <DataTable
-                apiUrl={"admin/phone-bock/dataTable"}
+            <Table
+                fetcher={phoneBockTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
 
 

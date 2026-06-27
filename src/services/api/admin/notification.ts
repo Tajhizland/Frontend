@@ -1,5 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {NotificationResponse} from "@/services/types/notification";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const notificationTable = tableFetcher<NotificationResponse>("admin/notification/dataTable");
 
 export const unseen = async <T extends ServerResponse<NotificationResponse[]>>
 ( ) => {

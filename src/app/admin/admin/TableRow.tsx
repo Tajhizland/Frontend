@@ -1,22 +1,21 @@
-import {Column, DataTableButtons} from "@/shared/DataTable/type";
+import {defineColumns, defineActions} from "@/shared/Table/types";
 import {HiMiniPencil} from "react-icons/hi2";
 import {FaEye} from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
 import {UserResponse} from "@/services/types/user";
-import {UrlObject} from "node:url";
 
-export const columns: Column<UserResponse>[] = [
+export const columns = defineColumns<UserResponse>([
 
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
-    {key: 'name', header: 'نام کاربر', filterType: 'input', editable: true},
-    {key: 'wallet', header: 'موجودی کیف پول', filterType: 'input', editable: false},
-    {key: 'username', header: 'نام کاربری', filterType: 'input', editable: true},
+    {key: 'id', header: 'شناسه', editable: false},
+    {key: 'name', header: 'نام کاربر', editable: true},
+    {key: 'wallet', header: 'موجودی کیف پول', editable: false},
+    {key: 'username', header: 'نام کاربری', editable: true},
     {
         key: 'role',
         header: 'نقش',
         editable: true,
-        filterType: 'select',
-        selectOptions: [
+        filter: 'select',
+        options: [
             {
                 label: "کاربر",
                 value: "user"
@@ -25,21 +24,15 @@ export const columns: Column<UserResponse>[] = [
                 label: "مدیر",
                 value: "admin"
             }],
-        render: (value) => value == "admin" ? <Badge name={"مدیر"} color={"green"}/> :
+        render: (row) => row.role == "admin" ? <Badge name={"مدیر"} color={"green"}/> :
             <Badge name={"کاربر"} color={"indigo"}/>,
 
     },
 
-];
-export const buttons: DataTableButtons[] = [
+]);
+export const actions = defineActions<UserResponse>([
     {
         label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
-        type: "link",
-        colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        href : (value: any): UrlObject => {
-            return {
-                pathname: 'user/edit/'+value,
-            };
-        }
+        href: (row) => `user/edit/${row.id}`
     },
-]
+])

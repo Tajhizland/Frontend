@@ -1,6 +1,9 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {VlogResponse} from "@/services/types/vlog";
 import {BrandResponse} from "@/services/types/brand";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const vlogTable = tableFetcher<VlogResponse>("admin/vlog/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
 (

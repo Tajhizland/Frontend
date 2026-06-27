@@ -1,6 +1,9 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {LandingResponse} from "@/services/types/landing";
 import {LandingCategoryResponse} from "@/services/types/landingCategory";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const landingTable = tableFetcher<LandingResponse>("admin/landing/dataTable");
 import {LandingProductResponse} from "@/services/types/landingProduct";
 import {LandingBannerResponse} from "@/services/types/landingBanner";
 

@@ -1,6 +1,9 @@
 import axios, { ServerResponse, SuccessResponseType } from "@/services/axios";
 import { ConceptResponse } from "@/services/types/concept";
 import { CategoryConceptResponse } from "@/services/types/categoryConcept";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const conceptTable = tableFetcher<ConceptResponse>("admin/concept/dataTable");
 
 
 export const store = async <T extends ServerResponse<unknown>>(

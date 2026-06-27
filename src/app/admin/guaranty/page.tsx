@@ -5,9 +5,9 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/guaranty/TableRow";
-import {update} from "@/services/api/admin/guaranty";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/guaranty/TableRow";
+import {update, guarantyTable} from "@/services/api/admin/guaranty";
 import {toast} from "react-hot-toast";
 import {GuarantyResponse} from "@/services/types/guaranty";
 
@@ -42,11 +42,11 @@ export default function Page() {
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
+            <Table
                 onEdit={submit}
-                apiUrl={"admin/guaranty/dataTable"}
+                fetcher={guarantyTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

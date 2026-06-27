@@ -1,26 +1,25 @@
-import {Column} from "@/shared/DataTable/type";
+import {defineColumns} from "@/shared/Table/types";
 import {SpecialProductResponse} from "@/services/types/specialProduct";
 import { ProductResponse } from "@/services/types/product";
 import Badge from "@/shared/Badge/Badge";
 
-export const columns: Column<SpecialProductResponse>[] = [
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
-    {key: 'product_id', header: 'شناسه محصول', filterType: 'input', editable: false},
+export const columns = defineColumns<SpecialProductResponse>([
+    {key: 'id', header: 'شناسه', editable: false},
+    {key: 'product_id', header: 'شناسه محصول', editable: false},
     {
         key: 'product',
         header: 'نام محصول',
         editable: false,
-        filterType: 'input',
-        hasFilter:false,
+        filter: false,
         //@ts-ignore
-        render: (value:ProductResponse) => value?.name,
+        render: (row) => row.product?.name,
     },
     {
         key: 'homepage',
         header: 'نمایش در صفحه اصلی',
         editable: true,
-        filterType: 'select',
-        selectOptions: [
+        filter: 'select',
+        options: [
             {
                 label: "بله",
                 value: 1
@@ -29,9 +28,9 @@ export const columns: Column<SpecialProductResponse>[] = [
                 label: "خیر",
                 value: 0
             }],
-        render: (value) => value == 1 ? <Badge name={"بله"} color={"green"}/> :
+        render: (row) => Number(row.homepage) === 1 ? <Badge name={"بله"} color={"green"}/> :
             <Badge name={"خیر"} color={"red"}/>,
 
     },
-    {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
-];
+    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
+]);

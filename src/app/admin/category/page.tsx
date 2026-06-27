@@ -5,9 +5,9 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/category/TableRow";
-import {update} from "@/services/api/admin/category";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/category/TableRow";
+import {categoryTable, update} from "@/services/api/admin/category";
 import {toast} from "react-hot-toast";
 import {CategoryResponse} from "@/services/types/category";
 
@@ -45,11 +45,11 @@ export default function Page() {
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
+            <Table
                 onEdit={submit}
-                apiUrl={"admin/category/dataTable"}
+                fetcher={categoryTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
 
 

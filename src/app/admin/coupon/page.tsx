@@ -5,9 +5,9 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/coupon/TableRow";
-import {update} from "@/services/api/admin/coupon";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/coupon/TableRow";
+import {update, couponTable} from "@/services/api/admin/coupon";
 import {toast} from "react-hot-toast";
 import {CouponResponse} from "@/services/types/coupon";
 
@@ -47,11 +47,11 @@ export default function Page() {
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
+            <Table
                 onEdit={submit}
-                apiUrl={"admin/coupon/dataTable"}
+                fetcher={couponTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

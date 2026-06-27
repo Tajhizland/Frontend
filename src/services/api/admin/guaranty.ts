@@ -1,5 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {GuarantyResponse} from "@/services/types/guaranty";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const guarantyTable = tableFetcher<GuarantyResponse>("admin/guaranty/dataTable");
 
 export const guarantyLists = async <T extends ServerResponse<GuarantyResponse[]>>
 () => {

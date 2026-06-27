@@ -5,10 +5,10 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import { columns } from "@/app/admin/popular_category/TableRow";
 import { toast } from "react-hot-toast";
-import { remove, store } from "@/services/api/admin/popularCategory";
+import { remove, store, popularCategoryTable } from "@/services/api/admin/popularCategory";
 import { useState } from "react";
 import NcModal from "@/shared/NcModal/NcModal";
 import Image from "next/image";
@@ -87,11 +87,11 @@ export default function Page() {
                 modalTitle="افزودن"
                 hasButton={false}
             />
-            <DataTable
+            <Table
                 onDelete={removeItem}
-                apiUrl={"admin/popular_category/dataTable"}
+                fetcher={popularCategoryTable}
                 columns={columns}
-                buttons={[]}
+                actions={[]}
             />
         </Panel>
     </>)

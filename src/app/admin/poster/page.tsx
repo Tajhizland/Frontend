@@ -2,8 +2,9 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/poster/TableRow";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/poster/TableRow";
+import {posterTable} from "@/services/api/admin/poster";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -26,10 +27,10 @@ export default function Page() {
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
-                apiUrl={"admin/poster/dataTable"}
+            <Table
+                fetcher={posterTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

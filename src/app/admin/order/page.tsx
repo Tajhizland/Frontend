@@ -2,14 +2,13 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import {columns} from "@/app/admin/order/TableRow";
-import {registerTapin, updateStatus} from "@/services/api/admin/order";
+import {registerTapin, updateStatus, orderTable} from "@/services/api/admin/order";
 import {OrderResponse} from "@/services/types/order";
 import {toast} from "react-hot-toast";
-import {DataTableButtons} from "@/shared/DataTable/type";
+import {defineActions} from "@/shared/Table/types";
 import {FaEye} from "react-icons/fa";
-import {UrlObject} from "node:url";
 import {useMutation} from "react-query";
 import {useState} from "react";
 import NcModal from "@/shared/NcModal/NcModal";
@@ -39,27 +38,20 @@ export default function Page() {
         },
     });
 
-    const buttons: DataTableButtons[] = [
+    const actions = defineActions<OrderResponse>([
         {
             label: <FaEye/>,
-            colorClass: "bg-slate-900 text-white",
-            type: "link",
-            href: (value: any): UrlObject => {
-                return {
-                    pathname: 'order/view/' + value,
-                };
-            }
+            href: (row) => `order/view/${row.id}`
         },
         {
             label: "ثبت تاپین",
-            colorClass: "bg-slate-900 text-white !text-xs",
-            type: "action",
-            action: (id: number) => {
-                setOrderId(id)
+            color: "primary",
+            onClick: (row) => {
+                setOrderId(row.id)
                 setTapinModal(true)
             }
         },
-    ]
+    ])
 
     const renderContent = () => {
         return <div className={"text-right "}>
@@ -99,11 +91,11 @@ export default function Page() {
                 </Link>
             </div>
 
-            <DataTable
+            <Table
                 onEdit={changeStatus}
-                apiUrl={"admin/order/dataTable"}
+                fetcher={orderTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

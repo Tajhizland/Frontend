@@ -1,22 +1,22 @@
-import {Column} from "@/shared/DataTable/type";
+import {defineColumns} from "@/shared/Table/types";
 import Badge from "@/shared/Badge/Badge";
 import {ProductResponse} from "@/services/types/product";
 import Image from "next/image";
 
-export const columns: Column<ProductResponse>[] = [
+export const columns = defineColumns<ProductResponse>([
 
     {
-        key: 'images', header: 'تصویر', hasFilter: false, hasSort: false, editable: false,
-        render: (value) => <div className={"w-16 h-16"}>
+        key: 'images', header: 'تصویر', filter: false, sortable: false, editable: false,
+        render: (row) => <div className={"w-16 h-16"}>
             {
                 //@ts-ignore
-                value?.data?.length > 0 ?
+                row.images?.data?.length > 0 ?
                     <Image className={"w-16 h-16 mx-auto"}
                            width={50}
                            height={50}
                            alt={"image"}
                         //@ts-ignore
-                           src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${value?.data?.[0]?.url}`}
+                           src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${row.images?.data?.[0]?.url}`}
                     />
                     :
                     <span>
@@ -26,16 +26,16 @@ export const columns: Column<ProductResponse>[] = [
 
         </div>
     },
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
-    {key: 'name', header: 'نام محصول', filterType: 'input', editable: true},
-    {key: 'view', header: 'تعداد بازدید', filterType: 'input', editable: false},
-    {key: 'url', header: 'آدرس محصول', filterType: 'input', editable: true},
+    {key: 'id', header: 'شناسه', editable: false},
+    {key: 'name', header: 'نام محصول', editable: true},
+    {key: 'view', header: 'تعداد بازدید', editable: false},
+    {key: 'url', header: 'آدرس محصول', editable: true},
     {
         key: 'status',
         header: 'وضعیت',
         editable: true,
-        filterType: 'select',
-        selectOptions: [
+        filter: 'select',
+        options: [
             {
                 label: "فعال",
                 value: 1
@@ -44,7 +44,7 @@ export const columns: Column<ProductResponse>[] = [
                 label: "غیر فعال",
                 value: 0
             }],
-        render: (value) => value == 1 ? <Badge name={"فعال"} color={"green"}/> :
+        render: (row) => Number(row.status) === 1 ? <Badge name={"فعال"} color={"green"}/> :
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },
@@ -52,8 +52,8 @@ export const columns: Column<ProductResponse>[] = [
         key: 'is_stock',
         header: 'دست دوم',
         editable: true,
-        filterType: 'select',
-        selectOptions: [
+        filter: 'select',
+        options: [
             {
                 label: "بله",
                 value: 1
@@ -62,15 +62,15 @@ export const columns: Column<ProductResponse>[] = [
                 label: "خیر",
                 value: 0
             }],
-        render: (value) => value == 1 ? <Badge name={"بله"} color={"red"}/> :
+        render: (row) => Number(row.is_stock) === 1 ? <Badge name={"بله"} color={"red"}/> :
             <Badge name={"خیر"} color={"green"}/>,
 
     },
-    {key: 'category', header: 'دسته محصول', filterType: 'input', editable: true},
-    {key: 'brand_name', header: 'برند محصول', filterType: 'input', editable: true},
-    {key: 'images_count', header: 'تعداد عکس', filterType: 'input', editable: false},
-    {key: 'testing_time', header: 'مهلت تست', filterType: 'input', editable: false},
-    {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
+    {key: 'category', header: 'دسته محصول', editable: true},
+    {key: 'brand_name', header: 'برند محصول', editable: true},
+    {key: 'images_count', header: 'تعداد عکس', editable: false},
+    {key: 'testing_time', header: 'مهلت تست', editable: false},
+    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
 
 
     // {
@@ -152,4 +152,4 @@ export const columns: Column<ProductResponse>[] = [
     //     filterType: 'input',
     //     render: (value) => value * 2, // Custom render function
     // },
-];
+]);

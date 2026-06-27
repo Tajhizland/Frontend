@@ -4,10 +4,10 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import {columns} from "@/app/admin/special_product/TableRow";
 import {toast} from "react-hot-toast";
-import {remove, store, updateHomepage} from "@/services/api/admin/specialProduct";
+import {remove, store, updateHomepage, specialProductTable} from "@/services/api/admin/specialProduct";
 import NcModal from "@/shared/NcModal/NcModal";
 import {useState} from "react";
 import Input from "@/shared/Input/Input";
@@ -113,12 +113,12 @@ export default function Page() {
 
             />
 
-            <DataTable
+            <Table
                 onDelete={removeItem}
                 onEdit={submit}
-                apiUrl={"admin/special_product/dataTable"}
+                fetcher={specialProductTable}
                 columns={columns}
-                buttons={[]}
+                actions={[]}
             />
         </Panel>
     </>)

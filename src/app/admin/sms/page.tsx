@@ -2,29 +2,24 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import {columns} from "@/app/admin/sms/TableRow";
-import {DataTableButtons} from "@/shared/DataTable/type";
+import {defineActions} from "@/shared/Table/types";
+import {SmsLogResponse} from "@/services/types/smsLog";
 import {HiMiniPencil} from "react-icons/hi2";
-import {UrlObject} from "node:url";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import {smsTable} from "@/services/api/admin/sms";
 
 export default function Page() {
 
 
-    const buttons: DataTableButtons[] = [
+    const actions = defineActions<SmsLogResponse>([
         {
             label: <HiMiniPencil className={"text-black w-5 h-5"} title={"مشاهده"}/>,
-            type: "link",
-            colorClass: "bg-white text-white border border-slate-900 outline-none ",
-            href: (value: any): UrlObject => {
-                return {
-                    pathname: 'sms/' + value,
-                };
-            }
+            href: (row) => `sms/${row.id}`,
         }
-    ]
+    ])
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -50,11 +45,11 @@ export default function Page() {
                 </Link>
             </PageTitle>
 
-            <DataTable
+            <Table
 
-                apiUrl={"admin/sms/dataTable"}
+                fetcher={smsTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
 
 

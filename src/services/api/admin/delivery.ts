@@ -1,5 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {DeliveryResponse} from "@/services/types/delivery";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const deliveryTable = tableFetcher<DeliveryResponse>("admin/delivery/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>(
     params: {

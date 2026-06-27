@@ -1,5 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {DictionaryResponse} from "@/services/types/dictionary";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const dictionaryTable = tableFetcher<DictionaryResponse>("admin/dictionary/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
 (

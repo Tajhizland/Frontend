@@ -1,22 +1,21 @@
-import {Column, DataTableButtons} from "@/shared/DataTable/type";
+import {defineColumns, defineActions} from "@/shared/Table/types";
 import {HiMiniPencil} from "react-icons/hi2";
 import Badge from "@/shared/Badge/Badge";
-import {UrlObject} from "url";
 import {CampaignResponse} from "@/services/types/campaign";
 
 
-export const columns: Column<CampaignResponse>[] = [
+export const columns = defineColumns<CampaignResponse>([
 
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
-    {key: 'title', header: 'نام  ', filterType: 'input', editable: true},
-    {key: 'color', header: 'کد رنگ  ', filterType: 'input', editable: true},
-    {key: 'background_color', header: 'کد رنگ پس زمینه ', filterType: 'input', editable: true},
+    {key: 'id', header: 'شناسه', editable: false},
+    {key: 'title', header: 'نام  ', editable: true},
+    {key: 'color', header: 'کد رنگ  ', editable: true},
+    {key: 'background_color', header: 'کد رنگ پس زمینه ', editable: true},
     {
         key: 'status',
         header: 'وضعیت',
         editable: true,
-        filterType: 'select',
-        selectOptions: [
+        filter: 'select',
+        options: [
             {
                 label: "فعال",
                 value: 1
@@ -25,44 +24,28 @@ export const columns: Column<CampaignResponse>[] = [
                 label: "غیر فعال",
                 value: 0
             }],
-        render: (value) => value == 1 ? <Badge name={"فعال"} color={"green"}/> :
+        render: (row) => Number(row.status) === 1 ? <Badge name={"فعال"} color={"green"}/> :
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },
-    {key: 'start_date_fa', header: 'تاریخ شروع', filterType: 'date', editable: false},
-    {key: 'end_date_fa', header: 'تاریخ پایان', filterType: 'date', editable: false},
-    {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'date', editable: false},
+    {key: 'start_date_fa', header: 'تاریخ شروع', filter: 'date', editable: false},
+    {key: 'end_date_fa', header: 'تاریخ پایان', filter: 'date', editable: false},
+    {key: 'created_at', header: 'تاریخ ایجاد', filter: 'date', editable: false},
 
-];
-export const buttons: DataTableButtons[] = [
+]);
+export const actions = defineActions<CampaignResponse>([
     {
         label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
-        type: "link",
-        colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        href: (value: any): UrlObject => {
-            return {
-                pathname: 'campaign/edit/' + value,
-            };
-        }
+        href: (row) => `campaign/edit/${row.id}`
     },
     {
         label: <span className={"text-black"}>اسلایدر</span>,
-        type: "link",
-        colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        href: (value: any): UrlObject => {
-            return {
-                pathname: 'campaign/' + value + "/slider",
-            };
-        }
+        color: "primary",
+        href: (row) => `campaign/${row.id}/slider`
     },
     {
         label: <span className={"text-black"}>بنر</span>,
-        type: "link",
-        colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        href: (value: any): UrlObject => {
-            return {
-                pathname: 'campaign/' + value + "/banner",
-            };
-        }
+        color: "primary",
+        href: (row) => `campaign/${row.id}/banner`
     },
-]
+])

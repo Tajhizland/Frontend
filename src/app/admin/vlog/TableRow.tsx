@@ -1,19 +1,18 @@
-import {Column, DataTableButtons} from "@/shared/DataTable/type";
+import {defineColumns, defineActions} from "@/shared/Table/types";
 import {HiMiniPencil} from "react-icons/hi2";
 import Badge from "@/shared/Badge/Badge";
-import {UrlObject} from "node:url";
 import {VlogResponse} from "@/services/types/vlog";
 
-export const columns: Column<VlogResponse>[] = [
-    { key: 'id', header: 'شناسه', filterType: 'input', editable: false },
-    { key: 'title', header: 'عنوان', filterType: 'input', editable: true },
-    { key: 'url', header: 'آدرس ', filterType: 'input', editable: true },
+export const columns = defineColumns<VlogResponse>([
+    { key: 'id', header: 'شناسه', editable: false },
+    { key: 'title', header: 'عنوان', editable: true },
+    { key: 'url', header: 'آدرس ', editable: true },
     {
         key: 'status',
         header: 'وضعیت',
         editable: true,
-        filterType: 'select',
-        selectOptions: [
+        filter: 'select',
+        options: [
             {
                 label: "فعال",
                 value: 1
@@ -22,28 +21,21 @@ export const columns: Column<VlogResponse>[] = [
                 label: "غیر فعال",
                 value: 0
             }],
-        render: (value) => value == 1 ? <Badge name={"فعال"} color={"green"}/> :
+        render: (row) => Number(row.status) === 1 ? <Badge name={"فعال"} color={"green"}/> :
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },   {
         key: 'category',
         header: 'دسته بندی',
         editable: false,
-        hasFilter:false,
-        filterType: 'input',
-        render: (value) => value ,
+        filter: false,
+        render: (row) => row.category ,
     },
-    { key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false },
-];
-export const buttons: DataTableButtons[] = [
+    { key: 'created_at', header: 'تاریخ ایجاد', editable: false },
+]);
+export const actions = defineActions<VlogResponse>([
     {
         label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
-        type: "link",
-        colorClass: "bg-white text-white border border-slate-900 outline-none ",
-        href : (value: any): UrlObject => {
-            return {
-                pathname: 'vlog/edit/'+value,
-            };
-        }
+        href : (row) => `vlog/edit/${row.id}`
     }
-]
+])

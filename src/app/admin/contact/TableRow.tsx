@@ -1,26 +1,19 @@
-import {Column, DataTableButtons} from "@/shared/DataTable/type";
+import {defineColumns, defineActions} from "@/shared/Table/types";
 import {FaEye} from "react-icons/fa";
-import {UrlObject} from "url";
 import { ContactResponse } from "@/services/types/contact";
 
-export const columns: Column<ContactResponse>[] = [
+export const columns = defineColumns<ContactResponse>([
 
-    {key: 'id', header: 'شناسه', filterType: 'input', editable: false},
-    {key: 'name', header: 'نام', filterType: 'input', editable: false},
-    {key: 'mobile', header: 'موبایل', filterType: 'input', editable: false},
-    {key: 'concept', header: 'کانسپت', filterType: 'input', editable: false},
-    {key: 'created_at', header: 'تاریخ ایجاد', filterType: 'input', editable: false},
+    {key: 'id', header: 'شناسه', editable: false},
+    {key: 'name', header: 'نام', editable: false},
+    {key: 'mobile', header: 'موبایل', editable: false},
+    {key: 'concept', header: 'کانسپت', editable: false},
+    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
 
-];
-export const buttons: DataTableButtons[] = [
+]);
+export const actions = defineActions<ContactResponse>([
     {
         label: <FaEye/>,
-        type: "link",
-        colorClass: "bg-white   border border-slate-900 outline-none ",
-        href : (value: any): UrlObject => {
-            return {
-                pathname: 'contact/show/'+value,
-            };
-        }
+        href: (row) => `contact/show/${row.id}`,
     },
-]
+])

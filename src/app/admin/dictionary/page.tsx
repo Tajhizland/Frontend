@@ -5,9 +5,9 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/dictionary/TableRow";
-import {update} from "@/services/api/admin/dictionary";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/dictionary/TableRow";
+import {update, dictionaryTable} from "@/services/api/admin/dictionary";
 import {toast} from "react-hot-toast";
 import {DictionaryResponse} from "@/services/types/dictionary";
 import {removeById} from "@/services/api/admin/dictionary";
@@ -48,12 +48,12 @@ export default function Page() {
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
+            <Table
                 onEdit={submit}
-                apiUrl={"admin/dictionary/dataTable"}
+                fetcher={dictionaryTable}
                 columns={columns}
                 onDelete={removeItem}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

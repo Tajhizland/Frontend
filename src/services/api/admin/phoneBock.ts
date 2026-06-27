@@ -1,6 +1,9 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {PermissionResponse} from "@/services/types/permission";
 import {PhoneBockResponse} from "@/services/types/phoneBock";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const phoneBockTable = tableFetcher<PhoneBockResponse>("admin/phone-bock/dataTable");
 
 export const storePhoneBock = async <T extends ServerResponse<unknown>>
 (

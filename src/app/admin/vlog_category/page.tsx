@@ -5,9 +5,9 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/vlog_category/TableRow";
- import {update} from "@/services/api/admin/vlogCategory";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/vlog_category/TableRow";
+ import {update, vlogCategoryTable} from "@/services/api/admin/vlogCategory";
 import {toast} from "react-hot-toast";
 import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 
@@ -43,11 +43,11 @@ export default function Page() {
                     <ButtonPrimary> سورت کردن</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
+            <Table
                 onEdit={submit}
-                apiUrl={"admin/vlog_category/dataTable"}
+                fetcher={vlogCategoryTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

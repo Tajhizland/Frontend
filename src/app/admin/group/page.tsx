@@ -2,43 +2,18 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import {columns} from "@/app/admin/group/TableRow";
-import {DataTableButtons} from "@/shared/DataTable/type";
-import {HiMiniPencil} from "react-icons/hi2";
-import {UrlObject} from "node:url";
+import {defineActions} from "@/shared/Table/types";
+import {ProductResponse} from "@/services/types/product";
+import {groupTable} from "@/services/api/admin/productGroup";
 
 export default function Page() {
-    const buttons: DataTableButtons[] = [
-        {
-            label: <div>محصولات </div>,
-            type: "link",
-            colorClass: "bg-white text-black border border-slate-900 outline-none whitespace-nowrap",
-            href: (value: any): UrlObject => {
-                return {
-                    pathname: 'group/product/' + value,
-                };
-            }
-        }, {
-            label: <div>فیلد ها </div>,
-            type: "link",
-            colorClass: "bg-white text-black border border-slate-900 outline-none whitespace-nowrap",
-            href: (value: any): UrlObject => {
-                return {
-                    pathname: 'group/field/' + value,
-                };
-            }
-        }, {
-            label: <div>مقدار فیلد </div>,
-            type: "link",
-            colorClass: "bg-white text-black border border-slate-900 outline-none whitespace-nowrap",
-            href: (value: any): UrlObject => {
-                return {
-                    pathname: 'group/field-value/' + value,
-                };
-            }
-        },
-    ]
+    const actions = defineActions<ProductResponse>([
+        { label: "محصولات", color: "primary", href: (row) => `group/product/${row.id}` },
+        { label: "فیلد ها", color: "primary", href: (row) => `group/field/${row.id}` },
+        { label: "مقدار فیلد", color: "primary", href: (row) => `group/field-value/${row.id}` },
+    ])
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -51,10 +26,10 @@ export default function Page() {
             <PageTitle>
                 مدیریت محصولات گروهی
             </PageTitle>
-            <DataTable
-                apiUrl={"admin/group/dataTable"}
+            <Table
+                fetcher={groupTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

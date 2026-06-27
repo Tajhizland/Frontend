@@ -1,5 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {CommentResponse} from "@/services/types/comment";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const commentTable = tableFetcher<CommentResponse>("admin/comment/dataTable");
 
 export const findById = async <T extends ServerResponse<CommentResponse>>
 (

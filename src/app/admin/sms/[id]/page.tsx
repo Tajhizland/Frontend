@@ -2,28 +2,25 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import {columns} from "@/app/admin/sms/[id]/TableRow";
-import {DataTableButtons} from "@/shared/DataTable/type";
+import {defineActions} from "@/shared/Table/types";
+import {SmsLogItemResponse} from "@/services/types/smsLogItem";
+import {smsItemTable} from "@/services/api/admin/sms";
 import {HiMiniPencil} from "react-icons/hi2";
-import {UrlObject} from "node:url";
 import {useParams} from "next/navigation";
+import {useMemo} from "react";
 
 export default function Page() {
     const {id} = useParams();
+    const fetcher = useMemo(() => smsItemTable(id), [id]);
 
-    const buttons: DataTableButtons[] = [
+    const actions = defineActions<SmsLogItemResponse>([
         {
             label: <HiMiniPencil className={"text-black w-5 h-5"} title={"مشاهده"}/>,
-            type: "link",
-            colorClass: "bg-white text-white border border-slate-900 outline-none ",
-            href: (value: any): UrlObject => {
-                return {
-                    pathname: 'sms/' + value,
-                };
-            }
+            href: (row) => `sms/${row.id}`,
         }
-    ]
+    ])
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -36,11 +33,10 @@ export default function Page() {
             <PageTitle>
                 مدیریت پیامک ها
             </PageTitle>
-            <DataTable
-
-                apiUrl={"admin/sms/item/" + id}
+            <Table
+                fetcher={fetcher}
                 columns={columns}
-                buttons={[]}
+                actions={[]}
             />
 
 

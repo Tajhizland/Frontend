@@ -1,5 +1,9 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {PosterResponse} from "@/services/types/poster";
+import {SliderResponse} from "@/services/types/slider";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const posterTable = tableFetcher<SliderResponse>("admin/poster/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
 (

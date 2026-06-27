@@ -1,5 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {RoleResponse} from "@/services/types/role";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const roleTable = tableFetcher<RoleResponse>("admin/role/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
 (

@@ -2,9 +2,10 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
-import {buttons, columns} from "@/app/admin/onHoldOrder/TableRow";
+import Table from "@/shared/Table/Table";
+import {actions, columns} from "@/app/admin/onHoldOrder/TableRow";
 import {updateStatus} from "@/services/api/admin/order";
+import {onHoldOrderTable} from "@/services/api/admin/onHoldOrder";
 import {OnHoldOrderResponse} from "@/services/types/onHoldOrder";
 import {toast} from "react-hot-toast";
 
@@ -30,11 +31,11 @@ export default function Page() {
                 مدیریت سفارشات معلق
             </PageTitle>
 
-            <DataTable
+            <Table
                 onEdit={changeStatus}
-                apiUrl={"admin/onHoldOrder/dataTable"}
+                fetcher={onHoldOrderTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

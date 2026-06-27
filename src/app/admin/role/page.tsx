@@ -2,29 +2,24 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import {columns} from "@/app/admin/role/TableRow";
-import {DataTableButtons} from "@/shared/DataTable/type";
+import {defineActions} from "@/shared/Table/types";
+import {RoleResponse} from "@/services/types/role";
+import {roleTable} from "@/services/api/admin/role";
 import {HiMiniPencil} from "react-icons/hi2";
-import {UrlObject} from "node:url";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export default function Page() {
 
 
-    const buttons: DataTableButtons[] = [
+    const actions = defineActions<RoleResponse>([
         {
             label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
-            type: "link",
-            colorClass: "bg-white text-white border border-slate-900 outline-none ",
-            href: (value: any): UrlObject => {
-                return {
-                    pathname: 'role/edit/' + value,
-                };
-            }
+            href: (row) => `role/edit/${row.id}`,
         }
-    ]
+    ])
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -45,10 +40,10 @@ export default function Page() {
                 </Link>
             </PageTitle>
 
-            <DataTable
-                apiUrl={"admin/role/dataTable"}
+            <Table
+                fetcher={roleTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
 
 

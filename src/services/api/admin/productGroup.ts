@@ -2,6 +2,10 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {GroupFieldResponse} from "@/services/types/groupField";
 import {GroupProductResponse} from "@/services/types/groupProduct";
 import {GroupFieldValuePage} from "@/services/types/groupFieldValue";
+import {ProductResponse} from "@/services/types/product";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const groupTable = tableFetcher<ProductResponse>("admin/group/dataTable");
 
 export const getField = async <T extends ServerResponse<GroupFieldResponse[]>>
 (id: number) => {

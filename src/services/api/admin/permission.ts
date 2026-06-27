@@ -1,5 +1,8 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {PermissionResponse} from "@/services/types/permission";
+import {tableFetcher} from "@/shared/Table/fetcher";
+
+export const permissionTable = tableFetcher<PermissionResponse>("admin/permission/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
 (

@@ -2,14 +2,13 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import { columns } from "@/app/admin/admin/TableRow";
-import { adminLoginUser, update } from "@/services/api/admin/user";
+import { adminLoginUser, update, adminUserTable } from "@/services/api/admin/user";
 import { toast } from "react-hot-toast";
 import { UserResponse } from "@/services/types/user";
-import { DataTableButtons } from "@/shared/DataTable/type";
+import { defineActions } from "@/shared/Table/types";
 import { HiMiniPencil } from "react-icons/hi2";
-import { UrlObject } from "node:url";
 import { setCookie } from "cookies-next";
 import { useState } from "react";
 
@@ -49,26 +48,19 @@ export default function Page() {
 
     }
 
-    const buttons: DataTableButtons[] = [
+    const actions = defineActions<UserResponse>([
         {
             label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"} />,
-            type: "link",
-            colorClass: "bg-white text-white border border-slate-900 outline-none ",
-            href: (value: any): UrlObject => {
-                return {
-                    pathname: 'user/edit/' + value,
-                };
-            }
+            href: (row) => `user/edit/${row.id}`
         },
         {
             label: loadingLogin ? "در حال ورود" : "ورود",
-            type: "action",
-            colorClass: "bg-white text-black border border-slate-900 outline-none ",
-            action: (id: number) => {
-                loginToUser(id)
+            color: "primary",
+            onClick: (row) => {
+                loginToUser(row.id)
             }
         },
-    ]
+    ])
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -81,11 +73,11 @@ export default function Page() {
             <PageTitle>
                 مدیریت ادمین ها
             </PageTitle>
-            <DataTable
+            <Table
                 onEdit={submit}
-                apiUrl={"admin/user/admin/dataTable"}
+                fetcher={adminUserTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
 
 

@@ -4,7 +4,10 @@ import {OnHoldOrderResponse} from "@/services/types/onHoldOrder";
 import {OrderResponse} from "@/services/types/order";
 import {AddressResponse} from "@/services/types/address";
 import {TokenResponse} from "@/services/types/auth";
+import {tableFetcher} from "@/shared/Table/fetcher";
 
+export const userTable = tableFetcher<UserResponse>("admin/user/dataTable");
+export const adminUserTable = tableFetcher<UserResponse>("admin/user/admin/dataTable");
 
 export const update = async <T extends ServerResponse<unknown>>
 (

@@ -4,17 +4,18 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import {columns} from "@/app/admin/homepage_category/TableRow";
 import {toast} from "react-hot-toast";
-import {remove, setIcon, store} from "@/services/api/admin/homepageCategory";
+import {remove, setIcon, store, homepageCategoryTable} from "@/services/api/admin/homepageCategory";
 import { useState } from "react";
 import Input from "@/shared/Input/Input";
 import Image from "next/image";
 import NcModal from "@/shared/NcModal/NcModal";
 import {CategoryResponse} from "@/services/types/category";
+import {HomepageCategoryResponse} from "@/services/types/homepageCategory";
 import {search} from "@/services/api/admin/category";
-import {DataTableButtons} from "@/shared/DataTable/type";
+import {defineActions} from "@/shared/Table/types";
 import Uploader from "@/shared/Uploader/Uploader";
 import {IoLogoApple} from "react-icons/io";
 
@@ -26,17 +27,15 @@ export default function Page() {
     const [modal, setModal] = useState(false)
     const [id, setId] = useState<number>()
 
-    const buttons: DataTableButtons[] = [
+    const actions = defineActions<HomepageCategoryResponse>([
       {
             label: <IoLogoApple className={"text-black w-5 h-5"} title={"ویرایش  أیکن"}/>,
-            type: "action",
-            colorClass: "bg-white text-white border border-slate-900 outline-none ",
-            action: (id: number) => {
-                setId(id);
+            onClick: (row) => {
+                setId(row.id);
                 setModal(true);
             }
         },
-    ]
+    ])
 
 
     async function removeItem(id: any) {
@@ -130,11 +129,11 @@ export default function Page() {
                 modalTitle="افزودن"
                 hasButton={false}
             />
-            <DataTable
+            <Table
                 onDelete={removeItem}
-                apiUrl={"admin/homepage_category/dataTable"}
+                fetcher={homepageCategoryTable}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
             />
         </Panel>
     </>)

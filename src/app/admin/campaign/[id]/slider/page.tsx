@@ -2,38 +2,34 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import DataTable from "@/shared/DataTable/DataTable";
+import Table from "@/shared/Table/Table";
 import { columns} from "@/app/admin/slider/TableRow";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {toast} from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {DataTableButtons} from "@/shared/DataTable/type";
+import {defineActions} from "@/shared/Table/types";
 import {HiMiniPencil} from "react-icons/hi2";
-import {UrlObject} from "node:url";
-import {removeSlider} from "@/services/api/admin/campaignSlider";
+import {SliderResponse} from "@/services/types/slider";
+import {removeSlider, campaignSliderTable} from "@/services/api/admin/campaignSlider";
+import {useMemo} from "react";
 
 export default function Page() {
     const {id} = useParams();
+    const fetcher = useMemo(() => campaignSliderTable(id), [id]);
 
     async function removeItem(id: any) {
         let response = await removeSlider(Number(id));
         toast.success(response?.message as string)
     }
 
-    const buttons: DataTableButtons[] = [
+    const actions = defineActions<SliderResponse>([
         {
             label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
-            type: "link",
-            colorClass: "bg-white text-white border border-slate-900 outline-none ",
-            href: (value: any): UrlObject => {
-                return {
-                    pathname: "/admin/campaign/" + id + "/slider/edit/" + value,
-                };
-            }
+            href: (row) => `/admin/campaign/${id}/slider/edit/${row.id}`
         },
-    ]
+    ])
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -61,10 +57,10 @@ export default function Page() {
                     <ButtonPrimary> سورت اسلایدر دسکتاپ</ButtonPrimary>
                 </Link>
             </PageLink>
-            <DataTable
-                apiUrl={"admin/campaign-slider/dataTable/" + id}
+            <Table
+                fetcher={fetcher}
                 columns={columns}
-                buttons={buttons}
+                actions={actions}
                 onDelete={removeItem}
             />
 
