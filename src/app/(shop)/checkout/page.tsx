@@ -649,9 +649,9 @@ const CheckoutPage = () => {
                                       <MySwitch
                                           label=" "
                                           desc=" "
-                                          enabled={gateway == 1}
+                                          enabled={gateway == 1 || gateway == 4}
                                           onChange={() => {
-                                              setGateway(gateway == 1 ? 3 : 1)
+                                              setGateway(gateway !=3 ? 3 : 1)
                                           }}
                                       />
                                 </span>
@@ -665,7 +665,7 @@ const CheckoutPage = () => {
                                       <MySwitch
                                           label=" "
                                           desc=" "
-                                          enabled={gateway == 1}
+                                          enabled={gateway == 1 || gateway == 3}
                                           onChange={() => {
                                               setGateway(gateway != 4 ? 4 : 1)
                                           }}
