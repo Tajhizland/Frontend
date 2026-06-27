@@ -5,6 +5,7 @@ export type CartResponse = {
     product: {
         name: string,
         allow_digipay?: number,
+        allow_snappay?: number,
         url: string,
         digipay_extra_price: number,
         image: string,

@@ -48,6 +48,7 @@ const CheckoutPage = () => {
     const [shippingPrice, setShippingPrice] = useState(0);
     const [gateway, setGateway] = useState(1);
     const [allowDigipay, setAllowDigipay] = useState(true);
+    const [allowSnappay, setAllowSnappay] = useState(true);
 
     // if (!user) {
     //     router.push("/login");
@@ -90,11 +91,9 @@ const CheckoutPage = () => {
     }
 
     useEffect(() => {
-        cart.map((item) => {
-            if (item.product?.allow_digipay == 0) {
-                setAllowDigipay(false);
-            }
-        })
+        // درگاه فقط زمانی نمایش داده می‌شود که همه‌ی محصولات سبد اجازه‌ی آن را داشته باشند
+        setAllowDigipay(cart.every((item) => item.product?.allow_digipay != 0));
+        setAllowSnappay(cart.every((item) => item.product?.allow_snappay != 0));
     }, [cart])
 
     async function payment() {
@@ -217,7 +216,7 @@ const CheckoutPage = () => {
                                 }
                             </div>
                             <div className="flex flex-1 sm:flex justify-end">
-                                <Prices price={item.color.discountedPrice ?? item.color.price} className="mt-0.5"/>
+                                <Prices price={gateway == 3 ? item.color.price : (item.color.discountedPrice ?? item.color.price)} className="mt-0.5"/>
                             </div>
                         </div>
 
@@ -346,6 +345,9 @@ const CheckoutPage = () => {
         return sumPrice;
     }
     const renderDiscount = () => {
+        // با انتخاب اسنپ پی / دیجی پی تخفیف اعمال نمی‌شود
+        if (gateway == 3)
+            return 0;
         let sumDiscount: number = 0;
         cart.map((item) => {
             if (item.color.discountedPrice > 0)
@@ -418,9 +420,6 @@ const CheckoutPage = () => {
 
             extraPrice += (basePrice * percent) / 100;
 
-            if (item.color.discountedPrice > 0)
-                extraPrice += Number((item.color.price - item.color.discountedPrice) * item.count);
-
         });
 
         return extraPrice;
@@ -431,8 +430,8 @@ const CheckoutPage = () => {
     const allow = useMemo(() => renderAllow(), [cart]);
     const limit = useMemo(() => renderLimit(), [cart]);
     const sumGuarantyPrice = useMemo(() => renderSumGuarantyPrice(), [cart, renderSumGuarantyPrice]);
-    const sumDiscount = useMemo(() => renderDiscount(), [cart]);
-    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart, shippingPrice]);
+    const sumDiscount = useMemo(() => renderDiscount(), [cart, gateway]);
+    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart, shippingPrice, gateway]);
     const couponDiscount = useMemo(() => renderCouponDiscount(), [coupon, cart]);
     const maxDeliveryDelay = useMemo(() => renderMaxDeliveryDelay(), [cart]);
     const sumExtraPrice = useMemo(() => renderExtraPrice(), [cart, shippingPrice]);
@@ -653,6 +652,22 @@ const CheckoutPage = () => {
                                           enabled={gateway == 1}
                                           onChange={() => {
                                               setGateway(gateway == 1 ? 3 : 1)
+                                          }}
+                                      />
+                                </span>
+                        </div>}
+                        {allowSnappay && <div
+                            className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-8">
+                            <div className={"flex items-center gap-1"}>
+                                پرداخت با اسنپ پی
+                            </div>
+                            <span>
+                                      <MySwitch
+                                          label=" "
+                                          desc=" "
+                                          enabled={gateway == 1}
+                                          onChange={() => {
+                                              setGateway(gateway != 4 ? 4 : 1)
                                           }}
                                       />
                                 </span>

@@ -144,6 +144,15 @@ export const groupChangeDigipay = async <T extends ServerResponse<unknown>>
         .then((res) => res?.data)
 };
 
+export const groupChangeSnappay = async <T extends ServerResponse<unknown>>
+(params: {
+    snappay: number,
+    ids: number[],
+}) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/product/group-change-snappay", params)
+        .then((res) => res?.data)
+};
+
 
 export const groupChangeDigipayPercent = async <T extends ServerResponse<unknown>>
 (params: {

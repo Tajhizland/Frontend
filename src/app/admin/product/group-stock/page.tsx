@@ -4,6 +4,7 @@ import Panel from "@/shared/Panel/Panel";
 import {
 groupChangeDigipayPercent ,
     groupChangeDigipay,
+    groupChangeSnappay,
     groupChangePrice,
     groupChangeStatus,
     groupChangeStock,
@@ -34,6 +35,7 @@ export default function Page() {
     const [status, setStatus] = useState<number>(1);
     const [percent, setPercent] = useState<number>(0);
     const [digipay, setDigipay] = useState<number>(1);
+    const [snappay, setSnappay] = useState<number>(1);
     const [response, setResponse] = useState<ProductResponse[]>([]);
     const [selectedProducts, setSelectedProducts] = useState<Record<number, boolean>>({});
     const [searchName, setSearchName] = useState<string>("");
@@ -86,6 +88,22 @@ export default function Page() {
             return groupChangeDigipay({
                 ids: ids,
                 digipay: Number(digipay)
+            });
+        },
+        onSuccess: async (res) => {
+            await searchMutation.mutateAsync();
+            toast.success(res.message as string);
+        },
+    });
+    const actionSnappayMutation = useMutation({
+        mutationKey: [`product-group-snappay`],
+        mutationFn: async () => {
+            const ids = Object.keys(selectedProducts)
+                .filter((id) => selectedProducts[Number(id)])
+                .map((id) => Number(id));
+            return groupChangeSnappay({
+                ids: ids,
+                snappay: Number(snappay)
             });
         },
         onSuccess: async (res) => {
@@ -244,6 +262,7 @@ export default function Page() {
                             <option value={"stock"}>ویرایش موجودی</option>
                             <option value={"status"}>ویرایش وضعیت</option>
                             <option value={"digipay"}>ویرایش دیجی پی</option>
+                            <option value={"snappay"}>ویرایش اسنپ پی</option>
                             <option value={"digipay-percent"}>درصد هزینه دیجی پی</option>
 
                         </Select>
@@ -301,6 +320,24 @@ export default function Page() {
                         </Select>
 
                         <ButtonPrimary loading={actionDigipayMutation.isLoading} onClick={actionDigipayMutation.mutateAsync}>
+                            اعمال
+                        </ButtonPrimary>
+                    </div>
+                }{
+                    action == "snappay"
+                    &&
+                    <div className={"flex flex-col gap-2"}>
+                        <Label>
+                           پرداخت اسنپ پی
+                        </Label>
+                        <Select onChange={(e) => {
+                            setSnappay(Number(e.target.value))
+                        }}>
+                            <option value={1} selected={snappay == 1}>فعال</option>
+                            <option value={0} selected={snappay == 0}>غیر فعال</option>
+                        </Select>
+
+                        <ButtonPrimary loading={actionSnappayMutation.isLoading} onClick={actionSnappayMutation.mutateAsync}>
                             اعمال
                         </ButtonPrimary>
                     </div>
