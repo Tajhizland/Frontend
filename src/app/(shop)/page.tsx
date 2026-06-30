@@ -23,6 +23,7 @@ import Image from "next/image";
 import TimerHMS from "@/components/Timer/TimerHMS";
 import {Metadata} from "next";
 import SectionTrustedBrand from "@/components/Section/SectionTrustedBrand";
+import SectionDesktopLinks from "@/components/Section/SectionDesktopLinks";
 
 export const dynamic = 'force-dynamic';
 
@@ -136,6 +137,8 @@ export default async function Homepage() {
                         }
                     </div>
                 </div>
+                <SectionDesktopLinks />
+
 
                 {/* Banner Slider */}
                 <div className="dark:bg-neutral-900">
@@ -146,6 +149,7 @@ export default async function Homepage() {
                             <SectionBannerSlider data={response.banners?.data || []}/>
                     }
                 </div>
+
 
                 {/* New Discount Slider */}
                 {response.topDiscountedProducts?.data?.length > 0 && <div className="container my-0 px-5 lg:px-0 relative overflow-hidden">

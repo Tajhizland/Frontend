@@ -30,7 +30,7 @@ export default function SectionDesktopLinks({className = "", items = DEFAULT_ITE
     items?: DesktopLinkItem[];
 }) {
     return (
-        <div className={`grid grid-cols-5 md:grid-cols-6 gap-2 sm:gap-4 ${className}`}>
+        <div className={`flex py-10 items-center justify-center gap-2 sm:gap-10 ${className}`}>
             {items.map((item, index) => (
                 <Link
                     key={index}
@@ -39,7 +39,7 @@ export default function SectionDesktopLinks({className = "", items = DEFAULT_ITE
                     className={`group flex flex-col items-center gap-2 ${item.hideOnMobile ? "hidden md:flex" : ""}`}
                 >
                     <div
-                        className={"relative w-full aspect-square rounded-2xl overflow-hidden border transition-transform duration-300 group-hover:-translate-y-1"}>
+                        className={"relative w-12 h-12 sm:w-16 sm:h-16 rounded-2xl overflow-hidden   transition-transform duration-300 group-hover:-translate-y-1"}>
                         <Image
                             alt={item.title}
                             fill
@@ -48,7 +48,7 @@ export default function SectionDesktopLinks({className = "", items = DEFAULT_ITE
                             src={item.image}
                         />
                     </div>
-                    <strong className={"text-sm sm:text-base text-center"}>{item.title}</strong>
+                    <strong className={"text-xs sm:text-base text-center"}>{item.title}</strong>
                 </Link>
             ))}
         </div>
