@@ -71,14 +71,6 @@ const CheckoutPage = () => {
 
     });
 
-    // بررسی مجاز بودن پرداخت با اسنپ‌پی
-    const {data: snappay} = useQuery({
-        queryKey: ['snappay-eligible'],
-        queryFn: () => snappayEligible(),
-        staleTime: 5000,
-        enabled: !!user && allowSnappay,
-    });
-
     useEffect(() => {
         if (useWallet) {
             setGateway(1)
@@ -86,7 +78,8 @@ const CheckoutPage = () => {
 
     }, [useWallet]);
     useEffect(() => {
-        if (gateway == 3) {
+        // با انتخاب پرداخت قسطی/اعتباری (دیجی‌پی یا اسنپ‌پی) پرداخت با کیف پول غیرفعال می‌شود
+        if (gateway == 3 || gateway == 4) {
             setUseWallet(false)
         }
 
@@ -445,6 +438,14 @@ const CheckoutPage = () => {
     const maxDeliveryDelay = useMemo(() => renderMaxDeliveryDelay(), [cart]);
     const sumExtraPrice = useMemo(() => renderExtraPrice(), [cart, shippingPrice]);
 
+    // بررسی مجاز بودن پرداخت با اسنپ‌پی بر اساس مبلغ قابل پرداخت
+    const {data: snappay} = useQuery({
+        queryKey: ['snappay-eligible', sumDiscountedPrice],
+        queryFn: () => snappayEligible({amount: sumDiscountedPrice}),
+        staleTime: 5000,
+        enabled: !!user && allowSnappay && sumDiscountedPrice > 0,
+    });
+
     return (
         <div className="nc-CheckoutPage  dark:text-white dark:bg-slate-900">
             {/*<head>*/}
@@ -665,12 +666,28 @@ const CheckoutPage = () => {
                                       />
                                 </span>
                         </div>}
-                        {allowSnappay && <div
-                            className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-8">
-                            <div className={"flex items-center gap-1"}>
-                                پرداخت با اسنپ پی
-                            </div>
-                            <span>
+                        {allowSnappay && snappay?.eligible && (
+                            <div
+                                className="flex items-center justify-between gap-3 mt-8 p-4 rounded-2xl border border-[#5a2d82]/20 bg-[#f6f2fb] dark:bg-white/5">
+                                <div className="flex items-center gap-3">
+                                    <div className="relative w-14 h-14 flex-shrink-0">
+                                        <Image
+                                            src={snappBoxLogo}
+                                            alt="اسنپ‌پی"
+                                            fill
+                                            className="object-contain"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-1">
+                                        <strong className="text-sm text-slate-900 dark:text-slate-100">
+                                            {snappay.title_message}
+                                        </strong>
+                                        <span className="text-xs leading-5 text-slate-600 dark:text-slate-300">
+                                            {snappay.description}
+                                        </span>
+                                    </div>
+                                </div>
+                                <span className="flex-shrink-0">
                                       <MySwitch
                                           label=" "
                                           desc=" "
@@ -680,26 +697,6 @@ const CheckoutPage = () => {
                                           }}
                                       />
                                 </span>
-                        </div>}
-                        {allowSnappay && snappay?.eligible && (
-                            <div
-                                className="flex items-center gap-3 mt-4 p-4 rounded-2xl border border-[#5a2d82]/20 bg-[#f6f2fb] dark:bg-white/5">
-                                <div className="relative w-14 h-14 flex-shrink-0">
-                                    <Image
-                                        src={snappBoxLogo}
-                                        alt="اسنپ‌پی"
-                                        fill
-                                        className="object-contain"
-                                    />
-                                </div>
-                                <div className="flex flex-col gap-1">
-                                    <strong className="text-sm text-slate-900 dark:text-slate-100">
-                                        {snappay.title_message}
-                                    </strong>
-                                    <span className="text-xs leading-5 text-slate-600 dark:text-slate-300">
-                                        {snappay.description}
-                                    </span>
-                                </div>
                             </div>
                         )}
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
