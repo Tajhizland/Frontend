@@ -6,7 +6,7 @@ import {
 
 import {findProductByUrl} from "@/services/api/shop/product";
 import ProductSidebar from "@/components/Product/ProductSidebar";
-import ProductImage from "../../../../components/Product/ProductImage";
+import ProductGallery from "@/components/Product/ProductGallery";
 import ProductComment from "../../../../components/Product/ProductComment";
 import {Metadata} from "next";
 import Script from "next/script";
@@ -320,7 +320,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     <ShopBreadcrump breadcrumb={renderBreadcrump()} lastHasLink={true}/>
                 </div>
 
-                {product.images.data.length > 0 && <ProductImage productImages={product.images.data}/>}
+                {product.images.data.length > 0 && <ProductGallery productImages={product.images.data}/>}
                 {/* MAIn */}
                 <main className="container relative z-10 mt-9 sm:mt-11 flex ">
                     {/* CONTENT */}
