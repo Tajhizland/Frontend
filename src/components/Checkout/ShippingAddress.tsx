@@ -10,7 +10,8 @@ import {toast} from "react-hot-toast";
 import {AddressResponse} from "@/services/types/address";
 import AddressForm from "@/components/Address/AddressForm";
 import NcModal from "@/shared/NcModal/NcModal";
-import {HiOutlineLocationMarker, HiOutlinePencil} from "react-icons/hi";
+import {HiOutlineLocationMarker} from "react-icons/hi";
+import {HiPencilSquare} from "react-icons/hi2";
 import {FiChevronLeft} from "react-icons/fi";
 
 interface Props {
@@ -109,6 +110,11 @@ const ShippingAddress: FC<Props> = ({
                 }`}
             >
                 <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-2">
+                        <span className="text-xs text-slate-400">{String(index + 1).padStart(2, "0")}</span>
+                        <HiOutlineLocationMarker
+                            className={`w-5 h-5 ${active ? "text-teal-500" : "text-slate-400"}`}/>
+                    </div>
                     <button
                         type="button"
                         onClick={(e) => {
@@ -116,15 +122,11 @@ const ShippingAddress: FC<Props> = ({
                             setEditAddress(item);
                             setShowEditModal(true);
                         }}
-                        className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                        title="ویرایش آدرس"
+                        className="flex items-center justify-center rounded-lg bg-slate-100 p-1.5 text-slate-700 transition-colors hover:bg-slate-200 hover:text-slate-900 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600"
                     >
-                        <HiOutlinePencil className="w-5 h-5"/>
+                        <HiPencilSquare className="w-5 h-5"/>
                     </button>
-                    <div className="flex items-center gap-2">
-                        <span className="text-xs text-slate-400">{String(index + 1).padStart(2, "0")}</span>
-                        <HiOutlineLocationMarker
-                            className={`w-5 h-5 ${active ? "text-teal-500" : "text-slate-400"}`}/>
-                    </div>
                 </div>
 
                 <p className="text-right leading-6 mt-2">

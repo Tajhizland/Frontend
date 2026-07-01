@@ -31,6 +31,7 @@ import ShareButton from "@/shared/Button/ShareButton";
 import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 import ProductCard from "@/components/Card/ProductCard";
+import AdminEditShortcut from "@/components/Product/AdminEditShortcut";
 
 
 interface ProductPageProps {
@@ -314,6 +315,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 {JSON.stringify(structuredData)}
             </Script>
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
+                <AdminEditShortcut productId={product.id}/>
                 <div className="container mt-2 sm:mt-10">
                     <ShopBreadcrump breadcrumb={renderBreadcrump()} lastHasLink={true}/>
                 </div>
