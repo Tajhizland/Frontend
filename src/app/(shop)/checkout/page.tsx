@@ -19,6 +19,8 @@ import {
 import {useRouter} from "next/navigation";
 import {paymentByWallet, paymentRequest, snappayEligible} from "@/services/api/shop/payment";
 import snappBoxLogo from "@/images/snappayLogo.svg";
+import walletIcon from "@/images/walletIcon.png";
+import digipayIcon from "@/images/digipayIcon.png";
 import {CheckIcon, NoSymbolIcon} from "@heroicons/react/24/outline";
 import {Alert} from "@/shared/Alert/Alert";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
@@ -248,97 +250,6 @@ const CheckoutPage = () => {
         );
     };
 
-    const renderLeft = () => {
-        return (
-            <div className="space-y-8">
-                <div id="ShippingAddress" className="scroll-mt-24">
-                    <ShippingAddress
-                        isActive={tabActive === "ShippingAddress"}
-                        onOpenActive={() => {
-                            setTabActive("ShippingAddress");
-                            handleScrollToEl("ShippingAddress");
-                        }}
-                        onCloseActive={() => {
-                            setTabActive("ShippingMethod");
-                            handleScrollToEl("ShippingMethod");
-                        }}
-                    />
-                    <ShippingMethod
-                        setShippingMethod={setShippingMethod}
-                        setShippingPrice={setShippingPrice}
-                        shippingMethod={shippingMethod}
-                        isActive={tabActive === "ShippingMethod"}
-                        onOpenActive={() => {
-                            setTabActive("ShippingMethod");
-                            handleScrollToEl("ShippingMethod");
-                        }}
-                        onCloseActive={() => {
-                            setTabActive("ShippingAddress");
-                            handleScrollToEl("ShippingAddress");
-                        }}
-                    />
-                </div>
-                {user && (user.name == null || user.last_name == null || user.national_code == null) &&
-                    <div id="ContactInfo" className="scroll-mt-24">
-                        <ContactInfo
-                            isActive={tabActive === "ContactInfo"}
-                            onOpenActive={() => {
-                                setTabActive("ContactInfo");
-                                handleScrollToEl("ContactInfo");
-                            }}
-                            onCloseActive={() => {
-                                setTabActive("PaymentMethod");
-                                handleScrollToEl("PaymentMethod");
-                            }}
-                        />
-                    </div>}
-                <div className={"border rounded-2xl flex flex-col w-full gap-5 p-5 bg-slate-100 dark:bg-black/20"}>
-                    <div>
-                        <strong className={"text-sm sm:text-base"}>
-                            شرایط ارسال کالا
-                        </strong>
-                    </div>
-                    <div>
-                        <p className={"text-xs sm:text-sm  text-slate-800 dark:text-white"}>
-                            ۱ . نحوه ارسال کالا پس از پرداخت صورتحساب با هماهنگی و بنا به درخواست خریدار از طریق باربری،
-                            تیپاکس، پست، اسنپ و یا تحویل حضوری درب انبار تجهیزلند امکان‌پذیر می‌باشد
-                        </p>
-                    </div>
-                    <div>
-                        <p className={"text-xs sm:text-sm text-slate-800 dark:text-white"}>
-                            ۲ . هزینه ارسال کالا در استان تهران و حومه توسط کارشناسان تجهیزلند پس از پرداخت صورت حساب
-                            کالا به خریدار اعلام می‌گردد و در کلیه شهرستان‌ها به صورت پس کرایه می‌باشد.
-                        </p>
-                    </div>
-                </div>
-                {address &&
-                    <div className={"border rounded-2xl flex flex-col w-full gap-5 p-5 bg-slate-100 dark:bg-black/20"}>
-                        <div>
-                            <p className={"text-xs sm:text-sm  text-slate-800 dark:text-white"}>
-                                سفارش شما پس از پرداخت در بازه زمانی
-                                {" "}
-                                {renderMaxDeliveryDelay()}
-                                {" "}
-                                روز کاری ، با توجه به شرایط ارسال اعلامی به ادرس
-                                {" "}
-                                {address?.province?.name} ,
-                                {" "}
-                                {address?.city?.name} ,
-                                {" "}
-                                {address?.address}
-                                {" "}
-                                به کد پستی
-                                {" "}
-                                {address?.zip_code}
-                                {" "}
-                                ارسال خواد شد.
-                            </p>
-                        </div>
-                    </div>}
-            </div>
-        );
-    };
-
     const renderSumPrice = () => {
         let sumPrice: number = 0;
         cart?.map((item) => {
@@ -471,16 +382,110 @@ const CheckoutPage = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col lg:flex-row">
-                    <div className="flex-1">{renderLeft()}</div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-start">
+                    {/* ستون راست: آدرس، محصولات و توضیحات */}
+                    <div className="space-y-8">
+                        <div id="ShippingAddress" className="scroll-mt-24">
+                            <ShippingAddress
+                                isActive={tabActive === "ShippingAddress"}
+                                onOpenActive={() => {
+                                    setTabActive("ShippingAddress");
+                                    handleScrollToEl("ShippingAddress");
+                                }}
+                                onCloseActive={() => {
+                                    setTabActive("ShippingMethod");
+                                    handleScrollToEl("ShippingMethod");
+                                }}
+                            />
+                        </div>
 
-                    <div
-                        className="flex-shrink-0 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 my-10 lg:my-0 lg:mx-10 xl:lg:mx-14 2xl:mx-16 "></div>
+                        <div>
+                            <h3 className="text-lg font-semibold">مشخصات سفارش</h3>
+                            <div className="mt-8 divide-y divide-slate-200/70 dark:divide-slate-700 ">
+                                {cart && cart.map(renderProduct)}
+                            </div>
+                        </div>
 
-                    <div className="w-full lg:w-[36%] ">
-                        <h3 className="text-lg font-semibold">مشخصات سفارش</h3>
-                        <div className="mt-8 divide-y divide-slate-200/70 dark:divide-slate-700 ">
-                            {cart && cart.map(renderProduct)}
+                        {address &&
+                            <div
+                                className={"border rounded-2xl flex flex-col w-full gap-5 p-5 bg-slate-100 dark:bg-black/20"}>
+                                <div>
+                                    <p className={"text-xs sm:text-sm  text-slate-800 dark:text-white"}>
+                                        سفارش شما پس از پرداخت در بازه زمانی
+                                        {" "}
+                                        {renderMaxDeliveryDelay()}
+                                        {" "}
+                                        روز کاری ، با توجه به شرایط ارسال اعلامی به ادرس
+                                        {" "}
+                                        {address?.province?.name} ,
+                                        {" "}
+                                        {address?.city?.name} ,
+                                        {" "}
+                                        {address?.address}
+                                        {" "}
+                                        به کد پستی
+                                        {" "}
+                                        {address?.zip_code}
+                                        {" "}
+                                        ارسال خواد شد.
+                                    </p>
+                                </div>
+                            </div>}
+
+                        <div
+                            className={"border rounded-2xl hidden lg:flex flex-col w-full gap-5 p-5 bg-slate-100 dark:bg-black/20"}>
+                            <div>
+                                <strong className={"text-sm sm:text-base"}>
+                                    شرایط ارسال کالا
+                                </strong>
+                            </div>
+                            <div>
+                                <p className={"text-xs sm:text-sm  text-slate-800 dark:text-white"}>
+                                    ۱ . نحوه ارسال کالا پس از پرداخت صورتحساب با هماهنگی و بنا به درخواست خریدار از طریق
+                                    باربری، تیپاکس، پست، اسنپ و یا تحویل حضوری درب انبار تجهیزلند امکان‌پذیر می‌باشد
+                                </p>
+                            </div>
+                            <div>
+                                <p className={"text-xs sm:text-sm text-slate-800 dark:text-white"}>
+                                    ۲ . هزینه ارسال کالا در استان تهران و حومه توسط کارشناسان تجهیزلند پس از پرداخت صورت
+                                    حساب کالا به خریدار اعلام می‌گردد و در کلیه شهرستان‌ها به صورت پس کرایه می‌باشد.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* ستون چپ: روش ارسال، خلاصه و پرداخت */}
+                    <div className="w-full ">
+                        <div className="space-y-8">
+                            <ShippingMethod
+                                setShippingMethod={setShippingMethod}
+                                setShippingPrice={setShippingPrice}
+                                shippingMethod={shippingMethod}
+                                isActive={tabActive === "ShippingMethod"}
+                                onOpenActive={() => {
+                                    setTabActive("ShippingMethod");
+                                    handleScrollToEl("ShippingMethod");
+                                }}
+                                onCloseActive={() => {
+                                    setTabActive("ShippingAddress");
+                                    handleScrollToEl("ShippingAddress");
+                                }}
+                            />
+
+                            {user && (user.name == null || user.last_name == null || user.national_code == null) &&
+                                <div id="ContactInfo" className="scroll-mt-24">
+                                    <ContactInfo
+                                        isActive={tabActive === "ContactInfo"}
+                                        onOpenActive={() => {
+                                            setTabActive("ContactInfo");
+                                            handleScrollToEl("ContactInfo");
+                                        }}
+                                        onCloseActive={() => {
+                                            setTabActive("PaymentMethod");
+                                            handleScrollToEl("PaymentMethod");
+                                        }}
+                                    />
+                                </div>}
                         </div>
 
                         <div
@@ -599,7 +604,8 @@ const CheckoutPage = () => {
 
                             <div
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-8">
-                                <div className={"flex items-center gap-1"}>
+                                <div className={"flex items-center gap-2"}>
+                                    <Image src={walletIcon} alt="کیف پول" className="w-8 h-8 object-contain"/>
                                     پرداخت با موجودی کیف پول
                                 </div>
                                 <span>
@@ -652,7 +658,8 @@ const CheckoutPage = () => {
 
                         {allowDigipay && <div
                             className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-8">
-                            <div className={"flex items-center gap-1"}>
+                            <div className={"flex items-center gap-2"}>
+                                <Image src={digipayIcon} alt="دیجی پی" className="w-8 h-8 object-contain"/>
                                 پرداخت با دیجی پی
                             </div>
                             <span>
@@ -746,6 +753,28 @@ const CheckoutPage = () => {
                             خرید موجود میباشد . پس از تایید مدیریت امکان پرداخت وجود دارد </Alert>
                     }
 
+                    </div>
+                </div>
+
+                {/* شرایط ارسال کالا در موبایل، در انتهای صفحه */}
+                <div
+                    className={"border rounded-2xl flex lg:hidden flex-col w-full gap-5 p-5 mt-8 bg-slate-100 dark:bg-black/20"}>
+                    <div>
+                        <strong className={"text-sm sm:text-base"}>
+                            شرایط ارسال کالا
+                        </strong>
+                    </div>
+                    <div>
+                        <p className={"text-xs sm:text-sm  text-slate-800 dark:text-white"}>
+                            ۱ . نحوه ارسال کالا پس از پرداخت صورتحساب با هماهنگی و بنا به درخواست خریدار از طریق باربری،
+                            تیپاکس، پست، اسنپ و یا تحویل حضوری درب انبار تجهیزلند امکان‌پذیر می‌باشد
+                        </p>
+                    </div>
+                    <div>
+                        <p className={"text-xs sm:text-sm text-slate-800 dark:text-white"}>
+                            ۲ . هزینه ارسال کالا در استان تهران و حومه توسط کارشناسان تجهیزلند پس از پرداخت صورت حساب
+                            کالا به خریدار اعلام می‌گردد و در کلیه شهرستان‌ها به صورت پس کرایه می‌باشد.
+                        </p>
                     </div>
                 </div>
             </main>
