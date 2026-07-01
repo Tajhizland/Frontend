@@ -13,6 +13,7 @@ import BottomNavigation from "@/components/BottomNavigation/BottomNavigation";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import InstallPWAButton from "@/components/Pwa/InstallPWAButton";
+import CartInitializer from "@/components/Cart/CartInitializer";
 import Footprint from "@/components/Footprint/Footprint";
 
 
@@ -41,6 +42,7 @@ export default function ShopLayout({
         <>
             <div className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
                 <QueryClientProvider client={queryClient}>
+                    <CartInitializer/>
                     <Header/>
                     <Suspense>
                         <AutoLoading/>

@@ -36,21 +36,39 @@ const CartController: FC<CartControllerProps> = ({
         setValue(defaultValue);
     }, [defaultValue]);
 
+    // اگر هندلر (درخواست سرور) با شکست مواجه شود مقدار نمایشگر به حالت قبل برمی‌گردد
+    const revertTo = (previous: number) => {
+        setValue(previous);
+        onChange && onChange(previous);
+    };
+
     const handleClickDecrement = () => {
         if (min >= value) return;
-        setValue((state) => {
-            return state - 1;
-        });
-        onChange && onChange(value - 1);
-        decreaseHandel && decreaseHandel();
+        const previous = value;
+        const next = value - 1;
+        setValue(next);
+        onChange && onChange(next);
+        if (decreaseHandel) {
+            Promise.resolve(decreaseHandel())
+                .then((ok) => {
+                    if (ok === false) revertTo(previous);
+                })
+                .catch(() => revertTo(previous));
+        }
     };
     const handleClickIncrement = () => {
         if (max && max <= value) return;
-        setValue((state) => {
-            return state + 1;
-        });
-        onChange && onChange(value + 1);
-        increaseHandle && increaseHandle();
+        const previous = value;
+        const next = value + 1;
+        setValue(next);
+        onChange && onChange(next);
+        if (increaseHandle) {
+            Promise.resolve(increaseHandle())
+                .then((ok) => {
+                    if (ok === false) revertTo(previous);
+                })
+                .catch(() => revertTo(previous));
+        }
     };
     const handleClickRemove = () => {
         setValue(1);

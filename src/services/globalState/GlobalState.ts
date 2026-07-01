@@ -43,6 +43,17 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
 
     const existingProductIndex = cart.findIndex(item => item.color.id === color.id && item.guaranty.id == guaranty?.id);
 
+    // محاسبه‌ی قیمت تخفیف‌خورده مطابق منطق صفحه‌ی محصول:
+    // منبع اصلی تخفیف، discountItem رنگ است (نه فیلد discountedPrice).
+    const basePrice = color?.price || product.min_price;
+    const discountItemPrice = color?.discountItem?.data?.[0]?.discount_price;
+    let discountedPrice = basePrice;
+    if (discountItemPrice && discountItemPrice > 0 && discountItemPrice < basePrice) {
+        discountedPrice = discountItemPrice;
+    } else if (color?.discountedPrice && color.discountedPrice > 0 && color.discountedPrice < basePrice) {
+        discountedPrice = color.discountedPrice;
+    }
+
     const cartProduct: CartResponse = {
         id: product.id,
         count: quantity,
@@ -59,9 +70,9 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
             code: color?.color_code || "",
             status: color?.status || 1,
             delivery_delay: color?.delivery_delay || 0,
-            price: color?.price || product.min_price,
+            price: basePrice,
             discount: color?.discount || 0,
-            discountedPrice: color?.discountedPrice || product.min_price,
+            discountedPrice: discountedPrice,
         },
         guaranty: {
             id: guaranty!=undefined?guaranty.id:null,

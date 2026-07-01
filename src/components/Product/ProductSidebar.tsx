@@ -1,15 +1,9 @@
 "use client"
 import React, {Fragment, useState} from "react";
 import {ColorResponse} from "@/services/types/color";
-import {
-    reduxAddToCart,
-    reduxDecrementQuantity,
-    reduxIncrementQuantity,
-    reduxRemoveFromCart,
-    useGlobalState, useUser
-} from "@/services/globalState/GlobalState";
+import {useGlobalState, useUser} from "@/services/globalState/GlobalState";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {addToCart, decreaseCartItem, increaseCartItem, removeCartItem} from "@/services/api/shop/cart";
+import {addItemToCart, decreaseItem, increaseItem, removeItem} from "@/services/cart/cartActions";
 import {StarIcon} from "@heroicons/react/24/solid";
 import {toast} from "react-hot-toast";
 import {ProductResponse} from "@/services/types/product";
@@ -277,67 +271,27 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
     };
 
     async function addToCartHandle() {
-        if (!user) {
-            toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
-            return;
-        }
-        let response = await addToCart({
-            productColorId: selectedColor.id,
-            count: selectedCount,
-            guaranty_id: selectedGuaranty?.id ?? undefined
-        });
-        if (response.success) {
-            reduxAddToCart(product, selectedCount, selectedColor, selectedGuaranty);
+        const ok = await addItemToCart(product, selectedCount, selectedColor, selectedGuaranty);
+        if (ok) {
             notifyAddTocart();
         }
     }
 
-    async function increaseHandle() {
-        if (!user) {
-            toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
-            return;
-        }
+    function increaseHandle() {
         if (checkColorInCart() > 0) {
-            let response = await increaseCartItem({
-                productColorId: selectedColor.id,
-                guaranty_id: selectedGuaranty?.id ?? undefined
-            });
-            if (response.success) {
-                reduxIncrementQuantity(selectedColor.id, selectedGuaranty?.id)
-            }
+            return increaseItem(selectedColor.id, selectedGuaranty?.id ?? undefined);
         }
     }
 
-    async function decreaseHandle() {
-        if (!user) {
-            toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
-            return;
-        }
+    function decreaseHandle() {
         if (checkColorInCart() > 0) {
-            let response = await decreaseCartItem({
-                productColorId: selectedColor.id,
-                guaranty_id: selectedGuaranty?.id ?? undefined
-            });
-            if (response.success) {
-                reduxDecrementQuantity(selectedColor.id, selectedGuaranty?.id)
-            }
-
+            return decreaseItem(selectedColor.id, selectedGuaranty?.id ?? undefined);
         }
     }
 
-    async function removeHandle() {
-        if (!user) {
-            toast.error("برای ثبت سفارش ابتدا وارد شوید یا ثبت نام کنید .");
-            return;
-        }
+    function removeHandle() {
         if (checkColorInCart() > 0) {
-            let response = await removeCartItem({
-                productColorId: selectedColor.id,
-                guaranty_id: selectedGuaranty?.id ?? undefined
-            });
-            if (response.success) {
-                reduxRemoveFromCart(selectedColor.id, selectedGuaranty?.id)
-            }
+            return removeItem(selectedColor.id, selectedGuaranty?.id ?? undefined);
         }
     }
 

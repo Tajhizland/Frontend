@@ -18,10 +18,12 @@ import {
 } from "@/services/globalState/GlobalState";
 import {useRouter} from "next/navigation";
 import {paymentByWallet, paymentRequest, snappayEligible} from "@/services/api/shop/payment";
+import {isLoggedIn} from "@/services/cart/cartActions";
+import {BarLoader} from "react-spinners";
 import snappBoxLogo from "@/images/snappayLogo.svg";
 import walletIcon from "@/images/walletIcon.png";
 import digipayIcon from "@/images/digipayIcon.png";
-import {CheckIcon, NoSymbolIcon} from "@heroicons/react/24/outline";
+import {CheckIcon, ExclamationTriangleIcon, NoSymbolIcon} from "@heroicons/react/24/outline";
 import {Alert} from "@/shared/Alert/Alert";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import {IoMdDownload} from "react-icons/io";
@@ -53,14 +55,22 @@ const CheckoutPage = () => {
     const [allowDigipay, setAllowDigipay] = useState(true);
     const [allowSnappay, setAllowSnappay] = useState(true);
 
-    // if (!user) {
-    //     router.push("/login");
-    // }
+    // کاربر مهمان برای پرداخت باید ابتدا وارد شود و پس از ورود به همین صفحه بازگردد.
+    // تا زمان مشخص شدن وضعیت احراز هویت، هیچ درخواستی زده نمی‌شود تا خطای ۴۰۱ رخ ندهد.
+    const [authorized, setAuthorized] = useState<boolean | null>(null);
+    useEffect(() => {
+        const ok = isLoggedIn();
+        if (!ok) {
+            router.replace("/login?callbackUrl=" + encodeURIComponent("/checkout"));
+        }
+        setAuthorized(ok);
+    }, []);
+
     const {data, isSuccess} = useQuery({
         queryKey: ['cart'],
         queryFn: () => getCart(),
         staleTime: 5000,
-        enabled: !!user,
+        enabled: authorized === true,
         onSuccess: (cartData) => {
             setCart(cartData);
         }
@@ -70,7 +80,7 @@ const CheckoutPage = () => {
         queryKey: ['address'],
         queryFn: () => findActive(),
         staleTime: 5000,
-
+        enabled: authorized === true,
     });
 
     useEffect(() => {
@@ -176,6 +186,11 @@ const CheckoutPage = () => {
         if (item.guaranty && item.guaranty.free == 0) {
             guarantyPrice = GuarantyPrice(item.color.price) ?? 0;
         }
+        // با انتخاب دیجی‌پی (gateway 3) تخفیف اعمال نمی‌شود
+        const hasDiscount = gateway != 3
+            && !!item.color.discountedPrice
+            && item.color.discountedPrice > 0
+            && item.color.discountedPrice < item.color.price;
         return (
             <div key={index} className="relative flex py-7 first:pt-0 last:pb-0">
                 <div className="relative h-24 w-24  flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -220,7 +235,16 @@ const CheckoutPage = () => {
                                 }
                             </div>
                             <div className="flex flex-1 sm:flex justify-end">
-                                <Prices price={gateway == 3 ? item.color.price : (item.color.discountedPrice ?? item.color.price)} className="mt-0.5"/>
+                                <div className="flex items-center gap-2">
+                                    {hasDiscount &&
+                                        <del className="text-xs text-red-500">
+                                            {item.color.price.toLocaleString()} تومان
+                                        </del>
+                                    }
+                                    <Prices
+                                        price={hasDiscount ? item.color.discountedPrice : item.color.price}
+                                        className="mt-0.5"/>
+                                </div>
                             </div>
                         </div>
 
@@ -349,13 +373,32 @@ const CheckoutPage = () => {
     const maxDeliveryDelay = useMemo(() => renderMaxDeliveryDelay(), [cart]);
     const sumExtraPrice = useMemo(() => renderExtraPrice(), [cart, shippingPrice]);
 
+    // مبلغی که پس از کسر کیف پول و کد تخفیف باید از درگاه بانکی پرداخت شود.
+    // سقف درگاه بانکی ۲۰۰ میلیون تومان است؛ اگر مبلغِ باقیمانده برای درگاه از این سقف بیشتر باشد
+    // پرداخت مجاز نیست (چه با کیف پول و چه بدون آن).
+    const GATEWAY_LIMIT = 200000000;
+    const walletDeduction = useWallet ? (user?.wallet ?? 0) : 0;
+    const gatewayPayable = Math.max(0, sumDiscountedPrice - couponDiscount - walletDeduction);
+    const exceedsGatewayLimit = gatewayPayable > GATEWAY_LIMIT;
+
     // بررسی مجاز بودن پرداخت با اسنپ‌پی بر اساس مبلغ قابل پرداخت
     const {data: snappay} = useQuery({
         queryKey: ['snappay-eligible', sumDiscountedPrice],
         queryFn: () => snappayEligible({amount: sumDiscountedPrice}),
         staleTime: 5000,
-        enabled: !!user && allowSnappay && sumDiscountedPrice > 0,
+        enabled: authorized === true && allowSnappay && sumDiscountedPrice > 0,
     });
+
+    // تا زمان مشخص شدن احراز هویت یا برای کاربر مهمان (که در حال ریدایرکت است) بدنه رندر نمی‌شود
+    if (authorized !== true) {
+        return (
+            <div className="nc-CheckoutPage dark:text-white dark:bg-slate-900">
+                <div className="container flex items-center justify-center py-40">
+                    <BarLoader color="#fcb415"/>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="nc-CheckoutPage  dark:text-white dark:bg-slate-900">
@@ -708,7 +751,7 @@ const CheckoutPage = () => {
                         )}
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
                                        disabled={!allow || !acceptRule || sumDiscountedPrice <= 0 ||
-                                           (sumDiscountedPrice > 200000000 && !useWallet)
+                                           exceedsGatewayLimit
                                        }>پرداخت</ButtonPrimary>
 
                         {/*<ButtonPrimary className="mt-4 w-full" onClick={paymentWallet}*/}
@@ -717,14 +760,17 @@ const CheckoutPage = () => {
                         {/*</ButtonPrimary>*/}
 
                         {
-                            (sumDiscountedPrice > 200000000)
-                                ? <strong className={"text-green-600 font-bold text-sm"}>
+                            exceedsGatewayLimit &&
+                            <div
+                                className="mt-6 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-500/30 dark:bg-amber-500/10">
+                                <ExclamationTriangleIcon
+                                    className="mt-0.5 h-6 w-6 flex-shrink-0 text-amber-500"/>
+                                <p className="text-xs leading-6 text-amber-800 dark:text-amber-200 sm:text-sm">
                                     برای سفارش‌های با مبلغ بیش از ۲۰۰ میلیون تومان، به دلیل محدودیت سقف درگاه بانکی، امکان
                                     پرداخت مستقیم از طریق بانک وجود ندارد. لطفاً کیف پول خود را در هر نوبت تا سقف ۲۰۰ میلیون
                                     تومان شارژ کنید و سپس پرداخت را با استفاده از موجودی کیف پول انجام دهید.
-                                </strong>
-                                :
-                                ""
+                                </p>
+                            </div>
                         }
                         <div className={"flex items-center gap-2 mt-5 justify-center"}>
                             <Checkbox name={"rule"} onChange={() => {

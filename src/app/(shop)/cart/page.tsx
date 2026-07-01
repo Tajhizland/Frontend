@@ -5,16 +5,10 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import {useQuery} from "react-query";
-import {decreaseCartItem, getCart, increaseCartItem, removeCartItem} from "@/services/api/shop/cart";
+import {getCart} from "@/services/api/shop/cart";
+import {decreaseItem, increaseItem, removeItem} from "@/services/cart/cartActions";
 import {CartResponse} from "@/services/types/cart";
-import {
-    reduxDecrementQuantity,
-    reduxIncrementQuantity,
-    reduxRemoveFromCart,
-    setCart,
-    useCart,
-    useUser
-} from "@/services/globalState/GlobalState";
+import {setCart, useCart, useUser} from "@/services/globalState/GlobalState";
 import {Fragment, useMemo} from "react";
 import {Alert} from "@/shared/Alert/Alert";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
@@ -36,26 +30,16 @@ const CartPage = () => {
     });
 
 
-    async function increaseHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await increaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
-        if (response.success) {
-            reduxIncrementQuantity(selectedColorId, guarantyId)
-        }
+    function increaseHandle(selectedColorId: number, guarantyId: number | undefined) {
+        return increaseItem(selectedColorId, guarantyId);
     }
 
-    async function decreaseHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await decreaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
-        if (response.success) {
-            reduxDecrementQuantity(selectedColorId, guarantyId)
-        }
-
+    function decreaseHandle(selectedColorId: number, guarantyId: number | undefined) {
+        return decreaseItem(selectedColorId, guarantyId);
     }
 
-    async function removeHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await removeCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
-        if (response.success) {
-            reduxRemoveFromCart(selectedColorId, guarantyId)
-        }
+    function removeHandle(selectedColorId: number, guarantyId: number | undefined) {
+        return removeItem(selectedColorId, guarantyId);
     }
 
     const renderStatusSoldout = () => {
@@ -80,10 +64,10 @@ const CartPage = () => {
 
     const renderProduct = (item: CartResponse, index: number) => {
         let guarantyPrice = 0;
-        console.log("G",item.guaranty)
         if (item.guaranty && item.guaranty.free==0) {
             guarantyPrice = GuarantyPrice(item.color.price) ?? 0;
         }
+        const hasDiscount = item.color.discountedPrice > 0 && item.color.discountedPrice < item.color.price;
         return (
             <Fragment key={index}>
                 {/*<head>*/}
@@ -135,22 +119,23 @@ const CartPage = () => {
                                         }
                                     </div>
                                 </div>
-                                <div className="  flex-1  flex justify-end ">
-                                    <Prices price={(item.color.discountedPrice??item.color.price + guarantyPrice) * item.count} className="mt-0.5"/>
+                                <div className="  flex-1  flex justify-end items-center gap-2">
+                                    {hasDiscount &&
+                                        <del className="text-xs text-red-500">
+                                            {((item.color.price + guarantyPrice) * item.count).toLocaleString()} تومان
+                                        </del>
+                                    }
+                                    <Prices
+                                        price={((hasDiscount ? item.color.discountedPrice : item.color.price) + guarantyPrice) * item.count}
+                                        className="mt-0.5"/>
                                 </div>
 
                                 <div className=" block text-center relative">
                                     <CartController className="relative z-10"
                                                     defaultValue={item.count}
-                                                    increaseHandle={() => {
-                                                        increaseHandle(item.color.id as number, item.guaranty.id as number)
-                                                    }}
-                                                    decreaseHandel={() => {
-                                                        decreaseHandle(item.color.id as number, item.guaranty.id as number)
-                                                    }}
-                                                    removeHandle={() => {
-                                                        removeHandle(item.color.id as number, item.guaranty.id as number)
-                                                    }}
+                                                    increaseHandle={() => increaseHandle(item.color.id as number, item.guaranty.id as number)}
+                                                    decreaseHandel={() => decreaseHandle(item.color.id as number, item.guaranty.id as number)}
+                                                    removeHandle={() => removeHandle(item.color.id as number, item.guaranty.id as number)}
 
                                     />
                                 </div>

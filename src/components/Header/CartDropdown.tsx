@@ -6,14 +6,15 @@ import {
     PopoverPanel,
     Transition,
 } from "@headlessui/react";
-import {getCart, removeCartItem} from "@/services/api/shop/cart";
+import {getCart} from "@/services/api/shop/cart";
+import {removeItem} from "@/services/cart/cartActions";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";
 import Link from "next/link";
 import {useQuery} from "react-query";
 import {CartResponse} from "@/services/types/cart";
-import {reduxRemoveFromCart, setCart, useCart, useUser} from "@/services/globalState/GlobalState";
+import {setCart, useCart, useUser} from "@/services/globalState/GlobalState";
 import {toast} from "react-hot-toast";
 import {Route} from "next";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
@@ -36,9 +37,10 @@ export default function CartDropdown() {
 
 
     async function removeFromCart(id: number, guarantyId: number | undefined) {
-        let response = await removeCartItem({productColorId: id, guaranty_id: guarantyId});
-        reduxRemoveFromCart(id, guarantyId);
-        toast.success(response.message as string)
+        const ok = await removeItem(id, guarantyId);
+        if (ok) {
+            toast.success("محصول از سبد خرید حذف شد")
+        }
     }
 
     const renderProduct = (item: CartResponse, index: number, close: () => void) => {
@@ -50,6 +52,7 @@ export default function CartDropdown() {
         if (item.guaranty.free == 0) {
             guarantyPrice = GuarantyPrice(item.color.price) ?? 0;
         }
+        const hasDiscount = discountedPrice > 0 && discountedPrice < price;
         return (
             <div key={index} className="flex py-5 last:pb-0">
                 <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-white">
@@ -95,9 +98,16 @@ export default function CartDropdown() {
 
                                 </div>
                             </div>
-                            <Prices
-                                price={((!discountedPrice || discountedPrice == 0) ? price : discountedPrice) + guarantyPrice}
-                                className="whitespace-nowrap"/>
+                            <div className="flex items-center gap-2">
+                                {hasDiscount &&
+                                    <del className="text-xs text-red-500">
+                                        {new Intl.NumberFormat('en-US').format(price + guarantyPrice)}
+                                    </del>
+                                }
+                                <Prices
+                                    price={(hasDiscount ? discountedPrice : price) + guarantyPrice}
+                                    className="whitespace-nowrap"/>
+                            </div>
                         </div>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-xs">

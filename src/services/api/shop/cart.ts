@@ -54,3 +54,16 @@ export const clearCart = async <T extends ServerResponse<unknown>>
     return axios.post<T, SuccessResponseType<T>>("cart/clear-all", params)
         .then((res) => res?.data?.result)
 };
+export const mergeCart = async <T extends ServerResponse<unknown>>
+(
+    params: {
+        items: {
+            productColorId: number,
+            count: number,
+            guaranty_id?: number,
+        }[]
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("cart/merge", params)
+        .then((res) => res?.data)
+};

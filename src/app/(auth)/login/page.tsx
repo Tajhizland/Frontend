@@ -9,6 +9,7 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
+import { syncCartAfterLogin } from "@/services/cart/cartActions";
 
 
 const PageLogin = () => {
@@ -29,7 +30,7 @@ const PageLogin = () => {
                 ...formData,
             });
         },
-        onSuccess: (response) => {
+        onSuccess: async (response) => {
             if (!response)
                 return;
             setIsLogin(true);
@@ -39,7 +40,16 @@ const PageLogin = () => {
                 path: "/",
                 expires: new Date(oneYear),
             });
-            router.push("/")
+
+            // ادغام سبد خرید مهمان با حساب کاربر پس از ورود موفق
+            try {
+                await syncCartAfterLogin();
+            } catch {
+                // در صورت خطای ادغام، جریان ورود متوقف نمی‌شود
+            }
+
+            const callbackUrl = new URLSearchParams(window.location.search).get("callbackUrl");
+            router.push(callbackUrl || "/");
         },
     });
 

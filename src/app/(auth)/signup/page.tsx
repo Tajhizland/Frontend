@@ -9,6 +9,7 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
+import { syncCartAfterLogin } from "@/services/cart/cartActions";
 
 const PageSignUp = () => {
     const [step, setStep] = useState(1);
@@ -67,7 +68,7 @@ const PageSignUp = () => {
                 password_confirmation: formData.password_confirmation,
             });
         },
-        onSuccess: (response) => {
+        onSuccess: async (response) => {
             if (!response)
                 return;
             let oneYear = Date.now() + 365 * 24 * 60 * 60 * 1000;
@@ -76,7 +77,16 @@ const PageSignUp = () => {
                 path: "/",
                 expires: new Date(oneYear),
             });
-            window.location.href = "/";
+
+            // ادغام سبد خرید مهمان با حساب کاربر پس از ثبت‌نام موفق
+            try {
+                await syncCartAfterLogin();
+            } catch {
+                // در صورت خطای ادغام، جریان ثبت‌نام متوقف نمی‌شود
+            }
+
+            const callbackUrl = new URLSearchParams(window.location.search).get("callbackUrl");
+            window.location.href = callbackUrl || "/";
         },
     });
 
