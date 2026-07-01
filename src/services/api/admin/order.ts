@@ -28,6 +28,34 @@ export const registerTapin = async <T extends ServerResponse<unknown>>
     return axios.post<T, SuccessResponseType<T>>("admin/order/tapin/" + id, params)
         .then((res) => res?.data)
 };
+export const cancelOrder = async <T extends ServerResponse<unknown>>
+(
+    params: {
+        id: number | string
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/order/cancel", params)
+        .then((res) => res?.data)
+};
+export const updateItem = async <T extends ServerResponse<unknown>>
+(
+    params: {
+        id: number | string
+        count: number
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/order/item/update", params)
+        .then((res) => res?.data)
+};
+export const deleteItem = async <T extends ServerResponse<unknown>>
+(
+    params: {
+        id: number | string
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/order/item/delete", params)
+        .then((res) => res?.data)
+};
 export const digipayCalc = async <T extends ServerResponse<{ value: number }>>
 (
     params: { start_date: string, end_date: string }

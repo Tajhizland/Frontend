@@ -17,7 +17,8 @@ import {
     useUser
 } from "@/services/globalState/GlobalState";
 import {useRouter} from "next/navigation";
-import {paymentByWallet, paymentRequest} from "@/services/api/shop/payment";
+import {paymentByWallet, paymentRequest, snappayEligible} from "@/services/api/shop/payment";
+import snappBoxLogo from "@/images/snappayLogo.svg";
 import {CheckIcon, NoSymbolIcon} from "@heroicons/react/24/outline";
 import {Alert} from "@/shared/Alert/Alert";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
@@ -68,6 +69,14 @@ const CheckoutPage = () => {
         queryFn: () => findActive(),
         staleTime: 5000,
 
+    });
+
+    // بررسی مجاز بودن پرداخت با اسنپ‌پی
+    const {data: snappay} = useQuery({
+        queryKey: ['snappay-eligible'],
+        queryFn: () => snappayEligible(),
+        staleTime: 5000,
+        enabled: !!user && allowSnappay,
     });
 
     useEffect(() => {
@@ -672,6 +681,27 @@ const CheckoutPage = () => {
                                       />
                                 </span>
                         </div>}
+                        {allowSnappay && snappay?.eligible && (
+                            <div
+                                className="flex items-center gap-3 mt-4 p-4 rounded-2xl border border-[#5a2d82]/20 bg-[#f6f2fb] dark:bg-white/5">
+                                <div className="relative w-14 h-14 flex-shrink-0">
+                                    <Image
+                                        src={snappBoxLogo}
+                                        alt="اسنپ‌پی"
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <strong className="text-sm text-slate-900 dark:text-slate-100">
+                                        {snappay.title_message}
+                                    </strong>
+                                    <span className="text-xs leading-5 text-slate-600 dark:text-slate-300">
+                                        {snappay.description}
+                                    </span>
+                                </div>
+                            </div>
+                        )}
                         <ButtonPrimary className="mt-8 w-full" onClick={payment}
                                        disabled={!allow || !acceptRule || sumDiscountedPrice <= 0 ||
                                            (sumDiscountedPrice > 200000000 && !useWallet)

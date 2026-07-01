@@ -18,3 +18,15 @@ export const paymentByWallet = async <T extends ServerResponse<PaymentResponse>>
     return axios.post<T, SuccessResponseType<T>>("payment/wallet")
         .then((res) => res?.data?.result?.data)
 };
+
+export type SnappayEligibleResponse = {
+    eligible: boolean;
+    title_message: string;
+    description: string;
+};
+
+export const snappayEligible = async <T extends ServerResponse<SnappayEligibleResponse>>
+() => {
+    return axios.post<T, SuccessResponseType<T>>("payment/snappay/eligible")
+        .then((res) => res?.data?.result?.data)
+};

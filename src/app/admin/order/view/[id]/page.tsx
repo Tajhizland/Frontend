@@ -2,23 +2,47 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import {findById} from "@/services/api/admin/order";
+import {cancelOrder, findById} from "@/services/api/admin/order";
 import {useParams} from "next/navigation";
 import {useQuery} from "react-query";
+import {useState} from "react";
+import {toast} from "react-hot-toast";
+import NcModal from "@/shared/NcModal/NcModal";
+import ButtonThird from "@/shared/Button/ButtonThird";
 import NcImage from "@/shared/NcImage/NcImage";
 import Prices from "@/components/Price/Prices";
 import {OrderStatus} from "@/app/admin/order/orderStatus";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import ItemActions from "@/app/admin/order/view/[id]/ItemActions";
 
 export default function Page() {
     const {id} = useParams();
 
-    const {data: data} = useQuery({
+    const {data: data, refetch} = useQuery({
         queryKey: [`order-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
+    const [openCancel, setOpenCancel] = useState(false);
+    const [cancelLoading, setCancelLoading] = useState(false);
+
+    async function handleCancel() {
+        setCancelLoading(true);
+        try {
+            const response = await cancelOrder({id: Number(id)});
+            if (response?.success) {
+                toast.success(response?.message as string);
+                setOpenCancel(false);
+                refetch();
+            } else {
+                toast.error(response?.message as string);
+            }
+        } finally {
+            setCancelLoading(false);
+        }
+    }
+
     const handlePrint = () => {
         const printSection = document.getElementById('print');
         const originalContents = document.body.innerHTML;
@@ -136,6 +160,7 @@ export default function Page() {
                             <th className="border border-gray-300 px-3 py-2 text-center">گارانتی</th>
                             <th className="border border-gray-300 px-3 py-2 text-center">هزینه گارانتی</th>
                             <th className="border border-gray-300 px-3 py-2 text-center">جمع کل</th>
+                            <th className="border border-gray-300 px-3 py-2 text-center print:hidden">عملیات</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -173,6 +198,9 @@ export default function Page() {
                                 </td>
                                 <td className="border border-gray-300 px-3 py-2 text-center font-bold">
                                     <Prices price={item.final_price * item.count} />
+                                </td>
+                                <td className="border border-gray-300 px-3 py-2 text-center print:hidden">
+                                    <ItemActions item={item} onDone={refetch} />
                                 </td>
                             </tr>
                         ))}
@@ -221,12 +249,50 @@ export default function Page() {
             </div>
         </Panel>
         <Panel>
-            <ButtonPrimary
-                onClick={handlePrint}
-            >
-                پرینت
-            </ButtonPrimary>
+            <div className="flex flex-wrap items-center gap-3">
+                <ButtonPrimary
+                    onClick={handlePrint}
+                >
+                    پرینت
+                </ButtonPrimary>
+                <ButtonPrimary
+                    className="!bg-rose-600 hover:!bg-rose-700"
+                    onClick={() => setOpenCancel(true)}
+                >
+                    کنسل کردن سفارش
+                </ButtonPrimary>
+            </div>
         </Panel>
+
+        <NcModal
+            isOpenProp={openCancel}
+            onCloseModal={() => setOpenCancel(false)}
+            hasButton={false}
+            modalTitle="کنسل کردن سفارش"
+            contentExtraClass="max-w-md"
+            renderContent={() => (
+                <div className="flex flex-col gap-4">
+                    <p className="text-sm text-gray-600 leading-6">
+                        آیا از کنسل کردن سفارش{" "}
+                        <span className="font-medium text-gray-800">#{id}</span>{" "}
+                        مطمئن هستید؟ این عملیات ممکن است قابل بازگشت نباشد.
+                    </p>
+                    <div className="flex items-center justify-end gap-3 pt-2">
+                        <ButtonThird onClick={() => setOpenCancel(false)}>
+                            انصراف
+                        </ButtonThird>
+                        <ButtonPrimary
+                            loading={cancelLoading}
+                            disabled={cancelLoading}
+                            onClick={handleCancel}
+                            className="!bg-rose-600 hover:!bg-rose-700"
+                        >
+                            کنسل کردن سفارش
+                        </ButtonPrimary>
+                    </div>
+                </div>
+            )}
+        />
 
     </>)
 }
