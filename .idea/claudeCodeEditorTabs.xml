@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ClaudeCodeEditorTabs">
-    <option name="activeSessionId" value="490b217e-ec97-4dde-b372-b988b7994fda" />
+    <option name="activeSessionId" value="d539ec90-8ee8-4f50-a039-6cfa75266693" />
     <option name="openSessionIds">
       <list>
         <option value="490b217e-ec97-4dde-b372-b988b7994fda" />
+        <option value="d539ec90-8ee8-4f50-a039-6cfa75266693" />
       </list>
     </option>
     <option name="sessionPaths">
       <map>
         <entry key="490b217e-ec97-4dde-b372-b988b7994fda" value="/sessions/2974e27e-d5ef-498f-97f8-3963e15c254c" />
+        <entry key="d539ec90-8ee8-4f50-a039-6cfa75266693" value="/sessions/new" />
       </map>
     </option>
     <option name="sessionTitles">
       <map>
         <entry key="490b217e-ec97-4dde-b372-b988b7994fda" value="یه کامئوننت میخوام برام بسازی که تصاویری که توی پو" />
+        <entry key="d539ec90-8ee8-4f50-a039-6cfa75266693" value="Claude Code" />
       </map>
     </option>
   </component>

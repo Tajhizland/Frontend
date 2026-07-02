@@ -8,3 +8,11 @@ export const myOrders = async <T extends ServerResponse<OrderResponse[]>>
     return axios.get<T, SuccessResponseType<T>>("my-orders?page="+page )
         .then((res) => res?.data?.result)
 };
+
+export const findById = async <T extends ServerResponse<OrderResponse>>
+(
+    id: number | string
+) => {
+    return axios.get<T, SuccessResponseType<T>>("order/find/" + id)
+        .then((res) => res?.data?.result?.data)
+};

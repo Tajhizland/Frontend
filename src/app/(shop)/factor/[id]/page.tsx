@@ -1,6 +1,6 @@
 //@ts-nocheck
 "use client"
-import {findById} from "@/services/api/admin/order";
+import {findById} from "@/services/api/shop/order";
 import {useParams} from "next/navigation";
 import {useQuery} from "react-query";
 import React, {useRef} from "react";
