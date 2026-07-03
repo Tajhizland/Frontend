@@ -30,7 +30,7 @@ export default function SectionDesktopLinks({className = "", items = DEFAULT_ITE
     items?: DesktopLinkItem[];
 }) {
     return (
-        <div className={`flex py-10 items-center justify-center gap-2 sm:gap-10 ${className}`}>
+        <div className={`flex py-7 items-center justify-center gap-2 sm:gap-10 ${className}`}>
             {items.map((item, index) => (
                 <Link
                     key={index}
