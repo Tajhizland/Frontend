@@ -27,7 +27,8 @@ export async function generateMetadata(): Promise<Metadata> {
     }
 }
 
-const ThankYouPage = () => {
+const ThankYouPage = ({searchParams}: { searchParams: { order_id?: string } }) => {
+    const orderId = searchParams?.order_id?.trim();
 
     return (
         <>
@@ -44,6 +45,21 @@ const ThankYouPage = () => {
                             className="block text-sm text-neutral-800 sm:text-base dark:text-neutral-200 tracking-wider font-medium">
                         سفارش شما با موفقیت ثبت گردید
                         </span>
+                        {orderId && (
+                            <div className="pt-4 flex justify-center">
+                                <div
+                                    className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-5 py-2.5 dark:border-primary-500/40 dark:bg-primary-500/10">
+                                    <span
+                                        className="text-sm text-neutral-600 dark:text-neutral-300 tracking-wider font-medium">
+                                        شماره پیگیری :
+                                    </span>
+                                    <span
+                                        className="text-base text-primary-600 dark:text-primary-400 tracking-wider font-bold">
+                                        {orderId}
+                                    </span>
+                                </div>
+                            </div>
+                        )}
                         <div className="pt-8">
                             <ButtonPrimary href="/">بازگشت به صفحه اصلی</ButtonPrimary>
                         </div>
