@@ -381,12 +381,16 @@ const CheckoutPage = () => {
     const gatewayPayable = Math.max(0, sumDiscountedPrice - couponDiscount - walletDeduction);
     const exceedsGatewayLimit = gatewayPayable > GATEWAY_LIMIT;
 
-    // بررسی مجاز بودن پرداخت با اسنپ‌پی بر اساس مبلغ قابل پرداخت
+    // مبلغ نهایی قابل پرداخت برای اسنپ‌پی = مجموع پس از کسر تخفیف و کد تخفیف (اسنپ‌پی با کیف پول ترکیب نمی‌شود)
+    const snappayAmount = Math.max(0, sumDiscountedPrice - couponDiscount);
+
+    // بررسی مجاز بودن پرداخت با اسنپ‌پی بر اساس مبلغ نهایی قابل پرداخت.
+    // هر بار که مبلغ نهایی تغییر کند (تغییر روش ارسال یا اعمال کد تخفیف) به‌صورت خودکار دوباره فراخوانی می‌شود.
     const {data: snappay} = useQuery({
-        queryKey: ['snappay-eligible', sumDiscountedPrice],
-        queryFn: () => snappayEligible({amount: sumDiscountedPrice}),
+        queryKey: ['snappay-eligible', snappayAmount],
+        queryFn: () => snappayEligible({amount: snappayAmount}),
         staleTime: 5000,
-        enabled: authorized === true && allowSnappay && sumDiscountedPrice > 0,
+        enabled: authorized === true && allowSnappay && snappayAmount > 0,
     });
 
     // تا زمان مشخص شدن احراز هویت یا برای کاربر مهمان (که در حال ریدایرکت است) بدنه رندر نمی‌شود
