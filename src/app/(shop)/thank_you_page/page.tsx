@@ -27,8 +27,9 @@ export async function generateMetadata(): Promise<Metadata> {
     }
 }
 
-const ThankYouPage = ({searchParams}: { searchParams: { order_id?: string } }) => {
-    const orderId = searchParams?.order_id?.trim();
+const ThankYouPage = async ({searchParams}: { searchParams: Promise<{ order_id?: string }> }) => {
+    const {order_id} = await searchParams;
+    const orderId = order_id?.trim();
 
     return (
         <>
