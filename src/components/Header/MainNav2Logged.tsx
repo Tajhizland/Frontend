@@ -334,12 +334,12 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                 {renderMagnifyingGlassIcon()}
                             </button>
                         )} */}
-                        <div className={"hidden lg:block"}>
-                            <VlogLink/>
-                        </div>
-                        <div className={"hidden lg:block"}>
-                            <BlogLink/>
-                        </div>
+                        {/*<div className={"hidden lg:block"}>*/}
+                        {/*    <VlogLink/>*/}
+                        {/*</div>*/}
+                        {/*<div className={"hidden lg:block"}>*/}
+                        {/*    <BlogLink/>*/}
+                        {/*</div>*/}
                         <AvatarDropdown/>
                         <CartDropdown/>
                     </div>
