@@ -43,7 +43,6 @@ const CheckoutPage = () => {
     const queryClient = useQueryClient();
     const [cart] = useCart();
     const [user] = useUser();
-
     const [acceptRule, setAcceptRule] = useState(false);
     const [useWallet, setUseWallet] = useState(false);
     const [coupon, setCoupon] = useState<CouponResponse>();
