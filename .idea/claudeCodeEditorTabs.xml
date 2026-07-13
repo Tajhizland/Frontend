@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ClaudeCodeEditorTabs">
-    <option name="activeSessionId" value="d539ec90-8ee8-4f50-a039-6cfa75266693" />
+    <option name="activeSessionId" value="2b3eae4f-fa5a-4ae3-bd88-ec3dd0d2f40f" />
     <option name="openSessionIds">
       <list>
         <option value="490b217e-ec97-4dde-b372-b988b7994fda" />
         <option value="d539ec90-8ee8-4f50-a039-6cfa75266693" />
+        <option value="2b3eae4f-fa5a-4ae3-bd88-ec3dd0d2f40f" />
       </list>
     </option>
     <option name="sessionPaths">
       <map>
+        <entry key="2b3eae4f-fa5a-4ae3-bd88-ec3dd0d2f40f" value="/sessions/67c6bd04-686d-425a-9a6c-b97065f1a1cc" />
         <entry key="490b217e-ec97-4dde-b372-b988b7994fda" value="/sessions/2974e27e-d5ef-498f-97f8-3963e15c254c" />
         <entry key="d539ec90-8ee8-4f50-a039-6cfa75266693" value="/sessions/3e0e6833-b649-4d16-b6f4-12eb240cede3" />
       </map>
     </option>
     <option name="sessionTitles">
       <map>
+        <entry key="2b3eae4f-fa5a-4ae3-bd88-ec3dd0d2f40f" value="میخوام توی صفحه checkout که لیست محصولات وجود داره" />
         <entry key="490b217e-ec97-4dde-b372-b988b7994fda" value="یه کامئوننت میخوام برام بسازی که تصاویری که توی پو" />
         <entry key="d539ec90-8ee8-4f50-a039-6cfa75266693" value="میخوام توی thank you page اگه /thank_you_page?orde" />
       </map>

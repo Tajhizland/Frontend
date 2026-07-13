@@ -6,19 +6,17 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ShippingAddress from "../../../components/Checkout/ShippingAddress";
 import Image from "next/image";
 import Link from "next/link";
-import {useQuery} from "react-query";
-import {decreaseCartItem, getCart, increaseCartItem, removeCartItem} from "@/services/api/shop/cart";
+import {useQuery, useQueryClient} from "react-query";
+import {getCart} from "@/services/api/shop/cart";
 import {CartResponse} from "@/services/types/cart";
 import {
-    reduxDecrementQuantity,
-    reduxIncrementQuantity, reduxRemoveFromCart,
     setCart,
     useCart,
     useUser
 } from "@/services/globalState/GlobalState";
 import {useRouter} from "next/navigation";
 import {paymentByWallet, paymentRequest, snappayEligible} from "@/services/api/shop/payment";
-import {isLoggedIn} from "@/services/cart/cartActions";
+import {decreaseItem, increaseItem, isLoggedIn, removeItem} from "@/services/cart/cartActions";
 import {BarLoader} from "react-spinners";
 import snappBoxLogo from "@/images/snappayLogo.svg";
 import walletIcon from "@/images/walletIcon.png";
@@ -42,6 +40,7 @@ import {CouponResponse} from "@/services/types/coupon";
 
 const CheckoutPage = () => {
     const router = useRouter();
+    const queryClient = useQueryClient();
     const [cart] = useCart();
     const [user] = useUser();
 
@@ -128,26 +127,28 @@ const CheckoutPage = () => {
             router.push("/thank_you_page/limit")
     }
 
+    // پس از هر تغییر در سبد خرید، API چک‌اوت (روش‌های ارسال و هزینه پستی) دوباره فراخوانی می‌شود.
+    // اِلیجیبل بودن اسنپ‌پی به‌صورت خودکار با تغییر مبلغ نهایی (که در queryKey است) دوباره اجرا می‌شود.
+    async function refreshCheckout() {
+        await queryClient.invalidateQueries(['get-shipping-methods']);
+    }
+
     async function increaseHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await increaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
-        if (response.success) {
-            reduxIncrementQuantity(selectedColorId, guarantyId)
-        }
+        const ok = await increaseItem(selectedColorId, guarantyId);
+        if (ok) await refreshCheckout();
+        return ok;
     }
 
     async function decreaseHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await decreaseCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
-        if (response.success) {
-            reduxDecrementQuantity(selectedColorId, guarantyId)
-        }
-
+        const ok = await decreaseItem(selectedColorId, guarantyId);
+        if (ok) await refreshCheckout();
+        return ok;
     }
 
     async function removeHandle(selectedColorId: number, guarantyId: number | undefined) {
-        let response = await removeCartItem({productColorId: selectedColorId, guaranty_id: guarantyId});
-        if (response.success) {
-            reduxRemoveFromCart(selectedColorId, guarantyId)
-        }
+        const ok = await removeItem(selectedColorId, guarantyId);
+        if (ok) await refreshCheckout();
+        return ok;
     }
 
     const [tabActive, setTabActive] = useState<
@@ -252,18 +253,18 @@ const CheckoutPage = () => {
 
                     <div className="flex mt-auto pt-4 items-start justify-between text-sm flex-col sm:flex-row gap-1">
                         <div className=" sm:block text-center relative">
-                            {/*<CartController className="relative z-10"*/}
-                            {/*                defaultValue={item.count}*/}
-                            {/*                increaseHandle={() => {*/}
-                            {/*                    increaseHandle(item.color.id as number, item.guaranty.id as number)*/}
-                            {/*                }}*/}
-                            {/*                decreaseHandel={() => {*/}
-                            {/*                    decreaseHandle(item.color.id as number, item.guaranty.id as number)*/}
-                            {/*                }}*/}
-                            {/*                removeHandle={() => {*/}
-                            {/*                    removeHandle(item.color.id as number, item.guaranty.id as number)*/}
-                            {/*                }}*/}
-                            {/*/>*/}
+                            <CartController className="relative z-10"
+                                            defaultValue={item.count}
+                                            increaseHandle={() =>
+                                                increaseHandle(item.color.id as number, item.guaranty?.id as number)
+                                            }
+                                            decreaseHandel={() =>
+                                                decreaseHandle(item.color.id as number, item.guaranty?.id as number)
+                                            }
+                                            removeHandle={() =>
+                                                removeHandle(item.color.id as number, item.guaranty?.id as number)
+                                            }
+                            />
                         </div>
                         {!item.hasStock
                             ? renderStatusSoldout()
