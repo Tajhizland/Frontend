@@ -11,6 +11,9 @@ import CastMiniPost from "@/components/Cast/CastMiniPost";
 import WidgetFilter from "@/components/Cast/WidgetFilter";
 import CastFilter from "@/components/Cast/CastFilter";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
+import LogoIco from "@/images/logoTajhizcast.jpg";
+import Image from "next/image";
+import Logo from "@/shared/Logo/Logo";
 
 export default function CastListing({ response, search }: { response: any, search?: string }) {
     const observer = useRef<IntersectionObserver | null>(null);
@@ -91,12 +94,24 @@ export default function CastListing({ response, search }: { response: any, searc
             <div className="container py-5 lg:pb-28   space-y-16 sm:space-y-20 lg:space-y-28">
                 <div className="space-y-5 lg:space-y-5">
                     {response.banner?.data?.length > 0 &&
-                        <div className={"mt-5 lg:mt-10"}> <SectionSingleBanner
-                            w={"aspect-w-3 sm:aspect-w-4 lg:aspect-w-5"}
-                            h={"aspect-h-1"}
-                            banner={response.banner.data[0]}
-                        />
-                        </div>}
+                        <div className="mt-5 lg:mt-10 relative">
+
+                            <SectionSingleBanner
+                                w="aspect-w-3 sm:aspect-w-4 lg:aspect-w-5"
+                                h="aspect-h-1"
+                                banner={response.banner.data[0]}
+                            />
+
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-50">
+                                <Image
+                                    className="w-20 h-20"
+                                    src={LogoIco}
+                                    alt="Logo"
+                                    priority
+                                />
+                            </div>
+                        </div>
+                    }
                         <main>
                         {/* TABS FILTER */}
                         <CastFilter   changeFilter={handleFilterChange} defualtSearch={search} />

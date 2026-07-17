@@ -6,9 +6,6 @@ import LogoIco from "@/images/logoTajhizcast.jpg";
 import AvatarDropdown from "./AvatarDropdown";
 import {usePathname, useRouter} from "next/navigation";
 import {HeaderSearchResponse} from "@/services/types/serach";
-import lightLogo from "@/images/lightLogo.png";
-import Image from "next/image";
-import Link from "next/link";
 
 export interface MainNav2LoggedProps {
 }
@@ -66,25 +63,11 @@ const TajhizcastHeader: FC<MainNav2LoggedProps> = () => {
         return (
             <div>
                 <div className="h-16 lg:h-20 flex justify-between items-center gap-x-1">
-
-                    <div className={"w-full ml-1 flex-1  flex items-center gap-1"}>
-                        <div className={"w-full max-w-12 md:max-w-16 flex items-center"}>
-                            <Link
-                                href="/"
-                                className={`ttnc-logo inline-block text-slate-600  aspect-h-1 aspect-w-1 sm:aspect-w-1 w-full h-0 `}
-                            >
-                                <Image
-                                    className={`   h-full w-full  `}
-                                    src={LogoIco}
-                                    alt="Logo"
-                                    priority
-                                />
-                            </Link>
-                        </div>
+                    <div className={"w-full ml-1 flex-1  flex flex-col gap-1"}>
+                        <Logo/>
                         <small
                             className="text-slate-600 dark:text-slate-100 lg:text-[13px] sm:text-[8px] text-[6px] hidden lg:block whitespace-nowrap">
-                            تجهیزکست
-                        </small>
+                         </small>
                     </div>
 
 
