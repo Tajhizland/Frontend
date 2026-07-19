@@ -36,7 +36,7 @@ interface AuthFlowProps {
 
 const inputSizeClass = "h-14 px-4 py-3";
 const inputClass =
-    "mt-1 bg-[#f5f6fb] dark:bg-neutral-800 border-transparent text-center text-base";
+    "mt-1 bg-[#f5f6fb] dark:bg-neutral-800 border text-center text-base";
 const buttonClass = "w-full !rounded-xl h-14 mt-2";
 const RESEND_SECONDS = 120;
 
@@ -217,11 +217,13 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
     const Header = ({ title, subtitle }: { title: string; subtitle?: React.ReactNode }) => (
         <div className="flex flex-col items-center text-center gap-3">
             <Logo />
+            <div className={"w-full text-right"}>
             <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mt-4">
                 {title}
             </h2>
+            </div>
             {subtitle && (
-                <div className="text-sm leading-7 text-[#fcb415]">{subtitle}</div>
+                <div className="text-sm leading-7 text-green-600 text-right">{subtitle}</div>
             )}
         </div>
     );
@@ -296,7 +298,7 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
                         <Header title="رمز عبور خود را وارد کنید" />
                         <div className="flex flex-col gap-1 text-sm">
                             <span
-                                className="text-[#fcb415] cursor-pointer"
+                                className="text-green-600 cursor-pointer"
                                 onClick={() => {
                                     setStep("FORGOT_MOBILE");
                                 }}
@@ -304,7 +306,7 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
                                 رمزعبور خود را فراموش کردید ؟
                             </span>
                             <span
-                                className="text-[#fcb415] cursor-pointer"
+                                className="text-green-600 cursor-pointer"
                                 onClick={() => actionOtpLogin.mutate()}
                             >
                                 ورود با رمز یکبار مصرف
