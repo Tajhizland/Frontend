@@ -204,6 +204,12 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
 
             },
             {
+                title: "افزودن ولاگ (آپلود مستقیم)",
+                url: "/vlog/live-create",
+                icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
                 title: "ولاگ های صفحه اصلی",
                 url: "/homepage_vlog",
                 icon: <FaFileVideo className="h-6 w-6 text-gray-500"/>,
