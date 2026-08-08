@@ -1,7 +1,7 @@
 "use client";
 
 import "@/components/listing-image-gallery/styles/index.css";
-import React, {Fragment, useMemo, useState} from "react";
+import React, {Fragment, useEffect, useMemo, useState} from "react";
 import Image from "next/image";
 import {Dialog, DialogPanel, Transition, TransitionChild} from "@headlessui/react";
 import {motion} from "framer-motion";
@@ -11,21 +11,47 @@ import {ArrowRightIcon} from "@heroicons/react/24/solid";
 import NcImage from "@/shared/NcImage/NcImage";
 import SharedModal from "@/components/listing-image-gallery/components/SharedModal";
 import {ProductImageResponse} from "@/services/types/productImage";
+import {useProductColorContext} from "@/components/Product/ProductColorContext";
 
 const BASE = `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/`;
 
-export default function ProductGallery({productImages}: { productImages: ProductImageResponse[] }) {
+export default function ProductGallery({productImages: allImages}: { productImages: ProductImageResponse[] }) {
     // نمایش لیست کامل تصاویر (اسکرول)
     const [isGalleryOpen, setIsGalleryOpen] = useState(false);
     // نمایش تک تصویر (لایت‌باکس) — index یا null، همه‌چیز با state محلی و بدون url
     const [photoIndex, setPhotoIndex] = useState<number | null>(null);
     const [direction, setDirection] = useState(0);
 
+    const selectedColorId = useProductColorContext()?.selectedColorId ?? null;
+
+    // تصاویری که در ادمین به رنگ انتخاب‌شده لینک شده‌اند به ابتدای گالری می‌آیند
+    // تا تصویر اصلی به‌صورت خودکار همان رنگ را نشان دهد. اگر تصویری برای آن رنگ
+    // لینک نشده باشد، ترتیب پیش‌فرض (sort ادمین) دست‌نخورده می‌ماند.
+    const productImages = useMemo(() => {
+        if (selectedColorId == null) {
+            return allImages;
+        }
+        const linked = allImages.filter((img) => img.product_color_id === selectedColorId);
+        if (!linked.length) {
+            return allImages;
+        }
+        return [...linked, ...allImages.filter((img) => img.product_color_id !== selectedColorId)];
+    }, [allImages, selectedColorId]);
+
     // برای SharedModal، id باید برابر ایندکس آرایه باشد تا کاملاً بر اساس ایندکس کار کند
     const galleryImages = useMemo(
         () => productImages.map((img, i) => ({...img, id: i})),
         [productImages]
     );
+
+    // با تغییر رنگ ترتیب تصاویر عوض می‌شود، پس لایت‌باکسِ باز را می‌بندیم
+    // تا ایندکس ذخیره‌شده به تصویر اشتباهی اشاره نکند.
+    useEffect(() => {
+        setPhotoIndex(null);
+    }, [selectedColorId]);
+
+    const isLinkedToSelectedColor = (image?: ProductImageResponse) =>
+        selectedColorId != null && image?.product_color_id === selectedColorId;
 
     const openGallery = () => setIsGalleryOpen(true);
     const closeGallery = () => setIsGalleryOpen(false);
@@ -53,7 +79,9 @@ export default function ProductGallery({productImages}: { productImages: Product
                 <div className="relative ">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-6">
                         <div
-                            className="md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer border"
+                            className={`md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer border ${
+                                isLinkedToSelectedColor(productImages[0]) ? "ring-2 ring-primary-6000 border-primary-6000" : ""
+                            }`}
                             onClick={openGallery}
                         >
                             <NcImage
@@ -70,7 +98,9 @@ export default function ProductGallery({productImages}: { productImages: Product
                         </div>
 
                         <div
-                            className="col-span-1 row-span-2 relative rounded-md sm:rounded-xl overflow-hidden z-0 cursor-pointer border"
+                            className={`col-span-1 row-span-2 relative rounded-md sm:rounded-xl overflow-hidden z-0 cursor-pointer border ${
+                                isLinkedToSelectedColor(productImages[1]) ? "ring-2 ring-primary-6000 border-primary-6000" : ""
+                            }`}
                             onClick={openGallery}
                         >
                             <NcImage
@@ -85,13 +115,13 @@ export default function ProductGallery({productImages}: { productImages: Product
                                 className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
                         </div>
 
-                        {[productImages[2]?.url ?? productImages[0]?.url, productImages[3]?.url ?? productImages[1]?.url ?? productImages[0]?.url].map(
+                        {[productImages[2] ?? productImages[0], productImages[3] ?? productImages[1] ?? productImages[0]].map(
                             (item, index) => (
                                 <div
                                     key={index}
                                     className={`relative rounded-md sm:rounded-xl overflow-hidden z-0 border cursor-pointer ${
                                         index >= 2 ? "block" : ""
-                                    }`}
+                                    } ${isLinkedToSelectedColor(item) ? "ring-2 ring-primary-6000 border-primary-6000" : ""}`}
                                     onClick={openGallery}
                                 >
                                     <NcImage
@@ -100,7 +130,7 @@ export default function ProductGallery({productImages}: { productImages: Product
                                         sizes="(max-width: 640px) 100vw, 33vw"
                                         containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"
                                         className="object-cover w-full h-full rounded-md sm:rounded-xl "
-                                        src={`${BASE}${item}`}
+                                        src={`${BASE}${item?.url}`}
                                     />
                                     <div
                                         className="absolute inset-0 bg-slate-900/20 opacity-0 hover:opacity-60 transition-opacity cursor-pointer"/>
@@ -139,7 +169,9 @@ export default function ProductGallery({productImages}: { productImages: Product
 
                     {productImages.length > 5 && <div className={"items-center justify-center hidden md:flex gap-1"}>
                         {productImages.slice(0, 5)?.map((item, index) => (
-                            <div onClick={openGallery} className={"w-24 "} key={index}>
+                            <div onClick={openGallery}
+                                 className={`w-24 rounded-md sm:rounded-xl ${isLinkedToSelectedColor(item) ? "ring-2 ring-primary-6000" : ""}`}
+                                 key={index}>
                                 <NcImage
                                     alt=""
                                     fill
@@ -160,7 +192,9 @@ export default function ProductGallery({productImages}: { productImages: Product
 
                     {productImages.length > 5 && <div className={"items-center justify-center  md:hidden flex"}>
                         {productImages.slice(0, 2)?.map((item, index) => (
-                            <div onClick={openGallery} className={"w-14"} key={index}>
+                            <div onClick={openGallery}
+                                 className={`w-14 rounded-md sm:rounded-xl ${isLinkedToSelectedColor(item) ? "ring-2 ring-primary-6000" : ""}`}
+                                 key={index}>
                                 <NcImage
                                     alt=""
                                     fill

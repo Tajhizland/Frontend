@@ -32,6 +32,7 @@ import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
 import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 import ProductCard from "@/components/Card/ProductCard";
 import AdminEditShortcut from "@/components/Product/AdminEditShortcut";
+import {ProductColorProvider} from "@/components/Product/ProductColorContext";
 
 
 interface ProductPageProps {
@@ -314,6 +315,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
             <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
+            <ProductColorProvider defaultColorId={product.colors.data[0]?.id ?? null}>
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
                 <AdminEditShortcut productId={product.id}/>
                 <div className="container mt-2 sm:mt-10">
@@ -359,6 +361,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
 
 
             </div>
+            </ProductColorProvider>
         </>
     );
 };

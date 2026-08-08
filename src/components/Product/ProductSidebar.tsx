@@ -27,11 +27,24 @@ import {Alert} from "@/shared/Alert/Alert";
 import HorizontalProductCard from "@/components/Card/HorizontalProductCard";
 import Image from "next/image";
 import {CampaignResponse} from "@/services/types/campaign";
+import {useProductColorContext} from "@/components/Product/ProductColorContext";
 
 export default function ProductSidebar({product, campaign}: { product: ProductResponse, campaign?: CampaignResponse }) {
     const colors = product.colors.data;
     const guaranty = product.guaranties.data;
-    const [selectedColor, setSelectedColor] = useState<ColorResponse>(colors[0])
+    // اگر Provider وجود داشته باشد رنگ انتخابی با گالری تصاویر مشترک می‌شود،
+    // در غیر این صورت به state محلی برمی‌گردیم.
+    const colorContext = useProductColorContext();
+    const [localColorId, setLocalColorId] = useState<number | null>(colors[0]?.id ?? null);
+    const selectedColorId = colorContext ? colorContext.selectedColorId : localColorId;
+    const selectedColor = colors.find((color) => color.id === selectedColorId) ?? colors[0];
+    const setSelectedColor = (color: ColorResponse) => {
+        if (colorContext) {
+            colorContext.setSelectedColorId(color.id);
+        } else {
+            setLocalColorId(color.id);
+        }
+    };
     const [selectedGuaranty, setSelectedGuaranty] = useState<GuarantyResponse>(guaranty[0] ?? null)
     const [selectedCount, setSelectedCount] = useState<number>(1)
     const [cart, setCart] = useGlobalState('cart');

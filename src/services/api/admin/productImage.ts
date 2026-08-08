@@ -27,6 +27,20 @@ export const sortImage = async <T extends ServerResponse<unknown>>
     return axios.post<T, SuccessResponseType<T>>("admin/product/image/sort",param)
         .then((res) => res?.data)
 };
+export const setImageColor = async <T extends ServerResponse<unknown>>
+(
+    param: {
+        product_id: number
+        image: {
+            id: number
+            product_color_id: number | null
+        }[]
+    }
+) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/product/image/set-color", param)
+        .then((res) => res?.data)
+};
+
 export const upload = async <T extends ServerResponse<unknown>>
     (
         params: {
