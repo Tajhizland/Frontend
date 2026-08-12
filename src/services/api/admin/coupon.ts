@@ -32,7 +32,9 @@ export const storeGroup = async <T extends ServerResponse<unknown>>
         percent: number;
         min_order_value: number;
         max_order_value: number;
-        userIds: number[]
+        userIds: number[];
+        send_sms?: boolean;
+        message?: string;
     }
 ) => {
 

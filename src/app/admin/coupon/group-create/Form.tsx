@@ -2,7 +2,9 @@
 import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import React, {useEffect, useMemo} from "react";
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import Textarea from "@/shared/Textarea/Textarea";
+import React, {useEffect, useMemo, useState} from "react";
 import {Controller, useForm} from "react-hook-form";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian_fa from "react-date-object/locales/persian_fa";
@@ -18,6 +20,7 @@ import {resetPasswordSendCode} from "@/services/api/auth/resetPassword";
 import {generate} from "@/services/api/admin/coupon";
 import Badge from "@/shared/Badge/Badge";
 import Spinner from "@/shared/Loading/Spinner";
+import toast from "react-hot-toast";
 
 interface Form {
     data?: CouponResponse;
@@ -49,12 +52,14 @@ export default function Form({data, submit, loading = false}: Form) {
             min_order_value: "",
             max_order_value: "",
             type: "",
+            message: "",
             userIds: [] as number[],
         },
 
     });
 
-
+    // مشخص می‌کند کدام دکمه فرم را ثبت کرده تا لودینگ روی همان دکمه نمایش داده شود
+    const [sendSms, setSendSms] = useState(false);
 
     const selectType = watch("type");
     const selectedUserIds = watch("userIds");
@@ -84,8 +89,24 @@ export default function Form({data, submit, loading = false}: Form) {
     };
 
 
+    // withSms=false : فقط ذخیره | withSms=true : ذخیره + ارسال پیامک کد به هر کاربر
+    const handleSave = (withSms: boolean) =>
+        handleSubmit((formData) => {
+            if (withSms) {
+                const count = formData.userIds?.length || 0;
+                if (count === 0) {
+                    toast.error("حداقل یک کاربر را انتخاب کنید");
+                    return;
+                }
+                if (!window.confirm(`برای ${count} کاربر کد تخفیف جداگانه ساخته و پیامک می‌شود. ادامه می‌دهید؟`))
+                    return;
+            }
+            setSendSms(withSms);
+            return submit({...formData, send_sms: withSms});
+        });
+
     return (<>
-        <form onSubmit={handleSubmit(submit)}>
+        <form onSubmit={handleSave(false)}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                 <div>
                     <Label>وضعیت </Label>
@@ -183,6 +204,19 @@ export default function Form({data, submit, loading = false}: Form) {
                     )}
                 </div>
 
+                <div className={"col-span-1 sm:col-span-2"}>
+                    <Label>متن پیامک (اختیاری)</Label>
+                    <Textarea
+                        rows={4}
+                        placeholder={"در صورت خالی بودن، متن پیش‌فرض ارسال می‌شود."}
+                        {...register("message")}
+                    />
+                    <p className="text-xs text-neutral-500 mt-1">
+                        متغیرهای قابل استفاده : {"{name}"} نام کاربر ، {"{code}"} کد تخفیف ، {"{amount}"} مقدار تخفیف ،
+                        {" "}{"{percent}"} درصد ، {"{price}"} مبلغ ، {"{end_time}"} تاریخ انقضا
+                    </p>
+                </div>
+
                 {isLoading && <Spinner/>}
 
                 {/* --- انتخاب کاربران --- */}
@@ -232,9 +266,17 @@ export default function Form({data, submit, loading = false}: Form) {
 
 
             <hr className={"my-5"}/>
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"} loading={loading}>
+            <div className={"flex flex-wrap justify-center gap-3 my-5"}>
+                <ButtonSecondary type={"submit"} loading={loading && !sendSms} disabled={loading}>
                     ذخیره
+                </ButtonSecondary>
+                <ButtonPrimary
+                    type={"button"}
+                    onClick={handleSave(true)}
+                    loading={loading && sendSms}
+                    disabled={loading}
+                >
+                    ذخیره و ارسال پیامک
                 </ButtonPrimary>
             </div>
         </form>
