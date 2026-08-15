@@ -660,12 +660,21 @@ const CheckoutPage = () => {
                                           label=" "
                                           desc=" "
                                           enabled={!useWallet}
+                                          disabled={gateway == 3}
                                           onChange={() => {
                                               setUseWallet(!useWallet)
                                           }}
                                       />
                                 </span>
                             </div>
+                            {
+                                gateway == 3 &&
+                                <div className="mt-3">
+                                    <Alert type={"warning"}>
+                                        در صورت انتخاب پرداخت با دیجی پی، امکان استفاده از موجودی کیف پول وجود ندارد
+                                    </Alert>
+                                </div>
+                            }
                             {
                                 useWallet ?
                                     <>

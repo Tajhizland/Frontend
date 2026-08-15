@@ -11,9 +11,12 @@ import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 type Props = {
     item: any;
     onDone: () => void;
+    // تعداد کل آیتم‌های سفارش؛ اگر فقط یک محصول باقی مانده باشد امکان حذف وجود ندارد
+    itemsCount?: number;
 };
 
-export default function ItemActions({item, onDone}: Props) {
+export default function ItemActions({item, onDone, itemsCount = 0}: Props) {
+    const isLastItem = itemsCount <= 1;
     const [openEdit, setOpenEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
     const [count, setCount] = useState<number>(item.count);
@@ -40,6 +43,10 @@ export default function ItemActions({item, onDone}: Props) {
     }
 
     async function handleDelete() {
+        if (isLastItem) {
+            toast.error("امکان حذف آخرین محصول سفارش وجود ندارد");
+            return;
+        }
         setLoading(true);
         try {
             const response = await deleteItem({id: item.id});
@@ -70,15 +77,17 @@ export default function ItemActions({item, onDone}: Props) {
                 <PencilSquareIcon className="w-5 h-5"/>
             </button>
 
-            {/* حذف آیتم */}
-            <button
-                type="button"
-                title="حذف آیتم"
-                onClick={() => setOpenDelete(true)}
-                className="p-2 rounded-lg text-rose-600 hover:bg-rose-50 transition-colors"
-            >
-                <TrashIcon className="w-5 h-5"/>
-            </button>
+            {/* حذف آیتم - آخرین محصول سفارش قابل حذف نیست */}
+            {!isLastItem && (
+                <button
+                    type="button"
+                    title="حذف آیتم"
+                    onClick={() => setOpenDelete(true)}
+                    className="p-2 rounded-lg text-rose-600 hover:bg-rose-50 transition-colors"
+                >
+                    <TrashIcon className="w-5 h-5"/>
+                </button>
+            )}
 
             {/* مودال ویرایش */}
             <NcModal

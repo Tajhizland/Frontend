@@ -8,6 +8,7 @@ export interface MySwitchProps {
   label?: string;
   desc?: string;
   className?: string;
+  disabled?: boolean;
   onChange?: (enabled: boolean) => void;
 }
 
@@ -16,6 +17,7 @@ const MySwitch: FC<MySwitchProps> = ({
   label = "Put on sale",
   desc = "You’ll receive bids on this item",
   className = "",
+  disabled = false,
   onChange,
 }) => {
   const [enabledState, setEnabledState] = useState(false);
@@ -36,14 +38,15 @@ const MySwitch: FC<MySwitchProps> = ({
       </div>
       <Switch
         checked={enabledState}
+        disabled={disabled}
         onChange={(e: boolean) => {
           setEnabledState(e);
           onChange && onChange(e);
         }}
         className={`${
           enabledState ? "bg-neutral-400 dark:bg-neutral-6000" : "bg-teal-700"
-        }
-          relative inline-flex flex-shrink-0 h-8 w-[68px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+        } ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+          relative inline-flex flex-shrink-0 h-8 w-[68px] border-2 border-transparent rounded-full transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
       >
         <span className="sr-only">{label}</span>
         <span

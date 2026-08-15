@@ -200,7 +200,11 @@ export default function Page() {
                                     <Prices price={item.final_price * item.count} />
                                 </td>
                                 <td className="border border-gray-300 px-3 py-2 text-center print:hidden">
-                                    <ItemActions item={item} onDone={refetch} />
+                                    <ItemActions
+                                        item={item}
+                                        onDone={refetch}
+                                        itemsCount={data?.orderItems?.data?.length ?? 0}
+                                    />
                                 </td>
                             </tr>
                         ))}

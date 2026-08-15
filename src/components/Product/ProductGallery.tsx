@@ -50,9 +50,6 @@ export default function ProductGallery({productImages: allImages}: { productImag
         setPhotoIndex(null);
     }, [selectedColorId]);
 
-    const isLinkedToSelectedColor = (image?: ProductImageResponse) =>
-        selectedColorId != null && image?.product_color_id === selectedColorId;
-
     const openGallery = () => setIsGalleryOpen(true);
     const closeGallery = () => setIsGalleryOpen(false);
 
@@ -79,9 +76,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
                 <div className="relative ">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-6">
                         <div
-                            className={`md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer border ${
-                                isLinkedToSelectedColor(productImages[0]) ? "ring-2 ring-primary-6000 border-primary-6000" : ""
-                            }`}
+                            className="md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer border"
                             onClick={openGallery}
                         >
                             <NcImage
@@ -98,9 +93,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
                         </div>
 
                         <div
-                            className={`col-span-1 row-span-2 relative rounded-md sm:rounded-xl overflow-hidden z-0 cursor-pointer border ${
-                                isLinkedToSelectedColor(productImages[1]) ? "ring-2 ring-primary-6000 border-primary-6000" : ""
-                            }`}
+                            className="col-span-1 row-span-2 relative rounded-md sm:rounded-xl overflow-hidden z-0 cursor-pointer border"
                             onClick={openGallery}
                         >
                             <NcImage
@@ -115,13 +108,13 @@ export default function ProductGallery({productImages: allImages}: { productImag
                                 className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
                         </div>
 
-                        {[productImages[2] ?? productImages[0], productImages[3] ?? productImages[1] ?? productImages[0]].map(
+                        {[productImages[2]?.url ?? productImages[0]?.url, productImages[3]?.url ?? productImages[1]?.url ?? productImages[0]?.url].map(
                             (item, index) => (
                                 <div
                                     key={index}
                                     className={`relative rounded-md sm:rounded-xl overflow-hidden z-0 border cursor-pointer ${
                                         index >= 2 ? "block" : ""
-                                    } ${isLinkedToSelectedColor(item) ? "ring-2 ring-primary-6000 border-primary-6000" : ""}`}
+                                    }`}
                                     onClick={openGallery}
                                 >
                                     <NcImage
@@ -130,7 +123,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
                                         sizes="(max-width: 640px) 100vw, 33vw"
                                         containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"
                                         className="object-cover w-full h-full rounded-md sm:rounded-xl "
-                                        src={`${BASE}${item?.url}`}
+                                        src={`${BASE}${item}`}
                                     />
                                     <div
                                         className="absolute inset-0 bg-slate-900/20 opacity-0 hover:opacity-60 transition-opacity cursor-pointer"/>
@@ -169,9 +162,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
 
                     {productImages.length > 5 && <div className={"items-center justify-center hidden md:flex gap-1"}>
                         {productImages.slice(0, 5)?.map((item, index) => (
-                            <div onClick={openGallery}
-                                 className={`w-24 rounded-md sm:rounded-xl ${isLinkedToSelectedColor(item) ? "ring-2 ring-primary-6000" : ""}`}
-                                 key={index}>
+                            <div onClick={openGallery} className={"w-24 "} key={index}>
                                 <NcImage
                                     alt=""
                                     fill
@@ -192,9 +183,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
 
                     {productImages.length > 5 && <div className={"items-center justify-center  md:hidden flex"}>
                         {productImages.slice(0, 2)?.map((item, index) => (
-                            <div onClick={openGallery}
-                                 className={`w-14 rounded-md sm:rounded-xl ${isLinkedToSelectedColor(item) ? "ring-2 ring-primary-6000" : ""}`}
-                                 key={index}>
+                            <div onClick={openGallery} className={"w-14"} key={index}>
                                 <NcImage
                                     alt=""
                                     fill
