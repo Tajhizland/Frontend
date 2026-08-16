@@ -676,6 +676,14 @@ const CheckoutPage = () => {
                                 </div>
                             }
                             {
+                            gateway == 4 &&
+                            <div className="mt-3">
+                                <Alert type={"warning"}>
+                                    در صورت انتخاب پرداخت با اسنپ پی، امکان استفاده از موجودی کیف پول وجود ندارد
+                                </Alert>
+                            </div>
+                        }
+                            {
                                 useWallet ?
                                     <>
                                         <div>
@@ -724,7 +732,7 @@ const CheckoutPage = () => {
                                           desc=" "
                                           enabled={gateway == 1 || gateway == 4}
                                           onChange={() => {
-                                              setGateway(gateway !=3 ? 3 : 1)
+                                              setGateway(gateway != 3 ? 3 : 1)
                                           }}
                                       />
                                 </span>
@@ -779,8 +787,10 @@ const CheckoutPage = () => {
                                 <ExclamationTriangleIcon
                                     className="mt-0.5 h-6 w-6 flex-shrink-0 text-amber-500"/>
                                 <p className="text-xs leading-6 text-amber-800 dark:text-amber-200 sm:text-sm">
-                                    برای سفارش‌های با مبلغ بیش از ۲۰۰ میلیون تومان، به دلیل محدودیت سقف درگاه بانکی، امکان
-                                    پرداخت مستقیم از طریق بانک وجود ندارد. لطفاً کیف پول خود را در هر نوبت تا سقف ۲۰۰ میلیون
+                                    برای سفارش‌های با مبلغ بیش از ۲۰۰ میلیون تومان، به دلیل محدودیت سقف درگاه بانکی،
+                                    امکان
+                                    پرداخت مستقیم از طریق بانک وجود ندارد. لطفاً کیف پول خود را در هر نوبت تا سقف ۲۰۰
+                                    میلیون
                                     تومان شارژ کنید و سپس پرداخت را با استفاده از موجودی کیف پول انجام دهید.
                                 </p>
                             </div>
