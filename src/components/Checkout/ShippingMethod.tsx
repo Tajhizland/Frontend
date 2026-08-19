@@ -18,7 +18,10 @@ interface Props {
     onOpenActive: () => void;
     setShippingMethod: (n: number) => void;
     setShippingPrice: (n: number) => void;
-
+    /** منبع روش‌های ارسال. پیش‌فرض: روش‌های سبد خرید */
+    fetcher?: () => Promise<DeliveryResponse[] | undefined>;
+    /** کلید کش react-query. وقتی fetcher سفارشی می‌دهی حتماً کلید جدا بده */
+    queryKey?: any[];
 }
 
 const ShippingMethod: FC<Props> = ({
@@ -28,13 +31,15 @@ const ShippingMethod: FC<Props> = ({
                                        shippingMethod,
                                        setShippingPrice,
                                        onOpenActive,
+                                       fetcher,
+                                       queryKey,
                                    }) => {
     const [mothodActive, setMethodActive] = useState<number>(shippingMethod);
     const [selectedId, setSelectedId] = useState(1);
     const [open, setOpen] = useState(false);
     const {data: data} = useQuery({
-        queryKey: ['get-shipping-methods'],
-        queryFn: () => getDelivery(),
+        queryKey: queryKey ?? ['get-shipping-methods'],
+        queryFn: () => (fetcher ?? getDelivery)(),
         staleTime: 5000,
     });
 

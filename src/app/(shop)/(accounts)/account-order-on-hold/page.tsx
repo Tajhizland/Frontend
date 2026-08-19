@@ -4,19 +4,16 @@ import AdminPagination from "@/shared/Pagination/AdminPagination";
 import Image from "next/image";
 import React, {useState} from "react";
 import {useQuery} from "react-query";
-import {myOnHoldOrder, payment} from "@/services/api/shop/onHoldOrder";
+import {myOnHoldOrder} from "@/services/api/shop/onHoldOrder";
 import {OnHoldOrderResponse} from "@/services/types/onHoldOrder";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Counter2 from "@/components/Counter/Counter2";
 import Badge from "@/shared/Badge/Badge";
 import Prices from "@/components/Price/Prices";
-import MySwitch from "@/shared/Switch/MySwitch";
-import {useUser} from "@/services/globalState/GlobalState";
+import Link from "next/link";
 
 const AccountOrder = () => {
     const [page, setPage] = useState(1);
-    const [useWallet, setUseWallet] = useState(false);
-    const [user] = useUser();
 
     const OnHoldOrderStatus = ["در انتظار تایید", "تایید شده", "رد شده"];
     const {data: data} = useQuery({
@@ -27,11 +24,6 @@ const AccountOrder = () => {
 
     function changePageHandle(page: number) {
         setPage(page);
-    }
-
-    async function paymentHandle(id: number) {
-        let response = await payment(id);
-        window.location.href = response.path;
     }
 
     const calculateDifference = (targetDateTime: number) => {
@@ -103,33 +95,17 @@ const AccountOrder = () => {
                     </div>
 
                     {
-                        (item.status == 1 && item.expire_date_time*1000>Date.now() )? <div className={"flex flex-col gap-y-2"}>
-                            <div
-                                className="flex flex-col items-center font-semibold text-slate-900 dark:text-slate-200 text-xs  ">
-                                <div className={"flex items-center gap-1 text-xs"}>
-                                    استفاده از موجودی کیف پول
-                                </div>
-                                <span>
-                                    {(user?.wallet ?? 0).toLocaleString()} تومان
+                        (item.status == 1 && item.expire_date_time * 1000 > Date.now()) ?
+                            <div className={"flex flex-col gap-y-2"}>
+                                {/* ادامه‌ی خرید در صفحه‌ی چک‌اوت اختصاصی سفارش معلق:
+                                    انتخاب آدرس، روش ارسال، کد تخفیف، کیف پول و درگاه */}
+                                <Link href={`/checkout/on-hold/${item.id}`}>
+                                    <ButtonPrimary className={"w-full"}>تکمیل و پرداخت سفارش</ButtonPrimary>
+                                </Link>
+                                <span className={"rounded-full bg-red-500 text-white p-2 text-xs text-center"}>
+                                    <Counter2 initialSeconds={calculateDifference(item.expire_date_time)}/>
                                 </span>
-                                <span>
-                                      <MySwitch
-                                          label=" "
-                                          desc=" "
-                                          enabled={!useWallet}
-                                          onChange={() => {
-                                              setUseWallet(!useWallet)
-                                          }}
-                                      />
-                                </span>
-                            </div>
-                            <ButtonPrimary onClick={() => {
-                                paymentHandle(item.id)
-                            }}>پرداخت</ButtonPrimary>
-                            <span className={"rounded-full bg-red-500 text-white p-2 text-xs text-center"}>
-                    <Counter2 initialSeconds={calculateDifference(item.expire_date_time)}/>
-                        </span>
-                        </div> : ""
+                            </div> : ""
                     }
 
                 </div>
