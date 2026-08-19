@@ -11,6 +11,8 @@ export type RowHelpers = {
     edit: () => void;
     /** رفرش داده‌های جدول (مثلاً بعد از یک اکشن یا حذف) */
     refresh: () => void;
+    /** علامت‌گذاری همین ردیف به‌عنوان «ردیفی که رویش کار شد» — هایلایت می‌شود و می‌ماند */
+    mark: () => void;
 };
 
 export type TableColumn<T> = {
@@ -100,6 +102,8 @@ export type TableProps<T extends { id: number | string }> = {
     deleteMessage?: string;
     /** متن نمایش‌داده‌شده وقتی داده‌ای وجود ندارد */
     emptyText?: string;
+    /** هایلایت ماندگار روی آخرین ردیفی که رویش اکشن زده‌ای. پیش‌فرض: true */
+    highlightRow?: boolean;
 };
 
 /** helper برای تعریف ستون‌ها با type-inference بدون نوشتن صریح <T> */

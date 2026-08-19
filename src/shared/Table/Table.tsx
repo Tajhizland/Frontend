@@ -46,6 +46,7 @@ function Table<T extends { id: number | string }>({
     reloadOnEdit = true,
     deleteMessage = "آیا از حذف این آیتم اطمینان دارید ؟",
     emptyText = "موردی یافت نشد",
+    highlightRow = true,
 }: TableProps<T>) {
     const pathname = usePathname();
     const tableStorageKey = `visibleColumns-${pathname}`;
@@ -70,9 +71,19 @@ function Table<T extends { id: number | string }>({
     const [rowIndexId, setRowIndexId] = useState<number>(0);
     const [visibleColumns, setVisibleColumns] = useState<string[]>([]);
     const [showColumnPicker, setShowColumnPicker] = useState<boolean>(false);
+    // ردیفی که آخرین بار رویش کار شده — هایلایتش بعد از بستن مودال هم می‌ماند
+    const [activeRowId, setActiveRowId] = useState<T["id"] | null>(null);
+    // همان ردیف وقتی در حال فلش‌زدن است (هایلایت لحظه‌ای)
+    const [flashRowId, setFlashRowId] = useState<T["id"] | null>(null);
 
     // شناسه‌ی آخرین درخواست برای نادیده‌گرفتن پاسخ‌های قدیمی (race condition)
     const requestId = useRef(0);
+    // نسخه‌ی ref‌ی activeRowId تا داخل observer در دسترس باشد
+    const activeRowIdRef = useRef<T["id"] | null>(null);
+    const flashTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    // زمان آخرین کلیک روی یک ردیف، برای تشخیص مودالی که از همان کلیک باز شده
+    const markedAt = useRef<number>(0);
+    const armedForFlash = useRef<boolean>(false);
 
     // مقداردهی اولیه‌ی ستون‌های قابل‌نمایش از localStorage (فقط سمت کلاینت)
     useEffect(() => {
@@ -161,10 +172,55 @@ function Table<T extends { id: number | string }>({
         );
     };
 
+    // فلش کوتاه روی ردیف؛ کلاس یک فریم برداشته می‌شود تا انیمیشن دوباره از اول اجرا شود
+    const flashRow = (id: T["id"]) => {
+        if (flashTimer.current) clearTimeout(flashTimer.current);
+        setFlashRowId(null);
+        requestAnimationFrame(() => {
+            setFlashRowId(id);
+            flashTimer.current = setTimeout(() => setFlashRowId(null), 1200);
+        });
+    };
+
+    // ثبت اینکه کاربر روی این ردیف کاری انجام داده
+    const markRow = (id: T["id"]) => {
+        if (!highlightRow) return;
+        activeRowIdRef.current = id;
+        markedAt.current = performance.now();
+        setActiveRowId(id);
+        flashRow(id);
+    };
+
+    // مودال‌ها را صفحه‌ها باز می‌کنند، پس بازوبسته‌شدنشان را از روی DOM دنبال می‌کنیم:
+    // اگر مودالی درست بعد از کلیک روی یک ردیف باز شود، با بسته‌شدنش همان ردیف فلش می‌زند
+    useEffect(() => {
+        if (!highlightRow || typeof document === "undefined") return;
+        const isDialogOpen = () => !!document.querySelector("[data-headlessui-portal], [role='dialog']");
+        let wasOpen = isDialogOpen();
+        const observer = new MutationObserver(() => {
+            const open = isDialogOpen();
+            if (open === wasOpen) return;
+            wasOpen = open;
+            if (open) {
+                armedForFlash.current = performance.now() - markedAt.current < 1500;
+            } else if (armedForFlash.current && activeRowIdRef.current != null) {
+                armedForFlash.current = false;
+                flashRow(activeRowIdRef.current);
+            }
+        });
+        observer.observe(document.body, { childList: true });
+        return () => observer.disconnect();
+    }, [highlightRow]);
+
+    useEffect(() => () => {
+        if (flashTimer.current) clearTimeout(flashTimer.current);
+    }, []);
+
     // ابزارهای در دسترس داخل render و actionها برای هر ردیف
-    const helpersFor = (rowIndex: number): RowHelpers => ({
+    const helpersFor = (row: T, rowIndex: number): RowHelpers => ({
         edit: () => setEditingRow(rowIndex),
         refresh: () => fetchData(meta.current_page),
+        mark: () => markRow(row.id),
     });
 
     const shownColumns = columns.filter((col) => visibleColumns.includes(col.key as string));
@@ -194,7 +250,10 @@ function Table<T extends { id: number | string }>({
                 type="button"
                 className={className}
                 title={action.title}
-                onClick={() => action.onClick?.(row, helpers)}
+                onClick={() => {
+                    markRow(row.id);
+                    action.onClick?.(row, helpers);
+                }}
             >
                 {label}
             </button>
@@ -369,9 +428,16 @@ function Table<T extends { id: number | string }>({
                             </tr>
                         ) : (
                             editedData.map((row, rowIndex) => {
-                                const helpers = helpersFor(rowIndex);
+                                const helpers = helpersFor(row, rowIndex);
+                                const marked = activeRowId != null && row.id === activeRowId;
+                                const flashing = flashRowId != null && row.id === flashRowId;
                                 return (
-                                    <tr key={rowIndex} className="hover:bg-slate-50 transition-colors">
+                                    <tr
+                                        key={rowIndex}
+                                        className={`transition-colors ${
+                                            marked ? "bg-sky-50 hover:bg-sky-100" : "hover:bg-slate-50"
+                                        } ${flashing ? "animate-row-flash" : ""}`}
+                                    >
                                         {renderRow
                                             ? renderRow(row, helpers)
                                             : shownColumns.map((col) => {
@@ -460,7 +526,10 @@ function Table<T extends { id: number | string }>({
                                                                 type="button"
                                                                 className={`${ACTION_BASE} ${ACTION_COLORS.warning}`}
                                                                 title="ویرایش سریع"
-                                                                onClick={() => setEditingRow(rowIndex)}
+                                                                onClick={() => {
+                                                                    markRow(row.id);
+                                                                    setEditingRow(rowIndex);
+                                                                }}
                                                             >
                                                                 <LuPencil className={"w-4 h-4"} />
                                                             </button>
@@ -471,6 +540,7 @@ function Table<T extends { id: number | string }>({
                                                                 className={`${ACTION_BASE} ${ACTION_COLORS.danger}`}
                                                                 title="حذف"
                                                                 onClick={() => {
+                                                                    markRow(row.id);
                                                                     setConfirmDeleteModal(true);
                                                                     setRowIndexId(rowIndex);
                                                                 }}

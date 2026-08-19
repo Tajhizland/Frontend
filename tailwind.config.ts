@@ -33,6 +33,16 @@ export default {
                     "2xl": "128px",
                 },
             },
+            keyframes: {
+                // فلش کوتاه روی ردیف جدول بعد از کار کردن روی آن
+                "row-flash": {
+                    "0%": {backgroundColor: "#e0f2fe"},
+                    "100%": {backgroundColor: "#f0f9ff"},
+                },
+            },
+            animation: {
+                "row-flash": "row-flash 1.2s ease-out",
+            },
             colors: {
                 primary: {
                     50: customColors("--c-primary-50"),
