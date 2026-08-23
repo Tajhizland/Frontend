@@ -9,4 +9,5 @@ export type SearchResponse = {
 export type HeaderSearchResponse = {
     vlogs: { data: VlogResponse[] };
     products: { data: ProductResponse[] };
+    categories: { data: CategoryResponse[] };
 };

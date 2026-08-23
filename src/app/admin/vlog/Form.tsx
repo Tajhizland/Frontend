@@ -87,14 +87,25 @@ export default function Form({data, onSubmit, loading, resetOnSuccess}: Props) {
                 </div>
                 <div>
                     <Label>دسته ولاگ</Label>
-                    <Select {...register("categoryId")}>
-                        {categoryList &&
-                            categoryList.map((item, index) => (
-                                <option key={index} value={item.id}>
-                                    {item.name}
-                                </option>
-                            ))}
-                    </Select>
+                    <Controller
+                        name="categoryId"
+                        control={control}
+                        rules={{required: "انتخاب دسته الزامی است"}}
+                        render={({field}) => (
+                            <Select {...field} value={field.value ?? ""}>
+                                <option value="">انتخاب کنید</option>
+                                {categoryList &&
+                                    categoryList.map((item) => (
+                                        <option key={item.id} value={item.id}>
+                                            {item.name}
+                                        </option>
+                                    ))}
+                            </Select>
+                        )}
+                    />
+                    {errors.categoryId && (
+                        <p className="text-rose-500 text-xs mt-1">{errors.categoryId.message}</p>
+                    )}
                 </div>
             </div>
 
