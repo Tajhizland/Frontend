@@ -30,8 +30,8 @@ const GroupCard: FC<GroupCardProps> = ({
 
     const renderMinPrice = () => {
         const allPrices =
-            item?.groupItems?.data
-                ?.flatMap(groupItem => groupItem.product?.colors.data || [])
+            item?.groupItems
+                ?.flatMap(groupItem => groupItem.product?.colors || [])
                 ?.map(color => color.price)
                 ?.filter(price => typeof price === 'number');
 
@@ -40,8 +40,8 @@ const GroupCard: FC<GroupCardProps> = ({
     };
     const renderMaxPrice = () => {
         const allPrices =
-            item?.groupItems?.data
-                ?.flatMap(groupItem => groupItem.product?.colors.data || [])
+            item?.groupItems
+                ?.flatMap(groupItem => groupItem.product?.colors || [])
                 ?.map(color => color.price)
                 ?.filter(price => typeof price === 'number');
 

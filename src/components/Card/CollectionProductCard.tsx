@@ -33,7 +33,7 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
 
     const checkStock = (product: ProductResponse) => {
         let hasStock = false;
-        product.colors.data.map((item) => {
+        product.colors.map((item) => {
             if (item.stock > 0 && item.status == 1) {
                 hasStock = true;
                 return hasStock;
@@ -43,13 +43,13 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
     }
 
     const renderMinPrice = (product: ProductResponse) => {
-        let minPrice = product?.colors?.data[0]?.price;
-        let minDiscountedPrice = product.colors.data[0].price;
-        product.colors.data.map((item) => {
+        let minPrice = product?.colors[0]?.price;
+        let minDiscountedPrice = product.colors[0].price;
+        product.colors.map((item) => {
             if (item.price <= minPrice && item.status == 1 && item.price > 0) {
                 minPrice = item.price;
-                if (item?.discountItem?.data?.[0])
-                    minDiscountedPrice = item?.discountItem?.data?.[0]?.discount_price;
+                if (item?.discountItem?.[0])
+                    minDiscountedPrice = item?.discountItem?.[0]?.discount_price;
                 else
                     minDiscountedPrice = item?.price;
             }

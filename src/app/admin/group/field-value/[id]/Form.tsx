@@ -41,7 +41,7 @@ export default function Form({field, value}: Form) {
             <label className={"text-sm"}>
                 {field.title}
             </label>
-            <Input name={"value"} type={"text"} defaultValue={findFieldValue(field.id, value.value?.data)}/>
+            <Input name={"value"} type={"text"} defaultValue={findFieldValue(field.id, value.value)}/>
             <ButtonPrimary type={"submit"}>
                 ذخیره
             </ButtonPrimary>

@@ -15,8 +15,8 @@ export default async function page() {
             <div className={"text-lg text-center mx-auto"}>
                 نکته ها و طرفند ها
             </div>
-            <SectionLeadingVideo video={response.vlog.data}/>
+            <SectionLeadingVideo video={response.vlog}/>
         </div>
-        <SectionHomepageBlog data={response.blog.data}/>
+        <SectionHomepageBlog data={response.blog}/>
     </div>)
 }

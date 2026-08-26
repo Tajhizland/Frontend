@@ -34,7 +34,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
         return;
     const renderMixDiscount = (product: ProductResponse) => {
         let maxDiscount = 0;
-        product.colors.data.map((item) => {
+        product.colors.map((item) => {
             if (item.discount > maxDiscount) {
                 maxDiscount = item.discount;
             }
@@ -44,7 +44,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
 
     const renderStatus = () => {
         let status = "";
-        product.colors.data.map((item) => {
+        product.colors.map((item) => {
             if (item.statusLabel != "") {
                 status = item.statusLabel;
             }
@@ -84,7 +84,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
         return null;
     };
     const renderOption = () => {
-        const options = product.productOptions.data
+        const options = product.productOptions
             .map((item) => (item.value && item.value != "" && item.value != " ") ? `<tr class=""><td class="py-4 text-neutral-600 dark:text-white ">${item.option_title}</td><td class="text-right text-black border-b dark:text-white "> ${item.value}</td></tr>` : "")
             .join("");
 
@@ -159,7 +159,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
                 {/*              unboxing_video={product.unboxing}*/}
                 {/*             usage_video={product.usage} />*/}
 
-                <SectionProductVideo videos={product.videos.data}/>
+                <SectionProductVideo videos={product.videos}/>
 
                 <div className="lg:hidden  ">
                     <Policy/>
@@ -186,7 +186,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
         <>
 
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
-                {product.images.data.length > 0 && <ProductImage productImages={product.images.data}/>}
+                {product.images.length > 0 && <ProductImage productImages={product.images}/>}
                 {/* MAIn */}
                 <main className="container relative z-10 mt-9 sm:mt-11 flex ">
                     {/* CONTENT */}
@@ -210,7 +210,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
                     <hr className="border-slate-200 dark:border-slate-700"/>
                     {/*
         {renderReviews()} */}
-                    <ProductComment comments={product.comments.data} productId={product.id}/>
+                    <ProductComment comments={product.comments} productId={product.id}/>
                     <SectionLinkedProductSlider
                         heading="محصولات مرتبط"
                         subHeading=""

@@ -32,7 +32,7 @@ export default function Form({data, submit}: FormProps) {
             setValue("name", data.name);
             setValue(
                 "permissions",
-                data.permissions?.data?.map((p: any) => p.id) || []
+                data.permissions?.map((p: any) => p.id) || []
             );
         }
     }, [data, setValue]);

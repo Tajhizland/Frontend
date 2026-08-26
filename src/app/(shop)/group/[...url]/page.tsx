@@ -48,13 +48,13 @@ export async function generateMetadata(props: ProductPageProps): Promise<Metadat
         twitter: {
             title: product.meta_title ?? product.name,
             description: product.meta_description ?? stripHTML(product.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
 
         },
         openGraph: {
             title: product.meta_title ?? product.name,
             description: product.meta_description ?? stripHTML(product.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
             url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/product/${product.url}`,
             type: "website",
         },
@@ -65,7 +65,7 @@ export async function generateMetadata(props: ProductPageProps): Promise<Metadat
             product_price: product?.min_price,
             product_old_price: product?.min_price,
             availability: product.status == 1 ? "instock" : "outofstock",
-            guarantee: product?.guaranties.data[0] ? product?.guaranties.data[0]?.name ?? "" : ""
+            guarantee: product?.guaranties[0] ? product?.guaranties[0]?.name ?? "" : ""
         }
 
     }
@@ -81,7 +81,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": product.name,
-        "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
+        "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
         "description": product.description,
         "sku": product.id,
         "offers": {
@@ -104,7 +104,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
             <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
-            <SectionGroupInfo groupItems={product.groupItems.data} relatedProduct={relatedProduct} />
+            <SectionGroupInfo groupItems={product.groupItems} relatedProduct={relatedProduct} />
         </>
     );
 };

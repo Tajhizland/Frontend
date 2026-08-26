@@ -78,7 +78,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
     const allOptions = Array.from(
         new Set(
             compareList.flatMap((product) =>
-                product.productOptions.data.map((opt) => ({
+                product.productOptions.map((opt) => ({
                     option_item_id: opt.option_item_id,
                     option_title: opt.option_title,
                 }))
@@ -110,7 +110,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                             >
                                 <div className="w-[100px] h-[100px]">
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.data?.[0]?.url}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.[0]?.url}`}
                                         alt="image"
                                         width={100}
                                         height={100}
@@ -133,7 +133,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                             >
                                 <div className="w-[100px] h-[100px]">
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.data?.[0]?.url}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.[0]?.url}`}
                                         alt="image"
                                         width={100}
                                         height={100}
@@ -184,7 +184,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                                      className="flex flex-col relative border rounded-xl justify-center items-center">
                                     <div className="w-fit h-full relative">
                                         <Image
-                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images[0].url}`}
                                             alt="image"
                                             width={250}
                                             height={250}
@@ -216,7 +216,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                         {allOptions.map((option, index) => {
 
                                 const hasAnyValue = displayedCompareProducts.some(product =>
-                                    product.productOptions.data.find(
+                                    product.productOptions.find(
                                         (opt) =>
                                             opt.option_item_id === option.option_item_id &&
                                             opt.value?.trim()
@@ -241,11 +241,11 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                                                 <div key={i} className="flex flex-col divide-y relative">
                                                     <div key={index}
                                                          className="py-5 line-clamp-1 whitespace-nowrap text-center">
-                                                        {!product.productOptions.data.find(
+                                                        {!product.productOptions.find(
                                                             (opt) => opt.option_item_id === allOptions[index].option_item_id
                                                         )?.value?.trim() ? "---" :
                                                             //@ts-ignore
-                                                            product?.productOptions?.data?.find(
+                                                            product?.productOptions?.find(
                                                                 (opt) => opt?.option_item_id === allOptions[index]?.option_item_id
                                                             ).value}
                                                     </div>

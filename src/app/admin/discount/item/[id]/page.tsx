@@ -55,11 +55,11 @@ export default function Page() {
             const initialDatesFa: Record<number, string> = {};
             const initialTop: Record<number, number> = {};
             res.forEach((product) => {
-                product.colors.data.forEach((color) => {
-                    initialDiscounts[color.id] = color?.discountItem?.data?.[0]?.discount_price ?? 0;
-                    initialDates[color.id] = color?.discountItem?.data?.[0]?.discount_expire_time ?? "";
-                    initialDatesFa[color.id] = color?.discountItem?.data?.[0]?.discount_expire_time_fa ?? "";
-                    initialTop[color.id] = color?.discountItem?.data?.[0]?.top ?? 0;
+                product.colors.forEach((color) => {
+                    initialDiscounts[color.id] = color?.discountItem?.[0]?.discount_price ?? 0;
+                    initialDates[color.id] = color?.discountItem?.[0]?.discount_expire_time ?? "";
+                    initialDatesFa[color.id] = color?.discountItem?.[0]?.discount_expire_time_fa ?? "";
+                    initialTop[color.id] = color?.discountItem?.[0]?.top ?? 0;
                 });
             });
 
@@ -81,7 +81,7 @@ export default function Page() {
             }[] = [];
 
             response.forEach((product) => {
-                product.colors.data.forEach((color) => {
+                product.colors.forEach((color) => {
                     discount.push({
                         product_color_id: color.id,
                         discount_price: discountValues[color.id],
@@ -194,7 +194,7 @@ export default function Page() {
                             <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl">
                                 <Image
                                     fill
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.data?.[0]?.url}`}
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.[0]?.url}`}
                                     alt={item.name}
                                     sizes="300px"
                                     className="h-full w-full object-contain object-center"
@@ -203,7 +203,7 @@ export default function Page() {
 
                             <div className={"py-5 flex flex-col gap-2"}>
                                 <div className="font-medium">{item.name}</div>
-                                {item.colors.data.map((color) => (
+                                {item.colors.map((color) => (
                                     <div
                                         className={"flex items-center gap-4 w-full flex-col sm:flex-row"}
                                         key={color.id}

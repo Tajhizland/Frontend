@@ -76,10 +76,10 @@ const SectionSpecialSlider: FC<SectionSpecialSliderProps> = ({
                                     name={product.product && product.product.name || ""}
                                     product={product.product}
                                     price={product.product && product.product.min_price || 0}
-                                     imgs={product.product && product.product.images.data || undefined}
+                                     imgs={product.product && product.product.images || undefined}
                                     description={product.product && product.product.description || ""}
                                     url={product.product && product.product.url || ""}
-                                    review={product.product?.comments.data.length}
+                                    review={product.product?.comments.length}
                                     rating={product.product?.rating ?? 0}
                                 />
                             </li>

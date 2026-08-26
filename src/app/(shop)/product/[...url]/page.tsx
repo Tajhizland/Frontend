@@ -59,13 +59,13 @@ export async function generateMetadata(props: ProductPageProps): Promise<Metadat
         twitter: {
             title: product.meta_title ?? product.name,
             description: product.meta_description ?? stripHTML(product.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
 
         },
         openGraph: {
             title: product.meta_title ?? product.name,
             description: product.meta_description ?? stripHTML(product.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
+            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
             url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/product/${product.url}`,
             type: "website",
         },
@@ -83,14 +83,14 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": product.name,
-        "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images?.data[0]?.url}`,
+        "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
         "description": product.description,
         "sku": product.id,
         "offers": {
             "@type": "Offer",
             "url": product.url,
             "priceCurrency": "IRR",
-            "price": product.colors.data?.[0]?.price ?? 0,
+            "price": product.colors?.[0]?.price ?? 0,
             "itemCondition": "https://schema.org/NewCondition",
             "availability": "https://schema.org/InStock"
         },
@@ -102,7 +102,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
 
     const renderMixDiscount = (product: ProductResponse) => {
         let maxDiscount = 0;
-        product.colors.data.map((item) => {
+        product.colors.map((item) => {
             if (item.discount > maxDiscount) {
                 maxDiscount = item.discount;
             }
@@ -112,7 +112,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
 
     const renderStatus = () => {
         let status = "";
-        product.colors.data.map((item) => {
+        product.colors.map((item) => {
             if (item.statusLabel != "") {
                 status = item.statusLabel;
             }
@@ -153,7 +153,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
     };
     const renderOption = () => {
         const optionSource = productResponse.product?.stockOf
-            ? productResponse.product.stockOf.productOptions.data
+            ? productResponse.product.stockOf.productOptions
             : productResponse.options.data;
 
         const options = optionSource
@@ -262,7 +262,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                 {/*              unboxing_video={product.unboxing}*/}
                 {/*             usage_video={product.usage} />*/}
 
-                <SectionProductVideo videos={product.videos.data}/>
+                <SectionProductVideo videos={product.videos}/>
 
                 <div className="lg:hidden  ">
                     <Policy/>
@@ -315,14 +315,14 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
             <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
-            <ProductColorProvider defaultColorId={product.colors.data[0]?.id ?? null}>
+            <ProductColorProvider defaultColorId={product.colors[0]?.id ?? null}>
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
                 <AdminEditShortcut productId={product.id}/>
                 <div className="container mt-2 sm:mt-10">
                     <ShopBreadcrump breadcrumb={renderBreadcrump()} lastHasLink={true}/>
                 </div>
 
-                {product.images.data.length > 0 && <ProductGallery productImages={product.images.data}/>}
+                {product.images.length > 0 && <ProductGallery productImages={product.images}/>}
                 {/* MAIn */}
                 <main className="container relative z-10 mt-9 sm:mt-11 flex ">
                     {/* CONTENT */}
@@ -345,7 +345,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     <hr className="border-slate-200 dark:border-slate-700"/>
                     {/*
         {renderReviews()} */}
-                    <ProductComment comments={product.comments.data} productId={product.id}/>
+                    <ProductComment comments={product.comments} productId={product.id}/>
 
                     <hr className="border-slate-200 dark:border-slate-700"/>
                     <SectionLinkedProductSlider

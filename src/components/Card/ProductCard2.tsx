@@ -47,13 +47,13 @@ const ProductCard2: FC<ProductCardProps> = ({
     const renderStatus = () => {
         let status = "";
 
-        let minPrice = data?.colors?.data[0]?.price ?? 1;
-        let minDiscountedPrice = data?.colors?.data[0]?.price ?? 1;
-        data?.colors.data.map((item) => {
+        let minPrice = data?.colors[0]?.price ?? 1;
+        let minDiscountedPrice = data?.colors[0]?.price ?? 1;
+        data?.colors.map((item) => {
             if (item.price <= minPrice && item.status == 1 && item.price > 0) {
                 minPrice = item.price;
-                if (item?.discountItem?.data?.[0])
-                    minDiscountedPrice = item?.discountItem?.data?.[0]?.discount_price;
+                if (item?.discountItem?.[0])
+                    minDiscountedPrice = item?.discountItem?.[0]?.discount_price;
                 else
                     minDiscountedPrice = item?.price;
             }
@@ -119,7 +119,7 @@ const ProductCard2: FC<ProductCardProps> = ({
 
         return (
             <div className="flex gap-1 md:gap-1.5">
-                {data && data.colors && data?.colors.data.map((color, index) => (
+                {data && data.colors && data?.colors.map((color, index) => (
                     <div
                         key={index}
                         onClick={() => setVariantActive(index)}
@@ -136,7 +136,7 @@ const ProductCard2: FC<ProductCardProps> = ({
     };
     const checkStock = (product: ProductResponse) => {
         let hasStock = false;
-        product.colors.data.map((item) => {
+        product.colors.map((item) => {
             if (item.stock > 0 && (item.status == 1 || item.status == 2)) {
                 hasStock = true;
                 return hasStock;
@@ -145,13 +145,13 @@ const ProductCard2: FC<ProductCardProps> = ({
         return hasStock;
     }
     const renderMinPrice = (product: ProductResponse) => {
-        let minPrice = product?.colors?.data[0]?.price;
-        let minDiscountedPrice = product.colors.data[0].price;
-        product.colors.data.map((item) => {
+        let minPrice = product?.colors[0]?.price;
+        let minDiscountedPrice = product.colors[0].price;
+        product.colors.map((item) => {
             if (item.price <= minPrice && item.status == 1 && item.price > 0) {
                 minPrice = item.price;
-                if (item?.discountItem?.data?.[0])
-                    minDiscountedPrice = item?.discountItem?.data?.[0]?.discount_price;
+                if (item?.discountItem?.[0])
+                    minDiscountedPrice = item?.discountItem?.[0]?.discount_price;
                 else
                     minDiscountedPrice = item?.price;
             }
@@ -179,13 +179,13 @@ const ProductCard2: FC<ProductCardProps> = ({
         let timer = null;
         const now = new Date();
 
-        data?.colors.data.forEach((item) => {
+        data?.colors.forEach((item) => {
             if (
-                item.discountItem?.data?.[0]
+                item.discountItem?.[0]
             ) {
-                const expireDate = new Date(item.discountItem?.data?.[0]?.discount_expire_time);
+                const expireDate = new Date(item.discountItem?.[0]?.discount_expire_time);
                 if (expireDate > now) {
-                    timer = item.discountItem?.data?.[0]?.discount_expire_time;
+                    timer = item.discountItem?.[0]?.discount_expire_time;
                 }
             }
         });
@@ -207,7 +207,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                     <Link href={"/product/" + data?.url as Route} className="block " aria-label={"product"}>
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 "
-                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0]?.url}`}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images[0]?.url}`}
 
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill

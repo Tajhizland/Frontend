@@ -33,9 +33,9 @@ const NavMobile: React.FC<NavMobileProps> = ({
         return (
             <>
                 <div className={"grid grid-cols-3 gap-2"}>
-                    {item.children?.data?.map((item, index) => (
+                    {item.children?.map((item, index) => (
                         <Fragment key={index}>
-                            {item.children?.data?.map((i, index) => (
+                            {item.children?.map((i, index) => (
 
                                 <Disclosure key={index} as="li">
                                     <Link
@@ -162,7 +162,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 
                 </div>
                 {/*</Link>*/}
-                {item.children?.data && (
+                {item.children && (
                     <Disclosure.Panel>{_renderMenuChild(item)}</Disclosure.Panel>
                 )}
             </Disclosure>

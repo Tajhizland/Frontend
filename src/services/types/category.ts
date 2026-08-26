@@ -16,8 +16,8 @@ export type CategoryResponse = {
     minPrice: number;
     maxPrice: number;
     display_name?: string;
-    filters: { data: FilterResponse[] };
-    products?: { data: ProductResponse[] };
+    filters: FilterResponse[];
+    products?: ProductResponse[];
 };
 
 export type breadcrumbResponse = {

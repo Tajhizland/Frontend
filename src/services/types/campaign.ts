@@ -16,5 +16,5 @@ export type CampaignResponse = {
     created_at: string;
     updated_at: string;
 
-    sliders: { data: CampaignSliderResponse[]; }
+    sliders: CampaignSliderResponse[];
 }

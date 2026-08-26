@@ -106,7 +106,7 @@ export default function Page() {
                                 <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl">
                                     <Image
                                         fill
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.productColor?.product?.images?.data?.[0]?.url}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.productColor?.product?.images?.[0]?.url}`}
                                         alt={item.productColor?.product?.name ?? ""}
                                         sizes="300px"
                                         className="h-full w-full object-contain object-center"

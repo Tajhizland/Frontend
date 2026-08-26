@@ -46,7 +46,7 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
     // محاسبه‌ی قیمت تخفیف‌خورده مطابق منطق صفحه‌ی محصول:
     // منبع اصلی تخفیف، discountItem رنگ است (نه فیلد discountedPrice).
     const basePrice = color?.price || product.min_price;
-    const discountItemPrice = color?.discountItem?.data?.[0]?.discount_price;
+    const discountItemPrice = color?.discountItem?.[0]?.discount_price;
     let discountedPrice = basePrice;
     if (discountItemPrice && discountItemPrice > 0 && discountItemPrice < basePrice) {
         discountedPrice = discountItemPrice;
@@ -62,7 +62,7 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
             name: product.name,
             digipay_extra_price: product.digipay_extra_price,
             url: product.url,
-            image: product.images.data[0]?.url || "",
+            image: product.images[0]?.url || "",
         },
         color: {
             id: color?.id || "",

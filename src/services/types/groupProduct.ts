@@ -7,5 +7,5 @@ export type GroupProductResponse = {
     product_id: number;
     group?: ProductResponse;
     product?: ProductResponse;
-    value?: { data: GroupFieldValueResponse[] };
+    value?: GroupFieldValueResponse[];
 };

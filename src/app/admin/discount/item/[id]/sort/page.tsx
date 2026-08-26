@@ -103,7 +103,7 @@ const ProductList: React.FC<{
                                 <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl">
                                     <Image
                                         fill
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${discount.productColor?.product?.images?.data?.[0]?.url}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${discount.productColor?.product?.images?.[0]?.url}`}
                                         alt={discount.productColor?.product?.name ?? ""}
                                         sizes="300px"
                                         className="h-full w-full object-contain object-center"

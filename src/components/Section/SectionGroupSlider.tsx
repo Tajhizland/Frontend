@@ -73,7 +73,7 @@ const SectionGroupSlider: FC<SectionSliderProductCardProps> = ({
                                 <li key={index}
                                     className={`glide__slide  rounded-3xl overflow-hidden ${itemClassName}`}>
                                     <GroupCard
-                                        featuredImage={`${item?.images?.data[0]?.url}`}
+                                        featuredImage={`${item?.images[0]?.url}`}
                                         imageBaseUrl={"product"}
                                         name={item.name ?? ""}
                                         url={item.url ?? ""}

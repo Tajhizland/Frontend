@@ -231,7 +231,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                                     </div>
                                                     <div className={""}>
                                                         <Image alt="productImage"
-                                                               src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                                               src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images[0].url}`}
                                                                width={50}
                                                                height={50}/>
                                                     </div>

@@ -69,21 +69,21 @@ export default async function page(props: ProductPageProps) {
                 <main className="container mt-5 overflow-hidden whitespace-nowrap">
 
                     <div className={" mx-auto whitespace-nowrap overflow-hidden rounded-2xl"}>
-                        {response?.landingBannerSlider?.data &&
-                            <SectionHeroLanding data={response.landingBannerSlider.data}/>
+                        {response?.landingBannerSlider &&
+                            <SectionHeroLanding data={response.landingBannerSlider}/>
                         }
                     </div>
-                    {response?.category?.data && <div className="py-5 dark:bg-neutral-900 overflow-hidden my-5">
-                        <LandingCategorySlider data={response.category.data}/>
+                    {response?.category && <div className="py-5 dark:bg-neutral-900 overflow-hidden my-5">
+                        <LandingCategorySlider data={response.category}/>
                     </div>}
 
-                    {response?.landingBannerImage?.data &&
+                    {response?.landingBannerImage &&
                         <div className="py-5 dark:bg-neutral-900 overflow-hidden my-5">
-                            <LandingBannerSlider data={response.landingBannerImage.data}/>
+                            <LandingBannerSlider data={response.landingBannerImage}/>
                         </div>}
 
-                    {response?.product?.data && <div className="py-5 dark:bg-neutral-900 overflow-hidden my-5">
-                        <LandingProductSlider data={response.product.data}/>
+                    {response?.product && <div className="py-5 dark:bg-neutral-900 overflow-hidden my-5">
+                        <LandingProductSlider data={response.product}/>
                     </div>}
                 </main>
                 <hr className="border-slate-200 dark:border-slate-700"/>

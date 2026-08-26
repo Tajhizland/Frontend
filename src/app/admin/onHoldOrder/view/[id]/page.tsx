@@ -128,14 +128,14 @@ export default function Page() {
                     </thead>
                     <tbody>
                     {
-                        data?.orderItems?.data.map((item) => (<>
+                        data?.orderItems?.map((item) => (<>
                             <tr className="bg-white border-b">
                                 <th className="px-4 py-2  whitespace-nowrap text-center">
                                     <div className="w-32 h-32 mx-auto">
                                         <NcImage
                                             width={100}
                                             height={100}
-                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.images.data[0].url}`}
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.images[0].url}`}
                                         />
                                     </div>
                                 </th>

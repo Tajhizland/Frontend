@@ -85,7 +85,7 @@ export default function Page() {
                             >
                                 <div className="w-[100px] h-[100px]">
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images[0].url}`}
                                         alt="image"
                                         width={100}
                                         height={100}
@@ -108,7 +108,7 @@ export default function Page() {
                             >
                                 <div className="w-[100px] h-[100px]">
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images[0].url}`}
                                         alt="image"
                                         width={100}
                                         height={100}
@@ -169,7 +169,7 @@ export default function Page() {
                             className="flex flex-col relative border rounded-xl justify-center items-center">
                             <div className="w-fit h-full relative">
                                 <Image
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images[0].url}`}
                                     alt="image"
                                     width={250}
                                     height={250}
@@ -193,7 +193,7 @@ export default function Page() {
                                 className="flex flex-col relative border rounded-xl justify-center items-center">
                                 <div className="w-fit h-full relative">
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images[0].url}`}
                                         alt="image"
                                         width={250}
                                         height={250}
@@ -225,7 +225,7 @@ export default function Page() {
                     </div>
                 </div>
                 <div className="flex flex-col divide-y">
-                    {product.productOptions.data.map((option, index) => (
+                    {product.productOptions.map((option, index) => (
                         <div key={index} className={"flex flex-col gap-1"}>
                             <div key={index} className="py-5 font-bold">
                                 {option.option_title}
@@ -247,12 +247,12 @@ export default function Page() {
                                     <div key={i} className="flex flex-col divide-y relative">
                                         <div key={index}
                                             className="py-5 line-clamp-1 whitespace-nowrap text-center">
-                                            {!product2.productOptions.data.find(
-                                                (opt) => opt.option_item_id === product.productOptions.data[index].option_item_id
+                                            {!product2.productOptions.find(
+                                                (opt) => opt.option_item_id === product.productOptions[index].option_item_id
                                             )?.value?.trim() ? "---" :
                                                 //@ts-ignore
-                                                product2?.productOptions?.data?.find(
-                                                    (opt) => opt?.option_item_id === product.productOptions.data[index]?.option_item_id
+                                                product2?.productOptions?.find(
+                                                    (opt) => opt?.option_item_id === product.productOptions[index]?.option_item_id
                                                 ).value}
                                         </div>
 

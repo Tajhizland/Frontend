@@ -40,7 +40,7 @@ const AccountOrder = () => {
                     <Image
                         fill
                         sizes="100px"
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${orderItem.product.images.data[0].url}`}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${orderItem.product.images[0].url}`}
                         alt={orderItem.product.name}
                         className="h-full w-full object-cover object-center"
                     />
@@ -112,7 +112,7 @@ const AccountOrder = () => {
                 <div
                     className="border-t border-slate-200 dark:border-slate-700 p-2 sm:p-8 divide-y divide-y-slate-200 dark:divide-slate-700">
                     {
-                        item?.order?.orderItems?.data.map((orderItem, index) => (<>
+                        item.order?.orderItems?.map((orderItem, index) => (<>
                             {renderProductItem(orderItem, index)}
                         </>))
                     }

@@ -21,5 +21,5 @@ export type OrderResponse = {
     orderInfo?:OrderInfoResponse;
     delivery?:DeliveryResponse;
     payment?:GatewayResponse;
-    orderItems?:{data:OrderItemResponse[]}
+    orderItems?: OrderItemResponse[];
 };

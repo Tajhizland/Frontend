@@ -313,7 +313,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                                     <div
                                         className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                                         <div className="relative flex flex-col px-5 py-6 space-y-5">
-                                            {filter.items.data.map((item , index) => (
+                                            {filter.items.map((item , index) => (
                                                 <div key={index} className="">
                                                     <Checkbox
                                                         name={item.value}
@@ -622,7 +622,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
         return (
             <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-8">
                 <div className="flex flex-col space-y-5">
-                    {data.items.data.map((item) => (
+                    {data.items.map((item) => (
                         <Checkbox
                             key={item.id}
                             name={item.value}

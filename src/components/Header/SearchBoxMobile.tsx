@@ -179,7 +179,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                                 <div className="flex items-center gap-x-5  ">
                                                     <div className={" flex-shrink-0"}>
                                                         <Image alt="productImage"
-                                                               src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images.data[0].url}`}
+                                                               src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images[0].url}`}
                                                                width={50}
                                                                height={50}/>
 

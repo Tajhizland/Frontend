@@ -4,6 +4,6 @@ import {PosterResponse} from "@/services/types/poster";
 
 export type LeadingResponse = {
     poster: PosterResponse;
-    blog: { data: NewsResponse[] };
-    vlog: { data: VlogResponse[] };
+    blog: NewsResponse[];
+    vlog: VlogResponse[];
 }

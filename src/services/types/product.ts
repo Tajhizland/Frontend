@@ -85,25 +85,11 @@ export type ProductResponse = {
     intro?: VlogResponse;
     usage?: VlogResponse;
     stockOf?: ProductResponse;
-    guaranties: {
-        data: GuarantyResponse[]
-    };
-    colors: {
-        data: ColorResponse[]
-    };
-    images: {
-        data: ProductImageResponse[]
-    };
-    videos: {
-        data: ProductVideoResponse[]
-    };
-    productOptions: {
-        data: ProductOptionResponse[]
-    };
-    comments: {
-        data: CommentResponse[]
-    };
-    groupItems: {
-        data: GroupProductResponse[]
-    };
+    guaranties: GuarantyResponse[];
+    colors: ColorResponse[];
+    images: ProductImageResponse[];
+    videos: ProductVideoResponse[];
+    productOptions: ProductOptionResponse[];
+    comments: CommentResponse[];
+    groupItems: GroupProductResponse[];
 };

@@ -164,7 +164,7 @@ export default function Page() {
                         </tr>
                         </thead>
                         <tbody>
-                        {data?.orderItems?.data.map((item: any) => (
+                        {data?.orderItems?.map((item: any) => (
                             <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
                                 <td className="border border-gray-300 p-2 text-center">
                                     <div className="w-16 h-16 mx-auto">
@@ -203,7 +203,7 @@ export default function Page() {
                                     <ItemActions
                                         item={item}
                                         onDone={refetch}
-                                        itemsCount={data?.orderItems?.data?.length ?? 0}
+                                        itemsCount={data?.orderItems?.length ?? 0}
                                     />
                                 </td>
                             </tr>

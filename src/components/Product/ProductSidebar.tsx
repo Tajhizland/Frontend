@@ -30,8 +30,8 @@ import {CampaignResponse} from "@/services/types/campaign";
 import {useProductColorContext} from "@/components/Product/ProductColorContext";
 
 export default function ProductSidebar({product, campaign}: { product: ProductResponse, campaign?: CampaignResponse }) {
-    const colors = product.colors.data;
-    const guaranty = product.guaranties.data;
+    const colors = product.colors;
+    const guaranty = product.guaranties;
     // اگر Provider وجود داشته باشد رنگ انتخابی با گالری تصاویر مشترک می‌شود،
     // در غیر این صورت به state محلی برمی‌گردیم.
     const colorContext = useProductColorContext();
@@ -69,7 +69,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                 <NotifyAddTocart
                     name={product.name}
                     price={selectedColor.price}
-                    productImage={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
+                    productImage={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images[0].url}`}
 
                     qualitySelected={selectedCount}
                     show={t.visible}
@@ -81,7 +81,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
     };
 
     const renderMainPrice = () => {
-        if (!selectedColor.discountItem?.data?.[0]?.discount_price || (selectedColor.discountItem?.data?.[0]?.discount_price == selectedColor.price)) {
+        if (!selectedColor.discountItem?.[0]?.discount_price || (selectedColor.discountItem?.[0]?.discount_price == selectedColor.price)) {
             return <Prices price={selectedColor.price}/>
         }
         return <div className={"flex items-center gap-0 lg:gap-2 flex-col lg:flex-row"}>
@@ -90,14 +90,14 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                     new Intl.NumberFormat('fa').format(selectedColor.price)
                 }
             </del>
-            <Prices priceClass={"!text-sm"} price={selectedColor.discountItem?.data?.[0]?.discount_price}/>
+            <Prices priceClass={"!text-sm"} price={selectedColor.discountItem?.[0]?.discount_price}/>
         </div>
     }
     const renderMaxDiscountTime = () => {
         let timer = null;
         const now = new Date();
 
-        const discountItem = selectedColor.discountItem?.data?.[0];
+        const discountItem = selectedColor.discountItem?.[0];
 
 
         if (
@@ -128,8 +128,8 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                 <p>سود شما در {campaign.title}</p>
                 <div className={"flex items-center gap-1"}>
                     <p>
-                        {selectedColor.discountItem?.data?.[0] ?
-                            new Intl.NumberFormat('fa').format(selectedColor.price - selectedColor.discountItem?.data?.[0]?.discount_price)
+                        {selectedColor.discountItem?.[0] ?
+                            new Intl.NumberFormat('fa').format(selectedColor.price - selectedColor.discountItem?.[0]?.discount_price)
                             : 0
                         }
                     </p>
@@ -189,7 +189,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
     const renderGuaranty = () => {
         if (product?.guaranties) {
             return <div className={"flex flex-col gap-1 w-full"}>
-                {product?.guaranties.data.map((item, index) => (
+                {product?.guaranties.map((item, index) => (
                     <Fragment key={index}>
 
                         <div onClick={() => {
@@ -324,9 +324,9 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                 </div>
             );
         }
-        if (selectedColor.discountItem && selectedColor.discountItem.data?.[0] && selectedColor.discountItem.data?.[0].discount_price != selectedColor.price) {
+        if (selectedColor.discountItem && selectedColor.discountItem?.[0] && selectedColor.discountItem?.[0].discount_price != selectedColor.price) {
             const price = selectedColor.price;
-            const discountedPrice = selectedColor.discountItem.data?.[0]?.discount_price;
+            const discountedPrice = selectedColor.discountItem?.[0]?.discount_price;
 
             const discountPercent = Math.round(((price - discountedPrice) / price) * 100);
 
@@ -386,7 +386,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                             <span className="mr-1.5 flex">
                                 <span>{product.rating} </span>
                                 <span className="text-slate-700 dark:text-slate-400 underline">
-                                    {product.comments.data.length} نظر
+                                    {product.comments.length} نظر
                                 </span>
                             </span>
                         </a>

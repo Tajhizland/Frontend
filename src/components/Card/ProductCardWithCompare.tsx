@@ -39,7 +39,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
     const renderVariants = () => {
         return (
             <div className="flex gap-1 sm:gap-1.5 justify-start  w-full">
-                {data?.colors.data.map((color, index) => (
+                {data?.colors.map((color, index) => (
                     <div
                         key={index}
                         className={`relative w-4 h-4 sm:w-6 sm:h-6 rounded-full overflow-hidden z-10 border cursor-pointer`}
@@ -69,13 +69,13 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
     const renderStatus = () => {
         let status = "";
 
-        let minPrice = data?.colors?.data[0]?.price ?? 1;
-        let minDiscountedPrice = data?.colors?.data[0]?.price ?? 1;
-        data?.colors.data.map((item) => {
+        let minPrice = data?.colors[0]?.price ?? 1;
+        let minDiscountedPrice = data?.colors[0]?.price ?? 1;
+        data?.colors.map((item) => {
             if (item.price <= minPrice && item.status == 1 && item.price > 0) {
                 minPrice = item.price;
-                if (item?.discountItem?.data?.[0])
-                    minDiscountedPrice = item?.discountItem?.data?.[0]?.discount_price;
+                if (item?.discountItem?.[0])
+                    minDiscountedPrice = item?.discountItem?.[0]?.discount_price;
                 else
                     minDiscountedPrice = item?.price;
             }
@@ -121,7 +121,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
 
     const checkStock = (product: ProductResponse) => {
         let hasStock = false;
-        product.colors.data.map((item) => {
+        product.colors.map((item) => {
             if (item.stock > 0 && (item.status == 1 || item.status == 2)) {
                 hasStock = true;
                 return hasStock;
@@ -131,13 +131,13 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
     }
 
     const renderMinPrice = (product: ProductResponse) => {
-        let minPrice = product?.colors?.data[0]?.price;
-        let minDiscountedPrice = product?.colors?.data[0]?.price;
-        product.colors.data.map((item) => {
+        let minPrice = product?.colors[0]?.price;
+        let minDiscountedPrice = product?.colors[0]?.price;
+        product.colors.map((item) => {
             if (item.price <= minPrice && (item.status == 1 || item.status == 2) && item.price > 0) {
                 minPrice = item.price;
-                if (item?.discountItem?.data?.[0])
-                    minDiscountedPrice = item?.discountItem?.data?.[0]?.discount_price;
+                if (item?.discountItem?.[0])
+                    minDiscountedPrice = item?.discountItem?.[0]?.discount_price;
                 else
                     minDiscountedPrice = item?.price;
             }
@@ -168,13 +168,13 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
         let timer = null;
         const now = new Date();
 
-        data?.colors.data.forEach((item) => {
+        data?.colors.forEach((item) => {
             if (
-                item.discountItem?.data?.[0]
+                item.discountItem?.[0]
             ) {
-                const expireDate = new Date(item.discountItem?.data?.[0]?.discount_expire_time);
+                const expireDate = new Date(item.discountItem?.[0]?.discount_expire_time);
                 if (expireDate > now) {
-                    timer = item.discountItem?.data?.[0]?.discount_expire_time;
+                    timer = item.discountItem?.[0]?.discount_expire_time;
                 }
             }
         });
@@ -194,7 +194,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                     <Link href={{pathname: "/product/" + data?.url}} className="block">
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 transition-all block group-hover:hidden"
-                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[0]?.url}`}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images[0]?.url}`}
                             priority
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
@@ -203,7 +203,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                         />
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 transition-all hidden group-hover:block"
-                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images?.data[2]?.url ?? data?.images?.data[0]?.url}`}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images[2]?.url ?? data?.images[0]?.url}`}
                             priority
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
@@ -232,7 +232,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                         <div className="flex sm:hidden items-center mb-0.5 ">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
                             <span className="text-xs ms-1 text-slate-500 dark:text-slate-400">
-                            {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
+                            {data?.rating || ""} ({data?.comments.length || 0} نظر)
                         </span>
                         </div>
                         {/*<LikeButton liked={data?.favorite} likeHandle={likeHandle}*/}
@@ -260,7 +260,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                         <div className="hidden sm:flex items-center mb-0.5 whitespace-nowrap">
                             <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
-                {data?.rating || ""} ({data?.comments.data.length || 0} نظر)
+                {data?.rating || ""} ({data?.comments.length || 0} نظر)
               </span>
                         </div>
                         {data && renderMinPrice(data)}

@@ -39,14 +39,14 @@ export default function FilterForm({ filter, index }: { filter?: FilterResponse,
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 my-2"}>
 
                 {
-                    filter?.items.data.map((item, itemIndex) => (<>
+                    filter?.items.map((item, itemIndex) => (<>
                         <FilterItemForm filterIndex={index} itemIndex={itemIndex} itemId={item.id} status={item.status} value={item.value} />
                     </>))
                 }
 
                 {Array.from({ length: extraItem }).map((_, itemIndex) => (
                     <>
-                        <FilterItemForm filterIndex={index} itemIndex={itemIndex + (filter?.items?.data?.length != undefined ? filter?.items?.data?.length : 0)} />
+                        <FilterItemForm filterIndex={index} itemIndex={itemIndex + (filter?.items?.length != undefined ? filter?.items?.length : 0)} />
                     </>
                 ))}
             </div>

@@ -21,7 +21,7 @@ export default function FactorTable({order}: { order: OrderResponse }) {
                     </tr>
                     </thead>
                     <tbody className="bg-white text-black">
-                    {order.orderItems?.data.map((item) => (
+                    {order.orderItems?.map((item) => (
                         <tr key={item.id} className="bg-white border-b">
                             <td className="px-4 py-2 text-center flex flex-col gap-1">
                                 <span>
@@ -105,7 +105,7 @@ export default function FactorTable({order}: { order: OrderResponse }) {
 
             {/* نمایش کارت در موبایل */}
             <div className="block md:hidden space-y-4">
-                {order.orderItems?.data.map((item) => (
+                {order.orderItems?.map((item) => (
                     <div key={item.id} className="bg-white px-4 pb-4 rounded-lg shadow-md border">
                         <p className="font-bold text-center py-2">{item.product.name}</p>
                         <hr/>

@@ -46,7 +46,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
 
   // ===================== MENU MEGAMENU =====================
   const renderMegaMenu = (menu: MenuResponse) => {
-    if (!menu.children?.data) {
+    if (!menu.children) {
       return null;
     }
     return (
@@ -60,9 +60,9 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
             <div className=" container">
               <div className="flex text-sm border-t border-slate-200 dark:border-slate-700 py-5 ">
                 <div className="flex-1 flex  justify-center">
-                  {menu.children.data.map((item, index) => (
+                  {menu.children.map((item, index) => (
                     <div key={index}
-                         className={`px-4 ${index !== ((menu?.children?.data?.length??0) - 1 ) ? "border-l" : ""}`}>
+                         className={`px-4 ${index !== ((menu?.children?.length??0) - 1 ) ? "border-l" : ""}`}>
                       <Link href={item.url as Route} className="flex justify-center items-center gap-x-1 border-b border-[#fcb415] pb-2">
                       <FaCircle className="text-[#fcb415] w-2 h-2" />
                         <strong className={"dark:text-white text-black  text-xs  whitespace-nowrap"}>
@@ -71,7 +71,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                       </Link>
                       <div className=" grid grid-rows-8 grid-flow-col gap-x-8 gap-y-2 mt-5 ">
 
-                      {item?.children?.data.map((item, index) => (
+                      {item.children?.map((item, index) => (
                         <div key={index} className=" min-w-24">
 
                           {renderMegaMenuNavlink(item)}

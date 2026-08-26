@@ -6,6 +6,6 @@ export type FilterResponse = {
     name: string,
     status: number,
     type: string,
-    items:{ data :FilterItemResponse[]},
+    items: FilterItemResponse[],
     productFilters?:ProductFilterResponse
 }

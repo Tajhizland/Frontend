@@ -359,7 +359,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
         return (
             <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-8">
                 <div className="flex flex-col space-y-5">
-                    {data.items.data.map((item) => (
+                    {data.items.map((item) => (
                         <Checkbox
                             key={item.id}
                             name={item.value}

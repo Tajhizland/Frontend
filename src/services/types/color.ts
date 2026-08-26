@@ -17,7 +17,7 @@ export type ColorResponse = {
     delivery_delay: number,
     stock: number,
     product?: ProductResponse,
-    discountItem?: { data: DiscountItemResponse[] },
+    discountItem?: DiscountItemResponse[],
     created_at: string,
     updated_at: string,
 }

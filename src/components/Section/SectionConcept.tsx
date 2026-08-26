@@ -77,7 +77,7 @@ const SectionConcept: FC<SectionGridMoreExploreProps> = ({
             <div className={`hidden xl:grid gap-1 md:gap-7 ${gridClassName}`}>
                 {data.map((item, index) => (<Fragment key={index}>
                     {
-                        item.categories?.data.slice(0,showAll?-1:8).map((category, index2) => (<Fragment key={index2}>
+                        item.categories?.slice(0,showAll?-1:8).map((category, index2) => (<Fragment key={index2}>
                             {
                                 tabActive == index ? <CategoryCard
                                         featuredImage={`${category.image}`}
@@ -100,7 +100,7 @@ const SectionConcept: FC<SectionGridMoreExploreProps> = ({
             <div className={`grid xl:hidden gap-1 md:gap-7 ${gridClassName}`}>
                 {data.map((item, index) => (<Fragment key={index}>
                     {
-                        item.categories?.data.slice(0,showAll?-1:6).map((category, index2) => (<Fragment key={index2}>
+                        item.categories?.slice(0,showAll?-1:6).map((category, index2) => (<Fragment key={index2}>
                             {
                                 tabActive == index ? <CategoryCard
                                         featuredImage={`${category.image}`}
@@ -123,7 +123,7 @@ const SectionConcept: FC<SectionGridMoreExploreProps> = ({
             <div className={"flex xl:hidden justify-center mt-5"}>
             {
                 data.map((item, index) => (<Fragment key={index}>
-                    {(tabActive == index && !showAll && (item.categories?.data.length ?? 0) > 6) ?
+                    {(tabActive == index && !showAll && (item.categories?.length ?? 0) > 6) ?
                         <ButtonPrimary onClick={()=>{setShowAll(true)}}>مشاهده همه </ButtonPrimary>
                         :
                         <></>}
@@ -133,7 +133,7 @@ const SectionConcept: FC<SectionGridMoreExploreProps> = ({
             <div className={"hidden xl:flex justify-center mt-5"}>
                 {
                     data.map((item, index) => (<Fragment key={index}>
-                        {(tabActive == index && !showAll && (item.categories?.data.length ?? 0) > 8) ?
+                        {(tabActive == index && !showAll && (item.categories?.length ?? 0) > 8) ?
                             <ButtonPrimary onClick={()=>{setShowAll(true)}}>مشاهده همه </ButtonPrimary>
                             :
                             <></>}

@@ -86,7 +86,7 @@ export default function Page() {
                                             <option value={""}>انتخاب کنید</option>
 
                                             {
-                                                filter.items.data.map((item) => (<>
+                                                filter.items.map((item) => (<>
                                                     <option value={item.id}
                                                             selected={filter.productFilters != undefined && filter.productFilters.filter_item_id == item.id}>
                                                         {item.value}
