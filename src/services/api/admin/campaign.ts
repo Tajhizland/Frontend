@@ -33,7 +33,7 @@ export const store = async <T extends ServerResponse<unknown>>
     if (params.banner)
         formData.append('banner', params.banner);
 
-    return axios.post<T, SuccessResponseType<T>>("admin/campaign/store", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/campaign", formData,
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -64,7 +64,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('title', params.title);
     formData.append('color', params.color);
     formData.append('start_date', params.start_date);
@@ -78,7 +78,7 @@ export const update = async <T extends ServerResponse<unknown>>
         formData.append('logo', params.logo);
     if (params.banner)
         formData.append('banner', params.banner);
-    return axios.post<T, SuccessResponseType<T>>("admin/campaign/update", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/campaign/" + params.id, formData,
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -95,6 +95,6 @@ export const findById = async <T extends ServerResponse<CampaignResponse>>
 (
     id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/campaign/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/campaign/" + id)
         .then((res) => res?.data?.result?.data)
 };
