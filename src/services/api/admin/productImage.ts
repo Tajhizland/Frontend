@@ -5,14 +5,14 @@ export const getByProductId = async <T extends ServerResponse<ProductImageRespon
     (
         id: number | string
     ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/product/image/get/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/product/" + id + "/image")
         .then((res) => res?.data?.result.data)
 };
 export const getImageSortByProductId = async <T extends ServerResponse<ProductImageResponse[]>>
     (
         id: number | string
     ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/product/image/get/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/product/" + id + "/image")
         .then((res) => res?.data?.result)
 };
 export const sortImage = async <T extends ServerResponse<unknown>>
@@ -37,7 +37,7 @@ export const setImageColor = async <T extends ServerResponse<unknown>>
         }[]
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/image/set-color", param)
+    return axios.put<T, SuccessResponseType<T>>("admin/product/image/color", param)
         .then((res) => res?.data)
 };
 
@@ -54,7 +54,7 @@ export const upload = async <T extends ServerResponse<unknown>>
         formData.append('image[]', file);
     });
 
-    return axios.post<T, SuccessResponseType<T>>("admin/product/image/set/", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/product/image", formData,
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -66,6 +66,6 @@ export const upload = async <T extends ServerResponse<unknown>>
 export const remove = async <T extends ServerResponse<unknown>>
 (id: number
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/product/image/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/product/image/" + id)
         .then((res) => res?.data)
 };

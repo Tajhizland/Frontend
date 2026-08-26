@@ -50,7 +50,7 @@ export const set = async <T extends ServerResponse<unknown>>(
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/product/option/set", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/product/option", params)
         .then((res) => res?.data);
 };
 
@@ -58,7 +58,7 @@ export const findByProductId = async <T extends ServerResponse<OptionItemsRespon
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/product/option/get/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/product/" + id + "/option")
         .then((res) => res?.data?.result?.data)
 };
 export const findByCategoryId = async <T extends ServerResponse<OptionItemsResponse[]>>
@@ -144,6 +144,6 @@ export const updateProductOption = async <T extends ServerResponse<unknown>>
         }[]
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/option/update-product-option", param)
+    return axios.put<T, SuccessResponseType<T>>("admin/product/option", param)
         .then((res) => res?.data)
 };

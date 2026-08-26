@@ -19,7 +19,7 @@ export const set = async <T extends ServerResponse<unknown>>(
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/product/color/set", params, {
+    return axios.post<T, SuccessResponseType<T>>("admin/product/color", params, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -41,7 +41,7 @@ export const updateColorPrice = async <T extends ServerResponse<unknown>>(
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/product/color/fast-update", params, {
+    return axios.put<T, SuccessResponseType<T>>("admin/product/color", params, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -53,6 +53,6 @@ export const findById = async <T extends ServerResponse<ColorResponse[]>>
 (
     id:number|string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/product/color/get/"+id )
+    return axios.get<T, SuccessResponseType<T>>("admin/product/"+id+"/color" )
         .then((res) => res?.data?.result?.data)
 };

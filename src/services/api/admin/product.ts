@@ -9,13 +9,13 @@ export const productStockTable = tableFetcher<ProductResponse>("admin/product/st
 
 export const dataTable = async <T extends ServerResponse<ProductResponse>>
 () => {
-    return axios.get("admin/product/dataTable/")
+    return axios.get("admin/product/dataTable")
         .then((res) => res?.data?.result)
 };
 
 export const findById = async <T extends ServerResponse<ProductResponse>>
 (id: number | string) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/product/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/product/" + id)
         .then((res) => res?.data?.result?.data)
 };
 
@@ -45,7 +45,7 @@ export const store = async <T extends ServerResponse<unknown>>
         use_packet: number,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/store", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/product", params)
         .then((res) => res?.data)
 };
 
@@ -76,7 +76,7 @@ export const update = async <T extends ServerResponse<unknown>>
         use_packet: number,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/product/" + params.id, params)
         .then((res) => res?.data)
 };
 
@@ -99,7 +99,7 @@ export const setVideo = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/product/video/set", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/product/video", params)
         .then((res) => res?.data)
 };
 
@@ -121,7 +121,7 @@ export const groupChangePrice = async <T extends ServerResponse<unknown>>
     percent: number,
     ids: number[],
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/group-change", params)
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change", params)
         .then((res) => res?.data)
 };
 export const groupChangeStock = async <T extends ServerResponse<unknown>>
@@ -129,7 +129,7 @@ export const groupChangeStock = async <T extends ServerResponse<unknown>>
     stock: number,
     ids: number[],
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/group-change-stock", params)
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-stock", params)
         .then((res) => res?.data)
 };
 export const groupChangeStatus = async <T extends ServerResponse<unknown>>
@@ -137,7 +137,7 @@ export const groupChangeStatus = async <T extends ServerResponse<unknown>>
     status: number,
     ids: number[],
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/group-change-status", params)
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-status", params)
         .then((res) => res?.data)
 };
 
@@ -146,7 +146,7 @@ export const groupChangeDigipay = async <T extends ServerResponse<unknown>>
     digipay: number,
     ids: number[],
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/group-change-digipay", params)
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-digipay", params)
         .then((res) => res?.data)
 };
 
@@ -155,7 +155,7 @@ export const groupChangeSnappay = async <T extends ServerResponse<unknown>>
     snappay: number,
     ids: number[],
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/group-change-snappay", params)
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-snappay", params)
         .then((res) => res?.data)
 };
 
@@ -165,6 +165,6 @@ export const groupChangeDigipayPercent = async <T extends ServerResponse<unknown
     percent: number,
     ids: number[],
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/group-change-percent", params)
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-percent", params)
         .then((res) => res?.data)
 };
