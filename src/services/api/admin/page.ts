@@ -26,7 +26,7 @@ export const store = async <T extends ServerResponse<unknown>>
         formData.append('image', params.image);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/page/store", formData, uploadConfig(params.setProgress) )
+    return axios.post<T, SuccessResponseType<T>>("admin/page", formData, uploadConfig(params.setProgress) )
         .then((res) => res?.data);
 };
 
@@ -43,7 +43,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('title', params.title);
     formData.append('url', params.url);
     formData.append('status', params.status.toString());
@@ -53,7 +53,7 @@ export const update = async <T extends ServerResponse<unknown>>
         formData.append('image', params.image);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/page/update", formData, uploadConfig(params.setProgress) )
+    return axios.post<T, SuccessResponseType<T>>("admin/page/" + params.id, formData, uploadConfig(params.setProgress) )
         .then((res) => res?.data);
 };
 
@@ -61,6 +61,6 @@ export const findById = async <T extends ServerResponse<PageResponse>>
 (
     id:number|string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/page/find/"+id )
+    return axios.get<T, SuccessResponseType<T>>("admin/page/"+id )
         .then((res) => res?.data?.result?.data)
 };

@@ -29,7 +29,7 @@ export const store = async <T extends ServerResponse<unknown>>
         formData.append('banner_logo', params.banner_logo);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/menu/store", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/menu", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -44,7 +44,7 @@ export const fastUpdate = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/menu/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/menu/" + params.id, params)
         .then((res) => res?.data);
 };
 
@@ -64,7 +64,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id+"");
+    formData.append('_method', 'PUT');
     formData.append('title', params.title);
     formData.append('parent_id', params.parent_id +"");
     formData.append('url', params.url??"");
@@ -74,7 +74,7 @@ export const update = async <T extends ServerResponse<unknown>>
     if (params.banner_logo) {
         formData.append('banner_logo', params.banner_logo);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/menu/update", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/menu/" + params.id, formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -82,14 +82,14 @@ export const findById = async <T extends ServerResponse<MenuResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/menu/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/menu/" + id)
         .then((res) => res?.data?.result?.data)
 };
 export const deleteBanner = async <T extends ServerResponse<unknown>>
 (
     id: number | string
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/menu/banner/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/menu/" + id + "/banner")
         .then((res) => res?.data)
 };
 
@@ -103,6 +103,6 @@ export const removeMenuItem = async <T extends ServerResponse<unknown>>
 (
     id: number
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/menu/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/menu/" + id)
         .then((res) => res?.data)
 };

@@ -19,7 +19,7 @@ export const store = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/coupon/store", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/coupon", params)
         .then((res) => res?.data);
 };
 export const storeGroup = async <T extends ServerResponse<unknown>>
@@ -38,7 +38,7 @@ export const storeGroup = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/coupon/store-group", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/coupon/group", params)
         .then((res) => res?.data);
 };
 
@@ -58,7 +58,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/coupon/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/coupon/" + params.id, params)
         .then((res) => res?.data);
 };
 
@@ -66,7 +66,7 @@ export const find = async <T extends ServerResponse<CouponResponse>>
 (
     id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/coupon/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/coupon/" + id)
         .then((res) => res?.data?.result?.data)
 };
 export const generate = async <T extends ServerResponse<{ code: string }>>

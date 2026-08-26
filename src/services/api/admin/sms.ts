@@ -7,7 +7,7 @@ export const smsTable = tableFetcher<SmsLogResponse>("admin/sms/dataTable");
 
 /** fetcher آیتم‌های یک پیامک خاص — id را بگیر و fetcher بساز */
 export const smsItemTable = (id: string | string[] | undefined) =>
-    tableFetcher<SmsLogItemResponse>("admin/sms/item/" + id);
+    tableFetcher<SmsLogItemResponse>("admin/sms/" + id + "/item");
 
 export const smsSend = async <T extends ServerResponse<unknown>>
 (
