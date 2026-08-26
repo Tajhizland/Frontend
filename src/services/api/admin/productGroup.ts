@@ -9,18 +9,18 @@ export const groupTable = tableFetcher<ProductResponse>("admin/group/dataTable")
 
 export const getField = async <T extends ServerResponse<GroupFieldResponse[]>>
 (id: number) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/group/field/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/group/" + id + "/field")
         .then((res) => res?.data?.result?.data)
 };
 
 export const getProduct = async <T extends ServerResponse<GroupProductResponse[]>>
 (id: number) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/group/product/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/group/" + id + "/product")
         .then((res) => res?.data?.result?.data)
 };
 export const getFieldValue = async <T extends ServerResponse<GroupFieldValuePage>>
 (id: number) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/group/field-value/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/group/" + id + "/field-value")
         .then((res) => res?.data?.result?.data)
 };
 
@@ -59,6 +59,6 @@ export const setFieldValue = async <T extends ServerResponse<unknown>>
     fieldId:number;
     value:string;
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/group/set",params)
+    return axios.post<T, SuccessResponseType<T>>("admin/group/field-value",params)
         .then((res) => res?.data)
 };
