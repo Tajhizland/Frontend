@@ -8,11 +8,11 @@ export const findVlogByUrl = async <T extends ServerResponse<VlogPageResponse>>
 };
 export const getVlogPaginated = async <T extends ServerResponse<VlogListingResponse>>
     (page: number, filters?: string) => {
-    return axios.get<T, SuccessResponseType<T>>("vlog/listing?" + "page=" + page + "&" + filters)
+    return axios.get<T, SuccessResponseType<T>>("vlog?" + "page=" + page + "&" + filters)
         .then((res) => res?.data?.result?.data)
 };
 export const getVlogByCategoryPaginated = async <T extends ServerResponse<VlogListingResponse>>
     (url: string, page: number, filters?: string) => {
-    return axios.post<T, SuccessResponseType<T>>("vlog/get?" + "page=" + page + "&" + filters, { url: url })
+    return axios.post<T, SuccessResponseType<T>>("vlog/category?" + "page=" + page + "&" + filters, { url: url })
         .then((res) => res?.data?.result?.data)
 };

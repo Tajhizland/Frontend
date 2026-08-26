@@ -3,7 +3,7 @@ import {CartResponse} from "@/services/types/cart";
 
 export const getCart = async <T extends ServerResponse<CartResponse[]>>
 () => {
-    return axios.get<T, SuccessResponseType<T>>("cart/get")
+    return axios.get<T, SuccessResponseType<T>>("cart")
         .then((res) => res?.data?.result?.data)
 };
 
@@ -15,7 +15,7 @@ export const addToCart = async <T extends ServerResponse<unknown>>
         guaranty_id: number|undefined,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("cart/add-to-cart", params)
+    return axios.post<T, SuccessResponseType<T>>("cart", params)
         .then((res) => res?.data)
 };
 export const removeCartItem = async <T extends ServerResponse<unknown>>
@@ -24,7 +24,7 @@ export const removeCartItem = async <T extends ServerResponse<unknown>>
     guaranty_id: number|undefined,
 
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("cart/remove-item", params)
+    return axios.delete<T, SuccessResponseType<T>>("cart/item", {data: params})
         .then((res) => res?.data)
 };
 export const increaseCartItem = async <T extends ServerResponse<unknown>>
@@ -33,7 +33,7 @@ export const increaseCartItem = async <T extends ServerResponse<unknown>>
     guaranty_id: number|undefined,
 
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("cart/increase", params)
+    return axios.patch<T, SuccessResponseType<T>>("cart/increase", params)
         .then((res) => res?.data)
 };
 export const decreaseCartItem = async <T extends ServerResponse<unknown>>
@@ -42,7 +42,7 @@ export const decreaseCartItem = async <T extends ServerResponse<unknown>>
     guaranty_id: number|undefined,
 
 }) => {
-    return axios.post<T, SuccessResponseType<T>>("cart/decrease", params)
+    return axios.patch<T, SuccessResponseType<T>>("cart/decrease", params)
         .then((res) => res?.data)
 };
 export const clearCart = async <T extends ServerResponse<unknown>>
@@ -51,7 +51,7 @@ export const clearCart = async <T extends ServerResponse<unknown>>
         productColorId: number
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("cart/clear-all", params)
+    return axios.delete<T, SuccessResponseType<T>>("cart", {data: params})
         .then((res) => res?.data?.result)
 };
 export const mergeCart = async <T extends ServerResponse<unknown>>

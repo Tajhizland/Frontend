@@ -4,6 +4,6 @@ import {LeadingResponse} from "@/services/types/leading";
 
 export const findLeading = async <T extends ServerResponse<LeadingResponse>>
 () => {
-    return axios.get<T, SuccessResponseType<T>>("leading/index")
+    return axios.get<T, SuccessResponseType<T>>("leading")
         .then((res) => res?.data.result.data)
 };

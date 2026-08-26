@@ -19,6 +19,6 @@ export const findCategoryGroupByUrl = async <T extends ServerResponse<CategoryLi
     page: number = 1
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("category/get-group?"+ "page=" + page+"&"+  filter,  {url: url})
+    return axios.post<T, SuccessResponseType<T>>("category/group?"+ "page=" + page+"&"+  filter,  {url: url})
         .then((res) => res?.data?.result?.data)
 };

@@ -8,40 +8,40 @@ export const myOnHoldOrder = async <T extends ServerResponse<OnHoldOrderResponse
 (
     page: number = 1
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("on-hold-order/get?page=" + page)
+    return axios.get<T, SuccessResponseType<T>>("on-hold-order?page=" + page)
         .then((res) => res?.data?.result)
 };
 
 export const payment = async <T extends ServerResponse<PaymentResponse>>
 (id: number
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("on-hold-order/payment/" + id)
+    return axios.post<T, SuccessResponseType<T>>("on-hold-order/" + id + "/payment")
         .then((res) => res?.data?.result?.data)
 };
 
 export const paymentByWallet = async <T extends ServerResponse<PaymentResponse>>
 (id: number
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("on-hold-order/wallet/" + id)
+    return axios.post<T, SuccessResponseType<T>>("on-hold-order/" + id + "/wallet")
         .then((res) => res?.data?.result?.data)
 };
 
 
 export const onHoldCheckout = async <T extends ServerResponse<OnHoldCheckoutResponse>>
 (id: number) => {
-    return axios.get<T, SuccessResponseType<T>>("on-hold-order/checkout/" + id)
+    return axios.get<T, SuccessResponseType<T>>("on-hold-order/" + id + "/checkout")
         .then((res) => res?.data?.result?.data)
 };
 
 export const onHoldDelivery = async <T extends ServerResponse<DeliveryResponse[]>>
 (id: number) => {
-    return axios.get<T, SuccessResponseType<T>>(`on-hold-order/checkout/${id}/delivery`)
+    return axios.get<T, SuccessResponseType<T>>(`on-hold-order/${id}/checkout/delivery`)
         .then((res) => res?.data?.result?.data)
 };
 
 export const onHoldCheckCoupon = async <T extends ServerResponse<CouponResponse>>
 (id: number, code: string) => {
-    return axios.post<T, SuccessResponseType<T>>(`on-hold-order/checkout/${id}/coupon`, {code: code})
+    return axios.post<T, SuccessResponseType<T>>(`on-hold-order/${id}/checkout/coupon`, {code: code})
         .then((res) => res?.data?.result?.data)
 };
 
@@ -55,6 +55,6 @@ export const onHoldCheckoutPayment = async <T extends ServerResponse<PaymentResp
         gateway: number,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>(`on-hold-order/checkout/${id}/payment`, params)
+    return axios.post<T, SuccessResponseType<T>>(`on-hold-order/${id}/checkout/payment`, params)
         .then((res) => res?.data?.result?.data)
 };

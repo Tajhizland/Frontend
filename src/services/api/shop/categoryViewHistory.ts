@@ -7,7 +7,7 @@ export const storeCategoryViewHistory = async <T extends ServerResponse<unknown>
  }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("category-view-history/store", params)
+    return axios.post<T, SuccessResponseType<T>>("category-view-history", params)
         .then((res) => res?.data)
 };
 
@@ -17,7 +17,7 @@ export const storeCategoryViewHistoryIp = async <T extends ServerResponse<unknow
  }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("category-view-history/store-ip", params)
+    return axios.post<T, SuccessResponseType<T>>("category-view-history/ip", params)
         .then((res) => res?.data)
 };
 
@@ -33,6 +33,6 @@ export const suggestIpProduct = async <T extends ServerResponse<ProductResponse[
 (
 ) => {
 
-    return axios.get<T, SuccessResponseType<T>>("category-view-history/suggest-ip")
+    return axios.get<T, SuccessResponseType<T>>("category-view-history/suggest/ip")
         .then((res) => res?.data?.result?.data)
 };

@@ -9,6 +9,6 @@ export const storeComment = async <T extends ServerResponse<unknown>>
         text:string;
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("comment/submit",params )
+    return axios.post<T, SuccessResponseType<T>>("comment",params )
         .then((res) => res?.data)
 };

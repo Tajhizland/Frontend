@@ -7,7 +7,7 @@ export const resetPasswordSendCode = async <T extends ServerResponse<UnknownResp
         mobile?: string;
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("auth/reset_password/send_code", params)
+    return axios.post<T, SuccessResponseType<T>>("auth/reset-password/send-code", params)
         .then((res) => res?.data)
 };
 
@@ -19,7 +19,7 @@ export const resetPasswordVerifyCode = async <T extends ServerResponse<UnknownRe
         code: string;
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("auth/reset_password/verify_code", params)
+    return axios.post<T, SuccessResponseType<T>>("auth/reset-password/verify-code", params)
         .then((res) => res?.data)
 };
 
@@ -32,7 +32,7 @@ export const resetPassword = async <T extends ServerResponse<TokenResponse>>
         password_confirmation: string;
     }
 ) => {
-    return axios.post("auth/reset_password", params)
+    return axios.post("auth/reset-password", params)
         .then((res) => res?.data?.result?.data)
 };
 

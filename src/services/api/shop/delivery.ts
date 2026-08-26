@@ -3,7 +3,7 @@ import {DeliveryResponse} from "@/services/types/delivery";
 
 export const get = async <T extends ServerResponse<DeliveryResponse[]>>
 () => {
-    return axios.get<T, SuccessResponseType<T>>("delivery/get")
+    return axios.get<T, SuccessResponseType<T>>("delivery")
         .then((res) => res?.data?.result?.data)
 };
 export const select = async <T extends ServerResponse<unknown>>
@@ -12,6 +12,6 @@ export const select = async <T extends ServerResponse<unknown>>
         id: number
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("delivery/select",params)
+    return axios.patch<T, SuccessResponseType<T>>("delivery/select",params)
         .then((res) => res?.data)
 };

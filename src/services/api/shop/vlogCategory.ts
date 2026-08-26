@@ -6,6 +6,6 @@ import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 export const getList = async <T extends ServerResponse<VlogCategoryResponse[]>>
 (
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("vlog_category/list")
+    return axios.get<T, SuccessResponseType<T>>("vlog-category")
         .then((res) => res?.data?.result?.data)
 };

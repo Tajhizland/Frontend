@@ -5,7 +5,7 @@ export const find = async <T extends ServerResponse<ProductResponse>>
 (
     id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("compare/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("compare/" + id)
         .then((res) => res?.data?.result?.data)
 };
 export const search = async <T extends ServerResponse<ProductResponse[]>>
@@ -24,6 +24,6 @@ export const allProduct = async <T extends ServerResponse<ProductResponse[]>>
         categoryIds: number[]
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("compare/category/product",params)
+    return axios.post<T, SuccessResponseType<T>>("compare/product",params)
         .then((res) => res?.data?.result?.data)
 };

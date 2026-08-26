@@ -5,6 +5,6 @@ export const getDelivery = async <T extends ServerResponse<DeliveryResponse[]>>
 (
 ) => {
 
-    return axios.get<T, SuccessResponseType<T>>("delivery" )
+    return axios.get<T, SuccessResponseType<T>>("checkout/delivery" )
         .then((res) => res?.data?.result?.data)
 };

@@ -3,7 +3,7 @@ import {PaymentResponse} from "@/services/types/payment";
 
 export const paymentRequest = async <T extends ServerResponse<PaymentResponse>>
 (useWallet: boolean, shippingMethod: number, shippingPrice: number, code?: string, gateway?: number) => {
-    return axios.post<T, SuccessResponseType<T>>("payment/request", {
+    return axios.post<T, SuccessResponseType<T>>("payment", {
         wallet: useWallet,
         shippingMethod: shippingMethod,
         code: code,

@@ -7,7 +7,7 @@ export const registerSendCode = async <T extends ServerResponse<UnknownResponse>
         mobile?: string;
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("auth/register/send_code", params)
+    return axios.post<T, SuccessResponseType<T>>("auth/register/send-code", params)
         .then((res) => res?.data)
 };
 
@@ -19,7 +19,7 @@ export const registerVerifyCode = async <T extends ServerResponse<UnknownRespons
         code: string;
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("auth/register/verify_code", params)
+    return axios.post<T, SuccessResponseType<T>>("auth/register/verify-code", params)
         .then((res) => res?.data)
 };
 

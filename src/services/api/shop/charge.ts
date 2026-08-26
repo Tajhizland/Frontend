@@ -7,6 +7,6 @@ export const chargeRequest = async <T extends ServerResponse<PaymentResponse>>
  }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("charge/request", params)
+    return axios.post<T, SuccessResponseType<T>>("charge", params)
         .then((res) => res?.data?.result?.data)
 };

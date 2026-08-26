@@ -3,6 +3,6 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 
 export const findSample = async <T extends ServerResponse<SamplePageResponse>>
 () => {
-    return axios.get<T, SuccessResponseType<T>>("sample/find")
+    return axios.get<T, SuccessResponseType<T>>("sample")
         .then((res) => res?.data.result.data)
 };

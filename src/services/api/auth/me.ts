@@ -23,6 +23,7 @@ export const update = async <T extends ServerResponse<unknown>>
     avatar: File | undefined
 }) => {
     const formData = new FormData();
+    formData.append("_method", "PUT");
     formData.append("name", params.name);
     formData.append("email", params.email);
     formData.append("last_name", params.last_name);
@@ -30,7 +31,7 @@ export const update = async <T extends ServerResponse<unknown>>
     formData.append("gender", params.gender);
     if (params.avatar)
         formData.append("avatar", params.avatar);
-    return axios.post<T, SuccessResponseType<T>>("auth/update", formData)
+    return axios.post<T, SuccessResponseType<T>>("auth/me", formData)
         .then((res) => res?.data);
 };
 
