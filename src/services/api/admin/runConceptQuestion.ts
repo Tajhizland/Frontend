@@ -8,7 +8,7 @@ export const find = async <T extends ServerResponse<RunConceptQuestionResponse>>
 (
     id:number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/run-concept-question/find/"+id)
+    return axios.get<T, SuccessResponseType<T>>("admin/run-concept-question/"+id)
         .then((res) => res?.data?.result?.data)
 };
 
@@ -30,7 +30,7 @@ export const store = async <T extends ServerResponse<unknown>>
 
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/run-concept-question/store",params)
+    return axios.post<T, SuccessResponseType<T>>("admin/run-concept-question",params)
         .then((res) => res?.data)
 };
 
@@ -46,6 +46,6 @@ export const update = async <T extends ServerResponse<unknown>>
 
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/run-concept-question/update",params)
+    return axios.put<T, SuccessResponseType<T>>("admin/run-concept-question/"+params.id,params)
         .then((res) => res?.data)
 };

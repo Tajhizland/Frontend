@@ -6,7 +6,7 @@ import {SampleVideoResponse} from "@/services/types/sampleVideo";
 export const find = async <T extends ServerResponse<SampleResponse>>
 (
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/sample/find")
+    return axios.get<T, SuccessResponseType<T>>("admin/sample")
         .then((res) => res?.data?.result?.data)
 };
 
@@ -14,13 +14,13 @@ export const set = async <T extends ServerResponse<unknown>>
 (
     content:  string
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/sample/update",{content:content})
+    return axios.put<T, SuccessResponseType<T>>("admin/sample",{content:content})
         .then((res) => res?.data)
 };
 export const getImages = async <T extends ServerResponse<SampleImageResponse[]>>
 (
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/sample/image/get")
+    return axios.get<T, SuccessResponseType<T>>("admin/sample/image")
         .then((res) => res?.data?.result?.data)
 };
 export const uploadImage = async <T extends ServerResponse<unknown>>
@@ -29,14 +29,14 @@ export const uploadImage = async <T extends ServerResponse<unknown>>
 ) => {
     const formData = new FormData();
     formData.append('image',image);
-    return axios.post<T, SuccessResponseType<T>>("admin/sample/image/upload",formData)
+    return axios.post<T, SuccessResponseType<T>>("admin/sample/image",formData)
         .then((res) => res?.data)
 };
 export const deleteImage = async <T extends ServerResponse<unknown[]>>
 (
     id:number
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/sample/image/delete/"+id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/sample/image/"+id)
         .then((res) => res?.data)
 };
 
@@ -44,7 +44,7 @@ export const deleteImage = async <T extends ServerResponse<unknown[]>>
 export const getVideo = async <T extends ServerResponse<SampleVideoResponse[]>>
 (
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/sample/video/get")
+    return axios.get<T, SuccessResponseType<T>>("admin/sample/video")
         .then((res) => res?.data?.result?.data)
 };
 export const setVideo = async <T extends ServerResponse<unknown>>
@@ -52,14 +52,14 @@ export const setVideo = async <T extends ServerResponse<unknown>>
     vlog_id:number
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/sample/video/add", {vlog_id:vlog_id})
+    return axios.post<T, SuccessResponseType<T>>("admin/sample/video", {vlog_id:vlog_id})
         .then((res) => res?.data)
 };
 export const deleteVideo = async <T extends ServerResponse<unknown[]>>
 (
     id:number
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/sample/video/delete/"+id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/sample/video/"+id)
         .then((res) => res?.data)
 };
 
