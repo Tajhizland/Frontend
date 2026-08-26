@@ -65,7 +65,7 @@ export const findByCategoryId = async <T extends ServerResponse<OptionItemsRespo
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/category/option/get/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/category/" + id + "/option")
         .then((res) => res?.data?.result?.data)
 };
 export const setToCategory = async <T extends ServerResponse<unknown>>
@@ -84,7 +84,7 @@ export const setToCategory = async <T extends ServerResponse<unknown>>
         }[]
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/category/option/set/", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/category/option", params)
         .then((res) => res?.data)
 };
 export const sortOption = async <T extends ServerResponse<unknown>>
@@ -129,7 +129,7 @@ export const updateOption = async <T extends ServerResponse<unknown>>
         }
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/category/option/update", param)
+    return axios.put<T, SuccessResponseType<T>>("admin/category/option", param)
         .then((res) => res?.data)
 };
 

@@ -38,7 +38,7 @@ export const store = async <T extends ServerResponse<unknown>>
     }
 
 
-    return axios.post<T, SuccessResponseType<T>>("admin/category/store", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/category", formData,
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -61,7 +61,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('name', params.name);
     formData.append('url', params.url);
     formData.append('type', params.type);
@@ -72,7 +72,7 @@ export const update = async <T extends ServerResponse<unknown>>
     if (params.image) {
         formData.append('image', params.image);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/category/update", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/category/" + params.id, formData,
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -85,7 +85,7 @@ export const findById = async <T extends ServerResponse<CategoryResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/category/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/category/" + id)
         .then((res) => res?.data?.result?.data)
 };
 export const search = async <T extends ServerResponse<CategoryResponse[]>>
@@ -103,7 +103,7 @@ export const productOfCategory = async <T extends ServerResponse<ProductResponse
 (
     id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/category/product/list/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/category/" + id + "/product")
         .then((res) => res?.data?.result.data)
 };
 export const sort = async <T extends ServerResponse<unknown>>
@@ -122,6 +122,6 @@ export const deleteImage = async <T extends ServerResponse<unknown>>
 (
     id: number | string
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/category/image/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/category/" + id + "/image")
         .then((res) => res?.data)
 };

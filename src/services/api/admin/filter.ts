@@ -28,7 +28,7 @@ export const findByCategoryId = async <T extends ServerResponse<FilterResponse[]
 (
     id:number|string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/category/filter/get/"+id )
+    return axios.get<T, SuccessResponseType<T>>("admin/category/"+id+"/filter" )
         .then((res) => res?.data?.result?.data)
 };
 
@@ -48,6 +48,6 @@ export const setToCategory = async <T extends ServerResponse<unknown>>
             }[]
         }
     ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/category/filter/set/", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/category/filter", params)
         .then((res) => res?.data)
 };
