@@ -8,7 +8,7 @@ export const getFiles = async <T extends ServerResponse<FileManagerResponse[]>>
         model_type: string,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/file/get/", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/file/search", params)
         .then((res) => res?.data?.result.data)
 };
 
@@ -26,7 +26,7 @@ export const upload = async <T extends ServerResponse<unknown>>
     formData.append('model_id', params.model_id + "");
     formData.append('model_type', params.model_type);
     formData.append('file', params.file);
-    return axios.post<T, SuccessResponseType<T>>("admin/file/upload", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/file", formData,
         {
             onUploadProgress: (progressEvent) => {
                 //@ts-ignore
@@ -39,6 +39,6 @@ export const upload = async <T extends ServerResponse<unknown>>
 export const remove = async <T extends ServerResponse<unknown>>
 (id: number
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/file/remove/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/file/" + id)
         .then((res) => res?.data)
 };
