@@ -12,7 +12,7 @@ export const store = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/role/store", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/role", params)
         .then((res) => res?.data);
 };
 
@@ -25,14 +25,14 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/role/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/role/" + params.id, params)
         .then((res) => res?.data);
 };
 export const findById = async <T extends ServerResponse<RoleResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/role/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/role/" + id)
         .then((res) => res?.data?.result?.data)
 };
 export const list = async <T extends ServerResponse<RoleResponse[]>>

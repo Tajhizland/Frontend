@@ -12,7 +12,7 @@ export const store = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/permission/store", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/permission", params)
         .then((res) => res?.data);
 };
 
@@ -25,14 +25,14 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/permission/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/permission/" + params.id, params)
         .then((res) => res?.data);
 };
 export const findById = async <T extends ServerResponse<PermissionResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/permission/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/permission/" + id)
         .then((res) => res?.data?.result?.data)
 };
 export const list = async <T extends ServerResponse<PermissionResponse[]>>
