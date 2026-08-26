@@ -22,13 +22,13 @@ export const findById = async <T extends ServerResponse<ContactResponse>>
 (
     id:number|string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/contact/find/"+id )
+    return axios.get<T, SuccessResponseType<T>>("admin/contact/"+id )
         .then((res) => res?.data?.result?.data)
 };
 export const remove = async <T extends ServerResponse<unknown>>
 (
     id:number|string
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/contact/delete/"+id  )
+    return axios.delete<T, SuccessResponseType<T>>("admin/contact/"+id  )
         .then((res) => res?.data)
 };

@@ -20,7 +20,7 @@ export const store = async <T extends ServerResponse<unknown>>
     formData.append('status', params.status.toString());
     formData.append('icon', params.icon);
 
-    return axios.post<T, SuccessResponseType<T>>("admin/cast-category/store", formData)
+    return axios.post<T, SuccessResponseType<T>>("admin/cast-category", formData)
         .then((res) => res?.data)
 };
 
@@ -35,12 +35,12 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('name', params.name.toString());
     formData.append('status', params.status.toString());
     if (params.icon)
         formData.append('icon', params.icon);
-    return axios.post<T, SuccessResponseType<T>>("admin/cast-category/update", formData)
+    return axios.post<T, SuccessResponseType<T>>("admin/cast-category/" + params.id, formData)
         .then((res) => res?.data)
 };
 
@@ -55,6 +55,6 @@ export const findById = async <T extends ServerResponse<CastCategoryResponse>>
 (
     id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/cast-category/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/cast-category/" + id)
         .then((res) => res?.data?.result?.data)
 };

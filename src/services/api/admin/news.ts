@@ -28,7 +28,7 @@ export const store = async <T extends ServerResponse<unknown>>
         formData.append('image', params.image);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/news/store", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/news", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -46,7 +46,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('categoryId', params.categoryId.toString());
     formData.append('title', params.title);
     formData.append('url', params.url);
@@ -57,7 +57,7 @@ export const update = async <T extends ServerResponse<unknown>>
         formData.append('image', params.image);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/news/update", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/news/" + params.id, formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -65,6 +65,6 @@ export const findById = async <T extends ServerResponse<NewsResponse>>
 (
     id:number|string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/news/find/"+id )
+    return axios.get<T, SuccessResponseType<T>>("admin/news/"+id )
         .then((res) => res?.data?.result?.data)
 };
