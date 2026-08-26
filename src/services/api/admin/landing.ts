@@ -16,7 +16,7 @@ export const storeLanding = async <T extends ServerResponse<unknown>>
         status: string,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/landing/store", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/landing", params)
         .then((res) => res?.data)
 };
 
@@ -30,14 +30,14 @@ export const updateLanding = async <T extends ServerResponse<unknown>>
         status: string,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/landing/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/landing/" + params.id, params)
         .then((res) => res?.data)
 };
 
 export const findLandingById = async <T extends ServerResponse<LandingResponse>>
 (id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/landing/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/landing/" + id)
         .then((res) => res?.data?.result?.data)
 };
 
@@ -48,7 +48,7 @@ export const setProductLanding = async <T extends ServerResponse<unknown>>
         product_id: number,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/landing/product/set", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/landing/product", params)
         .then((res) => res?.data)
 };
 
@@ -59,48 +59,48 @@ export const setCategoryLanding = async <T extends ServerResponse<unknown>>
         category_id: number,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/landing/category/set", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/landing/category", params)
         .then((res) => res?.data)
 };
 
 export const getLandingProducts = async <T extends ServerResponse<LandingProductResponse[]>>
 (id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/landing/product/get/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/landing/" + id + "/product")
         .then((res) => res?.data?.result?.data)
 };
 
 export const getLandingCategory = async <T extends ServerResponse<LandingCategoryResponse[]>>
 (id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/landing/category/get/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/landing/" + id + "/category")
         .then((res) => res?.data?.result?.data)
 };
 export const deleteLandingProducts = async <T extends ServerResponse<unknown>>
 (id: number
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/landing/product/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/landing/product/" + id)
         .then((res) => res?.data)
 };
 
 export const deleteLandingCategory = async <T extends ServerResponse<unknown>>
 (id: number
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/landing/category/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/landing/category/" + id)
         .then((res) => res?.data)
 };
 
 export const deleteLandingBanner = async <T extends ServerResponse<unknown>>
 (id: number
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/landing/banner/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/landing/banner/" + id)
         .then((res) => res?.data)
 };
 
 export const getLandingBanner = async <T extends ServerResponse<LandingBannerResponse[]>>
 (id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/landing/banner/get/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/landing/" + id + "/banner")
         .then((res) => res?.data?.result?.data)
 };
 export const setLandingBanner = async <T extends ServerResponse<unknown>>
@@ -117,6 +117,6 @@ export const setLandingBanner = async <T extends ServerResponse<unknown>>
     formData.append('slider', params.slider+"");
     formData.append('url', params.url);
     formData.append('image', params.image);
-    return axios.post<T, SuccessResponseType<T>>("admin/landing/banner/set" ,formData)
+    return axios.post<T, SuccessResponseType<T>>("admin/landing/banner" ,formData)
         .then((res) => res?.data)
 };

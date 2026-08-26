@@ -13,7 +13,7 @@ export const store = async <T extends ServerResponse<unknown>>
         category_id: number | string,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/option/store", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/option", params)
         .then((res) => res?.data)
 };
 export const update = async <T extends ServerResponse<unknown>>
@@ -25,7 +25,7 @@ export const update = async <T extends ServerResponse<unknown>>
         category_id: number | string,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/option/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/option/" + params.id, params)
         .then((res) => res?.data)
 };
 
@@ -33,7 +33,7 @@ export const findById = async <T extends ServerResponse<OptionResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/option/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/option/" + id)
         .then((res) => res?.data?.result?.data)
 };
 
