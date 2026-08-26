@@ -14,7 +14,7 @@ export const store = async <T extends ServerResponse<unknown>>
 ) => {
     const formData = new FormData();
     if (params.logo) formData.append('logo', params.logo);
-    return axios.post<T, SuccessResponseType<T>>("admin/trusted-brand/store", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/trusted-brand", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -27,10 +27,10 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     if (params.logo) formData.append('logo', params.logo);
 
-    return axios.post<T, SuccessResponseType<T>>("admin/trusted-brand/update", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/trusted-brand/" + params.id, formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -39,7 +39,7 @@ export const findById = async <T extends ServerResponse<TrustedBrandResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/trusted-brand/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/trusted-brand/" + id)
         .then((res) => res?.data?.result?.data)
 };
 
@@ -47,6 +47,6 @@ export const deleteTrustedBrand = async <T extends ServerResponse<TrustedBrandRe
 (
     id: number | string
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/trusted-brand/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/trusted-brand/" + id)
         .then((res) => res?.data)
 };
