@@ -12,7 +12,7 @@ export const store = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/dictionary/store", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/dictionary", params)
         .then((res) => res?.data);
 };
 
@@ -25,20 +25,20 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/dictionary/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/dictionary/" + params.id, params)
         .then((res) => res?.data);
 };
 export const findById = async <T extends ServerResponse<DictionaryResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/dictionary/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/dictionary/" + id)
         .then((res) => res?.data?.result?.data)
 };
 export const removeById = async <T extends ServerResponse<DictionaryResponse>>
 (
     id: number | string
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/dictionary/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/dictionary/" + id)
         .then((res) => res?.data)
 };

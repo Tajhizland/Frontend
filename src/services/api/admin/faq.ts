@@ -14,7 +14,7 @@ export const store = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/faq/store", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/faq", params)
         .then((res) => res?.data);
 };
 
@@ -28,13 +28,13 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/faq/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/faq/" + params.id, params)
         .then((res) => res?.data);
 };
 export const findById = async <T extends ServerResponse<FaqResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/faq/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/faq/" + id)
         .then((res) => res?.data?.result?.data)
 };
