@@ -3,7 +3,7 @@ import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 import {tableFetcher} from "@/shared/Table/fetcher";
 import {uploadConfig} from "@/services/uploadConfig";
 
-export const vlogCategoryTable = tableFetcher<VlogCategoryResponse>("admin/vlog_category/dataTable");
+export const vlogCategoryTable = tableFetcher<VlogCategoryResponse>("admin/vlog-category/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
 (
@@ -23,7 +23,7 @@ export const store = async <T extends ServerResponse<unknown>>
         formData.append('icon', params.icon);
     formData.append('status', params.status.toString());
 
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/store", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog-category", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -39,14 +39,14 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('name', params.name);
     formData.append('url', params.url);
     if (params.icon)
         formData.append('icon', params.icon);
     formData.append('status', params.status.toString());
 
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/update", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog-category/" + params.id, formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -54,13 +54,13 @@ export const findById = async <T extends ServerResponse<VlogCategoryResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/vlog_category/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/vlog-category/" + id)
         .then((res) => res?.data?.result?.data)
 };
 
 export const getList = async <T extends ServerResponse<VlogCategoryResponse[]>>
 () => {
-    return axios.get<T, SuccessResponseType<T>>("admin/vlog_category/list")
+    return axios.get<T, SuccessResponseType<T>>("admin/vlog-category/list")
         .then((res) => res?.data?.result?.data)
 };
 
@@ -74,6 +74,6 @@ export const sortVlogCategory = async <T extends ServerResponse<unknown>>
         }[]
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog_category/sort",param)
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog-category/sort",param)
         .then((res) => res?.data)
 };

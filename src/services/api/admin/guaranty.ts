@@ -33,7 +33,7 @@ export const store = async <T extends ServerResponse<unknown>>
     if (params.icon) {
         formData.append('icon', params.icon);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/guaranty/store", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/guaranty", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data)
 };
 export const update = async <T extends ServerResponse<unknown>>
@@ -50,7 +50,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id + "");
+    formData.append('_method', 'PUT');
     formData.append('free', params.free.toString());
     formData.append('name', params.name);
     formData.append('url', params.url);
@@ -59,7 +59,7 @@ export const update = async <T extends ServerResponse<unknown>>
     if (params.icon) {
         formData.append('icon', params.icon);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/guaranty/update", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/guaranty/" + params.id, formData, uploadConfig(params.setProgress))
         .then((res) => res?.data)
 };
 
@@ -67,6 +67,6 @@ export const findById = async <T extends ServerResponse<GuarantyResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/guaranty/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/guaranty/" + id)
         .then((res) => res?.data?.result?.data)
 };

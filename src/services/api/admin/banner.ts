@@ -21,7 +21,7 @@ export const store = async <T extends ServerResponse<unknown>>
     if (params.image) {
         formData.append('image', params.image);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/banner/store", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/banner", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -36,13 +36,13 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('url', params.url);
     formData.append('type', params.type);
     if (params.image) {
         formData.append('image', params.image);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/banner/update", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/banner/" + params.id, formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -50,7 +50,7 @@ export const deleteBanner = async <T extends ServerResponse<BannerResponse>>
 (
     id: number | string
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/banner/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/banner/" + id)
         .then((res) => res?.data)
 };
 
@@ -58,7 +58,7 @@ export const findById = async <T extends ServerResponse<BannerResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/banner/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/banner/" + id)
         .then((res) => res?.data?.result?.data)
 };
 

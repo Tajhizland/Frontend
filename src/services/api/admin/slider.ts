@@ -24,7 +24,7 @@ export const store = async <T extends ServerResponse<unknown>>
     if (params.image) {
         formData.append('image', params.image);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/slider/store", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/slider", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -41,7 +41,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('title', params.title);
     formData.append('type', params.type);
     formData.append('status', params.status.toString());
@@ -49,7 +49,7 @@ export const update = async <T extends ServerResponse<unknown>>
     if (params.image) {
         formData.append('image', params.image);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/slider/update", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/slider/" + params.id, formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -57,26 +57,26 @@ export const findById = async <T extends ServerResponse<SliderResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/slider/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/slider/" + id)
         .then((res) => res?.data?.result?.data)
 };
 export const removeSlider = async <T extends ServerResponse<SliderResponse>>
 (
     id: number
 ) => {
-    return axios.delete<T, SuccessResponseType<T>>("admin/slider/delete/" + id)
+    return axios.delete<T, SuccessResponseType<T>>("admin/slider/" + id)
         .then((res) => res?.data)
 };
 export const getMobileSliders = async <T extends ServerResponse<SliderResponse[]>>
 (
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/slider/all_mobile")
+    return axios.get<T, SuccessResponseType<T>>("admin/slider/all-mobile")
         .then((res) => res?.data?.result)
 };
 export const getDesktopSliders = async <T extends ServerResponse<SliderResponse[]>>
 (
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/slider/all_desktop")
+    return axios.get<T, SuccessResponseType<T>>("admin/slider/all-desktop")
         .then((res) => res?.data?.result)
 };
 
