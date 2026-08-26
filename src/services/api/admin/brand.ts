@@ -34,7 +34,7 @@ export const store = async <T extends ServerResponse<unknown>>(
         formData.append('banner', params.banner);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/brand/store", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/brand", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -52,7 +52,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('name', params.name);
     formData.append('url', params.url);
     formData.append('status', params.status.toString());
@@ -65,14 +65,14 @@ export const update = async <T extends ServerResponse<unknown>>
         formData.append('banner', params.banner);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/brand/update", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/brand/" + params.id, formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 export const findById = async <T extends ServerResponse<BrandResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/brand/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/brand/" + id)
         .then((res) => res?.data?.result?.data)
 };
 export const sortBrands = async <T extends ServerResponse<unknown>>
