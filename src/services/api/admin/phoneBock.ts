@@ -13,7 +13,7 @@ export const storePhoneBock = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/phone-bock/store", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/phone-bock", params)
         .then((res) => res?.data);
 };
 
@@ -26,14 +26,14 @@ export const updatePhoneBock = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/phone-bock/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/phone-bock/" + params.id, params)
         .then((res) => res?.data);
 };
 export const findPhoneBockById = async <T extends ServerResponse<PhoneBockResponse>>
 (
     id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/phone-bock/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/phone-bock/" + id)
         .then((res) => res?.data?.result?.data)
 };
 export const getPhoneBockList = async <T extends ServerResponse<PhoneBockResponse[]>>

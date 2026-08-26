@@ -12,7 +12,7 @@ export const store = async <T extends ServerResponse<unknown>>
         description:string,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/gateway/store" , params)
+    return axios.post<T, SuccessResponseType<T>>("admin/gateway" , params)
         .then((res) => res?.data)
 };
 export const update = async <T extends ServerResponse<unknown>>
@@ -24,7 +24,7 @@ export const update = async <T extends ServerResponse<unknown>>
         description:string,
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/gateway/update" , params)
+    return axios.put<T, SuccessResponseType<T>>("admin/gateway/" + params.id , params)
         .then((res) => res?.data)
 };
 
@@ -32,6 +32,6 @@ export const findById = async <T extends ServerResponse<GatewayResponse>>
 (
     id:number|string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/gateway/find/"+id )
+    return axios.get<T, SuccessResponseType<T>>("admin/gateway/"+id )
         .then((res) => res?.data?.result?.data)
 };

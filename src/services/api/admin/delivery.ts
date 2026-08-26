@@ -25,7 +25,7 @@ export const store = async <T extends ServerResponse<unknown>>(
         formData.append('logo', params.logo);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/delivery/store", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/delivery", formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 export const update = async <T extends ServerResponse<unknown>>(
@@ -40,7 +40,7 @@ export const update = async <T extends ServerResponse<unknown>>(
     }
 ) => {
      const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('name', params.name);
     formData.append('status', params.status.toString());
     formData.append('description', params.description);
@@ -50,7 +50,7 @@ export const update = async <T extends ServerResponse<unknown>>(
         formData.append('logo', params.logo);
     }
 
-    return axios.post<T, SuccessResponseType<T>>("admin/delivery/update", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/delivery/" + params.id, formData, uploadConfig(params.setProgress))
         .then((res) => res?.data);
 };
 
@@ -58,6 +58,6 @@ export const findById = async <T extends ServerResponse<DeliveryResponse>>
 (
     id:number|string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/delivery/find/"+id )
+    return axios.get<T, SuccessResponseType<T>>("admin/delivery/"+id )
         .then((res) => res?.data?.result?.data)
 };
