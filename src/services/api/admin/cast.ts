@@ -33,7 +33,7 @@ export const store = async <T extends ServerResponse<unknown>>
     formData.append('image', params.image);
 
 
-    return axios.post<T, SuccessResponseType<T>>("admin/cast/store", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/cast", formData,
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -63,7 +63,7 @@ export const update = async <T extends ServerResponse<unknown>>
         }
     ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('title', params.title);
     formData.append('url', params.url);
     formData.append('description', params.description);
@@ -78,7 +78,7 @@ export const update = async <T extends ServerResponse<unknown>>
     if (params.audio) {
         formData.append('audio', params.audio);
     }
-    return axios.post<T, SuccessResponseType<T>>("admin/cast/update", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/cast/" + params.id, formData,
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -95,6 +95,6 @@ export const findById = async <T extends ServerResponse<CastResponse>>
     (
         id: number
     ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/cast/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/cast/" + id)
         .then((res) => res?.data?.result?.data)
 };

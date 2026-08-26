@@ -31,7 +31,7 @@ export const storeDirect = async <T extends ServerResponse<VlogResponse>>
     formData.append('videoKey', params.videoKey);
     formData.append('poster', params.poster);
 
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog/store-direct", formData)
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog/direct", formData)
         .then((res) => res?.data);
 };
 
@@ -40,7 +40,7 @@ export const videoStatus = async <T extends ServerResponse<VideoStatusResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/vlog/video-status/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/vlog/" + id + "/video-status")
         .then((res) => res?.data?.result?.data)
 };
 
@@ -68,7 +68,7 @@ export const store = async <T extends ServerResponse<unknown>>
     formData.append('categoryId', params.categoryId.toString());
     if (params.poster)
         formData.append('poster', params.poster);
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog/store", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog", formData,
         {
             onUploadProgress: (progressEvent) => {
                 //@ts-ignore
@@ -94,7 +94,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
     const formData = new FormData();
-    formData.append('id', params.id.toString());
+    formData.append('_method', 'PUT');
     formData.append('title', params.title);
     formData.append('description', params.description);
     formData.append('url', params.url);
@@ -104,7 +104,7 @@ export const update = async <T extends ServerResponse<unknown>>
         formData.append('video', params.video);
     if (params.poster)
         formData.append('poster', params.poster);
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog/update", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog/" + params.id, formData,
         {
             onUploadProgress: (progressEvent) => {
                 //@ts-ignore
@@ -119,7 +119,7 @@ export const findById = async <T extends ServerResponse<VlogResponse>>
 (
     id: number | string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/vlog/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/vlog/" + id)
         .then((res) => res?.data?.result?.data)
 };
 

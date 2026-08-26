@@ -8,20 +8,20 @@ export const findById = async <T extends ServerResponse<CommentResponse>>
 (
     id:number|string
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/comment/find/"+id )
+    return axios.get<T, SuccessResponseType<T>>("admin/comment/"+id )
         .then((res) => res?.data?.result?.data)
 };
 export const accept = async <T extends ServerResponse<unknown>>
 (
     id:number|string
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/comment/accept",{id:id} )
+    return axios.patch<T, SuccessResponseType<T>>("admin/comment/"+id+"/accept" )
         .then((res) => res?.data)
 };
 export const reject = async <T extends ServerResponse<unknown>>
 (
     id:number|string
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/comment/reject",{id:id} )
+    return axios.patch<T, SuccessResponseType<T>>("admin/comment/"+id+"/reject" )
         .then((res) => res?.data)
 };
