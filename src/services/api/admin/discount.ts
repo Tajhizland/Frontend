@@ -15,7 +15,7 @@ export const store = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/discount/store", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/discount", params)
         .then((res) => res?.data);
 };
 
@@ -30,7 +30,7 @@ export const update = async <T extends ServerResponse<unknown>>
     }
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/discount/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/discount/" + params.id, params)
         .then((res) => res?.data);
 };
 
@@ -38,7 +38,7 @@ export const find = async <T extends ServerResponse<DiscountResponse>>
 (
     id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/discount/find/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/discount/" + id)
         .then((res) => res?.data?.result?.data)
 };
 
@@ -46,7 +46,7 @@ export const getItem = async <T extends ServerResponse<DiscountItemResponse[]>>
 (
     id: number
 ) => {
-    return axios.get<T, SuccessResponseType<T>>("admin/discount/item/" + id)
+    return axios.get<T, SuccessResponseType<T>>("admin/discount/" + id + "/item")
         .then((res) => res?.data?.result?.data)
 };
 
@@ -63,7 +63,7 @@ export const setItem = async <T extends ServerResponse<unknown>>
 
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/discount/item/set", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/discount/item", params)
         .then((res) => res?.data)
 };
 
@@ -77,7 +77,7 @@ export const updateItem = async <T extends ServerResponse<unknown>>
 
     }
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/discount/item/update", params)
+    return axios.put<T, SuccessResponseType<T>>("admin/discount/item", params)
         .then((res) => res?.data)
 };
 
