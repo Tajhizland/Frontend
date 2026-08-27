@@ -14,13 +14,12 @@ import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
 import ProductCard from "@/components/Card/ProductCard";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import Spinner from "@/shared/Loading/Spinner";
+import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
 const BrandListing = ({response, url}: { response: BrandListingResponse, url: string }) => {
     const [filter, setFilter] = useState<number>();
     const [loadingFilter, setLoadingFilter] = useState<boolean>(false);
     const router = useRouter();
-    const observer = useRef<IntersectionObserver | null>(null);
-    const lastElementRef = useRef<HTMLDivElement>(null);
 
     const {
         data,
@@ -51,34 +50,13 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
         }
     );
 
-    useEffect(() => {
-        if (observer.current) observer.current.disconnect();
-
-        observer.current = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-                    fetchNextPage();
-                }
-            },
-            {
-                rootMargin: "500px",
-            }
-        );
-
-        if (lastElementRef.current) {
-            observer.current.observe(lastElementRef.current);
-        }
-
-        return () => {
-            if (observer.current) observer.current.disconnect();
-        };
-    }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+    const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
     useEffect(() => {
         if (data) {
             const currentPage = data.pages[data.pages.length - 1]?.products?.meta?.current_page;
             if (currentPage) {
-                router.push(`?page=${currentPage}`, {scroll: false});
+                router.replace(`?page=${currentPage}`, {scroll: false});
             }
         }
     }, [data, router]);
@@ -160,7 +138,7 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
                                 </div>
 
                                 {/* Loading more products indicator */}
-                                <div ref={lastElementRef}
+                                <div ref={sentinelRef}
                                      className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                                     {isFetchingNextPage && <ProductCardSkeleton/>}
                                 </div>

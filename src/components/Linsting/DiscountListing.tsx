@@ -1,6 +1,6 @@
-//@ts-nocheck
 "use client";
 import React, {useEffect, useRef, useState} from "react";
+import {DiscountedProductPageResponse} from "@/services/types/product";
 import {useRouter} from "next/navigation";
 import {getDiscountedProducts} from "@/services/api/shop/product";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
@@ -13,8 +13,9 @@ import {CgSwap} from "react-icons/cg";
 import Link from "next/link";
 import {Route} from "next";
 import Image from "next/image";
+import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
-const DiscountListing = ({response}: { response }) => {
+const DiscountListing = ({response}: {response: DiscountedProductPageResponse}) => {
     const router = useRouter();
     const [filter, setFilter] = useState<number>();
 
@@ -45,37 +46,13 @@ const DiscountListing = ({response}: { response }) => {
         }
     );
 
-    // برای مشاهده صفحه جدید به صورت خودکار زمانی که به انتهای صفحه رسید
-    const observer = useRef<IntersectionObserver | null>(null);
-    const lastElementRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (observer.current) observer.current.disconnect();
-        observer.current = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-                    fetchNextPage(); // بارگذاری صفحه بعدی
-                }
-            },
-            {
-                rootMargin: "500px", // فاصله که قبل از رسیدن به انتهای صفحه بارگذاری شروع شود
-            }
-        );
-
-        if (lastElementRef.current) {
-            observer.current.observe(lastElementRef.current);
-        }
-
-        return () => {
-            if (observer.current) observer.current.disconnect();
-        };
-    }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+    const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
     useEffect(() => {
         if (data) {
             const currentPage = data.pages[data.pages.length - 1]?.meta?.current_page;
             if (currentPage) {
-                router.push(`?page=${currentPage}`, {scroll: false});
+                router.replace(`?page=${currentPage}`, {scroll: false});
             }
         }
     }, [data, router]);
@@ -164,7 +141,7 @@ const DiscountListing = ({response}: { response }) => {
                         </div>
 
                         {/* Loading more products indicator */}
-                        <div ref={lastElementRef}
+                        <div ref={sentinelRef}
                              className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                             {isFetchingNextPage && <ProductCardSkeleton/>}
                         </div>

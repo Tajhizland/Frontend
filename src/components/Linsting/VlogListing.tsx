@@ -1,6 +1,6 @@
-//@ts-nocheck
 "use client";
 import React, { useRef, useEffect, useState } from "react";
+import {VlogListingResponse} from "@/services/types/vlog";
 import { useInfiniteQuery } from "react-query";
 import { getVlogPaginated } from "@/services/api/shop/vlog";
 import { VlogResponse } from "@/services/types/vlog";
@@ -19,10 +19,9 @@ import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import CategoryCircleCard2 from "@/components/Card/CategoryCircleCard2";
 import {MdOutlineOndemandVideo} from "react-icons/md";
 import {GoEye} from "react-icons/go";
+import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
-export default function VlogListing({ response, search }: { response: any, search?: string }) {
-    const observer = useRef<IntersectionObserver | null>(null);
-    const lastElementRef = useRef<HTMLDivElement>(null);
+export default function VlogListing({ response, search }: { response: VlogListingResponse, search?: string }) {
     const router = useRouter();
     const [filter, setFilter] = useState<string>(search ? ("filter[search]=" + search) : "");
     const [page, setPage] = useState<number>(1);
@@ -55,31 +54,7 @@ export default function VlogListing({ response, search }: { response: any, searc
         }
     );
 
-    // استفاده از IntersectionObserver برای بارگذاری صفحه بعدی
-    useEffect(() => {
-        if (observer.current) observer.current.disconnect();
-
-        observer.current = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-                    fetchNextPage();
-                    setPage((prevPage) => prevPage + 1);
-
-                }
-            },
-            {
-                rootMargin: "500px",
-            }
-        );
-
-        if (lastElementRef.current) {
-            observer.current.observe(lastElementRef.current);
-        }
-
-        return () => {
-            if (observer.current) observer.current.disconnect();
-        };
-    }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+    const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
     useEffect(() => {
         if (page > 1) {
@@ -212,7 +187,7 @@ export default function VlogListing({ response, search }: { response: any, searc
                                     className="grid   grid-cols-2 lg:grid-cols-3 gap-2 gap-y-7 sm:gap-5 sm:gap-y-7">
                                     {allVlogs.map((item: VlogResponse) => renderItem(item))}
                                 </div>
-                                <div ref={lastElementRef}
+                                <div ref={sentinelRef}
                                      className="grid   grid-cols-2 lg:grid-cols-3 gap-2 gap-y-7 sm:gap-5 sm:gap-y-7 mt-7">
                                     {isFetchingNextPage && <VlogCardSkeleton />}
                                 </div>

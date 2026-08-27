@@ -1,9 +1,9 @@
-import {Identified, Timestamps} from "@/services/http";
+import {Identified, Paginated, Timestamps} from "@/services/http";
 import {BannerResponse} from "@/services/types/banner";
 import {BlogCategoryResponse} from "@/services/types/blogCategory";
 
 export type NewsListingResponse = {
-    listing:{data:NewsResponse[]}
+    listing: Paginated<NewsResponse>
     lastPost:{data:NewsResponse[]}
     category:{data:BlogCategoryResponse[]}
     banner:{data:BannerResponse[]}

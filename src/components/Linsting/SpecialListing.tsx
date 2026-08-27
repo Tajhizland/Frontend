@@ -1,6 +1,6 @@
-//@ts-nocheck
 "use client"
 import React, { useEffect, useRef } from "react";
+import {SpecialProductPageResponse} from "@/services/types/product";
 import { useRouter } from "next/navigation";
 import { getSpecialProductsPaginate } from "@/services/api/shop/product";
 import { useInfiniteQuery } from "react-query";
@@ -8,11 +8,10 @@ import { ProductResponse } from "@/services/types/product";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import ProductCard from "@/components/Card/ProductCard";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
+import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
-export default function SpecialListing({ response }) {
+export default function SpecialListing({ response }: { response: SpecialProductPageResponse }) {
     const router = useRouter();
-    const observer = useRef<IntersectionObserver | null>(null);
-    const lastElementRef = useRef<HTMLDivElement>(null);
 
     // استفاده از useInfiniteQuery برای بارگذاری داده‌ها
     const {
@@ -41,36 +40,14 @@ export default function SpecialListing({ response }) {
         }
     );
 
-    // استفاده از IntersectionObserver برای بارگذاری صفحه بعد
-    useEffect(() => {
-        if (observer.current) observer.current.disconnect();
-
-        observer.current = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-                    fetchNextPage();  // صفحه بعدی را بارگذاری می‌کند
-                }
-            },
-            {
-                rootMargin: "500px",
-            }
-        );
-
-        if (lastElementRef.current) {
-            observer.current.observe(lastElementRef.current);
-        }
-
-        return () => {
-            if (observer.current) observer.current.disconnect();
-        };
-    }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+    const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
     // به‌روزرسانی URL با تغییر صفحه
     useEffect(() => {
         if (data) {
             const currentPage = data.pages[data.pages.length - 1]?.meta?.current_page;
             if (currentPage) {
-                router.push(`?page=${currentPage}`, { scroll: false });
+                router.replace(`?page=${currentPage}`, { scroll: false });
             }
         }
     }, [data, router]);
@@ -95,7 +72,7 @@ export default function SpecialListing({ response }) {
                             </div>
 
                             {/* آخرین عنصر برای مشاهده صفحه بعد */}
-                            <div ref={lastElementRef}
+                            <div ref={sentinelRef}
                                  className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                                 {isFetchingNextPage && <ProductCardSkeleton/>}
                             </div>

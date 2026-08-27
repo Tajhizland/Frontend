@@ -1,4 +1,4 @@
-import {Identified, Timestamps} from "@/services/http";
+import {Identified, Paginated, Timestamps} from "@/services/http";
 import {ColorResponse, ProductColorCardResponse} from "./color";
 import {CommentResponse} from "./comment";
 import {ProductOptionResponse} from "@/services/types/productOption";
@@ -23,11 +23,12 @@ export type ProductPageResponse = {
     breadcrumb: { data: breadcrumbResponse[] };
 }
 export type SpecialProductPageResponse = {
-    data: ProductResponse;
+    data: Paginated<ProductResponse>;
     banner: { data: BannerResponse[] };
 }
 export type DiscountedProductPageResponse = {
-    data: ProductResponse;
+    data: Paginated<ProductResponse>;
+    category: { data: CategoryResponse[] };
     topDiscountedProducts: { data: ProductResponse[] };
     campaign?: CampaignResponse;
     banner: { data: BannerResponse[] };
@@ -35,7 +36,7 @@ export type DiscountedProductPageResponse = {
     discountTimer: DiscountItemResponse;
 }
 export type StockProductPageResponse = {
-    data: ProductResponse;
+    data: Paginated<ProductResponse>;
     category: { data: CategoryResponse[] };
 }
 /**

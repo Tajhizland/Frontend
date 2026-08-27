@@ -1,6 +1,6 @@
-//@ts-nocheck
 "use client";
 import React, { useRef, useEffect, useState } from "react";
+import {CastListingResponse} from "@/services/types/cast";
 import { useInfiniteQuery } from "react-query";
 import VlogCardSkeleton from "@/components/Skeleton/VlogCardSkeleton";
 import { useRouter } from "next/navigation";
@@ -14,10 +14,9 @@ import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import LogoIco from "@/images/logoTajhizcast.jpg";
 import Image from "next/image";
 import Logo from "@/shared/Logo/Logo";
+import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
 export default function CastListing({ response, search }: { response: any, search?: string }) {
-    const observer = useRef<IntersectionObserver | null>(null);
-    const lastElementRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
     const [filter, setFilter] = useState<string>(search ? ("filter[search]=" + search) : "");
     const [page, setPage] = useState<number>(1);
@@ -50,31 +49,7 @@ export default function CastListing({ response, search }: { response: any, searc
         }
     );
 
-    // استفاده از IntersectionObserver برای بارگذاری صفحه بعدی
-    useEffect(() => {
-        if (observer.current) observer.current.disconnect();
-
-        observer.current = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-                    fetchNextPage();
-                    setPage((prevPage) => prevPage + 1);
-
-                }
-            },
-            {
-                rootMargin: "500px",
-            }
-        );
-
-        if (lastElementRef.current) {
-            observer.current.observe(lastElementRef.current);
-        }
-
-        return () => {
-            if (observer.current) observer.current.disconnect();
-        };
-    }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+    const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
     useEffect(() => {
         if (page > 1) {
@@ -130,7 +105,7 @@ export default function CastListing({ response, search }: { response: any, searc
 
                                 {allCasts.map((item: CastResponse) => <CastCard cast={item} key={item.id}/>)}
                                 </div>
-                                <div  ref={lastElementRef} className={"flex flex-col gap-10"}>
+                                <div  ref={sentinelRef} className={"flex flex-col gap-10"}>
 
                                 {isFetchingNextPage && <VlogCardSkeleton />}
                                 </div>

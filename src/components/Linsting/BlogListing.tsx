@@ -1,7 +1,7 @@
-//@ts-nocheck
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
+import {NewsListingResponse} from "@/services/types/news";
 import { useInfiniteQuery } from "react-query";
 import { getNewsPaginated } from "@/services/api/shop/news";
 import Heading from "@/components/Heading/Heading";
@@ -15,10 +15,9 @@ import BlogCategory from "@/components/Blog/BlogCategory";
 import BlogCard from "@/components/Card/BlogCard";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import BlogMobileCategory from "@/components/Blog/BlogMobileCategory";
+import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
-const BlogListing = ({ response }: { response }) => {
-    const observer = useRef<IntersectionObserver | null>(null);
-    const lastElementRef = useRef<HTMLDivElement>(null);
+const BlogListing = ({response}: {response: NewsListingResponse}) => {
     const router = useRouter();
     const [filter, setFilter] = useState<string>("");
     const [page, setPage] = useState<number>(1);
@@ -48,28 +47,7 @@ const BlogListing = ({ response }: { response }) => {
         }
     );
 
-    useEffect(() => {
-        if (observer.current) observer.current.disconnect();
-
-        observer.current = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-                    fetchNextPage();
-                    setPage((prevPage) => prevPage + 1);
-                }
-            },
-            {
-                rootMargin: "500px",
-            }
-        );
-        if (lastElementRef.current) {
-            observer.current.observe(lastElementRef.current);
-        }
-
-        return () => {
-            if (observer.current) observer.current.disconnect();
-        };
-    }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+    const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
     // هر بار که صفحه تغییر می‌کند، URL را به‌روز می‌کنیم
     useEffect(() => {
@@ -106,7 +84,7 @@ const BlogListing = ({ response }: { response }) => {
                                     </div>
 
                                     {/* Infinite Scroll Loader */}
-                                    <div ref={lastElementRef}
+                                    <div ref={sentinelRef}
                                         className="grid gap-6 md:gap-8 grid-cols-1   md:mt-5">
                                         {isFetchingNextPage && <BlogCardSkeleton />}
                                     </div>

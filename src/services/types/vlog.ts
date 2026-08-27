@@ -1,4 +1,4 @@
-import {Identified, Timestamps} from "@/services/http";
+import {Identified, Paginated, Timestamps} from "@/services/http";
 import {BannerResponse} from "@/services/types/banner";
 import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 
@@ -6,11 +6,19 @@ export type VlogPageResponse = {
     relatedVlogs: { data: VlogResponse[] };
     vlog: VlogResponse;
 }
-export type VlogListingResponse = {
-    listing: { data: VlogResponse[] };
+export type VlogCategoryListingResponse = {
+    listing: Paginated<VlogResponse>;
     mostViewed: { data: VlogResponse[] };
     banner: { data: BannerResponse[] };
-    categorys?: { data: VlogCategoryResponse[] }
+    categorys: { data: VlogCategoryResponse[] };
+    category: VlogCategoryResponse;
+}
+
+export type VlogListingResponse = {
+    listing: Paginated<VlogResponse>;
+    mostViewed: { data: VlogResponse[] };
+    banner: { data: BannerResponse[] };
+    category: { data: VlogCategoryResponse[] };
 }
 export interface VlogBase {
     title: string;
