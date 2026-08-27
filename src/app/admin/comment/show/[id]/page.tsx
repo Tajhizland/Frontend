@@ -3,14 +3,13 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import {accept, findById, reject} from "@/services/api/admin/comment";
-import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export default function Page() {
     const {id} = useParams();
-    const queryClient = useQueryClient();
 
     const {data: data} = useQuery({
         queryKey: [`comment-info`, Number(id)],
@@ -18,19 +17,8 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    async function acceptHandle() {
-        let response = await accept(Number(id));
-        toast.success(response?.message as string)
-        queryClient.refetchQueries(['comment-info', Number(id)]);
-
-    }
-
-    async function rejectHandle() {
-        let response = await reject(Number(id));
-        toast.success(response?.message as string)
-        queryClient.refetchQueries(['comment-info', Number(id)]);
-
-    }
+    const acceptMutation = useApiMutation(() => accept(Number(id)), {invalidate: [["comment-info", Number(id)]]});
+    const rejectMutation = useApiMutation(() => reject(Number(id)), {invalidate: [["comment-info", Number(id)]]});
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -91,8 +79,8 @@ export default function Page() {
                     </div>
                 </div>
                 <div className={"flex justify-between mt-10"}>
-                    <ButtonPrimary onClick={acceptHandle}>تایید کردن</ButtonPrimary>
-                    <ButtonPrimary onClick={rejectHandle}>رد کردن</ButtonPrimary>
+                    <ButtonPrimary onClick={() => acceptMutation.mutate()}>تایید کردن</ButtonPrimary>
+                    <ButtonPrimary onClick={() => rejectMutation.mutate()}>رد کردن</ButtonPrimary>
                 </div>
             </div>
         </Panel>

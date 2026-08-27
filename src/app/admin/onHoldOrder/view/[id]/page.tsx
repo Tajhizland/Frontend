@@ -4,10 +4,10 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import {useParams} from "next/navigation";
 import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import NcImage from "@/shared/NcImage/NcImage";
 import {OrderStatus} from "@/app/admin/order/orderStatus";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {toast} from "react-hot-toast";
 import {accept, findById, reject} from "@/services/api/admin/onHoldOrder";
 import Prices from "@/components/Price/Prices";
 
@@ -20,15 +20,8 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    async function acceptHandle() {
-        let response = await accept(Number(id))
-        toast.success(response?.message as string);
-    }
-
-    async function rejectHandle() {
-        let response = await reject(Number(id))
-        toast.success(response?.message as string);
-    }
+    const acceptMutation = useApiMutation(() => accept(Number(id)), {invalidate: [["onhold-order-info", Number(id)]]});
+    const rejectMutation = useApiMutation(() => reject(Number(id)), {invalidate: [["onhold-order-info", Number(id)]]});
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -206,10 +199,10 @@ export default function Page() {
                 </table>
             </div>
             <div className={"flex mt-10  gap-x-5"}>
-                <ButtonPrimary onClick={acceptHandle}>
+                <ButtonPrimary onClick={() => acceptMutation.mutate()}>
                     تایید سفارش
                 </ButtonPrimary>
-                <ButtonPrimary onClick={rejectHandle}>
+                <ButtonPrimary onClick={() => rejectMutation.mutate()}>
                     رد سفارش
                 </ButtonPrimary>
             </div>

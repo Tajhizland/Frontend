@@ -15,6 +15,7 @@ import {OrderStatus} from "@/app/admin/order/orderStatus";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ItemActions from "@/app/admin/order/view/[id]/ItemActions";
+import {useApiMutation} from "@/hooks/useApiMutation";
 
 export default function Page() {
     const {id} = useParams();
@@ -25,23 +26,11 @@ export default function Page() {
         staleTime: 5000,
     });
     const [openCancel, setOpenCancel] = useState(false);
-    const [cancelLoading, setCancelLoading] = useState(false);
 
-    async function handleCancel() {
-        setCancelLoading(true);
-        try {
-            const response = await cancelOrder(Number(id));
-            if (response?.success) {
-                toast.success(response?.message as string);
-                setOpenCancel(false);
-                refetch();
-            } else {
-                toast.error(response?.message as string);
-            }
-        } finally {
-            setCancelLoading(false);
-        }
-    }
+    const cancelMutation = useApiMutation(() => cancelOrder(Number(id)), {
+        invalidate: [["order-info", Number(id)]],
+        onSuccess: () => setOpenCancel(false),
+    });
 
     const handlePrint = () => {
         const printSection = document.getElementById('print');
@@ -286,9 +275,9 @@ export default function Page() {
                             انصراف
                         </ButtonThird>
                         <ButtonPrimary
-                            loading={cancelLoading}
-                            disabled={cancelLoading}
-                            onClick={handleCancel}
+                            loading={cancelMutation.isLoading}
+                            disabled={cancelMutation.isLoading}
+                            onClick={() => cancelMutation.mutate()}
                             className="!bg-rose-600 hover:!bg-rose-700"
                         >
                             کنسل کردن سفارش

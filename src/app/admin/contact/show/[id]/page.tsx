@@ -2,15 +2,14 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import { remove ,findById } from "@/services/api/admin/contact";
 
 export default function Page() {
     const {id} = useParams();
-    const queryClient = useQueryClient();
 
     const {data: data} = useQuery({
         queryKey: [`contact-info`, Number(id)],
@@ -18,11 +17,7 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    async function deleteHandle() {
-        let response = await remove(Number(id));
-        toast.success(response?.message as string)
-        queryClient.refetchQueries(['contact-info', Number(id)]);
-    }
+    const deleteMutation = useApiMutation(() => remove(Number(id)), {invalidate: [["contact-info", Number(id)]]});
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -93,7 +88,7 @@ export default function Page() {
                     </div>
                 </div>
                 <div className={"flex justify-between mt-10"}>
-                    <ButtonPrimary onClick={deleteHandle}>حذف</ButtonPrimary>
+                    <ButtonPrimary onClick={() => deleteMutation.mutate()}>حذف</ButtonPrimary>
                 </div>
             </div>
         </Panel>

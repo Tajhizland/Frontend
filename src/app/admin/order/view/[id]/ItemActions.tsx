@@ -7,6 +7,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonThird from "@/shared/Button/ButtonThird";
 import {deleteItem, updateItem} from "@/services/api/admin/order";
 import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
+import {useApiMutation} from "@/hooks/useApiMutation";
 
 type Props = {
     item: any;
@@ -20,47 +21,36 @@ export default function ItemActions({item, onDone, itemsCount = 0}: Props) {
     const [openEdit, setOpenEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
     const [count, setCount] = useState<number>(item.count);
-    const [loading, setLoading] = useState(false);
 
-    async function handleUpdate() {
+    const updateMutation = useApiMutation(() => updateItem(item.id, {count}), {
+        onSuccess: () => {
+            setOpenEdit(false);
+            onDone();
+        },
+    });
+
+    const deleteMutation = useApiMutation(() => deleteItem(item.id), {
+        onSuccess: () => {
+            setOpenDelete(false);
+            onDone();
+        },
+    });
+
+    const handleUpdate = () => {
         if (!count || count < 1) {
             toast.error("تعداد باید حداقل ۱ باشد");
             return;
         }
-        setLoading(true);
-        try {
-            const response = await updateItem(item.id, {count});
-            if (response?.success) {
-                toast.success(response?.message as string);
-                setOpenEdit(false);
-                onDone();
-            } else {
-                toast.error(response?.message as string);
-            }
-        } finally {
-            setLoading(false);
-        }
-    }
+        updateMutation.mutate();
+    };
 
-    async function handleDelete() {
+    const handleDelete = () => {
         if (isLastItem) {
             toast.error("امکان حذف آخرین محصول سفارش وجود ندارد");
             return;
         }
-        setLoading(true);
-        try {
-            const response = await deleteItem(item.id);
-            if (response?.success) {
-                toast.success(response?.message as string);
-                setOpenDelete(false);
-                onDone();
-            } else {
-                toast.error(response?.message as string);
-            }
-        } finally {
-            setLoading(false);
-        }
-    }
+        deleteMutation.mutate();
+    };
 
     return (
         <div className="flex items-center justify-center gap-2 print:hidden">
@@ -115,7 +105,7 @@ export default function ItemActions({item, onDone, itemsCount = 0}: Props) {
                             <ButtonThird onClick={() => setOpenEdit(false)}>
                                 انصراف
                             </ButtonThird>
-                            <ButtonPrimary loading={loading} disabled={loading} onClick={handleUpdate}>
+                            <ButtonPrimary loading={updateMutation.isLoading} disabled={updateMutation.isLoading} onClick={handleUpdate}>
                                 ذخیره
                             </ButtonPrimary>
                         </div>
@@ -142,8 +132,8 @@ export default function ItemActions({item, onDone, itemsCount = 0}: Props) {
                                 انصراف
                             </ButtonThird>
                             <ButtonPrimary
-                                loading={loading}
-                                disabled={loading}
+                                loading={deleteMutation.isLoading}
+                                disabled={deleteMutation.isLoading}
                                 onClick={handleDelete}
                                 className="!bg-rose-600 hover:!bg-rose-700"
                             >
