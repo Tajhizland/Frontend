@@ -2,7 +2,6 @@ import React, {FC} from "react";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Link from "next/link";
 import Image, {StaticImageData} from "next/image";
-import {Route} from "next";
 
 export interface MenuCardProps {
     className?: string;
@@ -24,7 +23,7 @@ const MenuCard: FC<MenuCardProps> = ({
                     className={`relative w-full aspect-w-16 aspect-h-11 sm:aspect-h-9 h-0 rounded-2xl overflow-hidden group bg-white`}
                 >
                     <div>
-                        <Link className="w-full h-full" href={(url ?? "/") as Route}>
+                        <Link className="w-full h-full" href={(url ?? "/")}>
                             <div className="w-full h-full">
                                 <Image
                                     alt=""

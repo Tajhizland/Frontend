@@ -1,7 +1,6 @@
 import React from "react";
 import {VlogResponse} from "@/services/types/vlog";
 import Link from "next/link";
-import {Route} from "next";
 import NcImage from "@/shared/NcImage/NcImage";
 import {FaCirclePlay} from "react-icons/fa6";
 import {FaEye} from "react-icons/fa";
@@ -28,7 +27,7 @@ export default function CastMiniPost({
                     className="flex flex-col  bg-white dark:bg-black/20 divide-y divide-neutral-200 dark:divide-neutral-700 ">
                     {
                         casts.map((item, index) => (<Link
-                            href={"/tajhizcast/" + item.url as Route}
+                            href={"/tajhizcast/" + item.url}
                             key={index}
                             className={"flex items-center gap-1 py-2 px-1  hover:bg-neutral-100 dark:hover:bg-neutral-700"}>
 

@@ -29,7 +29,7 @@ export default function SampleTab() {
                 {
                     TABS.map((item) => (<>
                         <li className={`me-2 `}>
-                            <Link href={{pathname: item.link}}
+                            <Link href={item.link}
                                   className={`inline-flex items-center justify-center p-4 border-b-2   rounded-t-lg hover:text-gray-600 hover:border-gray-300  group gap-x-2 ${pathname == item.link ? "border-b-2 border-primary-500 hover:border-primary-500" : ""}`}>
                                 {item.icon}
                                 {item.title}

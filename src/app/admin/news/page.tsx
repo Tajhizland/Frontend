@@ -36,7 +36,7 @@ export default function Page() {
                 مدیریت بلاگ
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/news/create"}}>
+                <Link href={"/admin/news/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

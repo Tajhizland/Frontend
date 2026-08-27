@@ -1,7 +1,6 @@
 import React, { HTMLAttributes, ReactNode } from "react";
 import NextPrev from "@/shared/NextPrev/NextPrev";
 import Link from "next/link";
-import { Route } from "next";
 
 export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   fontClass?: string;
@@ -51,7 +50,7 @@ const Heading: React.FC<HeadingProps> = ({
             : ""
         }
       >
-       {href ? <Link href={href as Route} >
+       {href ? <Link href={href} >
         <h2
           className={`${isCenter ? "justify-center" : ""} ${fontClass}`}
           {...args}

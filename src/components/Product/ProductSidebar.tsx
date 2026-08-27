@@ -11,7 +11,6 @@ import {useQuery, useQueryClient} from "react-query";
 import {ClockIcon, NoSymbolIcon, SparklesIcon} from "@heroicons/react/24/outline";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
-import {Route} from "next";
 import {GuarantyResponse} from "@/services/types/guaranty";
 import Badge from "@/shared/Badge/Badge";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
@@ -243,7 +242,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
         if (product?.brand) {
             return <div className={"flex items-center justify-start w-full"}>
 
-                <Link href={"/brand/" + product.brand.url as Route}
+                <Link href={"/brand/" + product.brand.url}
                       className={`relative h-0 w-32 rounded-2xl overflow-hidden group aspect-w-3 aspect-h-1 `}
                 >
                     <div className="flex justify-center items-center">

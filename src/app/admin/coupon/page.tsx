@@ -40,7 +40,7 @@ export default function Page() {
                 مدیریت تخفیفات
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/coupon/create"}}>
+                <Link href={"/admin/coupon/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

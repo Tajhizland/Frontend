@@ -17,12 +17,12 @@ type DesktopLinkItem = {
 };
 
 const DEFAULT_ITEMS: DesktopLinkItem[] = [
-    {title: "کارکرده", image: desktopStock, href: "/product/stock" as Route},
-    {title: "ولاگ", image: desktopVlog, href: "/vlog" as Route},
-    {title: "تجهیزکست", image: desktopCast, href: "/tajhizcast" as Route},
-    {title: "بلاگ", image: desktopBlog, href: "/news" as Route},
-    {title: "راه اندازی", image: desktopStart, href: "/sample" as Route},
-    {title: "برند ها", image: desktopBrand, href: "/brand" as Route, hideOnMobile: true},
+    {title: "کارکرده", image: desktopStock, href: "/product/stock"},
+    {title: "ولاگ", image: desktopVlog, href: "/vlog"},
+    {title: "تجهیزکست", image: desktopCast, href: "/tajhizcast"},
+    {title: "بلاگ", image: desktopBlog, href: "/news"},
+    {title: "راه اندازی", image: desktopStart, href: "/sample"},
+    {title: "برند ها", image: desktopBrand, href: "/brand", hideOnMobile: true},
 ];
 
 export default function SectionDesktopLinks({className = "", items = DEFAULT_ITEMS}: {

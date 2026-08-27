@@ -7,7 +7,7 @@ export  default  function SimpleSidebarItem({item}:{item:MENU_ITEM_INTERFACE})
     return(<>
         <li>
             <Link
-                href={{ pathname: "/admin/" + item.url }}
+                href={"/admin/" + item.url}
                 className="text-xs flex items-center w-full p-2 py-4  transition duration-75 rounded-lg   group hover:bg-slate-800  bg-transparent text-white "
             >
                 <span className={"font-bold  text-white ml-3"}>

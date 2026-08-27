@@ -4,7 +4,6 @@ import React, {FC} from "react";
 // @ts-ignore
 import {NewsResponse} from "@/services/types/news";
 import Link from "next/link";
-import {Route} from "next";
 import NcImage from "@/shared/NcImage/NcImage";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import {stripHTML} from "@/hooks/StripHtml";
@@ -36,7 +35,7 @@ const SectionHomepageBlog: FC<SectionHomepageBlogProps> = ({
                             <div
                                 className="w-full h-full overflow-hidden hover:shadow bg-white dark:bg-transparent hover:text-black group border rounded">
                                 <Link
-                                    href={"/news/show/" + item.url as Route}
+                                    href={"/news/show/" + item.url}
                                     aria-label={"vlog"}
                                     className="flex flex-col"
                                 >

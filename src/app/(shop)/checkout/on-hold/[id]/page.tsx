@@ -258,14 +258,14 @@ const OnHoldCheckoutPage = () => {
                         className="h-full w-full object-contain object-center"
                         sizes="150px"
                     />
-                    <Link href={{pathname: "/product/" + item.product.url}} className="absolute inset-0"></Link>
+                    <Link href={"/product/" + item.product.url} className="absolute inset-0"></Link>
                 </div>
 
                 <div className="mr-3 sm:ml-6 flex flex-1 flex-col">
                     <div className="flex justify-between gap-1 flex-col">
                         <div className="flex-[1.5]">
                             <h3 className="text-xs md:text-sm font-semibold">
-                                <Link href={{pathname: "/product/" + item.product.url}}>{item.product.name}</Link>
+                                <Link href={"/product/" + item.product.url}>{item.product.name}</Link>
                             </h3>
                             <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
                                 <div className="flex items-center gap-x-1.5">

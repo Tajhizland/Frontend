@@ -36,7 +36,7 @@ export default function Page() {
                 مدیریت روش ارسال
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/delivery/create"}}>
+                <Link href={"/admin/delivery/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

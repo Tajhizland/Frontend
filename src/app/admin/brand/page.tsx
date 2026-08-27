@@ -37,10 +37,10 @@ export default function Page() {
                 مدیریت برند
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/brand/create"}}>
+                <Link href={"/admin/brand/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
-                <Link href={{pathname: "/admin/brand/sort"}}>
+                <Link href={"/admin/brand/sort"}>
                     <ButtonPrimary> سورت کردن</ButtonPrimary>
                 </Link>
             </PageLink>

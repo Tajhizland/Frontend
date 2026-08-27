@@ -91,7 +91,7 @@ export default function VlogCategoryListing({response, search, url}: { response:
     const renderItem = (item: VlogResponse) => (
         <div className="w-full h-full  overflow-hidden   bg-white dark:bg-transparent" key={item.id}>
             <Link
-                href={"/vlog/" + item.url as Route}
+                href={"/vlog/" + item.url}
                 aria-label={"vlog"}
                 className="flex flex-col"
             >

@@ -3,7 +3,6 @@ import React, {FC} from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
 import {ProductImageResponse} from "@/services/types/productImage";
-import {Route} from "next";
 import Prices from "@/components/Price/Prices";
 import {ColorResponse} from "@/services/types/color";
 import {ProductResponse} from "@/services/types/product";
@@ -124,7 +123,7 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
                  {product && renderMinPrice(product)}
 
             </div>
-            <Link href={"/product/" + url as Route} className="absolute inset-0 " aria-label={"product"}></Link>
+            <Link href={"/product/" + url} className="absolute inset-0 " aria-label={"product"}></Link>
         </div>
     );
 };

@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import {Route} from "next";
 import NcImage from "@/shared/NcImage/NcImage";
 import { NewsResponse } from "@/services/types/news";
 
@@ -25,7 +24,7 @@ export default function BlogLastPost({
                 <div className="flex flex-col  bg-white dark:bg-black/20 divide-y divide-neutral-200 dark:divide-neutral-700 ">
                     {
                         blogs.map((item , index)=>(<Link
-                            href={"/blog/" + item.url as Route}
+                            href={"/blog/" + item.url}
                             key={index}
                             className={"flex items-center gap-1 py-2 px-1  hover:bg-neutral-100 dark:hover:bg-neutral-700"}>
 

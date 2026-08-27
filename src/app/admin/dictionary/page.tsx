@@ -41,7 +41,7 @@ export default function Page() {
                 مدیریت دیکشنری
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/dictionary/create"}}>
+                <Link href={"/admin/dictionary/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

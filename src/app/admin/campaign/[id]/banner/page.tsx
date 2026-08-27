@@ -7,7 +7,6 @@ import {actions, columns} from "@/app/admin/banner/TableRow";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {Route} from "next";
 import {toast} from "react-hot-toast";
 import {deleteBanner, campaignBannerTable} from "@/services/api/admin/campaignBanner";
 import {useParams} from "next/navigation";
@@ -38,10 +37,10 @@ export default function Page() {
                 مدیریت بنر ها
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/campaign/" + id + "/banner/create" as Route}>
+                <Link href={"/admin/campaign/" + id + "/banner/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
-                <Link href={{pathname: "/admin/campaign/" + id + "/banner/sort"}}>
+                <Link href={"/admin/campaign/" + id + "/banner/sort"}>
                     <ButtonPrimary> سورت کردن بنر هوم پیج</ButtonPrimary>
                 </Link>
             </PageLink>

@@ -9,7 +9,6 @@ import Link from "next/link";
 import {BrandResponse} from "@/services/types/brand";
 import {IoIosArrowDropleftCircle} from "react-icons/io";
 import NcImage from "@/shared/NcImage/NcImage";
-import {Route} from "next";
 
 export interface CardCategoryData {
     name: string;
@@ -86,7 +85,7 @@ const SectionHomepageBrand: FC<SectionHomepageBrandProps> = ({
                     <ul className="glide__slides items-center">
                         {data.map((item, index) => (
                             <li key={index} className={`glide__slide ${itemClassName}`}>
-                                <Link href={"/brand/" + item.url as Route} title={item.name}>
+                                <Link href={"/brand/" + item.url} title={item.name}>
                                     <NcImage
                                         alt={item.name}
                                         containerClassName="w-full h-full flex justify-center"

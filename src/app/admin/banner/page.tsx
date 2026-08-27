@@ -7,7 +7,6 @@ import {actions, columns} from "@/app/admin/banner/TableRow";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {Route} from "next";
 import {toast} from "react-hot-toast";
 import {deleteBanner, bannerTable} from "@/services/api/admin/banner";
 
@@ -29,10 +28,10 @@ export default function Page() {
                 مدیریت بنر ها
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/banner/create" as Route}>
+                <Link href={"/admin/banner/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
-                <Link href={{pathname: "/admin/banner/sort"}}>
+                <Link href={"/admin/banner/sort"}>
                     <ButtonPrimary> سورت کردن بنر هوم پیج</ButtonPrimary>
                 </Link>
             </PageLink>

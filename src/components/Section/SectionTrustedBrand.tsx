@@ -9,7 +9,6 @@ import Link from "next/link";
 import {BrandResponse} from "@/services/types/brand";
 import {IoIosArrowDropleftCircle} from "react-icons/io";
 import NcImage from "@/shared/NcImage/NcImage";
-import {Route} from "next";
 import {TrustedBrandResponse} from "@/services/types/trustedBrand";
 
 export interface CardCategoryData {

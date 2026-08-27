@@ -16,7 +16,6 @@ import {useQuery} from "react-query";
 import {CartResponse} from "@/services/types/cart";
 import {setCart, useCart, useUser} from "@/services/globalState/GlobalState";
 import {toast} from "react-hot-toast";
-import {Route} from "next";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import Prices from "@/components/Price/Prices";
 
@@ -65,7 +64,7 @@ export default function CartDropdown() {
                     <Link
                         onClick={close}
                         className="absolute inset-0"
-                        href={"/product/" + item.product.url as Route}
+                        href={"/product/" + item.product.url}
                     />
                 </div>
 
@@ -74,7 +73,7 @@ export default function CartDropdown() {
                         <div className="flex  flex-col ">
                             <div>
                                 <h3 className="text-xs font-medium ">
-                                    <Link onClick={close} href={"/product/" + item.product.url as Route}>
+                                    <Link onClick={close} href={"/product/" + item.product.url}>
                                         {name}
                                     </Link>
                                 </h3>

@@ -6,7 +6,6 @@ import React, {useEffect, useRef, useState} from "react";
 import Glide from "@glidejs/glide/dist/glide.esm";
 import Image from "next/image";
 import Link from "next/link";
-import {Route} from "next";
 import {BannerResponse} from "@/services/types/banner";
 import Heading from "@/components/Heading/Heading";
 import {BaseBanner} from "@/services/types/baseBanner";
@@ -81,7 +80,7 @@ const SectionBannerSlider = <T extends BaseBanner>({ data }: { data: T[] }) => {
                             <div
                                 className={`relative w-full aspect-w-16 aspect-h-11 lg:aspect-h-9  rounded-2xl overflow-hidden group border`}
                             >
-                                <Link href={item.url as Route} title={"link"}>
+                                <Link href={item.url} title={"link"}>
                                     <Image
                                         alt=""
                                         fill

@@ -8,7 +8,6 @@ import Link from "next/link";
 import Table from "@/shared/Table/Table";
 import {actions, columns} from "@/app/admin/landing/TableRow";
  import { toast } from "react-hot-toast";
-import {Route} from "next";
 import {landingTable, updateLanding} from "@/services/api/admin/landing";
 import {LandingResponse} from "@/services/types/landing";
 
@@ -36,7 +35,7 @@ export default function Page() {
                 مدیریت لندینگ
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/landing/create" as Route}>
+                <Link href={"/admin/landing/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

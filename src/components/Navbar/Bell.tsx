@@ -6,7 +6,6 @@ import {Popover, PopoverButton, PopoverPanel, Transition} from "@headlessui/reac
 import Link from "next/link";
 import {useQuery} from "react-query";
 import {seen, unseen} from "@/services/api/admin/notification";
-import {Route} from "next";
 
 export default function Bell() {
     const {data: data} = useQuery({
@@ -77,7 +76,7 @@ export default function Bell() {
                                         {
                                             data && data.map((item) => (<>
                                                 <Link
-                                                    href={item.link as Route}
+                                                    href={item.link}
                                                     className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                                     onClick={() => close()}
                                                 >

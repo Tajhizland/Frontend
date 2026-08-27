@@ -24,7 +24,7 @@ export default function Page() {
                 مدیریت جشنواره
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/campaign/create"}}>
+                <Link href={"/admin/campaign/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

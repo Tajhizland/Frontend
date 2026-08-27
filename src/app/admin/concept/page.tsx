@@ -10,7 +10,6 @@ import {actions, columns} from "@/app/admin/concept/TableRow";
  import { toast } from "react-hot-toast";
 import {ConceptResponse} from "@/services/types/concept";
 import {fastUpdate, conceptTable} from "@/services/api/admin/concept";
-import {Route} from "next";
 
 export default function Page() {
 
@@ -34,7 +33,7 @@ export default function Page() {
                 مدیریت concept
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/concept/create" as Route}>
+                <Link href={"/admin/concept/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

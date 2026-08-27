@@ -89,10 +89,10 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     }
 
     const handleSearch = () => {
-        router.push("/search/" + inputRef.current?.value as Route);
+        router.push("/search/" + inputRef.current?.value);
     }
     const handleSearchVlog = () => {
-        router.push("/vlog?search=" + inputRef.current?.value as Route);
+        router.push("/vlog?search=" + inputRef.current?.value);
     }
     const renderSearchForm = () => {
         return (
@@ -181,7 +181,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                 </strong>
 
                                 {searchResponse?.categories?.data.map((item) => (
-                                    <Link key={item.id} href={"/category/" + item.url as Route}
+                                    <Link key={item.id} href={"/category/" + item.url}
                                           onClick={() => setShowSearchForm(false)}>
                                         <div
                                             className="flex items-center justify-between  py-2 px-5 hover:bg-stone-100 dark:hover:bg-neutral-800 ">
@@ -221,7 +221,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
 
                             {
                                 searchResponse?.products?.data.length > 0 ? searchResponse?.products?.data.map((item) => (<>
-                                        <Link href={"/product/" + item.url as Route}
+                                        <Link href={"/product/" + item.url}
                                               onChange={() => setSearchResponse(undefined)}>
                                             <div
                                                 className="flex items-center justify-between  py-2 px-5 hover:bg-stone-100 dark:hover:bg-neutral-800 ">
@@ -275,7 +275,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
 
                             {
                                 searchResponse?.vlogs?.data.length > 0 ? searchResponse?.vlogs?.data.map((item) => (<>
-                                        <Link href={"/vlog/" + item.url as Route}
+                                        <Link href={"/vlog/" + item.url}
                                               onChange={() => setSearchResponse(undefined)}>
                                             <div
                                                 className="flex items-center justify-between  py-2 px-5 hover:bg-stone-100 dark:hover:bg-neutral-800 ">

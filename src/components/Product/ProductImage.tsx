@@ -14,10 +14,10 @@ export default function ProductImage({productImages}: { productImages: ProductIm
     const handleCloseModalImageGallery = () => {
         let params = new URLSearchParams(document.location.search);
         params.delete("modal");
-        router.push(`${thisPathname}/?${params.toString()}` as Route);
+        router.push(`${thisPathname}/?${params.toString()}`);
     };
     const handleOpenModalImageGallery = () => {
-        router.push(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE` as Route);
+        router.push(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE`);
     };
     return (<>
 

@@ -35,7 +35,7 @@ export default function Page() {
                 مدیریت تخفیفات
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/discount/create"}}>
+                <Link href={"/admin/discount/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

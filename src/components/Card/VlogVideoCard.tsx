@@ -37,7 +37,7 @@ const VlogVideoCard: FC<Card12Props> = ({className = "h-full", data}) => {
                 >
                     <Link
                         aria-label={"vlog"}
-                        href={{pathname: "/vlog/" + data.url}}
+                        href={"/vlog/" + data.url}
                         className="line-clamp-2 capitalize"
                         title={"vlog"}
                     >

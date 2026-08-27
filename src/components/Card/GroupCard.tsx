@@ -3,7 +3,6 @@ import NcImage from "@/shared/NcImage/NcImage";
 import {ArrowRightIcon} from "@heroicons/react/24/outline";
 import {StaticImageData} from "next/image";
 import Link from "next/link";
-import {Route} from "next";
 import {ProductResponse} from "@/services/types/product";
 import Prices from "@/components/Price/Prices";
 import {log} from "console";
@@ -80,7 +79,7 @@ const GroupCard: FC<GroupCardProps> = ({
                 </div>
             </div>
 
-            <Link aria-label={"category"} href={"/group/" + url as Route}></Link>
+            <Link aria-label={"category"} href={"/group/" + url}></Link>
         </div>
     );
 };

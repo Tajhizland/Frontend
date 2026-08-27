@@ -21,7 +21,7 @@ const BlogCard: FC<BlogCardProps> = ({ className = "h-full", item }) => {
                 className={`block flex-shrink-0 sm:w-56 sm:ml-6 rounded-3xl overflow-hidden mb-5 sm:mb-0`}
             >
                 <Link
-                    href={{pathname:"/news/show/" +(item.url)}}
+                    href={"/news/show/" +(item.url)}
                     className={`block w-full h-0 aspect-h-2  aspect-w-3 `}
                 >
                     <NcImage
@@ -42,7 +42,7 @@ const BlogCard: FC<BlogCardProps> = ({ className = "h-full", item }) => {
                             className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 text-xl`}
                         >
                             <Link
-                                href={{pathname:"/news/show/" +(item.url)}}
+                                href={"/news/show/" +(item.url)}
                                 className="line-clamp-2 capitalize"
                                 title={"عنوان"}
                             >

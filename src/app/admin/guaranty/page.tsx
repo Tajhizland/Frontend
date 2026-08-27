@@ -35,7 +35,7 @@ export default function Page() {
                 مدیریت گارانتی
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/guaranty/create"}}>
+                <Link href={"/admin/guaranty/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

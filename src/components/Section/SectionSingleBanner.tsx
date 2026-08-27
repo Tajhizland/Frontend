@@ -1,6 +1,5 @@
 import {BannerResponse} from "@/services/types/banner";
 import Link from "next/link";
-import {Route} from "next";
 import Image from "next/image";
 import React from "react";
 
@@ -13,7 +12,7 @@ export default function SectionSingleBanner({banner, w = "aspect-w-2 sm:aspect-w
         <div
             className={`relative w-full   rounded-2xl overflow-hidden group border ${w} ${h}`}
         >
-            <Link href={banner.url as Route} title={"link"}>
+            <Link href={banner.url} title={"link"}>
                 <Image
                     alt=""
                     fill

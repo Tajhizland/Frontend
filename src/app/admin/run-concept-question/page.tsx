@@ -36,7 +36,7 @@ export default function Page() {
                 مدیریت سوالات
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/run-concept-question/create"}}>
+                <Link href={"/admin/run-concept-question/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

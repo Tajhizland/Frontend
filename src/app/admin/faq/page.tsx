@@ -33,7 +33,7 @@ export default function Page() {
                 مدیریت پرسش های متداول
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/faq/create"}}>
+                <Link href={"/admin/faq/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

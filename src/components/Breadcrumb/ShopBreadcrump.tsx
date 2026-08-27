@@ -34,7 +34,7 @@ export default function ShopBreadcrump({breadcrumb , baseUrl="/" ,bg ,lastHasLin
                                                     {item.title}
                                             </div>
                                                 :
-                                                <Link href={{ pathname: baseUrl + item.href }}
+                                                <Link href={baseUrl + item.href}
                                                           className="ms-1 text-xs font-bold text-gray-700 hover:text-[#fcb415] md:ms-2  ">{item.title}</Link>
 
                                         }

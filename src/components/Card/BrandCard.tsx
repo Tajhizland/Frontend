@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
-import {Route} from "next";
 
 export interface BrandCardProps {
     className?: string;
@@ -23,7 +22,7 @@ const BrandCard: FC<BrandCardProps> = ({
                                                }) => {
     return (
         <Link
-            href={`/brand/${url}` as Route}
+            href={`/brand/${url}`}
             className={`${className}`}
             data-nc-id="BrandCard"
             aria-label={"brand"}

@@ -24,7 +24,7 @@ export default function Page() {
                 مدیریت دسته cast
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/cast-category/create"}}>
+                <Link href={"/admin/cast-category/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

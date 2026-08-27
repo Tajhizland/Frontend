@@ -34,7 +34,7 @@ export default function Page() {
                 مدیریت  درگاه پرداخت
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/gateway/create"}}>
+                <Link href={"/admin/gateway/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

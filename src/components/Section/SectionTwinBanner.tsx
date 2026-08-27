@@ -1,6 +1,5 @@
 import {BannerResponse} from "@/services/types/banner";
 import Link from "next/link";
-import {Route} from "next";
 import Image from "next/image";
 import React from "react";
 
@@ -11,7 +10,7 @@ export default function SectionTwinBanner({banners}:{banners:BannerResponse[]})
         {
             banners.map((item, index) => ( <div key={index}
                                                                className={`relative w-full aspect-w-5 aspect-h-2 rounded-2xl overflow-hidden group border`}>
-                <Link key={index} href={item.url as Route} title={"link"}>
+                <Link key={index} href={item.url} title={"link"}>
                     <Image
                         alt=""
                         fill

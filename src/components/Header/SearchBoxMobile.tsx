@@ -105,11 +105,11 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
         );
     };
     const handleSearch = () => {
-        router.push("/search/" + inputRef.current?.value as Route);
+        router.push("/search/" + inputRef.current?.value);
         onClickClose && onClickClose()
     }
     const handleSearchVlog = () => {
-        router.push("/vlog?search=" + inputRef.current?.value as Route);
+        router.push("/vlog?search=" + inputRef.current?.value);
         onClickClose && onClickClose()
 
     }
@@ -136,7 +136,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                     دسته بندی ها
                                 </strong>
                                 {data.data.categories.data.map((item) => (
-                                    <Link key={item.id} href={"/category/" + item.url as Route}
+                                    <Link key={item.id} href={"/category/" + item.url}
                                           onClick={onClickClose}>
                                         <div
                                             className="flex items-center justify-between  py-2 px-1 hover:bg-stone-100 dark:bg-black/30 dark:hover:bg-black/20 ">
@@ -173,7 +173,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                             </strong>
                             {
                                 data?.data?.products.data.length > 0 ? data.data?.products?.data.map((item) => (<>
-                                        <Link href={"/product/" + item.url as Route} onClick={onClickClose}>
+                                        <Link href={"/product/" + item.url} onClick={onClickClose}>
                                             <div
                                                 className="flex items-center justify-between  py-2 px-1 hover:bg-stone-100 dark:bg-black/30 dark:hover:bg-black/20 ">
                                                 <div className="flex items-center gap-x-5  ">
@@ -225,7 +225,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                 data?.data?.vlogs?.data.length > 0 ? data?.data?.vlogs?.data.map((item) => (<>
 
 
-                                        <Link href={"/vlog/" + item.url as Route} onClick={onClickClose}>
+                                        <Link href={"/vlog/" + item.url} onClick={onClickClose}>
                                             <div
                                                 className="flex items-center justify-between  py-2 px-1 hover:bg-stone-100 dark:bg-black/30 dark:hover:bg-black/20 ">
                                                 <div className="flex items-center gap-x-5  ">

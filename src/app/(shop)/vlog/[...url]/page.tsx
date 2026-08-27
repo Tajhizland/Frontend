@@ -2,7 +2,6 @@ import {findVlogByUrl} from "@/services/api/shop/vlog";
 import React from "react";
 import {VlogResponse} from "@/services/types/vlog";
 import Link from "next/link";
-import {Route} from "next";
 import NcImage from "@/shared/NcImage/NcImage";
 import {FaEye} from "react-icons/fa";
 import Heading from "@/components/Heading/Heading";
@@ -61,7 +60,7 @@ export default async function Page(props: PageProps) {
         return (
             <div className="w-full h-full rounded-xl overflow-hidden border bg-white dark:bg-transparent" key={item.id}>
                 <Link
-                    href={"/vlog/" + item.url as Route}
+                    href={"/vlog/" + item.url}
                     aria-label={"vlog"}
                     className="flex flex-col"
                 >

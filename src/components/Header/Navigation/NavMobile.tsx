@@ -39,9 +39,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 
                                 <Disclosure key={index} as="li">
                                     <Link
-                                        href={{
-                                            pathname: i.url || undefined,
-                                        }}
+                                        href={i.url ?? "#"}
                                         className={`  justify-center text-center items-center flex flex-col text-sm rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5 ${itemClass}`}
                                         onClick={onClickClose}
                                     >
@@ -105,9 +103,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
         {
             brand?.map((item , index)=>(<Disclosure key={index} as="li">
                     <Link
-                        href={{
-                            pathname: "/brand/"+item.url || undefined,
-                        }}
+                        href={"/brand/" + item.url}
                         className={`  justify-center text-center items-center flex flex-col text-sm rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5  `}
                         onClick={onClickClose}
                     >

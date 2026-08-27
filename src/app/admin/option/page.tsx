@@ -33,7 +33,7 @@ export default function Page() {
                 مدیریت ویژگی ها
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/option/create"}}>
+                <Link href={"/admin/option/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

@@ -20,7 +20,6 @@ import NcImage from "@/shared/NcImage/NcImage";
 import Prices from "@/components/Price/Prices";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import Link from "next/link";
-import {Route} from "next";
 import CartController from "@/components/CartController/CartController";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import BagIcon from "@/components/Icon/BagIcon";
@@ -318,7 +317,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
         if (product?.brand) {
             return <div className={"flex items-center justify-start w-full"}>
 
-                <Link href={"/brand/" + product.brand.url as Route}
+                <Link href={"/brand/" + product.brand.url}
                       className={`relative h-0 w-32 rounded-2xl overflow-hidden group aspect-w-3 aspect-h-1 `}
                 >
                     <div className="flex justify-center items-center">

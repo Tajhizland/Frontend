@@ -39,7 +39,7 @@ export default function Page() {
                 مدیریت منو
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/menu/create"}}>
+                <Link href={"/admin/menu/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

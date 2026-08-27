@@ -5,7 +5,6 @@ import React, { FC, useState, useRef } from "react";
 import { HomepageCategoryResponse } from "@/services/types/homepageCategory";
 import NcImage from "@/shared/NcImage/NcImage";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {Route} from "next";
 import {CgSwap} from "react-icons/cg";
 import Heading from "@/components/Heading/Heading";
 import Nav from "@/components/Nav/Nav";
@@ -108,7 +107,7 @@ const SectionHomepageCategory: FC<SectionHomepageCategoryProps> = ({ data }) => 
                     <ProductCard2 data={product} key={index}/>
                 ))}
             </div>
-            <ButtonPrimary className={"!flex justify-center w-fit mx-auto my-5"} href={"/category/"+data[tabActive]?.category.url as Route}>
+            <ButtonPrimary className={"!flex justify-center w-fit mx-auto my-5"} href={"/category/"+data[tabActive]?.category.url}>
                 مشاهده همه
             </ButtonPrimary>
         </div>

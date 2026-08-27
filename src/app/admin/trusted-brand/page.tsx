@@ -7,7 +7,6 @@ import {actions, columns} from "@/app/admin/trusted-brand/TableRow";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {Route} from "next";
 import {toast} from "react-hot-toast";
 import {deleteTrustedBrand, trustedBrandTable} from "@/services/api/admin/trustedBrand";
 
@@ -28,7 +27,7 @@ export default function Page() {
                 مدیریت برند های تجهیز شده
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/trusted-brand/create" as Route}>
+                <Link href={"/admin/trusted-brand/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

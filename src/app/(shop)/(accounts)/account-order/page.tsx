@@ -8,7 +8,6 @@ import Image from "next/image";
 import {useState} from "react";
 import {useQuery} from "react-query";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {Route} from "next";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import Prices from "@/components/Price/Prices";
 
@@ -97,7 +96,7 @@ const AccountOrder = () => {
 
                         </p>
                     </div>
-                    <ButtonPrimary className="hidden sm:block" href={"/factor/" + item.id as Route}>
+                    <ButtonPrimary className="hidden sm:block" href={"/factor/" + item.id}>
                         دریافت فاکتور
                     </ButtonPrimary>
 
@@ -110,7 +109,7 @@ const AccountOrder = () => {
                         </>))
                     }
                 </div>
-                <ButtonPrimary className="sm:hidden flex w-full" href={"/factor/" + item.id as Route}>
+                <ButtonPrimary className="sm:hidden flex w-full" href={"/factor/" + item.id}>
                         دریافت فاکتور
                     </ButtonPrimary>
             </div>

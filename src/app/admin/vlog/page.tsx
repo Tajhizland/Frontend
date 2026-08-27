@@ -37,11 +37,11 @@ export default function Page() {
                 مدیریت ولاگ
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/vlog/create"}}>
+                <Link href={"/admin/vlog/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
 
-                <Link href={{pathname: "/admin/vlog/sort"}}>
+                <Link href={"/admin/vlog/sort"}>
                     <ButtonPrimary>سورت کردن</ButtonPrimary>
                 </Link>
             </PageLink>

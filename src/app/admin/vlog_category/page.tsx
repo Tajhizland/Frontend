@@ -33,10 +33,10 @@ export default function Page() {
                 مدیریت دسته بندی ولاگ
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/vlog_category/create"}}>
+                <Link href={"/admin/vlog_category/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
-     <Link href={{pathname: "/admin/vlog_category/sort"}}>
+     <Link href={"/admin/vlog_category/sort"}>
                     <ButtonPrimary> سورت کردن</ButtonPrimary>
                 </Link>
             </PageLink>

@@ -1,7 +1,6 @@
 import React, {FC, ReactNode} from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
-import {Route} from "next";
 import {stripHTML} from "@/hooks/StripHtml";
 import {VlogResponse} from "@/services/types/vlog";
 import MetaCard from "@/components/Card/MetaCard";
@@ -18,7 +17,7 @@ const VlogCard: FC<Card13Props> = ({className = "", data}) => {
             <div className="flex flex-col h-full py-2">
                 <h2 className={`nc-card-title block font-semibold text-base dark:text-white`}>
                     <Link
-                        href={"/vlog/" + data.url as Route}
+                        href={"/vlog/" + data.url}
                         className="line-clamp-2 capitalize"
                         title={"title"}
                     >
@@ -37,7 +36,7 @@ const VlogCard: FC<Card13Props> = ({className = "", data}) => {
             </div>
 
             <Link
-                href={"/vlog/" + data.url as Route}
+                href={"/vlog/" + data.url}
                 aria-label={"vlog"}
                 className="flex flex-col w-full  justify-center mr-5"
             >

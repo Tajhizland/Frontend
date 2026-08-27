@@ -3,7 +3,6 @@ import NcImage from "@/shared/NcImage/NcImage";
 import explore1Svg from "@/images/explore1.svg";
 import Image, {StaticImageData} from "next/image";
 import Link from "next/link";
-import {Route} from "next";
 
 export interface CardCategory2Props {
     className?: string;
@@ -49,7 +48,7 @@ const CategoryCard2: FC<CardCategory2Props> = ({
             </div>
 
             <Link
-                href={("/category/" + url) as Route}
+                href={("/category/" + url)}
             ></Link>
         </div>
     );

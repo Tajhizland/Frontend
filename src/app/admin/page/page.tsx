@@ -35,7 +35,7 @@ export default function Page() {
                 مدیریت صفحه
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/page/create"}}>
+                <Link href={"/admin/page/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

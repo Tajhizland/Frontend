@@ -39,7 +39,7 @@ export default function Modal({
       setDirection(-1);
     }
     setCurIndex(newVal);
-    router.push(`${thisPathname}/?${getNewParam({ value: newVal })}` as Route);
+    router.push(`${thisPathname}/?${getNewParam({ value: newVal })}`);
   }
 
   useKeypress("ArrowRight", () => {

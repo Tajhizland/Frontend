@@ -8,7 +8,6 @@ import {posterTable} from "@/services/api/admin/poster";
 import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {Route} from "next";
 
 export default function Page() {
     return (<>
@@ -23,7 +22,7 @@ export default function Page() {
                 مدیریت پوستر ها
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/poster/create" as Route}>
+                <Link href={"/admin/poster/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>

@@ -63,7 +63,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                   {menu.children.map((item, index) => (
                     <div key={index}
                          className={`px-4 ${index !== ((menu?.children?.length??0) - 1 ) ? "border-l" : ""}`}>
-                      <Link href={item.url as Route} className="flex justify-center items-center gap-x-1 border-b border-[#fcb415] pb-2">
+                      <Link href={item.url} className="flex justify-center items-center gap-x-1 border-b border-[#fcb415] pb-2">
                       <FaCircle className="text-[#fcb415] w-2 h-2" />
                         <strong className={"dark:text-white text-black  text-xs  whitespace-nowrap"}>
                           {item.title}
@@ -100,9 +100,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
       <li key={item.id} >
         <Link
           className="font-normal text-slate-600 hover:text-black dark:text-slate-400 dark:hover:text-white text-xs whitespace-nowrap"
-          href={{
-            pathname: item.url || undefined,
-          }}
+          href={item.url ?? "#"}
         >
           {item.title}
         </Link>
@@ -166,9 +164,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
     return (
       <Link
         className="flex items-center font-normal text-neutral-6000 dark:text-neutral-400 py-2 px-4 rounded-md hover:text-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
-        href={{
-          pathname: item.href || undefined,
-        }}
+        href={item.href ?? "#"}
       >
         {item.name}
         {item.type && (
@@ -187,9 +183,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
       <div className="h-10 flex-shrink-0 flex items-center">
         <Link
           className="inline-flex items-center text-[0.6rem] xl:text-xs  font-medium text-slate-700 dark:text-slate-300 py-2.5 px-2 xl:px-3 rounded-full hover:text-slate-900 hover:bg-neutral-200 hover:dark:bg-slate-950 dark:hover:text-slate-200 mega-main"
-          href={{
-            pathname: item.url || undefined,
-          }}
+          href={item.url ?? "#"}
         >
           {item.title}
           <ChevronDownIcon

@@ -3,7 +3,6 @@ import NcImage from "@/shared/NcImage/NcImage";
 import {ArrowRightIcon} from "@heroicons/react/24/outline";
 import Image, {StaticImageData} from "next/image";
 import Link from "next/link";
-import {Route} from "next";
 
 export interface CardCategoryProps {
     className?: string;
@@ -50,7 +49,7 @@ const CardCategory: FC<CardCategoryProps> = ({
                     </div>
 
                     <Link
-                        href={"/category/" + url as Route}
+                        href={"/category/" + url}
                         className="flex items-center text-xs font-medium group-hover:text-primary-500 transition-colors justify-center gap-x-2  dark:text-white"
                     >
                         <ArrowRightIcon className="w-4 h-4 "/>
@@ -60,7 +59,7 @@ const CardCategory: FC<CardCategoryProps> = ({
                 </div>
             </div>
 
-            <Link aria-label={"category"}  href={"/category/" + url as Route} ></Link>
+            <Link aria-label={"category"}  href={"/category/" + url} ></Link>
         </div>
     );
 };

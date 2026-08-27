@@ -38,7 +38,7 @@ export default function Page() {
                 مدیریت دسته‌بندی
             </PageTitle>
             <PageLink>
-                <Link href={{pathname: "/admin/category/create"}}>
+                <Link href={"/admin/category/create"}>
                     <ButtonPrimary> ایجاد</ButtonPrimary>
                 </Link>
             </PageLink>
