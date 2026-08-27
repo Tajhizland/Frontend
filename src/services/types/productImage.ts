@@ -9,3 +9,8 @@ export type ProductImageResponse = {
     updated_at:string ;
     product?:ProductResponse[] ;
 };
+
+export interface ProductImageUploadDto {
+    product_id: number;
+    image: File[];
+}

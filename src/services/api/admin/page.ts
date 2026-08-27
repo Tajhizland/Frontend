@@ -2,58 +2,20 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {PageResponse} from "@/services/types/page";
 import {tableFetcher} from "@/shared/Table/fetcher";
 import {uploadConfig} from "@/services/uploadConfig";
+import {PageStoreDto, PageUpdateDto} from "@/services/types/page";
+import {UploadProgress, toFormData} from "@/services/http";
 
 export const pageTable = tableFetcher<PageResponse>("admin/page/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        title:string,
-        url:string,
-        status:number|string,
-        image: File | null,
-        content:string,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('title', params.title);
-    formData.append('url', params.url);
-    formData.append('status', params.status.toString());
-    formData.append('content', params.content);
-
-    if (params.image) {
-        formData.append('image', params.image);
-    }
-
-    return axios.post<T, SuccessResponseType<T>>("admin/page", formData, uploadConfig(params.setProgress) )
+(dto: PageStoreDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/page", toFormData(dto), uploadConfig(onProgress) )
         .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id:number|string,
-        title:string,
-        url:string,
-        status:number|string,
-        image: File | null,
-        content:string,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('title', params.title);
-    formData.append('url', params.url);
-    formData.append('status', params.status.toString());
-    formData.append('content', params.content);
-
-    if (params.image) {
-        formData.append('image', params.image);
-    }
-
-    return axios.post<T, SuccessResponseType<T>>("admin/page/" + params.id, formData, uploadConfig(params.setProgress) )
+(id: number, dto: PageUpdateDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/page/" + id, toFormData(dto, "PUT"), uploadConfig(onProgress) )
         .then((res) => res?.data);
 };
 

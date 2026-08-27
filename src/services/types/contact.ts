@@ -14,3 +14,12 @@ export type ContactResponse = {
     created_at: string;
     updated_at: string;
 };
+
+export interface ContactStoreContactDto {
+    name:string;
+    mobile:string;
+    concept:string;
+    city_id:number;
+    province_id:number;
+    message:string;
+}

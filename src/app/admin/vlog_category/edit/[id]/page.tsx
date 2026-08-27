@@ -24,14 +24,11 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-vlog_category", Number(id)],
         mutationFn: async (values: VlogCategoryFormValues) => {
-            return update({
-                id: Number(id),
-                name: values.name,
+            return update(Number(id), {name: values.name,
                 url: values.url,
                 status: Number(values.status),
                 icon: values.icon ?? null,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

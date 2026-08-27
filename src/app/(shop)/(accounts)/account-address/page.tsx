@@ -26,7 +26,7 @@ const AccountOrder = () => {
     } = useMutation({
         mutationKey: [`changeActiveAddress`],
         mutationFn: (id: number) =>
-            changeActiveAddress({id: id}),
+            changeActiveAddress(id),
         onSuccess: data => {
             queryClient.invalidateQueries(['my-address']);
         }

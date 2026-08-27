@@ -50,7 +50,7 @@ const ShippingMethod: FC<Props> = ({
     }, [data]);
 
     async function submit() {
-        let response = await select({id: selectedId})
+        let response = await select(selectedId)
     }
 
     const selectedItem = data?.find((item) => item.id === mothodActive) ?? data?.[0];

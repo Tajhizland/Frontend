@@ -21,9 +21,7 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-blogCategory", Number(id)],
         mutationFn: async (values: BlogCategoryFormValues) => {
-            return update({
-                id: Number(id),
-                name: values.name,
+            return update(Number(id), {name: values.name,
                 url: values.url,
                 status: Number(values.status),
             });

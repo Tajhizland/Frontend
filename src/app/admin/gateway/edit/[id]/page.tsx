@@ -21,9 +21,7 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-gateway", Number(id)],
         mutationFn: async (values: GatewayFormValues) => {
-            return update({
-                id: Number(id),
-                name: values.name,
+            return update(Number(id), {name: values.name,
                 status: values.status,
                 description: values.description,
             });

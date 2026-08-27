@@ -1,21 +1,13 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import { ContactResponse } from "@/services/types/contact";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {ContactStoreContactDto} from "@/services/types/contact";
 
 export const contactTable = tableFetcher<ContactResponse>("admin/contact/dataTable");
 
 export const storeContact = async <T extends ServerResponse<unknown>>
-(
-    params:{
-        name:string;
-        mobile:string;
-        concept:string;
-        city_id:number;
-        province_id:number;
-        message:string;
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("contact",params )
+(dto: ContactStoreContactDto) => {
+    return axios.post<T, SuccessResponseType<T>>("contact",dto )
         .then((res) => res?.data)
 };
 export const findById = async <T extends ServerResponse<ContactResponse>>

@@ -74,7 +74,7 @@ export default function Page() {
     };
 
     async function submit(e: SpecialProductResponse) {
-        let response = await updateHomepage({homepage: e.homepage, id: e.id});
+        let response = await updateHomepage(e.id, {homepage: e.homepage,});
         toast.success(response?.message as string)
     }
 

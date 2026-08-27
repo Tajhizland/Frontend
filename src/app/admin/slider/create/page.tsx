@@ -21,8 +21,7 @@ export default function Page() {
                 status: values.status,
                 type: values.type,
                 image: values.image ?? null,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

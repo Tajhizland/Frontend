@@ -14,10 +14,7 @@ import {OptionResponse} from "@/services/types/option";
 
 export default function Page() {
     async function submit(e: OptionResponse) {
-        let response = await update(
-            {
-                id: e.id,
-                title: e.title,
+        let response = await update(e.id, {title: e.title,
                 status: e.status,
                 category_id:e.category_id
             }

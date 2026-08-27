@@ -4,6 +4,7 @@ import {GroupProductResponse} from "@/services/types/groupProduct";
 import {GroupFieldValuePage} from "@/services/types/groupFieldValue";
 import {ProductResponse} from "@/services/types/product";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {ProductGroupAddFieldDto, ProductGroupAddProductDto, ProductGroupSetFieldValueDto} from "@/services/types/productGroup";
 
 export const groupTable = tableFetcher<ProductResponse>("admin/group/dataTable");
 
@@ -37,28 +38,18 @@ export const deleteProduct = async <T extends ServerResponse<GroupProductRespons
 };
 
 export const addField = async <T extends ServerResponse<unknown>>
-(params: {
-    groupId:number;
-    title:string;
-}) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/group/field",params)
+(dto: ProductGroupAddFieldDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/group/field",dto)
         .then((res) => res?.data)
 };
 
 export const addProduct = async <T extends ServerResponse<unknown>>
-(params: {
-    groupId:number;
-    productId:number;
-}) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/group/product",params)
+(dto: ProductGroupAddProductDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/group/product",dto)
         .then((res) => res?.data)
 };
 export const setFieldValue = async <T extends ServerResponse<unknown>>
-(params: {
-    groupProductId:number;
-    fieldId:number;
-    value:string;
-}) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/group/field-value",params)
+(dto: ProductGroupSetFieldValueDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/group/field-value",dto)
         .then((res) => res?.data)
 };

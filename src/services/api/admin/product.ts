@@ -1,6 +1,7 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {ProductResponse} from "@/services/types/product";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {ProductGroupChangeDigipayDto, ProductGroupChangeDigipayPercentDto, ProductGroupChangePriceDto, ProductGroupChangeSnappayDto, ProductGroupChangeStatusDto, ProductGroupChangeStockDto, ProductSearchDto, ProductSearchProductListDto, ProductSetVideoDto, ProductStoreDto, ProductUpdateDto} from "@/services/types/product";
 
 export const productTable = tableFetcher<ProductResponse>("admin/product/dataTable");
 export const productDiscountedTable = tableFetcher<ProductResponse>("admin/product/has-discount-dataTable");
@@ -20,151 +21,68 @@ export const findById = async <T extends ServerResponse<ProductResponse>>
 };
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        name: string,
-        url: string,
-        type: string,
-        status: number,
-        brand_id: number,
-        is_stock: number,
-        description: string,
-        meta_description: string,
-        meta_title: string,
-        guaranty_id: string,
-        guaranty_time: number,
-        study: string,
-        review: string,
-        categoryId: string,
-        stock_of: number,
-        testing_time: number,
-        weight: number,
-        length: number,
-        height: number,
-        width: number,
-        use_packet: number,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product", params)
+(dto: ProductStoreDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/product", dto)
         .then((res) => res?.data)
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number | string,
-        name: string,
-        url: string,
-        type: string,
-        status: number,
-        brand_id: number,
-        description: string,
-        meta_description: string,
-        meta_title: string,
-        guaranty_id: string,
-        guaranty_time: number,
-        is_stock: number,
-        study: string,
-        review: string,
-        categoryId: string,
-        stock_of: number,
-        testing_time: number,
-        weight: number,
-        length: number,
-        height: number,
-        width: number,
-        use_packet: number,
-    }
-) => {
-    return axios.put<T, SuccessResponseType<T>>("admin/product/" + params.id, params)
+(id: number, dto: ProductUpdateDto) => {
+    return axios.put<T, SuccessResponseType<T>>("admin/product/" + id, dto)
         .then((res) => res?.data)
 };
 
 export const search = async <T extends ServerResponse<ProductResponse[]>>
-(
-    params: {
-        query: string,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/search/product", params)
+(dto: ProductSearchDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/search/product", dto)
         .then((res) => res?.data?.result?.data)
 };
 
 export const setVideo = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        vlogId: number | null,
-        productId: number,
-        type: string,
-    }
-) => {
+(dto: ProductSetVideoDto) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/product/video", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/product/video", dto)
         .then((res) => res?.data)
 };
 
 
 export const searchProductList = async <T extends ServerResponse<ProductResponse[]>>
-(params: {
-    categoryId: number | null,
-    brandId: number | null,
-    discountId?: number,
-    searchQuery?: string,
-}) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/search-list", params)
+(dto: ProductSearchProductListDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/product/search-list", dto)
         .then((res) => res?.data?.result?.data)
 };
 
 export const groupChangePrice = async <T extends ServerResponse<unknown>>
-(params: {
-    action: string,
-    percent: number,
-    ids: number[],
-}) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change", params)
+(dto: ProductGroupChangePriceDto) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change", dto)
         .then((res) => res?.data)
 };
 export const groupChangeStock = async <T extends ServerResponse<unknown>>
-(params: {
-    stock: number,
-    ids: number[],
-}) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-stock", params)
+(dto: ProductGroupChangeStockDto) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-stock", dto)
         .then((res) => res?.data)
 };
 export const groupChangeStatus = async <T extends ServerResponse<unknown>>
-(params: {
-    status: number,
-    ids: number[],
-}) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-status", params)
+(dto: ProductGroupChangeStatusDto) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-status", dto)
         .then((res) => res?.data)
 };
 
 export const groupChangeDigipay = async <T extends ServerResponse<unknown>>
-(params: {
-    digipay: number,
-    ids: number[],
-}) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-digipay", params)
+(dto: ProductGroupChangeDigipayDto) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-digipay", dto)
         .then((res) => res?.data)
 };
 
 export const groupChangeSnappay = async <T extends ServerResponse<unknown>>
-(params: {
-    snappay: number,
-    ids: number[],
-}) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-snappay", params)
+(dto: ProductGroupChangeSnappayDto) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-snappay", dto)
         .then((res) => res?.data)
 };
 
 
 export const groupChangeDigipayPercent = async <T extends ServerResponse<unknown>>
-(params: {
-    percent: number,
-    ids: number[],
-}) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-percent", params)
+(dto: ProductGroupChangeDigipayPercentDto) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-percent", dto)
         .then((res) => res?.data)
 };

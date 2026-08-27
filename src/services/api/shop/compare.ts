@@ -1,5 +1,6 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {ProductResponse} from "@/services/types/product";
+import {CompareAllProductDto, CompareSearchDto} from "@/services/types/compare";
 
 export const find = async <T extends ServerResponse<ProductResponse>>
 (
@@ -9,21 +10,12 @@ export const find = async <T extends ServerResponse<ProductResponse>>
         .then((res) => res?.data?.result?.data)
 };
 export const search = async <T extends ServerResponse<ProductResponse[]>>
-(
-    params: {
-        query: string,
-        categoryIds: number[]
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("compare/search",params)
+(dto: CompareSearchDto) => {
+    return axios.post<T, SuccessResponseType<T>>("compare/search",dto)
         .then((res) => res?.data?.result?.data)
 };
 export const allProduct = async <T extends ServerResponse<ProductResponse[]>>
-(
-    params: {
-        categoryIds: number[]
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("compare/product",params)
+(dto: CompareAllProductDto) => {
+    return axios.post<T, SuccessResponseType<T>>("compare/product",dto)
         .then((res) => res?.data?.result?.data)
 };

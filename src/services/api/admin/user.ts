@@ -5,25 +5,14 @@ import {OrderResponse} from "@/services/types/order";
 import {AddressResponse} from "@/services/types/address";
 import {TokenResponse} from "@/services/types/auth";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {UserAdminChangeActiveAddressDto, UserAdminUpdateWalletDto, UserGetUserByTypeDto, UserUpdateAdminAddressDto, UserUpdateDto} from "@/services/types/user";
 
 export const userTable = tableFetcher<UserResponse>("admin/user/dataTable");
 export const adminUserTable = tableFetcher<UserResponse>("admin/user/admin/dataTable");
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number;
-        name: string;
-        last_name: string;
-        national_code: string;
-        username: string;
-        email: string;
-        gender: string;
-        role: string;
-        role_id?: number;
-    }
-) => {
-    return axios.put<T, SuccessResponseType<T>>("admin/user/" + params.id, params)
+(id: number, dto: UserUpdateDto) => {
+    return axios.put<T, SuccessResponseType<T>>("admin/user/" + id, dto)
         .then((res) => res?.data)
 };
 
@@ -59,37 +48,18 @@ export const getOnHoldOrder = async <T extends ServerResponse<OnHoldOrderRespons
 };
 
 export const updateAdminAddress = async <T extends ServerResponse<unknown>>
-(params: {
-     id?: number,
-     user_id: number,
-     city_id: string,
-     title: string,
-     province_id: string,
-     tell: string,
-     mobile: string,
-     zip_code: string,
-     address: string,
- }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/user/address", params)
+(id: number, dto: UserUpdateAdminAddressDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/user/address", dto)
         .then((res) => res?.data)
 };
 export const adminChangeActiveAddress = async <T extends ServerResponse<unknown>>
-(params: {
-     id: number,
-     user_id: number,
- }
-) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/user/address/active", params)
+(id: number, dto: UserAdminChangeActiveAddressDto) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/user/address/active", dto)
         .then((res) => res?.data)
 };
 export const adminUpdateWallet = async <T extends ServerResponse<unknown>>
-(params: {
-     wallet: number,
-     user_id: number,
- }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/user/wallet", params)
+(dto: UserAdminUpdateWalletDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/user/wallet", dto)
         .then((res) => res?.data)
 };
 export const adminLoginUser = async <T extends ServerResponse<TokenResponse>>
@@ -100,9 +70,7 @@ export const adminLoginUser = async <T extends ServerResponse<TokenResponse>>
 };
 
 export const getUserByType = async <T extends ServerResponse<UserResponse[]>>
-(params: {
-    type: string
-}) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/user/type", params)
+(dto: UserGetUserByTypeDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/user/type", dto)
         .then((res) => res?.data?.result?.data)
 };

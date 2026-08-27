@@ -1,5 +1,7 @@
 import axios, { ServerResponse, SuccessResponseType } from "@/services/axios";
 import { ProductImageResponse } from "@/services/types/productImage";
+import {ProductImageUploadDto} from "@/services/types/productImage";
+import {toFormData} from "@/services/http";
 
 export const getByProductId = async <T extends ServerResponse<ProductImageResponse[]>>
     (
@@ -42,19 +44,8 @@ export const setImageColor = async <T extends ServerResponse<unknown>>
 };
 
 export const upload = async <T extends ServerResponse<unknown>>
-    (
-        params: {
-            product_id: number,
-            image: File[],
-        }
-    ) => {
-    const formData = new FormData();
-    formData.append('product_id', params.product_id + "");
-    params.image.forEach((file) => {
-        formData.append('image[]', file);
-    });
-
-    return axios.post<T, SuccessResponseType<T>>("admin/product/image", formData,
+    (dto: ProductImageUploadDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/product/image", toFormData(dto),
         {
             headers: {
                 'Content-Type': 'multipart/form-data',

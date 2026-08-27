@@ -20,9 +20,7 @@ export default function Page() {
     const updateMutation = useMutation({
         mutationKey: [`campaign-banner-update`],
         mutationFn: async (formData: any) => {
-            return update({
-                id: Number(row),
-                ...formData,
+            return update(Number(row), {...formData,
             });
         },
         onSuccess: (response) => {

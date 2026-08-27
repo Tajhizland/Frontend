@@ -1,5 +1,5 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
-import {AddressResponse} from "@/services/types/address";
+import {AddressResponse, AddressUpdateDto} from "@/services/types/address";
 
 
 export const findActive = async <T extends ServerResponse<AddressResponse>>
@@ -15,26 +15,13 @@ export const getAllAddress = async <T extends ServerResponse<AddressResponse[]>>
         .then((res) => res?.data.result.data)
 };
 export const update = async <T extends ServerResponse<unknown>>
-(params:{
-    id?:number ,
-    city_id:string ,
-    title:string ,
-    province_id:string ,
-    tell:string ,
-    mobile:string ,
-    zip_code:string ,
-    address:string ,
- }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("address" , params)
+(id: number, dto: AddressUpdateDto) => {
+    return axios.post<T, SuccessResponseType<T>>("address" , dto)
         .then((res) => res?.data)
 };
 
 export const changeActiveAddress = async <T extends ServerResponse<unknown>>
-(params:{
-    id:number ,
- }
-) => {
-    return axios.patch<T, SuccessResponseType<T>>("address/active" , params)
+(id: number) => {
+    return axios.patch<T, SuccessResponseType<T>>("address/active", {id})
         .then((res) => res?.data)
 };

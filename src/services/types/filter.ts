@@ -9,3 +9,26 @@ export type FilterResponse = {
     items: FilterItemResponse[],
     productFilters?:ProductFilterResponse
 }
+
+export interface FilterSetDto {
+    product_id:string|number;
+    filter:{
+            id:string,
+            item_id:string,
+
+        }[];
+}
+
+export interface FilterSetToCategoryDto {
+    category_id: number | string;
+    filter: {
+                id?: number,
+                name: string,
+                status: number,
+                item: {
+                    id?: number,
+                    value: string,
+                    status: number
+                }[]
+            }[];
+}

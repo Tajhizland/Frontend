@@ -2,6 +2,7 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {SmsLogResponse} from "@/services/types/smsLog";
 import {SmsLogItemResponse} from "@/services/types/smsLogItem";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {SmsSmsSendDto, SmsSmsSendToContactDto} from "@/services/types/sms";
 
 export const smsTable = tableFetcher<SmsLogResponse>("admin/sms/dataTable");
 
@@ -10,22 +11,12 @@ export const smsItemTable = (id: string | string[] | undefined) =>
     tableFetcher<SmsLogItemResponse>("admin/sms/" + id + "/item");
 
 export const smsSend = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        message: string,
-        userIds: number[]
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/sms/send", params)
+(dto: SmsSmsSendDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/sms/send", dto)
         .then((res) => res?.data)
 };
 export const smsSendToContact = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        message: string,
-        mobiles: string[]
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/sms/send-to-contact", params)
+(dto: SmsSmsSendToContactDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/sms/send-to-contact", dto)
         .then((res) => res?.data)
 };

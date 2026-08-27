@@ -24,9 +24,7 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: [`update-category`, id],
         mutationFn: async (formData: any) => {
-            return update({
-                id: Number(id),
-                ...formData,
+            return update(Number(id), {...formData,
             });
         },
         onSuccess: (data) => {

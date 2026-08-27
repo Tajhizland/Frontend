@@ -16,10 +16,7 @@ export default function Page() {
     const [loadingLogin, setLoadingLogin] = useState(false);
 
     async function submit(e: UserResponse) {
-        let response = await update(
-            {
-                id: e.id,
-                name: e.name,
+        let response = await update(e.id, {name: e.name,
                 last_name: e.last_name,
                 national_code: e.national_code,
                 username: e.username,

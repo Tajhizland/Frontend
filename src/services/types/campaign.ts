@@ -18,3 +18,27 @@ export type CampaignResponse = {
 
     sliders: CampaignSliderResponse[];
 }
+
+export interface CampaignStoreDto {
+    title: string;
+    color: string;
+    logo: File;
+    banner?: File;
+    discount_logo: File;
+    background_color: string;
+    status: number;
+    start_date: string;
+    end_date: string;
+}
+
+export interface CampaignUpdateDto {
+    title: string;
+    color: string;
+    logo?: File;
+    banner?: File;
+    discount_logo?: File;
+    background_color: string;
+    status: number;
+    start_date: string;
+    end_date: string;
+}

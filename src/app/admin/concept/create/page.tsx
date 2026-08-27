@@ -20,8 +20,7 @@ export default function Page() {
                 status: values.status,
                 description: values.description,
                 icon: values.icon ?? null,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

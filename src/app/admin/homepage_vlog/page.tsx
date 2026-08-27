@@ -22,9 +22,7 @@ export default function Page() {
     const [id, setId] = useState<Number>(1);
 
     async function submit(e: BrandResponse) {
-        let response=await updateHomepageVlog({
-            id: Number(id),
-            vlogId: Number(vlogId)
+        let response=await updateHomepageVlog(Number(id), {vlogId: Number(vlogId)
         })
         if(response?.success){
             queryClient.refetchQueries(['homepage-vlog-list']);

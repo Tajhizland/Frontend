@@ -11,3 +11,9 @@ export type CommentResponse = {
     created_at:string ;
     updated_at:string ;
 }
+
+export interface CommentStoreCommentDto {
+    productId:string;
+    rating:string;
+    text:string;
+}

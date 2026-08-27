@@ -25,3 +25,25 @@ export type CastResponse = {
     created_at: string;
     updated_at: string;
 }
+
+export interface CastStoreDto {
+    title: string;
+    url: string;
+    audio: File;
+    image: File;
+    vlog_id: number;
+    category_id: number;
+    status: number;
+    description: string;
+}
+
+export interface CastUpdateDto {
+    title: string;
+    url: string;
+    audio?: File;
+    image?: File;
+    vlog_id: number;
+    category_id: number;
+    status: number;
+    description: string;
+}

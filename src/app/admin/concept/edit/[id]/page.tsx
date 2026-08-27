@@ -24,14 +24,11 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-concept", Number(id)],
         mutationFn: async (values: ConceptFormValues) => {
-            return update({
-                id: Number(id),
-                title: values.title,
+            return update(Number(id), {title: values.title,
                 status: values.status,
                 description: values.description,
                 icon: values.icon ?? null,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

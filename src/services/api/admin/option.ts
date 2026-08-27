@@ -2,30 +2,18 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {OptionResponse} from "@/services/types/option";
 import {OptionItemsResponse} from "@/services/types/optionItem";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {OptionSetDto, OptionSetToCategoryDto, OptionStoreDto, OptionUpdateDto} from "@/services/types/option";
 
 export const optionTable = tableFetcher<OptionResponse>("admin/option/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        title: string,
-        status: number | string,
-        category_id: number | string,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/option", params)
+(dto: OptionStoreDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/option", dto)
         .then((res) => res?.data)
 };
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        title: string,
-        status: number | string,
-        category_id: number | string,
-    }
-) => {
-    return axios.put<T, SuccessResponseType<T>>("admin/option/" + params.id, params)
+(id: number, dto: OptionUpdateDto) => {
+    return axios.put<T, SuccessResponseType<T>>("admin/option/" + id, dto)
         .then((res) => res?.data)
 };
 
@@ -38,19 +26,9 @@ export const findById = async <T extends ServerResponse<OptionResponse>>
 };
 
 
-export const set = async <T extends ServerResponse<unknown>>(
-    params: {
-        product_id: string | number,
-        option: {
-            value: string,
-            item_id: string,
+export const set = async <T extends ServerResponse<unknown>>(dto: OptionSetDto) => {
 
-        }[]
-
-    }
-) => {
-
-    return axios.post<T, SuccessResponseType<T>>("admin/product/option", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/product/option", dto)
         .then((res) => res?.data);
 };
 
@@ -69,22 +47,8 @@ export const findByCategoryId = async <T extends ServerResponse<OptionItemsRespo
         .then((res) => res?.data?.result?.data)
 };
 export const setToCategory = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        category_id: number | string,
-        option: {
-            id?: number | undefined,
-            title: string,
-            status: number,
-            item: {
-                id?: number,
-                title: string,
-                status: number
-            }[]
-        }[]
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/category/option", params)
+(dto: OptionSetToCategoryDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/category/option", dto)
         .then((res) => res?.data)
 };
 export const sortOption = async <T extends ServerResponse<unknown>>

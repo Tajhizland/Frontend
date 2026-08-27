@@ -1,5 +1,6 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {ProductVideoResponse} from "@/services/types/productVideo";
+import {ProductVideoSetProductVideoDto} from "@/services/types/productVideo";
 
 
 export const findById = async <T extends ServerResponse<ProductVideoResponse[]>>
@@ -18,13 +19,7 @@ export const deleteProductVideo = async <T extends ServerResponse<unknown>>
 };
 
 export const setProductVideo = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        title: string,
-        vlogId: number,
-        product_id: number
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/product/video/multi", params)
+(dto: ProductVideoSetProductVideoDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/product/video/multi", dto)
         .then((res) => res?.data)
 };

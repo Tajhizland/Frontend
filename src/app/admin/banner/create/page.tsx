@@ -19,8 +19,7 @@ export default function Page() {
                 url: values.url,
                 type: values.type,
                 image: values.image ?? undefined,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

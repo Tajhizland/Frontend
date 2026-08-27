@@ -7,3 +7,13 @@ export type RoleResponse = {
     created_at: string,
     updated_at: string,
 }
+
+export interface RoleStoreDto {
+    name: string;
+    permission: number[];
+}
+
+export interface RoleUpdateDto {
+    name: string;
+    permission: number[];
+}

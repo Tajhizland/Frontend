@@ -12,3 +12,19 @@ export type RunConceptQuestionResponse = {
     created_at: string;
     updated_at: string;
 };
+
+export interface RunConceptQuestionStoreDto {
+    question:string;
+    parent_question:number;
+    parent_answer:number;
+    status:number;
+    level:number;
+}
+
+export interface RunConceptQuestionUpdateDto {
+    question:string;
+    parent_question:number;
+    parent_answer:number;
+    status:number;
+    level:number;
+}

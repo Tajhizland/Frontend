@@ -9,3 +9,7 @@ export type  HomepageVlogResponse = {
     vlog: VlogResponse,
 
 }
+
+export interface HomepageVlogUpdateHomepageVlogDto {
+    vlogId: number;
+}

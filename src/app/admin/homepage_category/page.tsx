@@ -51,7 +51,7 @@ export default function Page() {
         setSearchResponse(response);
     }
     async function uploadIconHandle(e:FormData){
-        let response = await setIcon({id:Number(id) , icon:e.get("icon") as File})
+        let response = await setIcon(Number(id), {icon:e.get("icon") as File})
         toast.success(response?.message as string)
     }
     const renderContent = () => {

@@ -27,3 +27,33 @@ export type VlogResponse = {
     created_at: string,
     updated_at: string,
 }
+
+export interface VlogStoreDirectDto {
+    title: string;
+    url: string;
+    status: number | string;
+    categoryId: number | string;
+    videoKey: string;
+    poster: File;
+    description: string;
+}
+
+export interface VlogStoreDto {
+    title: string;
+    url: string;
+    status: number | string;
+    categoryId: number | string;
+    video: File | null;
+    poster: File | null;
+    description: string;
+}
+
+export interface VlogUpdateDto {
+    title: string;
+    url: string;
+    status: number | string;
+    categoryId: number | string;
+    video: File | null;
+    poster: File | null;
+    description: string;
+}

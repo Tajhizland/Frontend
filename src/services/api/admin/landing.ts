@@ -6,31 +6,18 @@ import {tableFetcher} from "@/shared/Table/fetcher";
 export const landingTable = tableFetcher<LandingResponse>("admin/landing/dataTable");
 import {LandingProductResponse} from "@/services/types/landingProduct";
 import {LandingBannerResponse} from "@/services/types/landingBanner";
+import {LandingSetCategoryLandingDto, LandingSetLandingBannerDto, LandingSetProductLandingDto, LandingStoreLandingDto, LandingUpdateLandingDto} from "@/services/types/landing";
+import {toFormData} from "@/services/http";
 
 export const storeLanding = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        title: string,
-        description: string,
-        url: string,
-        status: string,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/landing", params)
+(dto: LandingStoreLandingDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/landing", dto)
         .then((res) => res?.data)
 };
 
 export const updateLanding = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        title: string,
-        description: string,
-        url: string,
-        status: string,
-    }
-) => {
-    return axios.put<T, SuccessResponseType<T>>("admin/landing/" + params.id, params)
+(id: number, dto: LandingUpdateLandingDto) => {
+    return axios.put<T, SuccessResponseType<T>>("admin/landing/" + id, dto)
         .then((res) => res?.data)
 };
 
@@ -42,24 +29,14 @@ export const findLandingById = async <T extends ServerResponse<LandingResponse>>
 };
 
 export const setProductLanding = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        landing_id: number,
-        product_id: number,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/landing/product", params)
+(dto: LandingSetProductLandingDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/landing/product", dto)
         .then((res) => res?.data)
 };
 
 export const setCategoryLanding = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        landing_id: number,
-        category_id: number,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/landing/category", params)
+(dto: LandingSetCategoryLandingDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/landing/category", dto)
         .then((res) => res?.data)
 };
 
@@ -104,19 +81,7 @@ export const getLandingBanner = async <T extends ServerResponse<LandingBannerRes
         .then((res) => res?.data?.result?.data)
 };
 export const setLandingBanner = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        landing_id: number,
-        slider: number,
-        url: string,
-        image: File,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('landing_id', params.landing_id+"");
-    formData.append('slider', params.slider+"");
-    formData.append('url', params.url);
-    formData.append('image', params.image);
-    return axios.post<T, SuccessResponseType<T>>("admin/landing/banner" ,formData)
+(dto: LandingSetLandingBannerDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/landing/banner" ,toFormData(dto))
         .then((res) => res?.data)
 };

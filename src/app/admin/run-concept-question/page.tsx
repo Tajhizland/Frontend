@@ -14,10 +14,7 @@ import {RunConceptQuestionResponse} from "@/services/types/runConceptQuestion";
 
 export default function Page() {
     async function submit(e: RunConceptQuestionResponse) {
-        let response = await update(
-            {
-                id: e.id,
-                question: e.question,
+        let response = await update(e.id, {question: e.question,
                 parent_question: e.parent_question,
                 parent_answer: e.parent_answer,
                 status: e.status,

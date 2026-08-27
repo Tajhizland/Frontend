@@ -21,9 +21,7 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-dictionary", Number(id)],
         mutationFn: async (values: DictionaryFormValues) => {
-            return update({
-                id: Number(id),
-                original_word: values.original_word,
+            return update(Number(id), {original_word: values.original_word,
                 mean: values.mean,
             });
         },

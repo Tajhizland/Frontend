@@ -13,20 +13,12 @@ export const findById = async <T extends ServerResponse<OrderResponse>>
         .then((res) => res?.data?.result?.data)
 };
 export const accept = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number | string
-    }
-) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/on-hold-order/" + params.id + "/accept")
+(id: number) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/on-hold-order/" + id + "/accept")
         .then((res) => res?.data)
 };
 export const reject = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number | string
-    }
-) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/on-hold-order/" + params.id + "/reject")
+(id: number) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/on-hold-order/" + id + "/reject")
         .then((res) => res?.data)
 };

@@ -1,39 +1,16 @@
 import axios, { ServerResponse, SuccessResponseType } from "@/services/axios";
 import { CastResponse } from "@/services/types/cast";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {CastStoreDto, CastUpdateDto} from "@/services/types/cast";
+import {UploadProgress, toFormData} from "@/services/http";
 
 export const castTable = tableFetcher<CastResponse>("admin/cast/dataTable");
 
 
 export const store = async <T extends ServerResponse<unknown>>
-    (
-        params: {
-            title: string,
-            url: string,
-            audio: File,
-            image: File,
-            vlog_id: number,
-            category_id: number,
-            status: number,
-            description: string,
-            setProgress?: (progress: number) => void
+    (dto: CastStoreDto, onProgress?: UploadProgress) => {
 
-        }
-    ) => {
-
-    const formData = new FormData();
-    formData.append('title', params.title);
-    formData.append('url', params.url);
-    formData.append('description', params.description);
-    formData.append('status', params.status.toString());
-    formData.append('vlog_id', params.vlog_id.toString());
-    formData.append('category_id', params.category_id.toString());
-    formData.append('status', params.status.toString());
-    formData.append('audio', params.audio);
-    formData.append('image', params.image);
-
-
-    return axios.post<T, SuccessResponseType<T>>("admin/cast", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/cast", toFormData(dto),
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -41,51 +18,22 @@ export const store = async <T extends ServerResponse<unknown>>
             onUploadProgress: (progressEvent) => {
                 //@ts-ignore
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                if (params.setProgress) params.setProgress(percentCompleted);
+                if (onProgress) onProgress(percentCompleted);
             }
         })
         .then((res) => res?.data)
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-    (
-        params: {
-            id: number | string,
-            title: string,
-            url: string,
-            audio?: File,
-            image?: File,
-            vlog_id: number,
-            category_id: number,
-            status: number,
-            description: string,
-            setProgress?: (progress: number) => void
-        }
-    ) => {
-    const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('title', params.title);
-    formData.append('url', params.url);
-    formData.append('description', params.description);
-    formData.append('status', params.status.toString());
-    formData.append('vlog_id', params.vlog_id.toString());
-    formData.append('category_id', params.category_id.toString());
-    formData.append('status', params.status.toString());
-
-    if (params.image) {
-        formData.append('image', params.image);
-    }
-    if (params.audio) {
-        formData.append('audio', params.audio);
-    }
-    return axios.post<T, SuccessResponseType<T>>("admin/cast/" + params.id, formData,
+    (id: number, dto: CastUpdateDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/cast/" + id, toFormData(dto, "PUT"),
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }, onUploadProgress: (progressEvent) => {
                 //@ts-ignore
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                if (params.setProgress) params.setProgress(percentCompleted);
+                if (onProgress) onProgress(percentCompleted);
             }
         })
         .then((res) => res?.data)

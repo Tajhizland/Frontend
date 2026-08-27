@@ -31,7 +31,7 @@ const Page = () => {
     } = useMutation({
         mutationKey: [`changeActiveAddress`],
         mutationFn: (address_id: number) =>
-            adminChangeActiveAddress({id: address_id, user_id: Number(id)}),
+            adminChangeActiveAddress(address_id, {user_id: Number(id)}),
         onSuccess: data => {
             queryClient.invalidateQueries(['my-address']);
             queryClient.invalidateQueries(['address']);

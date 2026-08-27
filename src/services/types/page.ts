@@ -8,3 +8,19 @@ export type PageResponse = {
     created_at: string,
     updated_at: string,
 }
+
+export interface PageStoreDto {
+    title:string;
+    url:string;
+    status:number|string;
+    image: File | null;
+    content:string;
+}
+
+export interface PageUpdateDto {
+    title:string;
+    url:string;
+    status:number|string;
+    image: File | null;
+    content:string;
+}

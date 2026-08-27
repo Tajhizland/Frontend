@@ -21,7 +21,7 @@ export default function Page() {
     const updateDiscount = useMutation({
         mutationKey: [`update-discount`],
         mutationFn: async (formData: any) => {
-            return update({id: Number(id), ...formData });
+            return update(Number(id), {...formData });
         },
         onSuccess: (response) => {
             if (response.success) {

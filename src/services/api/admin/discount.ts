@@ -2,35 +2,21 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {DiscountResponse} from "@/services/types/discount";
 import {DiscountItemResponse} from "@/services/types/discountItem";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {DiscountSetItemDto, DiscountStoreDto, DiscountUpdateDto, DiscountUpdateItemDto} from "@/services/types/discount";
 
 export const discountTable = tableFetcher<DiscountResponse>("admin/discount/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        title: string,
-        status: number,
-        start_date: string,
-        end_date: string,
-    }
-) => {
+(dto: DiscountStoreDto) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/discount", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/discount", dto)
         .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        title: string,
-        status: number,
-        start_date: string,
-        end_date: string,
-    }
-) => {
+(id: number, dto: DiscountUpdateDto) => {
 
-    return axios.put<T, SuccessResponseType<T>>("admin/discount/" + params.id, params)
+    return axios.put<T, SuccessResponseType<T>>("admin/discount/" + id, dto)
         .then((res) => res?.data);
 };
 
@@ -51,33 +37,14 @@ export const getItem = async <T extends ServerResponse<DiscountItemResponse[]>>
 };
 
 export const setItem = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        discount_id: number,
-        discount: {
-            product_color_id: number,
-            discount_price: number,
-            top: number,
-            discount_expire_time?: string,
-        }[]
-
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/discount/item", params)
+(dto: DiscountSetItemDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/discount/item", dto)
         .then((res) => res?.data)
 };
 
 export const updateItem = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        discount: {
-            id: number,
-            discount_price: number,
-        }[]
-
-    }
-) => {
-    return axios.put<T, SuccessResponseType<T>>("admin/discount/item", params)
+(dto: DiscountUpdateItemDto) => {
+    return axios.put<T, SuccessResponseType<T>>("admin/discount/item", dto)
         .then((res) => res?.data)
 };
 

@@ -23,8 +23,7 @@ export default function Page() {
                 video: values.video ?? null,
                 poster: values.poster ?? null,
                 description: values.description,
-                setProgress: setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

@@ -35,3 +35,21 @@ export type BrandListingResponse = {
         data: CategoryResponse[];
     };
 };
+
+export interface BrandStoreDto {
+    name: string;
+    url: string;
+    status: number | string;
+    image: File | null;
+    banner: File | null;
+    description: string;
+}
+
+export interface BrandUpdateDto {
+    name: string;
+    url: string;
+    status: number | string;
+    image: File | null;
+    banner: File | null;
+    description: string;
+}

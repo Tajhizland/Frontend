@@ -22,7 +22,7 @@ export default function Page() {
     const updateCast = useMutation({
         mutationKey: [`update-cast-category`],
         mutationFn: async (formData: any) => {
-            return update({id: Number(id), ...formData, setProgress: setProgress});
+            return update(Number(id), {...formData, setProgress: setProgress});
         },
         onSuccess: (response) => {
             if (response.success) {

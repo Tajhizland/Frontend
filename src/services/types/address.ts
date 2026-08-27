@@ -18,3 +18,14 @@ export type AddressResponse = {
     city?: CityResponse;
     province?:ProviceResponse ;
 };
+
+export interface AddressUpdateDto {
+    city_id:string;
+    title:string;
+    province_id:string;
+    tell:string;
+    mobile:string;
+    zip_code:string;
+    address:string;
+}
+

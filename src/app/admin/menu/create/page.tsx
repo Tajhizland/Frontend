@@ -23,8 +23,7 @@ export default function Page() {
                 category_id: Number(values.category_id),
                 banner_link: values.banner_link,
                 parent_id: values.parent_id,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

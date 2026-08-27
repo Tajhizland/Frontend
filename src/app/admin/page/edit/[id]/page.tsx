@@ -24,15 +24,12 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-page", Number(id)],
         mutationFn: async (values: PageFormValues) => {
-            return update({
-                id: Number(id),
-                title: values.title,
+            return update(Number(id), {title: values.title,
                 url: values.url,
                 status: values.status,
                 content: values.content,
                 image: values.image ?? null,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

@@ -2,55 +2,17 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {DeliveryResponse} from "@/services/types/delivery";
 import {tableFetcher} from "@/shared/Table/fetcher";
 import {uploadConfig} from "@/services/uploadConfig";
+import {DeliveryStoreDto, DeliveryUpdateDto} from "@/services/types/delivery";
+import {UploadProgress, toFormData} from "@/services/http";
 
 export const deliveryTable = tableFetcher<DeliveryResponse>("admin/delivery/dataTable");
 
-export const store = async <T extends ServerResponse<unknown>>(
-    params: {
-        name: string,
-        status: number | string,
-        description: string,
-        logo: File | null,
-        price: string | number,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-     const formData = new FormData();
-    formData.append('name', params.name);
-    formData.append('status', params.status.toString());
-    formData.append('description', params.description);
-    formData.append('price', params.price.toString());
-
-    if (params.logo) {
-        formData.append('logo', params.logo);
-    }
-
-    return axios.post<T, SuccessResponseType<T>>("admin/delivery", formData, uploadConfig(params.setProgress))
+export const store = async <T extends ServerResponse<unknown>>(dto: DeliveryStoreDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/delivery", toFormData(dto), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
-export const update = async <T extends ServerResponse<unknown>>(
-    params: {
-        id: number,
-        name: string,
-        status: number | string,
-        description: string,
-        logo: File | null,
-        price: string | number,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-     const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('name', params.name);
-    formData.append('status', params.status.toString());
-    formData.append('description', params.description);
-    formData.append('price', params.price.toString());
-
-    if (params.logo) {
-        formData.append('logo', params.logo);
-    }
-
-    return axios.post<T, SuccessResponseType<T>>("admin/delivery/" + params.id, formData, uploadConfig(params.setProgress))
+export const update = async <T extends ServerResponse<unknown>>(id: number, dto: DeliveryUpdateDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/delivery/" + id, toFormData(dto, "PUT"), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
 

@@ -26,7 +26,7 @@ export default function Page() {
     });
     async function submit(e: FormData) {
         setLoading(true)
-        let response = await upload({model_id: Number(id), file: e.get("file") as File ,model_type:"news",setProgress:setProgress})
+        let response = await upload({model_id: Number(id), file: e.get("file") as File, model_type: "news"}, setProgress)
         if (response?.success) {
             queryClient.refetchQueries(['files', Number(id)]);
             toast.success(response?.message as string);

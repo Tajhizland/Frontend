@@ -23,13 +23,10 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-banner", Number(id)],
         mutationFn: async (values: BannerFormValues) => {
-            return update({
-                id: Number(id),
-                url: values.url,
+            return update(Number(id), {url: values.url,
                 type: values.type,
                 image: values.image ?? undefined,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

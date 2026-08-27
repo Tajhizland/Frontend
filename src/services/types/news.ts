@@ -20,3 +20,21 @@ export type NewsResponse = {
     created_at:string ;
     updated_at:string ;
 };
+
+export interface NewsStoreDto {
+    title:string;
+    url:string;
+    published:number|string;
+    categoryId:number;
+    image: File | null;
+    content:string;
+}
+
+export interface NewsUpdateDto {
+    categoryId:number;
+    title:string;
+    url:string;
+    published:number|string;
+    image: File | null;
+    content:string;
+}

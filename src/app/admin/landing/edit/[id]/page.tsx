@@ -22,9 +22,7 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-landing", Number(id)],
         mutationFn: async (values: LandingFormValues) => {
-            return updateLanding({
-                id: Number(id),
-                title: values.title,
+            return updateLanding(Number(id), {title: values.title,
                 status: values.status,
                 url: values.url,
                 description: values.description,

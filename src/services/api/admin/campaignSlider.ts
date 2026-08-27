@@ -2,32 +2,16 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {CampaignSliderResponse} from "@/services/types/campaignSlider";
 import {SliderResponse} from "@/services/types/slider";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {CampaignSliderStoreDto, CampaignSliderUpdateDto} from "@/services/types/campaignSlider";
+import {toFormData} from "@/services/http";
 
 /** fetcher اسلایدرهای یک کمپین خاص — id را بگیر و fetcher بساز */
 export const campaignSliderTable = (id: string | string[] | undefined) =>
     tableFetcher<SliderResponse>("admin/campaign-slider/dataTable/" + id);
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        campaign_id: number,
-        title: string,
-        url: string,
-        type: string,
-        status: number | string,
-        image: File,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('title', params.title);
-    formData.append('campaign_id', params.campaign_id.toString());
-    formData.append('status', params.status.toString());
-    formData.append('url', params.url);
-    formData.append('type', params.type);
-    if (params.image) {
-        formData.append('image', params.image);
-    }
-    return axios.post<T, SuccessResponseType<T>>("admin/campaign-slider", formData, {
+(dto: CampaignSliderStoreDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/campaign-slider", toFormData(dto), {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -36,26 +20,8 @@ export const store = async <T extends ServerResponse<unknown>>
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        title: string,
-        url: string,
-        type: string,
-        status: number | string,
-        image: File | undefined,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('title', params.title);
-    formData.append('type', params.type);
-    formData.append('status', params.status.toString());
-    formData.append('url', params.url);
-    if (params.image) {
-        formData.append('image', params.image);
-    }
-    return axios.post<T, SuccessResponseType<T>>("admin/campaign-slider/" + params.id, formData, {
+(id: number, dto: CampaignSliderUpdateDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/campaign-slider/" + id, toFormData(dto, "PUT"), {
         headers: {
             'Content-Type': 'multipart/form-data',
         },

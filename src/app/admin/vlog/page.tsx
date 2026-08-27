@@ -14,10 +14,7 @@ import {VlogResponse} from "@/services/types/vlog";
 
 export default function Page() {
     async function submit(e: VlogResponse) {
-        let response=await update(
-            {
-                id: e.id,
-                title: e.title,
+        let response=await update(e.id, {title: e.title,
                 url: e.url,
                 categoryId: e.categoryId,
                 status: e.status,

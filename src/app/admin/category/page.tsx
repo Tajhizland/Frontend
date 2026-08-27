@@ -15,10 +15,7 @@ import {CategoryResponse} from "@/services/types/category";
 export default function Page() {
 
     async function submit(e: CategoryResponse) {
-        let response=await update(
-            {
-                id: e.id,
-                name: e.name,
+        let response=await update(e.id, {name: e.name,
                 url: e.url,
                 status: e.status,
                 image: null ,

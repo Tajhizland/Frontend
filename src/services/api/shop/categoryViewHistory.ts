@@ -1,23 +1,18 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {ProductResponse} from "@/services/types/product";
+import {CategoryViewHistoryStoreCategoryViewHistoryDto, CategoryViewHistoryStoreCategoryViewHistoryIpDto} from "@/services/types/categoryViewHistory";
 
 export const storeCategoryViewHistory = async <T extends ServerResponse<unknown>>
-(params: {
-     category_id: number
- }
-) => {
+(dto: CategoryViewHistoryStoreCategoryViewHistoryDto) => {
 
-    return axios.post<T, SuccessResponseType<T>>("category-view-history", params)
+    return axios.post<T, SuccessResponseType<T>>("category-view-history", dto)
         .then((res) => res?.data)
 };
 
 export const storeCategoryViewHistoryIp = async <T extends ServerResponse<unknown>>
-(params: {
-     category_id: number
- }
-) => {
+(dto: CategoryViewHistoryStoreCategoryViewHistoryIpDto) => {
 
-    return axios.post<T, SuccessResponseType<T>>("category-view-history/ip", params)
+    return axios.post<T, SuccessResponseType<T>>("category-view-history/ip", dto)
         .then((res) => res?.data)
 };
 

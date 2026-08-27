@@ -23,11 +23,8 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-trusted-brand", Number(id)],
         mutationFn: async (values: TrustedBrandFormValues) => {
-            return update({
-                id: Number(id),
-                logo: values.logo ?? null,
-                setProgress,
-            });
+            return update(Number(id), {logo: values.logo ?? null,
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

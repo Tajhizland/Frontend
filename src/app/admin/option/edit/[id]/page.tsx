@@ -21,9 +21,7 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-option", Number(id)],
         mutationFn: async (values: OptionFormValues) => {
-            return update({
-                id: Number(id),
-                title: values.title,
+            return update(Number(id), {title: values.title,
                 category_id: values.category_id,
                 status: values.status,
             });

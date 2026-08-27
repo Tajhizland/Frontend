@@ -8,3 +8,17 @@ export type  VlogCategoryResponse = {
     created_at: number;
     updated_at: string,
 }
+
+export interface VlogCategoryStoreDto {
+    name: string;
+    url: string;
+    icon?: File | null;
+    status: number;
+}
+
+export interface VlogCategoryUpdateDto {
+    name: string;
+    url: string;
+    icon?: File | null;
+    status: number;
+}

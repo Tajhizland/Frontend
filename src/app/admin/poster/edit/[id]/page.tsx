@@ -23,11 +23,8 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-poster", Number(id)],
         mutationFn: async (values: PosterFormValues) => {
-            return update({
-                id: Number(id),
-                image: values.image as File,
-                setProgress,
-            });
+            return update(Number(id), {image: values.image as File,
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

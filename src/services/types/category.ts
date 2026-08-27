@@ -43,3 +43,26 @@ export type CategoryListing = {
 
 };
 
+export interface CategoryStoreDto {
+    name: string;
+    url: string;
+    image: File | null;
+    parent_id: number | string;
+    status: number | string;
+    description: string;
+    type: string;
+}
+
+export interface CategoryUpdateDto {
+    name: string;
+    url: string;
+    image: File | null;
+    parent_id: number | string;
+    status: number | string;
+    description: string;
+    type: string;
+}
+
+export interface CategorySearchDto {
+    query: string;
+}

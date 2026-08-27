@@ -18,3 +18,40 @@ export type CouponResponse = {
     created_at: string,
     updated_at: string,
 }
+
+export interface CouponStoreDto {
+    code: string;
+    start_time: string;
+    end_time: string;
+    status: number;
+    price: number;
+    percent: number;
+    min_order_value: number;
+    max_order_value: number;
+    user_id: number;
+}
+
+export interface CouponStoreGroupDto {
+    start_time: string;
+    end_time: string;
+    status: number;
+    price: number;
+    percent: number;
+    min_order_value: number;
+    max_order_value: number;
+    userIds: number[];
+    send_sms?: boolean;
+    message?: string;
+}
+
+export interface CouponUpdateDto {
+    code: string;
+    start_time: string;
+    end_time: string;
+    status: number;
+    price: number;
+    percent: number;
+    min_order_value: number;
+    max_order_value: number;
+    user_id: number;
+}

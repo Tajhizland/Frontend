@@ -1,37 +1,22 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {FileManagerResponse} from "@/services/types/fileManager";
+import {FileManagerGetFilesDto, FileManagerUploadDto} from "@/services/types/fileManager";
+import {UploadProgress, toFormData} from "@/services/http";
 
 export const getFiles = async <T extends ServerResponse<FileManagerResponse[]>>
-(
-    params: {
-        model_id: number,
-        model_type: string,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/file/search", params)
+(dto: FileManagerGetFilesDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/file/search", dto)
         .then((res) => res?.data?.result.data)
 };
 
 export const upload = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        model_id: number,
-        model_type: string,
-        file: File,
-        setProgress?: (progress: number) => void // تابع برای تغییر مقدار درصد آپلود
-
-    }
-) => {
-    const formData = new FormData();
-    formData.append('model_id', params.model_id + "");
-    formData.append('model_type', params.model_type);
-    formData.append('file', params.file);
-    return axios.post<T, SuccessResponseType<T>>("admin/file", formData,
+(dto: FileManagerUploadDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/file", toFormData(dto),
         {
             onUploadProgress: (progressEvent) => {
                 //@ts-ignore
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                if (params.setProgress) params.setProgress(percentCompleted);
+                if (onProgress) onProgress(percentCompleted);
             }
         })
         .then((res) => res?.data)

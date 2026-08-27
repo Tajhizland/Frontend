@@ -2,31 +2,22 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {PermissionResponse} from "@/services/types/permission";
 import {PhoneBockResponse} from "@/services/types/phoneBock";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {PhoneBockPhoneBockUploadExcelDto, PhoneBockStorePhoneBockDto, PhoneBockUpdatePhoneBockDto} from "@/services/types/phoneBock";
+import {toFormData} from "@/services/http";
 
 export const phoneBockTable = tableFetcher<PhoneBockResponse>("admin/phone-bock/dataTable");
 
 export const storePhoneBock = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        name: string,
-        mobile: string,
-    }
-) => {
+(dto: PhoneBockStorePhoneBockDto) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/phone-bock", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/phone-bock", dto)
         .then((res) => res?.data);
 };
 
 export const updatePhoneBock = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        name: string,
-        mobile: string,
-    }
-) => {
+(id: number, dto: PhoneBockUpdatePhoneBockDto) => {
 
-    return axios.put<T, SuccessResponseType<T>>("admin/phone-bock/" + params.id, params)
+    return axios.put<T, SuccessResponseType<T>>("admin/phone-bock/" + id, dto)
         .then((res) => res?.data);
 };
 export const findPhoneBockById = async <T extends ServerResponse<PhoneBockResponse>>
@@ -42,11 +33,8 @@ export const getPhoneBockList = async <T extends ServerResponse<PhoneBockRespons
         .then((res) => res?.data?.result?.data)
 };
 export const phoneBockUploadExcel = async <T extends ServerResponse<PhoneBockResponse[]>>
-(params:{file: File}
-) => {
-    const formData = new FormData();
-    formData.append('excel_file', params.file);
-    return axios.post<T, SuccessResponseType<T>>("admin/phone-bock/excel", formData,
+(dto: PhoneBockPhoneBockUploadExcelDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/phone-bock/excel", toFormData(dto),
         {
             headers: {
                 'Content-Type': 'multipart/form-data',

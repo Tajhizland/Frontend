@@ -3,68 +3,28 @@ import { ConceptResponse } from "@/services/types/concept";
 import { CategoryConceptResponse } from "@/services/types/categoryConcept";
 import {tableFetcher} from "@/shared/Table/fetcher";
 import {uploadConfig} from "@/services/uploadConfig";
+import {ConceptEditDisplayDto, ConceptFastUpdateDto, ConceptSetItemDto, ConceptStoreDto, ConceptUpdateDto} from "@/services/types/concept";
+import {UploadProgress, toFormData} from "@/services/http";
 
 export const conceptTable = tableFetcher<ConceptResponse>("admin/concept/dataTable");
 
 
-export const store = async <T extends ServerResponse<unknown>>(
-    params: {
-        title: string,
-        description: string,
-        status: number | string,
-        icon: File | null,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('title', params.title);
-    formData.append('status', params.status.toString());
-    formData.append('description', params.description);
-
-    if (params.icon) {
-        formData.append('icon', params.icon);
-    }
-
-    return axios.post<T, SuccessResponseType<T>>("admin/concept", formData, uploadConfig(params.setProgress))
+export const store = async <T extends ServerResponse<unknown>>(dto: ConceptStoreDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/concept", toFormData(dto), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
 
 
 export const fastUpdate = async <T extends ServerResponse<unknown>>
-    (
-        params: {
-            id: number | string,
-            title: string,
-            status: number | string,
-        }
-    ) => {
+    (id: number, dto: ConceptFastUpdateDto) => {
 
-    return axios.put<T, SuccessResponseType<T>>("admin/concept/" + params.id, params)
+    return axios.put<T, SuccessResponseType<T>>("admin/concept/" + id, dto)
         .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-    (
-        params: {
-            id: number | string,
-            title: string,
-            description: string,
-            status: number | string,
-            icon: File | null,
-            setProgress?: (progress: number) => void,
-        }
-    ) => {
-    const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('title', params.title);
-    formData.append('status', params.status.toString());
-    formData.append('description', params.description);
-
-    if (params.icon) {
-        formData.append('icon', params.icon);
-    }
-
-    return axios.post<T, SuccessResponseType<T>>("admin/concept/" + params.id, formData, uploadConfig(params.setProgress))
+    (id: number, dto: ConceptUpdateDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/concept/" + id, toFormData(dto, "PUT"), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
 export const findById = async <T extends ServerResponse<ConceptResponse>>
@@ -83,13 +43,8 @@ export const getItems = async <T extends ServerResponse<CategoryConceptResponse[
 };
 
 export const setItem = async <T extends ServerResponse<unknown>>
-    (
-        params: {
-            category_id: number | string,
-            concept_id: number | string,
-        }
-    ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/concept/item", params)
+    (dto: ConceptSetItemDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/concept/item", dto)
         .then((res) => res?.data)
 };
 
@@ -102,12 +57,7 @@ export const deleteItem = async <T extends ServerResponse<unknown>>
 };
 
 export const editDisplay = async <T extends ServerResponse<unknown>>
-    (
-        params: {
-            id: number | string,
-            display: string
-        }
-    ) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/concept/item/" + params.id + "/display", {display: params.display})
+    (id: number, dto: ConceptEditDisplayDto) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/concept/item/" + id + "/display", {display: dto.display})
         .then((res) => res?.data)
 };

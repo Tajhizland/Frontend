@@ -93,3 +93,99 @@ export type ProductResponse = {
     comments: CommentResponse[];
     groupItems: GroupProductResponse[];
 };
+
+export interface ProductStoreDto {
+    name: string;
+    url: string;
+    type: string;
+    status: number;
+    brand_id: number;
+    is_stock: number;
+    description: string;
+    meta_description: string;
+    meta_title: string;
+    guaranty_id: string;
+    guaranty_time: number;
+    study: string;
+    review: string;
+    categoryId: string;
+    stock_of: number;
+    testing_time: number;
+    weight: number;
+    length: number;
+    height: number;
+    width: number;
+    use_packet: number;
+}
+
+export interface ProductUpdateDto {
+    name: string;
+    url: string;
+    type: string;
+    status: number;
+    brand_id: number;
+    description: string;
+    meta_description: string;
+    meta_title: string;
+    guaranty_id: string;
+    guaranty_time: number;
+    is_stock: number;
+    study: string;
+    review: string;
+    categoryId: string;
+    stock_of: number;
+    testing_time: number;
+    weight: number;
+    length: number;
+    height: number;
+    width: number;
+    use_packet: number;
+}
+
+export interface ProductSearchDto {
+    query: string;
+}
+
+export interface ProductSetVideoDto {
+    vlogId: number | null;
+    productId: number;
+    type: string;
+}
+
+export interface ProductSearchProductListDto {
+    categoryId: number | null;
+    brandId: number | null;
+    discountId?: number;
+    searchQuery?: string;
+}
+
+export interface ProductGroupChangePriceDto {
+    action: string;
+    percent: number;
+    ids: number[];
+}
+
+export interface ProductGroupChangeStockDto {
+    stock: number;
+    ids: number[];
+}
+
+export interface ProductGroupChangeStatusDto {
+    status: number;
+    ids: number[];
+}
+
+export interface ProductGroupChangeDigipayDto {
+    digipay: number;
+    ids: number[];
+}
+
+export interface ProductGroupChangeSnappayDto {
+    snappay: number;
+    ids: number[];
+}
+
+export interface ProductGroupChangeDigipayPercentDto {
+    percent: number;
+    ids: number[];
+}

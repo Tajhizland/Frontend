@@ -14,10 +14,7 @@ import {NewsResponse} from "@/services/types/news";
 
 export default function Page() {
     async function submit(e: NewsResponse) {
-        let response=await update(
-            {
-                id: e.id,
-                title: e.title,
+        let response=await update(e.id, {title: e.title,
                 url: e.url,
                 published: e.published,
                 image: null ,

@@ -15,3 +15,34 @@ export type LandingResponse = {
     landingBannerImage?: LandingBannerResponse[];
     landingBannerSlider?: LandingBannerResponse[];
 };
+
+export interface LandingStoreLandingDto {
+    title: string;
+    description: string;
+    url: string;
+    status: string;
+}
+
+export interface LandingUpdateLandingDto {
+    title: string;
+    description: string;
+    url: string;
+    status: string;
+}
+
+export interface LandingSetProductLandingDto {
+    landing_id: number;
+    product_id: number;
+}
+
+export interface LandingSetCategoryLandingDto {
+    landing_id: number;
+    category_id: number;
+}
+
+export interface LandingSetLandingBannerDto {
+    landing_id: number;
+    slider: number;
+    url: string;
+    image: File;
+}

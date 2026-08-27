@@ -14,10 +14,7 @@ import {CouponResponse} from "@/services/types/coupon";
 
 export default function Page() {
     async function submit(e: CouponResponse) {
-        let response = await update(
-            {
-                id: e.id,
-                code: e.code,
+        let response = await update(e.id, {code: e.code,
                 start_time: e.start_time,
                 end_time: e.end_time,
                 status: e.status,

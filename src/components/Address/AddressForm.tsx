@@ -18,9 +18,7 @@ export default function AddressForm({address, close}: { address?: AddressRespons
     const saveAddress = useMutation({
         mutationKey: [`save-address`],
         mutationFn: async (formData: any) => {
-            return update({
-                id: address?.id,
-                ...formData,
+            return update(Number(address?.id), {...formData,
             });
         },
         onSuccess: (response) => {

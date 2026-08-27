@@ -5,25 +5,8 @@ import {notFound, redirect} from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
-export type ServerResponse<T = unknown> =
-    | {
-    success: true;
-    result: {
-        data: T;
-        meta?: {
-            total: number;
-            current_page: number;
-            last_page: number;
-            per_page: number;
-        };
-    };
-    message?: string;
-}
-    | {
-    success: false;
-    message?: string;
-    exception?: any;
-};
+export type { ServerResponse } from "@/services/http/types";
+import type { ServerResponse } from "@/services/http/types";
 
 export type FailedResponseType<T> = AxiosError<Extract<T, { success: false }>>;
 export type SuccessResponseType<T> = AxiosResponse<Extract<T, { success: true }>>;

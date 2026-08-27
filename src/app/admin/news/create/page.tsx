@@ -22,8 +22,7 @@ export default function Page() {
                 published: values.published,
                 content: values.content,
                 image: values.image ?? null,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

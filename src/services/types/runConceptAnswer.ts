@@ -10,3 +10,17 @@ export type RunConceptAnswerResponse = {
     created_at: string;
     updated_at: string;
 };
+
+export interface RunConceptAnswerStoreDto {
+    answer: string;
+    status: number;
+    price: number;
+    run_concept_question_id: number;
+}
+
+export interface RunConceptAnswerUpdateDto {
+    answer: string;
+    status: number;
+    price: number;
+    run_concept_question_id: number;
+}

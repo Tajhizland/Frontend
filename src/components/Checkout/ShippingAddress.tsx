@@ -59,9 +59,7 @@ const ShippingAddress: FC<Props> = ({
     });
 
     async function saveAddress(e: FormData) {
-        let response = await update({
-            id: activeAddress?.id as number,
-            city_id: e.get("city_id") as string,
+        let response = await update(activeAddress?.id as number, {city_id: e.get("city_id") as string,
             title: e.get("title") as string,
             province_id: e.get("province_id") as string,
             tell: e.get("tell") as string,
@@ -89,7 +87,7 @@ const ShippingAddress: FC<Props> = ({
     } = useMutation({
         mutationKey: [`changeActiveAddress`],
         mutationFn: (id: number) =>
-            changeActiveAddress({id: id}),
+            changeActiveAddress(id),
         onSuccess: data => {
             queryClient.invalidateQueries(['my-address']);
             queryClient.invalidateQueries(['address']);

@@ -3,6 +3,8 @@ import {VlogResponse} from "@/services/types/vlog";
 import {BrandResponse} from "@/services/types/brand";
 import {VideoStatusResponse} from "@/services/types/upload";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {VlogStoreDirectDto, VlogStoreDto, VlogUpdateDto} from "@/services/types/vlog";
+import {UploadProgress, toFormData} from "@/services/http";
 
 export const vlogTable = tableFetcher<VlogResponse>("admin/vlog/dataTable");
 
@@ -11,27 +13,8 @@ export const vlogTable = tableFetcher<VlogResponse>("admin/vlog/dataTable");
  * فقط کلید فایل فرستاده می‌شود، پس این درخواست چند کیلوبایت بیشتر نیست.
  */
 export const storeDirect = async <T extends ServerResponse<VlogResponse>>
-(
-    params: {
-        title: string,
-        url: string,
-        status: number | string,
-        categoryId: number | string,
-        videoKey: string,
-        poster: File,
-        description: string,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('title', params.title);
-    formData.append('description', params.description);
-    formData.append('url', params.url);
-    formData.append('status', params.status.toString());
-    formData.append('categoryId', params.categoryId.toString());
-    formData.append('videoKey', params.videoKey);
-    formData.append('poster', params.poster);
-
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog/direct", formData)
+(dto: VlogStoreDirectDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog/direct", toFormData(dto))
         .then((res) => res?.data);
 };
 
@@ -45,71 +28,26 @@ export const videoStatus = async <T extends ServerResponse<VideoStatusResponse>>
 };
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        title: string,
-        url: string,
-        status: number | string,
-        categoryId: number | string,
-        video: File | null,
-        poster: File | null,
-        description: string,
-        setProgress?: (progress: number) => void // تابع برای تغییر مقدار درصد آپلود
-
-    }
-) => {
-    const formData = new FormData();
-    formData.append('title', params.title);
-    formData.append('description', params.description);
-    formData.append('url', params.url);
-    formData.append('status', params.status.toString());
-    if (params.video)
-        formData.append('video', params.video);
-    formData.append('categoryId', params.categoryId.toString());
-    if (params.poster)
-        formData.append('poster', params.poster);
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog", formData,
+(dto: VlogStoreDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog", toFormData(dto),
         {
             onUploadProgress: (progressEvent) => {
                 //@ts-ignore
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                if (params.setProgress) params.setProgress(percentCompleted);
+                if (onProgress) onProgress(percentCompleted);
             }
         })
         .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number | string,
-        title: string,
-        url: string,
-        status: number | string,
-        categoryId: number | string,
-        video: File | null,
-        poster: File | null,
-        description: string ,
-        setProgress?: (progress: number) => void // تابع برای تغییر مقدار درصد آپلود
-    }
-) => {
-    const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('title', params.title);
-    formData.append('description', params.description);
-    formData.append('url', params.url);
-    formData.append('categoryId', params.categoryId.toString());
-    formData.append('status', params.status.toString());
-    if (params.video)
-        formData.append('video', params.video);
-    if (params.poster)
-        formData.append('poster', params.poster);
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog/" + params.id, formData,
+(id: number, dto: VlogUpdateDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog/" + id, toFormData(dto, "PUT"),
         {
             onUploadProgress: (progressEvent) => {
                 //@ts-ignore
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                if (params.setProgress) params.setProgress(percentCompleted);
+                if (onProgress) onProgress(percentCompleted);
             }
         })
         .then((res) => res?.data);

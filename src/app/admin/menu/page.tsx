@@ -14,10 +14,7 @@ import {MenuResponse} from "@/services/types/menu";
 export default function Page() {
 
     async function submit(e: MenuResponse) {
-        let response = await fastUpdate(
-            {
-                id: e.id,
-                title: e.title,
+        let response = await fastUpdate(e.id, {title: e.title,
                 url: e.url,
                 status: e.status,
                 parent_id: e.parent_id,

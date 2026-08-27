@@ -14,10 +14,7 @@ import {GuarantyResponse} from "@/services/types/guaranty";
 
 export default function Page() {
     async function submit(e: GuarantyResponse) {
-        let response = await update(
-            {
-                id: e.id,
-                name: e.name,
+        let response = await update(e.id, {name: e.name,
                 free:e.free,
                 url: e.url,
                 status: e.status,

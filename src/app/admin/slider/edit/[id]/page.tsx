@@ -23,15 +23,12 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-slider", Number(id)],
         mutationFn: async (values: SliderFormValues) => {
-            return update({
-                id: Number(id),
-                title: values.title,
+            return update(Number(id), {title: values.title,
                 url: values.url,
                 status: values.status,
                 type: values.type,
                 image: values.image ?? null,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

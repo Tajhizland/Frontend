@@ -1,16 +1,13 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {PopularProductResponse} from "@/services/types/popularProduct";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {PopularProductStoreDto} from "@/services/types/popularProduct";
 
 export const popularProductTable = tableFetcher<PopularProductResponse>("admin/popular-product/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        product_id: string,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/popular-product", params)
+(dto: PopularProductStoreDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/popular-product", dto)
         .then((res) => res?.data)
 };
 export const remove = async <T extends ServerResponse<unknown>>

@@ -3,46 +3,20 @@ import {BannerResponse} from "@/services/types/banner";
 import {SliderResponse} from "@/services/types/slider";
 import {tableFetcher} from "@/shared/Table/fetcher";
 import {uploadConfig} from "@/services/uploadConfig";
+import {BannerStoreDto, BannerUpdateDto} from "@/services/types/banner";
+import {UploadProgress, toFormData} from "@/services/http";
 
 export const bannerTable = tableFetcher<SliderResponse>("admin/banner/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        url: string,
-        type: string,
-        image: File | undefined,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('url', params.url);
-    formData.append('type', params.type);
-    if (params.image) {
-        formData.append('image', params.image);
-    }
-    return axios.post<T, SuccessResponseType<T>>("admin/banner", formData, uploadConfig(params.setProgress))
+(dto: BannerStoreDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/banner", toFormData(dto), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        url: string,
-        type: string,
-        image: File | undefined,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('url', params.url);
-    formData.append('type', params.type);
-    if (params.image) {
-        formData.append('image', params.image);
-    }
-    return axios.post<T, SuccessResponseType<T>>("admin/banner/" + params.id, formData, uploadConfig(params.setProgress))
+(id: number, dto: BannerUpdateDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/banner/" + id, toFormData(dto, "PUT"), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
 

@@ -1,5 +1,6 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {PaymentResponse} from "@/services/types/payment";
+import {PaymentSnappayEligibleDto} from "@/services/types/payment";
 
 export const paymentRequest = async <T extends ServerResponse<PaymentResponse>>
 (useWallet: boolean, shippingMethod: number, shippingPrice: number, code?: string, gateway?: number) => {
@@ -29,9 +30,7 @@ export type SnappayEligibleResponse = {
 };
 
 export const snappayEligible = async <T extends ServerResponse<SnappayEligibleResponse>>
-(
-    params: { amount: number }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("payment/snappay/eligible", params)
+(dto: PaymentSnappayEligibleDto) => {
+    return axios.post<T, SuccessResponseType<T>>("payment/snappay/eligible", dto)
         .then((res) => res?.data?.result?.data?.response)
 };

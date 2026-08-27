@@ -2,6 +2,8 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {CategoryResponse} from "@/services/types/category";
 import {ProductResponse} from "@/services/types/product";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {CategorySearchDto, CategoryStoreDto, CategoryUpdateDto} from "@/services/types/category";
+import {toFormData} from "@/services/http";
 
 export const categoryTable = tableFetcher<CategoryResponse>("admin/category/dataTable");
 
@@ -13,32 +15,9 @@ export const categoryList = async <T extends ServerResponse<CategoryResponse[]>>
 
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        name: string,
-        url: string,
-        image: File | null,
-        parent_id: number | string,
-        status: number | string,
-        description: string,
-        type: string
-    }
-) => {
+(dto: CategoryStoreDto) => {
 
-    const formData = new FormData();
-    formData.append('name', params.name.toString());
-    formData.append('url', params.url);
-    formData.append('parent_id', params.parent_id.toString());
-    formData.append('status', params.status.toString());
-    formData.append('description', params.description);
-    formData.append('type', params.type);
-
-    if (params.image) {
-        formData.append('image', params.image);
-    }
-
-
-    return axios.post<T, SuccessResponseType<T>>("admin/category", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/category", toFormData(dto),
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -48,31 +27,8 @@ export const store = async <T extends ServerResponse<unknown>>
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number | string,
-        name: string,
-        url: string,
-        image: File | null,
-        parent_id: number | string,
-        status: number | string,
-        description: string,
-        type: string
-    }
-) => {
-    const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('name', params.name);
-    formData.append('url', params.url);
-    formData.append('type', params.type);
-    formData.append('parent_id', params.parent_id.toString());
-    formData.append('status', params.status.toString());
-    formData.append('description', params.description);
-
-    if (params.image) {
-        formData.append('image', params.image);
-    }
-    return axios.post<T, SuccessResponseType<T>>("admin/category/" + params.id, formData,
+(id: number, dto: CategoryUpdateDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/category/" + id, toFormData(dto, "PUT"),
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -89,12 +45,8 @@ export const findById = async <T extends ServerResponse<CategoryResponse>>
         .then((res) => res?.data?.result?.data)
 };
 export const search = async <T extends ServerResponse<CategoryResponse[]>>
-(
-    params: {
-        query: string,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/search/category", params)
+(dto: CategorySearchDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/search/category", dto)
         .then((res) => res?.data?.result?.data)
 };
 

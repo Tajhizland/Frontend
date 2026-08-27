@@ -51,7 +51,7 @@ export default function Page() {
         }
     }
     async function editDisplayHandle(e:FormData) {
-        let response = await editDisplay({id:e.get("id") as string , display:e.get("display") as string})
+        let response = await editDisplay(Number(e.get("id")), {display: e.get("display") as string})
         if (response?.success) {
             queryClient.refetchQueries(['concept-items', Number(id)]);
             toast.success(response?.message as string);

@@ -1,16 +1,12 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {HomepageVlogResponse} from "@/services/types/homepageVlog";
+import {HomepageVlogUpdateHomepageVlogDto} from "@/services/types/homepageVlog";
 
 
 export const updateHomepageVlog = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        vlogId: number,
-    }
-) => {
+(id: number, dto: HomepageVlogUpdateHomepageVlogDto) => {
 
-    return axios.put<T, SuccessResponseType<T>>("admin/homepage-vlog/" + params.id, params)
+    return axios.put<T, SuccessResponseType<T>>("admin/homepage-vlog/" + id, dto)
         .then((res) => res?.data);
 };
 

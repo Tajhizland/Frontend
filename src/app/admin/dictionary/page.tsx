@@ -15,10 +15,7 @@ import {removeById} from "@/services/api/admin/dictionary";
 
 export default function Page() {
     async function submit(e: DictionaryResponse) {
-        let response = await update(
-            {
-                id: e.id,
-                original_word: e.original_word,
+        let response = await update(e.id, {original_word: e.original_word,
                 mean: e.mean,
             }
         )

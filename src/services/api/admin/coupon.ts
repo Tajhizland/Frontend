@@ -1,64 +1,27 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {CouponResponse} from "@/services/types/coupon";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {CouponStoreDto, CouponStoreGroupDto, CouponUpdateDto} from "@/services/types/coupon";
 
 export const couponTable = tableFetcher<CouponResponse>("admin/coupon/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        code: string;
-        start_time: string;
-        end_time: string;
-        status: number;
-        price: number;
-        percent: number;
-        min_order_value: number;
-        max_order_value: number;
-        user_id: number;
-    }
-) => {
+(dto: CouponStoreDto) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/coupon", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/coupon", dto)
         .then((res) => res?.data);
 };
 export const storeGroup = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        start_time: string;
-        end_time: string;
-        status: number;
-        price: number;
-        percent: number;
-        min_order_value: number;
-        max_order_value: number;
-        userIds: number[];
-        send_sms?: boolean;
-        message?: string;
-    }
-) => {
+(dto: CouponStoreGroupDto) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/coupon/group", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/coupon/group", dto)
         .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        code: string;
-        start_time: string;
-        end_time: string;
-        status: number;
-        price: number;
-        percent: number;
-        min_order_value: number;
-        max_order_value: number;
-        user_id: number;
-    }
-) => {
+(id: number, dto: CouponUpdateDto) => {
 
-    return axios.put<T, SuccessResponseType<T>>("admin/coupon/" + params.id, params)
+    return axios.put<T, SuccessResponseType<T>>("admin/coupon/" + id, dto)
         .then((res) => res?.data);
 };
 

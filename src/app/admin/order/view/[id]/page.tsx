@@ -30,7 +30,7 @@ export default function Page() {
     async function handleCancel() {
         setCancelLoading(true);
         try {
-            const response = await cancelOrder({id: Number(id)});
+            const response = await cancelOrder(Number(id));
             if (response?.success) {
                 toast.success(response?.message as string);
                 setOpenCancel(false);

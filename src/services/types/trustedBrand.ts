@@ -5,3 +5,11 @@ export interface TrustedBrandResponse {
     updated_at: string;
 
 }
+
+export interface TrustedBrandStoreDto {
+    logo: File | null;
+}
+
+export interface TrustedBrandUpdateDto {
+    logo: File | null;
+}

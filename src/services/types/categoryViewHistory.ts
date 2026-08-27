@@ -8,3 +8,11 @@ export type categoryViewHistoryResponse = {
     category?: CategoryResponse;
     user?: UserResponse;
 }
+
+export interface CategoryViewHistoryStoreCategoryViewHistoryDto {
+    category_id: number;
+}
+
+export interface CategoryViewHistoryStoreCategoryViewHistoryIpDto {
+    category_id: number;
+}

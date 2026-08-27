@@ -1,31 +1,21 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {RoleResponse} from "@/services/types/role";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {RoleStoreDto, RoleUpdateDto} from "@/services/types/role";
 
 export const roleTable = tableFetcher<RoleResponse>("admin/role/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        name: string,
-        permission: number[],
-    }
-) => {
+(dto: RoleStoreDto) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/role", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/role", dto)
         .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number | string,
-        name: string,
-        permission: number[],
-    }
-) => {
+(id: number, dto: RoleUpdateDto) => {
 
-    return axios.put<T, SuccessResponseType<T>>("admin/role/" + params.id, params)
+    return axios.put<T, SuccessResponseType<T>>("admin/role/" + id, dto)
         .then((res) => res?.data);
 };
 export const findById = async <T extends ServerResponse<RoleResponse>>

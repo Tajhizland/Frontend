@@ -1,6 +1,7 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {RunConceptAnswerResponse} from "@/services/types/runConceptAnswer";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {RunConceptAnswerStoreDto, RunConceptAnswerUpdateDto} from "@/services/types/runConceptAnswer";
 
 export const runConceptAnswerTable = tableFetcher<RunConceptAnswerResponse>("admin/run-concept-answer/dataTable");
 
@@ -20,28 +21,13 @@ export const getByQuestionId = async <T extends ServerResponse<RunConceptAnswerR
 };
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        answer: string,
-        status: number,
-        price: number,
-        run_concept_question_id: number,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/run-concept-answer", params)
+(dto: RunConceptAnswerStoreDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/run-concept-answer", dto)
         .then((res) => res?.data)
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        answer: string,
-        status: number,
-        price: number,
-        run_concept_question_id: number,
-    }
-) => {
-    return axios.put<T, SuccessResponseType<T>>("admin/run-concept-answer/" + params.id, params)
+(id: number, dto: RunConceptAnswerUpdateDto) => {
+    return axios.put<T, SuccessResponseType<T>>("admin/run-concept-answer/" + id, dto)
         .then((res) => res?.data)
 };

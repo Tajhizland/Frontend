@@ -24,16 +24,13 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-news", Number(id)],
         mutationFn: async (values: NewsFormValues) => {
-            return update({
-                id: Number(id),
-                title: values.title,
+            return update(Number(id), {title: values.title,
                 url: values.url,
                 categoryId: Number(values.categoryId),
                 published: values.published,
                 content: values.content,
                 image: values.image ?? null,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

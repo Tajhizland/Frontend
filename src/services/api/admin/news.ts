@@ -2,62 +2,20 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {NewsResponse} from "@/services/types/news";
 import {tableFetcher} from "@/shared/Table/fetcher";
 import {uploadConfig} from "@/services/uploadConfig";
+import {NewsStoreDto, NewsUpdateDto} from "@/services/types/news";
+import {UploadProgress, toFormData} from "@/services/http";
 
 export const newsTable = tableFetcher<NewsResponse>("admin/news/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        title:string,
-        url:string,
-        published:number|string,
-        categoryId:number,
-        image: File | null,
-        content:string,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('title', params.title);
-    formData.append('url', params.url);
-    formData.append('categoryId', params.categoryId.toString());
-    formData.append('published', params.published.toString());
-    formData.append('content', params.content);
-
-    if (params.image) {
-        formData.append('image', params.image);
-    }
-
-    return axios.post<T, SuccessResponseType<T>>("admin/news", formData, uploadConfig(params.setProgress))
+(dto: NewsStoreDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/news", toFormData(dto), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id:number|string,
-        categoryId:number,
-        title:string,
-        url:string,
-        published:number|string,
-        image: File | null,
-        content:string,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('categoryId', params.categoryId.toString());
-    formData.append('title', params.title);
-    formData.append('url', params.url);
-    formData.append('published', params.published.toString());
-    formData.append('content', params.content);
-
-    if (params.image) {
-        formData.append('image', params.image);
-    }
-
-    return axios.post<T, SuccessResponseType<T>>("admin/news/" + params.id, formData, uploadConfig(params.setProgress))
+(id: number, dto: NewsUpdateDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/news/" + id, toFormData(dto, "PUT"), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
 

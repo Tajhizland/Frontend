@@ -22,9 +22,7 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-user", Number(id)],
         mutationFn: async (values: UserFormValues) => {
-            return update({
-                id: Number(id),
-                name: values.name,
+            return update(Number(id), {name: values.name,
                 last_name: values.last_name,
                 national_code: values.national_code,
                 gender: values.gender,

@@ -2,79 +2,28 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {MenuResponse} from "@/services/types/menu";
 import {tableFetcher} from "@/shared/Table/fetcher";
 import {uploadConfig} from "@/services/uploadConfig";
+import {MenuFastUpdateDto, MenuStoreDto, MenuUpdateDto} from "@/services/types/menu";
+import {UploadProgress, toFormData} from "@/services/http";
 
 export const menuTable = tableFetcher<MenuResponse>("admin/menu/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        title: string,
-        parent_id: string,
-        url: string|null,
-        status: string,
-        category_id: number | null,
-        banner_logo: File | null,
-        banner_link: string | null,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('title', params.title);
-    formData.append('parent_id', params.parent_id +"");
-    formData.append('url', params.url??"");
-    formData.append('status', params.status);
-    formData.append('category_id', params.category_id?.toString()??"");
-    formData.append('banner_link', params.banner_link??"");
-    if (params.banner_logo) {
-        formData.append('banner_logo', params.banner_logo);
-    }
-
-    return axios.post<T, SuccessResponseType<T>>("admin/menu", formData, uploadConfig(params.setProgress))
+(dto: MenuStoreDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/menu", toFormData(dto), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
 
 export const fastUpdate = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        title: string,
-        parent_id: number,
-        url: string|null,
-        status: string,
-    }
-) => {
+(id: number, dto: MenuFastUpdateDto) => {
 
-    return axios.put<T, SuccessResponseType<T>>("admin/menu/" + params.id, params)
+    return axios.put<T, SuccessResponseType<T>>("admin/menu/" + id, dto)
         .then((res) => res?.data);
 };
 
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        title: string,
-        parent_id: string,
-        url: string|null,
-        status: string,
-        category_id: number | null,
-        banner_logo: File | null,
-        banner_link: string | null,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('title', params.title);
-    formData.append('parent_id', params.parent_id +"");
-    formData.append('url', params.url??"");
-    formData.append('status', params.status+"");
-    formData.append('category_id', params.category_id?.toString()??"");
-    formData.append('banner_link', params.banner_link??"");
-    if (params.banner_logo) {
-        formData.append('banner_logo', params.banner_logo);
-    }
-    return axios.post<T, SuccessResponseType<T>>("admin/menu/" + params.id, formData, uploadConfig(params.setProgress))
+(id: number, dto: MenuUpdateDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/menu/" + id, toFormData(dto, "PUT"), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
 

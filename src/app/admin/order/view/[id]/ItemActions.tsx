@@ -29,7 +29,7 @@ export default function ItemActions({item, onDone, itemsCount = 0}: Props) {
         }
         setLoading(true);
         try {
-            const response = await updateItem({id: item.id, count});
+            const response = await updateItem(item.id, {count});
             if (response?.success) {
                 toast.success(response?.message as string);
                 setOpenEdit(false);
@@ -49,7 +49,7 @@ export default function ItemActions({item, onDone, itemsCount = 0}: Props) {
         }
         setLoading(true);
         try {
-            const response = await deleteItem({id: item.id});
+            const response = await deleteItem(item.id);
             if (response?.success) {
                 toast.success(response?.message as string);
                 setOpenDelete(false);

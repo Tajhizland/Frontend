@@ -9,3 +9,9 @@ export type ProductVideoResponse = {
     updated_at: string;
     vlog?: VlogResponse;
 };
+
+export interface ProductVideoSetProductVideoDto {
+    title: string;
+    vlogId: number;
+    product_id: number;
+}

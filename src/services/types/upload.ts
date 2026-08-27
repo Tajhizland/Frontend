@@ -35,3 +35,24 @@ export type VideoStatusResponse = {
     videoError: string | null;
     hls: string | null;
 };
+
+export interface UploadInitiateDto {
+    profile: UploadProfile;
+    fileName: string;
+    size: number;
+    mime: string;
+}
+
+export interface UploadSignPartsDto {
+    key: string;
+    partNumbers: number[];
+}
+
+export interface UploadCompleteDto {
+    key: string;
+    parts: CompletedPart[];
+}
+
+export interface UploadAbortDto {
+    key: string;
+}

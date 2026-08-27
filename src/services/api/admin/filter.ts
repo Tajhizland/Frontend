@@ -1,19 +1,10 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import { FilterResponse } from "@/services/types/filter";
+import {FilterSetDto, FilterSetToCategoryDto} from "@/services/types/filter";
 
-export const set = async <T extends ServerResponse<unknown>>(
-    params: {
-        product_id:string|number,
-        filter:{
-            id:string,
-            item_id:string,
+export const set = async <T extends ServerResponse<unknown>>(dto: FilterSetDto) => {
 
-        }[]
-
-    }
-) => {
-
-    return axios.post<T, SuccessResponseType<T>>("admin/product/filter", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/product/filter", dto)
         .then((res) => res?.data);
 };
 
@@ -33,21 +24,7 @@ export const findByCategoryId = async <T extends ServerResponse<FilterResponse[]
 };
 
 export const setToCategory = async <T extends ServerResponse<unknown>>
-    (
-        params: {
-            category_id: number | string,
-            filter: {
-                id?: number,
-                name: string,
-                status: number,
-                item: {
-                    id?: number,
-                    value: string,
-                    status: number
-                }[]
-            }[]
-        }
-    ) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/category/filter", params)
+    (dto: FilterSetToCategoryDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/category/filter", dto)
         .then((res) => res?.data)
 };

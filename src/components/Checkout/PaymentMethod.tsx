@@ -22,7 +22,7 @@ const PaymentMethod: FC<Props> = ({
     const [selectedId, setSelectedId] = useState(1);
 
     async function submit() {
-        let response = await select({id: selectedId})
+        let response = await select(selectedId)
     }
 
     const renderPost = () => {

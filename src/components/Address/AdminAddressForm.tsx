@@ -22,9 +22,7 @@ export default function AdminAddressForm({address, userId, close}: {
     const saveAddress = useMutation({
         mutationKey: [`save-admin-address`],
         mutationFn: async (formData: any) => {
-            return updateAdminAddress({
-                id: address?.id,
-                user_id: userId,
+            return updateAdminAddress(Number(address?.id), {user_id: userId,
                 ...formData,
             });
         },

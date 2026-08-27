@@ -1,16 +1,14 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {HomepageCategoryResponse} from "@/services/types/homepageCategory";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {HomepageCategorySetIconDto, HomepageCategoryStoreDto} from "@/services/types/homepageCategory";
+import {toFormData} from "@/services/http";
 
 export const homepageCategoryTable = tableFetcher<HomepageCategoryResponse>("admin/homepage-category/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        category_id: string,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/homepage-category", params)
+(dto: HomepageCategoryStoreDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/homepage-category", dto)
         .then((res) => res?.data)
 };
 export const remove = async <T extends ServerResponse<unknown>>
@@ -20,15 +18,7 @@ export const remove = async <T extends ServerResponse<unknown>>
         .then((res) => res?.data)
 };
 export const setIcon = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        icon: File,
-    }
-) => {
-    const formData = new FormData();
-        formData.append('icon', params.icon);
-
-    return axios.post<T, SuccessResponseType<T>>("admin/homepage-category/" + params.id + "/icon", formData)
+(id: number, dto: HomepageCategorySetIconDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/homepage-category/" + id + "/icon", toFormData(dto))
         .then((res) => res?.data)
 };

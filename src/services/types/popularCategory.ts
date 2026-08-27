@@ -7,3 +7,7 @@ export type PopularCategoryResponse = {
     created_at: string;
     updated_at: string;
 }
+
+export interface PopularCategoryStoreDto {
+    category_id: string;
+}

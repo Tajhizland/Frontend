@@ -1,30 +1,18 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {GatewayResponse} from "@/services/types/gateway";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {GatewayStoreDto, GatewayUpdateDto} from "@/services/types/gateway";
 
 export const gatewayTable = tableFetcher<GatewayResponse>("admin/gateway/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        name:string,
-        status:number|string,
-        description:string,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/gateway" , params)
+(dto: GatewayStoreDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/gateway" , dto)
         .then((res) => res?.data)
 };
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id:number,
-        name:string,
-        status:number|string,
-        description:string,
-    }
-) => {
-    return axios.put<T, SuccessResponseType<T>>("admin/gateway/" + params.id , params)
+(id: number, dto: GatewayUpdateDto) => {
+    return axios.put<T, SuccessResponseType<T>>("admin/gateway/" + id , dto)
         .then((res) => res?.data)
 };
 

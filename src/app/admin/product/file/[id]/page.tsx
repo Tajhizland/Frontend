@@ -38,8 +38,7 @@ export default function Page() {
             model_id: Number(id),
             file: e.get("file") as File,
             model_type: "product",
-            setProgress: setProgress
-        })
+        }, setProgress)
         if (response?.success) {
             queryClient.refetchQueries(['files']);
             toast.success(response?.message as string);

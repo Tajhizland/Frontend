@@ -2,33 +2,21 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {BrandResponse} from "@/services/types/brand";
 import {FaqResponse} from "@/services/types/faq";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {FaqStoreDto, FaqUpdateDto} from "@/services/types/faq";
 
 export const faqTable = tableFetcher<FaqResponse>("admin/faq/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        question: string,
-        answer: string,
-        status: number | string,
-    }
-) => {
+(dto: FaqStoreDto) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/faq", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/faq", dto)
         .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number | string,
-        question: string,
-        answer: string,
-        status: number | string,
-    }
-) => {
+(id: number, dto: FaqUpdateDto) => {
 
-    return axios.put<T, SuccessResponseType<T>>("admin/faq/" + params.id, params)
+    return axios.put<T, SuccessResponseType<T>>("admin/faq/" + id, dto)
         .then((res) => res?.data);
 };
 export const findById = async <T extends ServerResponse<FaqResponse>>

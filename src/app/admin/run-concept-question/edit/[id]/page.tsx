@@ -21,9 +21,7 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-run-concept-question", Number(id)],
         mutationFn: async (values: RunConceptQuestionFormValues) => {
-            return update({
-                id: Number(id),
-                question: values.question,
+            return update(Number(id), {question: values.question,
                 status: Number(values.status),
                 level: Number(values.level),
                 parent_question: Number(values.parent_question),

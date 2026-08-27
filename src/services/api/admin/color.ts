@@ -1,47 +1,19 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import { ColorResponse } from "@/services/types/color";
+import {ColorSetDto, ColorUpdateColorPriceDto} from "@/services/types/color";
 
-export const set = async <T extends ServerResponse<unknown>>(
-    params: {
-        product_id:string|number,
-        color:{
-            id:string,
-            name:string,
-            code:string,
-            price:number|string,
-            discount:number|string,
-            stock:number|string,
-            status:number|string,
-            delivery_delay:number|string,
-            discount_expire_time:string,
-        }[]
+export const set = async <T extends ServerResponse<unknown>>(dto: ColorSetDto) => {
 
-    }
-) => {
-
-    return axios.post<T, SuccessResponseType<T>>("admin/product/color", params, {
+    return axios.post<T, SuccessResponseType<T>>("admin/product/color", dto, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
     })
         .then((res) => res?.data);
 };
-export const updateColorPrice = async <T extends ServerResponse<unknown>>(
-    params: {
-        color:{
-            id:number,
-            price:number,
-            discount:number,
-            status:number,
-            stock:number,
-            delivery_delay:number,
-            discount_expire_time:string,
-        }[]
+export const updateColorPrice = async <T extends ServerResponse<unknown>>(dto: ColorUpdateColorPriceDto) => {
 
-    }
-) => {
-
-    return axios.put<T, SuccessResponseType<T>>("admin/product/color", params, {
+    return axios.put<T, SuccessResponseType<T>>("admin/product/color", dto, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },

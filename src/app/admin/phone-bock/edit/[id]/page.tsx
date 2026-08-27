@@ -18,7 +18,7 @@ export default function Page() {
     const updatePhoneBockMutation = useMutation({
         mutationKey: [`update-phone-bock`, id],
         mutationFn: async (formData: any) => {
-            return updatePhoneBock({id: Number(id), ...formData});
+            return updatePhoneBock(Number(id), {...formData});
         },
         onSuccess: (response) => {
             if (response.success) {

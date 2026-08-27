@@ -2,51 +2,21 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 import {tableFetcher} from "@/shared/Table/fetcher";
 import {uploadConfig} from "@/services/uploadConfig";
+import {VlogCategoryStoreDto, VlogCategoryUpdateDto} from "@/services/types/vlogCategory";
+import {UploadProgress, toFormData} from "@/services/http";
 
 export const vlogCategoryTable = tableFetcher<VlogCategoryResponse>("admin/vlog-category/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        name: string,
-        url: string,
-        icon?: File | null,
-        status: number,
-        setProgress?: (progress: number) => void,
-    }
-) => {
+(dto: VlogCategoryStoreDto, onProgress?: UploadProgress) => {
 
-    const formData = new FormData();
-    formData.append('name', params.name);
-    formData.append('url', params.url);
-    if (params.icon)
-        formData.append('icon', params.icon);
-    formData.append('status', params.status.toString());
-
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog-category", formData, uploadConfig(params.setProgress))
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog-category", toFormData(dto), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number | string,
-        name: string,
-        url: string,
-        icon?: File | null,
-        status: number,
-        setProgress?: (progress: number) => void,
-    }
-) => {
-    const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('name', params.name);
-    formData.append('url', params.url);
-    if (params.icon)
-        formData.append('icon', params.icon);
-    formData.append('status', params.status.toString());
-
-    return axios.post<T, SuccessResponseType<T>>("admin/vlog-category/" + params.id, formData, uploadConfig(params.setProgress))
+(id: number, dto: VlogCategoryUpdateDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/vlog-category/" + id, toFormData(dto, "PUT"), uploadConfig(onProgress))
         .then((res) => res?.data);
 };
 

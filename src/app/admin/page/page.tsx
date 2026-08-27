@@ -14,10 +14,7 @@ import {PageResponse} from "@/services/types/page";
 
 export default function Page() {
     async function submit(e: PageResponse) {
-        let response=await update(
-            {
-                id: e.id,
-                title: e.title,
+        let response=await update(e.id, {title: e.title,
                 url: e.url,
                 status: e.status,
                 image: null ,

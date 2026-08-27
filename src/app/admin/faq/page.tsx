@@ -14,10 +14,7 @@ import {FaqResponse} from "@/services/types/faq";
 
 export default function Page() {
     async function submit(e: FaqResponse) {
-        let response = await update(
-            {
-                id: e.id,
-                question: e.question,
+        let response = await update(e.id, {question: e.question,
                 status: e.status,
                 answer: e.answer,
             }

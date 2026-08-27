@@ -21,16 +21,12 @@ export default function Page() {
     });
 
     async function acceptHandle() {
-        let response = await accept({
-            id: Number(id)
-        })
+        let response = await accept(Number(id))
         toast.success(response?.message as string);
     }
 
     async function rejectHandle() {
-        let response = await reject({
-            id: Number(id)
-        })
+        let response = await reject(Number(id))
         toast.success(response?.message as string);
     }
 

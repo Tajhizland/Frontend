@@ -15,10 +15,7 @@ import {Route} from "next";
 export default function Page() {
 
     async function submit(e: ConceptResponse) {
-        let response=await fastUpdate(
-            {
-                id: e.id,
-                title: e.title,
+        let response=await fastUpdate(e.id, {title: e.title,
                 status: e.status,
             }
         )

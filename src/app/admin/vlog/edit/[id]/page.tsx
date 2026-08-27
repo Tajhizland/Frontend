@@ -25,17 +25,14 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-vlog", Number(id)],
         mutationFn: async (values: VlogFormValues) => {
-            return update({
-                id: Number(id),
-                title: values.title,
+            return update(Number(id), {title: values.title,
                 categoryId: values.categoryId,
                 url: values.url,
                 status: values.status,
                 video: values.video ?? null,
                 poster: values.poster ?? null,
                 description: values.description,
-                setProgress: setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) {

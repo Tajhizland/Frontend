@@ -21,9 +21,7 @@ export default function Page() {
     const [orderId, setOrderId] = useState<number>();
 
     async function changeStatus(e: OrderResponse) {
-        let response = await updateStatus({
-            id: e.id,
-            status: e.status
+        let response = await updateStatus(e.id, {status: e.status
         })
         toast.success(response?.message as string);
     }

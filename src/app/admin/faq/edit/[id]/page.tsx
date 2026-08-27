@@ -21,9 +21,7 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-faq", Number(id)],
         mutationFn: async (values: FaqFormValues) => {
-            return update({
-                id: Number(id),
-                question: values.question,
+            return update(Number(id), {question: values.question,
                 status: values.status,
                 answer: values.answer,
             });

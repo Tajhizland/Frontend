@@ -7,11 +7,7 @@ export const get = async <T extends ServerResponse<DeliveryResponse[]>>
         .then((res) => res?.data?.result?.data)
 };
 export const select = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number
-    }
-) => {
-    return axios.patch<T, SuccessResponseType<T>>("delivery/select",params)
+(id: number) => {
+    return axios.patch<T, SuccessResponseType<T>>("delivery/select", {id})
         .then((res) => res?.data)
 };

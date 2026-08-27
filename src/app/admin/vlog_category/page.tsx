@@ -14,10 +14,7 @@ import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 
 export default function Page() {
     async function submit(e: VlogCategoryResponse) {
-        let response=await update(
-            {
-                id: e.id,
-                name: e.name as string,
+        let response=await update(e.id, {name: e.name as string,
                 url: e.url as string,
                 status: Number(e.status) ,
             }

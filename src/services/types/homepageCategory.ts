@@ -8,3 +8,11 @@ export type HomepageCategoryResponse = {
     created_at: string;
     updated_at: string;
 }
+
+export interface HomepageCategoryStoreDto {
+    category_id: string;
+}
+
+export interface HomepageCategorySetIconDto {
+    icon: File;
+}

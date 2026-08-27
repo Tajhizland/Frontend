@@ -23,17 +23,14 @@ export default function Page() {
     const mutation = useMutation({
         mutationKey: ["update-menu", Number(id)],
         mutationFn: async (values: MenuFormValues) => {
-            return update({
-                id: Number(id),
-                title: values.title,
+            return update(Number(id), {title: values.title,
                 url: values.url,
                 status: values.status,
                 banner_logo: values.banner_logo ?? null,
                 category_id: Number(values.category_id),
                 banner_link: values.banner_link,
                 parent_id: values.parent_id,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

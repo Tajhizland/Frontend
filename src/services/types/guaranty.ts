@@ -9,3 +9,21 @@ export type GuarantyResponse = {
     created_at: string;
     updated_at: string;
 };
+
+export interface GuarantyStoreDto {
+    name: string;
+    url: string;
+    free: number;
+    status: number | string;
+    icon: File | undefined;
+    description: string;
+}
+
+export interface GuarantyUpdateDto {
+    name: string;
+    free: number;
+    url: string;
+    status: number | string;
+    icon?: File | undefined;
+    description: string;
+}

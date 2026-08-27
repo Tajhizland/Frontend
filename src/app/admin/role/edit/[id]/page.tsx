@@ -19,7 +19,7 @@ export default function Page() {
     const storeRole = useMutation({
         mutationKey: [`update-role`, id],
         mutationFn: async (formData: any) => {
-            return update({id: Number(id), ...formData});
+            return update(Number(id), {...formData});
         },
         onSuccess: (response) => {
             if (response.success) {

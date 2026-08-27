@@ -1,33 +1,21 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {BlogCategoryResponse} from "@/services/types/blogCategory";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {BlogCategoryStoreDto, BlogCategoryUpdateDto} from "@/services/types/blogCategory";
 
 export const blogCategoryTable = tableFetcher<BlogCategoryResponse>("admin/blog-category/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        name: string,
-        url: string,
-        status: number,
-    }
-) => {
+(dto: BlogCategoryStoreDto) => {
 
-    return axios.post<T, SuccessResponseType<T>>("admin/blog-category", params)
+    return axios.post<T, SuccessResponseType<T>>("admin/blog-category", dto)
         .then((res) => res?.data);
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        name: string,
-        url: string,
-        status: number,
-    }
-) => {
+(id: number, dto: BlogCategoryUpdateDto) => {
 
-    return axios.put<T, SuccessResponseType<T>>("admin/blog-category/" + params.id, params)
+    return axios.put<T, SuccessResponseType<T>>("admin/blog-category/" + id, dto)
         .then((res) => res?.data);
 };
 export const findById = async <T extends ServerResponse<BlogCategoryResponse>>

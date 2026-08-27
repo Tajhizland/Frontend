@@ -17,8 +17,7 @@ export default function Page() {
         mutationFn: async (values: PosterFormValues) => {
             return store({
                 image: values.image as File,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

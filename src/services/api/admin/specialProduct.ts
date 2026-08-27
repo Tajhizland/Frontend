@@ -2,16 +2,13 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {ProductResponse} from "@/services/types/product";
 import {SpecialProductResponse} from "@/services/types/specialProduct";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {SpecialProductStoreDto, SpecialProductUpdateHomepageDto} from "@/services/types/specialProduct";
 
 export const specialProductTable = tableFetcher<SpecialProductResponse>("admin/special-product/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        product_id: string,
-    }
-) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/special-product", params)
+(dto: SpecialProductStoreDto) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/special-product", dto)
         .then((res) => res?.data)
 };
 export const remove = async <T extends ServerResponse<unknown>>
@@ -22,12 +19,8 @@ export const remove = async <T extends ServerResponse<unknown>>
 };
 
 export const updateHomepage = async <T extends ServerResponse<unknown>>
-(params:{
-     id: number,
-     homepage: number,
- }
-) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/special-product/" + params.id + "/homepage", {homepage: params.homepage})
+(id: number, dto: SpecialProductUpdateHomepageDto) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/special-product/" + id + "/homepage", {homepage: dto.homepage})
         .then((res) => res?.data)
 };
 

@@ -14,10 +14,7 @@ import {BrandResponse} from "@/services/types/brand";
 export default function Page() {
 
     async function submit(e: BrandResponse) {
-        let response=await update(
-            {
-                id: e.id,
-                name: e.name,
+        let response=await update(e.id, {name: e.name,
                 url: e.url,
                 status: e.status,
                 image: null,

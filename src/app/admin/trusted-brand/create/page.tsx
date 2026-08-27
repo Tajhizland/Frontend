@@ -17,8 +17,7 @@ export default function Page() {
         mutationFn: async (values: TrustedBrandFormValues) => {
             return store({
                 logo: values.logo ?? null,
-                setProgress,
-            });
+            }, setProgress);
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);

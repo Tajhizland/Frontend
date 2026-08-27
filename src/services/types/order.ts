@@ -23,3 +23,21 @@ export type OrderResponse = {
     payment?:GatewayResponse;
     orderItems?: OrderItemResponse[];
 };
+
+export interface OrderUpdateStatusDto {
+    status: number | string;
+}
+
+export interface OrderTapinDto {
+    status: number;
+}
+
+export interface OrderUpdateItemDto {
+    count: number;
+}
+
+
+export interface OrderDigipayCalcDto {
+    start_date: string;
+    end_date: string;
+}

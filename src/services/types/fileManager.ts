@@ -7,3 +7,14 @@ export type FileManagerResponse = {
     created_at:string ;
     updated_at:string ;
 };
+
+export interface FileManagerGetFilesDto {
+    model_id: number;
+    model_type: string;
+}
+
+export interface FileManagerUploadDto {
+    model_id: number;
+    model_type: string;
+    file: File;
+}

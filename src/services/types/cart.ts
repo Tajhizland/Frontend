@@ -27,3 +27,36 @@ export type CartResponse = {
     }
 
 };
+
+export interface CartAddToCartDto {
+    productColorId: number;
+    count: number;
+    guaranty_id: number|undefined;
+}
+
+export interface CartRemoveCartItemDto {
+    productColorId: number;
+    guaranty_id: number|undefined;
+}
+
+export interface CartIncreaseCartItemDto {
+    productColorId: number;
+    guaranty_id: number|undefined;
+}
+
+export interface CartDecreaseCartItemDto {
+    productColorId: number;
+    guaranty_id: number|undefined;
+}
+
+export interface CartClearCartDto {
+    productColorId: number;
+}
+
+export interface CartMergeCartDto {
+    items: {
+            productColorId: number,
+            count: number,
+            guaranty_id?: number,
+        }[];
+}

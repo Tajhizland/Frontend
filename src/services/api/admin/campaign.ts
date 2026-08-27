@@ -1,39 +1,15 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {CampaignResponse} from "@/services/types/campaign";
 import {tableFetcher} from "@/shared/Table/fetcher";
+import {CampaignStoreDto, CampaignUpdateDto} from "@/services/types/campaign";
+import {UploadProgress, toFormData} from "@/services/http";
 
 export const campaignTable = tableFetcher<CampaignResponse>("admin/campaign/dataTable");
 
 export const store = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        title: string,
-        color: string,
-        logo: File,
-        banner?: File,
-        discount_logo: File,
-        background_color: string,
-        status: number,
-        start_date: string,
-        end_date: string,
-        setProgress?: (progress: number) => void
+(dto: CampaignStoreDto, onProgress?: UploadProgress) => {
 
-    }
-) => {
-
-    const formData = new FormData();
-    formData.append('title', params.title);
-    formData.append('color', params.color);
-    formData.append('start_date', params.start_date);
-    formData.append('end_date', params.end_date);
-    formData.append('background_color', params.background_color);
-    formData.append('status', params.status.toString());
-    formData.append('logo', params.logo);
-    formData.append('discount_logo', params.discount_logo);
-    if (params.banner)
-        formData.append('banner', params.banner);
-
-    return axios.post<T, SuccessResponseType<T>>("admin/campaign", formData,
+    return axios.post<T, SuccessResponseType<T>>("admin/campaign", toFormData(dto),
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -41,51 +17,22 @@ export const store = async <T extends ServerResponse<unknown>>
             onUploadProgress: (progressEvent) => {
                 //@ts-ignore
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                if (params.setProgress) params.setProgress(percentCompleted);
+                if (onProgress) onProgress(percentCompleted);
             }
         })
         .then((res) => res?.data)
 };
 
 export const update = async <T extends ServerResponse<unknown>>
-(
-    params: {
-        id: number,
-        title: string,
-        color: string,
-        logo?: File,
-        banner?: File,
-        discount_logo?: File,
-        background_color: string,
-        status: number,
-        start_date: string,
-        end_date: string,
-        setProgress?: (progress: number) => void
-    }
-) => {
-    const formData = new FormData();
-    formData.append('_method', 'PUT');
-    formData.append('title', params.title);
-    formData.append('color', params.color);
-    formData.append('start_date', params.start_date);
-    formData.append('end_date', params.end_date);
-    formData.append('status', params.status.toString());
-    formData.append('background_color', params.background_color);
-    if (params.discount_logo)
-        formData.append('discount_logo', params.discount_logo);
-
-    if (params.logo)
-        formData.append('logo', params.logo);
-    if (params.banner)
-        formData.append('banner', params.banner);
-    return axios.post<T, SuccessResponseType<T>>("admin/campaign/" + params.id, formData,
+(id: number, dto: CampaignUpdateDto, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>("admin/campaign/" + id, toFormData(dto, "PUT"),
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }, onUploadProgress: (progressEvent) => {
                 //@ts-ignore
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                if (params.setProgress) params.setProgress(percentCompleted);
+                if (onProgress) onProgress(percentCompleted);
             }
         })
         .then((res) => res?.data)

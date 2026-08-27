@@ -15,10 +15,7 @@ import {LandingResponse} from "@/services/types/landing";
 export default function Page() {
 
     async function submit(e: LandingResponse) {
-        let response=await updateLanding(
-            {
-                id: e.id,
-                title: e.title,
+        let response=await updateLanding(e.id, {title: e.title,
                 status: e.status,
                 url: e.url,
                 description:e.description
