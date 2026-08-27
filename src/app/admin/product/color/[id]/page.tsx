@@ -10,13 +10,13 @@ import Panel from "@/shared/Panel/Panel";
 import {useParams} from "next/navigation";
 import {useState} from "react";
 import {toast} from "react-hot-toast";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import {findById as productFindById} from "@/services/api/admin/product";
 
 export default function Page() {
     const [extraColor, setExtraColor] = useState(0);
     const {id} = useParams();
-    const queryClient = useQueryClient();
 
     const {data: data, isLoading: isLoading} = useQuery({
         queryKey: [`color-info`, Number(id)],
@@ -40,33 +40,27 @@ export default function Page() {
         return sum;
     }
 
-    async function submit(e: FormData) {
-        const colors = [];
-        for (let i = 0; i < (sumColorSize()); i++) {
-            const colorData = {
-                id: e.get(`color[${i}][id]`) as string,
-                name: e.get(`color[${i}][name]`) as string,
-                code: e.get(`color[${i}][code]`) as string,
-                delivery_delay: e.get(`color[${i}][delivery_delay]`) as string,
-                status: e.get(`color[${i}][status]`) as string,
-                price: e.get(`color[${i}][price]`) as string,
-                discount: e.get(`color[${i}][discount]`) as string,
-                stock: e.get(`color[${i}][stock]`) as string,
-                discount_expire_time: e.get(`color[${i}][discount_expire_time]`) as string,
-            };
-            colors.push(colorData);
+    const saveMutation = useApiMutation(
+        (form: FormData) =>
+            set({
+                product_id: Number(id),
+                color: Array.from({length: sumColorSize()}, (_, index) => ({
+                    id: form.get(`color[${index}][id]`) as string,
+                    name: form.get(`color[${index}][name]`) as string,
+                    code: form.get(`color[${index}][code]`) as string,
+                    delivery_delay: form.get(`color[${index}][delivery_delay]`) as string,
+                    status: form.get(`color[${index}][status]`) as string,
+                    price: form.get(`color[${index}][price]`) as string,
+                    discount: form.get(`color[${index}][discount]`) as string,
+                    stock: form.get(`color[${index}][stock]`) as string,
+                    discount_expire_time: form.get(`color[${index}][discount_expire_time]`) as string,
+                })),
+            }),
+        {
+            invalidate: [["color-info"]],
+            onSuccess: () => setExtraColor(0),
         }
-        let response = await set({
-            product_id: Number(id),
-            color: colors
-        })
-        if (response && response?.success) {
-            toast.success(response.message as string)
-            setExtraColor(0);
-            queryClient.invalidateQueries(['color-info']);
-        }
-
-    }
+    );
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -88,7 +82,7 @@ export default function Page() {
             <ProductTab id={id + ""} url={productInfo?.url ?? ""}/>
             {
                 isLoading ? <Spinner/> : <>
-                    <form action={submit}>
+                    <form action={(form) => saveMutation.mutate(form)}>
                         {
                             data?.map((item, index) => (<>
                                 <FormComponent

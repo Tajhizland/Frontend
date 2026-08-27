@@ -2,29 +2,23 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import toast from "react-hot-toast";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import {find, set} from "@/services/api/admin/sample";
 import SampleTab from "@/components/Tabs/SampleTab";
 import Textarea from "@/shared/Textarea/Textarea";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 
 export default function Page() {
-    const queryClient = useQueryClient();
     const {data: data} = useQuery({
         queryKey: [`sample-info`],
         queryFn: () => find(),
         staleTime: 5000,
     });
 
-    async function submit(e: FormData) {
-        let response = await set(
-            e.get("content") as string,
-        )
-        queryClient.refetchQueries(['sample-info']);
-
-        toast.success(response?.message as string)
-    }
+    const saveMutation = useApiMutation((form: FormData) => set(form.get("content") as string), {
+        invalidate: [["sample-info"]],
+    });
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -39,12 +33,12 @@ export default function Page() {
             </PageTitle>
             <SampleTab/>
             <div>
-                <form action={submit}>
+                <form action={(form) => saveMutation.mutate(form)}>
                     <label>محتوا</label>
                     <Textarea name={"content"} defaultValue={data?.content}>
 
                     </Textarea>
-                    <ButtonSecondary>
+                    <ButtonSecondary loading={saveMutation.isLoading}>
                         ذخیره
                     </ButtonSecondary>
                 </form>

@@ -12,13 +12,12 @@ import Panel from "@/shared/Panel/Panel";
 import Select from "@/shared/Select/Select";
 import {useParams} from "next/navigation";
 import {useState} from "react";
-import {toast} from "react-hot-toast";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import {findById as productFindById} from "@/services/api/admin/product";
 
 export default function Page() {
     const {id} = useParams();
-    const queryClient = useQueryClient();
 
     const {data: data, isLoading: isLoading} = useQuery({
         queryKey: [`filter-info`, Number(id)],
@@ -31,29 +30,17 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    async function submit(e: FormData) {
-        let size = data?.length;
-        let filters: {
-            id: string,
-            item_id: string,
-
-        }[] = [];
-        data?.map((filter) => {
-            filters.push({
-                id: e.get(`filter[${filter.id}][id]`) as string,
-                item_id: e.get(`filter[${filter.id}][item_id]`) as string,
-            })
-        })
-
-        let response = await set({
-            product_id: Number(id),
-            filter: filters
-        })
-        if (response?.success) {
-            queryClient.refetchQueries(['filter-info']);
-            toast.success(response.message as string)
-        }
-    }
+    const saveMutation = useApiMutation(
+        (form: FormData) =>
+            set({
+                product_id: Number(id),
+                filter: (data ?? []).map((filter) => ({
+                    id: form.get(`filter[${filter.id}][id]`) as string,
+                    item_id: form.get(`filter[${filter.id}][item_id]`) as string,
+                })),
+            }),
+        {invalidate: [["filter-info"]]}
+    );
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -75,7 +62,7 @@ export default function Page() {
             <ProductTab id={id + ""} url={productInfo?.url ?? ""}/>
             {
                 isLoading ? <Spinner/> : <>
-                    <form action={submit}>
+                    <form action={(form) => saveMutation.mutate(form)}>
                         <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
 
                             {

@@ -9,14 +9,13 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import FilterForm from "./FilterForm";
-import {toast} from "react-hot-toast";
 import Spinner from "@/shared/Loading/Spinner";
 
 export default function Page() {
     const [extraFilter, setExtraFilter] = useState(0);
-    const queryClient = useQueryClient();
 
     const { id } = useParams();
     const { data: data ,isLoading } = useQuery({
@@ -62,20 +61,16 @@ export default function Page() {
             filter: filters
         };
     };
-    async function submit(e: FormData) {
-         const formDataObject: any = {};
-        e.forEach((value, key) => {
-            formDataObject[key] = value;
-        });
-        const formattedFilterData = convertFilterData(formDataObject);
-        let response=await setToCategory(formattedFilterData)
-        if (response?.success) {
-            queryClient.refetchQueries(['filter-info', Number(id)]);
-            toast.success(response.message as string)
-            window.location.reload();
-        }
-
-    }
+    const saveMutation = useApiMutation(
+        (form: FormData) => {
+            const formDataObject: any = {};
+            form.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+            return setToCategory(convertFilterData(formDataObject));
+        },
+        {invalidate: [["filter-info", Number(id)]]}
+    );
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -96,7 +91,7 @@ export default function Page() {
             <CategoryTab id={id + ""} />
             {isLoading && <Spinner />}
 
-            <form action={submit}>
+            <form action={(form) => saveMutation.mutate(form)}>
 
                 {
                     data && data.map((filter, index) => (<>

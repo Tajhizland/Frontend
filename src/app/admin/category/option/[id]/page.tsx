@@ -6,13 +6,13 @@ import CategoryTab from "@/components/Tabs/CategoryTab";
 
 import Panel from "@/shared/Panel/Panel";
 import {useParams, useRouter} from "next/navigation";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import {findByCategoryId, setToCategory} from "@/services/api/admin/option";
 import {Fragment, useState} from "react";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import OptionForm from "@/app/admin/category/option/[id]/OptionForm";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {toast} from "react-hot-toast";
 import Spinner from "@/shared/Loading/Spinner";
 import {Route} from "next";
 import Link from "next/link";
@@ -20,7 +20,6 @@ import OptionItemForm from "@/app/admin/category/option/[id]/OptionItemForm";
 
 export default function Page() {
     const [extraOption, setExtraOption] = useState(0);
-    const queryClient = useQueryClient();
     const router = useRouter();
 
     const {id} = useParams();
@@ -69,20 +68,16 @@ export default function Page() {
     };
 
 
-    async function submit(e: FormData) {
-        const formDataObject: any = {};
-        e.forEach((value, key) => {
-            formDataObject[key] = value;
-        });
-
-        const formattedData = convertData(formDataObject);
-        let response = await setToCategory(formattedData)
-        if (response?.success) {
-            queryClient.refetchQueries(['option-info', Number(id)]);
-            toast.success(response.message as string);
-            window.location.reload()
-        }
-    }
+    const saveMutation = useApiMutation(
+        (form: FormData) => {
+            const formDataObject: any = {};
+            form.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+            return setToCategory(convertData(formDataObject));
+        },
+        {invalidate: [["option-info", Number(id)]]}
+    );
 
     return (<>
         <Breadcrump breadcrumb={[
