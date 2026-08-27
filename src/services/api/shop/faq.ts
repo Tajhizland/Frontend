@@ -3,6 +3,6 @@ import {FaqResponse} from "@/services/types/faq";
 
 export const getFaq = async <T extends ServerResponse<FaqResponse[]>>
 () => {
-    return axios.post<T, SuccessResponseType<T>>("faq")
+    return axios.get<T, SuccessResponseType<T>>("faq")
         .then((res) => res?.data?.result?.data)
 };
