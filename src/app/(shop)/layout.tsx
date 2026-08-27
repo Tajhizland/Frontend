@@ -6,7 +6,6 @@ import "rc-slider/assets/index.css";
 import CommonClient from "./CommonClient";
 import {NextFont} from "next/dist/compiled/@next/font";
 import localFont from "next/font/local";
-import {QueryClient, QueryClientProvider} from "react-query";
 import AutoLoading from "@/app/(shop)/AutoLoading";
 import {Suspense} from "react";
 import BottomNavigation from "@/components/BottomNavigation/BottomNavigation";
@@ -28,20 +27,9 @@ export default function ShopLayout({
     params: any;
 }) {
 
-    const queryClient = new QueryClient(
-        {
-            defaultOptions: {
-                queries: {
-                    refetchOnWindowFocus: false,
-                },
-            },
-        }
-    );
-
     return (
         <>
             <div className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-                <QueryClientProvider client={queryClient}>
                     <CartInitializer/>
                     <Header/>
                     <Suspense>
@@ -50,7 +38,6 @@ export default function ShopLayout({
                     {children}
                     <BottomNavigation/>
                     <Footprint />
-                </QueryClientProvider>
                 <Footer/>
             </div>
             <CommonClient/>

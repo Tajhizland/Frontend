@@ -5,7 +5,6 @@ import "@/styles/index.scss";
 import "rc-slider/assets/index.css";
 import {NextFont} from "next/dist/compiled/@next/font";
 import localFont from "next/font/local";
-import {QueryClient, QueryClientProvider} from "react-query";
 import AutoLoading from "@/app/(shop)/AutoLoading";
 import {Suspense} from "react";
 import Footprint from "@/components/Footprint/Footprint";
@@ -23,27 +22,15 @@ export default function ShopLayout({
     params: any;
 }) {
 
-    const queryClient = new QueryClient(
-        {
-            defaultOptions: {
-                queries: {
-                    refetchOnWindowFocus: false,
-                },
-            },
-        }
-    );
-
     return (
         <>
             <div className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-                <QueryClientProvider client={queryClient}>
                     <TajhizcastHeader/>
                     <Suspense>
                         <AutoLoading/>
                     </Suspense>
                     {children}
                     <Footprint />
-                </QueryClientProvider>
             </div>
         </>
     );

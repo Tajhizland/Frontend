@@ -6,7 +6,6 @@ import {Suspense, useState} from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import CommonClient from "@/app/(shop)/CommonClient";
-import {QueryClient, QueryClientProvider} from "react-query";
 import AutoLoading from "@/app/admin/AutoLoading";
 import QueryProgressBar from "@/shared/Progress/QueryProgressBar";
 
@@ -19,18 +18,8 @@ export default function AdminLayout({
     params: any;
 }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const queryClient = new QueryClient(
-        {
-            defaultOptions: {
-                queries: {
-                    refetchOnWindowFocus: false,
-                },
-            },
-        }
-    );
     return (
         <div>
-            <QueryClientProvider client={queryClient}>
                 <QueryProgressBar/>
                 <Navbar sidebarControl={() => {
                     setSidebarOpen(!sidebarOpen)
@@ -42,7 +31,6 @@ export default function AdminLayout({
                     </Suspense>
                     {children}
                 </div>
-            </QueryClientProvider>
             <CommonClient/>
         </div>
     );

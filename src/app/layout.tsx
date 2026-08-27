@@ -3,6 +3,7 @@ import {NextFont} from "next/dist/compiled/@next/font";
 import "./globals.css";
 import Script from "next/script";
 import GoftinoContainer from "@/components/Goftino/GoftinoContainer";
+import Providers from "@/app/Providers";
 
 
 const myFont: NextFont = localFont({src: '../fonts/fa/IRANSansWeb.woff2'})
@@ -24,8 +25,10 @@ export default function RootLayout({
         <body
             className={`${myFont.className}`}
         >
-        <GoftinoContainer />
-        {children}
+        <Providers>
+            <GoftinoContainer />
+            {children}
+        </Providers>
         </body>
         </html>
     );
