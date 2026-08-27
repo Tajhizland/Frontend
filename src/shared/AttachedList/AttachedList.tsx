@@ -70,7 +70,33 @@ function AttachedList<T, S = unknown>({
             />
         );
 
-    const addSlot = renderAdd?.({ invalidate });
+    const pickerSlot = picker && (
+        <>
+            <SearchPickerModal<S>
+                open={showPicker}
+                onClose={() => setShowPicker(false)}
+                queryKey={[...queryKey, "picker"]}
+                placeholder={picker.placeholder}
+                modalTitle={picker.modalTitle}
+                closeOnPick={picker.closeOnPick}
+                searchFn={picker.searchFn}
+                onPick={picker.onPick}
+                itemKey={picker.itemKey}
+                renderItem={picker.renderItem}
+                invalidateKeys={[queryKey]}
+            />
+            <ButtonPrimary className="my-5" onClick={() => setShowPicker(true)}>
+                {addLabel}
+            </ButtonPrimary>
+        </>
+    );
+
+    const addSlot = (
+        <>
+            {renderAdd?.({ invalidate })}
+            {pickerSlot}
+        </>
+    );
 
     return (
         <>
@@ -107,27 +133,6 @@ function AttachedList<T, S = unknown>({
             )}
 
             {addPosition === "after" && addSlot}
-
-            {picker && (
-                <>
-                    <SearchPickerModal<S>
-                        open={showPicker}
-                        onClose={() => setShowPicker(false)}
-                        queryKey={[...queryKey, "picker"]}
-                        placeholder={picker.placeholder}
-                        modalTitle={picker.modalTitle}
-                        closeOnPick={picker.closeOnPick}
-                        searchFn={picker.searchFn}
-                        onPick={picker.onPick}
-                        itemKey={picker.itemKey}
-                        renderItem={picker.renderItem}
-                        invalidateKeys={[queryKey]}
-                    />
-                    <ButtonPrimary className="mt-5" onClick={() => setShowPicker(true)}>
-                        {addLabel}
-                    </ButtonPrimary>
-                </>
-            )}
         </>
     );
 }
