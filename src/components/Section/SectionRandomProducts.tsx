@@ -8,7 +8,6 @@ import ProductCard2 from "@/components/Card/ProductCard2";
 export interface SectionRandomProductsProps {
     className?: string;
     heading?: string;
-    subHeading?: string;
     data: ProductCardResponse[];
 }
 
@@ -22,7 +21,6 @@ export interface SectionRandomProductsProps {
 const SectionRandomProducts: FC<SectionRandomProductsProps> = ({
                                                                   className = "",
                                                                   heading = "منتخب تجهیزلند",
-                                                                  subHeading = "هر بار یک انتخاب تازه از دسته بندی های ویژه",
                                                                   data,
                                                               }) => {
     const railRef = useRef<HTMLDivElement | null>(null);
@@ -106,9 +104,6 @@ const SectionRandomProducts: FC<SectionRandomProductsProps> = ({
                         <h2 className="mt-3 text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50">
                             {heading}
                         </h2>
-                        <p className="mt-1.5 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400">
-                            {subHeading}
-                        </p>
                     </div>
 
                     <div className="hidden sm:flex items-center gap-x-2">
