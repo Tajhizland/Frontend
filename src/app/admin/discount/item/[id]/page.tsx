@@ -4,7 +4,7 @@ import Panel from "@/shared/Panel/Panel";
 import {searchProductList} from "@/services/api/admin/product";
 import React, {useState} from "react";
 import {useParams, useRouter} from "next/navigation";
-import {QueryClient, useMutation, useQuery} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {categoryList} from "@/services/api/admin/category";
 import {brandList} from "@/services/api/admin/brand";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -25,7 +25,7 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
 export default function Page() {
     const {id} = useParams();
-    const queryClient = new QueryClient();
+    const queryClient = useQueryClient();
     const [category, setCategory] = useState<number>();
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [brand, setBrand] = useState<number>();

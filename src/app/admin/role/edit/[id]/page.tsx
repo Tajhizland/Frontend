@@ -4,13 +4,13 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import {findById, store, update} from "@/services/api/admin/role";
 import {useParams} from "next/navigation";
-import {QueryClient, useMutation, useQuery} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import Form from "@/app/admin/role/Form";
 import {toast} from "react-hot-toast";
 
 export default function Page() {
     const {id} = useParams();
-    const queryClient = new QueryClient();
+    const queryClient = useQueryClient();
     const {data} = useQuery({
         queryKey: [`role-info`, id],
         queryFn: () => findById(Number(id)),

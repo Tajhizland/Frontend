@@ -3,7 +3,7 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import React, {useState} from "react";
 import {useParams, useRouter} from "next/navigation";
-import {QueryClient, useMutation, useQuery} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import Prices from "@/components/Price/Prices";
 import Image from "next/image";
 import {getItem, setItem} from "@/services/api/admin/discount";
@@ -18,7 +18,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {DiscountItemResponse} from "@/services/types/discountItem";
 
 export default function Page() {
-    const queryClient = new QueryClient();
+    const queryClient = useQueryClient();
     const {id} = useParams();
     const [response, setResponse] = useState<DiscountItemResponse[]>([]);
     const [discountValues, setDiscountValues] = useState<Record<number, number>>({});

@@ -6,10 +6,10 @@ import Form from "@/app/admin/campaign/[id]/banner/Form";
 import {update, findById} from "@/services/api/admin/campaignBanner";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {QueryClient, useMutation, useQuery} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 
 export default function Page() {
-    const queryClient = new QueryClient();
+    const queryClient = useQueryClient();
     const {id, row} = useParams();
     const {data: data} = useQuery({
         queryKey: [`campaign-banner-info`, Number(id)],

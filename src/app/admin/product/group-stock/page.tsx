@@ -12,7 +12,7 @@ groupChangeDigipayPercent ,
 } from "@/services/api/admin/product";
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
-import {QueryClient, useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "react-query";
 import {categoryList} from "@/services/api/admin/category";
 import {brandList} from "@/services/api/admin/brand";
 import Select from "@/shared/Select/Select";
@@ -27,7 +27,6 @@ import MultiSelect from "@/shared/Select/MultiSelect";
 import SearchableSelect from "@/shared/Select/SearchableSelect";
 
 export default function Page() {
-    const queryClient = new QueryClient();
     const [category, setCategory] = useState<number>();
     const [brand, setBrand] = useState<number>();
     const [action, setAction] = useState<string>("inc");
