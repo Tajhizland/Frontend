@@ -13,19 +13,12 @@ import {MenuResponse} from "@/services/types/menu";
 
 export default function Page() {
 
-    async function submit(e: MenuResponse) {
-        let response = await fastUpdate(e.id, {title: e.title,
+    const submit = (e: MenuResponse) =>
+        fastUpdate(e.id, {title: e.title,
                 url: e.url,
                 status: e.status,
                 parent_id: e.parent_id,
-            }
-        )
-        toast.success(response?.message as string)
-    }
-    async function removeItem(id: any) {
-        let response = await removeMenuItem(Number(id));
-        toast.success(response?.message as string)
-    }
+            });
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -44,7 +37,7 @@ export default function Page() {
                 </Link>
             </PageLink>
             <Table
-                onDelete={removeItem}
+                onDelete={(id: any) => removeMenuItem(Number(id))}
                 onEdit={submit}
                 fetcher={menuTable}
                 columns={columns}

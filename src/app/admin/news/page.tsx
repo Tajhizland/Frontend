@@ -13,17 +13,14 @@ import {NewsResponse} from "@/services/types/news";
 
 
 export default function Page() {
-    async function submit(e: NewsResponse) {
-        let response=await update(e.id, {title: e.title,
+    const submit = (e: NewsResponse) =>
+        update(e.id, {title: e.title,
                 url: e.url,
                 published: e.published,
                 image: null ,
                 content: e.content,
                 categoryId:e.category_id
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
     return (<>
         <Breadcrump breadcrumb={[
             {

@@ -14,14 +14,11 @@ import {GatewayResponse} from "@/services/types/gateway";
 
 
 export default function Page() {
-    async function submit(e: GatewayResponse) {
-        let response = await update(e.id, {name: e.name,
+    const submit = (e: GatewayResponse) =>
+        update(e.id, {name: e.name,
                 status: e.status,
                 description: e.description,
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
     return (<>
         <Breadcrump breadcrumb={[
             {

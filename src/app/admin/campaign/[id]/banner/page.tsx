@@ -16,10 +16,6 @@ export default function Page() {
     const {id} = useParams();
     const fetcher = useMemo(() => campaignBannerTable(id), [id]);
 
-    async function removeItem(ids: any) {
-        let response = await deleteBanner(ids);
-        toast.success(response?.message as string)
-    }
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -45,7 +41,7 @@ export default function Page() {
                 </Link>
             </PageLink>
             <Table
-                onDelete={removeItem}
+                onDelete={deleteBanner}
                 fetcher={fetcher}
                 columns={columns}
                 actions={actions}

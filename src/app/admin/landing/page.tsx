@@ -13,15 +13,12 @@ import {LandingResponse} from "@/services/types/landing";
 
 export default function Page() {
 
-    async function submit(e: LandingResponse) {
-        let response=await updateLanding(e.id, {title: e.title,
+    const submit = (e: LandingResponse) =>
+        updateLanding(e.id, {title: e.title,
                 status: e.status,
                 url: e.url,
                 description:e.description
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
 
     return (<>
         <Breadcrump breadcrumb={[

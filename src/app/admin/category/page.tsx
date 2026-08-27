@@ -14,18 +14,15 @@ import {CategoryResponse} from "@/services/types/category";
 
 export default function Page() {
 
-    async function submit(e: CategoryResponse) {
-        let response=await update(e.id, {name: e.name,
+    const submit = (e: CategoryResponse) =>
+        update(e.id, {name: e.name,
                 url: e.url,
                 status: e.status,
                 image: null ,
                 description: e.description,
                 parent_id:e.parent_id,
                 type:e.type
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
     return (<>
         <Breadcrump breadcrumb={[
             {

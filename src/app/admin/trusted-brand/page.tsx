@@ -11,10 +11,6 @@ import {toast} from "react-hot-toast";
 import {deleteTrustedBrand, trustedBrandTable} from "@/services/api/admin/trustedBrand";
 
 export default function Page() {
-    async function removeItem(id: any) {
-        let response = await deleteTrustedBrand(id);
-        toast.success(response?.message as string)
-    }
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -35,7 +31,7 @@ export default function Page() {
                 fetcher={trustedBrandTable}
                 columns={columns}
                 actions={actions}
-                onDelete={removeItem}
+                onDelete={deleteTrustedBrand}
             />
         </Panel>
     </>)

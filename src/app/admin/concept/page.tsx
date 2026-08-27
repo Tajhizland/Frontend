@@ -13,13 +13,10 @@ import {fastUpdate, conceptTable} from "@/services/api/admin/concept";
 
 export default function Page() {
 
-    async function submit(e: ConceptResponse) {
-        let response=await fastUpdate(e.id, {title: e.title,
+    const submit = (e: ConceptResponse) =>
+        fastUpdate(e.id, {title: e.title,
                 status: e.status,
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
 
     return (<>
         <Breadcrump breadcrumb={[

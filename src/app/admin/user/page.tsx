@@ -16,18 +16,15 @@ import {useApiMutation} from "@/hooks/useApiMutation";
 export default function Page() {
     
 
-    async function submit(e: UserResponse) {
-        let response = await update(e.id, {name: e.name,
+    const submit = (e: UserResponse) =>
+        update(e.id, {name: e.name,
                 last_name: e.last_name,
                 national_code: e.national_code,
                 username: e.username,
                 email: e.email,
                 gender: e.gender + "",
                 role: e.role
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
 
     const loginMutation = useApiMutation((userId: number) => adminLoginUser(userId), {
         silent: true,

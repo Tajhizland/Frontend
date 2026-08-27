@@ -12,10 +12,6 @@ import {toast} from "react-hot-toast";
 
 export default function Page() {
 
-    async function removeItem(id: any) {
-        let response = await removeSlider(Number(id));
-        toast.success(response?.message as string)
-    }
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -43,7 +39,7 @@ export default function Page() {
                 fetcher={sliderTable}
                 columns={columns}
                 actions={actions}
-                onDelete={removeItem}
+                onDelete={(id: any) => removeSlider(Number(id))}
             />
 
 

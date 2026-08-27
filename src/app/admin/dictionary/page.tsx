@@ -23,12 +23,6 @@ export default function Page() {
             toast.success(response?.message as string)
     }
 
-    async function removeItem(id: any) {
-        let response = await removeById(id);
-        if (response?.success)
-            toast.success(response?.message as string)
-    }
-
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -49,7 +43,7 @@ export default function Page() {
                 onEdit={submit}
                 fetcher={dictionaryTable}
                 columns={columns}
-                onDelete={removeItem}
+                onDelete={removeById}
                 actions={actions}
             />
         </Panel>

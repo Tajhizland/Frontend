@@ -13,16 +13,13 @@ import {GuarantyResponse} from "@/services/types/guaranty";
 
 
 export default function Page() {
-    async function submit(e: GuarantyResponse) {
-        let response = await update(e.id, {name: e.name,
+    const submit = (e: GuarantyResponse) =>
+        update(e.id, {name: e.name,
                 free:e.free,
                 url: e.url,
                 status: e.status,
                 description: e.description,
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
     return (<>
         <Breadcrump breadcrumb={[
             {

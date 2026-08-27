@@ -13,16 +13,13 @@ import {DeliveryResponse} from "@/services/types/delivery";
 
 
 export default function Page() {
-    async function submit(e: DeliveryResponse) {
-        let response = await update(e.id, {name: e.name,
+    const submit = (e: DeliveryResponse) =>
+        update(e.id, {name: e.name,
                 status: e.status,
                 description: e.description,
                 logo: null,
                 price: e.price
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
 
     return (<>
         <Breadcrump breadcrumb={[

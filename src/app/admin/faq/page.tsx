@@ -13,14 +13,11 @@ import {FaqResponse} from "@/services/types/faq";
 
 
 export default function Page() {
-    async function submit(e: FaqResponse) {
-        let response = await update(e.id, {question: e.question,
+    const submit = (e: FaqResponse) =>
+        update(e.id, {question: e.question,
                 status: e.status,
                 answer: e.answer,
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
     return (<>
         <Breadcrump breadcrumb={[
             {

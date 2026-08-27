@@ -13,17 +13,14 @@ import {BrandResponse} from "@/services/types/brand";
 
 export default function Page() {
 
-    async function submit(e: BrandResponse) {
-        let response=await update(e.id, {name: e.name,
+    const submit = (e: BrandResponse) =>
+        update(e.id, {name: e.name,
                 url: e.url,
                 status: e.status,
                 image: null,
                 banner: null,
                 description: e.description,
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
 
     return (<>
         <Breadcrump breadcrumb={[

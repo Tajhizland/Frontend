@@ -13,15 +13,12 @@ import {DiscountResponse} from "@/services/types/discount";
 
 
 export default function Page() {
-    async function submit(e: DiscountResponse) {
-        let response = await update(e.id, {title: e.title,
+    const submit = (e: DiscountResponse) =>
+        update(e.id, {title: e.title,
                 status: e.status,
                 start_date: e.start_date,
                 end_date: e.end_date,
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
 
     return (<>
         <Breadcrump breadcrumb={[

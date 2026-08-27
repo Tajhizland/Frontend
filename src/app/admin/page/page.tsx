@@ -13,16 +13,13 @@ import {PageResponse} from "@/services/types/page";
 
 
 export default function Page() {
-    async function submit(e: PageResponse) {
-        let response=await update(e.id, {title: e.title,
+    const submit = (e: PageResponse) =>
+        update(e.id, {title: e.title,
                 url: e.url,
                 status: e.status,
                 image: null ,
                 content: e.content,
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
     return (<>
         <Breadcrump breadcrumb={[
             {

@@ -13,8 +13,8 @@ import {CouponResponse} from "@/services/types/coupon";
 
 
 export default function Page() {
-    async function submit(e: CouponResponse) {
-        let response = await update(e.id, {code: e.code,
+    const submit = (e: CouponResponse) =>
+        update(e.id, {code: e.code,
                 start_time: e.start_time,
                 end_time: e.end_time,
                 status: e.status,
@@ -23,10 +23,7 @@ export default function Page() {
                 min_order_value: e.min_order_value,
                 max_order_value: e.max_order_value,
                 user_id: e.user_id
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
 
     return (<>
         <Breadcrump breadcrumb={[

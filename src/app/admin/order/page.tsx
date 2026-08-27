@@ -20,11 +20,7 @@ export default function Page() {
     const [tapinModal, setTapinModal] = useState<boolean>(false);
     const [orderId, setOrderId] = useState<number>();
 
-    async function changeStatus(e: OrderResponse) {
-        let response = await updateStatus(e.id, {status: e.status
-        })
-        toast.success(response?.message as string);
-    }
+    const changeStatus = (e: OrderResponse) => updateStatus(e.id, {status: e.status});
 
     const tapinRegisterMutation = useMutation({
         mutationKey: [`tapin-register`],

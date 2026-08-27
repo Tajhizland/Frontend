@@ -13,15 +13,12 @@ import {RunConceptAnswerResponse} from "@/services/types/runConceptAnswer";
 
 
 export default function Page() {
-    async function submit(e: RunConceptAnswerResponse) {
-        let response = await update(e.id, {answer: e.answer,
+    const submit = (e: RunConceptAnswerResponse) =>
+        update(e.id, {answer: e.answer,
                 status: e.status,
                 price: e.price,
                 run_concept_question_id: e.run_concept_question_id,
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
 
     return (<>
         <Breadcrump breadcrumb={[

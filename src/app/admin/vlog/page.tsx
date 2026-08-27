@@ -13,18 +13,15 @@ import {VlogResponse} from "@/services/types/vlog";
 
 
 export default function Page() {
-    async function submit(e: VlogResponse) {
-        let response=await update(e.id, {title: e.title,
+    const submit = (e: VlogResponse) =>
+        update(e.id, {title: e.title,
                 url: e.url,
                 categoryId: e.categoryId,
                 status: e.status,
                 video: null ,
                 poster: null ,
                 description:e.description
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
     return (<>
         <Breadcrump breadcrumb={[
             {

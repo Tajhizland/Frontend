@@ -19,10 +19,6 @@ export default function Page() {
     const {id} = useParams();
     const fetcher = useMemo(() => campaignSliderTable(id), [id]);
 
-    async function removeItem(id: any) {
-        let response = await removeSlider(Number(id));
-        toast.success(response?.message as string)
-    }
 
     const actions = defineActions<SliderResponse>([
         {
@@ -61,7 +57,7 @@ export default function Page() {
                 fetcher={fetcher}
                 columns={columns}
                 actions={actions}
-                onDelete={removeItem}
+                onDelete={(id: any) => removeSlider(Number(id))}
             />
 
 

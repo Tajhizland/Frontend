@@ -12,10 +12,6 @@ import {deleteBanner, bannerTable} from "@/services/api/admin/banner";
 
 export default function Page() {
 
-    async function removeItem(id: any) {
-        let response = await deleteBanner(id);
-        toast.success(response?.message as string)
-    }
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -36,7 +32,7 @@ export default function Page() {
                 </Link>
             </PageLink>
             <Table
-                onDelete={removeItem}
+                onDelete={deleteBanner}
                 fetcher={bannerTable}
                 columns={columns}
                 actions={actions}

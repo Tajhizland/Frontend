@@ -13,14 +13,11 @@ import {OptionResponse} from "@/services/types/option";
 
 
 export default function Page() {
-    async function submit(e: OptionResponse) {
-        let response = await update(e.id, {title: e.title,
+    const submit = (e: OptionResponse) =>
+        update(e.id, {title: e.title,
                 status: e.status,
                 category_id:e.category_id
-            }
-        )
-        toast.success(response?.message as string)
-    }
+            });
     return (<>
         <Breadcrump breadcrumb={[
             {

@@ -11,11 +11,7 @@ import {toast} from "react-hot-toast";
 
 export default function Page() {
 
-    async function changeStatus(e: OnHoldOrderResponse) {
-        let response = await updateStatus(e.id, {status: e.status
-        })
-        toast.success(response?.message as string);
-    }
+    const changeStatus = (e: OnHoldOrderResponse) => updateStatus(e.id, {status: e.status});
 
     return (<>
         <Breadcrump breadcrumb={[
