@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import React, {Fragment, useEffect, useMemo, useState} from "react";
 import {GroupProductResponse} from "@/services/types/groupProduct";
@@ -28,12 +27,12 @@ import {StarIcon} from "@heroicons/react/24/solid";
 
 type Props = {
     groupItems: GroupProductResponse[];
-    setProduct: (product: ProductResponse) => void
+    setProduct: (product?: ProductResponse) => void
 };
 
 export default function ProductGroupFilter({groupItems, setProduct}: Props) {
     const [selectedValues, setSelectedValues] = useState<Record<string, string | null>>({});
-    const [selectedColor, setSelectedColor] = useState<ColorResponse>(groupItems?.[0].product.colors?.[0])
+    const [selectedColor, setSelectedColor] = useState<ColorResponse>(groupItems?.[0]?.product?.colors?.[0] as ColorResponse)
     const [selectedGuaranty, setSelectedGuaranty] = useState<GuarantyResponse>()
     const [selectedCount, setSelectedCount] = useState<number>(1)
     const [cart, setCart] = useGlobalState('cart');
@@ -68,13 +67,13 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
                 );
             });
         });
-        setProduct(matchedItem?.product ?? null);
+        setProduct(matchedItem?.product ?? undefined);
         return matchedItem?.product ?? null;
     }, [groupItems, selectedValues]);
 
     useEffect(() => {
-        setSelectedGuaranty(product?.guaranties[0])
-        setSelectedColor(product?.colors[0])
+        setSelectedGuaranty(product?.guaranties?.[0])
+        setSelectedColor(product?.colors?.[0] as ColorResponse)
     }, [product]);
     const handleSelectValue = (title: string, value: string) => {
         setSelectedValues((prev) => ({
@@ -110,7 +109,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
     async function addToCartHandle(product: ProductResponse) {
         const ok = await addItemToCart(product, selectedCount, selectedColor, selectedGuaranty);
         if (ok) {
-            notifyAddTocart();
+            notifyAddTocart(product);
         }
     }
 
@@ -201,6 +200,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
         return null;
     };
     const renderVariants = () => {
+        if (!product) return null;
         const colors = product.colors;
         const guaranty = product.guaranties;
         if (!colors || !colors.length) {
