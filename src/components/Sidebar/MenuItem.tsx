@@ -495,6 +495,11 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 url: "/homepage_category",
                 icon: <MdOutlineWaterfallChart className="h-6 w-6 text-gray-500"/>,
             },
+            {
+                title: "دسته بندی های محصولات منتخب",
+                url: "/random_product_category",
+                icon: <MdOutlineWaterfallChart className="h-6 w-6 text-gray-500"/>,
+            },
         ]
     },
 

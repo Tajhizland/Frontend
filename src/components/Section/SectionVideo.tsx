@@ -1,10 +1,9 @@
 "use client";
 import React, { useState, Fragment } from "react";
 import { BsFillCameraReelsFill } from "react-icons/bs";
-import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
 import { VlogResponse } from "@/services/types/vlog";
 import NcImage from "@/shared/NcImage/NcImage";
-import HlsVideoPlayer from "@/shared/VideoPlayer/HlsVideoPlayer";
+import AdaptiveVideoPlayer from "@/shared/VideoPlayer/AdaptiveVideoPlayer";
 
 export default function SectionVideo({
                                          intro_video,
@@ -59,9 +58,10 @@ export default function SectionVideo({
                             >
                                 <div className="flex-shrink-0 w-32">
                                     <NcImage
-                                        containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
+                                        containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0 bg-neutral-200 dark:bg-black/40"
                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
-                                        className="object-cover w-full h-full drop-shadow-xl"
+                                        // contain تا پوستر ویدیوی عمودی بریده نشود
+                                        className="object-contain w-full h-full drop-shadow-xl"
                                         fill
                                         alt="vlog"
                                     />
@@ -78,27 +78,14 @@ export default function SectionVideo({
                     ))}
             </div>
 
-            {/* پلیر ویدیو */}
+            {/* پلیر ویدیو؛ قاب ثابت ۱۶:۹ حذف شد تا ویدیوی عمودی له نشود */}
             <div className="w-full">
-                <div className="relative w-full">
-                    <div className="mt-0 nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full aspect-w-16 aspect-h-9">
-                        <div className="flex flex-col gap-y-10 text-right dark:text-white">
-                            {
-                                currentVideo.hls &&  currentVideo.hls !=""?
-                                    <HlsVideoPlayer
-                                        poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${currentVideo.poster}`}
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${currentVideo.hls}`}
-                                    />
-                                    :
-                                    <VideoPlayer
-                                        poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${currentVideo.poster}`}
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${currentVideo.src}`}
-                                    />
-                            }
-
-                        </div>
-                    </div>
-                </div>
+                <AdaptiveVideoPlayer
+                    className="max-h-[70vh]"
+                    hls={currentVideo.hls ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${currentVideo.hls}` : null}
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${currentVideo.src}`}
+                    poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${currentVideo.poster}`}
+                />
             </div>
 
         </div>

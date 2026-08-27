@@ -1,6 +1,5 @@
 import {findCast, paginatedCast} from "@/services/api/shop/cast";
-import HlsVideoPlayer from "@/shared/VideoPlayer/HlsVideoPlayer";
-import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
+import AdaptiveVideoPlayer from "@/shared/VideoPlayer/AdaptiveVideoPlayer";
 import React from "react";
 import Player from "@/shared/Player/Player";
 import CastLinkSection from "@/components/Cast/CastLinkSection";
@@ -22,14 +21,12 @@ export default async function page(props: CastPageProps) {
                     response.title
                 }
             </h1>
-            {
-                response?.vlog?.hls && response?.vlog?.hls != "" ?
-                    <HlsVideoPlayer src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${response?.vlog?.hls}`}
-                                    poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response?.vlog?.poster}`}/>
-                    :
-                    <VideoPlayer src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response?.vlog?.video}`}
-                                 poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response?.vlog?.poster}`}/>
-            }
+            <AdaptiveVideoPlayer
+                className="max-h-[80vh]"
+                hls={response?.vlog?.hls ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${response?.vlog?.hls}` : null}
+                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response?.vlog?.video}`}
+                poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response?.vlog?.poster}`}
+            />
 
             <div className={"flex w-full flex-col gap-2"}>
                 <h2 className={"font-bold text-slate-800"}>فایل صوتی را گوش دهید</h2>

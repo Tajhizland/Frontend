@@ -38,6 +38,8 @@ export type HomePageResponse = {
 
     topDiscountedProducts: ProductCardResponse[];
     specialProducts: ProductCardResponse[];
+    /** محصولات تصادفیِ بخش «منتخب تجهیزلند»؛ دسته‌بندی‌هایش در پنل تعریف می‌شود. */
+    randomProducts: ProductCardResponse[];
     homepageCategories: HomePageCategoryResponse[];
 
     concepts: ConceptResponse[];

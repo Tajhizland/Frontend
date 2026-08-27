@@ -3,9 +3,7 @@ import Link from "next/link";
 import {stripHTML} from "@/hooks/StripHtml";
 import {VlogCardResponse} from "@/services/types/vlog";
 import MetaCard from "@/components/Card/MetaCard";
-import VideoPlayer2 from "@/shared/VideoPlayer/VideoPlayer2";
-import HlsVideoPlayer from "@/shared/VideoPlayer/HlsVideoPlayer";
-import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
+import AdaptiveVideoPlayer from "@/shared/VideoPlayer/AdaptiveVideoPlayer";
 
 export interface Card12Props {
     className?: string;
@@ -13,23 +11,20 @@ export interface Card12Props {
 }
 
 const VlogVideoCard: FC<Card12Props> = ({className = "h-full", data}) => {
+    if (!data) return null;
+
     return (
         <div className={` group relative flex flex-col ${className}`}>
-            {
-                data.hls && data.hls!=""?
-                    <HlsVideoPlayer src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${data.hls}`} poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`} />
-                    :
-                    <VideoPlayer poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`} src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.video}`}/>
-
-            }
-
-            {/*<video*/}
-            {/*    className="w-full h-auto"*/}
-            {/*    controls*/}
-            {/*>*/}
-            {/*    <source src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.video}`} type="video/mp4"/>*/}
-            {/*</video>*/}
-
+            {/*
+              ارتفاع قاب محدود شده تا ویدیوی عمودی ستون کنارِ خودش (سه کارت روی هم)
+              را بیش از حد بلند نکند؛ خود پلیر جهت ویدیو را تشخیص می‌دهد.
+            */}
+            <AdaptiveVideoPlayer
+                className="max-h-[420px] lg:max-h-[460px]"
+                hls={data.hls ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${data.hls}` : null}
+                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.video}`}
+                poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`}
+            />
 
             <div className=" mt-8  flex flex-col">
                 <h2

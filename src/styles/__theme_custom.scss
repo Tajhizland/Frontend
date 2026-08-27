@@ -2,6 +2,38 @@
   overflow: hidden;
 }
 
+/*
+ * AdaptiveVideoPlayer: قاب و نسبت تصویر را خود کامپوننت می‌سازد، پس پلیر باید
+ * کاملا شفاف باشد تا پس‌زمینه‌ی بلورِ پشتش (کنارهای ویدیوی عمودی) دیده شود.
+ */
+.nc-AdaptiveVideoPlayer {
+  .video-js,
+  .video-js .vjs-tech,
+  .video-js .vjs-poster {
+    background-color: transparent;
+  }
+
+  /* پلیر دقیقا هم‌نسبتِ ویدیوست، پس contain نوار سیاه اضافه نمی‌سازد. */
+  .video-js .vjs-tech {
+    object-fit: contain;
+  }
+
+  .video-js .vjs-poster img {
+    object-fit: contain;
+  }
+
+  /* دکمه‌ی پخش وسط قاب بماند (پیش‌فرض video.js بالا-چپ است). */
+  .video-js .vjs-big-play-button {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
+    width: 3.5rem;
+    height: 3.5rem;
+    line-height: 3.5rem;
+  }
+}
+
 .z-max {
   z-index: 999999;
 }

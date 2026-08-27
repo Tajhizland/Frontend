@@ -1,5 +1,5 @@
 import React, {FC, ReactNode} from "react";
-import NcImage from "@/shared/NcImage/NcImage";
+import VlogPoster from "@/components/Vlog/VlogPoster";
 import Link from "next/link";
 import {stripHTML} from "@/hooks/StripHtml";
 import {VlogResponse} from "@/services/types/vlog";
@@ -23,13 +23,7 @@ const VlogCard2: FC<Card13Props> = ({className = "", data}) => {
             >
                 <div className="relative rounded-xl overflow-hidden group">
 
-                    <NcImage
-                        containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`}
-                        className="object-cover w-full h-full "
-                        fill
-                        alt="vlog"
-                    />
+                    <VlogPoster poster={data.poster}/>
                     <div
                         className="absolute top-0 left-0 bg-black/70 w-full h-full group-hover:flex justify-center items-center hidden">
                         <FaCirclePlay className="text-white w-8 h-8 animate-pulse" />

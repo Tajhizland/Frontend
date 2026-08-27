@@ -1,8 +1,7 @@
 "use client";
 import React, {useState, Fragment} from "react";
-import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
 import NcImage from "@/shared/NcImage/NcImage";
-import HlsVideoPlayer from "@/shared/VideoPlayer/HlsVideoPlayer";
+import AdaptiveVideoPlayer from "@/shared/VideoPlayer/AdaptiveVideoPlayer";
 import {ProductVideoResponse} from "@/services/types/productVideo";
 import {RiMovie2Fill} from "react-icons/ri";
 
@@ -44,29 +43,16 @@ export default function SectionProductVideo({videos}: { videos: ProductVideoResp
                     ))}
             </div>
 
-            {/* پلیر ویدیو */}
+            {/* پلیر ویدیو؛ قاب ثابت ۱۶:۹ حذف شد تا ویدیوی عمودی له نشود */}
             <div className="w-full flex-[2]">
-                <div className="relative w-full">
-
-                    <div
-                        className="mt-0 nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden w-full aspect-w-16 aspect-h-9">
-                        <div className="flex flex-col gap-y-10 text-right dark:text-white">
-                            {
-                                videos[activeVideo]?.vlog?.hls && videos[activeVideo]?.vlog?.hls != "" ?
-                                    <HlsVideoPlayer
-                                        poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${videos[activeVideo]?.vlog?.poster}`}
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${videos[activeVideo]?.vlog?.hls}`}
-                                    />
-                                    :
-                                    <VideoPlayer
-                                        poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${videos[activeVideo]?.vlog?.poster}`}
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${videos[activeVideo]?.vlog?.video}`}
-                                    />
-                            }
-
-                        </div>
-                    </div>
-                </div>
+                <AdaptiveVideoPlayer
+                    className="max-h-[70vh]"
+                    hls={videos[activeVideo]?.vlog?.hls
+                        ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${videos[activeVideo]?.vlog?.hls}`
+                        : null}
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${videos[activeVideo]?.vlog?.video}`}
+                    poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${videos[activeVideo]?.vlog?.poster}`}
+                />
             </div>
 
         </div>

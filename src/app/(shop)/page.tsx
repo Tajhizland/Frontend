@@ -15,10 +15,9 @@ import SectionHomepageVlog from "@/components/Section/SectionHomepageVlog";
 import SectionHomepageBlog from "@/components/Section/SectionHomepageBlog";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSlider";
+import SectionRandomProducts from "@/components/Section/SectionRandomProducts";
 import SectionBrand from "@/components/Section/SectionBrand";
 import SectionSuggestProduct from "@/components/Section/SectionSuggestProduct";
-import Script from "next/script";
-import logo from "@/images/lightLogo.png";
 import Image from "next/image";
 import TimerHMS from "@/components/Timer/TimerHMS";
 import {Metadata} from "next";
@@ -29,29 +28,32 @@ import {HomePageResponse} from "@/services/types/homePage";
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
-    try {
-        const siteUrl = process.env.NEXT_PUBLIC_WEBSITE_URL || "";
+    const siteUrl = process.env.NEXT_PUBLIC_WEBSITE_URL || "https://tajhizland.com";
+    const description = "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...";
+    // آدرس ثابت و مطلق؛ قبلا آدرسِ هش‌دارِ باندل استفاده می‌شد که با هر بیلد عوض می‌شود.
+    const image = `${siteUrl}/logo.png`;
 
-        return {
+    return {
+        title: "تجهیزلند",
+        description,
+        alternates: {canonical: siteUrl},
+        twitter: {
+            card: "summary",
             title: "تجهیزلند",
-            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-            twitter: {
-                title: "تجهیزلند",
-                description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-                images: logo?.src || `${siteUrl}/images/lightLogo.png`,
-            },
-            openGraph: {
-                title: "تجهیزلند",
-                description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-                images: logo?.src || `${siteUrl}/images/lightLogo.png`,
-                url: siteUrl,
-                type: "website",
-            },
-            robots: "index, follow",
-        };
-    } catch (e) { 
-        return {title: "تجهیزلند"};
-    }
+            description,
+            images: image,
+        },
+        openGraph: {
+            siteName: "تجهیزلند",
+            title: "تجهیزلند",
+            description,
+            images: image,
+            url: siteUrl,
+            type: "website",
+            locale: "fa_IR",
+        },
+        robots: "index, follow",
+    };
 }
 
 const EMPTY_HOMEPAGE: HomePageResponse = {
@@ -69,6 +71,7 @@ const EMPTY_HOMEPAGE: HomePageResponse = {
     bannersCast: [],
     topDiscountedProducts: [],
     specialProducts: [],
+    randomProducts: [],
     homepageCategories: [],
     concepts: [],
     brands: [],
@@ -91,19 +94,68 @@ export default async function Homepage() {
     const heroMobile = campaign?.mobileSliders?.length ? campaign.mobileSliders : response.mobileSliders;
     const heroBanners = campaign?.homepageBanner?.length ? campaign.homepageBanner : response.banners;
     const twinBanners = campaign?.homepage2Banner?.length ? campaign.homepage2Banner : response.banners2;
+    // بک‌اندِ قدیمی‌تر این کلید را ندارد، پس نبودش نباید صفحه را بشکند.
+    const randomProducts = response.randomProducts ?? [];
+
+    /*
+     * اسکیمای Organization و WebSite.
+     *
+     * logo همان چیزی است که گوگل برای نمایش لوگوی سایت لازم دارد و قبلا اصلا
+     * وجود نداشت. آدرسش باید مطلق، مربع و پایدار باشد (public/logo.png).
+     */
+    const siteUrl = process.env.NEXT_PUBLIC_WEBSITE_URL || "https://tajhizland.com";
+    const logoUrl = `${siteUrl}/logo.png`;
 
     const structuredData = {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "تجهیزلند",
-        "alternateName": ["tajhizland", "j[idcgkn" ],
-        "url": "https://tajhizland.ir"
-    }
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": `${siteUrl}/#organization`,
+                "name": "تجهیزلند",
+                "alternateName": ["tajhizland", "Tajhizland"],
+                "url": siteUrl,
+                "logo": {
+                    "@type": "ImageObject",
+                    "@id": `${siteUrl}/#logo`,
+                    "url": logoUrl,
+                    "contentUrl": logoUrl,
+                    "width": 512,
+                    "height": 512,
+                    "caption": "تجهیزلند",
+                },
+                "image": {"@id": `${siteUrl}/#logo`},
+                "description": "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی، رستوران، فست فود، کافی شاپ و...",
+            },
+            {
+                "@type": "WebSite",
+                "@id": `${siteUrl}/#website`,
+                "name": "تجهیزلند",
+                "url": siteUrl,
+                "inLanguage": "fa-IR",
+                "publisher": {"@id": `${siteUrl}/#organization`},
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": `${siteUrl}/search/{search_term_string}`,
+                    },
+                    "query-input": "required name=search_term_string",
+                },
+            },
+        ],
+    };
+
     return (
         <>
-            <Script type="application/ld+json" id="schema">
-                {JSON.stringify(structuredData)}
-            </Script>
+            {/*
+              JSON-LD باید در HTML سمت سرور باشد. next/script با استراتژی پیش‌فرض
+              اسکریپت را سمت کلاینت تزریق می‌کند و ممکن است خزنده‌ی گوگل آن را نبیند.
+            */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}}
+            />
 
             <div className="relative overflow-hidden lg:mt-10 dark:bg-neutral-900">
 
@@ -186,6 +238,12 @@ export default async function Homepage() {
                     </div>
                 </div>}
 
+
+                {/* منتخب تجهیزلند: محصولات تصادفی از دسته‌بندی‌های تعریف‌شده در پنل */}
+                {randomProducts.length > 0 &&
+                    <div className="container px-5 lg:px-0 mt-5 lg:mt-10">
+                        <SectionRandomProducts data={randomProducts}/>
+                    </div>}
 
          {response.bannersCast.length > 0 &&
                     <div className={"mt-5 lg:mt-10 container p-0"}> <SectionSingleBanner

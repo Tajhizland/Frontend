@@ -5,9 +5,7 @@ import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
 import {FaEye} from "react-icons/fa";
 import Heading from "@/components/Heading/Heading";
-import VideoPlayer2 from "@/shared/VideoPlayer/VideoPlayer2";
-import HlsVideoPlayer from "@/shared/VideoPlayer/HlsVideoPlayer";
-import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
+import AdaptiveVideoPlayer from "@/shared/VideoPlayer/AdaptiveVideoPlayer";
 import {GoEye} from "react-icons/go";
 
 interface PageProps {
@@ -46,12 +44,13 @@ export default async function Page(props: PageProps) {
     const renderContent = () => {
         return (
             <div className={"flex flex-col gap-y-10 text-right dark:text-white"}>
-                {
-                    response.vlog.hls &&  response.vlog.hls!="" ?
-                        <HlsVideoPlayer src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${response.vlog.hls}`}  poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.poster}`}  />
-                        :
-                        <VideoPlayer src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.video}`}  poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.poster}`} />
-                }
+                {/* پلیر خودش افقی/عمودی بودن ویدیو را تشخیص می‌دهد و قاب را متناسب می‌سازد */}
+                <AdaptiveVideoPlayer
+                    className="max-h-[80vh] mx-auto"
+                    hls={response.vlog.hls ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${response.vlog.hls}` : null}
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.video}`}
+                    poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.poster}`}
+                />
                 <div dangerouslySetInnerHTML={{__html: (response.vlog.description)}}/>
             </div>
         );

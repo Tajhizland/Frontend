@@ -1,5 +1,5 @@
 import React, {FC, ReactNode} from "react";
-import NcImage from "@/shared/NcImage/NcImage";
+import VlogPoster from "@/components/Vlog/VlogPoster";
 import Link from "next/link";
 import {stripHTML} from "@/hooks/StripHtml";
 import {VlogCardResponse} from "@/services/types/vlog";
@@ -11,6 +11,7 @@ export interface Card13Props {
 }
 
 const VlogCard: FC<Card13Props> = ({className = "", data}) => {
+    if (!data) return null;
 
     return (
         <div className={`relative flex   sm:flex-row ${className}`}>
@@ -40,15 +41,7 @@ const VlogCard: FC<Card13Props> = ({className = "", data}) => {
                 aria-label={"vlog"}
                 className="flex flex-col w-full  justify-center mr-5"
             >
-                <div className="relative rounded-xl overflow-hidden group">
-                    <NcImage
-                        containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${data.poster}`}
-                        className="object-cover w-full h-full "
-                        fill
-                        alt="vlog"
-                    />
-                </div>
+                <VlogPoster poster={data.poster} className="rounded-xl"/>
             </Link>
         </div>
     );
