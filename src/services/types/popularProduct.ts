@@ -2,12 +2,12 @@ import {ProductResponse} from "@/services/types/product";
 
 export type PopularProductResponse = {
     id: number;
-    product_id: string;
+    product_id: number | string;
     product?: ProductResponse;
     created_at: string;
     updated_at: string;
 }
 
 export interface PopularProductStoreDto {
-    product_id: string;
+    product_id: number | string;
 }

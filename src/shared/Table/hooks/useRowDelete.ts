@@ -5,7 +5,7 @@ import { useMutation } from "react-query";
 import { toast } from "react-hot-toast";
 
 type Options<T extends { id: number | string }> = {
-    onDelete?: (id: T["id"]) => void | Promise<void>;
+    onDelete?: (id: T["id"]) => unknown | Promise<unknown>;
     invalidate: () => void;
 };
 
@@ -13,7 +13,8 @@ export const useRowDelete = <T extends { id: number | string }>({ onDelete, inva
     const [pending, setPending] = useState<T | null>(null);
 
     const mutation = useMutation(async (row: T) => onDelete?.(row.id), {
-        onSuccess: () => {
+        onSuccess: (response: any) => {
+            if (response?.message) toast.success(response.message as string);
             setPending(null);
             invalidate();
         },

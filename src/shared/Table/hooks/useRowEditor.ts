@@ -14,7 +14,7 @@ const coerce = (value: any, previous: any, editorType?: EditorType) => {
 };
 
 type Options<T extends { id: number | string }> = {
-    onEdit?: (row: T) => void | Promise<void>;
+    onEdit?: (row: T) => unknown | Promise<unknown>;
     reloadOnEdit: boolean;
     invalidate: () => void;
 };
@@ -29,7 +29,8 @@ export const useRowEditor = <T extends { id: number | string }>({ onEdit, reload
     };
 
     const mutation = useMutation(async (row: T) => onEdit?.(row), {
-        onSuccess: () => {
+        onSuccess: (response: any) => {
+            if (response?.message) toast.success(response.message as string);
             cancel();
             if (reloadOnEdit) invalidate();
         },

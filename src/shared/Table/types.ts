@@ -62,8 +62,8 @@ export type TableProps<T extends { id: number | string }> = {
     actions?: TableAction<T>[];
     renderActions?: (row: T, helpers: RowHelpers) => ReactNode;
     renderRow?: (row: T, helpers: RowHelpers) => ReactNode;
-    onEdit?: (row: T) => void | Promise<void>;
-    onDelete?: (id: T["id"]) => void | Promise<void>;
+    onEdit?: (row: T) => unknown | Promise<unknown>;
+    onDelete?: (id: T["id"]) => unknown | Promise<unknown>;
 
     defaultSort?: { key: keyof T; direction?: "asc" | "desc" };
     initialFilters?: Partial<Record<keyof T, any>>;

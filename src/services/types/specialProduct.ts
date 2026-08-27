@@ -2,7 +2,7 @@ import {ProductResponse} from "@/services/types/product";
 
 export type SpecialProductResponse = {
     id: number;
-    product_id: string;
+    product_id: number | string;
     product?: ProductResponse;
     homepage: number;
     created_at: string;
@@ -10,7 +10,7 @@ export type SpecialProductResponse = {
 }
 
 export interface SpecialProductStoreDto {
-    product_id: string;
+    product_id: number | string;
 }
 
 export interface SpecialProductUpdateHomepageDto {

@@ -2,7 +2,7 @@ import {CategoryResponse} from "@/services/types/category";
 
 export type HomepageCategoryResponse = {
     id: number;
-    category_id: string;
+    category_id: number | string;
     icon: string;
     category: CategoryResponse;
     created_at: string;
@@ -10,7 +10,7 @@ export type HomepageCategoryResponse = {
 }
 
 export interface HomepageCategoryStoreDto {
-    category_id: string;
+    category_id: number | string;
 }
 
 export interface HomepageCategorySetIconDto {
