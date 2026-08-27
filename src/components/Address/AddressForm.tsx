@@ -7,10 +7,9 @@ import React, {useEffect} from "react";
 import {update} from "@/services/api/shop/address";
 import {toast} from "react-hot-toast";
 import {useMutation, useQuery, useQueryClient} from "react-query";
-import {getProvince} from "@/services/api/shop/province";
-import {getCity} from "@/services/api/shop/city";
 import Label from "@/shared/Label/Label";
 import {useForm} from "react-hook-form";
+import {useProvinceCity} from "@/hooks/useProvinceCity";
 
 export default function AddressForm({address, close}: { address?: AddressResponse, close?: () => void }) {
     const queryClient = useQueryClient();
@@ -32,29 +31,8 @@ export default function AddressForm({address, close}: { address?: AddressRespons
         },
     });
 
-    const {data: provinces} = useQuery({
-        queryKey: ['province'],
-        queryFn: () => getProvince(),
-        staleTime: 5000,
-    });
 
-    const {
-        data: citys,
-        mutateAsync: changeProvince,
-        isLoading: notifyStockSubmitting,
-        isSuccess: notifyStockSuccess,
-    } = useMutation({
-        mutationKey: [`city`],
-        mutationFn: (id: number) =>
-            getCity(id),
-    });
-    useEffect(() => {
-        if (address)
-            changeProvince(address.province_id);
-        else
-            changeProvince(1);
-
-    }, []);
+    const {provinces, cities, setProvinceId} = useProvinceCity(address?.province_id ?? 1);
 
 
     const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
@@ -96,7 +74,7 @@ export default function AddressForm({address, close}: { address?: AddressRespons
                 <div>
                     <Label className="text-sm  dark:text-white">استان</Label>
                     <Select  {...register("province_id")} onChange={(e) => {
-                        changeProvince(Number(e.target.value))
+                        setProvinceId(Number(e.target.value))
                     }}>
                         {
                             provinces && provinces?.map((item, index) => (
@@ -112,7 +90,7 @@ export default function AddressForm({address, close}: { address?: AddressRespons
 
                     <Select  {...register("city_id")}>
                         {
-                            citys && citys?.map((item) => (<>
+                            cities && cities?.map((item) => (<>
                                 <option value={item.id} selected={address?.city_id == item.id}>
                                     {item.name}
                                 </option>

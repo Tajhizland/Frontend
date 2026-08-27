@@ -6,10 +6,9 @@ import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import Textarea from "@/shared/Textarea/Textarea";
 import {storeContact} from "@/services/api/admin/contact";
-import {useMutation, useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
+import {useProvinceCity} from "@/hooks/useProvinceCity";
 import {toast} from "react-hot-toast";
-import {getProvince} from "@/services/api/shop/province";
-import {getCity} from "@/services/api/shop/city";
 import NcModal from "@/shared/NcModal/NcModal";
 import Label from "@/shared/Label/Label";
 import {SampleResponse} from "@/services/types/sample";
@@ -24,36 +23,19 @@ export interface SectionPromo1Props {
 const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info, poster}) => {
     const [modal, setModal] = useState(false);
 
-    async function submitHandle(e: FormData) {
-        let response = await storeContact(
-            {
-                name: e.get("name") as string,
-                mobile: e.get("mobile") as string,
-                concept: e.get("concept") as string,
-                message: e.get("message") as string,
-                city_id: Number(e.get("city_id")),
-                province_id: Number(e.get("province_id"))
-            }
-        )
-        toast.success(response.message as string)
-    }
+    const contactMutation = useApiMutation((form: FormData) =>
+        storeContact({
+            name: form.get("name") as string,
+            mobile: form.get("mobile") as string,
+            concept: form.get("concept") as string,
+            message: form.get("message") as string,
+            city_id: Number(form.get("city_id")),
+            province_id: Number(form.get("province_id")),
+        })
+    );
 
-    const {data: provinces} = useQuery({
-        queryKey: ['province'],
-        queryFn: () => getProvince(),
-        staleTime: 5000,
-    });
 
-    const {
-        data: citys,
-        mutateAsync: changeProvince,
-        isLoading: notifyStockSubmitting,
-        isSuccess: notifyStockSuccess,
-    } = useMutation({
-        mutationKey: [`city`],
-        mutationFn: (id: number) =>
-            getCity(id),
-    });
+    const {provinces, cities, setProvinceId} = useProvinceCity();
     const concepts = [
         "کافه"
         , "فست فود"
@@ -67,7 +49,7 @@ const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info, poster
     ]
     const renderModal = () => {
         return (<>
-            <form className="grid grid-cols-1 gap-6 text-right" action={submitHandle}>
+            <form className="grid grid-cols-1 gap-6 text-right" action={(form) => contactMutation.mutate(form)}>
                 <label className="block">
                     <Label>نام</Label>
 
@@ -91,7 +73,7 @@ const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info, poster
                     <Label>استان</Label>
 
                     <Select name={"province_id"} onChange={(e) => {
-                        changeProvince(Number(e.target.value))
+                        setProvinceId(Number(e.target.value))
                     }}>
                         <option>انتخاب کنید</option>
                         {
@@ -105,9 +87,9 @@ const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info, poster
                 </label>
                 <label className="block">
                     <Label>شهر</Label>
-                    <Select name={"city_id"} className={"disabled:cursor-not-allowed"} disabled={!citys}>
+                    <Select name={"city_id"} className={"disabled:cursor-not-allowed"} disabled={!cities}>
                         {
-                            citys && citys?.map((item) => (<>
+                            cities && cities?.map((item) => (<>
                                 <option value={item.id}>
                                     {item.name}
                                 </option>

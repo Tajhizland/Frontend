@@ -3,8 +3,8 @@
 import React, {FC, Fragment, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {useMutation, useQuery, useQueryClient} from "react-query";
-import {getProvince} from "@/services/api/shop/province";
-import {getCity} from "@/services/api/shop/city";
+import {useApiMutation} from "@/hooks/useApiMutation";
+import {useProvinceCity} from "@/hooks/useProvinceCity";
 import {changeActiveAddress, findActive, getAllAddress, update} from "@/services/api/shop/address";
 import {toast} from "react-hot-toast";
 import {AddressResponse} from "@/services/types/address";
@@ -31,48 +31,28 @@ const ShippingAddress: FC<Props> = ({
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [editAddress, setEditAddress] = useState<AddressResponse>();
     const queryClient = useQueryClient();
+    const {provinces, cities, setProvinceId} = useProvinceCity();
     const {data: activeAddress} = useQuery({
         queryKey: ['address'],
         queryFn: () => findActive(),
         staleTime: 5000,
-        onSuccess: data => {
-            changeProvince(data?.province_id ?? 1);
-        }
+        onSuccess: (data) => setProvinceId(data?.province_id ?? 1),
     });
 
 
-    const {data: provinces} = useQuery({
-        queryKey: ['province'],
-        queryFn: () => getProvince(),
-        staleTime: 5000,
-    });
-
-    const {
-        data: citys,
-        mutateAsync: changeProvince,
-        isLoading: notifyStockSubmitting,
-        isSuccess: notifyStockSuccess,
-    } = useMutation({
-        mutationKey: [`city`],
-        mutationFn: (id: number) =>
-            getCity(id),
-    });
-
-    async function saveAddress(e: FormData) {
-        let response = await update(activeAddress?.id as number, {city_id: e.get("city_id") as string,
-            title: e.get("title") as string,
-            province_id: e.get("province_id") as string,
-            tell: e.get("tell") as string,
-            zip_code: e.get("zip_code") as string,
-            address: e.get("address") as string,
-            mobile: e.get("mobile") as string,
-        })
-        if (response) {
-            queryClient.invalidateQueries(['address']);
-            queryClient.invalidateQueries(['get-shipping-methods']);
-            toast.success(response?.message as string);
-        }
-    }
+    const saveAddressMutation = useApiMutation(
+        (form: FormData) =>
+            update(activeAddress?.id as number, {
+                city_id: form.get("city_id") as string,
+                title: form.get("title") as string,
+                province_id: form.get("province_id") as string,
+                tell: form.get("tell") as string,
+                zip_code: form.get("zip_code") as string,
+                address: form.get("address") as string,
+                mobile: form.get("mobile") as string,
+            }),
+        {invalidate: [["address"], ["get-shipping-methods"]]}
+    );
 
     const {data: address} = useQuery({
         queryKey: ['my-address'],

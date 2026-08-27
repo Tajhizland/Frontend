@@ -6,12 +6,9 @@ import Select from "@/shared/Select/Select";
 import avatar from "@/images/avatar.svg";
 import Image from "next/image";
 import {useUser} from "@/services/globalState/GlobalState";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import {update} from "@/services/api/auth/me";
 import {toast} from "react-hot-toast";
-import {findActive} from "@/services/api/shop/address";
-import {getProvince} from "@/services/api/shop/province";
-import {getCity} from "@/services/api/shop/city";
 import Label from "@/shared/Label/Label";
 import {MdOutlineAlternateEmail} from "react-icons/md";
 import {FaPhone} from "react-icons/fa";
@@ -19,7 +16,6 @@ import {FaPhone} from "react-icons/fa";
 const AccountPage = () => {
 
     const [user] = useUser();
-    const queryClient = useQueryClient();
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,54 +28,26 @@ const AccountPage = () => {
             reader.readAsDataURL(file);
         }
     };
-    const {data: address} = useQuery({
-        queryKey: ['address'],
-        queryFn: () => findActive(),
-        staleTime: 5000,
-        onSuccess: data => {
-            changeProvince(data.province_id);
-        }
-    });
 
-
-    const {data: provinces} = useQuery({
-        queryKey: ['province'],
-        queryFn: () => getProvince(),
-        staleTime: 5000,
-    });
-
-    const {
-        data: citys,
-        mutateAsync: changeProvince,
-        isLoading: notifyStockSubmitting,
-        isSuccess: notifyStockSuccess,
-    } = useMutation({
-        mutationKey: [`city`],
-        mutationFn: (id: number) =>
-            getCity(id),
-    });
-
-    async function submit(e: FormData) {
-        let response = await update({
-            name: e.get("name") as string,
-            email: e.get("email") as string,
-            gender: e.get("gender") as string,
-            last_name: e.get("last_name") as string,
-            national_code: e.get("national_code") as string,
-            avatar: e.get("avatar") as File
-        })
-        if (response?.success) {
-            toast.success(response?.message as string);
-            queryClient.invalidateQueries([`user`]);
-        }
-    }
+    const saveMutation = useApiMutation(
+        (form: FormData) =>
+            update({
+                name: form.get("name") as string,
+                email: form.get("email") as string,
+                gender: form.get("gender") as string,
+                last_name: form.get("last_name") as string,
+                national_code: form.get("national_code") as string,
+                avatar: form.get("avatar") as File,
+            }),
+        {invalidate: [["user"]]}
+    );
 
     return (
         <div className={`nc-AccountPage dark:text-white `}>
             <div className="space-y-10 sm:space-y-12">
                 {/* HEADING */}
 
-                <form action={submit}>
+                <form action={(form) => saveMutation.mutate(form)}>
 
                     <div className="flex flex-col md:flex-row items-center md:items-start w-full">
                         <div className="flex-shrink-0 flex items-start">
