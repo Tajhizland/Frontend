@@ -1,24 +1,23 @@
 "use client"
 
 import { storeComment } from "@/services/api/shop/comment"
-import { toast } from "react-hot-toast"
+import { useApiMutation } from "@/hooks/useApiMutation"
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Textarea from "@/shared/Textarea/Textarea";
 import Label from "@/shared/Label/Label";
 
 export default function CommentModal({ productId }: { productId: number }) {
-    async function submitHandle(e: FormData) {
-        let response = await storeComment({
-            productId: productId+"",
-            rating: e.get("rating") as string,
-            text: e.get("text") as string
+    const commentMutation = useApiMutation((form: FormData) =>
+        storeComment({
+            productId: productId + "",
+            rating: form.get("rating") as string,
+            text: form.get("text") as string,
         })
-        toast.success(response.message as string);
-    }
+    );
     return (<>
         <div>
-            <form className="grid grid-cols-1 gap-6"  action={submitHandle}>
+            <form className="grid grid-cols-1 gap-6"  action={(form) => commentMutation.mutate(form)}>
                 <label className="block">
                     <Label>متن نظر</Label>
                     <Textarea
@@ -38,7 +37,7 @@ export default function CommentModal({ productId }: { productId: number }) {
                     </Select>
                 </label>
                 <div>
-                    <ButtonPrimary type="submit">ثبت نظر  </ButtonPrimary>
+                    <ButtonPrimary type="submit" loading={commentMutation.isLoading}>ثبت نظر  </ButtonPrimary>
                 </div>
             </form>
         </div>

@@ -5,6 +5,7 @@ import {Alert} from "@/shared/Alert/Alert";
 import {Popover, PopoverButton, PopoverPanel, Transition} from "@headlessui/react";
 import Link from "next/link";
 import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import {seen, unseen} from "@/services/api/admin/notification";
 
 export default function Bell() {
@@ -14,9 +15,7 @@ export default function Bell() {
         staleTime: 5000,
     });
 
-    async function seenAll() {
-        await seen();
-    }
+    const seenMutation = useApiMutation(() => seen(), {invalidate: [["notification"]], silent: true});
 
     function renderType(type: string) {
         let alertType: "default" | "warning" | "info" | "success" | "error" = "default";
@@ -45,7 +44,7 @@ export default function Bell() {
                 {({open, close}) => (
                     <>
                         <PopoverButton
-                            onClick={seenAll}
+                            onClick={() => seenMutation.mutate()}
                             className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none flex items-center justify-center`}
                         >
                             <div className={"relative"}>

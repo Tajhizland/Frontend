@@ -2,7 +2,6 @@
 
 import React, {FC, useEffect, useState} from "react";
 import Radio from "@/shared/Radio/Radio";
-import {select} from "@/services/api/shop/delivery";
 import {useQuery} from "react-query";
 import {getDelivery} from "@/services/api/shop/checkout";
 import {DeliveryResponse} from "@/services/types/delivery";
@@ -35,7 +34,6 @@ const ShippingMethod: FC<Props> = ({
                                        queryKey,
                                    }) => {
     const [mothodActive, setMethodActive] = useState<number>(shippingMethod);
-    const [selectedId, setSelectedId] = useState(1);
     const [open, setOpen] = useState(false);
     const {data: data} = useQuery({
         queryKey: queryKey ?? ['get-shipping-methods'],
@@ -49,9 +47,6 @@ const ShippingMethod: FC<Props> = ({
             setShippingPrice(data?.[0]?.price ?? 0);
     }, [data]);
 
-    async function submit() {
-        let response = await select(selectedId)
-    }
 
     const selectedItem = data?.find((item) => item.id === mothodActive) ?? data?.[0];
 
@@ -72,7 +67,6 @@ const ShippingMethod: FC<Props> = ({
                         defaultChecked={active}
                         onChange={() => {
                             setMethodActive(item.id as any);
-                            setSelectedId(item.id as any);
                             setShippingMethod(item.id);
                             setShippingPrice(item.price);
                         }}

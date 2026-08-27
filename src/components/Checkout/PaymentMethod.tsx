@@ -4,6 +4,7 @@ import React, {FC, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Radio from "@/shared/Radio/Radio";
 import {select} from "@/services/api/shop/delivery";
+import {useApiMutation} from "@/hooks/useApiMutation";
 
 interface Props {
     isActive: boolean;
@@ -21,9 +22,10 @@ const PaymentMethod: FC<Props> = ({
     >("post");
     const [selectedId, setSelectedId] = useState(1);
 
-    async function submit() {
-        let response = await select(selectedId)
-    }
+    const selectMutation = useApiMutation(() => select(selectedId), {
+        invalidate: [["get-shipping-methods"]],
+        onSuccess: () => onCloseActive(),
+    });
 
     const renderPost = () => {
         const active = mothodActive === "post";
@@ -191,7 +193,8 @@ const PaymentMethod: FC<Props> = ({
                     <div className="flex pt-6">
                         <ButtonPrimary
                             className="w-full max-w-[240px]"
-                            onClick={submit}
+                            loading={selectMutation.isLoading}
+                            onClick={() => selectMutation.mutate()}
                         >
                             ذخیره
                         </ButtonPrimary>
