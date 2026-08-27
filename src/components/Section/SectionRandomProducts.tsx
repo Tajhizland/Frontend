@@ -4,13 +4,11 @@ import React, {FC, useCallback, useEffect, useRef, useState} from "react";
 import {ChevronLeftIcon, ChevronRightIcon, SparklesIcon} from "@heroicons/react/24/outline";
 import {ProductCardResponse} from "@/services/types/product";
 import ProductCard2 from "@/components/Card/ProductCard2";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export interface SectionRandomProductsProps {
     className?: string;
     heading?: string;
     subHeading?: string;
-    href?: string;
     data: ProductCardResponse[];
 }
 
@@ -25,7 +23,6 @@ const SectionRandomProducts: FC<SectionRandomProductsProps> = ({
                                                                   className = "",
                                                                   heading = "منتخب تجهیزلند",
                                                                   subHeading = "هر بار یک انتخاب تازه از دسته بندی های ویژه",
-                                                                  href = "/category",
                                                                   data,
                                                               }) => {
     const railRef = useRef<HTMLDivElement | null>(null);
@@ -152,12 +149,6 @@ const SectionRandomProducts: FC<SectionRandomProductsProps> = ({
                             </div>
                         </div>
                     ))}
-                </div>
-
-                <div className="flex justify-center mt-6 sm:mt-8">
-                    <ButtonPrimary href={href} className="!rounded-full px-8">
-                        مشاهده همه محصولات
-                    </ButtonPrimary>
                 </div>
             </div>
         </section>
