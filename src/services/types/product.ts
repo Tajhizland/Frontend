@@ -1,9 +1,9 @@
 import {Identified, Timestamps} from "@/services/http";
-import {ColorResponse} from "./color";
+import {ColorResponse, ProductColorCardResponse} from "./color";
 import {CommentResponse} from "./comment";
 import {ProductOptionResponse} from "@/services/types/productOption";
 import {ProductImageResponse} from "@/services/types/productImage";
-import {GuarantyResponse} from "@/services/types/guaranty";
+import {GuarantyCardResponse, GuarantyResponse} from "@/services/types/guaranty";
 import {BrandResponse} from "@/services/types/brand";
 import {BannerResponse} from "@/services/types/banner";
 import {VlogResponse} from "@/services/types/vlog";
@@ -38,6 +38,27 @@ export type StockProductPageResponse = {
     data: ProductResponse;
     category: { data: CategoryResponse[] };
 }
+/**
+ * نسخه سبک محصول که اندپوینت‌های لیستی (مثل /homepage) برمی‌گردانند.
+ *
+ * فقط فیلدهایی که کارت‌های محصول لازم دارند. ProductResponse کامل هم با این
+ * تایپ سازگار است، پس کارت‌ها هر دو را قبول می‌کنند.
+ */
+export interface ProductCardResponse {
+    id: number;
+    name: string;
+    url: string;
+    description: string;
+    type: string;
+    is_stock: number;
+    min_price: number;
+    rating: number;
+    comments_count?: number;
+    guaranty?: GuarantyCardResponse;
+    images: ProductImageResponse[];
+    colors: ProductColorCardResponse[];
+}
+
 export interface ProductBase {
     name: string;
     url: string;

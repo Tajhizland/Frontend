@@ -1,42 +1,50 @@
 import {ConceptResponse} from "@/services/types/concept";
 import {SliderResponse} from "@/services/types/slider";
-import {SpecialProductResponse} from "@/services/types/specialProduct";
-import {HomepageCategoryResponse} from "@/services/types/homepageCategory";
-import {PopularProductResponse} from "@/services/types/popularProduct";
 import {BrandResponse} from "@/services/types/brand";
-import {NewsResponse} from "@/services/types/news";
 import {BannerResponse} from "@/services/types/banner";
-import {VlogResponse} from "@/services/types/vlog";
 import {PosterResponse} from "@/services/types/poster";
 import {TrustedBrandResponse} from "@/services/types/trustedBrand";
 import {CampaignResponse} from "@/services/types/campaign";
-import {CampaignBannerResponse} from "@/services/types/campaignBanner";
 import {DiscountItemResponse} from "@/services/types/discountItem";
-import {ProductResponse} from "@/services/types/product";
+import {ProductCardResponse} from "@/services/types/product";
+import {VlogCardResponse} from "@/services/types/vlog";
+import {NewsCardResponse} from "@/services/types/news";
+
+/** یک تب از بخش «دسته بندی های پرطرفدار»؛ ساختار تخت است. */
+export type HomePageCategoryResponse = {
+    id: number;
+    name: string;
+    url: string;
+    image: string;
+    icon: string;
+    products: ProductCardResponse[];
+};
 
 export type HomePageResponse = {
-    popularProducts: PopularProductResponse[];
-    topDiscountedProducts: ProductResponse[];
-    discount: DiscountItemResponse;
-    campaign?: CampaignResponse;
-    pending_campaign?: CampaignResponse;
+    campaign: CampaignResponse | null;
+    pending_campaign: CampaignResponse | null;
+    discount: DiscountItemResponse | null;
+
+    desktopSliders: SliderResponse[];
+    mobileSliders: SliderResponse[];
+
     banners: BannerResponse[];
     banners2: BannerResponse[];
     banners3: BannerResponse[];
     banners4: BannerResponse[];
-    bannersStock: BannerResponse[];
     banners5: BannerResponse[];
+    bannersStock: BannerResponse[];
     bannersCast: BannerResponse[];
-    homepageCategories: HomepageCategoryResponse[];
-    desktopSliders: SliderResponse[];
-    mobileSliders: SliderResponse[];
-    homepageBanner: CampaignBannerResponse[];
-    homepage2Banner: CampaignBannerResponse[];
+
+    topDiscountedProducts: ProductCardResponse[];
+    specialProducts: ProductCardResponse[];
+    homepageCategories: HomePageCategoryResponse[];
+
+    concepts: ConceptResponse[];
     brands: BrandResponse[];
     trustedBrands: TrustedBrandResponse[];
-    news: NewsResponse[];
-    vlogs: VlogResponse[];
     posters: PosterResponse[];
-    concepts: ConceptResponse[];
-    specialProducts: SpecialProductResponse[];
+
+    vlogs: VlogCardResponse[];
+    news: NewsCardResponse[];
 };

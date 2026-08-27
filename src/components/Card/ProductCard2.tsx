@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
-import {ProductResponse} from "@/services/types/product";
+import {ProductCardResponse} from "@/services/types/product";
 import {Route} from "next";
 import Badge from "@/shared/Badge/Badge";
 import IconDiscount from "@/components/Icon/IconDiscount";
@@ -18,7 +18,7 @@ import {useFavorite} from "@/hooks/useFavorite";
 
 export interface ProductCardProps {
     className?: string;
-    data?: ProductResponse;
+    data?: ProductCardResponse;
 }
 
 const ProductCard2: FC<ProductCardProps> = ({
@@ -123,7 +123,7 @@ const ProductCard2: FC<ProductCardProps> = ({
             </div>
         );
     };
-    const checkStock = (product: ProductResponse) => {
+    const checkStock = (product: ProductCardResponse) => {
         let hasStock = false;
         product.colors.map((item) => {
             if (item.stock > 0 && (item.status == 1 || item.status == 2)) {
@@ -133,7 +133,7 @@ const ProductCard2: FC<ProductCardProps> = ({
         })
         return hasStock;
     }
-    const renderMinPrice = (product: ProductResponse) => {
+    const renderMinPrice = (product: ProductCardResponse) => {
         let minPrice = product?.colors[0]?.price;
         let minDiscountedPrice = product.colors[0].price;
         product.colors.map((item) => {
@@ -205,7 +205,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                         />
 
                     </Link>
-                    <LikeButton likeHandle={likeHandle} liked={data?.favorite} className="absolute top-3 end-3 z-10"/>
+                    <LikeButton likeHandle={likeHandle} className="absolute top-3 end-3 z-10"/>
                         {(data && checkStock(data)) ? renderStatus() : ""}
                     {renderGuaranty()}
 

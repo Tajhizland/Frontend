@@ -13,7 +13,7 @@ import Timer from "@/components/Timer/Timer";
 import ProductCard3 from "@/components/Card/ProductCard3";
 import {CampaignResponse} from "@/services/types/campaign";
 import Image from "next/image";
-import {ProductResponse} from "@/services/types/product";
+import {ProductCardResponse} from "@/services/types/product";
 
 export interface SectionSliderProductCardProps {
     className?: string;
@@ -23,7 +23,7 @@ export interface SectionSliderProductCardProps {
     headingClassName?: string;
     subHeading?: string;
     timer?: string;
-    data?: ProductResponse[];
+    data?: ProductCardResponse[];
     campaign?: CampaignResponse;
 }
 

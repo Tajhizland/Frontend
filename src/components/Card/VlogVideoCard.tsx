@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import Link from "next/link";
 import {stripHTML} from "@/hooks/StripHtml";
-import {VlogResponse} from "@/services/types/vlog";
+import {VlogCardResponse} from "@/services/types/vlog";
 import MetaCard from "@/components/Card/MetaCard";
 import VideoPlayer2 from "@/shared/VideoPlayer/VideoPlayer2";
 import HlsVideoPlayer from "@/shared/VideoPlayer/HlsVideoPlayer";
@@ -9,7 +9,7 @@ import VideoPlayer from "@/shared/VideoPlayer/VideoPlayer";
 
 export interface Card12Props {
     className?: string;
-    data: VlogResponse
+    data: VlogCardResponse
 }
 
 const VlogVideoCard: FC<Card12Props> = ({className = "h-full", data}) => {

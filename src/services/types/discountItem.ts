@@ -4,6 +4,7 @@ import {DiscountResponse} from "@/services/types/discount";
 export type DiscountItemResponse = {
     id: number,
     product_color_id: number,
+    discount_id: number,
     discount_price: number,
     top: number,
     productColor?: ColorResponse,

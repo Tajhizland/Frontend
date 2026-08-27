@@ -2,7 +2,7 @@
 
 import React, { FC, useState, useRef } from "react";
 
-import { HomepageCategoryResponse } from "@/services/types/homepageCategory";
+import { HomePageCategoryResponse } from "@/services/types/homePage";
 import NcImage from "@/shared/NcImage/NcImage";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {CgSwap} from "react-icons/cg";
@@ -12,7 +12,7 @@ import NavItem from "@/components/Nav/NavItem";
 import ProductCard2 from "@/components/Card/ProductCard2";
 
 interface SectionHomepageCategoryProps {
-    data: HomepageCategoryResponse[];
+    data: HomePageCategoryResponse[];
 }
 
 const SectionHomepageCategory: FC<SectionHomepageCategoryProps> = ({ data }) => {
@@ -78,7 +78,7 @@ const SectionHomepageCategory: FC<SectionHomepageCategoryProps> = ({ data }) => 
                                             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
                                             alt="guaranty"
                                         /></div>
-                                        <span>{item.category.name}</span>
+                                        <span>{item.name}</span>
                                     </div>
                                 </NavItem>
                             ))}
@@ -93,21 +93,21 @@ const SectionHomepageCategory: FC<SectionHomepageCategoryProps> = ({ data }) => 
             </div>
 
             <div className="grid gap-2 lg:gap-8 grid-cols-2 sm:grid-cols-2 lg:hidden">
-                {data[tabActive]?.category?.products?.slice(0,4).map((product, index) => (
+                {data[tabActive]?.products?.slice(0,4).map((product, index) => (
                     <ProductCard2 data={product} key={index}/>
                 ))}
             </div>
             <div className="hidden lg:grid gap-2 lg:gap-8  lg:grid-cols-3 xl:hidden">
-                {data[tabActive]?.category?.products?.slice(0,6).map((product, index) => (
+                {data[tabActive]?.products?.slice(0,6).map((product, index) => (
                     <ProductCard2 data={product} key={index}/>
                 ))}
             </div>
             <div className="hidden xl:grid gap-2 lg:gap-8  xl:grid-cols-4">
-                {data[tabActive]?.category?.products?.map((product, index) => (
+                {data[tabActive]?.products?.map((product, index) => (
                     <ProductCard2 data={product} key={index}/>
                 ))}
             </div>
-            <ButtonPrimary className={"!flex justify-center w-fit mx-auto my-5"} href={"/category/"+data[tabActive]?.category.url}>
+            <ButtonPrimary className={"!flex justify-center w-fit mx-auto my-5"} href={"/category/" + (data[tabActive]?.url ?? "")}>
                 مشاهده همه
             </ButtonPrimary>
         </div>

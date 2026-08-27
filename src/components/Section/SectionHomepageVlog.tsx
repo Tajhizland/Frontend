@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {VlogResponse} from "@/services/types/vlog";
+import {VlogCardResponse} from "@/services/types/vlog";
 import VlogCard from "@/components/Card/VlogCard";
 import VlogVideoCard from "@/components/Card/VlogVideoCard";
 import BackgroundSection from "@/components/Section/BackgroundSection";
@@ -7,7 +7,7 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Heading from "@/components/Heading/Heading";
 
 export interface SectionMagazine5Props {
-    data: VlogResponse[]
+    data: VlogCardResponse[]
 }
 
 const SectionHomepageVlog: FC<SectionMagazine5Props> = ({data}) => {

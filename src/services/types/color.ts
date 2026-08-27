@@ -1,6 +1,28 @@
 import {ProductResponse} from "@/services/types/product";
 import {DiscountItemResponse} from "@/services/types/discountItem";
 
+export type DiscountItemCardResponse = {
+    id: number,
+    product_color_id: number,
+    discount_id: number,
+    discount_price: number,
+    discount_expire_time: string,
+    top: number,
+}
+
+/** نسخه سبک ColorResponse که در کارت محصول برمی‌گردد. */
+export type ProductColorCardResponse = {
+    id: number,
+    product_id: number,
+    color_name: string,
+    color_code: string,
+    delivery_delay: number,
+    status: number,
+    price: number,
+    stock: number,
+    discountItem?: DiscountItemCardResponse[],
+}
+
 export type ColorResponse = {
     id: number,
     product_id: number,

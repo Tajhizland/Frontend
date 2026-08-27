@@ -24,6 +24,7 @@ import TimerHMS from "@/components/Timer/TimerHMS";
 import {Metadata} from "next";
 import SectionTrustedBrand from "@/components/Section/SectionTrustedBrand";
 import SectionDesktopLinks from "@/components/Section/SectionDesktopLinks";
+import {HomePageResponse} from "@/services/types/homePage";
 
 export const dynamic = 'force-dynamic';
 
@@ -53,14 +54,43 @@ export async function generateMetadata(): Promise<Metadata> {
     }
 }
 
+const EMPTY_HOMEPAGE: HomePageResponse = {
+    campaign: null,
+    pending_campaign: null,
+    discount: null,
+    desktopSliders: [],
+    mobileSliders: [],
+    banners: [],
+    banners2: [],
+    banners3: [],
+    banners4: [],
+    banners5: [],
+    bannersStock: [],
+    bannersCast: [],
+    topDiscountedProducts: [],
+    specialProducts: [],
+    homepageCategories: [],
+    concepts: [],
+    brands: [],
+    trustedBrands: [],
+    posters: [],
+    vlogs: [],
+    news: [],
+};
+
 export default async function Homepage() {
-    let response: any = {};
+    let response: HomePageResponse = EMPTY_HOMEPAGE;
     try {
-        response = await homePage();
+        response = (await homePage()) ?? EMPTY_HOMEPAGE;
     } catch (e) {
         console.error("homePage API failed:", e);
-        response = {};
     }
+
+    const campaign = response.campaign;
+    const heroDesktop = campaign?.desktopSliders?.length ? campaign.desktopSliders : response.desktopSliders;
+    const heroMobile = campaign?.mobileSliders?.length ? campaign.mobileSliders : response.mobileSliders;
+    const heroBanners = campaign?.homepageBanner?.length ? campaign.homepageBanner : response.banners;
+    const twinBanners = campaign?.homepage2Banner?.length ? campaign.homepage2Banner : response.banners2;
 
     const structuredData = {
         "@context": "https://schema.org",
@@ -120,21 +150,11 @@ export default async function Homepage() {
                 }
 
                 <div className="hidden sm:block">
-                    {
-                        response.campaign && response.campaign.desktopSliders?.data && response.campaign.desktopSliders?.data.length > 0 ?
-                            <Hero data={response.campaign.desktopSliders?.data || []}/>
-                            :
-                            <Hero data={response.desktopSliders?.data || []}/>
-                    }
+                    <Hero data={heroDesktop}/>
                 </div>
                 <div className="block sm:hidden container">
                     <div className="rounded-2xl overflow-hidden !p-0">
-                        {
-                            response.campaign && response.campaign.mobileSliders?.data && response.campaign.mobileSliders?.data.length > 0 ?
-                                <MobileHero data={response.campaign.mobileSliders?.data || []}/>
-                                :
-                                <MobileHero data={response.mobileSliders?.data || []}/>
-                        }
+                        <MobileHero data={heroMobile}/>
                     </div>
                 </div>
                 <SectionDesktopLinks />
@@ -142,25 +162,20 @@ export default async function Homepage() {
 
                 {/* Banner Slider */}
                 <div className="dark:bg-neutral-900">
-                    {
-                        response.campaign && response.campaign.homepageBanner?.data && response.campaign.homepageBanner?.data.length > 0 ?
-                            <SectionBannerSlider data={response.campaign.homepageBanner?.data || []}/>
-                            :
-                            <SectionBannerSlider data={response.banners?.data || []}/>
-                    }
+                    <SectionBannerSlider data={heroBanners}/>
                 </div>
 
 
                 {/* New Discount Slider */}
-                {response.topDiscountedProducts?.data?.length > 0 && <div className="container my-0 px-5 lg:px-0 relative overflow-hidden">
+                {response.topDiscountedProducts.length > 0 && <div className="container my-0 px-5 lg:px-0 relative overflow-hidden">
                     <SectionNewDiscountSlider
-                        campaign={response?.campaign}
-                        timer={response?.discount?.discount_expire_time}
-                        data={response.topDiscountedProducts?.data || []}
+                        campaign={campaign ?? undefined}
+                        timer={response.discount?.discount_expire_time}
+                        data={response.topDiscountedProducts}
                         subHeading={""}
                     />
                     <div
-                        style={{backgroundColor: response.campaign ? response.campaign.background_color : "#fcb415"}}
+                        style={{backgroundColor: campaign ? campaign.background_color : "#fcb415"}}
                         className="absolute w-24 h-24 rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
                         <div className="w-20 h-20 bg-white rounded-full flex items-center justify-start">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={0.6}
@@ -172,52 +187,47 @@ export default async function Homepage() {
                 </div>}
 
 
-         {response.bannersCast?.data?.length > 0 &&
+         {response.bannersCast.length > 0 &&
                     <div className={"mt-5 lg:mt-10 container p-0"}> <SectionSingleBanner
                         w={"aspect-w-5 sm:aspect-w-13 lg:aspect-w-14"}
                         h={"aspect-h-1"}
-                        banner={response.bannersCast.data[0]}
+                        banner={response.bannersCast[0]}
                     />
                     </div>}
 
                 {/* Main Sections */}
                 <div className="container relative space-y-5 py-5 lg:space-y-10 lg:py-10 dark:bg-neutral-900">
-                    {
-                        response.campaign && response.campaign.homepage2Banner?.data && response.campaign.homepage2Banner?.data.length > 0 ?
-                            <SectionTwinBanner banners={response.campaign.homepage2Banner?.data || []}/>
-                            :
-                            <SectionTwinBanner banners={response.banners2?.data || []}/>
-                    }
+                    <SectionTwinBanner banners={twinBanners}/>
 
 
-                    {response.bannersStock?.data?.length > 0 &&
+                    {response.bannersStock.length > 0 &&
                         <SectionSingleBanner
                             w={"aspect-w-3 sm:aspect-w-4 lg:aspect-w-5"}
                             h={"aspect-h-1"}
-                            banner={response.bannersStock.data[0]}
+                            banner={response.bannersStock[0]}
                         />}
 
-                    <SectionBrand data={response.brands?.data || []}/>
+                    <SectionBrand data={response.brands}/>
                     <SectionSuggestProduct/>
                     <div className="relative py-5 lg:py-10">
                         <BackgroundSection/>
-                        <SectionConcept data={response.concepts?.data || []}/>
+                        <SectionConcept data={response.concepts}/>
                     </div>
-                    <SectionTwinBanner banners={response.banners3?.data || []}/>
+                    <SectionTwinBanner banners={response.banners3}/>
                     <div className="py-5 lg:py-10 border-t border-b border-slate-200 dark:border-slate-700">
                         <SectionPromoFeatures/>
                     </div>
-                    <SectionPromo1 logo={response.posters?.data?.[0]?.image || ""}/>
-                    <SectionHomepageCategory data={response.homepageCategories?.data || []}/>
-                    <SectionPromo2 logo={response.posters?.data?.[1]?.image || ""}/>
-                    <SectionSpecialSlider data={response.specialProducts?.data || []}/>
-                    <SectionTwinBanner banners={response.banners4?.data || []}/>
-                    <SectionHomepageVlog data={response.vlogs?.data || []}/>
-                    {response.banners5?.data?.length > 0 && <SectionSingleBanner banner={response.banners5.data[0]}/>}
+                    <SectionPromo1 logo={response.posters[0]?.image ?? ""}/>
+                    <SectionHomepageCategory data={response.homepageCategories}/>
+                    <SectionPromo2 logo={response.posters[1]?.image ?? ""}/>
+                    <SectionSpecialSlider data={response.specialProducts}/>
+                    <SectionTwinBanner banners={response.banners4}/>
+                    <SectionHomepageVlog data={response.vlogs}/>
+                    {response.banners5.length > 0 && <SectionSingleBanner banner={response.banners5[0]}/>}
                 </div>
 
-                <SectionHomepageBlog data={response.news?.data || []}/>
-                <SectionTrustedBrand data={response.trustedBrands?.data || []} />
+                <SectionHomepageBlog data={response.news}/>
+                <SectionTrustedBrand data={response.trustedBrands} />
               </div>
         </>
     );

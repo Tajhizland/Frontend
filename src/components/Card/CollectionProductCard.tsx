@@ -5,13 +5,13 @@ import Link from "next/link";
 import {ProductImageResponse} from "@/services/types/productImage";
 import Prices from "@/components/Price/Prices";
 import {ColorResponse} from "@/services/types/color";
-import {ProductResponse} from "@/services/types/product";
+import {ProductCardResponse} from "@/services/types/product";
 import Badge from "@/shared/Badge/Badge";
 
 export interface CollectionCard2Props {
     className?: string;
     imgs?: ProductImageResponse[] | undefined;
-    product?: ProductResponse;
+    product?: ProductCardResponse;
      name?: string;
     price?: number;
     description?: string;
@@ -30,7 +30,7 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
                                                              url,
                                                          }) => {
 
-    const checkStock = (product: ProductResponse) => {
+    const checkStock = (product: ProductCardResponse) => {
         let hasStock = false;
         product.colors.map((item) => {
             if (item.stock > 0 && item.status == 1) {
@@ -41,7 +41,7 @@ const CollectionProductCard: FC<CollectionCard2Props> = ({
         return hasStock;
     }
 
-    const renderMinPrice = (product: ProductResponse) => {
+    const renderMinPrice = (product: ProductCardResponse) => {
         let minPrice = product?.colors[0]?.price;
         let minDiscountedPrice = product.colors[0].price;
         product.colors.map((item) => {

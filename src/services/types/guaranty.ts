@@ -17,3 +17,12 @@ export interface GuarantyStoreDto extends GuarantyBase {
 }
 
 export type GuarantyUpdateDto = GuarantyStoreDto;
+
+/** نسخه سبک GuarantyResponse که در کارت محصول برمی‌گردد. */
+export interface GuarantyCardResponse {
+    id: number;
+    name: string;
+    url: string;
+    icon: string;
+    free: number;
+}

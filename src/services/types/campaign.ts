@@ -1,5 +1,6 @@
 import {Identified, Timestamps} from "@/services/http";
 import {CampaignSliderResponse} from "@/services/types/campaignSlider";
+import {CampaignBannerResponse} from "@/services/types/campaignBanner";
 
 export interface CampaignBase {
     title: string;
@@ -17,6 +18,11 @@ export interface CampaignResponse extends CampaignBase, Identified, Timestamps {
     start_date_fa: string;
     end_date_fa: string;
     sliders: CampaignSliderResponse[];
+    /** فقط در پاسخ صفحه اصلی (کمپین فعال) پر می‌شوند. */
+    desktopSliders?: CampaignSliderResponse[];
+    mobileSliders?: CampaignSliderResponse[];
+    homepageBanner?: CampaignBannerResponse[];
+    homepage2Banner?: CampaignBannerResponse[];
 }
 
 export interface CampaignStoreDto extends CampaignBase {

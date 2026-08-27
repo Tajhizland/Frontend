@@ -29,3 +29,14 @@ export interface NewsStoreDto extends NewsBase {
 }
 
 export type NewsUpdateDto = NewsStoreDto;
+
+/** حداقل فیلدهایی که کارت مقاله رندر می‌کند؛ content یک excerpt متنی است. */
+export type NewsCardResponse = {
+    id: number;
+    title: string;
+    url: string;
+    img: string;
+    content: string;
+    author: string;
+    created_at: string;
+};

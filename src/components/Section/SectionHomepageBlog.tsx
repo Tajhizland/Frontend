@@ -2,7 +2,7 @@
 
 import React, {FC} from "react";
 // @ts-ignore
-import {NewsResponse} from "@/services/types/news";
+import {NewsCardResponse} from "@/services/types/news";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
@@ -12,7 +12,7 @@ import MetaCard from "@/components/Card/MetaCard";
 export interface SectionHomepageBlogProps {
     className?: string;
     itemClassName?: string;
-    data?: NewsResponse[];
+    data?: NewsCardResponse[];
 }
 
 const SectionHomepageBlog: FC<SectionHomepageBlogProps> = ({

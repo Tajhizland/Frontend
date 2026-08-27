@@ -47,3 +47,17 @@ export interface VlogStoreDto extends VlogBase {
 }
 
 export type VlogUpdateDto = VlogStoreDto;
+
+/** حداقل فیلدهایی که کارت ولاگ رندر می‌کند؛ VlogResponse کامل هم با آن سازگار است. */
+export type VlogCardResponse = {
+    id: number;
+    title: string;
+    description: string;
+    url: string;
+    video: string;
+    hls: string | null;
+    poster: string;
+    view: number;
+    author: string;
+    created_at: string;
+};

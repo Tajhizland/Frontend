@@ -2,12 +2,12 @@ import React, {FC, ReactNode} from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
 import {stripHTML} from "@/hooks/StripHtml";
-import {VlogResponse} from "@/services/types/vlog";
+import {VlogCardResponse} from "@/services/types/vlog";
 import MetaCard from "@/components/Card/MetaCard";
 
 export interface Card13Props {
     className?: string;
-    data: VlogResponse;
+    data: VlogCardResponse;
 }
 
 const VlogCard: FC<Card13Props> = ({className = "", data}) => {

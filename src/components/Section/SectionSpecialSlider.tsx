@@ -5,7 +5,7 @@ import Heading from "@/components/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import Link from "next/link";
-import {SpecialProductResponse} from "@/services/types/specialProduct";
+import {ProductCardResponse} from "@/services/types/product";
 import {IoIosArrowDropleftCircle } from "react-icons/io";
 import CollectionProductCard from "@/components/Card/CollectionProductCard";
 
@@ -13,7 +13,7 @@ export interface SectionSpecialSliderProps {
     className?: string;
     itemClassName?: string;
     cardStyle?: "style1" | "style2";
-    data : SpecialProductResponse[];
+    data : ProductCardResponse[];
 }
 
 const SectionSpecialSlider: FC<SectionSpecialSliderProps> = ({
@@ -73,14 +73,14 @@ const SectionSpecialSlider: FC<SectionSpecialSliderProps> = ({
                         {data.map((product, index) => (
                             <li className={`glide__slide`} key={index}>
                                 <CollectionProductCard
-                                    name={product.product && product.product.name || ""}
-                                    product={product.product}
-                                    price={product.product && product.product.min_price || 0}
-                                     imgs={product.product && product.product.images || undefined}
-                                    description={product.product && product.product.description || ""}
-                                    url={product.product && product.product.url || ""}
-                                    review={product.product?.comments.length}
-                                    rating={product.product?.rating ?? 0}
+                                    name={product.name}
+                                    product={product}
+                                    price={product.min_price ?? 0}
+                                    imgs={product.images}
+                                    description={product.description}
+                                    url={product.url}
+                                    review={product.comments_count}
+                                    rating={product.rating ?? 0}
                                 />
                             </li>
                         ))}
