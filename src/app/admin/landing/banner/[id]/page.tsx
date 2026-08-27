@@ -1,149 +1,106 @@
-"use client"
+"use client";
+
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import {deleteItem, editDisplay, findById, getItems, setItem} from "@/services/api/admin/concept";
-import ButtonCircle from "@/shared/Button/ButtonCircle";
-import Spinner from "@/shared/Loading/Spinner";
 import Panel from "@/shared/Panel/Panel";
-import {useParams} from "next/navigation";
-import React, {useState} from "react";
-import {toast} from "react-hot-toast";
-import {useQuery, useQueryClient} from "react-query";
-import {categoryList} from "@/services/api/admin/category";
-import Select from "@/shared/Select/Select";
-import {TrashIcon} from "@heroicons/react/24/solid";
-import ConceptTab from "@/components/Tabs/ConceptTab";
-import Input from "@/shared/Input/Input";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {FaPen} from "react-icons/fa";
-import {
-    deleteLandingBanner,
-    deleteLandingCategory, getLandingBanner,
-    getLandingCategory,
-    getLandingProducts,
-    setCategoryLanding, setLandingBanner
-} from "@/services/api/admin/landing";
 import LandingTab from "@/components/Tabs/LandingTab";
-import NcImage from "@/shared/NcImage/NcImage";
+import Input from "@/shared/Input/Input";
+import Select from "@/shared/Select/Select";
 import Uploader from "@/shared/Uploader/Uploader";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import NcImage from "@/shared/NcImage/NcImage";
 import Badge from "@/shared/Badge/Badge";
+import { AttachedList } from "@/shared/AttachedList";
+import { deleteLandingBanner, getLandingBanner, setLandingBanner } from "@/services/api/admin/landing";
+import { useParams } from "next/navigation";
+import { useMutation } from "react-query";
+import { toast } from "react-hot-toast";
 
 export default function Page() {
-    const [selectedCategory, setSelectedCategory] = useState("0");
-    const {id} = useParams();
-    const queryClient = useQueryClient();
+    const { id } = useParams();
+    const landingId = Number(id);
 
-    const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`landing-banner`, Number(id)],
-        queryFn: () => getLandingBanner(Number(id)),
-        staleTime: 5000,
-    });
+    return (
+        <>
+            <Breadcrump
+                breadcrumb={[
+                    { title: "لندینگ", href: "landing" },
+                    { title: "ویرایش لندینگ", href: `landing/edit/${id}` },
+                    { title: "ویرایش بنر ها", href: `landing/banner/${id}` },
+                ]}
+            />
+            <Panel>
+                <LandingTab id={String(id)} />
+                <AttachedList
+                    layout="grid"
+                    addPosition="before"
+                    queryKey={["landing-banner", landingId]}
+                    queryFn={() => getLandingBanner(landingId)}
+                    itemKey={(item) => item.id}
+                    removeFn={(item) => deleteLandingBanner(item.id)}
+                    renderItem={(item) => (
+                        <>
+                            <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group w-full">
+                                <NcImage
+                                    alt="banner"
+                                    containerClassName="flex aspect-w-11 aspect-h-12 w-full h-full"
+                                    className="object-cover w-full h-full drop-shadow-xl"
+                                    fill
+                                    sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/landing-banner/${item.image}`}
+                                />
+                            </div>
+                            <span className="break-all text-center text-xs">{item.url}</span>
+                            {!!item.slider && <Badge name="اسلایدر" />}
+                        </>
+                    )}
+                    renderAdd={({ invalidate }) => <AddBanner landingId={landingId} onAdded={invalidate} />}
+                />
+            </Panel>
+        </>
+    );
+}
 
-
-    async function addItemHandle(e: FormData) {
-        if (selectedCategory == undefined)
-            return;
-        let response = await setLandingBanner({
-            url: e.get("url") as string,
-            slider: Number(e.get("slider")),
-            image: e.get("image") as File,
-            landing_id: Number(id)
-        })
-        if (response?.success) {
-            queryClient.refetchQueries(['landing-banner', Number(id)]);
-            toast.success(response?.message as string);
-        }
-    }
-
-    async function deleteItemHandle(id: number) {
-        let response = await deleteLandingBanner(id)
-        if (response?.success) {
-            queryClient.refetchQueries(['landing-banner', Number(id)]);
-            toast.success(response?.message as string);
-        }
-    }
-
-
-    return (<>
-        <Breadcrump breadcrumb={[
-            {
-                title: "لندینگ",
-                href: "landing"
+function AddBanner({ landingId, onAdded }: { landingId: number; onAdded: () => void }) {
+    const mutation = useMutation(
+        (form: FormData) =>
+            setLandingBanner({
+                url: form.get("url") as string,
+                slider: Number(form.get("slider")),
+                image: form.get("image") as File,
+                landing_id: landingId,
+            }),
+        {
+            onSuccess: (response) => {
+                toast.success(response?.message as string);
+                onAdded();
             },
-            {
-                title: "ویرایش لندینگ",
-                href: "landing/edit/" + id
+            onError: () => {
+                toast.error("افزودن بنر انجام نشد");
             },
-            {
-                title: "ویرایش  آیتم ها",
-                href: "landing/items/" + id
-            }
-        ]}/>
-        <Panel>
+        }
+    );
 
-            <LandingTab id={id + ""}/>
-
-            <form action={addItemHandle}>
-                <div className={"grid grid-cols-1 sm:grid-cols-2 gap-5  justify-between items-center gap-x-10"}>
-
-                    <div>
-                        <label>آدرس</label>
-                        <Input name={"url"}/>
-                    </div>
-                    <div>
-                        <label>اسلایدر</label>
-                        <Select name={"slider"}>
-                            <option value={1}>بله</option>
-                            <option value={0}>خیر</option>
-                        </Select>
-                    </div>
-                    <div className={" sm:col-span-2"}>
-                        <Uploader name={"image"}/>
-                    </div>
-
+    return (
+        <form action={(form) => mutation.mutate(form)}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 justify-between items-center gap-x-10">
+                <div>
+                    <label>آدرس</label>
+                    <Input name="url" />
                 </div>
-                <ButtonPrimary className={"w-full mt-5"}>
-                    آپلود
-                </ButtonPrimary>
-
-            </form>
-            {
-                isLoading ? <Spinner/> : <>
-                    <div className="grid grid-cols-2 sm:grid-cols-4">
-
-                        {
-                            data?.map((item, index) => (<>
-                                    <div className={"flex justify-between items-center  gap-x-10"}>
-                                        <div className="flex flex-col justify-center items-center gap-y-4 ">
-                                            <div
-                                                className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group w-96 h-96">
-                                                <NcImage
-                                                    alt={"file"}
-                                                    containerClassName="flex aspect-w-11 aspect-h-12 w-full h-full"
-                                                    className="object-cover w-full h-full drop-shadow-xl"
-                                                    fill
-                                                    sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/landing-banner/${item.image}`}
-                                                />
-                                            </div>
-                                            <span>
-                                {item.url}
-                            </span>
-                                            {item.slider && <Badge name={"اسلایدر"}/>}
-
-                                            <TrashIcon className="w-8 h-8 text-red-500 cursor-pointer" onClick={() => {
-                                                deleteItemHandle(item.id)
-                                            }}/>
-                                        </div>
-                                    </div>
-                                </>
-                            ))
-                        }
-
-
-                    </div>
-                </>
-            }
-        </Panel>
-
-    </>)
+                <div>
+                    <label>اسلایدر</label>
+                    <Select name="slider">
+                        <option value={1}>بله</option>
+                        <option value={0}>خیر</option>
+                    </Select>
+                </div>
+                <div className="sm:col-span-2">
+                    <Uploader name="image" />
+                </div>
+            </div>
+            <ButtonPrimary className="w-full mt-5" loading={mutation.isLoading}>
+                آپلود
+            </ButtonPrimary>
+        </form>
+    );
 }
