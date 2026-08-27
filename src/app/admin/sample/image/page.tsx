@@ -4,7 +4,8 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
 import {TrashIcon} from "@heroicons/react/24/solid";
 import Image from "next/image";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import {toast} from "react-hot-toast";
 import {useState} from "react";
 import {deleteImage, getImages, uploadImage} from "@/services/api/admin/sample";
@@ -14,30 +15,21 @@ import PageLink from "@/shared/PageLink/PageLink";
 import Link from "next/link";
 
 export default function Page() {
-    const queryClient = useQueryClient();
     const [files, setFiles] = useState<File[]>([]);
     const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`sample_image`],
+        queryKey: ["sample-image"],
         queryFn: () => getImages(),
         staleTime: 5000,
     });
 
-    async function submit(e: FormData) {
-        const formData = new FormData();
+    const uploadMutation = useApiMutation(
+        (form: FormData) => uploadImage(form.get("image") as File),
+        {invalidate: [["sample-image"]]}
+    );
 
-        let response = await uploadImage(e.get("image") as File)
-        if (response?.success) {
-            queryClient.refetchQueries(['sample_image']);
-            toast.success(response?.message as string);
-        }
-    }
-    async function removeImage(id:number) {
-        let response = await deleteImage(id)
-        if (response?.success) {
-            queryClient.refetchQueries(['sample_image']);
-            toast.success(response?.message as string);
-        }
-    }
+    const removeMutation = useApiMutation((imageId: number) => deleteImage(imageId), {
+        invalidate: [["sample-image"]],
+    });
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -58,7 +50,7 @@ export default function Page() {
                 </Link>
             </PageLink>
             <div className="flex flex-col gap-y-4">
-                <form action={submit}>
+                <form action={(form) => uploadMutation.mutate(form)}>
 
                     <Uploader name={"image"}
                               //@ts-ignore
@@ -76,7 +68,7 @@ export default function Page() {
                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/sample/${item.image}`}
 
                                 alt={"image"} width={720} height={100} className="w-full h-full"/>
-                            <TrashIcon className="w-8 h-8 text-red-500 cursor-pointer " onClick={()=>{removeImage(item.id)}}/>
+                            <TrashIcon className="w-8 h-8 text-red-500 cursor-pointer " onClick={()=>{removeMutation.mutate(item.id)}}/>
                         </div>
                     </>))
                 }

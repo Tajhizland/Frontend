@@ -5,11 +5,11 @@ import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
 import {Controller, useForm} from "react-hook-form";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import {MenuResponse} from "@/services/types/menu";
 import {useQuery} from "react-query";
 import {deleteBanner, menuList} from "@/services/api/admin/menu";
 import {TrashIcon} from "@heroicons/react/24/solid";
-import {toast} from "react-hot-toast";
 import {categoryList} from "@/services/api/admin/category";
 import Label from "@/shared/Label/Label";
 import ImageField from "@/shared/Uploader/ImageField";
@@ -65,15 +65,9 @@ export default function Form({data, onSubmit, loading, progress, resetOnSuccess}
         },
     });
 
-    const deleteBannerHandle = async () => {
-        if (data?.id) {
-            let response = await deleteBanner(data.id);
-            if (response?.success) {
-                toast.success(response?.message as string);
-                window.location.reload();
-            }
-        }
-    };
+    const deleteBannerMutation = useApiMutation(() => deleteBanner(Number(data?.id)), {
+        invalidate: [["menu-info", Number(data?.id)], ["table"]],
+    });
 
     return (
         <form
@@ -148,7 +142,7 @@ export default function Form({data, onSubmit, loading, progress, resetOnSuccess}
                     {data?.banner_logo && (
                         <button
                             type="button"
-                            onClick={() => deleteBannerHandle()}
+                            onClick={() => data?.id && deleteBannerMutation.mutate()}
                             className="mt-2 inline-flex items-center gap-1 text-xs text-rose-600 hover:underline"
                         >
                             <TrashIcon className={"w-4 h-4 text-red-500"} />

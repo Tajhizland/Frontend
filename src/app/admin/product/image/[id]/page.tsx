@@ -8,7 +8,8 @@ import Uploader from "@/shared/Uploader/Uploader";
 import {TrashIcon} from "@heroicons/react/24/solid";
 import Image from "next/image";
 import {useParams} from "next/navigation";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import {toast} from "react-hot-toast";
 import MultiUploader from "@/shared/Uploader/MultiUploader";
 import {useState} from "react";
@@ -19,11 +20,10 @@ import Link from "next/link";
 
 export default function Page() {
     const {id} = useParams();
-    const queryClient = useQueryClient();
     const [files, setFiles] = useState<File[]>([]);
     const [savingColorFor, setSavingColorFor] = useState<number | null>(null);
     const {data: data, isLoading: isLoading} = useQuery({
-        queryKey: [`product_image`, Number(id)],
+        queryKey: ["product-image", Number(id)],
         queryFn: () => getByProductId(Number(id)),
         staleTime: 5000,
     });
@@ -34,41 +34,32 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    async function submit(e: FormData) {
-        const formData = new FormData();
-        files.forEach((file) => {
-            formData.append("image", file);
-        });
+    const queryKey = ["product-image", Number(id)];
 
-        let response = await upload({product_id: Number(id), image: formData.getAll("image") as File[]})
-        if (response?.success) {
-            queryClient.refetchQueries(['product_image', Number(id)]);
-            toast.success(response?.message as string);
-        }
-    }
-    async function removeImage(id:number) {
-        let response = await remove(id)
-        if (response?.success) {
-            queryClient.refetchQueries(['product_image', Number(id)]);
-            toast.success(response?.message as string);
-        }
-    }
+    const uploadMutation = useApiMutation(() => upload({product_id: Number(id), image: files}), {
+        invalidate: [queryKey],
+        onSuccess: () => setFiles([]),
+    });
 
-    async function changeImageColor(imageId: number, colorId: string) {
-        setSavingColorFor(imageId);
-        try {
-            let response = await setImageColor({
+    const removeMutation = useApiMutation((imageId: number) => remove(imageId), {invalidate: [queryKey]});
+
+    const colorMutation = useApiMutation(
+        ({imageId, colorId}: {imageId: number; colorId: string}) =>
+            setImageColor({
                 product_id: Number(id),
-                image: [{id: imageId, product_color_id: colorId ? Number(colorId) : null}]
-            });
-            if (response?.success) {
-                queryClient.refetchQueries(['product_image', Number(id)]);
-                toast.success(response?.message as string);
-            }
-        } finally {
-            setSavingColorFor(null);
+                image: [{id: imageId, product_color_id: colorId ? Number(colorId) : null}],
+            }),
+        {
+            invalidate: [queryKey],
+            onSuccess: () => setSavingColorFor(null),
+            onError: () => setSavingColorFor(null),
         }
-    }
+    );
+
+    const changeImageColor = (imageId: number, colorId: string) => {
+        setSavingColorFor(imageId);
+        colorMutation.mutate({imageId, colorId});
+    };
 
     const { data: productInfo } = useQuery({
         queryKey: [`product-info`],
@@ -98,7 +89,7 @@ export default function Page() {
                 </ButtonPrimary>
             </Link>
             <div className="flex flex-col gap-y-4">
-                <form action={submit}>
+                <form action={() => uploadMutation.mutate()}>
                     {/*<Uploader name={"image"}/>*/}
                     <MultiUploader name={"image"}  onFilesSelected={setFiles}/>
 
@@ -145,7 +136,7 @@ export default function Page() {
                                 </div>
                             </div>
 
-                            <TrashIcon className="w-8 h-8 text-red-500 cursor-pointer " onClick={()=>{removeImage(item.id)}}/>
+                            <TrashIcon className="w-8 h-8 text-red-500 cursor-pointer " onClick={()=>{removeMutation.mutate(item.id)}}/>
                         </div>
                     </>))
                 }

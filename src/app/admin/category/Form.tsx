@@ -9,10 +9,10 @@ import {useQuery, useQueryClient} from "react-query";
 import Uploader from "@/shared/Uploader/Uploader";
 import {CategoryResponse} from "@/services/types/category";
 import {TrashIcon} from "@heroicons/react/24/solid";
-import {toast} from "react-hot-toast";
 import Image from "next/image";
 import SunEditors from "@/shared/Editor/SunEditors";
 import {Controller, useForm} from "react-hook-form";
+import {useApiMutation} from "@/hooks/useApiMutation";
 
 interface productForm {
     data?: CategoryResponse;
@@ -28,15 +28,9 @@ export default function Form({data, submit}: productForm) {
         staleTime: 5000,
     });
 
-    async function deleteImageHandle() {
-        if (!data)
-            return;
-        let response = await deleteImage(data?.id)
-        if (response?.success) {
-            toast.success(response.message as string);
-            queryClient.invalidateQueries([`category-info`, Number(data?.id)]);
-        }
-    }
+    const deleteImageMutation = useApiMutation(() => deleteImage(Number(data?.id)), {
+        invalidate: [["category-info", Number(data?.id)]],
+    });
 
     const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
         defaultValues: {
@@ -154,7 +148,7 @@ export default function Form({data, submit}: productForm) {
                     </div>
                     <span>
                             <TrashIcon className={"w-8 h-8 text-red-500 cursor-pointer"}
-                                       onClick={() => deleteImageHandle()}/>
+                                       onClick={() => data && deleteImageMutation.mutate()}/>
                         </span>
                 </div>}
             </div>
