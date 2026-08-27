@@ -7,7 +7,7 @@ import {addItemToCart, decreaseItem, increaseItem, removeItem} from "@/services/
 import {StarIcon} from "@heroicons/react/24/solid";
 import {toast} from "react-hot-toast";
 import {ProductResponse} from "@/services/types/product";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 import {ClockIcon, NoSymbolIcon, SparklesIcon} from "@heroicons/react/24/outline";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
@@ -115,7 +115,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
             return null;
         return (<div
             style={{backgroundColor: campaign.background_color}}
-            className={"flex justify-between items-center w-full rounded p-2"}>
+            className={"flex justify-between items-center w-full rounded-sm p-2"}>
             <div>
                 <Image width={150}
                        height={50}
@@ -201,7 +201,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                             }}
                                  key={index} className={`flex gap-5 items-center  `}>
                                 <div
-                                    className={"w-10 flex-shrink-0"}
+                                    className={"w-10 shrink-0"}
                                 ><NcImage
                                     containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${item?.icon}`}
@@ -211,7 +211,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                                     alt="guaranty"
                                 /></div>
                                 <small
-                                    className={`text-xs  max-w-xs flex-shrink-0 ${selectedGuaranty.id == item.id ? "text-primary-6000" : "text-slate-600 dark:text-white"}`}>
+                                    className={`text-xs  max-w-xs shrink-0 ${selectedGuaranty.id == item.id ? "text-primary-6000" : "text-slate-600 dark:text-white"}`}>
                                     {item.name}
                                 </small>
 
@@ -227,7 +227,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                         </div>
                         {item.id == selectedGuaranty.id && selectedGuaranty && selectedGuaranty?.description && selectedGuaranty?.description != "null" &&
                             <div
-                                className={"text-xs text-primary-6000  flex-shrink-0 rounded-2xl p-2 max-w-sm "}>
+                                className={"text-xs text-primary-6000  shrink-0 rounded-2xl p-2 max-w-sm "}>
                                 <div dangerouslySetInnerHTML={{__html: (selectedGuaranty.description)}}/>
                             </div>}
                     </Fragment>
@@ -380,7 +380,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                             className="flex items-center text-sm font-medium"
                         >
                             <div className="">
-                                <StarIcon className="w-5 h-5 pb-[1px] text-orange-400"/>
+                                <StarIcon className="w-5 h-5 pb-px text-orange-400"/>
                             </div>
                             <span className="mr-1.5 flex">
                                 <span>{product.rating} </span>
@@ -426,7 +426,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                     </div>
                     {checkColorInCart() == 0 && selectedCount > 0 && <ButtonPrimary
                         onClick={addToCartHandle}
-                        className="flex-1 flex-shrink-0"
+                        className="flex-1 shrink-0"
                     >
                         <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
                         <span className="mr-3">افزودن به سبد خرید</span>
@@ -458,7 +458,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                     className={"fixed bottom-20 right-2 flex items-center lg:hidden rounded-3xl z-40 bg-white shadow-xl pl-4  gap-2 border w-[18rem]"}>
                     {(checkColorInCart() == 0 && selectedCount > 0) ? <ButtonPrimary
                             onClick={addToCartHandle}
-                            className="flex-1 flex-shrink-0 !rounded-l-none"
+                            className="flex-1 shrink-0 rounded-l-none!"
                         >
                             <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
                             <span className="  text-sm whitespace-nowrap">افزودن به سبد خرید</span>

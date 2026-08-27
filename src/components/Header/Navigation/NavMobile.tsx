@@ -80,7 +80,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
                 className="flex w-full items-center py-2.5 px-4 font-medium uppercase tracking-wide text-sm hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
                 <Disclosure.Button
                     as="div"
-                    className="flex justify-between flex-grow "
+                    className="flex justify-between grow "
                 >
                    برند ها
                     <ChevronDownIcon
@@ -147,7 +147,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
                     className="flex w-full items-center py-2.5 px-4 font-medium uppercase tracking-wide text-sm hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
                     <Disclosure.Button
                         as="div"
-                        className="flex justify-between flex-grow "
+                        className="flex justify-between grow "
                     >
                         {item.title}
                         <ChevronDownIcon
@@ -202,7 +202,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
                     <input
                         type="search"
                         placeholder="عبارت مورد نظر خود را  جستجو کنید"
-                        className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-sm "
+                        className="border-none bg-transparent focus:outline-hidden focus:ring-0 w-full text-sm "
                     />
                 </div>
                 <input type="submit" hidden value=""/>

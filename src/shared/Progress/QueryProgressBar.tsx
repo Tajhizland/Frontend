@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useEffect, useRef, useState} from "react";
-import {useIsFetching, useIsMutating} from "react-query";
+import {useIsFetching, useIsMutating} from "@tanstack/react-query";
 
 /**
  * نوار پیشرفت سراسری (سبک nprogress) که به فعالیت react-query وصل است:
@@ -43,9 +43,9 @@ export default function QueryProgressBar() {
     if (!visible) return null;
 
     return (
-        <div className="fixed top-0 inset-x-0 z-[60] h-[3px] pointer-events-none">
+        <div className="fixed top-0 inset-x-0 z-60 h-[3px] pointer-events-none">
             <div
-                className="h-full bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500 rounded-r-full shadow-[0_0_10px_rgba(56,189,248,0.7)] transition-all duration-300 ease-out"
+                className="h-full bg-linear-to-r from-sky-400 via-blue-500 to-indigo-500 rounded-r-full shadow-[0_0_10px_rgba(56,189,248,0.7)] transition-all duration-300 ease-out"
                 style={{width: `${progress}%`, opacity: progress >= 100 ? 0 : 1}}
             />
         </div>

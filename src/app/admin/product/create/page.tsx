@@ -7,7 +7,7 @@ import Form from "@/app/admin/product/Form";
 import {store, update} from "@/services/api/admin/product";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 
 export default function Page() {
     const [colorCount, setColorCount] = useState(1)

@@ -17,7 +17,7 @@ import { CategoryResponse } from "@/services/types/category";
 import { HomepageCategoryResponse } from "@/services/types/homepageCategory";
 import { IoLogoApple } from "react-icons/io";
 import { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 export default function Page() {
@@ -26,19 +26,17 @@ export default function Page() {
     const [iconModal, setIconModal] = useState(false);
     const [iconTargetId, setIconTargetId] = useState<number>();
 
-    const iconMutation = useMutation(
-        (form: FormData) => setIcon(Number(iconTargetId), { icon: form.get("icon") as File }),
-        {
-            onSuccess: (response) => {
+    const iconMutation = useMutation({
+        mutationFn: (form: FormData) => setIcon(Number(iconTargetId), { icon: form.get("icon") as File }),
+        onSuccess: (response) => {
                 toast.success(response?.message as string);
-                queryClient.invalidateQueries(["table"]);
+                queryClient.invalidateQueries({ queryKey: ["table"] });
                 setIconModal(false);
             },
             onError: () => {
                 toast.error("آپلود آیکن انجام نشد");
             },
-        }
-    );
+    });
 
     const actions = defineActions<HomepageCategoryResponse>([
         {
@@ -71,7 +69,7 @@ export default function Page() {
                         renderContent={() => (
                             <form action={(form) => iconMutation.mutate(form)} className="mt-5">
                                 <Uploader name="icon" />
-                                <ButtonPrimary className="mt-10" loading={iconMutation.isLoading}>
+                                <ButtonPrimary className="mt-10" loading={iconMutation.isPending}>
                                     آپلود
                                 </ButtonPrimary>
                             </form>

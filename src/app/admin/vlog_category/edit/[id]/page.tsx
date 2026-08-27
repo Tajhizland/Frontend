@@ -7,7 +7,7 @@ import Form, {VlogCategoryFormValues} from "@/app/admin/vlog_category/Form";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 import {findById, update} from "@/services/api/admin/vlogCategory";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import PageTab from "@/components/Tabs/PageTab";
 import {useState} from "react";
 
@@ -49,7 +49,7 @@ export default function Page() {
                 <PageTab id={id + ""} />
                 <div>
                     {!isLoading && (
-                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isLoading} progress={progress} />
+                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isPending} progress={progress} />
                     )}
                 </div>
             </Panel>

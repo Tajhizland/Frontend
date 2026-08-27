@@ -14,11 +14,11 @@ const CompareBar: React.FC<Props> = ({ items, onOpen, onClear }) => {
     if (!items.length) return null;
 
     return (
-        <div className="rounded-2xl overflow-hidden whitespace-nowrap fixed z-50 md:right-1/2 md:translate-x-1/2 border bottom-[70px] right-2 sm:right-1/2 sm:translate-x-1/2 w-fit bg-white bg-opacity-80 p-1 sm:p-3 shadow-lg">
+        <div className="rounded-2xl overflow-hidden whitespace-nowrap fixed z-50 md:right-1/2 md:translate-x-1/2 border bottom-[70px] right-2 sm:right-1/2 sm:translate-x-1/2 w-fit bg-white/80  p-1 sm:p-3 shadow-lg">
             <div className="flex gap-2 sm:gap-4 relative">
                 <div
                     onClick={onOpen}
-                    className="flex flex-col gap-1 rounded-r-2xl flex-shrink-0 justify-center items-center text-black shadow-xl bg-[#fcb415] w-16 sm:w-20 h-16 sm:h-20 font-bold text-xs sm:text-sm cursor-pointer hover:bg-opacity-80 text-center"
+                    className="flex flex-col gap-1 rounded-r-2xl shrink-0 justify-center items-center text-black shadow-xl hover:bg-[#fcb415]/80 w-16 sm:w-20 h-16 sm:h-20 font-bold text-xs sm:text-sm cursor-pointer  text-center"
                 >
                     مقایسه
                     <br />

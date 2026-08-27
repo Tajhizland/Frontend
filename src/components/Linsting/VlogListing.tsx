@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import {VlogListingResponse} from "@/services/types/vlog";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { getVlogPaginated } from "@/services/api/shop/vlog";
 import { VlogResponse } from "@/services/types/vlog";
 import Link from "next/link";
@@ -32,15 +32,16 @@ export default function VlogListing({ response, search }: { response: VlogListin
         fetchNextPage,
         hasNextPage,
         isFetchingNextPage,
-    } = useInfiniteQuery(
-        ["vlogs", filter], // فیلترها را در queryKey ارسال می‌کنیم
-        async ({ pageParam = 1, queryKey }) => {
+    } = useInfiniteQuery({
+        queryKey: ["vlogs", filter],
+        queryFn: // فیلترها را در queryKey ارسال می‌کنیم
+        async ({ pageParam, queryKey }) => {
             const filters = queryKey[1]; // دریافت فیلترها از queryKey
             const result = await getVlogPaginated(pageParam, filters);
             return result.listing;
         },
-        {
-            initialData: {
+        initialPageParam: 1,
+        initialData: {
                 pages: [response.listing],
                 pageParams: [1],
             },
@@ -51,8 +52,7 @@ export default function VlogListing({ response, search }: { response: VlogListin
                     ? lastPage?.meta?.current_page + 1
                     : undefined,
             refetchOnWindowFocus: false,
-        }
-    );
+    });
 
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
@@ -118,7 +118,7 @@ export default function VlogListing({ response, search }: { response: VlogListin
                                               className={"rounded-xl whitespace-nowrap text-sm font-bold flex flex-col gap-1 items-center"}>
                                             {
                                                 item?.icon ?
-                                                    <div className="flex-shrink-0 w-64 rounded-2xl overflow-hidden hover:shadow ">
+                                                    <div className="shrink-0 w-64 rounded-2xl overflow-hidden hover:shadow-sm ">
                                                         <NcImage
                                                             containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
                                                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog-category/${item.icon}`}
@@ -149,7 +149,7 @@ export default function VlogListing({ response, search }: { response: VlogListin
                                               className={"rounded-xl whitespace-nowrap text-sm font-bold flex flex-col gap-1 items-center"}>
                                             {
                                                 item?.icon ?
-                                                    <div className="flex-shrink-0 w-full rounded-2xl overflow-hidden hover:shadow ">
+                                                    <div className="shrink-0 w-full rounded-2xl overflow-hidden hover:shadow-sm ">
                                                         <NcImage
                                                             containerClassName="flex aspect-w-15 aspect-h-9 w-full h-0"
                                                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog-category/${item.icon}`}
@@ -198,7 +198,7 @@ export default function VlogListing({ response, search }: { response: VlogListin
 
                     </main>
                     {/* HEADING */}
-                    <div className="max-w-screen-sm">
+                    <div className="max-w-[var(--breakpoint-sm)]">
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             تجهیزلند ولاگ
                         </h2>

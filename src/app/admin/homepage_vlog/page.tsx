@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { getHomepageVlog, updateHomepageVlog } from "@/services/api/admin/homepageVlog";
 import { search } from "@/services/api/admin/vlog";
@@ -29,10 +29,11 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    const saveMutation = useMutation(() => updateHomepageVlog(slot, { vlogId: Number(picked?.id) }), {
+    const saveMutation = useMutation({
+        mutationFn: () => updateHomepageVlog(slot, { vlogId: Number(picked?.id) }),
         onSuccess: (response) => {
             toast.success(response?.message as string);
-            queryClient.invalidateQueries(QUERY_KEY);
+            queryClient.invalidateQueries({ queryKey: QUERY_KEY });
         },
         onError: () => {
             toast.error("ذخیره انجام نشد");
@@ -70,8 +71,8 @@ export default function Page() {
                 <span className="text-sm text-slate-500">{picked ? picked.title : "ولاگی انتخاب نشده"}</span>
                 <ButtonSecondary onClick={() => setShowModal(true)}>انتخاب ولاگ</ButtonSecondary>
                 <ButtonPrimary
-                    disabled={!picked || saveMutation.isLoading}
-                    loading={saveMutation.isLoading}
+                    disabled={!picked || saveMutation.isPending}
+                    loading={saveMutation.isPending}
                     onClick={() => saveMutation.mutate()}
                 >
                     ذخیره

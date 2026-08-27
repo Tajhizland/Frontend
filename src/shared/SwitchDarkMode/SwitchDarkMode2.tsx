@@ -17,7 +17,7 @@ const SwitchDarkMode2: React.FC<SwitchDarkMode2Props> = ({
         checked={isDarkMode}
         onChange={_toogleDarkMode}
         className={`${isDarkMode ? "bg-teal-600" : "bg-teal-900"}
-          relative inline-flex h-[22px] w-[42px] shrink-0 cursor-pointer rounded-full border-4 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+          relative inline-flex h-[22px] w-[42px] shrink-0 cursor-pointer rounded-full border-4 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden focus-visible:ring-2  focus-visible:ring-white/75 `}
       >
         <span className="sr-only">Enable dark mode</span>
         <span

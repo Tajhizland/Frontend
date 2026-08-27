@@ -6,7 +6,7 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form, {OptionFormValues} from "@/app/admin/option/Form";
 import {store} from "@/services/api/admin/option";
 import toast from "react-hot-toast";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 
 export default function Page() {
     const mutation = useMutation({
@@ -34,7 +34,7 @@ export default function Page() {
             <Panel>
                 <PageTitle>افزودن ویژگی</PageTitle>
                 <div>
-                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isLoading} resetOnSuccess />
+                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isPending} resetOnSuccess />
                 </div>
             </Panel>
         </>

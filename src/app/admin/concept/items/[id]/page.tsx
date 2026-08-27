@@ -7,7 +7,7 @@ import Panel from "@/shared/Panel/Panel";
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import { categoryList } from "@/services/api/admin/category";
 import Select from "@/shared/Select/Select";

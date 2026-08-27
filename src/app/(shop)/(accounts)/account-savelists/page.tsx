@@ -1,5 +1,5 @@
 "use client";
-import {useInfiniteQuery} from "react-query";
+import {useInfiniteQuery} from "@tanstack/react-query";
 import {getFavorite} from "@/services/api/shop/favorite";
 import React, {useRef, useEffect} from "react";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
@@ -15,22 +15,21 @@ const AccountSavelists = () => {
         hasNextPage,
         isFetchingNextPage,
         isLoading,
-    } = useInfiniteQuery(
-        ["get_favorite"],
-        async ({pageParam = 1}) => {
+    } = useInfiniteQuery({
+        queryKey: ["get_favorite"],
+        queryFn: async ({pageParam}) => {
             const result = await getFavorite(pageParam);
             return result;
         },
-        {
-            //@ts-ignore
+        initialPageParam: 1,
+        //@ts-ignore
             getNextPageParam: (lastPage) =>
                 //@ts-ignore
                 lastPage?.meta?.current_page < lastPage?.meta?.last_page
                     //@ts-ignore
                     ? lastPage?.meta?.current_page + 1
                     : undefined,
-        }
-    );
+    });
 
     useEffect(() => {
         if (observer.current) observer.current.disconnect();

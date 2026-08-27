@@ -4,12 +4,12 @@ import {NoSymbolIcon, CheckIcon} from "@heroicons/react/24/outline";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {getCart} from "@/services/api/shop/cart";
 import {decreaseItem, increaseItem, removeItem} from "@/services/cart/cartActions";
 import {CartResponse} from "@/services/types/cart";
 import {setCart, useCart, useUser} from "@/services/globalState/GlobalState";
-import {Fragment, useMemo} from "react";
+import {Fragment, useMemo, useEffect} from "react";
 import {Alert} from "@/shared/Alert/Alert";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import Prices from "@/components/Price/Prices";
@@ -24,10 +24,12 @@ const CartPage = () => {
         queryFn: () => getCart(),
         staleTime: 5000,
         enabled: !!user,
-        onSuccess: (cartData) => {
-            setCart(cartData);
-        }
     });
+
+    // TanStack Query v5 removed onSuccess/onError from useQuery; side effects live in an effect.
+    useEffect(() => {
+        if (isSuccess && data) setCart(data);
+    }, [isSuccess, data]);
 
 
     function increaseHandle(selectedColorId: number, guarantyId: number | undefined) {
@@ -77,7 +79,7 @@ const CartPage = () => {
                     key={index}
                     className="relative flex py-8 sm:py-10 xl:py-12 first:pt-0 last:pb-0"
                 >
-                    <div className="relative h-24 w-24   flex-shrink-0 overflow-hidden rounded-xl  ">
+                    <div className="relative h-24 w-24   shrink-0 overflow-hidden rounded-xl  ">
                         <Image
                             fill
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`}
@@ -233,7 +235,7 @@ const CartPage = () => {
                         {cart && cart.map(renderProduct)}
                     </div>
                     <div
-                        className="border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 my-10 lg:my-0 lg:mx-10 xl:mx-16 2xl:mx-20 flex-shrink-0"></div>
+                        className="border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 my-10 lg:my-0 lg:mx-10 xl:mx-16 2xl:mx-20 shrink-0"></div>
                     <div className="flex-1">
                         <div className="sticky top-28">
                             <h3 className="text-lg font-semibold ">مشخصات سفارش</h3>

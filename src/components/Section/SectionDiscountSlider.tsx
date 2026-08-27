@@ -106,7 +106,7 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
                 </div>
                 <div className={"bg-[#fcb415] p-5 rounded-2xl relative mt-5"}>
                     <div
-                        className={"bg-[#fcb415] rounded-t-3xl absolute -top-[4.8rem] sm:-top-[4.3rem] sm:px-8 py-5 right-1 sm:right-[25%] md:right-[35%]"}>
+                        className={"bg-[#fcb415] rounded-t-3xl absolute top-[-4.8rem] sm:-top-[4.3rem] sm:px-8 py-5 right-1 sm:right-[25%] md:right-[35%]"}>
                         <div className={"flex items-center gap-2 sm:gap-5"}>
                             <h2 className={"font-bold text-sm sm:text-lg text-black"}>محصولات پر تخفیف</h2>
                             {timer && <Timer date={timer}/>}
@@ -123,7 +123,7 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
                     </div>
                     <div className="glide__track " data-glide-el="track" style={{direction: "rtl"}}>
 
-                        <ul className="glide__slides  flex-grow flex items-center">
+                        <ul className="glide__slides  grow flex items-center">
                             {data && data.map((item, index) => (
                                 <li key={index}
                                     className={`glide__slide  rounded-3xl overflow-hidden ${itemClassName}`}>
@@ -150,7 +150,7 @@ const SectionDiscountSlider: FC<SectionSliderProductCardProps> = ({
                                     <Link
                                         title={"all"}
                                         href={"/product/discounted"}
-                                        className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"
+                                        className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black/10  transition-opacity"
                                     ></Link>
                                 </div>
                             </li>

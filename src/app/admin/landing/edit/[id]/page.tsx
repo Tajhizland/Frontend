@@ -7,7 +7,7 @@ import Form, {LandingFormValues} from "@/app/admin/landing/Form";
 import {findLandingById, updateLanding} from "@/services/api/admin/landing";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import LandingTab from "@/components/Tabs/LandingTab";
 
 export default function Page() {
@@ -46,7 +46,7 @@ export default function Page() {
                 <LandingTab id={id + ""} />
                 <div>
                     {!isLoading && (
-                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isLoading} />
+                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isPending} />
                     )}
                 </div>
             </Panel>

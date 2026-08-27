@@ -1,6 +1,9 @@
-@import "./_theme_colors";
-@import "./_theme_custom";
-//
-@import "./header";
-
-@import "node_modules/@glidejs/glide/src/assets/sass/glide.core";
+// Dart Sass deprecated `@import`; `@use` is the supported loader.
+// Glide is pulled in as its prebuilt stylesheet rather than its Sass source:
+// the vendored .scss still uses `@import` internally, which warns on every build.
+// A bare package specifier only resolves through a bundler importer, and this
+// file must compile under both webpack (next build) and Turbopack (next dev).
+@use "./_theme_colors";
+@use "./_theme_custom";
+@use "./header";
+@use "../../node_modules/@glidejs/glide/dist/css/glide.core.css";

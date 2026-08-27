@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { findCategoryGroupByUrl } from "@/services/api/shop/category";
 import { CategoryListing } from "@/services/types/category";
 import { ProductResponse } from "@/services/types/product";
@@ -23,17 +23,16 @@ const GroupListing = ({ response, url, breadcrump }: Props) => {
 
     useCategoryViewTracker(response.category?.id);
 
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-        ["categoryGroups", url, filter],
-        ({ pageParam = 1 }) => findCategoryGroupByUrl(url, filter, pageParam),
-        {
-            initialData: { pages: [response], pageParams: [1] },
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+        queryKey: ["categoryGroups", url, filter],
+        queryFn: ({ pageParam }) => findCategoryGroupByUrl(url, filter, pageParam),
+        initialPageParam: 1,
+        initialData: { pages: [response], pageParams: [1] },
             getNextPageParam: (lastPage) => {
                 const meta = lastPage?.products?.meta;
                 return meta && meta.current_page < meta.last_page ? meta.current_page + 1 : undefined;
             },
-        }
-    );
+    });
 
     const sentinelRef = useInfiniteScroll({ hasNextPage, isFetchingNextPage, fetchNextPage });
 

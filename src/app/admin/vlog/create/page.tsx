@@ -7,7 +7,7 @@ import Form, {VlogFormValues} from "@/app/admin/vlog/Form";
 import {store} from "@/services/api/admin/vlog";
 import toast from "react-hot-toast";
 import React, {useState} from "react";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 
 export default function Page() {
     const [progress, setProgress] = useState(0);
@@ -42,7 +42,7 @@ export default function Page() {
             <Panel>
                 <PageTitle>افزودن ولاگ جدید</PageTitle>
                 <div>
-                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isLoading} resetOnSuccess />
+                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isPending} resetOnSuccess />
                 </div>
                 {progress > 0 && (
                     <div className="w-full bg-gray-200 rounded-md mt-4">

@@ -12,7 +12,7 @@ import Badge from "@/shared/Badge/Badge";
 import { AttachedList } from "@/shared/AttachedList";
 import { deleteLandingBanner, getLandingBanner, setLandingBanner } from "@/services/api/admin/landing";
 import { useParams } from "next/navigation";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 export default function Page() {
@@ -39,7 +39,7 @@ export default function Page() {
                     removeFn={(item) => deleteLandingBanner(item.id)}
                     renderItem={(item) => (
                         <>
-                            <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group w-full">
+                            <div className="relative shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group w-full">
                                 <NcImage
                                     alt="banner"
                                     containerClassName="flex aspect-w-11 aspect-h-12 w-full h-full"
@@ -61,24 +61,22 @@ export default function Page() {
 }
 
 function AddBanner({ landingId, onAdded }: { landingId: number; onAdded: () => void }) {
-    const mutation = useMutation(
-        (form: FormData) =>
+    const mutation = useMutation({
+        mutationFn: (form: FormData) =>
             setLandingBanner({
                 url: form.get("url") as string,
                 slider: Number(form.get("slider")),
                 image: form.get("image") as File,
                 landing_id: landingId,
             }),
-        {
-            onSuccess: (response) => {
+        onSuccess: (response) => {
                 toast.success(response?.message as string);
                 onAdded();
             },
             onError: () => {
                 toast.error("افزودن بنر انجام نشد");
             },
-        }
-    );
+    });
 
     return (
         <form action={(form) => mutation.mutate(form)}>
@@ -98,7 +96,7 @@ function AddBanner({ landingId, onAdded }: { landingId: number; onAdded: () => v
                     <Uploader name="image" />
                 </div>
             </div>
-            <ButtonPrimary className="w-full mt-5" loading={mutation.isLoading}>
+            <ButtonPrimary className="w-full mt-5" loading={mutation.isPending}>
                 آپلود
             </ButtonPrimary>
         </form>

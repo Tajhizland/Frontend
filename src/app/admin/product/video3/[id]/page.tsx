@@ -12,7 +12,7 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 const SLOTS = [
@@ -38,20 +38,18 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    const setMutation = useMutation(
-        ({ type, vlogId }: { type: SlotType; vlogId: number | null }) =>
+    const setMutation = useMutation({
+        mutationFn: ({ type, vlogId }: { type: SlotType; vlogId: number | null }) =>
             setVideo({ productId, vlogId, type }),
-        {
-            onSuccess: (response) => {
+        onSuccess: (response) => {
                 toast.success(response?.message as string);
-                queryClient.invalidateQueries(queryKey);
+                queryClient.invalidateQueries({ queryKey: queryKey });
                 setPickingType(undefined);
             },
             onError: () => {
                 toast.error("ذخیره ویدیو انجام نشد");
             },
-        }
-    );
+    });
 
     return (
         <>
@@ -93,7 +91,7 @@ export default function Page() {
                                             className="w-full h-full"
                                         />
                                         <ButtonPrimary
-                                            disabled={setMutation.isLoading}
+                                            disabled={setMutation.isPending}
                                             onClick={() => setMutation.mutate({ type: slot.type, vlogId: null })}
                                         >
                                             <TrashIcon className="w-6 h-6" />

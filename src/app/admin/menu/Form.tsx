@@ -7,7 +7,7 @@ import React from "react";
 import {Controller, useForm} from "react-hook-form";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import {MenuResponse} from "@/services/types/menu";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {deleteBanner, menuList} from "@/services/api/admin/menu";
 import {TrashIcon} from "@heroicons/react/24/solid";
 import {categoryList} from "@/services/api/admin/category";

@@ -8,7 +8,7 @@ import {findById, update} from "@/services/api/admin/concept";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
 import ConceptTab from "@/components/Tabs/ConceptTab";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {useState} from "react";
 
 export default function Page() {
@@ -49,7 +49,7 @@ export default function Page() {
                 <ConceptTab id={id + ""} />
                 <div>
                     {!isLoading && (
-                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isLoading} progress={progress} />
+                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isPending} progress={progress} />
                     )}
                 </div>
             </Panel>

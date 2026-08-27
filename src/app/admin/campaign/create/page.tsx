@@ -7,7 +7,7 @@ import { store } from "@/services/api/admin/campaign";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Page() {
     const router = useRouter();
@@ -42,7 +42,7 @@ export default function Page() {
                 ایجاد جشنواره جدید
             </PageTitle>
             <div>
-                <Form submit={storeCampaign.mutateAsync} loading={storeCampaign.isLoading} />
+                <Form submit={storeCampaign.mutateAsync} loading={storeCampaign.isPending} />
             </div>
             {progress > 0 && <div className="w-full bg-gray-200 rounded-md mt-4">
                 <div

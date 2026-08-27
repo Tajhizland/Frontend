@@ -4,7 +4,7 @@ import Panel from "@/shared/Panel/Panel";
 import {groupChangePrice, searchProductList} from "@/services/api/admin/product";
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {categoryList} from "@/services/api/admin/category";
 import {brandList} from "@/services/api/admin/brand";
 import Select from "@/shared/Select/Select";
@@ -134,7 +134,7 @@ export default function Page() {
                         onChange={(e) => setBrand(Number(e))}
                     />
 
-                    <ButtonPrimary loading={searchMutation.isLoading} onClick={searchMutation.mutateAsync}>
+                    <ButtonPrimary loading={searchMutation.isPending} onClick={searchMutation.mutateAsync}>
                         جستجو
                     </ButtonPrimary>
                 </div>
@@ -167,7 +167,7 @@ export default function Page() {
                             }}
                         />
                     </div>
-                    <ButtonPrimary loading={actionMutation.isLoading} onClick={actionMutation.mutateAsync}>
+                    <ButtonPrimary loading={actionMutation.isPending} onClick={actionMutation.mutateAsync}>
                         اعمال
                     </ButtonPrimary>
                 </div>
@@ -187,7 +187,7 @@ export default function Page() {
                                 className="w-5 h-5 accent-blue-600"
                             />
 
-                            <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl">
+                            <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl">
                                 <Image
                                     fill
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.[0]?.url}`}

@@ -6,7 +6,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ShippingAddress from "../../../components/Checkout/ShippingAddress";
 import Image from "next/image";
 import Link from "next/link";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 import {getCart} from "@/services/api/shop/cart";
 import {CartResponse} from "@/services/types/cart";
 import {
@@ -70,10 +70,12 @@ const CheckoutPage = () => {
         queryFn: () => getCart(),
         staleTime: 5000,
         enabled: authorized === true,
-        onSuccess: (cartData) => {
-            setCart(cartData);
-        }
     });
+
+    // TanStack Query v5 removed onSuccess/onError from useQuery; side effects live in an effect.
+    useEffect(() => {
+        if (isSuccess && data) setCart(data);
+    }, [isSuccess, data]);
 
     const {data: address} = useQuery({
         queryKey: ['address'],
@@ -131,7 +133,7 @@ const CheckoutPage = () => {
     // پس از هر تغییر در سبد خرید، API چک‌اوت (روش‌های ارسال و هزینه پستی) دوباره فراخوانی می‌شود.
     // اِلیجیبل بودن اسنپ‌پی به‌صورت خودکار با تغییر مبلغ نهایی (که در queryKey است) دوباره اجرا می‌شود.
     async function refreshCheckout() {
-        await queryClient.invalidateQueries(['get-shipping-methods']);
+        await queryClient.invalidateQueries({ queryKey: ['get-shipping-methods'] });
     }
 
     async function increaseHandle(selectedColorId: number, guarantyId: number | undefined) {
@@ -195,7 +197,7 @@ const CheckoutPage = () => {
             && item.color.discountedPrice < item.color.price;
         return (
             <div key={index} className="relative flex py-7 first:pt-0 last:pb-0">
-                <div className="relative h-24 w-24  flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                <div className="relative h-24 w-24  shrink-0 overflow-hidden rounded-xl bg-slate-100">
                     <Image
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`}
                         fill
@@ -743,7 +745,7 @@ const CheckoutPage = () => {
                             <div
                                 className="flex items-center justify-between gap-3 mt-8 p-4 rounded-2xl border border-[#5a2d82]/20 bg-[#f6f2fb] dark:bg-white/5">
                                 <div className="flex items-center gap-3">
-                                    <div className="relative w-14 h-14 flex-shrink-0">
+                                    <div className="relative w-14 h-14 shrink-0">
                                         <Image
                                             src={snappBoxLogo}
                                             alt="اسنپ‌پی"
@@ -760,7 +762,7 @@ const CheckoutPage = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <span className="flex-shrink-0">
+                                <span className="shrink-0">
                                       <MySwitch
                                           label=" "
                                           desc=" "
@@ -773,7 +775,7 @@ const CheckoutPage = () => {
                             </div>
                         )}
                         <ButtonPrimary className="mt-8 w-full" onClick={() => paymentMutation.mutate()}
-                                       loading={paymentMutation.isLoading}
+                                       loading={paymentMutation.isPending}
                                        disabled={!allow || !acceptRule || sumDiscountedPrice <= 0 ||
                                            exceedsGatewayLimit
                                        }>پرداخت</ButtonPrimary>
@@ -788,7 +790,7 @@ const CheckoutPage = () => {
                             <div
                                 className="mt-6 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-500/30 dark:bg-amber-500/10">
                                 <ExclamationTriangleIcon
-                                    className="mt-0.5 h-6 w-6 flex-shrink-0 text-amber-500"/>
+                                    className="mt-0.5 h-6 w-6 shrink-0 text-amber-500"/>
                                 <p className="text-xs leading-6 text-amber-800 dark:text-amber-200 sm:text-sm">
                                     برای سفارش‌های با مبلغ بیش از ۲۰۰ میلیون تومان، به دلیل محدودیت سقف درگاه بانکی،
                                     امکان

@@ -7,7 +7,7 @@ import Form, {DictionaryFormValues} from "@/app/admin/dictionary/Form";
 import {update, findById} from "@/services/api/admin/dictionary";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 
 export default function Page() {
     const {id} = useParams();
@@ -42,7 +42,7 @@ export default function Page() {
                 <PageTitle>ویرایش دیکشنری</PageTitle>
                 <div>
                     {!isLoading && (
-                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isLoading} />
+                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isPending} />
                     )}
                 </div>
             </Panel>

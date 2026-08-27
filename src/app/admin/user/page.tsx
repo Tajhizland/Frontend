@@ -45,7 +45,7 @@ export default function Page() {
             href: (row) => `user/edit/${row.id}`
         },
         {
-            label: loginMutation.isLoading ? "در حال ورود" : "ورود",
+            label: loginMutation.isPending ? "در حال ورود" : "ورود",
             color: "primary",
             onClick: (row) => {
                 loginMutation.mutate(row.id)

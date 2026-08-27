@@ -48,7 +48,7 @@ export default function InstallPWAButton() {
             </div>
             <div className="flex gap-2">
                 <ButtonSecondary
-                    className="border border-slate-100 dark:border-slate-700 text-xs sm:text-sm !h-fit !py-1"
+                    className="border border-slate-100 dark:border-slate-700 text-xs sm:text-sm h-fit! !py-1"
                     onClick={installPWA}>
                     دانلود
                 </ButtonSecondary>

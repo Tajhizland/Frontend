@@ -2,7 +2,7 @@
 
 import React, {FC, useEffect, useState} from "react";
 import Radio from "@/shared/Radio/Radio";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {getDelivery} from "@/services/api/shop/checkout";
 import {DeliveryResponse} from "@/services/types/delivery";
 import {FaTruck} from "react-icons/fa";

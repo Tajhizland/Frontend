@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 import {
     Popover,
     PopoverButton,
@@ -12,7 +14,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";
 import Link from "next/link";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {CartResponse} from "@/services/types/cart";
 import {setCart, useCart, useUser} from "@/services/globalState/GlobalState";
 import {toast} from "react-hot-toast";
@@ -29,10 +31,12 @@ export default function CartDropdown() {
         queryFn: () => getCart(),
         staleTime: 5000,
         enabled: !!user,
-        onSuccess: (cartData) => {
-            setCart(cartData);
-        }
     });
+
+    // TanStack Query v5 removed onSuccess/onError from useQuery; side effects live in an effect.
+    useEffect(() => {
+        if (isSuccess && data) setCart(data);
+    }, [isSuccess, data]);
 
 
     async function removeFromCart(id: number, guarantyId: number | undefined) {
@@ -54,7 +58,7 @@ export default function CartDropdown() {
         const hasDiscount = discountedPrice > 0 && discountedPrice < price;
         return (
             <div key={index} className="flex py-5 last:pb-0">
-                <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-white">
+                <div className="relative h-24 w-20 shrink-0 overflow-hidden rounded-xl bg-white">
                     <Image
                         fill
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`}
@@ -151,12 +155,12 @@ export default function CartDropdown() {
                 <>
                     <PopoverButton
                         className={`
-                ${open ? "" : "text-opacity-90"}
-                 group w-10 h-10 sm:w-12 sm:h-12 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 relative`}
+                ${open ? "" : ""}
+                 group w-10 h-10 sm:w-12 sm:h-12 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full inline-flex items-center justify-center focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white/75  relative`}
                     >
                         <div
                             className="w-3.5 h-3.5 flex items-center justify-center bg-primary-500 absolute top-1.5 right-1.5 rounded-full text-[10px] leading-none text-white font-medium">
-                            <span className="mt-[1px]">
+                            <span className="mt-px">
                                 {cart?.length ?? 0}
                             </span>
                         </div>
@@ -229,7 +233,7 @@ export default function CartDropdown() {
                                         <p className="flex justify-between font-semibold text-slate-900 dark:text-slate-100">
                                             <span>قیمت کل</span>
                                             <span
-                                                className={`text-slate-900 !leading-none `}>{new Intl.NumberFormat('en-US').format(renderSumPrice())} تومان </span>
+                                                className={`text-slate-900 leading-none! `}>{new Intl.NumberFormat('en-US').format(renderSumPrice())} تومان </span>
                                         </p>
                                         <div className="flex gap-x-2 mt-5">
                                             <ButtonSecondary

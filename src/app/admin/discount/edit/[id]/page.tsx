@@ -6,7 +6,7 @@ import Form from "@/app/admin/discount/Form";
 import {find, update} from "@/services/api/admin/discount";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {useState} from "react";
 
 export default function Page() {
@@ -46,7 +46,7 @@ export default function Page() {
                 ویرایش تخفیف
             </PageTitle>
             <div>
-                {data && <Form submit={updateDiscount.mutateAsync} data={data} loading={updateDiscount.isLoading}/>
+                {data && <Form submit={updateDiscount.mutateAsync} data={data} loading={updateDiscount.isPending}/>
                 }            </div>
 
         </Panel>

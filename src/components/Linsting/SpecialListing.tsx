@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import {SpecialProductPageResponse} from "@/services/types/product";
 import { useRouter } from "next/navigation";
 import { getSpecialProductsPaginate } from "@/services/api/shop/product";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { ProductResponse } from "@/services/types/product";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import ProductCard from "@/components/Card/ProductCard";
@@ -21,14 +21,15 @@ export default function SpecialListing({ response }: { response: SpecialProductP
         isFetchingNextPage,
         isLoading,
         refetch,
-    } = useInfiniteQuery(
-        "specialProducts",  // شناسه کوئری
-        async ({ pageParam = 1 }) => {
+    } = useInfiniteQuery({
+        queryKey: ["specialProducts"],
+        queryFn: // شناسه کوئری
+        async ({ pageParam }) => {
             const result = await getSpecialProductsPaginate(pageParam);
             return result.data;
         },
-        {
-            initialData: {
+        initialPageParam: 1,
+        initialData: {
                 pages: [response.data],
                 pageParams: [1],
             },
@@ -37,8 +38,7 @@ export default function SpecialListing({ response }: { response: SpecialProductP
                     ? lastPage?.meta?.current_page + 1
                     : undefined;
             },
-        }
-    );
+    });
 
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
@@ -78,7 +78,7 @@ export default function SpecialListing({ response }: { response: SpecialProductP
                             </div>
                         </main>
                         <hr className="border-slate-200 dark:border-slate-700" />
-                        <div className="max-w-screen-sm">
+                        <div className="max-w-[var(--breakpoint-sm)]">
                             <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                                 محصولات خاص پسند ها
                             </h2>

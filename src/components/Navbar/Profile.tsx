@@ -24,7 +24,7 @@ export  default  function Profile()
         </div>
         {isDropdownOpen && (
             <div
-                className="z-50 absolute left-0 top-12 mt-2 w-48 bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+                className="z-50 absolute left-0 top-12 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-sm shadow-sm dark:bg-gray-700 dark:divide-gray-600"
                 id="dropdown-user"
             >
                 <div className="px-4 py-3" role="none">

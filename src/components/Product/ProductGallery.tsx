@@ -136,7 +136,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
 
             <div className=" container">
                 <div
-                    className={` w-full mt-5 ${productImages.length > 5 ? " justify-center items-center flex gap-2  md:gap-4  border p-4 rounded" : ""}`}>
+                    className={` w-full mt-5 ${productImages.length > 5 ? " justify-center items-center flex gap-2  md:gap-4  border p-4 rounded-sm" : ""}`}>
                     <div
                         className=" w-fit border mx-auto sm:mx-0 flex items-center justify-center px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10 shrink-0"
                         onClick={openGallery}
@@ -206,7 +206,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
 
             {/* ---------- مودال لیست کامل تصاویر (state-driven) ---------- */}
             <Transition appear show={isGalleryOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-[120]" onClose={closeGallery}>
+                <Dialog as="div" className="relative z-120" onClose={closeGallery}>
                     <TransitionChild
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -223,7 +223,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
                         <div
                             className="sticky z-10 top-0 p-4 xl:px-10 flex items-center justify-between bg-white">
                             <button
-                                className="focus:outline-none focus:ring-0 w-10 h-10 rounded-full flex items-center justify-center hover:bg-neutral-100"
+                                className="focus:outline-hidden focus:ring-0 w-10 h-10 rounded-full flex items-center justify-center hover:bg-neutral-100"
                                 onClick={closeGallery}
                             >
                                 <ArrowRightIcon className="w-8 h-8"/>
@@ -241,17 +241,17 @@ export default function ProductGallery({productImages: allImages}: { productImag
                                 leaveTo="opacity-0 translate-y-5"
                             >
                                 <DialogPanel
-                                    className="w-full max-w-screen-lg mx-auto transform p-4 pt-0 text-left transition-all">
+                                    className="w-full max-w-[var(--breakpoint-lg)] mx-auto transform p-4 pt-0 text-left transition-all">
                                     <div className="columns-1 gap-4 sm:columns-2 xl:columns-3">
                                         {productImages.map(({url}, id) => (
                                             <div
                                                 key={id}
                                                 onClick={() => changePhotoId(id)}
-                                                className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight focus:outline-none"
+                                                className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight focus:outline-hidden"
                                             >
                                                 <Image
                                                     alt="product gallery"
-                                                    className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110 focus:outline-none"
+                                                    className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110 focus:outline-hidden"
                                                     style={{transform: "translate3d(0, 0, 0)"}}
                                                     src={`${BASE}${url}`}
                                                     width={720}
@@ -274,7 +274,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
                     static
                     open={true}
                     onClose={() => setPhotoIndex(null)}
-                    className="fixed inset-0 z-[130] flex items-center justify-center"
+                    className="fixed inset-0 z-130 flex items-center justify-center"
                 >
                     <motion.div
                         key="backdrop"

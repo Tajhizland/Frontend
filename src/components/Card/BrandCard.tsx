@@ -43,7 +43,7 @@ const BrandCard: FC<BrandCardProps> = ({
                         height={720}
                     />
                 </div>
-                <span className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity rounded-2xl"></span>
+                <span className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black/10  transition-opacity rounded-2xl"></span>
             </div>
             <div className="mt-5  text-center">
                 <h2 className="text-base sm:text-lg text-neutral-900 dark:text-neutral-100 font-semibold">

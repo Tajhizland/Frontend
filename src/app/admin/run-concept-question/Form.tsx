@@ -6,7 +6,7 @@ import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
 import {useForm} from "react-hook-form";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {RunConceptQuestionResponse} from "@/services/types/runConceptQuestion";
 import {list} from "@/services/api/admin/runConceptQuestion";
 import {getByQuestionId} from "@/services/api/admin/runConceptAnswer";

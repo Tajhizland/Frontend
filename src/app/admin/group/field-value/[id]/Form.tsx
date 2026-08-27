@@ -40,7 +40,7 @@ export default function Form({field, value}: Form) {
                 {field.title}
             </label>
             <Input name={"value"} type={"text"} defaultValue={findFieldValue(field.id, value.value)}/>
-            <ButtonPrimary type={"submit"} loading={saveMutation.isLoading}>
+            <ButtonPrimary type={"submit"} loading={saveMutation.isPending}>
                 ذخیره
             </ButtonPrimary>
         </form>

@@ -51,7 +51,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
     }
     return (
       <div
-        className={`menu-item flex-shrink-0 menu-megamenu menu-megamenu--large`}
+        className={`menu-item shrink-0 menu-megamenu menu-megamenu--large`}
       >
         {renderMainItem(menu)}
 
@@ -139,7 +139,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                 static
                 className="sub-menu absolute z-10 w-56 left-full pl-2 top-0"
               >
-                <ul className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-white dark:ring-opacity-10 text-sm relative bg-white dark:bg-neutral-900 py-4 grid space-y-1">
+                <ul className="rounded-lg shadow-lg ring-1 ring-black/5  dark:ring-white/10  text-sm relative bg-white dark:bg-neutral-900 py-4 grid space-y-1">
                   {item.children?.map((i) => {
                     if (i.type) {
                       return renderDropdownMenuNavlinkHasChild(i);
@@ -180,7 +180,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
   // ===================== MENU MAIN MENU =====================
   const renderMainItem = (item: MenuResponse) => {
     return (
-      <div className="h-10 flex-shrink-0 flex items-center">
+      <div className="h-10 shrink-0 flex items-center">
         <Link
           className="inline-flex items-center text-[0.6rem] xl:text-xs  font-medium text-slate-700 dark:text-slate-300 py-2.5 px-2 xl:px-3 rounded-full hover:text-slate-900 hover:bg-neutral-200 hover:dark:bg-slate-950 dark:hover:text-slate-200 mega-main"
           href={item.url ?? "#"}

@@ -6,7 +6,7 @@ import CategoryTab from "@/components/Tabs/CategoryTab";
 
 import Panel from "@/shared/Panel/Panel";
 import {useParams, useRouter} from "next/navigation";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import {findByCategoryId, setToCategory} from "@/services/api/admin/option";
 import {Fragment, useState} from "react";

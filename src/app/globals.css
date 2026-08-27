@@ -1,6 +1,89 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+/* Tailwind v4 is CSS-first: everything below replaces the old tailwind.config.ts. */
+
+/* Was `darkMode: "class"`. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Was the `content` globs. */
+@source '../';
+
+@plugin '@tailwindcss/typography';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/aspect-ratio';
+
+@theme {
+  /*
+   * Brand palette. The --c-* values are "R, G, B" triplets defined in
+   * src/styles/__theme_colors.scss, exactly as the v3 config consumed them.
+   *
+   * The 600 step is keyed `6000` because the v3 config had that typo and the
+   * codebase writes `bg-primary-6000`. It is kept so rendering does not change;
+   * renaming it is a separate, deliberate cleanup.
+   */
+  --color-primary-50: rgb(var(--c-primary-50));
+  --color-primary-100: rgb(var(--c-primary-100));
+  --color-primary-200: rgb(var(--c-primary-200));
+  --color-primary-300: rgb(var(--c-primary-300));
+  --color-primary-400: rgb(var(--c-primary-400));
+  --color-primary-500: rgb(var(--c-primary-500));
+  --color-primary-6000: rgb(var(--c-primary-600));
+  --color-primary-700: rgb(var(--c-primary-700));
+  --color-primary-800: rgb(var(--c-primary-800));
+  --color-primary-900: rgb(var(--c-primary-900));
+
+  --color-secondary-50: rgb(var(--c-secondary-50));
+  --color-secondary-100: rgb(var(--c-secondary-100));
+  --color-secondary-200: rgb(var(--c-secondary-200));
+  --color-secondary-300: rgb(var(--c-secondary-300));
+  --color-secondary-400: rgb(var(--c-secondary-400));
+  --color-secondary-500: rgb(var(--c-secondary-500));
+  --color-secondary-6000: rgb(var(--c-secondary-600));
+  --color-secondary-700: rgb(var(--c-secondary-700));
+  --color-secondary-800: rgb(var(--c-secondary-800));
+  --color-secondary-900: rgb(var(--c-secondary-900));
+
+  --color-neutral-50: rgb(var(--c-neutral-50));
+  --color-neutral-100: rgb(var(--c-neutral-100));
+  --color-neutral-200: rgb(var(--c-neutral-200));
+  --color-neutral-300: rgb(var(--c-neutral-300));
+  --color-neutral-400: rgb(var(--c-neutral-400));
+  --color-neutral-500: rgb(var(--c-neutral-500));
+  --color-neutral-6000: rgb(var(--c-neutral-600));
+  --color-neutral-700: rgb(var(--c-neutral-700));
+  --color-neutral-800: rgb(var(--c-neutral-800));
+  --color-neutral-900: rgb(var(--c-neutral-900));
+
+  --animate-row-flash: row-flash 1.2s ease-out;
+}
+
+/* فلش کوتاه روی ردیف جدول بعد از کار کردن روی آن */
+@keyframes row-flash {
+  0% { background-color: #e0f2fe; }
+  100% { background-color: #f0f9ff; }
+}
+
+/*
+ * v3: container: { center: true, padding: { DEFAULT: "1rem", xl: "40px", "2xl": "128px" } }
+ * v4 dropped those options, so the utility is extended directly.
+ */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 80rem) { padding-inline: 40px; }
+  @media (width >= 96rem) { padding-inline: 128px; }
+}
+
+@layer base {
+  /* v4 defaults border-color to currentColor; v3 defaulted to gray-200. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 @font-face {
     font-family: 'IRANSansWeb';

@@ -16,7 +16,7 @@ export default function CastCard({cast}: { cast: CastResponse }) {
         >
 
             <div
-                className={`block relative flex-shrink-0 sm:w-56 sm:ml-6  mb-5 sm:mb-0 shadow-2xl `}
+                className={`block relative shrink-0 sm:w-56 sm:ml-6  mb-5 sm:mb-0 shadow-2xl `}
             >
                 <div
 
@@ -32,7 +32,7 @@ export default function CastCard({cast}: { cast: CastResponse }) {
                 </div>
             </div>
 
-            <div className="flex flex-col flex-grow sm:py-5">
+            <div className="flex flex-col grow sm:py-5">
                 <div className="space-y-5 mb-4">
                     <div>
                         <h2

@@ -2,7 +2,7 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import {find, set} from "@/services/api/admin/sample";
 import SampleTab from "@/components/Tabs/SampleTab";
@@ -38,7 +38,7 @@ export default function Page() {
                     <Textarea name={"content"} defaultValue={data?.content}>
 
                     </Textarea>
-                    <ButtonSecondary loading={saveMutation.isLoading}>
+                    <ButtonSecondary loading={saveMutation.isPending}>
                         ذخیره
                     </ButtonSecondary>
                 </form>

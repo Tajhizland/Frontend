@@ -1,7 +1,7 @@
 "use client"
 import React, {useState, useEffect, useRef} from "react";
 import {useRouter} from "next/navigation";
-import {useInfiniteQuery} from "react-query";
+import {useInfiniteQuery} from "@tanstack/react-query";
 import {BrandListingResponse} from "@/services/types/brand";
 import {findBrandByUrl} from "@/services/api/shop/brand";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
@@ -29,14 +29,14 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
         isLoading,
         refetch,
         isFetching,
-    } = useInfiniteQuery(
-        ["brandProducts", url, filter],
-        async ({pageParam = 1}) => {
+    } = useInfiniteQuery({
+        queryKey: ["brandProducts", url, filter],
+        queryFn: async ({pageParam}) => {
             const result = await findBrandByUrl(url, filter ? `filter[category]=${filter}` : "", pageParam);
             return result;
         },
-        {
-            initialData: {
+        initialPageParam: 1,
+        initialData: {
                 pages: [response],
                 pageParams: [1],
             },
@@ -47,8 +47,7 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
                     ? lastPage?.products?.meta?.current_page + 1
                     : undefined;
             },
-        }
-    );
+    });
 
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
@@ -146,7 +145,7 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
 
                     }
                     <hr/>
-                    <div className="max-w-screen-sm">
+                    <div className="max-w-[var(--breakpoint-sm)]">
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             {response.brand.name}
                         </h2>

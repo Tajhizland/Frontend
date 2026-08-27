@@ -89,7 +89,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
             .join("");
 
         return `<div class="relative  ">
-    <table class="w-full text-sm text-center text-gray-500  dark:text-white rounded">${options}</table></div>`;
+    <table class="w-full text-sm text-center text-gray-500  dark:text-white rounded-sm">${options}</table></div>`;
     };
 
     const renderAccordianData = () => {
@@ -170,7 +170,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
     };
     const renderSection2 = () => {
         return (
-            <div className="listingSection__wrap !border-b-0 !pb-0 dark:text-white">
+            <div className="listingSection__wrap border-b-0! !pb-0 dark:text-white">
 
                 <div
                     className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
@@ -197,7 +197,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
                     </div>
 
                     {/* SIDEBAR */}
-                    <div className="flex-grow">
+                    <div className="grow">
                         <div className="hidden lg:block sticky top-36 dark:bg-black/20">
                             <SectionGroup groupItems={groupItems} setProduct={setProduct}/>
 

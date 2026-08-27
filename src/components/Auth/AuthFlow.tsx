@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
 
 import Input from "@/shared/Input/Input";
@@ -291,7 +291,7 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
                             <ButtonPrimary
                                 type="submit"
                                 className={buttonClass}
-                                loading={actionCheck.isLoading}
+                                loading={actionCheck.isPending}
                             >
                                 ورود به تجهیزلند
                             </ButtonPrimary>
@@ -335,7 +335,7 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
                             <ButtonPrimary
                                 type="submit"
                                 className={buttonClass}
-                                loading={actionLogin.isLoading || actionOtpLogin.isLoading}
+                                loading={actionLogin.isPending || actionOtpLogin.isPending}
                             >
                                 ادامه
                             </ButtonPrimary>
@@ -373,7 +373,7 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
                             <ButtonPrimary
                                 type="submit"
                                 className={buttonClass}
-                                loading={actionVerifyOtp.isLoading}
+                                loading={actionVerifyOtp.isPending}
                             >
                                 ادامه
                             </ButtonPrimary>
@@ -436,7 +436,7 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
                             <ButtonPrimary
                                 type="submit"
                                 className={buttonClass}
-                                loading={actionRegister.isLoading}
+                                loading={actionRegister.isPending}
                             >
                                 ثبت‌نام
                             </ButtonPrimary>
@@ -467,7 +467,7 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
                             <ButtonPrimary
                                 type="submit"
                                 className={buttonClass}
-                                loading={actionForgotSend.isLoading}
+                                loading={actionForgotSend.isPending}
                             >
                                 ادامه
                             </ButtonPrimary>
@@ -499,7 +499,7 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
                             <ButtonPrimary
                                 type="submit"
                                 className={buttonClass}
-                                loading={actionForgotVerify.isLoading}
+                                loading={actionForgotVerify.isPending}
                             >
                                 ادامه
                             </ButtonPrimary>
@@ -537,7 +537,7 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
                             <ButtonPrimary
                                 type="submit"
                                 className={buttonClass}
-                                loading={actionResetPassword.isLoading}
+                                loading={actionResetPassword.isPending}
                             >
                                 ادامه
                             </ButtonPrimary>

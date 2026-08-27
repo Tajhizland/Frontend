@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import {CastListingResponse} from "@/services/types/cast";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import VlogCardSkeleton from "@/components/Skeleton/VlogCardSkeleton";
 import { useRouter } from "next/navigation";
 import {paginatedCast} from "@/services/api/shop/cast";
@@ -27,15 +27,16 @@ export default function CastListing({ response, search }: { response: any, searc
         fetchNextPage,
         hasNextPage,
         isFetchingNextPage,
-    } = useInfiniteQuery(
-        ["casts", filter], // فیلترها را در queryKey ارسال می‌کنیم
-        async ({ pageParam = 1, queryKey }) => {
+    } = useInfiniteQuery({
+        queryKey: ["casts", filter],
+        queryFn: // فیلترها را در queryKey ارسال می‌کنیم
+        async ({ pageParam, queryKey }) => {
             const filters = queryKey[1]; // دریافت فیلترها از queryKey
             const result = await paginatedCast(pageParam, filters);
             return result.listing;
         },
-        {
-            initialData: {
+        initialPageParam: 1,
+        initialData: {
                 pages: [response.listing],
                 pageParams: [1],
             },
@@ -46,8 +47,7 @@ export default function CastListing({ response, search }: { response: any, searc
                     ? lastPage?.meta?.current_page + 1
                     : undefined,
             refetchOnWindowFocus: false,
-        }
-    );
+    });
 
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 

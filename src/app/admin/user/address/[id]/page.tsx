@@ -1,6 +1,6 @@
 "use client"
 import React, {Fragment, useState} from "react";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {AddressResponse} from "@/services/types/address";
 import {Switch} from "@headlessui/react";
 import {adminChangeActiveAddress, getAddress} from "@/services/api/admin/user";
@@ -26,15 +26,15 @@ const Page = () => {
     });
     const {
         mutateAsync: changeActive,
-        isLoading: changeActiveAddressLoading,
+        isPending: changeActiveAddressLoading,
         isSuccess: changeActiveAddressSiccess,
     } = useMutation({
         mutationKey: [`changeActiveAddress`],
         mutationFn: (address_id: number) =>
             adminChangeActiveAddress(address_id, {user_id: Number(id)}),
         onSuccess: data => {
-            queryClient.invalidateQueries(['my-address']);
-            queryClient.invalidateQueries(['address']);
+            queryClient.invalidateQueries({ queryKey: ['my-address'] });
+            queryClient.invalidateQueries({ queryKey: ['address'] });
 
         }
     });
@@ -110,7 +110,7 @@ const Page = () => {
                         disabled={item.active == 1 ? true : false}
                         checked={item.active == 1 ? true : false}
                         className={`${item.active ? "bg-teal-500" : "bg-slate-900"}
-          relative inline-flex h-[22px] w-[42px] shrink-0 cursor-pointer rounded-full border-4 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 disabled:cursor-not-allowed`}
+          relative inline-flex h-[22px] w-[42px] shrink-0 cursor-pointer rounded-full border-4 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden focus-visible:ring-2  focus-visible:ring-white/75  disabled:cursor-not-allowed`}
                     >
                         <span className="sr-only">فعال</span>
                         <span
@@ -176,7 +176,7 @@ const Page = () => {
                     isOpenProp={showCreateModal}
                     onCloseModal={() => {
                         setShowCreateModal(false);
-                        queryClient.invalidateQueries(['my-address']);
+                        queryClient.invalidateQueries({ queryKey: ['my-address'] });
                     }}
                     contentExtraClass="max-w-4xl"
                     renderContent={renderCreateContent}
@@ -190,7 +190,7 @@ const Page = () => {
                     isOpenProp={showEditModal}
                     onCloseModal={() => {
                         setShowEditModal(false);
-                        queryClient.invalidateQueries(['my-address']);
+                        queryClient.invalidateQueries({ queryKey: ['my-address'] });
                     }}
                     contentExtraClass="max-w-4xl"
                     renderContent={renderContent}

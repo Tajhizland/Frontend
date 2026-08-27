@@ -54,9 +54,9 @@ export default function SectionVideo({
                         <Fragment key={index}>
                             <div
                                 onClick={() => setCurrentVideo(item)}
-                                className="bg-neutral-100 hover:bg-neutral-200 dark:bg-black/20 dark:hover:bg-black/30 rounded flex gap-x-2 w-full xl:w-64 cursor-pointer overflow-hidden"
+                                className="bg-neutral-100 hover:bg-neutral-200 dark:bg-black/20 dark:hover:bg-black/30 rounded-sm flex gap-x-2 w-full xl:w-64 cursor-pointer overflow-hidden"
                             >
-                                <div className="flex-shrink-0 w-32">
+                                <div className="shrink-0 w-32">
                                     <NcImage
                                         containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0 bg-neutral-200 dark:bg-black/40"
                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}

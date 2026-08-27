@@ -18,7 +18,7 @@ const BlogCard: FC<BlogCardProps> = ({ className = "h-full", item }) => {
         >
 
             <div
-                className={`block flex-shrink-0 sm:w-56 sm:ml-6 rounded-3xl overflow-hidden mb-5 sm:mb-0`}
+                className={`block shrink-0 sm:w-56 sm:ml-6 rounded-3xl overflow-hidden mb-5 sm:mb-0`}
             >
                 <Link
                     href={"/news/show/" +(item.url)}
@@ -34,7 +34,7 @@ const BlogCard: FC<BlogCardProps> = ({ className = "h-full", item }) => {
                 </Link>
             </div>
 
-            <div className="flex flex-col flex-grow">
+            <div className="flex flex-col grow">
                 <div className="space-y-5 mb-4">
                     <Badge name={"اخبار و مقالات"} />
                     <div>

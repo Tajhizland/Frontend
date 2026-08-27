@@ -9,7 +9,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import FilterForm from "./FilterForm";
 import Spinner from "@/shared/Loading/Spinner";

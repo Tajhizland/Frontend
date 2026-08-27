@@ -25,7 +25,7 @@ const VlogPoster: FC<VlogPosterProps> = ({
     const src = `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${poster}`;
 
     return (
-        <div className={`relative w-full aspect-[16/9] overflow-hidden bg-neutral-200 dark:bg-black/40 ${className}`}>
+        <div className={`relative w-full aspect-16/9 overflow-hidden bg-neutral-200 dark:bg-black/40 ${className}`}>
             <Image
                 src={src}
                 alt=""

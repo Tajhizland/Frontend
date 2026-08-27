@@ -52,9 +52,9 @@ const BlogMobileCategory  = ({categoryList,changeFilter}: {categoryList:BlogCate
 
     const renderTabMobileFilter = () => {
         return (
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
                 <div
-                    className={`flex flex-shrink-0 items-center justify-center px-4 py-2 text-sm rounded-full border border-primary-500 bg-primary-50 text-primary-900 focus:outline-none cursor-pointer select-none`}
+                    className={`flex shrink-0 items-center justify-center px-4 py-2 text-sm rounded-full border border-primary-500 bg-primary-50 text-primary-900 focus:outline-hidden cursor-pointer select-none`}
                     onClick={openModalMoreFilter}
                 >
                     <svg
@@ -131,7 +131,7 @@ const BlogMobileCategory  = ({categoryList,changeFilter}: {categoryList:BlogCate
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                             >
-                                <div className="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-60"/>
+                                <div className="fixed inset-0 bg-black/40 dark:bg-black/60"/>
                             </TransitionChild>
 
                             {/* This element is to trick the browser into centering the modal contents. */}
@@ -154,7 +154,7 @@ const BlogMobileCategory  = ({categoryList,changeFilter}: {categoryList:BlogCate
                                 <div
                                     className="inline-flex flex-col w-full text-right align-middle transition-all transform bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 h-full">
                                     <div
-                                        className="relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
+                                        className="relative shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
                                         <DialogTitle
                                             as="h3"
                                             className="text-lg font-medium leading-6 text-gray-900"
@@ -180,7 +180,7 @@ const BlogMobileCategory  = ({categoryList,changeFilter}: {categoryList:BlogCate
                                     </div>
 
                                     <div
-                                        className="px-6 py-5 flex-shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+                                        className="px-6 py-5 shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                                         <ButtonThird
                                             onClick={() => {
                                                 closeModalMoreFilter();

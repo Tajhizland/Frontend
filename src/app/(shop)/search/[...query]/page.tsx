@@ -6,7 +6,7 @@ import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import {searchPaginate} from "@/services/api/shop/search";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useRouter} from "next/navigation";
 import ProductCard from "@/components/Card/ProductCard";
 import {FiChevronRight} from "react-icons/fi";

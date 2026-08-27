@@ -5,7 +5,7 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import LineChart from "@/components/Chart/LineChart";
 import {FaComment, FaFileInvoiceDollar} from "react-icons/fa";
 import {MdOutlinePendingActions} from "react-icons/md";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {dashboard} from "@/services/api/admin/dashboard";
 import {UserPlusIcon} from "@heroicons/react/24/solid";
 import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";

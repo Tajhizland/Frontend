@@ -193,7 +193,7 @@ const PaymentMethod: FC<Props> = ({
                     <div className="flex pt-6">
                         <ButtonPrimary
                             className="w-full max-w-[240px]"
-                            loading={selectMutation.isLoading}
+                            loading={selectMutation.isPending}
                             onClick={() => selectMutation.mutate()}
                         >
                             ذخیره

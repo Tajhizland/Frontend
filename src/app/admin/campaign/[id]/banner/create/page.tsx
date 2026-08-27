@@ -6,7 +6,7 @@ import Form from "@/app/admin/campaign/[id]/banner/Form";
 import {store} from "@/services/api/admin/campaignBanner";
 import toast from "react-hot-toast";
 import {useParams, useRouter} from "next/navigation";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 
 export default function Page() {
     const router = useRouter();
@@ -48,7 +48,7 @@ export default function Page() {
                 افزودن بنر
             </PageTitle>
             <div>
-                <Form submit={createMutation.mutateAsync} isLoading={createMutation.isLoading}/>
+                <Form submit={createMutation.mutateAsync} isLoading={createMutation.isPending}/>
             </div>
         </Panel>
     </>)

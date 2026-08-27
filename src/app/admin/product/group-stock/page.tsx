@@ -12,7 +12,7 @@ groupChangeDigipayPercent ,
 } from "@/services/api/admin/product";
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {categoryList} from "@/services/api/admin/category";
 import {brandList} from "@/services/api/admin/brand";
 import Select from "@/shared/Select/Select";
@@ -240,7 +240,7 @@ export default function Page() {
                     />
                     <Input value={searchName} onChange={(e)=>{setSearchName(e.target.value)}} />
 
-                    <ButtonPrimary loading={searchMutation.isLoading} onClick={searchMutation.mutateAsync}>
+                    <ButtonPrimary loading={searchMutation.isPending} onClick={searchMutation.mutateAsync}>
                         جستجو
                     </ButtonPrimary>
                 </div>
@@ -281,7 +281,7 @@ export default function Page() {
                                 }}
                             />
 
-                            <ButtonPrimary loading={actionStockMutation.isLoading} onClick={actionStockMutation.mutateAsync}>
+                            <ButtonPrimary loading={actionStockMutation.isPending} onClick={actionStockMutation.mutateAsync}>
                                 اعمال
                             </ButtonPrimary>
                         </div>
@@ -300,7 +300,7 @@ export default function Page() {
                             <option value={2} selected={status == 2}>محدودیت</option>
                         </Select>
 
-                        <ButtonPrimary loading={actionStatusMutation.isLoading} onClick={actionStatusMutation.mutateAsync}>
+                        <ButtonPrimary loading={actionStatusMutation.isPending} onClick={actionStatusMutation.mutateAsync}>
                             اعمال
                         </ButtonPrimary>
                     </div>
@@ -318,7 +318,7 @@ export default function Page() {
                             <option value={0} selected={digipay == 0}>غیر فعال</option>
                         </Select>
 
-                        <ButtonPrimary loading={actionDigipayMutation.isLoading} onClick={actionDigipayMutation.mutateAsync}>
+                        <ButtonPrimary loading={actionDigipayMutation.isPending} onClick={actionDigipayMutation.mutateAsync}>
                             اعمال
                         </ButtonPrimary>
                     </div>
@@ -336,7 +336,7 @@ export default function Page() {
                             <option value={0} selected={snappay == 0}>غیر فعال</option>
                         </Select>
 
-                        <ButtonPrimary loading={actionSnappayMutation.isLoading} onClick={actionSnappayMutation.mutateAsync}>
+                        <ButtonPrimary loading={actionSnappayMutation.isPending} onClick={actionSnappayMutation.mutateAsync}>
                             اعمال
                         </ButtonPrimary>
                     </div>
@@ -354,7 +354,7 @@ export default function Page() {
                                 setPercent(Number(e.target.value))
                             }}
                         />
-                        <ButtonPrimary loading={actionDigipayExtraPriceMutation.isLoading}
+                        <ButtonPrimary loading={actionDigipayExtraPriceMutation.isPending}
                                        onClick={actionDigipayExtraPriceMutation.mutateAsync}>
                             اعمال
                         </ButtonPrimary>
@@ -408,7 +408,7 @@ export default function Page() {
                                 className="w-5 h-5 accent-blue-600"
                             />
 
-                            <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl">
+                            <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl">
                                 <Image
                                     fill
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.[0]?.url}`}

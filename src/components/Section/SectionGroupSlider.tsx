@@ -68,7 +68,7 @@ const SectionGroupSlider: FC<SectionSliderProductCardProps> = ({
             <div ref={sliderRef} className={`flow-root w-full`}>
                 <div className={"bg-stone-100 p-5 rounded-2xl relative "}>
                     <div className="glide__track " data-glide-el="track" style={{direction: "rtl"}}>
-                        <ul className="glide__slides  flex-grow flex items-center">
+                        <ul className="glide__slides  grow flex items-center">
                             {data && data.map((item, index) => (
                                 <li key={index}
                                     className={`glide__slide  rounded-3xl overflow-hidden ${itemClassName}`}>

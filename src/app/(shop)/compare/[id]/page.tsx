@@ -1,5 +1,5 @@
 "use client";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { allProduct, find, search } from "@/services/api/shop/compare";
 import Spinner from "@/shared/Loading/Spinner";
@@ -35,7 +35,7 @@ export default function Page() {
     const {
         data: newProduct,
         mutateAsync: searchCompareHandler,
-        isLoading: searchCompareLoading,
+        isPending: searchCompareLoading,
     } = useMutation({
         mutationKey: ["search-compare-product"],
         mutationFn: (e: any) =>
@@ -62,7 +62,7 @@ export default function Page() {
 
     const renderContent = () => (
         <div>
-            <div className="mt-8 relative rounded-md shadow-sm">
+            <div className="mt-8 relative rounded-md shadow-xs">
                 <Input
                     type="text"
                     placeholder="جستجوی نام محصول"
@@ -75,7 +75,7 @@ export default function Page() {
                         newProduct.map((item) => (
                             <div
                                 key={item.id}
-                                className="flex justify-between items-center border shadow rounded pl-5 cursor-pointer hover:bg-slate-100"
+                                className="flex justify-between items-center border shadow-sm rounded-sm pl-5 cursor-pointer hover:bg-slate-100"
                                 onClick={() => {
                                     if (!compareProducts.find((p) => p.id === item.id)) {
                                         setCompareProducts((prev) => [...prev, item]);
@@ -98,7 +98,7 @@ export default function Page() {
 
                             <div
                                 key={item.id}
-                                className="flex justify-between items-center border shadow rounded pl-5 cursor-pointer hover:bg-slate-100"
+                                className="flex justify-between items-center border shadow-sm rounded-sm pl-5 cursor-pointer hover:bg-slate-100"
                                 onClick={() => {
                                     if (!compareProducts.find((p) => p.id === item.id)) {
                                         setCompareProducts((prev) => [...prev, item]);
@@ -183,7 +183,7 @@ export default function Page() {
                                 onClick={() =>
                                     setCompareProducts((prev) => prev.filter((p) => p.id !== product.id))
                                 }
-                                className="absolute top-0 left-0 text-red-500 text-xs bg-white rounded px-1"
+                                className="absolute top-0 left-0 text-red-500 text-xs bg-white rounded-sm px-1"
                             >
                                 ✕
                             </button>
@@ -207,7 +207,7 @@ export default function Page() {
                                     onClick={() =>
                                         setCompareProducts((prev) => prev.filter((p) => p.id !== product.id))
                                     }
-                                    className="absolute top-0 left-0 text-red-500 text-xs bg-white rounded px-1"
+                                    className="absolute top-0 left-0 text-red-500 text-xs bg-white rounded-sm px-1"
                                 >
                                     ✕
                                 </button>

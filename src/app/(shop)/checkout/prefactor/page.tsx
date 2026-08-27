@@ -4,7 +4,7 @@ import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
 import React, {useRef} from "react";
 import {setCart, useCart, useUser} from "@/services/globalState/GlobalState";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {getCart} from "@/services/api/shop/cart";
 import PreFactorTable from "@/components/Factor/PreFactorTable";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";

@@ -14,7 +14,7 @@ import React, {Fragment, useState} from "react";
 import Checkbox from "@/shared/Checkbox/Checkbox";
 import ButtonThird from "@/shared/Button/ButtonThird";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import Radio from "@/shared/Radio/Radio";
 import ButtonClose from "@/shared/Button/ButtonClose";
 import {getCastCategory} from "@/services/api/shop/castCategory";
@@ -84,7 +84,7 @@ export default function CastFilter({changeFilter, defualtSearch, hasFilter = tru
     const renderXClear = () => {
         return (
             <span
-                className="flex-shrink-0 w-4 h-4 rounded-full bg-primary-500 text-white flex items-center justify-center mr-3 cursor-pointer">
+                className="shrink-0 w-4 h-4 rounded-full bg-primary-500 text-white flex items-center justify-center mr-3 cursor-pointer">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-3 w-3"
@@ -106,7 +106,7 @@ export default function CastFilter({changeFilter, defualtSearch, hasFilter = tru
                 {({open, close}) => (
                     <>
                         <PopoverButton
-                            className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
+                            className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-hidden select-none
                 ${open ? "!border-primary-500 " : ""}
                   ${!!selectedFilters["category"]?.length
                                 ? "!border-primary-500 bg-primary-50 text-primary-900"
@@ -182,7 +182,7 @@ export default function CastFilter({changeFilter, defualtSearch, hasFilter = tru
                 {({open, close}) => (
                     <>
                         <PopoverButton
-                            className={`flex items-center justify-center px-4 py-2 text-sm border rounded-full focus:outline-none select-none
+                            className={`flex items-center justify-center px-4 py-2 text-sm border rounded-full focus:outline-hidden select-none
               ${open ? "!border-primary-500 " : ""}
                 ${!!sortOrderStates.length
                                 ? "!border-primary-500 bg-primary-50 text-primary-900"
@@ -335,9 +335,9 @@ export default function CastFilter({changeFilter, defualtSearch, hasFilter = tru
     const openModalMoreFilter = () => setisOpenMoreFilter(true);
     const renderTabMobileFilter = () => {
         return (
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
                 <div
-                    className={`flex flex-shrink-0 items-center justify-center px-4 py-2 text-sm rounded-full border border-primary-500 bg-primary-50 text-primary-900 focus:outline-none cursor-pointer select-none`}
+                    className={`flex shrink-0 items-center justify-center px-4 py-2 text-sm rounded-full border border-primary-500 bg-primary-50 text-primary-900 focus:outline-hidden cursor-pointer select-none`}
                     onClick={openModalMoreFilter}
                 >
                     <svg
@@ -414,7 +414,7 @@ export default function CastFilter({changeFilter, defualtSearch, hasFilter = tru
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                             >
-                                <div className="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-60"/>
+                                <div className="fixed inset-0 bg-black/40 dark:bg-black/60"/>
                             </TransitionChild>
 
                             {/* This element is to trick the browser into centering the modal contents. */}
@@ -437,7 +437,7 @@ export default function CastFilter({changeFilter, defualtSearch, hasFilter = tru
                                 <div
                                     className="inline-flex flex-col w-full text-right align-middle transition-all transform bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 h-full">
                                     <div
-                                        className="relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
+                                        className="relative shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
                                         <DialogTitle
                                             as="h3"
                                             className="text-lg font-medium leading-6 text-gray-900"
@@ -449,7 +449,7 @@ export default function CastFilter({changeFilter, defualtSearch, hasFilter = tru
                     </span>
                                     </div>
 
-                                    <div className="flex-grow overflow-y-auto">
+                                    <div className="grow overflow-y-auto">
                                         <div
                                             className="px-6 sm:px-8 md:px-10 divide-y divide-neutral-200 dark:divide-neutral-800">
                                             {/* --------- */}
@@ -517,7 +517,7 @@ export default function CastFilter({changeFilter, defualtSearch, hasFilter = tru
                                     </div>
 
                                     <div
-                                        className="px-6 py-5 flex-shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+                                        className="px-6 py-5 shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                                         <ButtonThird
                                             onClick={() => {
                                                 setSortOrderStates("");
@@ -556,7 +556,7 @@ export default function CastFilter({changeFilter, defualtSearch, hasFilter = tru
                 <div className="relative max-w-[18.5rem] w-full">
 
                 </div>
-                <div className="!mr-auto">{renderTabsSortOrder()}</div>
+                <div className="mr-auto!">{renderTabsSortOrder()}</div>
             </div>
             {/* FOR RESPONSIVE MOBILE */}
             <div className="flex overflow-x-auto lg:hidden gap-x-4">

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { getFiles, remove, upload } from "@/services/api/admin/fileManager";
@@ -33,13 +33,12 @@ const FileManager: React.FC<Props> = ({ modelId, modelType, imagePath, showPath 
         staleTime: 5000,
     });
 
-    const invalidate = () => queryClient.invalidateQueries(queryKey);
+    const invalidate = () => queryClient.invalidateQueries({ queryKey: queryKey });
 
-    const uploadMutation = useMutation(
-        (form: FormData) =>
+    const uploadMutation = useMutation({
+        mutationFn: (form: FormData) =>
             upload({ model_id: modelId, file: form.get("file") as File, model_type: modelType }, setProgress),
-        {
-            onSuccess: (response) => {
+        onSuccess: (response) => {
                 toast.success(response?.message as string);
                 invalidate();
             },
@@ -47,10 +46,10 @@ const FileManager: React.FC<Props> = ({ modelId, modelType, imagePath, showPath 
                 toast.error("آپلود فایل انجام نشد");
             },
             onSettled: () => setProgress(0),
-        }
-    );
+    });
 
-    const removeMutation = useMutation((fileId: number) => remove(fileId), {
+    const removeMutation = useMutation({
+        mutationFn: (fileId: number) => remove(fileId),
         onSuccess: (response) => {
             toast.success(response?.message as string);
             invalidate();
@@ -65,8 +64,8 @@ const FileManager: React.FC<Props> = ({ modelId, modelType, imagePath, showPath 
             <div className="flex flex-col gap-y-4">
                 <form action={(form) => uploadMutation.mutate(form)}>
                     {uploader === "simple" ? <SimpleUploader name="file" /> : <Uploader name="file" />}
-                    {uploadMutation.isLoading && <Progress progress={progress} />}
-                    <ButtonPrimary loading={uploadMutation.isLoading} disabled={uploadMutation.isLoading}>
+                    {uploadMutation.isPending && <Progress progress={progress} />}
+                    <ButtonPrimary loading={uploadMutation.isPending} disabled={uploadMutation.isPending}>
                         آپلود
                     </ButtonPrimary>
                 </form>
@@ -77,10 +76,10 @@ const FileManager: React.FC<Props> = ({ modelId, modelType, imagePath, showPath 
                     <Spinner />
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-5 border rounded mt-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-5 border rounded-sm mt-10">
                     {data?.map((item) => (
                         <div key={item.id} className="flex flex-col justify-center items-center gap-y-4">
-                            <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group w-96 h-96">
+                            <div className="relative shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group w-96 h-96">
                                 <NcImage
                                     alt="file"
                                     containerClassName="flex aspect-w-11 aspect-h-12 w-full h-full"

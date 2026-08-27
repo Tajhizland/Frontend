@@ -118,7 +118,7 @@ const SectionHomepageBrand: FC<SectionHomepageBrandProps> = ({
                                 <Link
                                     title={"all"}
                                     href={"/brand"}
-                                    className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"
+                                    className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black/10  transition-opacity"
                                 ></Link>
                             </div>
                         </li>

@@ -4,7 +4,7 @@ import React, {useEffect, useMemo, useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {useParams, useRouter} from "next/navigation";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {BarLoader} from "react-spinners";
 import {toast} from "react-hot-toast";
 import {CheckIcon, ExclamationTriangleIcon, NoSymbolIcon} from "@heroicons/react/24/outline";
@@ -250,7 +250,7 @@ const OnHoldCheckoutPage = () => {
         const hasDiscount = gateway != 3 && item.color.discount > 0;
         return (
             <div key={index} className="relative flex py-7 first:pt-0 last:pb-0">
-                <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-slate-100">
                     <Image
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.image}`}
                         fill
@@ -581,7 +581,7 @@ const OnHoldCheckoutPage = () => {
                         {allowSnappay && snappay?.eligible && (
                             <div className="flex items-center justify-between gap-3 mt-8 p-4 rounded-2xl border border-[#5a2d82]/20 bg-[#f6f2fb] dark:bg-white/5">
                                 <div className="flex items-center gap-3">
-                                    <div className="relative w-14 h-14 flex-shrink-0">
+                                    <div className="relative w-14 h-14 shrink-0">
                                         <Image src={snappBoxLogo} alt="اسنپ‌پی" fill className="object-contain"/>
                                     </div>
                                     <div className="flex flex-col gap-1">
@@ -593,7 +593,7 @@ const OnHoldCheckoutPage = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <span className="flex-shrink-0">
+                                <span className="shrink-0">
                                     <MySwitch
                                         label=" "
                                         desc=" "
@@ -608,7 +608,7 @@ const OnHoldCheckoutPage = () => {
                             className="mt-8 w-full"
                             onClick={() => paymentMutation.mutate()}
                             disabled={
-                                !allow || !acceptRule || paymentMutation.isLoading || expired || remainingSeconds <= 0 ||
+                                !allow || !acceptRule || paymentMutation.isPending || expired || remainingSeconds <= 0 ||
                                 !shippingMethod || couponBase <= 0 || exceedsGatewayLimit
                             }
                         >
@@ -617,7 +617,7 @@ const OnHoldCheckoutPage = () => {
 
                         {exceedsGatewayLimit &&
                             <div className="mt-6 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-500/30 dark:bg-amber-500/10">
-                                <ExclamationTriangleIcon className="mt-0.5 h-6 w-6 flex-shrink-0 text-amber-500"/>
+                                <ExclamationTriangleIcon className="mt-0.5 h-6 w-6 shrink-0 text-amber-500"/>
                                 <p className="text-xs leading-6 text-amber-800 dark:text-amber-200 sm:text-sm">
                                     برای سفارش‌های با مبلغ بیش از ۲۰۰ میلیون تومان، به دلیل محدودیت سقف درگاه بانکی،
                                     امکان پرداخت مستقیم از طریق بانک وجود ندارد. لطفاً کیف پول خود را در هر نوبت تا سقف

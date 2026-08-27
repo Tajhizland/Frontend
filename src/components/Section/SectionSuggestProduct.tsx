@@ -3,7 +3,7 @@ import {useEffect, useRef, useState} from "react";
 //@ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import Heading from "@/components/Heading/Heading";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useUser} from "@/services/globalState/GlobalState";
 import {suggestIpProduct, suggestProduct} from "@/services/api/shop/categoryViewHistory";
 import ProductCard2 from "@/components/Card/ProductCard2";

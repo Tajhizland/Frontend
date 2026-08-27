@@ -5,7 +5,7 @@ import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect} from "react";
 import {toast} from "react-hot-toast";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import Label from "@/shared/Label/Label";
 import {useForm} from "react-hook-form";
 import {useProvinceCity} from "@/hooks/useProvinceCity";
@@ -28,8 +28,8 @@ export default function AdminAddressForm({address, userId, close}: {
         onSuccess: (response) => {
             if (!response)
                 return;
-            queryClient.invalidateQueries(['my-address']);
-            queryClient.invalidateQueries(['address']);
+            queryClient.invalidateQueries({ queryKey: ['my-address'] });
+            queryClient.invalidateQueries({ queryKey: ['address'] });
 
             toast.success(response?.message as string);
             close && close()

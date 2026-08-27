@@ -119,7 +119,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
     const renderXClear = () => {
         return (
             <span
-                className="flex-shrink-0 w-4 h-4 rounded-full bg-primary-500 text-white flex items-center justify-center mr-3 cursor-pointer">
+                className="shrink-0 w-4 h-4 rounded-full bg-primary-500 text-white flex items-center justify-center mr-3 cursor-pointer">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-3 w-3"
@@ -144,7 +144,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
                 {({open, close}) => (
                     <>
                         <PopoverButton
-                            className={`whitespace-nowrap flex items-center justify-center px-4 py-2 text-sm border rounded-full focus:outline-none select-none
+                            className={`whitespace-nowrap flex items-center justify-center px-4 py-2 text-sm border rounded-full focus:outline-hidden select-none
               ${open ? "!border-primary-500 " : ""}
                 ${!!sortOrderStates.length
                                 ? "!border-primary-500 bg-primary-50 text-primary-900"
@@ -279,7 +279,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
 
             filters && filters.map((filter, index) => (<Fragment key={index}>
                 <div
-                    className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none cursor-pointer select-none
+                    className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-hidden cursor-pointer select-none
                         border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500
                         `}
                     onClick={openModalMoreFilter}
@@ -303,7 +303,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
             <>
                 {categorys && categorys.length > 0 &&
                     <div
-                        className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none cursor-pointer select-none ${isOnSale
+                        className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-hidden cursor-pointer select-none ${isOnSale
                             ? "border-primary-500 bg-primary-50 text-primary-900"
                             : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
                         }`}
@@ -323,7 +323,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
     const renderTabsPriceRage = () => {
         return (
             <div
-                className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none cursor-pointer select-none ${isOnSale
+                className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-hidden cursor-pointer select-none ${isOnSale
                     ? "border-primary-500 bg-primary-50 text-primary-900"
                     : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
                 }`}
@@ -339,7 +339,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
     const renderTabIsOnsale = () => {
         return (
             <div
-                className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none cursor-pointer select-none ${isOnSale
+                className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-hidden cursor-pointer select-none ${isOnSale
                     ? "border-primary-500 bg-primary-50 text-primary-900"
                     : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
                 }`}
@@ -376,9 +376,9 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
     // FOR RESPONSIVE MOBILE
     const renderTabMobileFilter = () => {
         return (
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
                 <div
-                    className={`flex flex-shrink-0 items-center justify-center px-4 py-2 text-sm rounded-full border border-primary-500 bg-primary-50 text-primary-900 focus:outline-none cursor-pointer select-none`}
+                    className={`flex shrink-0 items-center justify-center px-4 py-2 text-sm rounded-full border border-primary-500 bg-primary-50 text-primary-900 focus:outline-hidden cursor-pointer select-none`}
                     onClick={openModalMoreFilter}
                 >
                     <svg
@@ -456,7 +456,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                             >
-                                <div className="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-60"/>
+                                <div className="fixed inset-0 bg-black/40 dark:bg-black/60"/>
                             </TransitionChild>
 
                             {/* This element is to trick the browser into centering the modal contents. */}
@@ -479,7 +479,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
                                 <div
                                     className="inline-flex flex-col w-full text-right align-middle transition-all transform bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 h-full">
                                     <div
-                                        className="relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
+                                        className="relative shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
                                         <DialogTitle
                                             as="h3"
                                             className="text-lg font-medium leading-6 text-gray-900"
@@ -491,7 +491,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
                     </span>
                                     </div>
 
-                                    <div className="flex-grow overflow-y-auto">
+                                    <div className="grow overflow-y-auto">
                                         <div
                                             className="px-6 sm:px-8 md:px-10 divide-y divide-neutral-200 dark:divide-neutral-800">
                                             {/* --------- */}
@@ -651,7 +651,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
                                     </div>
 
                                     <div
-                                        className="px-6 py-5 flex-shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+                                        className="px-6 py-5 shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                                         <ButtonThird
                                             onClick={() => {
                                                 setRangePrices([minPrice, maxPrice]);
@@ -688,7 +688,7 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
                 {renderFilters()}
                 {renderCategorys()}
                 {renderTabIsOnsale()}
-                <div className="!mr-auto">{renderTabsSortOrder()}</div>
+                <div className="mr-auto!">{renderTabsSortOrder()}</div>
             </div>
 
             {/* FOR RESPONSIVE MOBILE */}

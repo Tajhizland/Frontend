@@ -6,7 +6,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonClose from "@/shared/Button/ButtonClose";
 import NcModal from "@/shared/NcModal/NcModal";
 import Input from "@/shared/Input/Input";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {allProduct, search} from "@/services/api/shop/compare";
 
 interface ComparePageProps {
@@ -53,7 +53,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
     const {
         data: newProduct,
         mutateAsync: searchCompareHandler,
-        isLoading: searchCompareLoading,
+        isPending: searchCompareLoading,
     } = useMutation({
         mutationKey: ["search-compare-product"],
         mutationFn: (e: any) =>
@@ -87,7 +87,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
     );
     const renderContent = () => (
         <div>
-            <div className="mt-8 relative rounded-md shadow-sm">
+            <div className="mt-8 relative rounded-md shadow-xs">
                 <Input
                     type="text"
                     placeholder="جستجوی نام محصول"
@@ -100,7 +100,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                         newProduct.map((item) => (
                             <div
                                 key={item.id}
-                                className="flex justify-between items-center border shadow rounded pl-5 cursor-pointer hover:bg-slate-100"
+                                className="flex justify-between items-center border shadow-sm rounded-sm pl-5 cursor-pointer hover:bg-slate-100"
                                 onClick={() => {
                                     if (!compareProducts.find((p) => p.id === item.id)) {
                                         setCompareProducts((prev) => [...prev, item]);
@@ -123,7 +123,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                         (all && all.length > 0 && all.map((item) => (
                             <div
                                 key={item.id}
-                                className="flex justify-between items-center border shadow rounded pl-5 cursor-pointer hover:bg-slate-100"
+                                className="flex justify-between items-center border shadow-sm rounded-sm pl-5 cursor-pointer hover:bg-slate-100"
                                 onClick={() => {
                                     if (!compareProducts.find((p) => p.id === item.id)) {
                                         setCompareProducts((prev) => [...prev, item]);
@@ -161,7 +161,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
             />
 
             <div
-                className="  py-16 lg:pb-28 lg:pt-20 bg-white dark:bg-neutral-900 space-y-8 fixed top-0 right-0 left-0 w-full h-screen z-[100] overflow-y-auto">
+                className="  py-16 lg:pb-28 lg:pt-20 bg-white dark:bg-neutral-900 space-y-8 fixed top-0 right-0 left-0 w-full h-screen z-100 overflow-y-auto">
                 <div
                     className="container ">
              <span className="absolute right-2 top-2 p-1">
@@ -198,7 +198,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                                         onClick={() =>
                                             setCompareProducts((prev) => prev.filter((p) => p.id !== product.id))
                                         }
-                                        className="absolute top-0 left-0 text-red-500 text-xs bg-white rounded px-1"
+                                        className="absolute top-0 left-0 text-red-500 text-xs bg-white rounded-sm px-1"
                                     >
                                         ✕
                                     </button>

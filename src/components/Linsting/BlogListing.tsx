@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import {NewsListingResponse} from "@/services/types/news";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { getNewsPaginated } from "@/services/api/shop/news";
 import Heading from "@/components/Heading/Heading";
 import { useRouter } from "next/navigation";
@@ -28,14 +28,14 @@ const BlogListing = ({response}: {response: NewsListingResponse}) => {
         hasNextPage,
         isFetchingNextPage,
         isSuccess,
-    } = useInfiniteQuery(
-        ["news",filter],
-        async ({ pageParam = 1 }) => {
+    } = useInfiniteQuery({
+        queryKey: ["news",filter],
+        queryFn: async ({ pageParam }) => {
             const result = await getNewsPaginated(pageParam,filter);
             return result.listing;
         },
-        {
-            initialData: {
+        initialPageParam: 1,
+        initialData: {
                 pages: [response.listing],
                 pageParams: [1],
             },
@@ -44,8 +44,7 @@ const BlogListing = ({response}: {response: NewsListingResponse}) => {
                     ? lastPage?.meta?.current_page + 1
                     : undefined,
             refetchOnWindowFocus: false,
-        }
-    );
+    });
 
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
@@ -75,7 +74,7 @@ const BlogListing = ({response}: {response: NewsListingResponse}) => {
 
                             <div className="flex flex-col-reverse lg:flex-row gap-10  ">
 
-                                <div className="flex-[3]">
+                                <div className="flex-3">
                                     {/* Articles List */}
                                     <div className={`grid gap-6 md:gap-8 grid-cols-1 md:mt-5`}>
                                         {allArticles.map((item, index) => (

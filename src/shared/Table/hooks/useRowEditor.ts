@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { EditorType } from "@/shared/Table/types";
 
@@ -28,7 +28,8 @@ export const useRowEditor = <T extends { id: number | string }>({ onEdit, reload
         setDraft(null);
     };
 
-    const mutation = useMutation(async (row: T) => onEdit?.(row), {
+    const mutation = useMutation({
+        mutationFn: async (row: T) => onEdit?.(row),
         onSuccess: (response: any) => {
             if (response?.message) toast.success(response.message as string);
             cancel();
@@ -53,5 +54,5 @@ export const useRowEditor = <T extends { id: number | string }>({ onEdit, reload
 
     const isEditing = (row: T) => editingId === row.id;
 
-    return { editingId, draft, isEditing, begin, cancel, setField, save, saving: mutation.isLoading };
+    return { editingId, draft, isEditing, begin, cancel, setField, save, saving: mutation.isPending };
 };

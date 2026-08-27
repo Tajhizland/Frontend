@@ -72,7 +72,7 @@ const PageContact = ({}) => {
                     تماس با ما
                 </h2>
                 <div className="container max-w-7xl mx-auto">
-                    <div className="flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-12 ">
+                    <div className="shrink-0 grid grid-cols-1 md:grid-cols-2 gap-12 ">
                         <div className="max-w-sm space-y-8">
                             {info.map((item, index) => (
                                 <div key={index}>

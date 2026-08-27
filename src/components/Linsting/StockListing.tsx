@@ -4,7 +4,7 @@ import {StockProductPageResponse} from "@/services/types/product";
 import {useRouter} from "next/navigation";
 import {getStockProductsPaginate} from "@/services/api/shop/product";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
-import {useInfiniteQuery} from "react-query";
+import {useInfiniteQuery} from "@tanstack/react-query";
 import ProductCard from "@/components/Card/ProductCard";
 import CategoryCircleCard from "@/components/Card/CategoryCircleCard";
 import {CgSwap} from "react-icons/cg";
@@ -22,14 +22,14 @@ const StockListing = ({response}: {response: StockProductPageResponse}) => {
         hasNextPage,
         isFetchingNextPage,
         refetch,
-    } = useInfiniteQuery(
-        ["stock-products", filter],
-        async ({pageParam = 1}) => {
+    } = useInfiniteQuery({
+        queryKey: ["stock-products", filter],
+        queryFn: async ({pageParam}) => {
             const result = await getStockProductsPaginate(pageParam, filter ? `filter[category]=${filter}` : ""); // فراخوانی getDiscountedProducts به صورت صفحه‌بندی شده
             return result.data;
         },
-        {
-            // داده‌های اولیه از props
+        initialPageParam: 1,
+        // داده‌های اولیه از props
             initialData: {
                 pages: [response.data],
                 pageParams: [1],
@@ -38,8 +38,7 @@ const StockListing = ({response}: {response: StockProductPageResponse}) => {
                 lastPage?.meta?.current_page < lastPage?.meta?.last_page
                     ? lastPage?.meta?.current_page + 1
                     : undefined,
-        }
-    );
+    });
 
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 

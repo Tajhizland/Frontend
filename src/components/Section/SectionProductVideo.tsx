@@ -20,9 +20,9 @@ export default function SectionProductVideo({videos}: { videos: ProductVideoResp
                         <Fragment key={index}>
                             <div
                                 onClick={() => setActiveVideo(index)}
-                                className="bg-neutral-100 hover:bg-neutral-200 dark:bg-black/20 dark:hover:bg-black/30 rounded flex shrink-0   gap-x-2 w-full  cursor-pointer overflow-hidden items-center"
+                                className="bg-neutral-100 hover:bg-neutral-200 dark:bg-black/20 dark:hover:bg-black/30 rounded-sm flex shrink-0   gap-x-2 w-full  cursor-pointer overflow-hidden items-center"
                             >
-                                <div className="flex-shrink-0 w-32">
+                                <div className="shrink-0 w-32">
                                     <NcImage
                                         containerClassName="flex aspect-w-16 aspect-h-9 w-full h-0"
                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item?.vlog?.poster}`}
@@ -34,7 +34,7 @@ export default function SectionProductVideo({videos}: { videos: ProductVideoResp
 
                                 <div className="flex flex-col justify-between w-full whitespace-nowrap py-2">
                                     <div className="flex items-center gap-x-1">
-                                        <RiMovie2Fill className="text-slate-600 dark:text-white w-4 h-4 flex-shrink-0"/>
+                                        <RiMovie2Fill className="text-slate-600 dark:text-white w-4 h-4 shrink-0"/>
                                         <span className="text-xs text-slate-900 dark:text-white whitespace-pre-wrap">{item.title}</span>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@ export default function SectionProductVideo({videos}: { videos: ProductVideoResp
             </div>
 
             {/* پلیر ویدیو؛ قاب ثابت ۱۶:۹ حذف شد تا ویدیوی عمودی له نشود */}
-            <div className="w-full flex-[2]">
+            <div className="w-full flex-2">
                 <AdaptiveVideoPlayer
                     className="max-h-[70vh]"
                     hls={videos[activeVideo]?.vlog?.hls

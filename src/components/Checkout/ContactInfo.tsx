@@ -1,4 +1,4 @@
- import React, { FC } from "react";
+import React, { FC, useEffect} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Checkbox from "@/shared/Checkbox/Checkbox";
@@ -10,7 +10,7 @@ import Input from "@/shared/Input/Input";
  import {setUser, useUser} from "@/services/globalState/GlobalState";
  import {me, update} from "@/services/api/auth/me";
  import {toast} from "react-hot-toast";
- import {useQuery, useQueryClient} from "react-query";
+ import {useQuery, useQueryClient} from "@tanstack/react-query";
  import {deleteCookie, getCookie} from "cookies-next";
 
 interface Props {
@@ -24,18 +24,21 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
     const queryClient = useQueryClient();
 
 
-    const {data, isSuccess} = useQuery({
+    const {data, isSuccess, isError} = useQuery({
         queryKey: ['user'],
         queryFn: () => me(),
         staleTime: 5000,
         enabled: !!getCookie("token"),
-        onSuccess: (user) => {
-            setUser(user);
-        },
-        onError: () => {
-            deleteCookie("token");
-        }
     });
+
+    // TanStack Query v5 removed onSuccess/onError from useQuery; side effects live in an effect.
+    useEffect(() => {
+        if (isSuccess && data) setUser(data);
+    }, [isSuccess, data]);
+
+    useEffect(() => {
+        if (isError) deleteCookie("token");
+    }, [isError]);
 
     async function submit(e: FormData) {
         let response = await update({
@@ -48,7 +51,7 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
         })
         if (response?.success) {
             toast.success(response?.message as string);
-            queryClient.invalidateQueries([`user`]);
+            queryClient.invalidateQueries({ queryKey: [`user`] });
         }
     }
     const renderAccount = () => {
@@ -106,7 +109,7 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
           }`}
         >
             <form action={submit}>
-            <div className="flex-grow mt-10 md:mt-0 md:pr-16 max-w-3xl space-y-6  w-full">
+            <div className="grow mt-10 md:mt-0 md:pr-16 max-w-3xl space-y-6  w-full">
                 <div>
                     <Label>نام </Label>
                     <Input className="mt-1.5" defaultValue={user?.name} name={"name"}/>
@@ -132,7 +135,7 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
 
                 </span>
                         <Input
-                            className="!rounded-r-none"
+                            className="rounded-r-none!"
                             placeholder="example@email.com"
                             name={"email"}
                             defaultValue={user?.email}
@@ -156,7 +159,7 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
                 <FaPhone/>
 
                 </span>
-                        <Input name={"mobile"} className="!rounded-r-none" defaultValue={user?.username}
+                        <Input name={"mobile"} className="rounded-r-none!" defaultValue={user?.username}
                                readOnly/>
                     </div>
                 </div>

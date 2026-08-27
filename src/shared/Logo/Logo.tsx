@@ -13,8 +13,8 @@ export interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({
 
-                                       className = "flex-shrink-0 ",
-                                       imageClassName = "flex-shrink-0",
+                                       className = "shrink-0 ",
+                                       imageClassName = "shrink-0",
                                    }) => {
     return (
         <div className={"w-full max-w-32 md:max-w-48  flex items-center"}>

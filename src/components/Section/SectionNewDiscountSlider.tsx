@@ -235,7 +235,7 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                     </div>
                     <div className="glide__track  pr-5 w-full " data-glide-el="track" style={{direction: "rtl"}}>
 
-                        <ul className="glide__slides  flex-grow flex items-center ">
+                        <ul className="glide__slides  grow flex items-center ">
                             {data && data.map((item, index) => (
                                 <li key={index}
                                     className={`glide__slide  rounded-3xl overflow-hidden ${itemClassName}`}>
@@ -262,7 +262,7 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                                     <Link
                                         title={"all"}
                                         href={"/product/discounted"}
-                                        className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"
+                                        className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black/10  transition-opacity"
                                     ></Link>
                                 </div>
                             </li>

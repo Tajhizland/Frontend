@@ -1,7 +1,7 @@
 import React from "react";
 const A_FEATURES = [
   {
-    color: "bg-red-50",
+    color: "bg-red-50 dark:bg-red-50/90",
     name: "ارسال به سراسر کشور",
     desc: "On orders over $50.00",
     svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +17,7 @@ const A_FEATURES = [
     `,
   },
   {
-    color: "bg-sky-50",
+    color: "bg-sky-50 dark:bg-sky-50/90",
     name: "ضمانت اصالت کالا",
     desc: "Just phone number.",
     svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +33,7 @@ const A_FEATURES = [
     `,
   },
   {
-    color: "bg-green-50",
+    color: "bg-green-50 dark:bg-green-50/90",
     name: "گارانتی معتبر",
     desc: "Fast delivery nationwide.",
     svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +46,7 @@ const A_FEATURES = [
     `,
   },
   {
-    color: "bg-amber-50",
+    color: "bg-amber-50 dark:bg-amber-50/90",
     name: "امکان خرید حضوری",
     desc: "60 days return for any reason",
     svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,7 +67,7 @@ const Policy = () => {
         return (
           <div
             key={index}
-            className={`flex flex-col p-5 rounded-2xl ${item.color} dark:bg-opacity-90`}
+            className={`flex flex-col p-5 rounded-2xl ${item.color} `}
           >
             <div dangerouslySetInnerHTML={{ __html: item.svg }}></div>
             <div className="mt-2.5">

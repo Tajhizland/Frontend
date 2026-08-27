@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 type Options<TData, TVars> = {
@@ -19,11 +19,12 @@ export const useApiMutation = <TData, TVars = void>(
     const queryClient = useQueryClient();
     const { invalidate = [], successMessage, errorMessage, onSuccess, onError, silent } = options;
 
-    return useMutation(fn, {
+    return useMutation({
+        mutationFn: fn,
         onSuccess: (data, variables) => {
             const message = successMessage ?? (data as { message?: string })?.message;
             if (!silent && message) toast.success(message);
-            invalidate.forEach((key) => queryClient.invalidateQueries(key));
+            invalidate.forEach((key) => queryClient.invalidateQueries({ queryKey: key }));
             onSuccess?.(data, variables);
         },
         onError: (error) => {

@@ -6,7 +6,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Textarea from "@/shared/Textarea/Textarea";
 import React, {useEffect, useMemo, useState} from "react";
 import {categoryList} from "@/services/api/admin/category"
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {brandList} from "@/services/api/admin/brand";
 import {ProductResponse} from "@/services/types/product";
 import TinyEditor from "@/shared/Editor/TinyEditor";

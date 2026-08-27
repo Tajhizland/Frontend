@@ -1,9 +1,9 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams, useRouter} from "next/navigation";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import Prices from "@/components/Price/Prices";
 import Image from "next/image";
 import {getItem, setItem} from "@/services/api/admin/discount";
@@ -30,26 +30,29 @@ export default function Page() {
         queryKey: [`discount-list`],
         queryFn: () => getItem(Number(id)),
         staleTime: 5000,
-        onSuccess: (res) => {
-            setResponse(res);
-
-            const initialDiscounts: Record<number, number> = {};
-            const initialDates: Record<number, string> = {};
-            const initialDatesFa: Record<number, string> = {};
-            const initialTop: Record<number, number> = {};
-            res.forEach((item) => {
-                initialDiscounts[item.product_color_id] = item?.discount_price ?? 0;
-                initialDates[item.product_color_id] = item?.discount_expire_time ?? "";
-                initialDatesFa[item.product_color_id] = item?.discount_expire_time_fa ?? "";
-                initialTop[item.product_color_id] = item?.top ?? 0;
-            });
-
-            setDiscountValues(initialDiscounts);
-            setExpireDates(initialDates);
-            setExpireDatesFa(initialDatesFa);
-            setTop(initialTop);
-        },
     });
+
+    // TanStack Query v5 removed onSuccess from useQuery; side effects live in an effect.
+    useEffect(() => {
+        if (!discountList) return;
+        setResponse(discountList);
+
+        const initialDiscounts: Record<number, number> = {};
+        const initialDates: Record<number, string> = {};
+        const initialDatesFa: Record<number, string> = {};
+        const initialTop: Record<number, number> = {};
+        discountList.forEach((item) => {
+            initialDiscounts[item.product_color_id] = item?.discount_price ?? 0;
+            initialDates[item.product_color_id] = item?.discount_expire_time ?? "";
+            initialDatesFa[item.product_color_id] = item?.discount_expire_time_fa ?? "";
+            initialTop[item.product_color_id] = item?.top ?? 0;
+        });
+
+        setDiscountValues(initialDiscounts);
+        setExpireDates(initialDates);
+        setExpireDatesFa(initialDatesFa);
+        setTop(initialTop);
+    }, [discountList]);
 
     const actionMutation = useMutation({
         mutationKey: [`product-group-action`],
@@ -77,7 +80,7 @@ export default function Page() {
         },
         onSuccess: (res) => {
             toast.success(res.message as string);
-            queryClient.invalidateQueries([`discount-list`]);
+            queryClient.invalidateQueries({ queryKey: [`discount-list`] });
         },
     });
 
@@ -103,7 +106,7 @@ export default function Page() {
                             >
 
 
-                                <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl">
+                                <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl">
                                     <Image
                                         fill
                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.productColor?.product?.images?.[0]?.url}`}
@@ -146,8 +149,8 @@ export default function Page() {
 
 
                                 <DatePicker
-                                    inputClass={"block w-full border-neutral-200 focus:border-rose-600 focus:ring-0 focus:ring-rose-600 focus:ring-opacity-50 bg-white disabled:bg-neutral-200  h-11 px-4 py-3 text-sm font-normal rounded-2xl"}
-                                    className="custom-date-picker flex-shrink-0 w-full"
+                                    inputClass={"block w-full border-neutral-200 focus:border-rose-600 focus:ring-0 focus:ring-rose-600/50  bg-white disabled:bg-neutral-200  h-11 px-4 py-3 text-sm font-normal rounded-2xl"}
+                                    className="custom-date-picker shrink-0 w-full"
                                     calendar={persian}        // تقویم شمسی (Jalali)
                                     locale={persian_fa}      // متن/اعداد فارسی
                                     value={expireDatesFa[item.product_color_id] || ""}
@@ -194,7 +197,7 @@ export default function Page() {
                     ))}
                 </div>
                 <ButtonPrimary
-                    loading={actionMutation.isLoading}
+                    loading={actionMutation.isPending}
                     onClick={() => actionMutation.mutateAsync()}
                 >
                     ذخیره تخفیفات

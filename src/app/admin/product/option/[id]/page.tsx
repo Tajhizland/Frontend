@@ -8,7 +8,7 @@ import Panel from "@/shared/Panel/Panel";
 import {useParams} from "next/navigation";
 import {useEffect, useMemo, useState} from "react";
 import {toast} from "react-hot-toast";
-import {useQuery, useMutation, useQueryClient} from "react-query";
+import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import {findById as productFindById} from "@/services/api/admin/product";
 import ProductOptionForm from "@/app/admin/product/option/ProductOptionForm";
 import {useForm, FormProvider} from "react-hook-form";
@@ -55,7 +55,7 @@ export default function Page() {
         onSuccess: (res) => {
             if (res.success) {
                 toast.success(res.message ?? "ذخیره شد");
-                queryClient.invalidateQueries([`option-info`]);
+                queryClient.invalidateQueries({ queryKey: [`option-info`] });
             }
         },
     });

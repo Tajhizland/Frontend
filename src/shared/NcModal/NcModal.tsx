@@ -19,7 +19,7 @@ export interface NcModalProps {
 const NcModal: FC<NcModalProps> = ({
   renderTrigger,
   renderContent,
-  contentExtraClass = "max-w-screen-xl",
+  contentExtraClass = "max-w-[var(--breakpoint-xl)]",
   contentPaddingClass = "py-4 px-6 md:py-5",
   triggerText = "Open Modal",
   modalTitle = "Modal title",
@@ -60,7 +60,7 @@ const NcModal: FC<NcModalProps> = ({
         )}
       </>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-[200]" onClose={closeModal}>
+        <Dialog as="div" className="relative z-200" onClose={closeModal}>
           {/* بک‌دراپ با بلور شیشه‌ای */}
           <TransitionChild
             as={Fragment}
@@ -94,7 +94,7 @@ const NcModal: FC<NcModalProps> = ({
                     <span className="h-1.5 w-10 rounded-full bg-neutral-300 dark:bg-neutral-700" />
                   </div>
 
-                  <div className="relative flex-shrink-0 px-6 py-4 text-center md:py-5">
+                  <div className="relative shrink-0 px-6 py-4 text-center md:py-5">
                     <ButtonClose
                       onClick={closeModal}
                       IconclassName="w-5 h-5 text-neutral-500 dark:text-neutral-300"
@@ -110,7 +110,7 @@ const NcModal: FC<NcModalProps> = ({
                     )}
                   </div>
 
-                  <div className="h-px w-full flex-shrink-0 bg-neutral-100 dark:bg-neutral-800" />
+                  <div className="h-px w-full shrink-0 bg-neutral-100 dark:bg-neutral-800" />
 
                   <div className={`overflow-y-auto pb-[max(1rem,env(safe-area-inset-bottom))] ${contentPaddingClass}`}>
                     {renderContent()}

@@ -23,7 +23,7 @@ const SearchBar: React.FC<MenuBarProps> = () => {
                     onClose={handleCloseMenu}
                 >
                     <div
-                        className="fixed right-0 top-0 bottom-0 w-full md:w-auto z-max outline-none focus:outline-none">
+                        className="fixed right-0 top-0 bottom-0 w-full md:w-auto z-max outline-hidden focus:outline-hidden">
                         <React.Fragment>
                             <TransitionChild
                                 enter="transition duration-100 transform"
@@ -99,7 +99,7 @@ const SearchBar: React.FC<MenuBarProps> = () => {
                             readOnly
                             type="text"
                             placeholder="جستجو"
-                            sizeClass="pr-10 !py-[0.3rem] "
+                            sizeClass="pr-10 py-[0.3rem]! "
                             rounded="rounded-full"
                         />
                         <ButtonCircle

@@ -3,7 +3,7 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import {useRouter} from "next/navigation";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 import Form from "@/app/admin/phone-bock/Form";
 import {toast} from "react-hot-toast";
 import {storePhoneBock} from "@/services/api/admin/phoneBock";

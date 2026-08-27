@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import Form from "@/app/admin/category/Form";
 import {findById, update} from "@/services/api/admin/category";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import CategoryTab from "@/components/Tabs/CategoryTab";
 
 import Spinner from "@/shared/Loading/Spinner";
@@ -29,7 +29,7 @@ export default function Page() {
         },
         onSuccess: (data) => {
             toast.success(data?.message ?? "")
-            queryClient.invalidateQueries([`category-info`, Number(id)]);
+            queryClient.invalidateQueries({ queryKey: [`category-info`, Number(id)] });
         },
     });
 

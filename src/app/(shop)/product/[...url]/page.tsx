@@ -173,7 +173,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
 
         return `
         <div class="relative">
-            <table class="w-full text-sm text-center text-gray-500 dark:text-white rounded">
+            <table class="w-full text-sm text-center text-gray-500 dark:text-white rounded-sm">
                 ${options}
             </table>
         </div>
@@ -275,7 +275,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         return (
             <>
                 {
-                    product?.stockOf ? <div className="listingSection__wrap !border-b-0 !pb-0 dark:text-white">
+                    product?.stockOf ? <div className="listingSection__wrap border-b-0! !pb-0 dark:text-white">
 
                             <div
                                 className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
@@ -286,7 +286,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                         </div>
 
                         :
-                        <div className="listingSection__wrap !border-b-0 !pb-0 dark:text-white">
+                        <div className="listingSection__wrap border-b-0! !pb-0 dark:text-white">
 
                             <div
                                 className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
@@ -332,7 +332,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     </div>
 
                     {/* SIDEBAR */}
-                    <div className="flex-grow">
+                    <div className="grow">
                         <div className="hidden lg:block sticky top-36 dark:bg-black/20">
                             {/*{renderSectionSidebar()}*/}
                             <ProductSidebar product={product} campaign={productResponse.campaign}/>

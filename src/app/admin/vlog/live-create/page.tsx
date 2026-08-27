@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import {Controller, useForm} from "react-hook-form";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {LuCircleCheck, LuLoaderCircle, LuTriangleAlert} from "react-icons/lu";
 
@@ -100,13 +100,14 @@ export default function Page() {
         queryKey: ["vlog-video-status", createdId],
         queryFn: () => videoStatus(createdId as number),
         enabled: createdId !== null,
-        refetchInterval: (data) => {
-            const value = data?.videoStatus as VideoStatus | null | undefined;
+        // v5 passes the Query object here rather than the data
+        refetchInterval: (query) => {
+            const value = query.state.data?.videoStatus as VideoStatus | null | undefined;
             return value === "ready" || value === "failed" ? false : 5000;
         },
     });
 
-    const canSubmit = uploader.isDone && !mutation.isLoading;
+    const canSubmit = uploader.isDone && !mutation.isPending;
 
     return (
         <>
@@ -216,7 +217,7 @@ export default function Page() {
                     <hr className="my-5" />
 
                     <div className="flex flex-col items-center gap-2 my-5">
-                        <ButtonPrimary type="submit" loading={mutation.isLoading} disabled={!canSubmit}>
+                        <ButtonPrimary type="submit" loading={mutation.isPending} disabled={!canSubmit}>
                             ذخیره
                         </ButtonPrimary>
                         {!uploader.isDone && (
@@ -253,7 +254,7 @@ function ProcessingBox({status, error}: { status?: VideoStatus | null; error?: s
                     <LuTriangleAlert className="w-5 h-5 shrink-0" />
                     پردازش ویدیو ناموفق بود. ولاگ ثبت شده ولی نسخه‌ی HLS ساخته نشد.
                 </div>
-                {error && <p className="mt-2 text-xs opacity-80 break-words">{error}</p>}
+                {error && <p className="mt-2 text-xs opacity-80 wrap-break-word">{error}</p>}
             </div>
         );
     }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     closestCenter,
     DndContext,
@@ -47,20 +47,18 @@ function SortableList<T extends SortableEntity>({
         }
     }, [data]);
 
-    const save = useMutation(
-        () => mutationFn(items.map((item, index) => ({ id: item.id, sort: index }))),
-        {
+    const save = useMutation({
+        mutationFn: () => mutationFn(items.map((item, index) => ({ id: item.id, sort: index }))),
         onSuccess: (response: unknown) => {
             const message = successMessage ?? (response as { message?: string })?.message;
             if (message) toast.success(message);
             setDirty(false);
-            queryClient.invalidateQueries(queryKey);
+            queryClient.invalidateQueries({ queryKey: queryKey });
         },
         onError: () => {
             toast.error("ذخیره‌ی ترتیب انجام نشد");
         },
-        }
-    );
+    });
 
     const sensors = useSensors(
         useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -105,8 +103,8 @@ function SortableList<T extends SortableEntity>({
             </DndContext>
 
             <div className="flex items-center gap-3">
-                <ButtonPrimary onClick={() => save.mutate()} disabled={!dirty || save.isLoading}>
-                    {save.isLoading ? "در حال ذخیره…" : saveText}
+                <ButtonPrimary onClick={() => save.mutate()} disabled={!dirty || save.isPending}>
+                    {save.isPending ? "در حال ذخیره…" : saveText}
                 </ButtonPrimary>
                 {dirty && <span className="text-xs text-amber-600">ترتیب تغییر کرده و ذخیره نشده است</span>}
             </div>

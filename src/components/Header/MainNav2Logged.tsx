@@ -165,7 +165,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                 {searchResults && showSearchForm &&
                     <div
                         ref={dropdownRef}
-                        className="absolute top-14 left-0 w-full max-h-[496px] bg-white  dark:bg-neutral-900  z-50 border rounded shadow border-t-0 overflow-y-auto whitespace-nowrap ">
+                        className="absolute top-14 left-0 w-full max-h-[496px] bg-white  dark:bg-neutral-900  z-50 border rounded-sm shadow-sm border-t-0 overflow-y-auto whitespace-nowrap ">
                         <button type="button" onClick={() => setShowSearchForm(false)}>
                             <XMarkIcon className="w-5 h-5 mr-5 dark:text-white"/>
                         </button>
@@ -334,8 +334,8 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                     {/*    <MenuBar/>*/}
                     {/*</div>*/}
 
-                    {/*<div className=" flex-1  flex items-center flex-col justify-center lg:gap-1 !flex-shrink-0  ml-1">*/}
-                    {/*    <Logo className="!flex-shrink-0"/>*/}
+                    {/*<div className=" flex-1  flex items-center flex-col justify-center lg:gap-1 shrink-0!  ml-1">*/}
+                    {/*    <Logo className="shrink-0!"/>*/}
                     {/*    <small*/}
                     {/*        className="text-slate-600 dark:text-slate-100 lg:text-xs sm:text-[8px] text-[6px]  block whitespace-nowrap">*/}
                     {/*        مرکز تخصصی تجهیزات کافه و رستوران*/}
@@ -353,10 +353,10 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                         {renderSearchForm()}
                     </div>
                     {/*<div className="lg:hidden flex items-center justify-center ml-1 w-64">*/}
-                    {/*<Logo className="flex-shrink-0  w-full" imageClassName={"!w-full"} />*/}
+                    {/*<Logo className="shrink-0  w-full" imageClassName={"w-full!"} />*/}
                     {/*</div>*/}
 
-                    <div className="lg:hidden flex items-center justify-center ml-1 w-full flex-[2]">
+                    <div className="lg:hidden flex items-center justify-center ml-1 w-full flex-2">
                         <SearchBar/>
                     </div>
 

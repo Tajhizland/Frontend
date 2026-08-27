@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 type Options<T extends { id: number | string }> = {
@@ -12,7 +12,8 @@ type Options<T extends { id: number | string }> = {
 export const useRowDelete = <T extends { id: number | string }>({ onDelete, invalidate }: Options<T>) => {
     const [pending, setPending] = useState<T | null>(null);
 
-    const mutation = useMutation(async (row: T) => onDelete?.(row.id), {
+    const mutation = useMutation({
+        mutationFn: async (row: T) => onDelete?.(row.id),
         onSuccess: (response: any) => {
             if (response?.message) toast.success(response.message as string);
             setPending(null);
@@ -31,6 +32,6 @@ export const useRowDelete = <T extends { id: number | string }>({ onDelete, inva
         confirm: () => {
             if (pending) mutation.mutate(pending);
         },
-        deleting: mutation.isLoading,
+        deleting: mutation.isPending,
     };
 };

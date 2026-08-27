@@ -92,7 +92,7 @@ export default function ProductImage({productImages}: { productImages: ProductIm
             </header>
             <div className=" container">
                 <div
-                    className={` w-full mt-5 ${productImages.length > 5 ? " justify-center items-center flex gap-2  md:gap-4  border p-4 rounded" :""}`}
+                    className={` w-full mt-5 ${productImages.length > 5 ? " justify-center items-center flex gap-2  md:gap-4  border p-4 rounded-sm" :""}`}
 
                 >
                     <div

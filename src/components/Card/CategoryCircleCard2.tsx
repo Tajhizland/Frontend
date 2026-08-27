@@ -8,8 +8,8 @@ export default function CategoryCircleCard2({category }: {
     return (<>
         <Link
             href={"/category/" +category.url}
-            className={`flex flex-col gap-y-2 cursor-pointer p-4 rounded hover:bg-stone-100 items-center  `}>
-            <div className={"rounded-full border flex !w-[60px] !h-[60px] lg:!w-[100px] lg:!h-[100px] overflow-hidden whitespace-nowrap"}>
+            className={`flex flex-col gap-y-2 cursor-pointer p-4 rounded-sm hover:bg-stone-100 items-center  `}>
+            <div className={"rounded-full border flex w-[60px]! h-[60px]! lg:!w-[100px] lg:!h-[100px] overflow-hidden whitespace-nowrap"}>
                 <Image
                     width={100}
                     height={100}

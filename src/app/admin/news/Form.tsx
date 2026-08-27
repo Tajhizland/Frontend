@@ -7,7 +7,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
 import {Controller, useForm} from "react-hook-form";
 import {NewsResponse} from "@/services/types/news";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {getList} from "@/services/api/admin/blogCategory";
 import SunEditors from "@/shared/Editor/SunEditors";
 import ImageField from "@/shared/Uploader/ImageField";

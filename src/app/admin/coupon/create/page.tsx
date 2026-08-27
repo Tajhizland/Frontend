@@ -6,7 +6,7 @@ import Form from "@/app/admin/coupon/Form";
 import { store } from "@/services/api/admin/coupon";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Page() {
     const router = useRouter();
@@ -40,7 +40,7 @@ export default function Page() {
                 ایجاد تخفیف جدید
             </PageTitle>
             <div>
-                <Form submit={storeCoupon.mutateAsync} loading={storeCoupon.isLoading} />
+                <Form submit={storeCoupon.mutateAsync} loading={storeCoupon.isPending} />
             </div>
 
         </Panel>

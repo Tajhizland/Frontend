@@ -6,7 +6,7 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form, {LandingFormValues} from "@/app/admin/landing/Form";
 import {storeLanding} from "@/services/api/admin/landing";
 import toast from "react-hot-toast";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 
 export default function Page() {
     const mutation = useMutation({
@@ -35,7 +35,7 @@ export default function Page() {
             <Panel>
                 <PageTitle>ایجاد لندینگ جدید</PageTitle>
                 <div>
-                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isLoading} resetOnSuccess />
+                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isPending} resetOnSuccess />
                 </div>
             </Panel>
         </>

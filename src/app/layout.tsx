@@ -9,7 +9,9 @@ import Providers from "@/app/Providers";
 
 const myFont: NextFont = localFont({src: '../fonts/fa/IRANSansWeb.woff2'})
 
-export const SITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL || "https://tajhizland.com";
+// Next.js 16 rejects arbitrary named exports from a route module; nothing
+// imported this, so it stays module-local.
+const SITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL || "https://tajhizland.com";
 
 /**
  * متادیتای پایه‌ی کل سایت.

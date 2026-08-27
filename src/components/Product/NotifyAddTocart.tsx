@@ -24,7 +24,7 @@ const NotifyAddTocart: FC<Props> = ({
     const renderProductCartOnNotify = () => {
         return (
             <div className="flex ">
-                <div className="h-20 w-20 relative flex-shrink-0 overflow-hidden rounded-xl  ">
+                <div className="h-20 w-20 relative shrink-0 overflow-hidden rounded-xl  ">
                     <Image
                         src={productImage}
                         alt={name}

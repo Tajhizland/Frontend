@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient, keepPreviousData} from "@tanstack/react-query";
 import { TableFetcher, TableMeta, TableResult } from "@/shared/Table/types";
 
 type Options<T> = {
@@ -43,11 +43,12 @@ export const useTableData = <T,>({ fetchFn, baseKey, initialFilters, defaultSort
     const { data, isLoading, isFetching, refetch } = useQuery<TableResult<T>>({
         queryKey,
         queryFn: () => fetchFn({ page, sort: sortParam, filters: debouncedFilters }),
-        keepPreviousData: true,
+        // v5 replaced `keepPreviousData: true` with the placeholderData helper
+        placeholderData: keepPreviousData,
         staleTime: 5000,
     });
 
-    const invalidate = () => queryClient.invalidateQueries(baseKey);
+    const invalidate = () => queryClient.invalidateQueries({ queryKey: baseKey });
 
     const toggleSort = (key: string) =>
         setSort((prev) => ({

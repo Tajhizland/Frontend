@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Fragment, useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import NcModal from "@/shared/NcModal/NcModal";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
@@ -121,7 +121,7 @@ const ColorPriceModal: React.FC<Props> = ({ productId, open, onClose }) => {
                             <hr className="border-slate-200 my-5" />
                         </Fragment>
                     ))}
-                    <ButtonPrimary loading={saveMutation.isLoading}>ذخیره</ButtonPrimary>
+                    <ButtonPrimary loading={saveMutation.isPending}>ذخیره</ButtonPrimary>
                 </form>
             </>
         );

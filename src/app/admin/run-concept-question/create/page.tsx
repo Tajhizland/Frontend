@@ -5,7 +5,7 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form, {RunConceptQuestionFormValues} from "@/app/admin/run-concept-question/Form";
 import toast from "react-hot-toast";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 import {store} from "@/services/api/admin/runConceptQuestion";
 
 export default function Page() {
@@ -36,7 +36,7 @@ export default function Page() {
             <Panel>
                 <PageTitle>افزودن پرسش جدید</PageTitle>
                 <div>
-                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isLoading} resetOnSuccess />
+                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isPending} resetOnSuccess />
                 </div>
             </Panel>
         </>

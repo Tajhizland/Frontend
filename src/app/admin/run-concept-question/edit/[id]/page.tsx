@@ -6,7 +6,7 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form, {RunConceptQuestionFormValues} from "@/app/admin/run-concept-question/Form";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {find, update} from "@/services/api/admin/runConceptQuestion";
 
 export default function Page() {
@@ -45,7 +45,7 @@ export default function Page() {
                 <PageTitle>ویرایش پرسش</PageTitle>
                 <div>
                     {!isLoading && (
-                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isLoading} />
+                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isPending} />
                     )}
                 </div>
             </Panel>

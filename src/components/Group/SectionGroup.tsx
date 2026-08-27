@@ -262,7 +262,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
                             }}
                                  key={index} className={`flex gap-5 items-center  `}>
                                 <div
-                                    className={"w-10 flex-shrink-0"}
+                                    className={"w-10 shrink-0"}
                                 ><NcImage
                                     containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${item?.icon}`}
@@ -272,7 +272,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
                                     alt="guaranty"
                                 /></div>
                                 <small
-                                    className={`text-xs  max-w-xs flex-shrink-0 ${selectedGuaranty?.id == item.id ? "text-primary-6000" : "text-slate-600 dark:text-white"}`}>
+                                    className={`text-xs  max-w-xs shrink-0 ${selectedGuaranty?.id == item.id ? "text-primary-6000" : "text-slate-600 dark:text-white"}`}>
                                     {item.name}
                                 </small>
 
@@ -288,7 +288,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
                         </div>
                         {item.id == selectedGuaranty?.id && selectedGuaranty && selectedGuaranty?.description && selectedGuaranty?.description != "null" &&
                             <div
-                                className={"text-xs text-primary-6000  flex-shrink-0 rounded-2xl p-2 max-w-sm "}>
+                                className={"text-xs text-primary-6000  shrink-0 rounded-2xl p-2 max-w-sm "}>
                                 <div dangerouslySetInnerHTML={{__html: (selectedGuaranty?.description)}}/>
                             </div>}
                     </Fragment>
@@ -393,7 +393,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
                                         className="flex items-center text-sm font-medium"
                                     >
                                         <div className="">
-                                            <StarIcon className="w-5 h-5 pb-[1px] text-orange-400"/>
+                                            <StarIcon className="w-5 h-5 pb-px text-orange-400"/>
                                         </div>
                                         <span className="mr-1.5 flex">
                                 <span>{product.rating} </span>
@@ -433,7 +433,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
                                     </div>
                                     {checkColorInCart() == 0 && selectedCount > 0 && <ButtonPrimary
                                         onClick={addToCartHandle}
-                                        className="flex-1 flex-shrink-0"
+                                        className="flex-1 shrink-0"
                                     >
                                         <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
                                         <span className="mr-3">افزودن به سبد خرید</span>

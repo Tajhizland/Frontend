@@ -10,7 +10,7 @@ import Panel from "@/shared/Panel/Panel";
 import {useParams} from "next/navigation";
 import {useState} from "react";
 import {toast} from "react-hot-toast";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import {findById as productFindById} from "@/services/api/admin/product";
 

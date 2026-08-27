@@ -105,7 +105,7 @@ export default function ItemActions({item, onDone, itemsCount = 0}: Props) {
                             <ButtonThird onClick={() => setOpenEdit(false)}>
                                 انصراف
                             </ButtonThird>
-                            <ButtonPrimary loading={updateMutation.isLoading} disabled={updateMutation.isLoading} onClick={handleUpdate}>
+                            <ButtonPrimary loading={updateMutation.isPending} disabled={updateMutation.isPending} onClick={handleUpdate}>
                                 ذخیره
                             </ButtonPrimary>
                         </div>
@@ -132,8 +132,8 @@ export default function ItemActions({item, onDone, itemsCount = 0}: Props) {
                                 انصراف
                             </ButtonThird>
                             <ButtonPrimary
-                                loading={deleteMutation.isLoading}
-                                disabled={deleteMutation.isLoading}
+                                loading={deleteMutation.isPending}
+                                disabled={deleteMutation.isPending}
                                 onClick={handleDelete}
                                 className="!bg-rose-600 hover:!bg-rose-700"
                             >

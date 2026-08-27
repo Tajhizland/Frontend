@@ -1,3 +1,5 @@
+@reference "../app/globals.css";
+
 .root {
   overflow: hidden;
 }
@@ -172,7 +174,7 @@
 }
 //
 button.gm-control-active.gm-fullscreen-control {
-  @apply rounded-xl #{!important};
+  @apply rounded-xl!;
 }
 
 //
@@ -199,38 +201,38 @@ button.gm-control-active.gm-fullscreen-control {
 
 .nc-p-l-container {
   padding-left: 16px;
-  @screen sm {
+  @media (width >= 40rem) {
     padding-left: calc((100vw + 32px - 640px) / 2);
   }
-  @screen md {
+  @media (width >= 48rem) {
     padding-left: calc((100vw + 32px - 768px) / 2);
   }
-  @screen lg {
+  @media (width >= 64rem) {
     padding-left: calc((100vw + 32px - 1024px) / 2);
   }
-  @screen xl {
+  @media (width >= 80rem) {
     padding-left: calc((100vw + 80px - 1280px) / 2);
   }
-  @screen 2xl {
+  @media (width >= 96rem) {
     padding-left: calc((100vw + 256px - 1536px) / 2);
   }
 }
 
 .nc-p-r-container {
   padding-right: 16px;
-  @screen sm {
+  @media (width >= 40rem) {
     padding-right: calc((100vw + 32px - 640px) / 2);
   }
-  @screen md {
+  @media (width >= 48rem) {
     padding-right: calc((100vw + 32px - 768px) / 2);
   }
-  @screen lg {
+  @media (width >= 64rem) {
     padding-right: calc((100vw + 32px - 1024px) / 2);
   }
-  @screen xl {
+  @media (width >= 80rem) {
     padding-right: calc((100vw + 80px - 1280px) / 2);
   }
-  @screen 2xl {
+  @media (width >= 96rem) {
     padding-right: calc((100vw + 256px - 1536px) / 2);
   }
 }

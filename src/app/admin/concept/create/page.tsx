@@ -6,7 +6,7 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form, {ConceptFormValues} from "@/app/admin/concept/Form";
 import {store} from "@/services/api/admin/concept";
 import toast from "react-hot-toast";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 import {useState} from "react";
 
 export default function Page() {
@@ -39,7 +39,7 @@ export default function Page() {
             <Panel>
                 <PageTitle>ایجاد concept جدید</PageTitle>
                 <div>
-                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isLoading} progress={progress} resetOnSuccess />
+                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isPending} progress={progress} resetOnSuccess />
                 </div>
             </Panel>
         </>

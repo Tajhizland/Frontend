@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactNode, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -50,9 +50,10 @@ function AttachedList<T, S = unknown>({
 
     const { data, isLoading } = useQuery({ queryKey, queryFn, staleTime: 5000 });
 
-    const invalidate = () => queryClient.invalidateQueries(queryKey);
+    const invalidate = () => queryClient.invalidateQueries({ queryKey: queryKey });
 
-    const removeMutation = useMutation((item: T) => removeFn!(item), {
+    const removeMutation = useMutation({
+        mutationFn: (item: T) => removeFn!(item),
         onSuccess: (response: any) => {
             if (response?.message) toast.success(response.message as string);
             invalidate();
@@ -66,7 +67,7 @@ function AttachedList<T, S = unknown>({
         removeFn && (
             <TrashIcon
                 className="w-8 h-8 text-red-500 cursor-pointer shrink-0"
-                onClick={() => !removeMutation.isLoading && removeMutation.mutate(item)}
+                onClick={() => !removeMutation.isPending && removeMutation.mutate(item)}
             />
         );
 

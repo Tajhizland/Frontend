@@ -10,7 +10,7 @@ import { deleteLandingCategory, getLandingCategory, setCategoryLanding } from "@
 import { categoryList } from "@/services/api/admin/category";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 export default function Page() {
@@ -69,18 +69,16 @@ function AddCategory({
     options?: { id: number; name: string }[];
     onAdded: () => void;
 }) {
-    const mutation = useMutation(
-        () => setCategoryLanding({ category_id: Number(value), landing_id: landingId }),
-        {
-            onSuccess: (response) => {
+    const mutation = useMutation({
+        mutationFn: () => setCategoryLanding({ category_id: Number(value), landing_id: landingId }),
+        onSuccess: (response) => {
                 toast.success(response?.message as string);
                 onAdded();
             },
             onError: () => {
                 toast.error("افزودن دسته بندی انجام نشد");
             },
-        }
-    );
+    });
 
     return (
         <div className="flex justify-between items-center gap-x-10 mt-5">
@@ -95,7 +93,7 @@ function AddCategory({
             <ButtonCircle
                 type="button"
                 className="w-48 bg-orange-600"
-                disabled={!value || mutation.isLoading}
+                disabled={!value || mutation.isPending}
                 onClick={() => mutation.mutate()}
             >
                 +

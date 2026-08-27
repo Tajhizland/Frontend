@@ -2,7 +2,7 @@
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect} from "react";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import Label from "@/shared/Label/Label";
 import {RoleResponse} from "@/services/types/role";
 import {list} from "@/services/api/admin/permission";

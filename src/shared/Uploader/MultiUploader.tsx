@@ -78,7 +78,7 @@ export default function MultiUploader({ onFilesSelected, name }: { onFilesSelect
                                 height={120}
                                 src={image}
                                 alt={`تصویر ${index + 1}`}
-                                className="object-cover rounded border border-gray-300"
+                                className="object-cover rounded-sm border border-gray-300"
                             />
                             <button
                                 onClick={() => removeImage(index)}

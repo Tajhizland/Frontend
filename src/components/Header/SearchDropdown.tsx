@@ -22,7 +22,7 @@ const SearchDropdown: FC<Props> = ({ className = "" }) => {
 
           return (
             <>
-              <PopoverButton className="w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center">
+              <PopoverButton className="w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-hidden flex items-center justify-center">
                 <svg
                   width={22}
                   height={22}

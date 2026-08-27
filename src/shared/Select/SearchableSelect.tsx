@@ -65,7 +65,7 @@ const SearchableSelect: FC<SearchableSelectProps> = ({
                 <div className="absolute z-50 mt-1 w-ful l bg-white border border-neutral-200 rounded-2xl shadow-md max-h-60 overflow-y-auto">
                     <input
                         type="text"
-                        className="w-full px-4 py-2 text-sm outline-none border-b border-neutral-200"
+                        className="w-full px-4 py-2 text-sm outline-hidden border-b border-neutral-200"
                         placeholder="جستجو..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}

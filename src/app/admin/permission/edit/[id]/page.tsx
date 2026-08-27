@@ -4,7 +4,7 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import {findById, update} from "@/services/api/admin/permission";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import Form from "@/app/admin/permission/Form";
 import {toast} from "react-hot-toast";
 

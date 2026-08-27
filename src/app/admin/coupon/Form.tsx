@@ -10,7 +10,7 @@ import persian from "react-date-object/calendars/persian";
 import DatePicker from "react-multi-date-picker";
 import {toMySqlDateTime} from "@/utils/dateFormat";
 import {CouponResponse} from "@/services/types/coupon";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {getUserByType} from "@/services/api/admin/user";
 import ReactSelect from "react-select";
 import Select from "@/shared/Select/Select";
@@ -160,8 +160,8 @@ export default function Form({data, submit, loading = false}: Form) {
                         render={({field: {onChange, value, name}, fieldState: {error}}) => (
                             <div>
                                 <DatePicker
-                                    inputClass={"block w-full border-neutral-200 focus:border-rose-600 focus:ring-0 focus:ring-rose-600 focus:ring-opacity-50 bg-white disabled:bg-neutral-200  h-11 px-4 py-3 text-sm font-normal rounded-2xl"}
-                                    className="custom-date-picker flex-shrink-0 w-full"
+                                    inputClass={"block w-full border-neutral-200 focus:border-rose-600 focus:ring-0 focus:ring-rose-600/50  bg-white disabled:bg-neutral-200  h-11 px-4 py-3 text-sm font-normal rounded-2xl"}
+                                    className="custom-date-picker shrink-0 w-full"
                                     calendar={persian}        // تقویم شمسی (Jalali)
                                     locale={persian_fa}      // متن/اعداد فارسی
                                     value={data?.start_time_fa || ""}
@@ -187,8 +187,8 @@ export default function Form({data, submit, loading = false}: Form) {
                         render={({field: {onChange, value, name}, fieldState: {error}}) => (
                             <div>
                                 <DatePicker
-                                    inputClass={"block w-full border-neutral-200 focus:border-rose-600 focus:ring-0 focus:ring-rose-600 focus:ring-opacity-50 bg-white disabled:bg-neutral-200  h-11 px-4 py-3 text-sm font-normal rounded-2xl"}
-                                    className="custom-date-picker flex-shrink-0 w-full"
+                                    inputClass={"block w-full border-neutral-200 focus:border-rose-600 focus:ring-0 focus:ring-rose-600/50  bg-white disabled:bg-neutral-200  h-11 px-4 py-3 text-sm font-normal rounded-2xl"}
+                                    className="custom-date-picker shrink-0 w-full"
                                     calendar={persian}        // تقویم شمسی (Jalali)
                                     locale={persian_fa}      // متن/اعداد فارسی
                                     value={data?.end_time_fa || ""}

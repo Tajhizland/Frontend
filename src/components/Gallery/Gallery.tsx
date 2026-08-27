@@ -57,14 +57,14 @@ export default function Gallery({images, open, close, index}: galleryProps) {
         <Dialog open={open} onClose={close} className="relative z-50">
             <DialogBackdrop
                 transition
-                className="fixed inset-0 bg-slate-900  transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+                className="fixed inset-0 bg-slate-900  transition-opacity data-closed:opacity-0 data-enter:duration-300 data-leave:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
             />
 
             <div className="fixed inset-0 z-10 w-full overflow-y-auto">
                 <div className="flex min-h-full items-end justify-center  text-center sm:items-center sm:p-0">
                     <DialogPanel
                         transition
-                        className="relative transform overflow-hidden  text-right   transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in  w-full data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95 py-10 h-[100vh] flex flex-col gap-5 items-center justify-center"
+                        className="relative transform overflow-hidden  text-right   transition-all data-[closed]:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-leave:duration-200 data-[enter]:ease-out data-[leave]:ease-in  w-full data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95 py-10 h-screen flex flex-col gap-5 items-center justify-center"
                     >
                         {renderNextPrevButton()}
                         <div className={"absolute top-5 right-5 cursor-pointer"} onClick={close}>

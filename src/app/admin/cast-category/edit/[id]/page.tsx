@@ -6,7 +6,7 @@ import Form from "@/app/admin/cast-category/Form";
 import {findById, update} from "@/services/api/admin/castCategory";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {useState} from "react";
 
 export default function Page() {
@@ -47,7 +47,7 @@ export default function Page() {
                 ویرایش دسته cast
             </PageTitle>
             <div>
-                <Form submit={updateCast.mutateAsync} data={data} loading={updateCast.isLoading}/>
+                <Form submit={updateCast.mutateAsync} data={data} loading={updateCast.isPending}/>
             </div>
 
             {progress > 0 && <div className="w-full bg-gray-200 rounded-md mt-4">

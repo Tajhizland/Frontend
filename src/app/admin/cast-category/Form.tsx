@@ -6,7 +6,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect, useState} from "react";
 import {VlogResponse} from "@/services/types/vlog";
 import {Controller, useForm} from "react-hook-form";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {get} from "@/services/api/admin/castCategory";
 import {CastCategoryResponse} from "@/services/types/castCategory";
 import Uploader from "@/shared/Uploader/Uploader";

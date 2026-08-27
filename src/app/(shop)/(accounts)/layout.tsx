@@ -7,8 +7,8 @@ import { getCookie } from "cookies-next";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
-import { FC } from "react";
-import { useQuery } from "react-query";
+import { FC, useEffect} from "react";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import avatar from "@/images/avatar.svg";
 
@@ -57,18 +57,20 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   const hasCookie=getCookie("token")
   if(!hasCookie)
   {  router.push("/login")}
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isError } = useQuery({
     queryKey: ['user'],
     queryFn: () => me(),
     staleTime: 5000,
-    onSuccess: (user) => {
-      setUser(user);
-    }
-    ,
-    onError: (error) => {
-      router.push("/login")
-    }
   });
+
+  // TanStack Query v5 removed onSuccess/onError from useQuery; side effects live in an effect.
+  useEffect(() => {
+    if (isSuccess && data) setUser(data);
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    if (isError) router.push("/login");
+  }, [isError, router]);
 
   return (
     <div className="nc-AccountCommonLayout  dark:bg-neutral-900 container">
@@ -103,7 +105,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
                   <Link
                     key={index}
                     href={item.link}
-                    className={`flex-shrink-0 flex flex-col items-center pt-4 pb-4 -mb-px border-b-2 transition-colors ${
+                    className={`shrink-0 flex flex-col items-center pt-4 pb-4 -mb-px border-b-2 transition-colors ${
                       active ? "border-primary-500" : "border-transparent"
                     }`}
                   >

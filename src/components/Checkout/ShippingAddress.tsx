@@ -1,8 +1,8 @@
 "use client";
 
-import React, {FC, Fragment, useState} from "react";
+import React, {FC, Fragment, useState, useEffect} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import {useProvinceCity} from "@/hooks/useProvinceCity";
 import {changeActiveAddress, findActive, getAllAddress, update} from "@/services/api/shop/address";
@@ -36,8 +36,12 @@ const ShippingAddress: FC<Props> = ({
         queryKey: ['address'],
         queryFn: () => findActive(),
         staleTime: 5000,
-        onSuccess: (data) => setProvinceId(data?.province_id ?? 1),
     });
+
+    // TanStack Query v5 removed onSuccess/onError from useQuery; side effects live in an effect.
+    useEffect(() => {
+        if (activeAddress) setProvinceId(activeAddress.province_id ?? 1);
+    }, [activeAddress, setProvinceId]);
 
 
     const saveAddressMutation = useApiMutation(
@@ -62,16 +66,16 @@ const ShippingAddress: FC<Props> = ({
 
     const {
         mutateAsync: changeActive,
-        isLoading: changeActiveAddressLoading,
+        isPending: changeActiveAddressLoading,
         isSuccess: changeActiveAddressSiccess,
     } = useMutation({
         mutationKey: [`changeActiveAddress`],
         mutationFn: (id: number) =>
             changeActiveAddress(id),
         onSuccess: data => {
-            queryClient.invalidateQueries(['my-address']);
-            queryClient.invalidateQueries(['address']);
-            queryClient.invalidateQueries(['get-shipping-methods']);
+            queryClient.invalidateQueries({ queryKey: ['my-address'] });
+            queryClient.invalidateQueries({ queryKey: ['address'] });
+            queryClient.invalidateQueries({ queryKey: ['get-shipping-methods'] });
 
         }
     });
@@ -146,7 +150,7 @@ const ShippingAddress: FC<Props> = ({
         <div className="border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
             <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-2 text-slate-700 dark:text-slate-200">
-                    <HiOutlineLocationMarker className="w-5 h-5 mt-0.5 flex-shrink-0"/>
+                    <HiOutlineLocationMarker className="w-5 h-5 mt-0.5 shrink-0"/>
                     <div>
                         <span className="font-medium">ارسال به آدرس انتخاب شده</span>
                         <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-6">
@@ -161,7 +165,7 @@ const ShippingAddress: FC<Props> = ({
                     </div>
                 </div>
                 <button
-                    className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 flex-shrink-0"
+                    className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 shrink-0"
                     onClick={() => setShowListModal(true)}
                 >
                     تغییر آدرس
@@ -204,7 +208,7 @@ const ShippingAddress: FC<Props> = ({
                 isOpenProp={showCreateModal}
                 onCloseModal={() => {
                     setShowCreateModal(false);
-                    queryClient.invalidateQueries(['my-address']);
+                    queryClient.invalidateQueries({ queryKey: ['my-address'] });
                 }}
                 contentExtraClass="max-w-4xl"
                 renderContent={renderCreateContent}
@@ -218,7 +222,7 @@ const ShippingAddress: FC<Props> = ({
                 isOpenProp={showEditModal}
                 onCloseModal={() => {
                     setShowEditModal(false);
-                    queryClient.invalidateQueries(['my-address']);
+                    queryClient.invalidateQueries({ queryKey: ['my-address'] });
                 }}
                 contentExtraClass="max-w-4xl"
                 renderContent={renderContent}

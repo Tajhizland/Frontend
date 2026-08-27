@@ -107,7 +107,7 @@ const SectionHomepageCategory: FC<SectionHomepageCategoryProps> = ({ data }) => 
                     <ProductCard2 data={product} key={index}/>
                 ))}
             </div>
-            <ButtonPrimary className={"!flex justify-center w-fit mx-auto my-5"} href={"/category/" + (data[tabActive]?.url ?? "")}>
+            <ButtonPrimary className={"flex! justify-center w-fit mx-auto my-5"} href={"/category/" + (data[tabActive]?.url ?? "")}>
                 مشاهده همه
             </ButtonPrimary>
         </div>

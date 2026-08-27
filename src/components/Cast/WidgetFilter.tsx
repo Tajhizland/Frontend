@@ -66,7 +66,7 @@ const WidgetFilter = ({categoryList, changeFilter}: {
             <div
                 className={`nc-WidgetHeading1 flex items-center justify-between p-4 xl:p-5 border-b border-neutral-200 dark:border-neutral-700  `}
             >
-                <h2 className="text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow">
+                <h2 className="text-lg text-neutral-900 dark:text-neutral-100 font-semibold grow">
                     دسته بندی
                 </h2>
 

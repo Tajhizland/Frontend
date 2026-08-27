@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { findCategoryByUrl } from "@/services/api/shop/category";
 import { CategoryListing } from "@/services/types/category";
@@ -34,17 +34,16 @@ const CategoryListingPage = ({ response, url, breadcrump }: Props) => {
 
     useCategoryViewTracker(response.category?.id);
 
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-        ["categoryProducts", url, filter],
-        ({ pageParam = 1 }) => findCategoryByUrl(url, filter, pageParam),
-        {
-            initialData: { pages: [response], pageParams: [1] },
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+        queryKey: ["categoryProducts", url, filter],
+        queryFn: ({ pageParam }) => findCategoryByUrl(url, filter, pageParam),
+        initialPageParam: 1,
+        initialData: { pages: [response], pageParams: [1] },
             getNextPageParam: (lastPage) => {
                 const meta = lastPage?.products?.meta;
                 return meta && meta.current_page < meta.last_page ? meta.current_page + 1 : undefined;
             },
-        }
-    );
+    });
 
     const sentinelRef = useInfiniteScroll({ hasNextPage, isFetchingNextPage, fetchNextPage });
 
@@ -140,7 +139,7 @@ const CategoryListingPage = ({ response, url, breadcrump }: Props) => {
                 <hr className="border-slate-200 dark:border-slate-700" />
 
                 <div>
-                    <div className="max-w-screen-sm">
+                    <div className="max-w-[var(--breakpoint-sm)]">
                         <h2 className="block text-xl sm:text-2xl lg:text-3xl font-semibold dark:text-white">
                             {response.category.name}
                         </h2>

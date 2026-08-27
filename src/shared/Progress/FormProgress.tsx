@@ -29,12 +29,12 @@ export default function FormProgress({loading, progress}: Props) {
             <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
                 {uploading ? (
                     <div
-                        className="h-full rounded-full bg-gradient-to-r from-sky-400 to-indigo-500 transition-all duration-200 ease-out"
+                        className="h-full rounded-full bg-linear-to-r from-sky-400 to-indigo-500 transition-all duration-200 ease-out"
                         style={{width: `${progress}%`}}
                     />
                 ) : (
                     // حالت نامعین (پردازش سمت سرور)
-                    <div className="h-full w-1/3 rounded-full bg-gradient-to-r from-sky-400 to-indigo-500 animate-[formprogress_1.1s_ease-in-out_infinite]" />
+                    <div className="h-full w-1/3 rounded-full bg-linear-to-r from-sky-400 to-indigo-500 animate-[formprogress_1.1s_ease-in-out_infinite]" />
                 )}
             </div>
             <style jsx>{`

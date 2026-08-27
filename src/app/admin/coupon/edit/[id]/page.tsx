@@ -6,7 +6,7 @@ import Form from "@/app/admin/coupon/Form";
 import {find, update} from "@/services/api/admin/coupon";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 
 export default function Page() {
     const {id} = useParams();
@@ -45,7 +45,7 @@ export default function Page() {
                 ویرایش تخفیف
             </PageTitle>
             <div>
-                {data && <Form submit={updateCoupon.mutateAsync} data={data} loading={updateCoupon.isLoading}/>
+                {data && <Form submit={updateCoupon.mutateAsync} data={data} loading={updateCoupon.isPending}/>
                 }            </div>
 
         </Panel>

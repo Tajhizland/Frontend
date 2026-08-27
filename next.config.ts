@@ -25,6 +25,10 @@ const nextConfig: NextConfig = {
                 hostname: "logo.samandehi.ir",
             },
         ],
+
+        // Next.js 16 raised this default from 60s to 4h; kept at the previous
+        // value so product images keep refreshing at the same rate.
+        minimumCacheTTL: 60,
     },
 
 };
@@ -33,5 +37,7 @@ const nextConfig: NextConfig = {
 export default withPWA({
     dest: "public",
     register: true,
-
+    // The PWA plugin is a webpack plugin, so `next build` runs with --webpack while
+    // `next dev` runs on Turbopack. The service worker is a build artefact anyway.
+    disable: process.env.NODE_ENV === "development",
 })(nextConfig);

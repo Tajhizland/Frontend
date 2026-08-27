@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getProvince } from "@/services/api/shop/province";
 import { getCity } from "@/services/api/shop/city";
 

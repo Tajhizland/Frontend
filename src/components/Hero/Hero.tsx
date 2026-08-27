@@ -101,7 +101,7 @@ const Hero = <T extends BaseSlider>({
 
     const renderDots = () => {
         return (
-            <div className="absolute bottom-0 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 z-20 flex justify-center">
+            <div className="absolute bottom-0 inset-s-1/2 -translate-x-1/2 rtl:translate-x-1/2 z-20 flex justify-center">
                 {data.map((_, index) => {
                     const isActive = indexActive === index;
                     return (
@@ -114,7 +114,7 @@ const Hero = <T extends BaseSlider>({
                             className={`relative px-1 py-1.5 cursor-pointer`}
                         >
                             <div
-                                className={`relative w-4 lg:w-8 h-1 shadow-sm rounded-md bg-stone-200`}
+                                className={`relative w-4 lg:w-8 h-1 shadow-xs rounded-md bg-stone-200`}
                             >
                                 {isActive && (
                                     <div

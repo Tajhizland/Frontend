@@ -4,7 +4,7 @@ import {DiscountedProductPageResponse} from "@/services/types/product";
 import {useRouter} from "next/navigation";
 import {getDiscountedProducts} from "@/services/api/shop/product";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
-import {useInfiniteQuery} from "react-query";
+import {useInfiniteQuery} from "@tanstack/react-query";
 import ProductCard from "@/components/Card/ProductCard";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import SectionNewDiscountSlider from "@/components/Section/SectionNewDiscountSlider";
@@ -27,14 +27,14 @@ const DiscountListing = ({response}: {response: DiscountedProductPageResponse}) 
         hasNextPage,
         isFetchingNextPage,
         refetch,
-    } = useInfiniteQuery(
-        ["discountedProducts", filter],
-        async ({pageParam = 1}) => {
+    } = useInfiniteQuery({
+        queryKey: ["discountedProducts", filter],
+        queryFn: async ({pageParam}) => {
             const result = await getDiscountedProducts(pageParam, filter ? `filter[category]=${filter}` : ""); // فراخوانی getDiscountedProducts به صورت صفحه‌بندی شده
             return result.data;
         },
-        {
-            // داده‌های اولیه از props
+        initialPageParam: 1,
+        // داده‌های اولیه از props
             initialData: {
                 pages: [response.data],
                 pageParams: [1],
@@ -43,8 +43,7 @@ const DiscountListing = ({response}: {response: DiscountedProductPageResponse}) 
                 lastPage?.meta?.current_page < lastPage?.meta?.last_page
                     ? lastPage?.meta?.current_page + 1
                     : undefined,
-        }
-    );
+    });
 
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
@@ -101,7 +100,7 @@ const DiscountListing = ({response}: {response: DiscountedProductPageResponse}) 
                 />
                 <div
                     style={{backgroundColor: response.campaign ? response.campaign.background_color : "#fcb415"}}
-                    className="absolute w-24 h-24  rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
+                    className="absolute w-24 h-24  rounded-full left-[-4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
                     <div className="w-20 h-20 bg-white rounded-full"></div>
                 </div>
 

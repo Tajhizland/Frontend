@@ -6,7 +6,7 @@ import Form from "@/app/admin/product/Form";
 import {findById, update} from "@/services/api/admin/product";
 import {useState} from "react";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import ProductTab from "@/components/Tabs/ProductTab";
 
@@ -30,7 +30,7 @@ export default function Page() {
         },
         onSuccess: (data) => {
             toast.success(data?.message ?? "")
-            queryClient.invalidateQueries([`product-info`, Number(id)]);
+            queryClient.invalidateQueries({ queryKey: [`product-info`, Number(id)] });
         },
     }); 
     return (<>

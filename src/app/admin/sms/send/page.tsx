@@ -5,7 +5,7 @@ import {useForm} from "react-hook-form";
 import Link from "next/link";
 import Textarea from "@/shared/Textarea/Textarea";
 import "suneditor/dist/css/suneditor.min.css";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {smsSend} from "@/services/api/admin/sms";
 import toast from "react-hot-toast";
 import Select from "@/shared/Select/Select";
@@ -105,7 +105,7 @@ export default function Page() {
                         <div>
                             <Label>متن پیامک</Label>
                             <Textarea
-                                disabled={mutation.isLoading}
+                                disabled={mutation.isPending}
                                 {...register("message", {required: "متن پیامک الزامی است"})}
                             />
                             {errors.message && (
@@ -158,7 +158,7 @@ export default function Page() {
                                     {users?.map((user: any) => (
                                         <label
                                             key={user.id}
-                                            className="flex items-center gap-2 border p-2 rounded hover:bg-gray-50 cursor-pointer"
+                                            className="flex items-center gap-2 border p-2 rounded-sm hover:bg-gray-50 cursor-pointer"
                                         >
                                             <input
                                                 type="checkbox"
@@ -181,7 +181,7 @@ export default function Page() {
                         <Link href={"/admin/sms"}>
                             <ButtonPrimary type="button">بازگشت</ButtonPrimary>
                         </Link>
-                        <ButtonPrimary loading={mutation.isLoading}>ارسال</ButtonPrimary>
+                        <ButtonPrimary loading={mutation.isPending}>ارسال</ButtonPrimary>
                     </div>
                 </form>
             </Panel>

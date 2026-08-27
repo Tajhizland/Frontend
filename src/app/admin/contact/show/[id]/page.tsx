@@ -3,7 +3,7 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import {useParams} from "next/navigation";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import { remove ,findById } from "@/services/api/admin/contact";

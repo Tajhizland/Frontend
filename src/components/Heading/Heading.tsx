@@ -89,7 +89,7 @@ const Heading: React.FC<HeadingProps> = ({
         )}
       </div>
       {hasNextPrev &&   (
-        <div className={`mt-4 flex sm:ms-2 sm:mt-0 flex-shrink-0 ${isCenter?"justify-center w-full":"justify-end "}`}>
+        <div className={`mt-4 flex sm:ms-2 sm:mt-0 shrink-0 ${isCenter?"justify-center w-full":"justify-end "}`}>
           <NextPrev onClickNext={() => {}} onClickPrev={() => {}} />
         </div>
       )}

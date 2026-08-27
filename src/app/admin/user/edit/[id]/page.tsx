@@ -7,7 +7,7 @@ import Form, {UserFormValues} from "@/app/admin/user/Form";
 import {findById, update} from "@/services/api/admin/user";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import UserTab from "@/components/Tabs/UserTab";
 
 export default function Page() {
@@ -50,7 +50,7 @@ export default function Page() {
                 <UserTab id={id + ""} />
                 <div>
                     {!isLoading && (
-                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isLoading} />
+                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isPending} />
                     )}
                 </div>
             </Panel>

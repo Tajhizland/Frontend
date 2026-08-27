@@ -15,7 +15,7 @@ import { search } from "@/services/api/admin/vlog";
 import { VlogResponse } from "@/services/types/vlog";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 export default function Page() {
@@ -35,20 +35,18 @@ export default function Page() {
         staleTime: 5000,
     });
 
-    const saveMutation = useMutation(
-        () => setProductVideo({ product_id: productId, vlogId: Number(picked?.id), title }),
-        {
-            onSuccess: (response) => {
+    const saveMutation = useMutation({
+        mutationFn: () => setProductVideo({ product_id: productId, vlogId: Number(picked?.id), title }),
+        onSuccess: (response) => {
                 toast.success(response?.message as string);
-                queryClient.invalidateQueries(queryKey);
+                queryClient.invalidateQueries({ queryKey: queryKey });
                 setTitle("");
                 setPicked(undefined);
             },
             onError: () => {
                 toast.error("ذخیره ویدیو انجام نشد");
             },
-        }
-    );
+    });
 
     return (
         <>
@@ -86,8 +84,8 @@ export default function Page() {
                     </div>
                     <div>
                         <ButtonPrimary
-                            disabled={!picked || saveMutation.isLoading}
-                            loading={saveMutation.isLoading}
+                            disabled={!picked || saveMutation.isPending}
+                            loading={saveMutation.isPending}
                             onClick={() => saveMutation.mutate()}
                         >
                             ذخیره

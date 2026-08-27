@@ -6,7 +6,7 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form, {BlogCategoryFormValues} from "@/app/admin/blog_category/Form";
 import {store} from "@/services/api/admin/blogCategory";
 import toast from "react-hot-toast";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 
 export default function Page() {
     const mutation = useMutation({
@@ -34,7 +34,7 @@ export default function Page() {
             <Panel>
                 <PageTitle>افزودن  دسته بندی بلاگ</PageTitle>
                 <div>
-                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isLoading} resetOnSuccess />
+                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isPending} resetOnSuccess />
                 </div>
             </Panel>
         </>

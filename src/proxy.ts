@@ -1,6 +1,6 @@
 // import {NextResponse} from 'next/server'
 // import type {NextRequest} from 'next/server'
-// export async function middleware(request: NextRequest) {
+// export async function proxy(request: NextRequest) {
 //     const token = request.cookies.get('token')?.value;
 //     try {
 //         const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_API_URL + "auth/me", {
@@ -30,7 +30,7 @@
 import {NextResponse} from 'next/server'
 import type {NextRequest} from 'next/server'
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     const token = request.cookies.get('token')?.value;
     return NextResponse.next();
 

@@ -6,7 +6,7 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Form, {SliderFormValues} from "@/app/admin/slider/Form";
 import {store} from "@/services/api/admin/slider";
 import toast from "react-hot-toast";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 import {useState} from "react";
 
 export default function Page() {
@@ -40,7 +40,7 @@ export default function Page() {
             <Panel>
                 <PageTitle>افزودن اسلایدر</PageTitle>
                 <div>
-                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isLoading} progress={progress} resetOnSuccess />
+                    <Form onSubmit={mutation.mutateAsync} loading={mutation.isPending} progress={progress} resetOnSuccess />
                 </div>
             </Panel>
         </>

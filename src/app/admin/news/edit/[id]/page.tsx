@@ -7,7 +7,7 @@ import Form, {NewsFormValues} from "@/app/admin/news/Form";
 import {update, findById} from "@/services/api/admin/news";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import NewsTab from "@/components/Tabs/NewsTab";
 import {useState} from "react";
 
@@ -51,7 +51,7 @@ export default function Page() {
                 <NewsTab id={id + ""} />
                 <div>
                     {!isLoading && (
-                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isLoading} progress={progress} />
+                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isPending} progress={progress} />
                     )}
                 </div>
             </Panel>

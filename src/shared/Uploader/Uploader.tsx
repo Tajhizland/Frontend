@@ -55,7 +55,7 @@ export default function Uploader({
                             height={120}
                             src={selectedImage}
                             alt="فایل انتخاب شده"
-                            className="object-contain rounded border border-gray-300"
+                            className="object-contain rounded-sm border border-gray-300"
                         />
                     )}
                     {selectedImageName && <span>{selectedImageName}</span>}

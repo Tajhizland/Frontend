@@ -140,18 +140,18 @@ const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info, poster
                 className={`nc-SectionPromo1 relative flex flex-col-reverse md:flex-row items-center bg-neutral-100 rounded-xl gap-5 sm:py-5  ${className}`}
             >
                 <div
-                    className="relative flex-shrink-0 sm:mb-16 lg:mb-0 lg:mr-10 md:w-2/5 overflow-auto bg-white max-h-[500px] rounded-lg flex flex-col gap-5 p-4 flex-[1] ">
-                    <h2 className="font-semibold text-lg   !leading-[1.2] tracking-tight text-[#fcb415]">
+                    className="relative shrink-0 sm:mb-16 lg:mb-0 lg:mr-10 md:w-2/5 overflow-auto bg-white max-h-[500px] rounded-lg flex flex-col gap-5 p-4 flex-1 ">
+                    <h2 className="font-semibold text-lg   leading-[1.2]! tracking-tight text-[#fcb415]">
                         راه اندازی مجموعتو به تجهیزلند بسپار
                     </h2>
                     <div className=" ">
                 <span
-                    className="font-semibold  text-base !leading-[1.2] tracking-tight text-slate-700 dark:text-white ">
+                    className="font-semibold  text-base leading-[1.2]! tracking-tight text-slate-700 dark:text-white ">
                     مشاوره و راه اندازی صفر تا صد کافه , رستوران و فست فود
                 </span>
                     </div>
                     <div className={"text-sm"}>
-                        <p className={"break-words"}>
+                        <p className={"wrap-break-word"}>
                             {info.content}
                         </p>
                     </div>
@@ -162,7 +162,7 @@ const SectionSampleInfo: FC<SectionPromo1Props> = ({className = "", info, poster
                     </ButtonPrimary>
                 </div>
                 <div
-                    className="relative flex-[1] max-w-xl lg:max-w-none flex flex-col gap-5 justify-center items-center">
+                    className="relative flex-1 max-w-xl lg:max-w-none flex flex-col gap-5 justify-center items-center">
                     <NcImage
                         alt=""
                         width={1080}

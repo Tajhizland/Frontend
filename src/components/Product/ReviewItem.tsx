@@ -33,7 +33,7 @@ const ReviewItem: FC<ReviewItemProps> = ({
       data-nc-id="ReviewItem"
     >
       <div className=" flex gap-x-4 ">
-        <div className="flex-shrink-0 pt-0.5">
+        <div className="shrink-0 pt-0.5">
           <Avatar
 
             profile={data.avatar}

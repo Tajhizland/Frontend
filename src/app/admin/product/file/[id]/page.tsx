@@ -6,7 +6,7 @@ import ProductTab from "@/components/Tabs/ProductTab";
 import FileManager from "@/shared/FileManager/FileManager";
 import { findById as productFindById } from "@/services/api/admin/product";
 import { useParams } from "next/navigation";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Page() {
     const { id } = useParams();

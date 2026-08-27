@@ -7,7 +7,7 @@ import Form, {MenuFormValues} from "@/app/admin/menu/Form";
 import {findById, update} from "@/services/api/admin/menu";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {useState} from "react";
 
 export default function Page() {
@@ -50,7 +50,7 @@ export default function Page() {
                 <PageTitle>ویرایش منو</PageTitle>
                 <div>
                     {!isLoading && (
-                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isLoading} progress={progress} />
+                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isPending} progress={progress} />
                     )}
                 </div>
             </Panel>

@@ -69,7 +69,7 @@ const SectionRandomProducts: FC<SectionRandomProductsProps> = ({
 
     const arrowClass =
         "w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-neutral-200 dark:border-slate-700 " +
-        "flex items-center justify-center text-neutral-700 dark:text-neutral-200 shadow-sm transition " +
+        "flex items-center justify-center text-neutral-700 dark:text-neutral-200 shadow-xs transition " +
         "hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 " +
         "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-neutral-700";
 
@@ -77,7 +77,7 @@ const SectionRandomProducts: FC<SectionRandomProductsProps> = ({
         <section
             dir="rtl"
             className={`nc-SectionRandomProducts relative overflow-hidden rounded-3xl
-                        bg-gradient-to-bl from-amber-50 via-white to-amber-50/40
+                        bg-linear-to-bl from-amber-50 via-white to-amber-50/40
                         dark:from-slate-800 dark:via-slate-900 dark:to-slate-800
                         border border-amber-100 dark:border-slate-700
                         px-4 py-6 sm:px-8 sm:py-10 ${className}`}
@@ -140,7 +140,7 @@ const SectionRandomProducts: FC<SectionRandomProductsProps> = ({
                             <div
                                 className="h-full rounded-2xl bg-white dark:bg-slate-800 border border-neutral-100
                                            dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                                <ProductCard2 data={product} className="!bg-transparent dark:!bg-transparent"/>
+                                <ProductCard2 data={product} className="bg-transparent! dark:bg-transparent!"/>
                             </div>
                         </div>
                     ))}

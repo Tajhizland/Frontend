@@ -14,7 +14,7 @@ import Image from "next/image";
 import {search} from "@/services/api/admin/vlog";
 import {VlogResponse} from "@/services/types/vlog";
 import {Controller, useForm} from "react-hook-form";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {findActive} from "@/services/api/shop/address";
 import {get} from "@/services/api/admin/castCategory";
 

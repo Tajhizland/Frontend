@@ -4,7 +4,7 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import {cancelOrder, findById} from "@/services/api/admin/order";
 import {useParams} from "next/navigation";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useState} from "react";
 import {toast} from "react-hot-toast";
 import NcModal from "@/shared/NcModal/NcModal";
@@ -275,8 +275,8 @@ export default function Page() {
                             انصراف
                         </ButtonThird>
                         <ButtonPrimary
-                            loading={cancelMutation.isLoading}
-                            disabled={cancelMutation.isLoading}
+                            loading={cancelMutation.isPending}
+                            disabled={cancelMutation.isPending}
                             onClick={() => cancelMutation.mutate()}
                             className="!bg-rose-600 hover:!bg-rose-700"
                         >

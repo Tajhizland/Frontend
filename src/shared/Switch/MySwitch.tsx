@@ -46,7 +46,7 @@ const MySwitch: FC<MySwitchProps> = ({
         className={`${
           enabledState ? "bg-neutral-400 dark:bg-neutral-6000" : "bg-teal-700"
         } ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-          relative inline-flex flex-shrink-0 h-8 w-[68px] border-2 border-transparent rounded-full transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+          relative inline-flex shrink-0 h-8 w-[68px] border-2 border-transparent rounded-full transition-colors ease-in-out duration-200 focus:outline-hidden focus-visible:ring-2  focus-visible:ring-white/75 `}
       >
         <span className="sr-only">{label}</span>
         <span

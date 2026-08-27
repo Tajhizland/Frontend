@@ -228,7 +228,7 @@ export default async function Homepage() {
                     />
                     <div
                         style={{backgroundColor: campaign ? campaign.background_color : "#fcb415"}}
-                        className="absolute w-24 h-24 rounded-full -left-[4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
+                        className="absolute w-24 h-24 rounded-full left-[-4rem] top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center">
                         <div className="w-20 h-20 bg-white rounded-full flex items-center justify-start">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={0.6}
                                  stroke="currentColor" className="h-12 w-12">

@@ -9,7 +9,7 @@ export const columns = defineColumns<RandomProductCategoryResponse>([
         filter: false,
         sortable: false,
         render: (row) => <div className={"w-10 h-10"}>
-            <Image className={"w-10 h-10 mx-auto rounded object-cover"} width={50} height={50} alt={"image"}
+            <Image className={"w-10 h-10 mx-auto rounded-sm object-cover"} width={50} height={50} alt={"image"}
                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${row.category?.image}`}
             /></div>
     },

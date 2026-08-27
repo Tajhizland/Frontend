@@ -190,7 +190,7 @@ const ProductCard3: FC<ProductCardProps> = ({
                 <Link href={"/product/" + data?.url} className="absolute inset-0"
                       aria-label={"product"}></Link>
                 <div
-                    className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group border">
+                    className="relative shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group border">
 
                     <Link href={"/product/" + data?.url} className="block " aria-label={"product"}>
                         <NcImage

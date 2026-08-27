@@ -11,8 +11,8 @@ export default function CategoryCircleCard({category, active, onClick}: {
             onClick={() => {
                 onClick && onClick(category.id)
             }}
-            className={`flex flex-col gap-y-2 cursor-pointer p-4 rounded hover:bg-stone-100 items-center ${active ? "bg-stone-100 dark:bg-black/20 " : ""}`}>
-            <div className={"rounded-full border flex !w-[60px] !h-[60px] lg:!w-[100px] lg:!h-[100px] overflow-hidden whitespace-nowrap"}>
+            className={`flex flex-col gap-y-2 cursor-pointer p-4 rounded-sm hover:bg-stone-100 items-center ${active ? "bg-stone-100 dark:bg-black/20 " : ""}`}>
+            <div className={"rounded-full border flex w-[60px]! h-[60px]! lg:!w-[100px] lg:!h-[100px] overflow-hidden whitespace-nowrap"}>
                 <Image
                     width={100}
                     height={100}

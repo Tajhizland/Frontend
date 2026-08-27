@@ -37,7 +37,7 @@ export default function CommentModal({ productId }: { productId: number }) {
                     </Select>
                 </label>
                 <div>
-                    <ButtonPrimary type="submit" loading={commentMutation.isLoading}>ثبت نظر  </ButtonPrimary>
+                    <ButtonPrimary type="submit" loading={commentMutation.isPending}>ثبت نظر  </ButtonPrimary>
                 </div>
             </form>
         </div>

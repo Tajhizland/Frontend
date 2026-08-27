@@ -181,7 +181,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                 <Link href={"/product/" + data?.url} className="absolute inset-0"></Link>
 
                 <div
-                    className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded sm:rounded-3xl overflow-hidden z-1 group w-28 sm:w-full border  group-hover:shadow">
+                    className="relative shrink-0 bg-slate-50 dark:bg-slate-300 rounded-sm sm:rounded-3xl overflow-hidden z-1 group w-28 sm:w-full border  group-hover:shadow-sm">
                     <Link href={"/product/" + data?.url} className="block">
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 transition-all block group-hover:hidden"
@@ -221,7 +221,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                 <div className="space-y-1 px-2.5 sm:pt-5 sm:pb-2.5  w-full flex flex-col">
                     <div className={"flex justify-between items-center"}>
                         <div className="flex sm:hidden items-center mb-0.5 ">
-                            <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
+                            <StarIcon className="w-5 h-5 pb-px text-amber-400"/>
                             <span className="text-xs ms-1 text-slate-500 dark:text-slate-400">
                             {data?.rating || ""} ({data?.comments.length || 0} نظر)
                         </span>
@@ -249,7 +249,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                     <div
                         className="flex flex-col gap-y-2 sm:flex-row justify-between items-start  text-xs sm:text-base ">
                         <div className="hidden sm:flex items-center mb-0.5 whitespace-nowrap">
-                            <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
+                            <StarIcon className="w-5 h-5 pb-px text-amber-400"/>
                             <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
                 {data?.rating || ""} ({data?.comments.length || 0} نظر)
               </span>

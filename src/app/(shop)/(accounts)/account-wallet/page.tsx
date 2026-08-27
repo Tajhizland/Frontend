@@ -30,7 +30,7 @@ const AccountOrder = () => {
 
                 <div className={"flex flex-col gap-8"}>
                     <div className={"flex flex-col-reverse sm:flex-row items-center gap-2"}>
-                        <div className={"flex-[3] flex flex-col gap-8"}>
+                        <div className={"flex-3 flex flex-col gap-8"}>
                             <div>
                                 <Alert type={"success"}>
                                     <div className={"flex items-center justify-between w-full"}>
@@ -67,7 +67,7 @@ const AccountOrder = () => {
                                 >
                                     <Alert containerClassName={"px-5"} type={"success"}>
                                            <span
-                                               className={`text-green-500 !leading-none text-xs sm:text-sm flex items-center gap-1 font-bold  priceFont`}>
+                                               className={`text-green-500 leading-none! text-xs sm:text-sm flex items-center gap-1 font-bold  priceFont`}>
                                                {new Intl.NumberFormat('en-US').format(200)}
                                                ملیون
                                                 <Image src={toman} alt={"تومان"} width={20} height={20}
@@ -84,7 +84,7 @@ const AccountOrder = () => {
 
                                     <Alert containerClassName={"px-5"} type={"success"}>
                                            <span
-                                               className={`text-green-500 !leading-none text-xs sm:text-sm flex items-center gap-1 font-bold  priceFont`}>
+                                               className={`text-green-500 leading-none! text-xs sm:text-sm flex items-center gap-1 font-bold  priceFont`}>
                                                {new Intl.NumberFormat('en-US').format(100)}
                                                ملیون
                                                 <Image src={toman} alt={"تومان"} width={20} height={20}
@@ -101,7 +101,7 @@ const AccountOrder = () => {
 
                                     <Alert containerClassName={"px-5"} type={"success"}>
                                            <span
-                                               className={`text-green-500 !leading-none text-xs sm:text-sm flex items-center gap-1 font-bold  priceFont`}>
+                                               className={`text-green-500 leading-none! text-xs sm:text-sm flex items-center gap-1 font-bold  priceFont`}>
                                                {new Intl.NumberFormat('en-US').format(50)}
                                                ملیون
                                                 <Image src={toman} alt={"تومان"} width={20} height={20}
@@ -128,7 +128,7 @@ const AccountOrder = () => {
                                 شارژ کیف پول
                             </ButtonPrimary>
                         </div>
-                        <div className={"flex-[2] "}>
+                        <div className={"flex-2 "}>
                             <Image src={walletIcon} alt={"walletIcon"} className={"w-32 sm:w-full"}/>
                         </div>
                     </div>

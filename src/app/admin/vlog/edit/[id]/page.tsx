@@ -7,7 +7,7 @@ import Form, {VlogFormValues} from "@/app/admin/vlog/Form";
 import {update, findById} from "@/services/api/admin/vlog";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import PageTab from "@/components/Tabs/PageTab";
 import React, {useState} from "react";
 
@@ -36,7 +36,7 @@ export default function Page() {
         },
         onSuccess: (response) => {
             if (response.success) {
-                queryClient.invalidateQueries(["vlog-info", Number(id)]);
+                queryClient.invalidateQueries({ queryKey: ["vlog-info", Number(id)] });
                 toast.success(response.message as string);
             }
             setProgress(0);
@@ -56,7 +56,7 @@ export default function Page() {
                 <PageTab id={id + ""} />
                 <div>
                     {!isLoading && (
-                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isLoading} />
+                        <Form data={data} onSubmit={mutation.mutateAsync} loading={mutation.isPending} />
                     )}
                 </div>
                 {progress > 0 && (

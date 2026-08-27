@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import {useEffect} from "react";
 import {OptionItemsResponse} from "@/services/types/optionItem";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {useMutation, useQueryClient} from "react-query";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {updateOption} from "@/services/api/admin/option";
 
@@ -25,7 +25,7 @@ export default function OptionItemForm({data, categoryId}: optionItemProps) {
         },
         onSuccess: (response) => {
             toast.success(response?.message ?? "")
-            queryClient.refetchQueries(['option-info', Number(categoryId)]);
+            queryClient.refetchQueries({ queryKey: ['option-info', Number(categoryId)] });
             if (!data) {
                 mutation.reset();
                 reset()

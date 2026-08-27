@@ -2,7 +2,7 @@
 import React, { useState, Fragment } from "react";
 import { Transition, Dialog, TransitionChild } from "@headlessui/react"
 import { menu } from "@/services/api/shop/menu";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import {BiCategoryAlt} from "react-icons/bi";
 import NavMobile from "@/components/Header/Navigation/NavMobile";
 import {getBrandList} from "@/services/api/shop/brand";
@@ -35,7 +35,7 @@ const MenuBar: React.FC<MenuBarProps> = () => {
           className="fixed inset-0 z-50 overflow-y-auto w-full max-w-none"
           onClose={handleCloseMenu}
         >
-          <div className="fixed right-0 top-0 bottom-0 w-full   md:w-auto z-max outline-none focus:outline-none">
+          <div className="fixed right-0 top-0 bottom-0 w-full   md:w-auto z-max outline-hidden focus:outline-hidden">
             <React.Fragment>
               <TransitionChild
                 enter="transition duration-100 transform"
@@ -71,7 +71,7 @@ const MenuBar: React.FC<MenuBarProps> = () => {
     <>
         <button
             onClick={handleOpenMenu}
-            className="p-2.5 rounded-lg text-neutral-700 dark:text-neutral-300 focus:outline-none flex items-center justify-center"
+            className="p-2.5 rounded-lg text-neutral-700 dark:text-neutral-300 focus:outline-hidden flex items-center justify-center"
         >
             <div className={"flex flex-col justify-center items-center gap-y-2 cursor-pointer"}>
                 <BiCategoryAlt  className={"w-5 h-5 text-[#fcb415]"}/>

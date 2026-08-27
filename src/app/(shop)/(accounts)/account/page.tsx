@@ -50,7 +50,7 @@ const AccountPage = () => {
                 <form action={(form) => saveMutation.mutate(form)}>
 
                     <div className="flex flex-col md:flex-row items-center md:items-start w-full">
-                        <div className="flex-shrink-0 flex items-start">
+                        <div className="shrink-0 flex items-start">
                             {/* AVATAR */}
                             <div className="relative rounded-full overflow-hidden flex">
 
@@ -78,7 +78,7 @@ const AccountPage = () => {
                                     />
                                 }
                                 <div
-                                    className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-neutral-50 cursor-pointer">
+                                    className="absolute inset-0 bg-black/60  flex flex-col items-center justify-center text-neutral-50 cursor-pointer">
                                     <svg
                                         width="30"
                                         height="30"
@@ -105,7 +105,7 @@ const AccountPage = () => {
                                 />
                             </div>
                         </div>
-                        <div className="flex-grow mt-10 md:mt-0 md:pr-16 max-w-3xl space-y-6  w-full">
+                        <div className="grow mt-10 md:mt-0 md:pr-16 max-w-3xl space-y-6  w-full">
                             <div>
                                 <Label>نام </Label>
                                 <Input className="mt-1.5" defaultValue={user?.name} name={"name"}/>
@@ -131,7 +131,7 @@ const AccountPage = () => {
 
                 </span>
                                     <Input
-                                        className="!rounded-r-none"
+                                        className="rounded-r-none!"
                                         placeholder="example@email.com"
                                         name={"email"}
                                         defaultValue={user?.email}
@@ -155,7 +155,7 @@ const AccountPage = () => {
                 <FaPhone/>
 
                 </span>
-                                    <Input name={"mobile"} className="!rounded-r-none" defaultValue={user?.username}
+                                    <Input name={"mobile"} className="rounded-r-none!" defaultValue={user?.username}
                                            readOnly/>
                                 </div>
                             </div>

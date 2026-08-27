@@ -3,7 +3,7 @@ import {OrderItemResponse} from "@/services/types/orderItem";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
 import Image from "next/image";
 import React, {useState} from "react";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {myOnHoldOrder} from "@/services/api/shop/onHoldOrder";
 import {OnHoldOrderResponse} from "@/services/types/onHoldOrder";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -36,7 +36,7 @@ const AccountOrder = () => {
     const renderProductItem = (orderItem: OrderItemResponse, index: number) => {
         return (
             <div key={index} className="flex py-4 sm:py-7 last:pb-0 first:pt-0">
-                <div className="relative h-24 w-16 sm:w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                <div className="relative h-24 w-16 sm:w-20 shrink-0 overflow-hidden rounded-xl bg-slate-100">
                     <Image
                         fill
                         sizes="100px"

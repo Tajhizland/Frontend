@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactNode, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import NcModal from "@/shared/NcModal/NcModal";
 import Input from "@/shared/Input/Input";
@@ -50,10 +50,11 @@ function SearchPickerModal<T>({
         staleTime: 5000,
     });
 
-    const pickMutation = useMutation((item: T) => onPick(item), {
+    const pickMutation = useMutation({
+        mutationFn: (item: T) => onPick(item),
         onSuccess: (response: any) => {
             if (response?.message) toast.success(response.message as string);
-            invalidateKeys.forEach((key) => queryClient.invalidateQueries(key));
+            invalidateKeys.forEach((key) => queryClient.invalidateQueries({ queryKey: key }));
             if (closeOnPick) onClose();
         },
         onError: () => {
@@ -63,7 +64,7 @@ function SearchPickerModal<T>({
 
     const renderContent = () => (
         <div>
-            <div className="mt-8 relative rounded-md shadow-sm">
+            <div className="mt-8 relative rounded-md shadow-xs">
                 <Input
                     type="text"
                     autoFocus
@@ -86,8 +87,8 @@ function SearchPickerModal<T>({
                         {data.map((item, index) => (
                             <div
                                 key={itemKey ? itemKey(item) : index}
-                                onClick={() => !pickMutation.isLoading && pickMutation.mutate(item)}
-                                className="flex justify-between items-center border shadow rounded ps-5 cursor-pointer hover:bg-slate-100"
+                                onClick={() => !pickMutation.isPending && pickMutation.mutate(item)}
+                                className="flex justify-between items-center border shadow-sm rounded-sm ps-5 cursor-pointer hover:bg-slate-100"
                             >
                                 {renderItem(item)}
                             </div>

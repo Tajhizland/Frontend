@@ -6,7 +6,7 @@ import Form from "@/app/admin/campaign/[id]/slider/Form";
 import {store} from "@/services/api/admin/campaignSlider";
 import toast from "react-hot-toast";
 import {useParams, useRouter} from "next/navigation";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 
 export default function Page() {
     const router = useRouter();
@@ -45,7 +45,7 @@ export default function Page() {
                 افزودن اسلایدر
             </PageTitle>
             <div>
-                <Form submit={updateMutation.mutateAsync} isLoading={updateMutation.isLoading}/>
+                <Form submit={updateMutation.mutateAsync} isLoading={updateMutation.isPending}/>
             </div>
         </Panel>
     </>)

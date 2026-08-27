@@ -53,7 +53,7 @@ const Page = async () => {
                         </div>
                     </main>
                     <hr/>
-                    <div className="max-w-screen-sm">
+                    <div className="max-w-[var(--breakpoint-sm)]">
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             برند های تجهیزلند
                         </h2>

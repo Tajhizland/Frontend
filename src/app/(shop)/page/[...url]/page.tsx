@@ -57,7 +57,7 @@ const BlogSingle = async (props: ProductPageProps) => {
             <>
 
             <header className="container rounded-xl mb-5">
-                <div className="max-w-screen-md mx-auto space-y-5 flex justify-center">
+                <div className="max-w-[var(--breakpoint-md)] mx-auto space-y-5 flex justify-center">
                     <h1
                         className=" text-neutral-900 font-semibold text-3xl md:text-4xl md:!leading-[120%] lg:text-4xl dark:text-neutral-100 max-w-4xl "
                     >
@@ -87,7 +87,7 @@ const BlogSingle = async (props: ProductPageProps) => {
                 <div className="nc-SingleContent container space-y-10 text-right page mt-5">
                     {renderContent()}
                     <div
-                        className="max-w-screen-md mx-auto border-b border-t border-neutral-100 dark:border-neutral-700"></div>
+                        className="max-w-[var(--breakpoint-md)] mx-auto border-b border-t border-neutral-100 dark:border-neutral-700"></div>
 
                 </div>
             </div>

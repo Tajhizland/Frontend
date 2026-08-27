@@ -1,5 +1,5 @@
 "use client"
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {adminUpdateWallet, findById} from "@/services/api/admin/user";
 import {useParams} from "next/navigation";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
@@ -28,7 +28,7 @@ const Page = () => {
         onSuccess: (response) => {
             if (!response)
                 return;
-            queryClient.invalidateQueries([`user-info`]);
+            queryClient.invalidateQueries({ queryKey: [`user-info`] });
             toast.success(response?.message as string);
         },
     });

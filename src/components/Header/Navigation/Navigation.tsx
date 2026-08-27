@@ -2,7 +2,7 @@
 import React from "react";
 import NavigationItem from "./NavigationItem";
 import { menu } from "@/services/api/shop/menu";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
     function Navigation() {
  

@@ -1,16 +1,10 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+// `next lint` was removed in Next.js 16, and ESLint 10 dropped the .eslintrc
+// compatibility layer, so eslint-config-next's flat config is used directly.
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals" ),
+export default [
+  {
+    ignores: [".next/**", "out/**", "node_modules/**", "public/**", "next-env.d.ts"],
+  },
+  ...nextCoreWebVitals,
 ];
-
-export default eslintConfig;

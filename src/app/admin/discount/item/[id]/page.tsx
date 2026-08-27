@@ -4,7 +4,7 @@ import Panel from "@/shared/Panel/Panel";
 import {searchProductList} from "@/services/api/admin/product";
 import React, {useState} from "react";
 import {useParams, useRouter} from "next/navigation";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {categoryList} from "@/services/api/admin/category";
 import {brandList} from "@/services/api/admin/brand";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -98,7 +98,7 @@ export default function Page() {
         },
         onSuccess: (res) => {
             toast.success(res.message as string);
-            queryClient.invalidateQueries([`search-product-list`]);
+            queryClient.invalidateQueries({ queryKey: [`search-product-list`] });
         },
     });
 
@@ -129,7 +129,7 @@ export default function Page() {
             />
             <Panel>
                 <Link href={"/admin/discount/item/" + id + "/view"}>
-                    <ButtonPrimary className={"w-fit !bg-[#fcb415]"}>
+                    <ButtonPrimary className={"w-fit bg-[#fcb415]!"}>
                         مشاهده همه محصولات تخفیف خورده
                     </ButtonPrimary>
                 </Link>
@@ -177,7 +177,7 @@ export default function Page() {
                         onChange={(e) => setBrand(Number(e))}
                     />
 
-                    <ButtonPrimary loading={searchMutation.isLoading} onClick={searchMutation.mutateAsync}>
+                    <ButtonPrimary loading={searchMutation.isPending} onClick={searchMutation.mutateAsync}>
                         جستجو
                     </ButtonPrimary>
                 </div>
@@ -191,7 +191,7 @@ export default function Page() {
                         >
 
 
-                            <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl">
+                            <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl">
                                 <Image
                                     fill
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item?.images?.[0]?.url}`}
@@ -225,8 +225,8 @@ export default function Page() {
 
 
                                         <DatePicker
-                                            inputClass={"block w-full border-neutral-200 focus:border-rose-600 focus:ring-0 focus:ring-rose-600 focus:ring-opacity-50 bg-white disabled:bg-neutral-200  h-11 px-4 py-3 text-sm font-normal rounded-2xl"}
-                                            className="custom-date-picker flex-shrink-0 w-full"
+                                            inputClass={"block w-full border-neutral-200 focus:border-rose-600 focus:ring-0 focus:ring-rose-600/50  bg-white disabled:bg-neutral-200  h-11 px-4 py-3 text-sm font-normal rounded-2xl"}
+                                            className="custom-date-picker shrink-0 w-full"
                                             calendar={persian}        // تقویم شمسی (Jalali)
                                             locale={persian_fa}      // متن/اعداد فارسی
                                             value={expireDatesFa[color.id] || ""}
@@ -277,7 +277,7 @@ export default function Page() {
                     ))}
                 </div>
                 <ButtonPrimary
-                    loading={actionMutation.isLoading}
+                    loading={actionMutation.isPending}
                     onClick={() => actionMutation.mutateAsync()}
                 >
                     ذخیره تخفیفات

@@ -7,7 +7,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
 import {useForm} from "react-hook-form";
 import {UserResponse} from "@/services/types/user";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {list} from "@/services/api/admin/role";
 import FormProgress from "@/shared/Progress/FormProgress";
 

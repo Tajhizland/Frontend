@@ -9,7 +9,7 @@ import {OrderResponse} from "@/services/types/order";
 import {toast} from "react-hot-toast";
 import {defineActions} from "@/shared/Table/types";
 import {FaEye} from "react-icons/fa";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 import {useState} from "react";
 import NcModal from "@/shared/NcModal/NcModal";
 import TapinForm from "@/app/admin/order/TapinForm";
@@ -49,7 +49,7 @@ export default function Page() {
 
     const renderContent = () => {
         return <div className={"text-right "}>
-            {orderId && <TapinForm loading={tapinRegisterMutation.isLoading}
+            {orderId && <TapinForm loading={tapinRegisterMutation.isPending}
                                    submit={tapinRegisterMutation.mutateAsync}/>}
         </div>
     }

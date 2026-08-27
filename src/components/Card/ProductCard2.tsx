@@ -191,7 +191,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                 <Link href={"/product/" + data?.url} className="absolute inset-0"
                       aria-label={"product"}></Link>
                 <div
-                    className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group border">
+                    className="relative shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group border">
 
                     <Link href={"/product/" + data?.url} className="block " aria-label={"product"}>
                         <NcImage
@@ -224,7 +224,7 @@ const ProductCard2: FC<ProductCardProps> = ({
                         className="flex flex-col gap-y-2 sm:flex-row justify-between items-start  text-xs sm:text-base ">
                         {data && renderMinPrice(data)}
                         {/*          <div className="hidden lg:flex items-center mb-0.5">*/}
-                        {/*              <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>*/}
+                        {/*              <StarIcon className="w-5 h-5 pb-px text-amber-400"/>*/}
                         {/*              <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">*/}
                         {/*  {data?.rating || ""} ({data?.comments.data.length || 0} نظر)*/}
                         {/*</span>*/}

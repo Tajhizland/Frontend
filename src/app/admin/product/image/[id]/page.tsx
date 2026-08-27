@@ -8,7 +8,7 @@ import Uploader from "@/shared/Uploader/Uploader";
 import {TrashIcon} from "@heroicons/react/24/solid";
 import Image from "next/image";
 import {useParams} from "next/navigation";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import {toast} from "react-hot-toast";
 import MultiUploader from "@/shared/Uploader/MultiUploader";
@@ -98,7 +98,7 @@ export default function Page() {
                     </ButtonPrimary>
                 </form>
             </div>
-            <div className={"grid grid-cols-1 md:grid-cols-2  xl:grid-cols-5 gap-5 border rounded  mt-10"}>
+            <div className={"grid grid-cols-1 md:grid-cols-2  xl:grid-cols-5 gap-5 border rounded-sm  mt-10"}>
                 {
                     data?.map((item) => (<>
                         <div className="flex flex-col justify-center items-center gap-y-4 ">

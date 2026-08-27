@@ -5,7 +5,7 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
 import {useState} from "react";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 import {digipayCalc} from "@/services/api/admin/order";
 import Prices from "@/components/Price/Prices";
 
@@ -45,13 +45,13 @@ export default function Page() {
 
             <div className={"flex flex-col gap-4"}>
                 <div className="flex gap-4">
-                    <label className={"flex-shrink-0"}>از تاریخ</label>
+                    <label className={"shrink-0"}>از تاریخ</label>
                     <PersianDatePicker onChange={(e) => {
                         setStartDate(e)
                     }}/>
                 </div>
                 <div className="flex gap-4">
-                    <label className={"flex-shrink-0"}>تا تاریخ</label>
+                    <label className={"shrink-0"}>تا تاریخ</label>
                     <PersianDatePicker onChange={(e) => {
                         setEndDate(e)
                     }}/>

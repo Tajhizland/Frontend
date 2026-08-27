@@ -4,7 +4,7 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import {accept, findById, reject} from "@/services/api/admin/comment";
 import {useParams} from "next/navigation";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 

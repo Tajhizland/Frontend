@@ -79,11 +79,11 @@ const ListingImageGallery: FC<Props> = ({ images, onClose }) => {
                 router.push(`${thisPathname}/?${newPathname}`);
               }}
               ref={id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null}
-              className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight focus:outline-none"
+              className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight focus:outline-hidden"
             >
               <Image
                 alt="chisfis listing gallery "
-                className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110 focus:outline-none"
+                className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110 focus:outline-hidden"
                 style={{
                   transform: "translate3d(0, 0, 0)",
                 }}
@@ -118,7 +118,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose }) => {
           <div className="fixed inset-0 overflow-y-auto">
             <div className="sticky z-10 top-0 p-4 xl:px-10 flex items-center justify-between bg-white">
               <button
-                className="focus:outline-none focus:ring-0 w-10 h-10 rounded-full flex items-center justify-center hover:bg-neutral-100"
+                className="focus:outline-hidden focus:ring-0 w-10 h-10 rounded-full flex items-center justify-center hover:bg-neutral-100"
                 onClick={handleClose}
               >
                 <ArrowRightIcon className="w-8 h-8" />
@@ -134,7 +134,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose }) => {
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-5"
               >
-                <DialogPanel className="w-full max-w-screen-lg mx-auto transform p-4 pt-0 text-left transition-all ">
+                <DialogPanel className="w-full max-w-[var(--breakpoint-lg)] mx-auto transform p-4 pt-0 text-left transition-all ">
                   {renderContent()}
                 </DialogPanel>
               </TransitionChild>

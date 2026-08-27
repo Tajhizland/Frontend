@@ -41,7 +41,7 @@ export default function BottomNavigation() {
                         </span>
                         <div
                             className="w-3.5 h-3.5 flex items-center justify-center bg-primary-500 absolute top-0 right-0 rounded-full text-[10px] leading-none text-white font-medium">
-                            <span className="mt-[1px]">
+                            <span className="mt-px">
                                 {cart?.length ?? 0}
                             </span>
                         </div>

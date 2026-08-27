@@ -1,6 +1,6 @@
 "use client"
 import {Fragment, useState} from "react";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {changeActiveAddress, getAllAddress} from "@/services/api/shop/address";
 import {AddressResponse} from "@/services/types/address";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -21,14 +21,14 @@ const AccountOrder = () => {
 
     const {
         mutateAsync: changeActive,
-        isLoading: changeActiveAddressLoading,
+        isPending: changeActiveAddressLoading,
         isSuccess: changeActiveAddressSiccess,
     } = useMutation({
         mutationKey: [`changeActiveAddress`],
         mutationFn: (id: number) =>
             changeActiveAddress(id),
         onSuccess: data => {
-            queryClient.invalidateQueries(['my-address']);
+            queryClient.invalidateQueries({ queryKey: ['my-address'] });
         }
     });
 
@@ -104,7 +104,7 @@ const AccountOrder = () => {
                         disabled={item.active == 1 ? true : false}
                         checked={item.active == 1 ? true : false}
                         className={`${item.active ? "bg-teal-500" : "bg-slate-900"}
-          relative inline-flex h-[22px] w-[42px] shrink-0 cursor-pointer rounded-full border-4 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 disabled:cursor-not-allowed`}
+          relative inline-flex h-[22px] w-[42px] shrink-0 cursor-pointer rounded-full border-4 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden focus-visible:ring-2  focus-visible:ring-white/75  disabled:cursor-not-allowed`}
                     >
                         <span className="sr-only">فعال</span>
                         <span
@@ -145,7 +145,7 @@ const AccountOrder = () => {
                 isOpenProp={showCreateModal}
                 onCloseModal={() => {
                     setShowCreateModal(false);
-                    queryClient.invalidateQueries(['my-address']);
+                    queryClient.invalidateQueries({ queryKey: ['my-address'] });
                 }}
                 contentExtraClass="max-w-4xl"
                 renderContent={renderCreateContent}
@@ -159,7 +159,7 @@ const AccountOrder = () => {
                 isOpenProp={showEditModal}
                 onCloseModal={() => {
                     setShowEditModal(false);
-                    queryClient.invalidateQueries(['my-address']);
+                    queryClient.invalidateQueries({ queryKey: ['my-address'] });
                 }}
                 contentExtraClass="max-w-4xl"
                 renderContent={renderContent}

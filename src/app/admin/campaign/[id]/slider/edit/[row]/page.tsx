@@ -6,7 +6,7 @@ import Form from "@/app/admin/campaign/[id]/slider/Form";
 import {update, findById} from "@/services/api/admin/campaignSlider";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 
 export default function Page() {
     const queryClient = useQueryClient();
@@ -25,7 +25,7 @@ export default function Page() {
             });
         },
         onSuccess: (response) => {
-            queryClient.invalidateQueries([`campaign-slider-info`, Number(row)]);
+            queryClient.invalidateQueries({ queryKey: [`campaign-slider-info`, Number(row)] });
             toast.success(response?.message as string)
         },
     });
@@ -50,7 +50,7 @@ export default function Page() {
                 ویرایش اسلایدر
             </PageTitle>
             <div>
-                <Form data={data} submit={updateMutation.mutateAsync} isLoading={updateMutation.isLoading}/>
+                <Form data={data} submit={updateMutation.mutateAsync} isLoading={updateMutation.isPending}/>
             </div>
         </Panel>
 
