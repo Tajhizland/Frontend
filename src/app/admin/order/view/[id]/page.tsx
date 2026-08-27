@@ -160,7 +160,7 @@ export default function Page() {
                                         <NcImage
                                             width={64}
                                             height={64}
-                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.images.data[0].url}`}
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.product.images[0].url}`}
                                             className="object-contain"
                                         />
                                     </div>

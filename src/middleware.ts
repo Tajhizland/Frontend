@@ -46,7 +46,7 @@ export async function middleware(request: NextRequest) {
         const url = request.nextUrl.clone();
         const pathname = url.pathname;
         const user = res.result.data;
-        const permissions = user.roles?.permissions?.data?.map((p: any) => p.value) || [];
+        const permissions = user.roles?.permissions?.map((p: any) => p.value) || [];
 
         // مسیر واقعی بدون "/admin"
         const currentPath = pathname.replace(/^\/admin\//, "");

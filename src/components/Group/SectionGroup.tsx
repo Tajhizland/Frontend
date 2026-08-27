@@ -33,7 +33,7 @@ type Props = {
 
 export default function ProductGroupFilter({groupItems, setProduct}: Props) {
     const [selectedValues, setSelectedValues] = useState<Record<string, string | null>>({});
-    const [selectedColor, setSelectedColor] = useState<ColorResponse>(groupItems?.[0].product.colors.data?.[0])
+    const [selectedColor, setSelectedColor] = useState<ColorResponse>(groupItems?.[0].product.colors?.[0])
     const [selectedGuaranty, setSelectedGuaranty] = useState<GuarantyResponse>()
     const [selectedCount, setSelectedCount] = useState<number>(1)
     const [cart, setCart] = useGlobalState('cart');
@@ -43,7 +43,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
     const groupedFields = useMemo(() => {
         const map = new Map<string, Set<string>>();
         groupItems.forEach((item) => {
-            item.value?.data.forEach((val) => {
+            item.value?.forEach((val) => {
                 const title = val.groupField?.title;
                 const value = val.value;
                 if (title && value) {
@@ -60,7 +60,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
     // فیلتر محصولات بر اساس selectedValues
     const product: ProductResponse | null = useMemo(() => {
         const matchedItem = groupItems.find((item) => {
-            const itemValues = item.value?.data ?? [];
+            const itemValues = item.value ?? [];
             return Object.entries(selectedValues).every(([title, selectedVal]) => {
                 if (!selectedVal) return true;
                 return itemValues.some(
@@ -73,8 +73,8 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
     }, [groupItems, selectedValues]);
 
     useEffect(() => {
-        setSelectedGuaranty(product?.guaranties.data[0])
-        setSelectedColor(product?.colors.data[0])
+        setSelectedGuaranty(product?.guaranties[0])
+        setSelectedColor(product?.colors[0])
     }, [product]);
     const handleSelectValue = (title: string, value: string) => {
         setSelectedValues((prev) => ({
@@ -95,7 +95,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
                 <NotifyAddTocart
                     name={product.name}
                     price={selectedColor?.price}
-                    productImage={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images.data[0].url}`}
+                    productImage={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product.images[0].url}`}
 
                     qualitySelected={selectedCount}
                     show={t.visible}
@@ -137,13 +137,13 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
         const now = new Date();
 
         if (
-            selectedColor.discountItem?.data &&
-            selectedColor.discountItem?.data?.[0] &&
-            selectedColor.discountItem?.data?.[0]?.discount
+            selectedColor.discountItem &&
+            selectedColor.discountItem?.[0] &&
+            selectedColor.discountItem?.[0]?.discount
         ) {
-            const expireDate = new Date(selectedColor.discountItem?.data?.[0]?.discount_expire_time);
+            const expireDate = new Date(selectedColor.discountItem?.[0]?.discount_expire_time);
             if (expireDate > now) {
-                timer = selectedColor.discountItem?.data?.[0]?.discount_expire_time;
+                timer = selectedColor.discountItem?.[0]?.discount_expire_time;
             }
         }
         return timer;
@@ -157,9 +157,9 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
         }
         const CLASSES =
             "text-sm flex items-center text-slate-700 text-slate-900 dark:text-slate-300";
-        if (selectedColor.discountItem && selectedColor.discountItem?.data?.[0] && selectedColor.discountItem?.data?.[0].discount_price != selectedColor.price) {
+        if (selectedColor.discountItem && selectedColor.discountItem?.[0] && selectedColor.discountItem?.[0].discount_price != selectedColor.price) {
 
-            const discountPercent = Math.round(((selectedColor.price - selectedColor.discountItem?.data?.[0].discount_price) / selectedColor.price) * 100);
+            const discountPercent = Math.round(((selectedColor.price - selectedColor.discountItem?.[0].discount_price) / selectedColor.price) * 100);
 
             return (
                 <div className={CLASSES}>
@@ -201,8 +201,8 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
         return null;
     };
     const renderVariants = () => {
-        const colors = product.colors.data;
-        const guaranty = product.guaranties.data;
+        const colors = product.colors;
+        const guaranty = product.guaranties;
         if (!colors || !colors.length) {
             return null;
         }
@@ -249,7 +249,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
     const renderGuaranty = () => {
         if (product?.guaranties) {
             return <div className={"flex flex-col gap-1 w-full"}>
-                {product?.guaranties.data.map((item, index) => (
+                {product?.guaranties.map((item, index) => (
                     <Fragment key={index}>
 
                         <div onClick={() => {
@@ -398,7 +398,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
                                         <span className="mr-1.5 flex">
                                 <span>{product.rating} </span>
                                 <span className="text-slate-700 dark:text-slate-400 underline">
-                                    {product.comments.data.length} نظر
+                                    {product.comments.length} نظر
                                 </span>
                             </span>
                                     </a>
