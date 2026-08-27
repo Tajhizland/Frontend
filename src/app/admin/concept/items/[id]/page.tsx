@@ -7,7 +7,8 @@ import Panel from "@/shared/Panel/Panel";
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useQuery, useQueryClient } from "react-query";
+import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import { categoryList } from "@/services/api/admin/category";
 import Select from "@/shared/Select/Select";
 import { TrashIcon } from "@heroicons/react/24/solid";
@@ -19,10 +20,9 @@ import { FaPen } from "react-icons/fa";
 export default function Page() {
     const [selectedCategory, setSelectedCategory] = useState("0");
     const { id } = useParams();
-    const queryClient = useQueryClient();
 
     const { data: data, isLoading: isLoading } = useQuery({
-        queryKey: [`concept-items`, Number(id)],
+        queryKey: ["concept-items", Number(id)],
         queryFn: () => getItems(Number(id)),
         staleTime: 5000,
     });
@@ -33,30 +33,19 @@ export default function Page() {
     });
 
 
-    async function addItemHandle() {
-        if (selectedCategory == undefined)
-            return;
-        let response = await setItem({ category_id: selectedCategory, concept_id: Number(id) })
-        if (response?.success) {
-            queryClient.refetchQueries(['concept-items', Number(id)]);
-            toast.success(response?.message as string);
-        }
-    }
+    const queryKey = ["concept-items", Number(id)];
 
-    async function deleteItemHandle(id: number) {
-        let response = await deleteItem(id)
-        if (response?.success) {
-            queryClient.refetchQueries(['concept-items', Number(id)]);
-            toast.success(response?.message as string);
-        }
-    }
-    async function editDisplayHandle(e:FormData) {
-        let response = await editDisplay(Number(e.get("id")), {display: e.get("display") as string})
-        if (response?.success) {
-            queryClient.refetchQueries(['concept-items', Number(id)]);
-            toast.success(response?.message as string);
-        }
-    }
+    const addMutation = useApiMutation(
+        () => setItem({category_id: selectedCategory, concept_id: Number(id)}),
+        {invalidate: [queryKey]}
+    );
+
+    const deleteMutation = useApiMutation((itemId: number) => deleteItem(itemId), {invalidate: [queryKey]});
+
+    const displayMutation = useApiMutation(
+        (form: FormData) => editDisplay(Number(form.get("id")), {display: form.get("display") as string}),
+        {invalidate: [queryKey]}
+    );
 
 
     return (<>
@@ -88,10 +77,10 @@ export default function Page() {
 
                                 <span>
                                     <TrashIcon className={"w-8 h-8 text-red-500"}
-                                        onClick={() => deleteItemHandle(item.id)} />
+                                        onClick={() => deleteMutation.mutate(item.id)} />
                                 </span>
                             </div>
-                            <form action={editDisplayHandle}>
+                            <form action={(form) => displayMutation.mutate(form)}>
                                 <div className="flex justify-end gap-x-10">
                                     <Input name="display" placeholder="نام نمایشی" defaultValue={item.display} />
                                     <Input type="hidden" name="id" value={item.id} />
@@ -119,7 +108,7 @@ export default function Page() {
                                 </>))
                             }
                         </Select>
-                        <ButtonCircle type="button" className={"w-48 bg-orange-600"} onClick={addItemHandle}>
+                        <ButtonCircle type="button" className={"w-48 bg-orange-600"} onClick={() => selectedCategory && addMutation.mutate()}>
                             +
                         </ButtonCircle>
 

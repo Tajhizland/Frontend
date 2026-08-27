@@ -5,7 +5,7 @@ import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect} from "react";
 import {categoryList, deleteImage} from "@/services/api/admin/category"
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
 import Uploader from "@/shared/Uploader/Uploader";
 import {CategoryResponse} from "@/services/types/category";
 import {TrashIcon} from "@heroicons/react/24/solid";
@@ -20,7 +20,6 @@ interface productForm {
 }
 
 export default function Form({data, submit}: productForm) {
-    const queryClient = useQueryClient();
 
     const {data: categoryLists} = useQuery({
         queryKey: [`category-list`],

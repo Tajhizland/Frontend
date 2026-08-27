@@ -5,7 +5,8 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import {findById, update} from "@/services/api/admin/product";
 import {useState} from "react";
 import {useParams} from "next/navigation";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 import toast from "react-hot-toast";
 import GroupTab from "@/components/Tabs/GroupTab";
 import {addField, deleteField, getField} from "@/services/api/admin/productGroup";
@@ -14,34 +15,23 @@ import {FaTrash} from "react-icons/fa";
 import Input from "@/shared/Input/Input";
 
 export default function Page() {
-    const queryClient = useQueryClient();
     const [title, setTitle] = useState("")
     const {id} = useParams();
 
     const {data} = useQuery({
-        queryKey: [`group-field`, Number(id)],
+        queryKey: ["group-field", Number(id)],
         queryFn: () => getField(Number(id)),
         staleTime: 5000,
     });
 
-    async function submit(e: FormData) {
-        let response = await addField(
-            {
-                groupId: Number(id),
-                title: title
-            }
-        )
-        queryClient.refetchQueries(['group-field', Number(id)]);
+    const queryKey = ["group-field", Number(id)];
 
-        setTitle("");
-        toast.success(response?.message as string)
-    }
+    const addMutation = useApiMutation(() => addField({groupId: Number(id), title}), {
+        invalidate: [queryKey],
+        onSuccess: () => setTitle(""),
+    });
 
-    async function removeHandler(id: number) {
-        let response = await deleteField(id);
-        queryClient.refetchQueries(['group-field', Number(id)]);
-        toast.success(response?.message as string)
-    }
+    const removeMutation = useApiMutation((fieldId: number) => deleteField(fieldId), {invalidate: [queryKey]});
 
     return (<>
         <Breadcrump breadcrumb={[
@@ -63,7 +53,7 @@ export default function Page() {
                 <Input value={title} onChange={(e) => {
                     setTitle(e.target.value)
                 }}/>
-                <ButtonPrimary onClick={submit}>
+                <ButtonPrimary onClick={() => addMutation.mutate()}>
                     ثبت
                 </ButtonPrimary>
             </div>
@@ -76,7 +66,7 @@ export default function Page() {
                                 {item.title}
                             </span>
                             <ButtonPrimary onClick={() => {
-                                removeHandler(item.id)
+                                removeMutation.mutate(item.id)
                             }}>
                                 <FaTrash/>
                             </ButtonPrimary>

@@ -7,8 +7,7 @@ import {GroupFieldResponse} from "@/services/types/groupField";
 import {GroupProductResponse} from "@/services/types/groupProduct";
 import {GroupFieldValueResponse} from "@/services/types/groupFieldValue";
 import {setFieldValue} from "@/services/api/admin/productGroup";
-import toast from "react-hot-toast";
-import {useQueryClient} from "react-query";
+import {useApiMutation} from "@/hooks/useApiMutation";
 
 interface Form {
     field: GroupFieldResponse;
@@ -16,7 +15,6 @@ interface Form {
 }
 
 export default function Form({field, value}: Form) {
-    const queryClient = useQueryClient();
     const findFieldValue = (
         fieldId: number,
         fieldValues: GroupFieldValueResponse[] | undefined
@@ -26,23 +24,23 @@ export default function Form({field, value}: Form) {
         return fieldValue ? fieldValue.value : "";
     };
 
-    async function setValueHandler(formData: FormData) {
-        let response = await setFieldValue({
-            groupProductId: value.id,
-            fieldId: field.id,
-            value: formData.get("value")?.toString() ?? ""
-        });
-        queryClient.refetchQueries(['group-field-value']);
-        toast.success(response?.message as string)
-    }
+    const saveMutation = useApiMutation(
+        (formData: FormData) =>
+            setFieldValue({
+                groupProductId: value.id,
+                fieldId: field.id,
+                value: formData.get("value")?.toString() ?? "",
+            }),
+        {invalidate: [["group-field-value"]]}
+    );
 
     return (<>
-        <form className={"flex flex-col md:flex-row justify-between gap-2"} action={setValueHandler}>
+        <form className={"flex flex-col md:flex-row justify-between gap-2"} action={(formData) => saveMutation.mutate(formData)}>
             <label className={"text-sm"}>
                 {field.title}
             </label>
             <Input name={"value"} type={"text"} defaultValue={findFieldValue(field.id, value.value)}/>
-            <ButtonPrimary type={"submit"}>
+            <ButtonPrimary type={"submit"} loading={saveMutation.isLoading}>
                 ذخیره
             </ButtonPrimary>
         </form>

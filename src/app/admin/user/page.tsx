@@ -11,9 +11,10 @@ import { defineActions } from "@/shared/Table/types";
 import { HiMiniPencil } from "react-icons/hi2";
 import { setCookie } from "cookies-next";
 import { useState } from "react";
+import {useApiMutation} from "@/hooks/useApiMutation";
 
 export default function Page() {
-    const [loadingLogin, setLoadingLogin] = useState(false);
+    
 
     async function submit(e: UserResponse) {
         let response = await update(e.id, {name: e.name,
@@ -28,22 +29,18 @@ export default function Page() {
         toast.success(response?.message as string)
     }
 
-    const loginToUser = async (id: number) => {
-        setLoadingLogin(true);
-
-        const response = await adminLoginUser(id);
-        if (response) {
-            let oneYear = Date.now() + 365 * 24 * 60 * 60 * 1000;
-            setCookie('token', response.token, {
+    const loginMutation = useApiMutation((userId: number) => adminLoginUser(userId), {
+        silent: true,
+        onSuccess: (response) => {
+            const oneYear = Date.now() + 365 * 24 * 60 * 60 * 1000;
+            setCookie("token", response.token, {
                 domain: "tajhizland.com",
                 path: "/",
                 expires: new Date(oneYear),
             });
             window.location.href = "/";
-        }
-        setLoadingLogin(false);
-
-    }
+        },
+    });
 
     const actions = defineActions<UserResponse>([
         {
@@ -51,10 +48,10 @@ export default function Page() {
             href: (row) => `user/edit/${row.id}`
         },
         {
-            label: loadingLogin ? "در حال ورود" : "ورود",
+            label: loginMutation.isLoading ? "در حال ورود" : "ورود",
             color: "primary",
             onClick: (row) => {
-                loginToUser(row.id)
+                loginMutation.mutate(row.id)
             }
         },
     ])
