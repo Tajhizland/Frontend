@@ -1,3 +1,4 @@
+import {Identified, Timestamps} from "@/services/http";
 import {ColorResponse} from "./color";
 import {CommentResponse} from "./comment";
 import {ProductOptionResponse} from "@/services/types/productOption";
@@ -37,50 +38,49 @@ export type StockProductPageResponse = {
     data: ProductResponse;
     category: { data: CategoryResponse[] };
 }
-export type ProductResponse = {
-    id: number;
+export interface ProductBase {
     name: string;
     url: string;
+    type: string;
+    status: number;
+    brand_id: number;
+    is_stock: number;
+    description: string;
+    meta_description: string;
+    meta_title: string;
+    guaranty_time: number;
+    study: string;
+    review: string;
     stock_of: number;
     testing_time: number;
-    status: number;
+    weight: number;
+    length: number;
+    height: number;
+    width: number;
+    use_packet: number;
+}
+
+export interface ProductResponse extends ProductBase, Identified, Timestamps {
     digipay_extra_price: number;
     view: number;
-    description: string;
-    brand_id: number;
     brand_name: string;
     brand: BrandResponse;
     category_id: number;
     category_ids: number[];
-    meta_description: string;
-    meta_title: string;
     category: string;
     guaranty_id: number;
     guaranty_ids: number[];
-    guaranty_time: number;
     guaranty: GuarantyResponse;
     min_price: number;
     rating: number;
-    is_stock: number;
     favorite: boolean;
-    study: string;
-    type: string;
-    review: string;
     unboxing_video: string;
     intro_video_description: string;
     unboxing_video_description: string;
     usage_video_description: string;
     intro_video: string;
     usage_video: string;
-    created_at: string;
-    updated_at: string;
     images_count: number;
-    weight: number;
-    length: number;
-    width: number;
-    use_packet: number;
-    height: number;
-
     unboxing?: VlogResponse;
     intro?: VlogResponse;
     usage?: VlogResponse;
@@ -92,55 +92,14 @@ export type ProductResponse = {
     productOptions: ProductOptionResponse[];
     comments: CommentResponse[];
     groupItems: GroupProductResponse[];
-};
-
-export interface ProductStoreDto {
-    name: string;
-    url: string;
-    type: string;
-    status: number;
-    brand_id: number;
-    is_stock: number;
-    description: string;
-    meta_description: string;
-    meta_title: string;
-    guaranty_id: string;
-    guaranty_time: number;
-    study: string;
-    review: string;
-    categoryId: string;
-    stock_of: number;
-    testing_time: number;
-    weight: number;
-    length: number;
-    height: number;
-    width: number;
-    use_packet: number;
 }
 
-export interface ProductUpdateDto {
-    name: string;
-    url: string;
-    type: string;
-    status: number;
-    brand_id: number;
-    description: string;
-    meta_description: string;
-    meta_title: string;
+export interface ProductStoreDto extends ProductBase {
     guaranty_id: string;
-    guaranty_time: number;
-    is_stock: number;
-    study: string;
-    review: string;
     categoryId: string;
-    stock_of: number;
-    testing_time: number;
-    weight: number;
-    length: number;
-    height: number;
-    width: number;
-    use_packet: number;
 }
+
+export type ProductUpdateDto = ProductStoreDto;
 
 export interface ProductSearchDto {
     query: string;

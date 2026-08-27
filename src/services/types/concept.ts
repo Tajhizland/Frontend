@@ -15,7 +15,7 @@ export interface ConceptStoreDto {
     title: string;
     description: string;
     status: number | string;
-    icon: File | null;
+    icon?: File | null;
 }
 
 export interface ConceptFastUpdateDto {
@@ -27,7 +27,7 @@ export interface ConceptUpdateDto {
     title: string;
     description: string;
     status: number | string;
-    icon: File | null;
+    icon?: File | null;
 }
 
 export interface ConceptSetItemDto {

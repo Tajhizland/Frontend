@@ -1,23 +1,15 @@
+import {Identified, Timestamps} from "@/services/http";
 import {CityResponse} from "@/services/types/city";
 import {ProviceResponse} from "@/services/types/province";
 
-export type BlogCategoryResponse = {
-    id:number ;
-    url:string ;
-    name:string ;
-    status:number ;
-    created_at:string ;
-    updated_at:string ;
-};
-
-export interface BlogCategoryStoreDto {
+export interface BlogCategoryBase {
     name: string;
     url: string;
     status: number;
 }
 
-export interface BlogCategoryUpdateDto {
-    name: string;
-    url: string;
-    status: number;
-}
+export interface BlogCategoryResponse extends BlogCategoryBase, Identified, Timestamps {}
+
+export interface BlogCategoryStoreDto extends BlogCategoryBase {}
+
+export type BlogCategoryUpdateDto = BlogCategoryStoreDto;

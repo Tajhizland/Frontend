@@ -7,9 +7,9 @@ export interface TrustedBrandResponse {
 }
 
 export interface TrustedBrandStoreDto {
-    logo: File | null;
+    logo?: File | null;
 }
 
 export interface TrustedBrandUpdateDto {
-    logo: File | null;
+    logo?: File | null;
 }

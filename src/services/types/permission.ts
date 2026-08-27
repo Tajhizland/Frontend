@@ -1,17 +1,11 @@
-export type PermissionResponse = {
-    id: number,
-    name:string ;
-    value:string ;
-    created_at: string,
-    updated_at: string,
-}
-
-export interface PermissionStoreDto {
+import {Identified, Timestamps} from "@/services/http";
+export interface PermissionBase {
     name: string;
     value: string;
 }
 
-export interface PermissionUpdateDto {
-    name: string;
-    value: string;
-}
+export interface PermissionResponse extends PermissionBase, Identified, Timestamps {}
+
+export interface PermissionStoreDto extends PermissionBase {}
+
+export type PermissionUpdateDto = PermissionStoreDto;

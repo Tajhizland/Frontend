@@ -1,20 +1,15 @@
-export type FaqResponse = {
-    id: number,
-    question:string ;
-    answer:string ;
-    status:number ;
-    created_at: string,
-    updated_at: string,
-}
-
-export interface FaqStoreDto {
+import {Identified, Timestamps} from "@/services/http";
+export interface FaqBase {
     question: string;
     answer: string;
+}
+
+export interface FaqResponse extends FaqBase, Identified, Timestamps {
+    status:number;
+}
+
+export interface FaqStoreDto extends FaqBase {
     status: number | string;
 }
 
-export interface FaqUpdateDto {
-    question: string;
-    answer: string;
-    status: number | string;
-}
+export type FaqUpdateDto = FaqStoreDto;

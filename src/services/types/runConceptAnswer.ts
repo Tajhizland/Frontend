@@ -1,26 +1,17 @@
+import {Identified, Timestamps} from "@/services/http";
 import {RunConceptQuestionResponse} from "@/services/types/runConceptQuestion";
 
-export type RunConceptAnswerResponse = {
-    id: number;
+export interface RunConceptAnswerBase {
     answer: string;
     status: number;
     price: number;
     run_concept_question_id: number;
+}
+
+export interface RunConceptAnswerResponse extends RunConceptAnswerBase, Identified, Timestamps {
     runConceptQuestion?: RunConceptQuestionResponse;
-    created_at: string;
-    updated_at: string;
-};
-
-export interface RunConceptAnswerStoreDto {
-    answer: string;
-    status: number;
-    price: number;
-    run_concept_question_id: number;
 }
 
-export interface RunConceptAnswerUpdateDto {
-    answer: string;
-    status: number;
-    price: number;
-    run_concept_question_id: number;
-}
+export interface RunConceptAnswerStoreDto extends RunConceptAnswerBase {}
+
+export type RunConceptAnswerUpdateDto = RunConceptAnswerStoreDto;

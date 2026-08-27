@@ -1,29 +1,19 @@
-export type GuarantyResponse = {
-    id: number;
+import {Identified, Timestamps} from "@/services/http";
+export interface GuarantyBase {
     name: string;
-    description: string;
     url: string;
+    free: number;
+    description: string;
+}
+
+export interface GuarantyResponse extends GuarantyBase, Identified, Timestamps {
     icon: string;
     status: number;
-    free: number;
-    created_at: string;
-    updated_at: string;
-};
-
-export interface GuarantyStoreDto {
-    name: string;
-    url: string;
-    free: number;
-    status: number | string;
-    icon: File | undefined;
-    description: string;
 }
 
-export interface GuarantyUpdateDto {
-    name: string;
-    free: number;
-    url: string;
+export interface GuarantyStoreDto extends GuarantyBase {
     status: number | string;
     icon?: File | undefined;
-    description: string;
 }
+
+export type GuarantyUpdateDto = GuarantyStoreDto;

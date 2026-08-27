@@ -1,28 +1,19 @@
-export type DiscountResponse = {
-    id: number,
-    status: number;
+import {Identified, Timestamps} from "@/services/http";
+export interface DiscountBase {
     title: string;
+    status: number;
     start_date: string;
     end_date: string;
+}
+
+export interface DiscountResponse extends DiscountBase, Identified, Timestamps {
     start_date_fa: string;
     end_date_fa: string;
-    created_at: string,
-    updated_at: string,
 }
 
-export interface DiscountStoreDto {
-    title: string;
-    status: number;
-    start_date: string;
-    end_date: string;
-}
+export interface DiscountStoreDto extends DiscountBase {}
 
-export interface DiscountUpdateDto {
-    title: string;
-    status: number;
-    start_date: string;
-    end_date: string;
-}
+export type DiscountUpdateDto = DiscountStoreDto;
 
 export interface DiscountSetItemDto {
     discount_id: number;

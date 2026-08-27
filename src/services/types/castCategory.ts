@@ -1,19 +1,13 @@
-export type CastCategoryResponse = {
-    id: number;
+import {Identified, Timestamps} from "@/services/http";
+export interface CastCategoryBase {
     name: string;
     status: number;
-    created_at: string;
-    updated_at: string;
 }
 
-export interface CastCategoryStoreDto {
-    name: string;
-    status: number;
+export interface CastCategoryResponse extends CastCategoryBase, Identified, Timestamps {}
+
+export interface CastCategoryStoreDto extends CastCategoryBase {
     icon: File;
 }
 
-export interface CastCategoryUpdateDto {
-    name: string;
-    status: number;
-    icon?: File;
-}
+export type CastCategoryUpdateDto = CastCategoryStoreDto;

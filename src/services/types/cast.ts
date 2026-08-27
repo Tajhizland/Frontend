@@ -1,3 +1,4 @@
+import {Identified, Timestamps} from "@/services/http";
 import {VlogResponse} from "@/services/types/vlog";
 import {CategoryResponse} from "@/services/types/category";
 import {CastCategoryResponse} from "@/services/types/castCategory";
@@ -10,40 +11,25 @@ export type CastListingResponse = {
     banner: { data: BannerResponse[] };
 
 }
-export type CastResponse = {
-    id: number;
+export interface CastBase {
+    title: string;
+    url: string;
+    vlog_id: number;
+    category_id: number;
+    status: number;
+    description: string;
+}
+
+export interface CastResponse extends CastBase, Identified, Timestamps {
     image: string;
     audio: string;
-    title: string;
-    description: string;
-    url: string;
-    status: number;
-    vlog_id: number;
-    category_id: number;
     vlog?: VlogResponse;
     castCategory?: CategoryResponse;
-    created_at: string;
-    updated_at: string;
 }
 
-export interface CastStoreDto {
-    title: string;
-    url: string;
+export interface CastStoreDto extends CastBase {
     audio: File;
     image: File;
-    vlog_id: number;
-    category_id: number;
-    status: number;
-    description: string;
 }
 
-export interface CastUpdateDto {
-    title: string;
-    url: string;
-    audio?: File;
-    image?: File;
-    vlog_id: number;
-    category_id: number;
-    status: number;
-    description: string;
-}
+export type CastUpdateDto = CastStoreDto;

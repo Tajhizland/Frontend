@@ -7,7 +7,7 @@ export interface SliderStoreDto {
     url: string;
     type: string;
     status: number | string;
-    image: File | null;
+    image?: File | null;
 }
 
 export interface SliderUpdateDto {
@@ -15,5 +15,5 @@ export interface SliderUpdateDto {
     url: string;
     type: string;
     status: number | string;
-    image: File | null;
+    image?: File | null;
 }

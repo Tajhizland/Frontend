@@ -1,26 +1,18 @@
-export type PageResponse = {
-    id: number,
-    title:string ;
-    url:string ;
-    content:string ;
-    image:string ;
-    status:number ;
-    created_at: string,
-    updated_at: string,
-}
-
-export interface PageStoreDto {
+import {Identified, Timestamps} from "@/services/http";
+export interface PageBase {
     title:string;
     url:string;
-    status:number|string;
-    image: File | null;
     content:string;
 }
 
-export interface PageUpdateDto {
-    title:string;
-    url:string;
-    status:number|string;
-    image: File | null;
-    content:string;
+export interface PageResponse extends PageBase, Identified, Timestamps {
+    image:string;
+    status:number;
 }
+
+export interface PageStoreDto extends PageBase {
+    status:number|string;
+    image?: File | null;
+}
+
+export type PageUpdateDto = PageStoreDto;

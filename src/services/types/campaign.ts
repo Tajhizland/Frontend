@@ -1,44 +1,28 @@
+import {Identified, Timestamps} from "@/services/http";
 import {CampaignSliderResponse} from "@/services/types/campaignSlider";
 
-export type CampaignResponse = {
-    id: number;
-    banner: string;
-    logo: string;
-    color: string;
-    discount_logo: string;
-    background_color: string;
+export interface CampaignBase {
     title: string;
+    color: string;
+    background_color: string;
     status: number;
-    start_date_fa: string;
-    end_date_fa: string;
     start_date: string;
     end_date: string;
-    created_at: string;
-    updated_at: string;
+}
 
+export interface CampaignResponse extends CampaignBase, Identified, Timestamps {
+    banner: string;
+    logo: string;
+    discount_logo: string;
+    start_date_fa: string;
+    end_date_fa: string;
     sliders: CampaignSliderResponse[];
 }
 
-export interface CampaignStoreDto {
-    title: string;
-    color: string;
+export interface CampaignStoreDto extends CampaignBase {
     logo: File;
     banner?: File;
     discount_logo: File;
-    background_color: string;
-    status: number;
-    start_date: string;
-    end_date: string;
 }
 
-export interface CampaignUpdateDto {
-    title: string;
-    color: string;
-    logo?: File;
-    banner?: File;
-    discount_logo?: File;
-    background_color: string;
-    status: number;
-    start_date: string;
-    end_date: string;
-}
+export type CampaignUpdateDto = CampaignStoreDto;

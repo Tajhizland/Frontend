@@ -1,24 +1,25 @@
+import {Identified, Timestamps} from "@/services/http";
 import {FilterResponse} from "@/services/types/filter";
 import {ProductResponse} from "@/services/types/product";
 import {CategoryConceptResponse} from "@/services/types/categoryConcept";
 
-export type CategoryResponse = {
-    id: number;
+export interface CategoryBase {
     name: string;
-    status: string;
     url: string;
-    image: string;
-    parent_id: number;
     description: string;
     type: string;
-    created_at: string;
-    updated_at: string;
+}
+
+export interface CategoryResponse extends CategoryBase, Identified, Timestamps {
+    status: string;
+    image: string;
+    parent_id: number;
     minPrice: number;
     maxPrice: number;
     display_name?: string;
     filters: FilterResponse[];
     products?: ProductResponse[];
-};
+}
 
 export type breadcrumbResponse = {
     id: number;
@@ -43,25 +44,13 @@ export type CategoryListing = {
 
 };
 
-export interface CategoryStoreDto {
-    name: string;
-    url: string;
-    image: File | null;
+export interface CategoryStoreDto extends CategoryBase {
+    image?: File | null;
     parent_id: number | string;
     status: number | string;
-    description: string;
-    type: string;
 }
 
-export interface CategoryUpdateDto {
-    name: string;
-    url: string;
-    image: File | null;
-    parent_id: number | string;
-    status: number | string;
-    description: string;
-    type: string;
-}
+export type CategoryUpdateDto = CategoryStoreDto;
 
 export interface CategorySearchDto {
     query: string;

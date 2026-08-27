@@ -14,5 +14,5 @@ export interface CampaignBannerStoreDto {
 export interface CampaignBannerUpdateDto {
     url: string;
     type: string;
-    image: File | undefined;
+    image?: File | undefined;
 }

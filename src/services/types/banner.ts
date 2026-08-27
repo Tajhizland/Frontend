@@ -6,11 +6,11 @@ export interface BannerResponse extends BaseBanner {
 export interface BannerStoreDto {
     url: string;
     type: string;
-    image: File | undefined;
+    image?: File | undefined;
 }
 
 export interface BannerUpdateDto {
     url: string;
     type: string;
-    image: File | undefined;
+    image?: File | undefined;
 }

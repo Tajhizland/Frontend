@@ -1,3 +1,4 @@
+import {Identified, Timestamps} from "@/services/http";
 import {ProductResponse} from "@/services/types/product";
 import {CategoryResponse} from "@/services/types/category";
 import {BannerResponse} from "@/services/types/banner";
@@ -6,17 +7,17 @@ export type BrandPageResponse = {
     brand: { data: BrandResponse[] };
     banner: { data: BannerResponse[] };
 };
-export type BrandResponse = {
-    id: number;
+export interface BrandBase {
     name: string;
     url: string;
+    description: string;
+}
+
+export interface BrandResponse extends BrandBase, Identified, Timestamps {
     status: string;
     image: string;
     banner: string;
-    description: string;
-    created_at: string;
-    updated_at: string;
-};
+}
 
 export type BrandListingResponse = {
     brand: BrandResponse;
@@ -36,20 +37,10 @@ export type BrandListingResponse = {
     };
 };
 
-export interface BrandStoreDto {
-    name: string;
-    url: string;
+export interface BrandStoreDto extends BrandBase {
     status: number | string;
-    image: File | null;
-    banner: File | null;
-    description: string;
+    image?: File | null;
+    banner?: File | null;
 }
 
-export interface BrandUpdateDto {
-    name: string;
-    url: string;
-    status: number | string;
-    image: File | null;
-    banner: File | null;
-    description: string;
-}
+export type BrandUpdateDto = BrandStoreDto;

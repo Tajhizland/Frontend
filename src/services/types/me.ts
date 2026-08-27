@@ -9,5 +9,5 @@ export interface MeUpdateDto {
     gender: string;
     last_name: string;
     national_code: string;
-    avatar: File | undefined;
+    avatar?: File | undefined;
 }

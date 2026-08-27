@@ -1,20 +1,15 @@
-export type GatewayResponse = {
-    id: number;
-    name: string;
+import {Identified, Timestamps} from "@/services/http";
+export interface GatewayBase {
+    name:string;
+    description:string;
+}
+
+export interface GatewayResponse extends GatewayBase, Identified, Timestamps {
     status: number;
-    description: string;
-    created_at: string;
-    updated_at: string;
-};
-
-export interface GatewayStoreDto {
-    name:string;
-    status:number|string;
-    description:string;
 }
 
-export interface GatewayUpdateDto {
-    name:string;
+export interface GatewayStoreDto extends GatewayBase {
     status:number|string;
-    description:string;
 }
+
+export type GatewayUpdateDto = GatewayStoreDto;

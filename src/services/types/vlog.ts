@@ -1,3 +1,4 @@
+import {Identified, Timestamps} from "@/services/http";
 import {BannerResponse} from "@/services/types/banner";
 import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 
@@ -11,11 +12,13 @@ export type VlogListingResponse = {
     banner: { data: BannerResponse[] };
     categorys?: { data: VlogCategoryResponse[] }
 }
-export type VlogResponse = {
-    id: number,
+export interface VlogBase {
     title: string;
     url: string;
     description: string;
+}
+
+export interface VlogResponse extends VlogBase, Identified, Timestamps {
     hls: string;
     video: string;
     poster: string;
@@ -24,8 +27,6 @@ export type VlogResponse = {
     categoryId: number;
     view: number;
     category: string;
-    created_at: string,
-    updated_at: string,
 }
 
 export interface VlogStoreDirectDto {
@@ -38,22 +39,11 @@ export interface VlogStoreDirectDto {
     description: string;
 }
 
-export interface VlogStoreDto {
-    title: string;
-    url: string;
+export interface VlogStoreDto extends VlogBase {
     status: number | string;
     categoryId: number | string;
-    video: File | null;
-    poster: File | null;
-    description: string;
+    video?: File | null;
+    poster?: File | null;
 }
 
-export interface VlogUpdateDto {
-    title: string;
-    url: string;
-    status: number | string;
-    categoryId: number | string;
-    video: File | null;
-    poster: File | null;
-    description: string;
-}
+export type VlogUpdateDto = VlogStoreDto;

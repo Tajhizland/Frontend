@@ -18,5 +18,5 @@ export interface CampaignSliderUpdateDto {
     url: string;
     type: string;
     status: number | string;
-    image: File | undefined;
+    image?: File | undefined;
 }
