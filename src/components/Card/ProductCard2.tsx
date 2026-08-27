@@ -8,14 +8,13 @@ import {useRouter} from "next/navigation";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
 import {ProductResponse} from "@/services/types/product";
-import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
-import {useQueryClient} from "react-query";
 import {Route} from "next";
 import Badge from "@/shared/Badge/Badge";
 import IconDiscount from "@/components/Icon/IconDiscount";
 import LikeButton from "@/shared/Button/LikeButton";
 import Prices from "@/components/Price/Prices";
 import SmallTimer from "@/components/Timer/SmallTimer";
+import {useFavorite} from "@/hooks/useFavorite";
 
 export interface ProductCardProps {
     className?: string;
@@ -26,23 +25,13 @@ const ProductCard2: FC<ProductCardProps> = ({
                                                 className = "",
                                                 data,
                                             }) => {
+    const {likeHandle} = useFavorite(data?.id);
+
 
 
     const [variantActive, setVariantActive] = useState(0);
     const [showModalQuickView, setShowModalQuickView] = useState(false);
     const router = useRouter();
-    const queryClient = useQueryClient(); // درست است
-    async function likeHandle(like: boolean) {
-        if (like) {
-            let response = await addToFavorite({productId: data?.id as number})
-            toast.success(response?.message as string)
-        } else {
-            let response = await deleteFromFavorite({productId: data?.id as number})
-            toast.success(response?.message as string)
-
-        }
-        queryClient.invalidateQueries(['get_favorite']);
-    }
 
     const renderStatus = () => {
         let status = "";

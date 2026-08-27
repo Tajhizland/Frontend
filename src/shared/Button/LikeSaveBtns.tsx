@@ -1,7 +1,6 @@
 "use client";
 import React, {useState} from "react";
-import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
-import toast from "react-hot-toast";
+import {useFavorite} from "@/hooks/useFavorite";
 
 interface props {
     like: boolean
@@ -10,16 +9,7 @@ interface props {
 
 const LikeSaveBtns = ({ like    , productId }: props) => {
     const [isLiked, setIsLiked] = useState(like);
-    async function likeHandle(like: boolean) {
-        if (like) {
-            let response =  await addToFavorite({productId: productId  })
-            toast.success(response?.message as string)
-        } else {
-            let response =  await deleteFromFavorite({productId: productId  })
-            toast.success(response?.message as string)
-
-        }
-    }
+    const {likeHandle} = useFavorite(productId);
 
     return (
         <div className="flow-root">
@@ -28,7 +18,7 @@ const LikeSaveBtns = ({ like    , productId }: props) => {
                 <span
                     className={` w-fit gap-2 flex items-center justify-center px-4 py-2 rounded-xl bg-white text-slate-800 cursor-pointer   text-sm z-10 `}
                     onClick={() => {
-                        likeHandle && likeHandle(isLiked?false:true)
+                        likeHandle(!isLiked)
                         setIsLiked(!isLiked)
                     }}
                 >

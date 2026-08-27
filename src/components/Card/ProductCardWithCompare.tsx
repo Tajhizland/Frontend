@@ -8,13 +8,13 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
 import {ProductResponse} from "@/services/types/product";
-import {addToFavorite, deleteFromFavorite} from "@/services/api/shop/favorite";
 import Badge from "@/shared/Badge/Badge";
 import LikeButton from "@/shared/Button/LikeButton";
 import Prices from "@/components/Price/Prices";
 import SmallTimer from "@/components/Timer/SmallTimer";
 import {FaCodeCompare} from "react-icons/fa6";
 import {MdCompare, MdOutlineCompare} from "react-icons/md";
+import {useFavorite} from "@/hooks/useFavorite";
 
 export interface ProductCardProps {
     className?: string;
@@ -31,6 +31,8 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                                                           isProductInCompareList,
                                                           isLiked,
                                                       }) => {
+    const {likeHandle} = useFavorite(data?.id);
+
 
 
     const [showModalQuickView, setShowModalQuickView] = useState(false);
@@ -53,17 +55,6 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                 ))}
             </div>
         );
-    }
-
-    async function likeHandle(like: boolean) {
-        if (like) {
-            let response = await addToFavorite({productId: data?.id as number})
-            toast.success(response?.message as string)
-        } else {
-            let response = await deleteFromFavorite({productId: data?.id as number})
-            toast.success(response?.message as string)
-
-        }
     }
 
     const renderStatus = () => {
