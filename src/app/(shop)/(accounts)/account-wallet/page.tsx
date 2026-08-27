@@ -1,6 +1,5 @@
 "use client"
 import React, {useState} from "react";
-import {useQueryClient} from "react-query";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import {Alert} from "@/shared/Alert/Alert";
@@ -11,19 +10,19 @@ import walletIcon from "@/images/wallet.png"
 import Image from "next/image";
 import toman from "@/images/toman.svg";
 import {FaEye} from "react-icons/fa";
+import {useApiMutation} from "@/hooks/useApiMutation";
 
 const AccountOrder = () => {
     const [user] = useUser();
     const [showWallet, setShowWallet] = useState(true);
-    const queryClient = useQueryClient();
     const [price, setPrice] = useState(0);
 
-    async function charge() {
-        let response = await chargeRequest({amount: price});
-        if (response) {
+    const chargeMutation = useApiMutation(() => chargeRequest({amount: price}), {
+        silent: true,
+        onSuccess: (response) => {
             window.location.href = response.path;
-        }
-    }
+        },
+    });
 
     return (
         <>
@@ -125,7 +124,7 @@ const AccountOrder = () => {
                                     }}
                                 />
                             </div>
-                            <ButtonPrimary disabled={price < 1000} onClick={charge}>
+                            <ButtonPrimary disabled={price < 1000} onClick={() => chargeMutation.mutate()}>
                                 شارژ کیف پول
                             </ButtonPrimary>
                         </div>

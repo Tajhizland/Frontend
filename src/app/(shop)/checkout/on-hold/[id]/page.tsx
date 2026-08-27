@@ -37,6 +37,7 @@ import {CouponResponse} from "@/services/types/coupon";
 import snappBoxLogo from "@/images/snappayLogo.svg";
 import walletIcon from "@/images/walletIcon.png";
 import digipayIcon from "@/images/digipayIcon.png";
+import {useApiMutation} from "@/hooks/useApiMutation";
 
 // سقف مبلغی که درگاه بانکی اجازه‌ی پرداختش را می‌دهد (تومان)
 const GATEWAY_LIMIT = 200000000;
@@ -54,7 +55,6 @@ const OnHoldCheckoutPage = () => {
     const [shippingMethod, setShippingMethod] = useState(0);
     const [gateway, setGateway] = useState(1);
     const [expired, setExpired] = useState(false);
-    const [paying, setPaying] = useState(false);
     const [tabActive, setTabActive] = useState<
         "ContactInfo" | "ShippingAddress" | "ShippingMethod" | "PaymentMethod"
     >("ContactInfo");
@@ -192,35 +192,35 @@ const OnHoldCheckoutPage = () => {
         ? Math.floor((data.expire_date_time * 1000 - Date.now()) / 1000)
         : 0;
 
-    async function checkCode() {
-        const response = await onHoldCheckCoupon(onHoldId, code);
-        if (response) {
-            setCoupon(response);
-        }
-    }
+    const couponMutation = useApiMutation(() => onHoldCheckCoupon(onHoldId, code), {
+        silent: true,
+        onSuccess: (response) => {
+            if (response) setCoupon(response);
+        },
+    });
 
-    async function payment() {
-        if (paying) return;
-        setPaying(true);
-        try {
-            const response = await onHoldCheckoutPayment(onHoldId, {
+    const paymentMutation = useApiMutation(
+        () =>
+            onHoldCheckoutPayment(onHoldId, {
                 wallet: useWallet,
                 shippingMethod: shippingMethod,
                 code: coupon ? code : undefined,
                 gateway: gateway,
-            });
-            if (!response) return;
-            if (response.type == "payment") {
-                window.location.href = response.path;
-                return;
-            }
-            router.push("/thank_you_page");
-        } catch (e) {
-            toast.error("خطایی در پرداخت رخ داد");
-        } finally {
-            setPaying(false);
+            }),
+        {
+            silent: true,
+            errorMessage: "خطایی در پرداخت رخ داد",
+            onSuccess: (response) => {
+                if (!response) return;
+                if (response.type == "payment") {
+                    window.location.href = response.path;
+                    return;
+                }
+                router.push("/thank_you_page");
+            },
+            onError: () => toast.error("خطایی در پرداخت رخ داد"),
         }
-    }
+    );
 
     const handleScrollToEl = (id: string) => {
         const element = document.getElementById(id);
@@ -513,7 +513,7 @@ const OnHoldCheckoutPage = () => {
                                     <Input sizeClass="h-10 px-4 py-3" className="flex-1" value={code}
                                            onChange={(e) => setCode(e.target.value)}/>
                                     <button
-                                        onClick={checkCode}
+                                        onClick={() => couponMutation.mutate()}
                                         className="text-neutral-700 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 rounded-2xl px-4 mr-3 font-medium text-sm bg-neutral-200/70 dark:bg-neutral-700 dark:hover:bg-neutral-800 w-24 flex justify-center items-center transition-colors">
                                         اعمال
                                     </button>
@@ -606,9 +606,9 @@ const OnHoldCheckoutPage = () => {
 
                         <ButtonPrimary
                             className="mt-8 w-full"
-                            onClick={payment}
+                            onClick={() => paymentMutation.mutate()}
                             disabled={
-                                !allow || !acceptRule || paying || expired || remainingSeconds <= 0 ||
+                                !allow || !acceptRule || paymentMutation.isLoading || expired || remainingSeconds <= 0 ||
                                 !shippingMethod || couponBase <= 0 || exceedsGatewayLimit
                             }
                         >

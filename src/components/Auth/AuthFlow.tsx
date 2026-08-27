@@ -163,10 +163,14 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
     });
 
     // ارسال مجدد کد یکبار مصرف (ورود/ثبت‌نام)
-    async function resendOtp() {
-        const response = await otpSend({ mobile });
-        if (response) goToOtpStep("VERIFY_OTP");
-    }
+    const actionResendOtp = useMutation({
+        mutationKey: ["auth-resend-otp"],
+        mutationFn: async () => otpSend({ mobile }),
+        onSuccess: (response) => {
+            if (!response) return;
+            goToOtpStep("VERIFY_OTP");
+        },
+    });
 
     // بازیابی رمز: ارسال کد
     const actionForgotSend = useMutation({
@@ -207,10 +211,14 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
         },
     });
 
-    async function resendForgot() {
-        const response = await resetPasswordSendCode({ mobile });
-        if (response) goToOtpStep("FORGOT_OTP");
-    }
+    const actionResendForgot = useMutation({
+        mutationKey: ["forgot-resend"],
+        mutationFn: async () => resetPasswordSendCode({ mobile }),
+        onSuccess: (response) => {
+            if (!response) return;
+            goToOtpStep("FORGOT_OTP");
+        },
+    });
 
     // ---- اجزای مشترک نمایش ----
 
@@ -346,7 +354,7 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
                             className="grid grid-cols-1 gap-5"
                             onSubmit={handleSubmit((d) => actionVerifyOtp.mutateAsync(d))}
                         >
-                            <ResendRow onResend={resendOtp} />
+                            <ResendRow onResend={() => actionResendOtp.mutate()} />
                             <Input
                                 type="tel"
                                 inputMode="numeric"
@@ -478,7 +486,7 @@ const AuthFlow: React.FC<AuthFlowProps> = ({ initialStep = "ENTER_MOBILE" }) => 
                             className="grid grid-cols-1 gap-5"
                             onSubmit={handleSubmit((d) => actionForgotVerify.mutateAsync(d))}
                         >
-                            <ResendRow onResend={resendForgot} />
+                            <ResendRow onResend={() => actionResendForgot.mutate()} />
                             <Input
                                 type="tel"
                                 inputMode="numeric"

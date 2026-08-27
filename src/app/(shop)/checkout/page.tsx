@@ -37,6 +37,7 @@ import Input from "@/shared/Input/Input";
 import Label from "@/shared/Label/Label";
 import {check} from "@/services/api/shop/coupon";
 import {CouponResponse} from "@/services/types/coupon";
+import {useApiMutation} from "@/hooks/useApiMutation";
 
 const CheckoutPage = () => {
     const router = useRouter();
@@ -95,12 +96,12 @@ const CheckoutPage = () => {
 
     }, [gateway]);
 
-    async function checkCode() {
-        let response = await check(code);
-        if (response) {
-            setCoupon(response)
-        }
-    }
+    const couponMutation = useApiMutation(() => check(code), {
+        silent: true,
+        onSuccess: (response) => {
+            if (response) setCoupon(response);
+        },
+    });
 
     useEffect(() => {
         // درگاه فقط زمانی نمایش داده می‌شود که همه‌ی محصولات سبد اجازه‌ی آن را داشته باشند
@@ -108,23 +109,24 @@ const CheckoutPage = () => {
         setAllowSnappay(cart.every((item) => item.product?.allow_snappay != 0));
     }, [cart])
 
-    async function payment() {
-        let response = await paymentRequest(useWallet, shippingMethod, shippingPrice, code, gateway);
-        if (response.type == "payment")
-            window.location.href = response.path;
-        else if (response.type == "paid")
-            router.push("/thank_you_page")
-        else
-            router.push("/thank_you_page/limit")
-    }
+    const paymentMutation = useApiMutation(
+        () => paymentRequest(useWallet, shippingMethod, shippingPrice, code, gateway),
+        {
+            silent: true,
+            onSuccess: (response) => {
+                if (response.type == "payment") window.location.href = response.path;
+                else if (response.type == "paid") router.push("/thank_you_page");
+                else router.push("/thank_you_page/limit");
+            },
+        }
+    );
 
-    async function paymentWallet() {
-        let response = await paymentByWallet();
-        if (response.type == "paid")
-            router.push("/thank_you_page")
-        else
-            router.push("/thank_you_page/limit")
-    }
+    const walletPaymentMutation = useApiMutation(() => paymentByWallet(), {
+        silent: true,
+        onSuccess: (response) => {
+            router.push(response.type == "paid" ? "/thank_you_page" : "/thank_you_page/limit");
+        },
+    });
 
     // پس از هر تغییر در سبد خرید، API چک‌اوت (روش‌های ارسال و هزینه پستی) دوباره فراخوانی می‌شود.
     // اِلیجیبل بودن اسنپ‌پی به‌صورت خودکار با تغییر مبلغ نهایی (که در queryKey است) دوباره اجرا می‌شود.
@@ -637,7 +639,7 @@ const CheckoutPage = () => {
                                         setCode(e.target.value)
                                     }}/>
                                     <button
-                                        onClick={checkCode}
+                                        onClick={() => couponMutation.mutate()}
                                         className="text-neutral-700 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 rounded-2xl px-4 mr-3 font-medium text-sm bg-neutral-200/70 dark:bg-neutral-700 dark:hover:bg-neutral-800 w-24 flex justify-center items-center transition-colors">
                                         اعمال
                                     </button>
@@ -770,12 +772,13 @@ const CheckoutPage = () => {
                                 </span>
                             </div>
                         )}
-                        <ButtonPrimary className="mt-8 w-full" onClick={payment}
+                        <ButtonPrimary className="mt-8 w-full" onClick={() => paymentMutation.mutate()}
+                                       loading={paymentMutation.isLoading}
                                        disabled={!allow || !acceptRule || sumDiscountedPrice <= 0 ||
                                            exceedsGatewayLimit
                                        }>پرداخت</ButtonPrimary>
 
-                        {/*<ButtonPrimary className="mt-4 w-full" onClick={paymentWallet}*/}
+                        {/*<ButtonPrimary className="mt-4 w-full" onClick={() => walletPaymentMutation.mutate()}*/}
                         {/*               disabled={sumDiscountedPrice > (user?.wallet ?? 0) || !allow || !acceptRule || sumDiscountedPrice <= 0}>*/}
                         {/*پرداخت با کیف پول*/}
                         {/*</ButtonPrimary>*/}
