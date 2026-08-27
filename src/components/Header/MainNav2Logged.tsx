@@ -23,7 +23,7 @@ import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import Navigation from "@/components/Header/Navigation/Navigation";
 import {FiChevronRight} from "react-icons/fi";
-import {HeaderSearchResponse} from "@/services/types/serach";
+import {useSearchQuery} from "@/hooks/useSearchQuery";
 
 export interface MainNav2LoggedProps {
 }
@@ -31,7 +31,10 @@ export interface MainNav2LoggedProps {
 const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     const inputRef = createRef<HTMLInputElement>();
     const [showSearchForm, setShowSearchForm] = useState(false);
-    const [searchResponse, setSearchResponse] = useState<HeaderSearchResponse>()
+    const {setQuery, results: searchResults, clear: clearSearch} = useSearchQuery(
+        "header-search",
+        (query) => search({query}).then((response) => response.data)
+    );
     const pathname = usePathname();
     const router = useRouter();
 
@@ -72,21 +75,13 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
 
     useEffect(() => {
         setShowSearchForm(false);
-        setSearchResponse(undefined)
+        clearSearch();
     }, [pathname])
 
-    async function searchHandle(e: any) {
-        if (e.target.value == "") {
-            setShowSearchForm(false);
-            return;
-        }
-        let response = await search({query: e.target.value});
-        if (response.data) {
-            setSearchResponse(response.data);
-            setShowSearchForm(true);
-        } else
-            setSearchResponse(undefined)
-    }
+    const searchHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setQuery(e.target.value);
+        setShowSearchForm(!!e.target.value);
+    };
 
     const handleSearch = () => {
         router.push("/search/" + inputRef.current?.value);
@@ -167,7 +162,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                         </label>
                     </div>
                 </div>
-                {searchResponse && showSearchForm &&
+                {searchResults && showSearchForm &&
                     <div
                         ref={dropdownRef}
                         className="absolute top-14 left-0 w-full max-h-[496px] bg-white  dark:bg-neutral-900  z-50 border rounded shadow border-t-0 overflow-y-auto whitespace-nowrap ">
@@ -175,12 +170,12 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             <XMarkIcon className="w-5 h-5 mr-5 dark:text-white"/>
                         </button>
                         <div className="flex flex-col   ">
-                            {searchResponse?.categories?.data?.length > 0 && <>
+                            {searchResults?.categories?.data?.length > 0 && <>
                                 <strong className={"text-center py-4"}>
                                     دسته بندی ها
                                 </strong>
 
-                                {searchResponse?.categories?.data.map((item) => (
+                                {searchResults?.categories?.data.map((item) => (
                                     <Link key={item.id} href={"/category/" + item.url}
                                           onClick={() => setShowSearchForm(false)}>
                                         <div
@@ -220,9 +215,9 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             </strong>
 
                             {
-                                searchResponse?.products?.data.length > 0 ? searchResponse?.products?.data.map((item) => (<>
+                                searchResults?.products?.data.length > 0 ? searchResults?.products?.data.map((item) => (<>
                                         <Link href={"/product/" + item.url}
-                                              onChange={() => setSearchResponse(undefined)}>
+                                              onChange={() => clearSearch()}>
                                             <div
                                                 className="flex items-center justify-between  py-2 px-5 hover:bg-stone-100 dark:hover:bg-neutral-800 ">
                                                 <div className="flex items-center gap-x-5  ">
@@ -257,7 +252,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                         </span>
                                     </div>
                             }
-                            {searchResponse.products?.data.length > 0 && <div
+                            {searchResults.products?.data.length > 0 && <div
                                 className="flex items-center gap-x-5 border-t p-5 bg-stone-100 dark:bg-slate-900 dark:hover:bg-slate-800  hover:bg-stone-200 text-center cursor-pointer"
                                 onClick={handleSearch}>
                                 <div>
@@ -274,9 +269,9 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             </strong>
 
                             {
-                                searchResponse?.vlogs?.data.length > 0 ? searchResponse?.vlogs?.data.map((item) => (<>
+                                searchResults?.vlogs?.data.length > 0 ? searchResults?.vlogs?.data.map((item) => (<>
                                         <Link href={"/vlog/" + item.url}
-                                              onChange={() => setSearchResponse(undefined)}>
+                                              onChange={() => clearSearch()}>
                                             <div
                                                 className="flex items-center justify-between  py-2 px-5 hover:bg-stone-100 dark:hover:bg-neutral-800 ">
                                                 <div className="flex items-center gap-x-5  ">
@@ -313,7 +308,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                             }
 
 
-                            {searchResponse.vlogs?.data.length > 0 &&  <div
+                            {searchResults.vlogs?.data.length > 0 &&  <div
                                 className="flex items-center gap-x-5 border-t p-5 bg-stone-100 dark:bg-slate-900 dark:hover:bg-slate-800  hover:bg-stone-200 text-center cursor-pointer"
                                 onClick={handleSearchVlog}>
                                 <div>

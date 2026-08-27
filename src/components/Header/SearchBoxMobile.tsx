@@ -1,7 +1,6 @@
 "use client";
 
 import React, {createRef, useState} from "react";
-import {useMutation} from "react-query";
 import {FaBorderAll, FaExternalLinkAlt} from "react-icons/fa";
 import {FaMagnifyingGlass} from "react-icons/fa6";
 import Link from "next/link";
@@ -14,6 +13,7 @@ import Image from "next/image";
 import {MdOutlineOndemandVideo} from "react-icons/md";
 import {BiCategoryAlt} from "react-icons/bi";
 import ButtonClose from "@/shared/Button/ButtonClose";
+import {useSearchQuery} from "@/hooks/useSearchQuery";
 
 export interface NavMobileProps {
     onClickClose?: () => void;
@@ -28,20 +28,9 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
     const router = useRouter();
 
 
-    const {
-        data,
-        mutateAsync: searchHandle,
-        isLoading,
-        isSuccess,
-    } = useMutation({
-        mutationKey: [`search`],
-        mutationFn: (query: string) => {
-            if (query.trim()) {
-                return search({query});
-            }
-            return Promise.reject();
-        },
-    });
+    const {setQuery, results: data, isSuccess} = useSearchQuery("header-search-mobile", (query) =>
+        search({query})
+    );
 
     const renderMagnifyingGlassIcon = () => {
         return (
@@ -82,7 +71,7 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                         <FaMagnifyingGlass className={"text-neutral-500 w-4 h-4"} onClick={handleSearch}/>
                         <input
                             onChange={(e) => {
-                                searchHandle(e.target.value)
+                                setQuery(e.target.value)
                             }}
                             onKeyDown={(e) => {
                                 if (e.key === "Enter") {

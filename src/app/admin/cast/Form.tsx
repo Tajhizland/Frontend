@@ -8,7 +8,7 @@ import Uploader from "@/shared/Uploader/Uploader";
 import NcImage from "@/shared/NcImage/NcImage";
 import SunEditors from "@/shared/Editor/SunEditors";
 import {CastResponse} from "@/services/types/cast";
-import NcModal from "@/shared/NcModal/NcModal";
+import {SearchPickerItem, SearchPickerModal} from "@/shared/SearchPicker";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";
 import {search} from "@/services/api/admin/vlog";
@@ -26,50 +26,8 @@ interface Form {
 
 export default function Form({data, submit, loading = false}: Form) {
     const [showModal, setShowModal] = useState(false);
-    const [serachResponse, setSearchResponse] = useState<VlogResponse[]>();
     const [vlogId, setVlogId] = useState<Number>(data?.vlog_id ?? 0);
     const [vlog, setVlog] = useState(data?.vlog);
-    const renderContent = () => {
-        async function searchVlog(query: string) {
-            let response = await search(query);
-            setSearchResponse(response);
-        }
-
-        return (
-            <div>
-                <div className="mt-8 relative rounded-md shadow-sm">
-                    <Input type={"text"} placeholder="جستجوی نام ویدیو" onChange={(e) => {
-                        searchVlog(e.target.value)
-                    }}/>
-                </div>
-                <div className=" mt-5 max-h-96 overflow-y-scroll ">
-                    <div className="flex flex-col gap-y-5">
-                        {
-                            serachResponse && serachResponse.map((item) => (<>
-                                <div
-                                    className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
-                                    onClick={() => {
-                                        setVlogId(item.id);
-                                        setValue("vlog_id", item.id.toString())
-                                        setVlog(item);
-                                        setShowModal(false);
-                                    }}>
-                                    <div className="w-[100px] h-[100px]">
-                                        <Image
-                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
-                                            alt={"image"} width={100} height={100}/>
-                                    </div>
-                                    <span>
-                                        {item.title}
-                                    </span>
-                                </div>
-                            </>))
-                        }
-                    </div>
-                </div>
-            </div>
-        );
-    };
 
     const {data: categorys} = useQuery({
         queryKey: ['tajhizcast-category-get'],
@@ -104,16 +62,20 @@ export default function Form({data, submit, loading = false}: Form) {
     }, [data, setValue]);
 
     return (<>
-        <NcModal
-            isOpenProp={showModal}
-            onCloseModal={() => {
-                setShowModal(false)
+        <SearchPickerModal<VlogResponse>
+            open={showModal}
+            onClose={() => setShowModal(false)}
+            queryKey={["cast-vlog-search"]}
+            placeholder="جستجوی نام ویدیو"
+            closeOnPick
+            searchFn={(query) => search(query)}
+            itemKey={(item) => item.id}
+            onPick={async (item) => {
+                setVlogId(item.id);
+                setValue("vlog_id", item.id.toString());
+                setVlog(item);
             }}
-            contentExtraClass="max-w-4xl"
-            renderContent={renderContent}
-            triggerText={""}
-            modalTitle="افزودن"
-            hasButton={false}
+            renderItem={(item) => <SearchPickerItem src={`vlog/${item.poster}`} title={item.title} />}
         />
         <form onSubmit={handleSubmit(submit)}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>

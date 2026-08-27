@@ -14,7 +14,7 @@ import {guarantyLists} from "@/services/api/admin/guaranty";
 import MultiSelect from "@/shared/Select/MultiSelect";
 import SunEditors from "@/shared/Editor/SunEditors";
 import {Controller, useForm} from "react-hook-form";
-import NcModal from "@/shared/NcModal/NcModal";
+import {SearchPickerItem, SearchPickerModal} from "@/shared/SearchPicker";
 import Image from "next/image";
 import {search} from "@/services/api/admin/product";
 
@@ -32,13 +32,7 @@ type optionType = {
 export default function Form({data, submit, setColorCount, colorCount}: productForm) {
     const [showModal, setShowModal] = useState(false);
     const [stockOf, setStockOf] = useState<ProductResponse>();
-    const [serachResponse, setSearchResponse] = useState<ProductResponse[]>();
 
-    async function searchHandle(query: string) {
-        let response = await search({query: query});
-        setSearchResponse(response);
-
-    }
 
     const handleAddForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -138,55 +132,24 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
     }, [data, setValue]);
 
     const isStock = watch("is_stock");
-    const renderContent = () => {
-        return (
-            <div>
-                <div className="mt-8 relative rounded-md shadow-sm">
-                    <Input type={"text"} placeholder="جستجوی نام محصول" onChange={(e) => {
-                        searchHandle(e.target.value)
-                    }}/>
-                </div>
-                <div className=" mt-5 max-h-96 overflow-y-scroll ">
-                    <div className="flex flex-col gap-y-5">
-                        {
-                            serachResponse && serachResponse.map((item) => (<>
-                                <div
-                                    className="flex justify-between items-center border shadow  rounded pl-5 cursor-pointer hover:bg-slate-100"
-                                    onClick={() => {
-                                        setValue("stock_of", item.id);
-                                        setStockOf(item);
-                                        setShowModal(false);
-                                    }}>
-                                    <div className="w-[100px] h-[100px]">
-                                        <Image
-                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${item.images[0].url}`}
-                                            alt={"image"} width={100} height={100}/>
-                                    </div>
-                                    <span>
-                                        {item.name}
-                            </span>
-                                </div>
-                            </>))
-                        }
-                    </div>
-                </div>
-            </div>
-        );
-    };
 
     return (<>
 
-        <NcModal
-            isOpenProp={showModal}
-            onCloseModal={() => {
-                setShowModal(false)
+        <SearchPickerModal<ProductResponse>
+            open={showModal}
+            onClose={() => setShowModal(false)}
+            queryKey={["product-stock-of-search"]}
+            placeholder="جستجوی نام محصول"
+            closeOnPick
+            searchFn={(query) => search({query})}
+            itemKey={(item) => item.id}
+            onPick={async (item) => {
+                setValue("stock_of", item.id);
+                setStockOf(item);
             }}
-            contentExtraClass="max-w-4xl"
-            renderContent={renderContent}
-            triggerText={""}
-            modalTitle="افزودن"
-            hasButton={false}
-
+            renderItem={(item) => (
+                <SearchPickerItem src={`product/${item.images?.[0]?.url}`} title={item.name} />
+            )}
         />
         <form onSubmit={handleSubmit(submit)}>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
