@@ -1,5 +1,4 @@
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import React from "react";
 import I404Png from "@/images/404.png";
 import NcImage from "@/shared/NcImage/NcImage";
 

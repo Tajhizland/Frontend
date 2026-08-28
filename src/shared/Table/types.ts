@@ -17,6 +17,10 @@ export type TableColumn<T> = {
     key: keyof T;
     header: string;
     filter?: FilterType | false;
+    /** اگر کلید ستون با ستون دیتابیس فرق دارد (مثلا ستون نمایشیِ شمسی) کلید واقعیِ فیلتر. */
+    filterKey?: string;
+    /** مشابه `filterKey` ولی برای سورت. */
+    sortKey?: string;
     sortable?: boolean;
     options?: SelectOption[];
     editable?: boolean;
@@ -79,13 +83,15 @@ export const defineColumns = <T,>(columns: TableColumn<T>[]) => columns;
 export const defineActions = <T,>(actions: TableAction<T>[]) => actions;
 
 export const ACTION_BASE =
-    "inline-flex items-center justify-center gap-1 h-9 min-w-[2.25rem] px-2.5 rounded-lg text-sm font-medium transition-colors disabled:opacity-50";
+    "inline-flex items-center justify-center gap-1.5 h-9 min-w-9 px-2.5 rounded-lg text-[13px] font-medium " +
+    "border transition-all duration-150 outline-hidden focus-visible:ring-3 " +
+    "disabled:opacity-50 disabled:pointer-events-none";
 
 export const ACTION_COLORS: Record<ActionColor, string> = {
-    default: "text-slate-700 hover:bg-slate-100",
-    primary: "text-blue-600 hover:bg-blue-50",
-    success: "text-emerald-600 hover:bg-emerald-50",
-    warning: "text-amber-600 hover:bg-amber-50",
-    danger: "text-rose-600 hover:bg-rose-50",
-    ghost: "text-slate-400 hover:bg-slate-100 hover:text-slate-700",
+    default: "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 focus-visible:ring-slate-900/15",
+    primary: "bg-sky-50 border-sky-100 text-sky-700 hover:bg-sky-100 hover:border-sky-200 focus-visible:ring-sky-500/25",
+    success: "bg-emerald-50 border-emerald-100 text-emerald-700 hover:bg-emerald-100 hover:border-emerald-200 focus-visible:ring-emerald-500/25",
+    warning: "bg-amber-50 border-amber-100 text-amber-700 hover:bg-amber-100 hover:border-amber-200 focus-visible:ring-amber-500/25",
+    danger: "bg-rose-50 border-rose-100 text-rose-700 hover:bg-rose-100 hover:border-rose-200 focus-visible:ring-rose-500/25",
+    ghost: "bg-transparent border-transparent text-slate-500 hover:bg-slate-100 hover:text-slate-800 focus-visible:ring-slate-900/15",
 };

@@ -2,7 +2,6 @@
 
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import React from "react";
 import {GroupFieldResponse} from "@/services/types/groupField";
 import {GroupProductResponse} from "@/services/types/groupProduct";
 import {GroupFieldValueResponse} from "@/services/types/groupFieldValue";

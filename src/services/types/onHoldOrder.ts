@@ -1,6 +1,15 @@
 
 import {OrderResponse} from "@/services/types/order";
 
+/** خروجی `admin/on-hold-order/{id}`: سفارش + وضعیت خودِ درخواستِ معلق. */
+export type AdminOnHoldOrderDetail = OrderResponse & {
+    on_hold_id: number;
+    /** 0 در حال بررسی، 1 تایید شده، 2 رد شده */
+    on_hold_status: number;
+    on_hold_review_date: string | null;
+    on_hold_expire_date: string | null;
+};
+
 export type OnHoldOrderResponse = {
     id: number;
     order_id: number;

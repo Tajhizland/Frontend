@@ -11,6 +11,7 @@ export const columns = defineColumns<SpecialProductResponse>([
         header: 'نام محصول',
         editable: false,
         filter: false,
+        sortable: false,
         //@ts-ignore
         render: (row) => row.product?.name,
     },
@@ -32,5 +33,5 @@ export const columns = defineColumns<SpecialProductResponse>([
             <Badge name={"خیر"} color={"red"}/>,
 
     },
-    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 ]);

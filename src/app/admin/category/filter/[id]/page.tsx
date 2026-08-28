@@ -1,11 +1,11 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import FormActions from "@/shared/Form/FormActions";
 import CategoryTab from "@/components/Tabs/CategoryTab";
 ;
 
 import { findByCategoryId , setToCategory } from "@/services/api/admin/filter";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -109,11 +109,7 @@ export default function Page() {
                 <ButtonCircle type="button" className={"w-48 bg-orange-600"} onClick={handleAddForm}>
                     +
                 </ButtonCircle>
-                <div className={"flex justify-center my-5"}>
-                    <ButtonPrimary type={"submit"}>
-                        ذخیره
-                    </ButtonPrimary>
-                </div>
+                <FormActions />
             </form>
         </Panel>
 

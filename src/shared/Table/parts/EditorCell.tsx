@@ -5,6 +5,18 @@ import CustomSelect from "@/shared/CustomSelect/CustomSelect";
 import Input from "@/shared/Input/Input";
 import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
 import { EditorType, TableColumn } from "@/shared/Table/types";
+import { jalaliToGregorian } from "@/utils/jalali";
+
+/**
+ * مقدار سلول می‌تواند شمسیِ فرمت‌شده (خروجی بعضی ریسورس‌ها) یا میلادی باشد؛
+ * دیت‌پیکر همیشه میلادیِ `YYYY-MM-DD` می‌خواهد.
+ */
+const toGregorianInput = (value: any): string => {
+    if (value == null || value === "") return "";
+    const raw = String(value).trim();
+    if (/^1[34]\d{2}[/-]/.test(raw)) return jalaliToGregorian(raw);
+    return raw.split(/[\sT]/)[0];
+};
 
 type Props<T> = {
     column: TableColumn<T>;
@@ -44,7 +56,7 @@ function EditorCell<T>({ column, value, autoFocus, onChange, onSave, onCancel }:
     if (editorType === "date") {
         return (
             <PersianDatePicker
-                value={value == null ? "" : String(value)}
+                value={toGregorianInput(value)}
                 onChange={(date) => onChange(date, editorType)}
             />
         );
@@ -58,6 +70,7 @@ function EditorCell<T>({ column, value, autoFocus, onChange, onSave, onCancel }:
             value={value == null ? "" : String(value)}
             onChange={(e) => onChange(e.target.value, editorType)}
             onKeyDown={onKeyDown}
+            className="!rounded-xl !border-slate-200 focus:!border-slate-400 focus:!ring-3 focus:!ring-slate-900/10"
         />
     );
 }

@@ -1,7 +1,7 @@
 "use client"
 import Label from "@/shared/Label/Label";
+import FormActions from "@/shared/Form/FormActions";
 import Input from "@/shared/Input/Input";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect} from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import Image from "next/image";
@@ -97,11 +97,7 @@ export default function Form({data, submit, isLoading}: Form) {
 
             </div>
             <hr className={"my-5"}/>
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary loading={isLoading} type={"submit"}>
-                    ذخیره
-                </ButtonPrimary>
-            </div>
+            <FormActions loading={isLoading} />
         </form>
     </>)
 }

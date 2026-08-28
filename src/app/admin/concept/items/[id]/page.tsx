@@ -14,7 +14,6 @@ import Select from "@/shared/Select/Select";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import ConceptTab from "@/components/Tabs/ConceptTab";
 import Input from "@/shared/Input/Input";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import { FaPen } from "react-icons/fa";
 
 export default function Page() {

@@ -7,7 +7,6 @@ import {useState} from "react";
 import {useParams} from "next/navigation";
 import {useQuery} from "@tanstack/react-query";
 import {useApiMutation} from "@/hooks/useApiMutation";
-import toast from "react-hot-toast";
 import GroupTab from "@/components/Tabs/GroupTab";
 import {addField, deleteField, getField} from "@/services/api/admin/productGroup";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";

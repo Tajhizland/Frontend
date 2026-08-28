@@ -1,12 +1,12 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuArrowDownUp, LuPlus } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import Table from "@/shared/Table/Table";
 import {actions, columns} from "@/app/admin/banner/TableRow";
 import PageLink from "@/shared/PageLink/PageLink";
-import Link from "next/link";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {toast} from "react-hot-toast";
 import {deleteBanner, campaignBannerTable} from "@/services/api/admin/campaignBanner";
 import {useParams} from "next/navigation";
@@ -33,12 +33,8 @@ export default function Page() {
                 مدیریت بنر ها
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/campaign/" + id + "/banner/create"}>
-                    <ButtonPrimary> ایجاد</ButtonPrimary>
-                </Link>
-                <Link href={"/admin/campaign/" + id + "/banner/sort"}>
-                    <ButtonPrimary> سورت کردن بنر هوم پیج</ButtonPrimary>
-                </Link>
+                <ToolbarButton href={"/admin/campaign/" + id + "/banner/create"} icon={<LuPlus className="w-4 h-4" />}>ایجاد</ToolbarButton>
+                <ToolbarButton href={"/admin/campaign/" + id + "/banner/sort"} icon={<LuArrowDownUp className="w-4 h-4" />}>سورت کردن بنر هوم پیج</ToolbarButton>
             </PageLink>
             <Table
                 onDelete={deleteBanner}

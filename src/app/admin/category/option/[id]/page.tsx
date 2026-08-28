@@ -11,7 +11,6 @@ import {useApiMutation} from "@/hooks/useApiMutation";
 import {findByCategoryId, setToCategory} from "@/services/api/admin/option";
 import {Fragment, useState} from "react";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
-import OptionForm from "@/app/admin/category/option/[id]/OptionForm";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Spinner from "@/shared/Loading/Spinner";
 import {Route} from "next";

@@ -9,7 +9,7 @@ export const columns = defineColumns<CommentResponse>([
     {key: 'product_id', header: 'شناسه محصول', editable: false},
     {key: 'rating', header: 'امتیاز', editable: false},
      {key: 'status', header: 'وضعیت', editable: false},
-    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 
 ]);
 export const actions = defineActions<CommentResponse>([

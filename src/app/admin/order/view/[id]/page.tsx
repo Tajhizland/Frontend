@@ -7,14 +7,14 @@ import {useParams} from "next/navigation";
 import {useQuery} from "@tanstack/react-query";
 import {useState} from "react";
 import {toast} from "react-hot-toast";
-import NcModal from "@/shared/NcModal/NcModal";
-import ButtonThird from "@/shared/Button/ButtonThird";
+import ConfirmModal from "@/shared/NcModal/ConfirmModal";
 import NcImage from "@/shared/NcImage/NcImage";
 import Prices from "@/components/Price/Prices";
 import {OrderStatus} from "@/app/admin/order/orderStatus";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ItemActions from "@/app/admin/order/view/[id]/ItemActions";
+import { toJalali } from "@/utils/jalali";
 import {useApiMutation} from "@/hooks/useApiMutation";
 
 export default function Page() {
@@ -111,11 +111,11 @@ export default function Page() {
                             </div>
                             <div className="flex justify-between">
                                 <span>تاریخ ثبت:</span>
-                                <span>{data?.order_date}</span>
+                                <span>{toJalali(data?.order_date)}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span>تاریخ ارسال:</span>
-                                <span>{data?.delivery_date}</span>
+                                <span>{toJalali(data?.delivery_date)}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span>روش ارسال:</span>
@@ -257,34 +257,20 @@ export default function Page() {
             </div>
         </Panel>
 
-        <NcModal
-            isOpenProp={openCancel}
-            onCloseModal={() => setOpenCancel(false)}
-            hasButton={false}
-            modalTitle="کنسل کردن سفارش"
-            contentExtraClass="max-w-md"
-            renderContent={() => (
-                <div className="flex flex-col gap-4">
-                    <p className="text-sm text-gray-600 leading-6">
-                        آیا از کنسل کردن سفارش{" "}
-                        <span className="font-medium text-gray-800">#{id}</span>{" "}
-                        مطمئن هستید؟ این عملیات ممکن است قابل بازگشت نباشد.
-                    </p>
-                    <div className="flex items-center justify-end gap-3 pt-2">
-                        <ButtonThird onClick={() => setOpenCancel(false)}>
-                            انصراف
-                        </ButtonThird>
-                        <ButtonPrimary
-                            loading={cancelMutation.isPending}
-                            disabled={cancelMutation.isPending}
-                            onClick={() => cancelMutation.mutate()}
-                            className="!bg-rose-600 hover:!bg-rose-700"
-                        >
-                            کنسل کردن سفارش
-                        </ButtonPrimary>
-                    </div>
-                </div>
-            )}
+        <ConfirmModal
+            open={openCancel}
+            title="کنسل کردن سفارش"
+            message={
+                <>
+                    آیا از کنسل کردن سفارش{" "}
+                    <span className="font-medium text-gray-800">#{id}</span>{" "}
+                    مطمئن هستید؟ این عملیات ممکن است قابل بازگشت نباشد.
+                </>
+            }
+            confirmText="کنسل کردن سفارش"
+            loading={cancelMutation.isPending}
+            onDismiss={() => setOpenCancel(false)}
+            onConfirm={() => cancelMutation.mutate()}
         />
 
     </>)

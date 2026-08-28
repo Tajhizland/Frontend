@@ -12,8 +12,9 @@ export const columns = defineColumns<PopularProductResponse>([
         key: 'product',
         header: 'نام محصول',
         editable: false,
+        sortable: false,
         //@ts-ignore
         render: (row) => row.product?.name,
     },
-    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 ]);

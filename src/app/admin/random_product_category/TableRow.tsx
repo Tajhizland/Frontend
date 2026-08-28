@@ -17,8 +17,9 @@ export const columns = defineColumns<RandomProductCategoryResponse>([
     {
         key: 'category',
         header: 'نام دسته بندی',
-        editable: true,
+        editable: false,
+        sortable: false,
         render: (row) => row.category?.name,
     },
-    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 ]);

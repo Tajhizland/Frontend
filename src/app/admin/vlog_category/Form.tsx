@@ -1,10 +1,9 @@
 "use client";
 
 import Label from "@/shared/Label/Label";
+import FormActions from "@/shared/Form/FormActions";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import React from "react";
 import {Controller, useForm} from "react-hook-form";
 import {VlogCategoryResponse} from "@/services/types/vlogCategory";
 import ImageField from "@/shared/Uploader/ImageField";
@@ -95,11 +94,7 @@ export default function Form({data, onSubmit, loading, progress, resetOnSuccess}
 
             <hr className={"my-5"} />
             <FormProgress loading={loading} progress={progress} />
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"} loading={loading} disabled={loading}>
-                    ذخیره
-                </ButtonPrimary>
-            </div>
+            <FormActions loading={loading} />
         </form>
     );
 }

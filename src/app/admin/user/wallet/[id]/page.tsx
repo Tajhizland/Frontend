@@ -1,5 +1,6 @@
 "use client"
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import FormActions from "@/shared/Form/FormActions";
 import {adminUpdateWallet, findById} from "@/services/api/admin/user";
 import {useParams} from "next/navigation";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
@@ -13,7 +14,6 @@ import React, {useEffect} from "react";
 import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
 import {toast} from "react-hot-toast";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 const Page = () => {
     const queryClient = useQueryClient();
@@ -93,9 +93,7 @@ const Page = () => {
                         </div>
                     </div>
 
-                    <ButtonPrimary className={"mt-4"}>
-                        ذخیره
-                    </ButtonPrimary>
+                    <FormActions />
                 </form>
             </Panel>
         </>

@@ -1,11 +1,10 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
-import {OnHoldOrderResponse} from "@/services/types/onHoldOrder";
-import {OrderResponse} from "@/services/types/order";
+import {AdminOnHoldOrderDetail, OnHoldOrderResponse} from "@/services/types/onHoldOrder";
 import {tableFetcher} from "@/shared/Table/fetcher";
 
 export const onHoldOrderTable = tableFetcher<OnHoldOrderResponse>("admin/on-hold-order/dataTable");
 
-export const findById = async <T extends ServerResponse<OrderResponse>>
+export const findById = async <T extends ServerResponse<AdminOnHoldOrderDetail>>
 (
     id:number|string
 ) => {

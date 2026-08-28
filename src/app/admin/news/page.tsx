@@ -1,10 +1,10 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuPlus } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
-import Link from "next/link";
 import Table from "@/shared/Table/Table";
 import {actions, columns} from "@/app/admin/news/TableRow";
  import {update, newsTable} from "@/services/api/admin/news";
@@ -33,9 +33,7 @@ export default function Page() {
                 مدیریت بلاگ
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/news/create"}>
-                    <ButtonPrimary> ایجاد</ButtonPrimary>
-                </Link>
+                <ToolbarButton href="/admin/news/create" icon={<LuPlus className="w-4 h-4" />}>ایجاد</ToolbarButton>
             </PageLink>
             <Table
                 onEdit={submit}

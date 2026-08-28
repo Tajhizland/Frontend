@@ -20,8 +20,8 @@ export const useTableData = <T,>({ fetchFn, baseKey, initialFilters, defaultSort
     const [debouncedFilters, setDebouncedFilters] = useState(filters);
     const [filterEpoch, setFilterEpoch] = useState(0);
     const [sort, setSort] = useState<{ key: string | null; direction: "asc" | "desc" }>({
-        key: defaultSort?.key ?? null,
-        direction: defaultSort?.direction ?? "asc",
+        key: defaultSort?.key ?? "id",
+        direction: defaultSort?.direction ?? "desc",
     });
 
     useEffect(() => {
@@ -50,10 +50,11 @@ export const useTableData = <T,>({ fetchFn, baseKey, initialFilters, defaultSort
 
     const invalidate = () => queryClient.invalidateQueries({ queryKey: baseKey });
 
+    // اولین کلیک روی یک ستون نزولی مرتب می‌کند (تازه‌ترین/بزرگ‌ترین اول).
     const toggleSort = (key: string) =>
         setSort((prev) => ({
             key,
-            direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
+            direction: prev.key === key && prev.direction === "desc" ? "asc" : "desc",
         }));
 
     const setFilter = (key: string, value: any) => setFilters((prev) => ({ ...prev, [key]: value }));

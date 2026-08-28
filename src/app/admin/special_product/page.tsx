@@ -1,10 +1,11 @@
 "use client";
 
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuArrowDownUp, LuPlus } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import PageLink from "@/shared/PageLink/PageLink";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Table from "@/shared/Table/Table";
 import { SearchPickerItem, SearchPickerModal } from "@/shared/SearchPicker";
 import { columns } from "@/app/admin/special_product/TableRow";
@@ -12,7 +13,6 @@ import { remove, specialProductTable, store, updateHomepage } from "@/services/a
 import { search } from "@/services/api/admin/product";
 import { ProductResponse } from "@/services/types/product";
 import { SpecialProductResponse } from "@/services/types/specialProduct";
-import Link from "next/link";
 import { useState } from "react";
 
 export default function Page() {
@@ -24,10 +24,8 @@ export default function Page() {
             <Panel>
                 <PageTitle>تجهیزات خاص</PageTitle>
                 <PageLink>
-                    <ButtonPrimary onClick={() => setShowModal(true)}>ایجاد</ButtonPrimary>
-                    <Link href="/admin/special_product/sort">
-                        <ButtonPrimary>سورت کردن</ButtonPrimary>
-                    </Link>
+                    <ToolbarButton onClick={() => setShowModal(true)} icon={<LuPlus className="w-4 h-4" />}>ایجاد</ToolbarButton>
+                    <ToolbarButton href="/admin/special_product/sort" icon={<LuArrowDownUp className="w-4 h-4" />}>سورت کردن</ToolbarButton>
                 </PageLink>
 
                 <SearchPickerModal<ProductResponse>

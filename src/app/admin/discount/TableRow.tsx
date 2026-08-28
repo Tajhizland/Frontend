@@ -24,16 +24,16 @@ export const columns = defineColumns<DiscountResponse>([
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },
-    {key: 'start_date', header: 'تاریخ شروع', editable: false},
-    {key: 'end_date', header: 'تاریخ پایان', editable: false},
-    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
+    { key: 'start_date', filter: 'date', header: 'تاریخ شروع', editable: false },
+    { key: 'end_date', filter: 'date', header: 'تاریخ پایان', editable: false },
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 ]);
 export const actions = defineActions<DiscountResponse>([
     {
-        label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
+        label: <HiMiniPencil className={"w-4 h-4"} title={"ویرایش"}/>,
         href: (row) => `discount/edit/${row.id}`,
     }, {
-        label: <span className={"text-black text-sm"}>ویرایش آیتم ها</span>,
+        label: <span>ویرایش آیتم ها</span>,
         color: "primary",
         href: (row) => `discount/item/${row.id}`,
     },

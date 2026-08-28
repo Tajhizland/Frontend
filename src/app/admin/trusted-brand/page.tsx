@@ -1,12 +1,12 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuPlus } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import Table from "@/shared/Table/Table";
 import {actions, columns} from "@/app/admin/trusted-brand/TableRow";
 import PageLink from "@/shared/PageLink/PageLink";
-import Link from "next/link";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {toast} from "react-hot-toast";
 import {deleteTrustedBrand, trustedBrandTable} from "@/services/api/admin/trustedBrand";
 
@@ -23,9 +23,7 @@ export default function Page() {
                 مدیریت برند های تجهیز شده
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/trusted-brand/create"}>
-                    <ButtonPrimary> ایجاد</ButtonPrimary>
-                </Link>
+                <ToolbarButton href="/admin/trusted-brand/create" icon={<LuPlus className="w-4 h-4" />}>ایجاد</ToolbarButton>
             </PageLink>
             <Table
                 fetcher={trustedBrandTable}

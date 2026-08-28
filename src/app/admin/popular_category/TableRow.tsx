@@ -9,9 +9,10 @@ export const columns = defineColumns<PopularCategoryResponse>([
     {
         key: 'category',
         header: 'نام دسته بندی',
-        editable: true,
+        editable: false,
+        sortable: false,
         //@ts-ignore
         render: (row) => row.category?.name,
     },
-    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 ]);

@@ -15,7 +15,6 @@ import Input from "@/shared/Input/Input";
 import toast from "react-hot-toast";
 import SearchableSelect from "@/shared/Select/SearchableSelect";
 import {setItem} from "@/services/api/admin/discount";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Link from "next/link";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";

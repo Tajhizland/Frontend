@@ -55,7 +55,6 @@ export default function Page() {
             />
 
             <PageTitle>مدیریت ولاگ صفحه اصلی</PageTitle>
-            <hr />
 
             <div className="flex flex-wrap justify-between items-center gap-4">
                 <div className="flex items-center gap-4">

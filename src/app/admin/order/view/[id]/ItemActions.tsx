@@ -2,6 +2,7 @@
 import React, {useState} from "react";
 import {toast} from "react-hot-toast";
 import NcModal from "@/shared/NcModal/NcModal";
+import ConfirmModal from "@/shared/NcModal/ConfirmModal";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonThird from "@/shared/Button/ButtonThird";
@@ -114,34 +115,20 @@ export default function ItemActions({item, onDone, itemsCount = 0}: Props) {
             />
 
             {/* مودال حذف */}
-            <NcModal
-                isOpenProp={openDelete}
-                onCloseModal={() => setOpenDelete(false)}
-                hasButton={false}
-                modalTitle="حذف آیتم"
-                contentExtraClass="max-w-md"
-                renderContent={() => (
-                    <div className="flex flex-col gap-4">
-                        <p className="text-sm text-gray-600 leading-6">
-                            آیا از حذف محصول{" "}
-                            <span className="font-medium text-gray-800">{item.product?.name}</span>{" "}
-                            از این سفارش مطمئن هستید؟ این عملیات قابل بازگشت نیست.
-                        </p>
-                        <div className="flex items-center justify-end gap-3 pt-2">
-                            <ButtonThird onClick={() => setOpenDelete(false)}>
-                                انصراف
-                            </ButtonThird>
-                            <ButtonPrimary
-                                loading={deleteMutation.isPending}
-                                disabled={deleteMutation.isPending}
-                                onClick={handleDelete}
-                                className="!bg-rose-600 hover:!bg-rose-700"
-                            >
-                                حذف
-                            </ButtonPrimary>
-                        </div>
-                    </div>
-                )}
+            <ConfirmModal
+                open={openDelete}
+                title="حذف آیتم"
+                message={
+                    <>
+                        آیا از حذف محصول{" "}
+                        <span className="font-medium text-gray-800">{item.product?.name}</span>{" "}
+                        از این سفارش مطمئن هستید؟ این عملیات قابل بازگشت نیست.
+                    </>
+                }
+                confirmText="بله، حذف شود"
+                loading={deleteMutation.isPending}
+                onDismiss={() => setOpenDelete(false)}
+                onConfirm={handleDelete}
             />
         </div>
     );

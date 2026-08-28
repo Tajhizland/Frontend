@@ -78,12 +78,12 @@ function RowActions<T extends { id: number | string }>({
 }: Props<T>) {
     if (editing) {
         return (
-            <div className="flex gap-x-1 justify-center">
+            <div className="flex gap-1.5 justify-center">
                 <button
                     type="button"
                     disabled={saving}
                     onClick={onSave}
-                    className={`${ACTION_BASE} text-white bg-emerald-500 hover:bg-emerald-600`}
+                    className={`${ACTION_BASE} bg-emerald-600 border-emerald-600 text-white hover:bg-emerald-700 hover:border-emerald-700 focus-visible:ring-emerald-500/30`}
                     title="ذخیره"
                 >
                     <LuCheck className="w-4 h-4" />
@@ -93,7 +93,7 @@ function RowActions<T extends { id: number | string }>({
                     type="button"
                     disabled={saving}
                     onClick={onCancel}
-                    className={`${ACTION_BASE} text-slate-600 hover:bg-slate-100`}
+                    className={`${ACTION_BASE} ${ACTION_COLORS.default}`}
                     title="انصراف"
                 >
                     <LuX className="w-4 h-4" />
@@ -104,17 +104,11 @@ function RowActions<T extends { id: number | string }>({
     }
 
     return (
-        <div className="flex items-center gap-x-1 justify-center">
+        <div className="flex items-center gap-1.5 justify-center">
             {renderActions
                 ? renderActions(row, helpers)
                 : actions.map((action, index) => (
-                      <ActionButton
-                          key={index}
-                          action={action}
-                          row={row}
-                          helpers={helpers}
-                          onMark={helpers.mark}
-                      />
+                      <ActionButton key={index} action={action} row={row} helpers={helpers} onMark={helpers.mark} />
                   ))}
             {canEdit && (
                 <button

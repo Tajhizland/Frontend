@@ -1,5 +1,6 @@
 "use client"
 import Label from "@/shared/Label/Label";
+import FormActions from "@/shared/Form/FormActions";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -15,7 +16,6 @@ import MultiSelect from "@/shared/Select/MultiSelect";
 import SunEditors from "@/shared/Editor/SunEditors";
 import {Controller, useForm} from "react-hook-form";
 import {SearchPickerItem, SearchPickerModal} from "@/shared/SearchPicker";
-import Image from "next/image";
 import {search} from "@/services/api/admin/product";
 
 interface productForm {
@@ -382,11 +382,7 @@ export default function Form({data, submit, setColorCount, colorCount}: productF
             </div>
             <hr className={"my-5"}/>
 
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"}>
-                    ذخیره
-                </ButtonPrimary>
-            </div>
+            <FormActions />
         </form>
     </>)
 }

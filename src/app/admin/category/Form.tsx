@@ -1,8 +1,8 @@
 "use client"
 import Label from "@/shared/Label/Label";
+import FormActions from "@/shared/Form/FormActions";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect} from "react";
 import {categoryList, deleteImage} from "@/services/api/admin/category"
 import {useQuery} from "@tanstack/react-query";
@@ -152,11 +152,7 @@ export default function Form({data, submit}: productForm) {
                 </div>}
             </div>
 
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"}>
-                    ذخیره
-                </ButtonPrimary>
-            </div>
+            <FormActions />
         </form>
     </>)
 }

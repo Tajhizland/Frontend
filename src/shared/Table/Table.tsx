@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Spinner from "@/shared/Loading/Spinner";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
 import SelectPagination from "@/shared/Pagination/SelectPagination";
-import { RowHelpers, TableFetcher, TableProps } from "@/shared/Table/types";
+import { RowHelpers, TableColumn, TableFetcher, TableProps } from "@/shared/Table/types";
 import { tableFetcher } from "@/shared/Table/fetcher";
 import { useTableData } from "@/shared/Table/hooks/useTableData";
 import { useVisibleColumns } from "@/shared/Table/hooks/useVisibleColumns";
@@ -13,10 +13,18 @@ import { useRowEditor } from "@/shared/Table/hooks/useRowEditor";
 import { useRowDelete } from "@/shared/Table/hooks/useRowDelete";
 import { useRowHighlight } from "@/shared/Table/hooks/useRowHighlight";
 import TableToolbar from "@/shared/Table/parts/TableToolbar";
-import TableHead from "@/shared/Table/parts/TableHead";
+import TableHead, { sortKeyOf } from "@/shared/Table/parts/TableHead";
 import EditorCell from "@/shared/Table/parts/EditorCell";
 import RowActions from "@/shared/Table/parts/RowActions";
 import DeleteConfirm from "@/shared/Table/parts/DeleteConfirm";
+import { toJalali } from "@/utils/jalali";
+
+/** ستون‌های تاریخ همیشه شمسی نمایش داده می‌شوند، حتی اگر API میلادی برگردانده باشد. */
+const renderCell = <T,>(column: TableColumn<T>, row: T): React.ReactNode => {
+    const value = row[column.key];
+    if ((column.filter ?? "text") === "date") return toJalali(value) || "—";
+    return value as React.ReactNode;
+};
 
 function Table<T extends { id: number | string }>({
     columns,
@@ -42,11 +50,23 @@ function Table<T extends { id: number | string }>({
     const baseKey = useMemo(() => queryKey ?? ["table", url ?? pathname], [queryKey, url, pathname]);
     const allKeys = useMemo(() => columns.map((col) => col.key as string), [columns]);
 
+    // سورت پیش‌فرض همه‌ی جدول‌های ادمین: جدیدترین اول (شناسه نزولی).
+    const resolvedSort = useMemo(() => {
+        if (defaultSort) {
+            const column = columns.find((col) => col.key === defaultSort.key);
+            return {
+                key: column ? sortKeyOf(column) : (defaultSort.key as string),
+                direction: defaultSort.direction ?? "desc",
+            };
+        }
+        return { key: "id", direction: "desc" as const };
+    }, [defaultSort, columns]);
+
     const table = useTableData<T>({
         fetchFn,
         baseKey,
         initialFilters: initialFilters as Record<string, any> | undefined,
-        defaultSort: defaultSort && { key: defaultSort.key as string, direction: defaultSort.direction },
+        defaultSort: resolvedSort,
         debounce,
     });
 
@@ -66,7 +86,7 @@ function Table<T extends { id: number | string }>({
     });
 
     return (
-        <>
+        <div className="flex flex-col gap-3">
             <DeleteConfirm
                 open={!!remover.pending}
                 message={deleteMessage}
@@ -84,13 +104,13 @@ function Table<T extends { id: number | string }>({
                 onToggleColumn={toggle}
             />
 
-            <div className="relative overflow-x-scroll shadow-md sm:rounded-lg w-full min-h-96">
+            <div className="relative w-full min-h-96 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
                 {table.isLoading && !!table.rows.length && (
-                    <div className="absolute inset-0 z-10 bg-white/50 flex items-start justify-center pt-24">
+                    <div className="absolute inset-0 z-10 bg-white/60 backdrop-blur-[1px] flex items-start justify-center pt-24">
                         <Spinner />
                     </div>
                 )}
-                <table className="w-full text-sm rtl:text-right text-slate-900 text-center border">
+                <table className="w-full text-sm text-center text-slate-700 rtl:text-right">
                     <TableHead
                         columns={shownColumns}
                         hasOpsColumn={hasOpsColumn}
@@ -100,16 +120,16 @@ function Table<T extends { id: number | string }>({
                         onFilter={table.setFilter}
                         filterEpoch={table.filterEpoch}
                     />
-                    <tbody>
+                    <tbody className="divide-y divide-slate-100">
                         {table.isLoading && !table.rows.length ? (
                             <tr>
-                                <td colSpan={colSpan} className="text-center p-3">
+                                <td colSpan={colSpan} className="text-center p-10">
                                     <Spinner />
                                 </td>
                             </tr>
                         ) : !table.rows.length ? (
                             <tr>
-                                <td colSpan={colSpan} className="text-center p-10 text-slate-400">
+                                <td colSpan={colSpan} className="text-center p-12 text-slate-400 text-sm">
                                     {emptyText}
                                 </td>
                             </tr>
@@ -131,7 +151,7 @@ function Table<T extends { id: number | string }>({
                                                   return (
                                                       <td
                                                           key={col.key as string}
-                                                          className="text-center p-3 text-nowrap whitespace-nowrap border-b"
+                                                          className="text-center px-3 py-2.5 whitespace-nowrap"
                                                       >
                                                           {editable ? (
                                                               <EditorCell
@@ -147,14 +167,14 @@ function Table<T extends { id: number | string }>({
                                                           ) : col.render ? (
                                                               col.render(row, helpers)
                                                           ) : (
-                                                              (row[col.key] as React.ReactNode)
+                                                              renderCell(col, row)
                                                           )}
                                                       </td>
                                                   );
                                               })}
 
                                         {hasOpsColumn && (
-                                            <td className="p-3 border-b">
+                                            <td className="px-3 py-2.5">
                                                 <RowActions
                                                     row={row}
                                                     helpers={helpers}
@@ -180,7 +200,7 @@ function Table<T extends { id: number | string }>({
             </div>
 
             {table.totalPages > 1 && (
-                <div className="mt-5 mx-auto flex items-center gap-5">
+                <div className="mt-2 mx-auto flex items-center gap-5">
                     <SelectPagination
                         currentPage={table.meta.current_page ?? 1}
                         totalPages={table.totalPages}
@@ -193,7 +213,7 @@ function Table<T extends { id: number | string }>({
                     />
                 </div>
             )}
-        </>
+        </div>
     );
 }
 

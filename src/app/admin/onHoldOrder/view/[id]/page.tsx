@@ -10,6 +10,9 @@ import {OrderStatus} from "@/app/admin/order/orderStatus";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {accept, findById, reject} from "@/services/api/admin/onHoldOrder";
 import Prices from "@/components/Price/Prices";
+import Badge from "@/shared/Badge/Badge";
+import { toJalali } from "@/utils/jalali";
+import { OnHoldOrderStatus } from "@/app/admin/onHoldOrder/onHoldOrderStatus";
 
 export default function Page() {
     const {id} = useParams();
@@ -19,6 +22,9 @@ export default function Page() {
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
+
+    const reviewStatus = Number(data?.on_hold_status ?? 0);
+    const isPending = reviewStatus === 0;
 
     const acceptMutation = useApiMutation(() => accept(Number(id)), {invalidate: [["onhold-order-info", Number(id)]]});
     const rejectMutation = useApiMutation(() => reject(Number(id)), {invalidate: [["onhold-order-info", Number(id)]]});
@@ -81,12 +87,16 @@ export default function Page() {
                             <span>{OrderStatus[Number(data?.status ?? 0)]}</span>
                         </div>
                         <div className="flex py-2 justify-between">
+                            <span>وضعیت درخواست : </span>
+                            <span>{OnHoldOrderStatus[reviewStatus] ?? "-"}</span>
+                        </div>
+                        <div className="flex py-2 justify-between">
                             <span>تاریخ : </span>
-                            <span>{data?.order_date}</span>
+                            <span>{toJalali(data?.order_date)}</span>
                         </div>
                         <div className="flex py-2 justify-between">
                             <span>تاریخ ارسال: </span>
-                            <span>{data?.delivery_date}</span>
+                            <span>{toJalali(data?.delivery_date)}</span>
                         </div>
                         <div className="flex py-2 justify-between">
                             <span>روش ارسال: </span>
@@ -198,14 +208,38 @@ export default function Page() {
                     </tfoot>
                 </table>
             </div>
-            <div className={"flex mt-10  gap-x-5"}>
-                <ButtonPrimary onClick={() => acceptMutation.mutate()}>
-                    تایید سفارش
-                </ButtonPrimary>
-                <ButtonPrimary onClick={() => rejectMutation.mutate()}>
-                    رد سفارش
-                </ButtonPrimary>
-            </div>
+            {isPending ? (
+                <div className={"flex mt-10 gap-x-5"}>
+                    <ButtonPrimary
+                        loading={acceptMutation.isPending}
+                        disabled={acceptMutation.isPending || rejectMutation.isPending}
+                        onClick={() => acceptMutation.mutate()}
+                    >
+                        تایید سفارش
+                    </ButtonPrimary>
+                    <ButtonPrimary
+                        className="!bg-rose-600 hover:!bg-rose-700"
+                        loading={rejectMutation.isPending}
+                        disabled={acceptMutation.isPending || rejectMutation.isPending}
+                        onClick={() => rejectMutation.mutate()}
+                    >
+                        رد سفارش
+                    </ButtonPrimary>
+                </div>
+            ) : (
+                <div className="mt-10 flex items-center gap-2 text-sm">
+                    <span className="text-slate-500">این درخواست بررسی شده است:</span>
+                    <Badge
+                        name={reviewStatus === 1 ? "تایید شده" : "رد شده"}
+                        color={reviewStatus === 1 ? "green" : "red"}
+                    />
+                    {data?.on_hold_review_date && (
+                        <span className="text-slate-400 text-xs">
+                            در تاریخ {toJalali(data.on_hold_review_date)}
+                        </span>
+                    )}
+                </div>
+            )}
         </Panel>
 
     </>)

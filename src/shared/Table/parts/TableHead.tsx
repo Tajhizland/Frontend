@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
+import { LuArrowDown, LuArrowUp, LuChevronsUpDown } from "react-icons/lu";
 import CustomSelect from "@/shared/CustomSelect/CustomSelect";
 import Input from "@/shared/Input/Input";
 import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
@@ -17,50 +16,63 @@ type Props<T> = {
     filterEpoch: number;
 };
 
+/** کلیدی که باید به سرور فرستاده شود (ممکن است با کلید نمایشیِ ستون فرق کند). */
+export const filterKeyOf = <T,>(col: TableColumn<T>) => col.filterKey ?? (col.key as string);
+export const sortKeyOf = <T,>(col: TableColumn<T>) => col.sortKey ?? (col.key as string);
+
 function TableHead<T>({ columns, hasOpsColumn, sort, onSort, filters, onFilter, filterEpoch }: Props<T>) {
     const hasFilterRow = columns.some((col) => (col.filter ?? "text") !== false);
 
     return (
-        <thead className="text-xs uppercase bg-slate-50 border-b border-slate-400">
-            <tr className="text-slate-900">
+        <thead className="bg-slate-50/80">
+            <tr className="text-slate-600">
                 {columns.map((col) => {
-                    const key = col.key as string;
                     const sortable = col.sortable !== false;
+                    const sortKey = sortKeyOf(col);
+                    const active = sort.key === sortKey;
                     return (
                         <th
-                            key={key}
-                            className="text-center p-3 text-nowrap whitespace-nowrap font-bold"
-                            onClick={() => (sortable ? onSort(key) : undefined)}
+                            key={col.key as string}
+                            scope="col"
+                            className="text-center px-3 py-3 text-xs font-semibold whitespace-nowrap border-b border-slate-200 first:rounded-tr-xl last:rounded-tl-xl"
+                            onClick={() => (sortable ? onSort(sortKey) : undefined)}
                         >
                             <div
-                                className={`flex flex-row gap-x-2 justify-center ${
-                                    sortable ? "cursor-pointer select-none" : ""
-                                }`}
+                                className={`flex items-center gap-1.5 justify-center ${
+                                    sortable ? "cursor-pointer select-none hover:text-slate-900 transition-colors" : ""
+                                } ${active ? "text-slate-900" : ""}`}
                             >
                                 {col.header}
                                 {sortable &&
-                                    (sort.key === key ? (
+                                    (active ? (
                                         sort.direction === "asc" ? (
-                                            <FaSortUp className="text-orange-500" />
+                                            <LuArrowUp className="w-3.5 h-3.5 text-orange-500" />
                                         ) : (
-                                            <FaSortDown className="text-orange-500" />
+                                            <LuArrowDown className="w-3.5 h-3.5 text-orange-500" />
                                         )
                                     ) : (
-                                        <FaSort className="text-orange-500" />
+                                        <LuChevronsUpDown className="w-3.5 h-3.5 text-slate-300" />
                                     ))}
                             </div>
                         </th>
                     );
                 })}
-                {hasOpsColumn && <th className="text-center p-3 text-nowrap whitespace-nowrap">عملیات</th>}
+                {hasOpsColumn && (
+                    <th
+                        scope="col"
+                        className="text-center px-3 py-3 text-xs font-semibold whitespace-nowrap border-b border-slate-200"
+                    >
+                        عملیات
+                    </th>
+                )}
             </tr>
             {hasFilterRow && (
-                <tr className="text-slate-900 bg-white">
+                <tr className="bg-white">
                     {columns.map((col) => {
-                        const key = col.key as string;
+                        const key = filterKeyOf(col);
                         const filterType = col.filter ?? "text";
                         return (
-                            <th key={key} className="text-center p-3">
+                            <th key={col.key as string} className="px-2 pt-2 pb-3 align-top border-b border-slate-200">
                                 {filterType === false ? null : filterType === "select" ? (
                                     <CustomSelect
                                         hasAll={1}
@@ -71,13 +83,15 @@ function TableHead<T>({ columns, hasOpsColumn, sort, onSort, filters, onFilter, 
                                 ) : filterType === "date" ? (
                                     <PersianDatePicker
                                         key={`${key}-${filterEpoch}`}
+                                        value={filters[key] ?? ""}
+                                        placeholder={col.header}
                                         onChange={(date) => onFilter(key, date)}
                                     />
                                 ) : (
                                     <Input
-                                        className="whitespace-nowrap text-nowrap min-w-[150px]"
+                                        className="min-w-[150px] !rounded-xl !border-slate-200 !h-11 hover:border-slate-300 focus:!border-slate-400 focus:!ring-3 focus:!ring-slate-900/10"
                                         type="text"
-                                        placeholder={`فیلتر ${col.header}`}
+                                        placeholder={col.header}
                                         onChange={(e) => onFilter(key, e.target.value)}
                                         value={filters[key] ?? ""}
                                     />
@@ -85,7 +99,7 @@ function TableHead<T>({ columns, hasOpsColumn, sort, onSort, filters, onFilter, 
                             </th>
                         );
                     })}
-                    {hasOpsColumn && <th />}
+                    {hasOpsColumn && <th className="border-b border-slate-200" />}
                 </tr>
             )}
         </thead>

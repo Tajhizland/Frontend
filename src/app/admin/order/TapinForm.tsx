@@ -3,14 +3,16 @@ import Badge from "@/shared/Badge/Badge";
 import Label from "@/shared/Label/Label";
 import Select from "@/shared/Select/Select";
 import {useForm} from "react-hook-form";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import FormActions from "@/shared/Form/FormActions";
 
 export default function TapinForm({
                                       loading = true,
                                       submit,
+                                      onClose,
                                   }: {
     loading: boolean;
     submit: (formData: any) => Promise<any>;
+    onClose?: () => void;
 }) {
     const {register, handleSubmit, control, formState: {errors}, setValue, reset} = useForm({
         defaultValues: {
@@ -44,11 +46,13 @@ export default function TapinForm({
                         {errors.status && <p className="text-error text-xs">{errors.status.message}</p>}
                     </div>
                 </div>
-                <div className="flex gap-5 mt-14">
-                    <ButtonPrimary className="w-full" loading={loading}>
-                        {loading ? "درحال ارتباط با وب سرویس تاپین" : "ثبت در تاپین"}
-                    </ButtonPrimary>
-                </div>
+                <FormActions
+                    className="mt-14"
+                    loading={loading}
+                    saveText={loading ? "درحال ارتباط با وب سرویس تاپین" : "ثبت در تاپین"}
+                    backText="انصراف"
+                    onBack={onClose}
+                />
             </form>
         </>
     )

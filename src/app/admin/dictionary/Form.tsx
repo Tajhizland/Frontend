@@ -1,9 +1,8 @@
 "use client";
 
 import Label from "@/shared/Label/Label";
+import FormActions from "@/shared/Form/FormActions";
 import Input from "@/shared/Input/Input";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import React from "react";
 import {useForm, useWatch} from "react-hook-form";
 import {DictionaryResponse} from "@/services/types/dictionary";
 import FormProgress from "@/shared/Progress/FormProgress";
@@ -82,11 +81,7 @@ export default function Form({data, onSubmit, loading, resetOnSuccess}: Props) {
 
             <hr className={"my-5"} />
             <FormProgress loading={loading} />
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"} loading={loading} disabled={loading}>
-                    ذخیره
-                </ButtonPrimary>
-            </div>
+            <FormActions loading={loading} />
         </form>
     );
 }

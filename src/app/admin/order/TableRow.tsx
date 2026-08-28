@@ -56,8 +56,8 @@ export const columns = defineColumns<OrderResponse>([
         render: (row) => <Badge name={OrderGateway[Number(row.payment_method) - 1]} color={"green"}/>,
 
     },
-    {key: 'created_at', header: 'تاریخ ثبت سفارش', editable: false},
-    {key: 'delivery_date', header: 'تاریخ ارسال', editable: false},
+    { key: 'created_at', filter: 'date', header: 'تاریخ ثبت سفارش', editable: false },
+    { key: 'delivery_date', filter: 'date', header: 'تاریخ ارسال', editable: false },
 
 ]);
 export const actions = defineActions<OrderResponse>([

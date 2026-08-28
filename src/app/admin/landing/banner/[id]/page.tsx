@@ -1,12 +1,12 @@
 "use client";
 
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import FormActions from "@/shared/Form/FormActions";
 import Panel from "@/shared/Panel/Panel";
 import LandingTab from "@/components/Tabs/LandingTab";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import Uploader from "@/shared/Uploader/Uploader";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import NcImage from "@/shared/NcImage/NcImage";
 import Badge from "@/shared/Badge/Badge";
 import { AttachedList } from "@/shared/AttachedList";
@@ -96,9 +96,7 @@ function AddBanner({ landingId, onAdded }: { landingId: number; onAdded: () => v
                     <Uploader name="image" />
                 </div>
             </div>
-            <ButtonPrimary className="w-full mt-5" loading={mutation.isPending}>
-                آپلود
-            </ButtonPrimary>
+            <FormActions loading={mutation.isPending} saveText="آپلود" />
         </form>
     );
 }

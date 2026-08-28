@@ -1,10 +1,10 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuArrowDownUp, LuPlus } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
-import Link from "next/link";
 import Table from "@/shared/Table/Table";
 import {actions, columns} from "@/app/admin/brand/TableRow";
 import { brandTable, update } from "@/services/api/admin/brand";
@@ -34,12 +34,8 @@ export default function Page() {
                 مدیریت برند
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/brand/create"}>
-                    <ButtonPrimary> ایجاد</ButtonPrimary>
-                </Link>
-                <Link href={"/admin/brand/sort"}>
-                    <ButtonPrimary> سورت کردن</ButtonPrimary>
-                </Link>
+                <ToolbarButton href="/admin/brand/create" icon={<LuPlus className="w-4 h-4" />}>ایجاد</ToolbarButton>
+                <ToolbarButton href="/admin/brand/sort" icon={<LuArrowDownUp className="w-4 h-4" />}>سورت کردن</ToolbarButton>
             </PageLink>
             <Table
                 onEdit={submit}

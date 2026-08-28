@@ -1,8 +1,6 @@
 "use client"
 import { stripHTML } from '@/hooks/StripHtml';
 import { useState } from 'react';
-import ButtonPrimary from '../Button/ButtonPrimary';
-import ButtonCircle from '../Button/ButtonCircle';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 
 interface TextExpanderProps {

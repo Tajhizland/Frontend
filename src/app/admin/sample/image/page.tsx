@@ -1,6 +1,8 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import FormActions from "@/shared/Form/FormActions";
+import { LuArrowDownUp } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import {TrashIcon} from "@heroicons/react/24/solid";
 import Image from "next/image";
@@ -12,7 +14,6 @@ import {deleteImage, getImages, uploadImage} from "@/services/api/admin/sample";
 import SampleTab from "@/components/Tabs/SampleTab";
 import Uploader from "@/shared/Uploader/Uploader";
 import PageLink from "@/shared/PageLink/PageLink";
-import Link from "next/link";
 
 export default function Page() {
     const [files, setFiles] = useState<File[]>([]);
@@ -45,9 +46,7 @@ export default function Page() {
         <Panel>
             <SampleTab/>
             <PageLink>
-                <Link href={"/admin/sample/image/sort"}>
-                    <ButtonPrimary> سورت کردن</ButtonPrimary>
-                </Link>
+                <ToolbarButton href="/admin/sample/image/sort" icon={<LuArrowDownUp className="w-4 h-4" />}>سورت کردن</ToolbarButton>
             </PageLink>
             <div className="flex flex-col gap-y-4">
                 <form action={(form) => uploadMutation.mutate(form)}>
@@ -55,9 +54,7 @@ export default function Page() {
                     <Uploader name={"image"}
                               //@ts-ignore
                               onChange={(file)=>{setFiles(file)}}/>
-                    <ButtonPrimary>
-                        آپلود
-                    </ButtonPrimary>
+                    <FormActions saveText="آپلود" />
                 </form>
             </div>
             <div className={"grid grid-cols-1 md:grid-cols-2  xl:grid-cols-5 gap-5 border rounded-sm  mt-10"}>

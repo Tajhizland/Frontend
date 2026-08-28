@@ -1,14 +1,15 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuMessageSquare } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
+import PageLink from "@/shared/PageLink/PageLink";
 import Table from "@/shared/Table/Table";
 import {columns} from "@/app/admin/sms/TableRow";
 import {defineActions} from "@/shared/Table/types";
 import {SmsLogResponse} from "@/services/types/smsLog";
 import {HiMiniPencil} from "react-icons/hi2";
-import Link from "next/link";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {smsTable} from "@/services/api/admin/sms";
 
 export default function Page() {
@@ -16,7 +17,7 @@ export default function Page() {
 
     const actions = defineActions<SmsLogResponse>([
         {
-            label: <HiMiniPencil className={"text-black w-5 h-5"} title={"مشاهده"}/>,
+            label: <HiMiniPencil className={"w-4 h-4"} title={"مشاهده"}/>,
             href: (row) => `sms/${row.id}`,
         }
     ])
@@ -32,18 +33,10 @@ export default function Page() {
             <PageTitle>
                 مدیریت پیامک ها
             </PageTitle>
-            <PageTitle>
-                <Link href={"/admin/sms/send"}>
-                    <ButtonPrimary>
-                        ارسال پیامک به کاربران
-                    </ButtonPrimary>
-                </Link>
-                <Link href={"/admin/phone-bock/sms"}>
-                    <ButtonPrimary>
-                         ارسال پیامک به مخاطبان
-                    </ButtonPrimary>
-                </Link>
-            </PageTitle>
+            <PageLink>
+                <ToolbarButton href={"/admin/sms/send"} icon={<LuMessageSquare className="w-4 h-4" />}>ارسال پیامک به کاربران</ToolbarButton>
+                <ToolbarButton href={"/admin/phone-bock/sms"} icon={<LuMessageSquare className="w-4 h-4" />}>ارسال پیامک به مخاطبان</ToolbarButton>
+            </PageLink>
 
             <Table
 

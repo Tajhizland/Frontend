@@ -1,5 +1,6 @@
 "use client"
 import {OrderStatus} from "@/app/admin/order/orderStatus";
+import { toJalali } from "@/utils/jalali";
 import {myOrders} from "@/services/api/shop/order";
 import {OrderResponse} from "@/services/types/order";
 import {OrderItemResponse} from "@/services/types/orderItem";
@@ -98,7 +99,7 @@ const AccountOrder = () => {
                     <div>
                         <p className="text-lg font-semibold">شماره سفارش : {item.id}</p>
                         <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 sm:mt-2">
-                            <span>{item.order_date}</span>
+                            <span>{toJalali(item.order_date)}</span>
                             <span className="mx-2">·</span>
                             <span className="text-primary-500">{OrderStatus[Number(item.status)]}</span>
 

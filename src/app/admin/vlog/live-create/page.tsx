@@ -1,6 +1,7 @@
 "use client";
 
 import React, {useState} from "react";
+import FormActions from "@/shared/Form/FormActions";
 import {Controller, useForm} from "react-hook-form";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -12,7 +13,6 @@ import PageTitle from "@/shared/PageTitle/PageTitle";
 import Label from "@/shared/Label/Label";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import SunEditors from "@/shared/Editor/SunEditors";
 import ImageField from "@/shared/Uploader/ImageField";
 import VideoUploader from "@/shared/Uploader/VideoUploader";
@@ -217,9 +217,7 @@ export default function Page() {
                     <hr className="my-5" />
 
                     <div className="flex flex-col items-center gap-2 my-5">
-                        <ButtonPrimary type="submit" loading={mutation.isPending} disabled={!canSubmit}>
-                            ذخیره
-                        </ButtonPrimary>
+                        <FormActions loading={mutation.isPending} disabled={!canSubmit} />
                         {!uploader.isDone && (
                             <p className="text-xs text-neutral-500">
                                 {uploader.isUploading

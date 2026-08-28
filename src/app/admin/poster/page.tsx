@@ -1,13 +1,13 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuPlus } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import Table from "@/shared/Table/Table";
 import {actions, columns} from "@/app/admin/poster/TableRow";
 import {posterTable} from "@/services/api/admin/poster";
 import PageLink from "@/shared/PageLink/PageLink";
-import Link from "next/link";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export default function Page() {
     return (<>
@@ -22,9 +22,7 @@ export default function Page() {
                 مدیریت پوستر ها
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/poster/create"}>
-                    <ButtonPrimary> ایجاد</ButtonPrimary>
-                </Link>
+                <ToolbarButton href="/admin/poster/create" icon={<LuPlus className="w-4 h-4" />}>ایجاد</ToolbarButton>
             </PageLink>
             <Table
                 fetcher={posterTable}

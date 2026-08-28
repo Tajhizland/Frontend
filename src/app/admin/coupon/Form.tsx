@@ -1,7 +1,7 @@
 "use client"
 import Label from "@/shared/Label/Label";
+import FormActions from "@/shared/Form/FormActions";
 import Input from "@/shared/Input/Input";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect, useMemo} from "react";
 import {Controller, useForm} from "react-hook-form";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
@@ -209,11 +209,7 @@ export default function Form({data, submit, loading = false}: Form) {
 
 
             <hr className={"my-5"}/>
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"} loading={loading}>
-                    ذخیره
-                </ButtonPrimary>
-            </div>
+            <FormActions loading={loading} />
         </form>
     </>)
 }

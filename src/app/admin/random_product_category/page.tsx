@@ -1,10 +1,11 @@
 "use client";
 
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuPlus } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import PageLink from "@/shared/PageLink/PageLink";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Table from "@/shared/Table/Table";
 import {SearchPickerItem, SearchPickerModal} from "@/shared/SearchPicker";
 import {columns} from "@/app/admin/random_product_category/TableRow";
@@ -27,7 +28,7 @@ export default function Page() {
                     اگر یک دسته بندی پدر را اضافه کنید، محصولات همه زیرشاخه های آن هم در انتخاب لحاظ می شوند.
                 </p>
                 <PageLink>
-                    <ButtonPrimary onClick={() => setShowModal(true)}>ایجاد</ButtonPrimary>
+                    <ToolbarButton onClick={() => setShowModal(true)} icon={<LuPlus className="w-4 h-4" />}>ایجاد</ToolbarButton>
                 </PageLink>
 
                 <SearchPickerModal<CategoryResponse>

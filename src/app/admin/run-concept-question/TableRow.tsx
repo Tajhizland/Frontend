@@ -9,11 +9,11 @@ export const columns = defineColumns<RunConceptQuestionResponse>([
     { key: 'question', header: 'پرسش', editable: true },
     { key: 'parent_question', header: 'پرسش وابسته', editable: true },
     { key: 'parent_answer', header: 'پاسخ وابسته', editable: true },
-    { key: 'created_at', header: 'تاریخ ایجاد', editable: false },
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 ]);
 export const actions = defineActions<RunConceptQuestionResponse>([
     {
-        label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
+        label: <HiMiniPencil className={"w-4 h-4"} title={"ویرایش"}/>,
         href: (row) => `run-concept-question/edit/${row.id}`,
     },
 ])

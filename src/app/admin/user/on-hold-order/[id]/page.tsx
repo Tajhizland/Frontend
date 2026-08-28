@@ -1,5 +1,6 @@
 "use client"
 import {OrderItemResponse} from "@/services/types/orderItem";
+import { toJalali } from "@/utils/jalali";
 import AdminPagination from "@/shared/Pagination/AdminPagination";
 import Image from "next/image";
 import React, {useState} from "react";
@@ -89,7 +90,7 @@ const AccountOrder = () => {
                     <div>
                         <p className="text-lg font-semibold">{item.order_id}</p>
                         <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 sm:mt-2">
-                            <span>{item.created_at}</span>
+                            <span>{toJalali(item.created_at)}</span>
                             <span className="mx-2">·</span>
                             <Badge color={"blue"} name={OnHoldOrderStatus[Number(item.status)]}/>
                             {

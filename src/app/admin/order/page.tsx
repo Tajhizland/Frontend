@@ -2,6 +2,9 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
+import PageLink from "@/shared/PageLink/PageLink";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
+import { LuFileText } from "react-icons/lu";
 import Table from "@/shared/Table/Table";
 import {columns} from "@/app/admin/order/TableRow";
 import {registerTapin, updateStatus, orderTable} from "@/services/api/admin/order";
@@ -13,8 +16,6 @@ import {useMutation} from "@tanstack/react-query";
 import {useState} from "react";
 import NcModal from "@/shared/NcModal/NcModal";
 import TapinForm from "@/app/admin/order/TapinForm";
-import Link from "next/link";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export default function Page() {
     const [tapinModal, setTapinModal] = useState<boolean>(false);
@@ -50,6 +51,7 @@ export default function Page() {
     const renderContent = () => {
         return <div className={"text-right "}>
             {orderId && <TapinForm loading={tapinRegisterMutation.isPending}
+                                   onClose={() => setTapinModal(false)}
                                    submit={tapinRegisterMutation.mutateAsync}/>}
         </div>
     }
@@ -77,13 +79,11 @@ export default function Page() {
                 مدیریت سفارشات
             </PageTitle>
 
-            <div>
-                <Link href={"/admin/order/digipay"}>
-                    <ButtonPrimary>
+            <PageLink>
+                <ToolbarButton href="/admin/order/digipay" icon={<LuFileText className="w-4 h-4" />}>
                     گزارش دیجی پی
-                    </ButtonPrimary>
-                </Link>
-            </div>
+                </ToolbarButton>
+            </PageLink>
 
             <Table
                 onEdit={changeStatus}

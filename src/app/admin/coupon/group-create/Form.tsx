@@ -1,8 +1,10 @@
 "use client"
 import Label from "@/shared/Label/Label";
+import { LuMessageSquare } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
+import FormActions from "@/shared/Form/FormActions";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Textarea from "@/shared/Textarea/Textarea";
 import React, {useEffect, useMemo, useState} from "react";
 import {Controller, useForm} from "react-hook-form";
@@ -14,11 +16,9 @@ import {toMySqlDateTime} from "@/utils/dateFormat";
 import {CouponResponse} from "@/services/types/coupon";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {getUserByType} from "@/services/api/admin/user";
-import ReactSelect from "react-select";
 import Select from "@/shared/Select/Select";
 import {resetPasswordSendCode} from "@/services/api/auth/resetPassword";
 import {generate} from "@/services/api/admin/coupon";
-import Badge from "@/shared/Badge/Badge";
 import Spinner from "@/shared/Loading/Spinner";
 import toast from "react-hot-toast";
 
@@ -266,19 +266,17 @@ export default function Form({data, submit, loading = false}: Form) {
 
 
             <hr className={"my-5"}/>
-            <div className={"flex flex-wrap justify-center gap-3 my-5"}>
-                <ButtonSecondary type={"submit"} loading={loading && !sendSms} disabled={loading}>
-                    ذخیره
-                </ButtonSecondary>
-                <ButtonPrimary
-                    type={"button"}
+            <FormActions loading={loading && !sendSms} disabled={loading}>
+                <ToolbarButton
+                    variant="secondary"
                     onClick={handleSave(true)}
                     loading={loading && sendSms}
                     disabled={loading}
+                    icon={<LuMessageSquare className="w-4 h-4" />}
                 >
                     ذخیره و ارسال پیامک
-                </ButtonPrimary>
-            </div>
+                </ToolbarButton>
+            </FormActions>
         </form>
     </>)
 }

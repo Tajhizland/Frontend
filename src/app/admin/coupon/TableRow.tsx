@@ -27,13 +27,13 @@ export const columns = defineColumns<CouponResponse>([
     {key: 'user_id', header: 'شناسه کاربر', editable: false},
     {key: 'min_order_value', header: 'برای حداقل مبلغ سفارش', editable: true},
     {key: 'max_order_value', header: 'برای حداکثر مبلغ سفارش', editable: true},
-    {key: 'start_time_fa', header: 'تاریخ شروع', editable: false},
-    {key: 'end_time_fa', header: 'تاریخ پایان', editable: false},
-    {key: 'created_at_fa', header: 'تاریخ ایجاد', editable: false},
+    { key: 'start_time', filter: 'date', header: 'تاریخ شروع', editable: false },
+    { key: 'end_time', filter: 'date', header: 'تاریخ پایان', editable: false },
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 ]);
 export const actions = defineActions<CouponResponse>([
     {
-        label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
+        label: <HiMiniPencil className={"w-4 h-4"} title={"ویرایش"}/>,
         href: (row) => `coupon/edit/${row.id}`,
     },
 ])

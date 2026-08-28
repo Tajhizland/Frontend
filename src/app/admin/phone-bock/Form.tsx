@@ -1,6 +1,6 @@
 "use client"
 import Input from "@/shared/Input/Input";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import FormActions from "@/shared/Form/FormActions";
 import React, {useEffect} from "react";
 import Label from "@/shared/Label/Label";
 import {useForm} from "react-hook-form";
@@ -47,9 +47,7 @@ export default function Form({data, submit}: FormProps) {
             </div>
 
             <hr className="my-5"/>
-            <div className="flex justify-center my-5">
-                <ButtonPrimary type="submit">ذخیره</ButtonPrimary>
-            </div>
+            <FormActions />
         </form>
     );
 }

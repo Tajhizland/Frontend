@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import logo from "@/images/tajhizland/logo.png"
-import avatar from "@/images/avatars/Image-16.png"
-import Image from "next/image";
 import {BellAlertIcon} from "@heroicons/react/24/solid";
 import Profile from "@/components/Navbar/Profile";
 import Bell from "@/components/Navbar/Bell";

@@ -4,15 +4,9 @@ import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import Table from "@/shared/Table/Table";
 import {actions, columns} from "@/app/admin/onHoldOrder/TableRow";
-import {updateStatus} from "@/services/api/admin/order";
 import {onHoldOrderTable} from "@/services/api/admin/onHoldOrder";
-import {OnHoldOrderResponse} from "@/services/types/onHoldOrder";
-import {toast} from "react-hot-toast";
 
 export default function Page() {
-
-    const changeStatus = (e: OnHoldOrderResponse) => updateStatus(e.id, {status: e.status});
-
     return (<>
         <Breadcrump breadcrumb={[
             {
@@ -25,8 +19,8 @@ export default function Page() {
                 مدیریت سفارشات معلق
             </PageTitle>
 
+            {/* وضعیت درخواست فقط از صفحه‌ی مشاهده (تایید/رد) تغییر می‌کند، نه با ویرایش سریع. */}
             <Table
-                onEdit={changeStatus}
                 fetcher={onHoldOrderTable}
                 columns={columns}
                 actions={actions}

@@ -1,10 +1,10 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import FormActions from "@/shared/Form/FormActions";
 import FormComponent from "@/components/Form/Product/ColorForm";
 import ProductTab from "@/components/Tabs/ProductTab";
 import {findById, set} from "@/services/api/admin/color";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Spinner from "@/shared/Loading/Spinner";
 import Panel from "@/shared/Panel/Panel";
 import {useParams} from "next/navigation";
@@ -113,11 +113,7 @@ export default function Page() {
                         <ButtonCircle type="button" className={"w-48 bg-orange-600"} onClick={handleAddForm}>
                             +
                         </ButtonCircle>
-                        <div className={"flex justify-center my-5"}>
-                            <ButtonPrimary type={"submit"}>
-                                ذخیره
-                            </ButtonPrimary>
-                        </div>
+                        <FormActions />
                     </form>
                 </>
             }

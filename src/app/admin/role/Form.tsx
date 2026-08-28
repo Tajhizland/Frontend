@@ -1,6 +1,6 @@
 "use client"
 import Input from "@/shared/Input/Input";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import FormActions from "@/shared/Form/FormActions";
 import React, {useEffect} from "react";
 import {useQuery} from "@tanstack/react-query";
 import Label from "@/shared/Label/Label";
@@ -79,9 +79,7 @@ export default function Form({data, submit}: FormProps) {
                 ))}
             </div>
 
-            <div className="flex justify-center my-5">
-                <ButtonPrimary type="submit">ذخیره</ButtonPrimary>
-            </div>
+            <FormActions />
         </form>
     );
 }

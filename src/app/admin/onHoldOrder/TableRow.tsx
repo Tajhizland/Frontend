@@ -1,9 +1,6 @@
 import { defineColumns, defineActions } from "@/shared/Table/types";
-import { HiMiniPencil } from "react-icons/hi2";
 import { FaEye } from "react-icons/fa";
 import Badge from "@/shared/Badge/Badge";
-import { OrderResponse } from "@/services/types/order";
-import { OrderStatus } from "@/app/admin/order/orderStatus";
 import { OnHoldOrderResponse } from "@/services/types/onHoldOrder";
 
 
@@ -14,7 +11,7 @@ export const columns = defineColumns<OnHoldOrderResponse>([
     {
         key: 'status',
         header: 'وضعیت',
-        editable: true,
+        editable: false,
         filter: 'select',
         options: [
             {
@@ -36,13 +33,12 @@ export const columns = defineColumns<OnHoldOrderResponse>([
                 return <Badge name={"تایید شده"} color={"green"} />
             if (Number(row.status) === 2)
                 return <Badge name={"رد شده"} color={"red"} />
-            return 0;
-
+            return null;
         },
     },
 
-    { key: 'expire_date', header: 'تاریخ انقضا', editable: false },
-    { key: 'review_date', header: 'تاریخ پرداخت', editable: false },
+    { key: 'expire_date', filter: 'date', header: 'تاریخ انقضا', editable: false },
+    { key: 'review_date', filter: 'date', header: 'تاریخ بررسی', editable: false },
 
 
 ]);

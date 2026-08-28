@@ -1,8 +1,11 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuArrowDownUp } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
+import PageLink from "@/shared/PageLink/PageLink";
+import FormActions from "@/shared/Form/FormActions";
 import ProductTab from "@/components/Tabs/ProductTab";
 import {getByProductId, remove, setImageColor, upload} from "@/services/api/admin/productImage";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Panel from "@/shared/Panel/Panel";
 import Uploader from "@/shared/Uploader/Uploader";
 import {TrashIcon} from "@heroicons/react/24/solid";
@@ -16,7 +19,6 @@ import {useState} from "react";
 import {findById as productFindById} from "@/services/api/admin/product";
 import {findById as colorFindById} from "@/services/api/admin/color";
 import Select from "@/shared/Select/Select";
-import Link from "next/link";
 
 export default function Page() {
     const {id} = useParams();
@@ -83,19 +85,17 @@ export default function Page() {
         ]}/>
         <Panel>
             <ProductTab id={id + ""}   url={productInfo?.url??""} />
-            <Link href={"/admin/product/image/sort/"+id}>
-                <ButtonPrimary>
+            <PageLink>
+                <ToolbarButton href={"/admin/product/image/sort/" + id} icon={<LuArrowDownUp className="w-4 h-4" />}>
                     سورت کردن
-                </ButtonPrimary>
-            </Link>
+                </ToolbarButton>
+            </PageLink>
             <div className="flex flex-col gap-y-4">
                 <form action={() => uploadMutation.mutate()}>
                     {/*<Uploader name={"image"}/>*/}
                     <MultiUploader name={"image"}  onFilesSelected={setFiles}/>
 
-                    <ButtonPrimary>
-                        آپلود
-                    </ButtonPrimary>
+                    <FormActions saveText="آپلود" />
                 </form>
             </div>
             <div className={"grid grid-cols-1 md:grid-cols-2  xl:grid-cols-5 gap-5 border rounded-sm  mt-10"}>

@@ -1,10 +1,12 @@
 "use client";
 
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import FormActions from "@/shared/Form/FormActions";
+import { LuPlus } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import PageLink from "@/shared/PageLink/PageLink";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import NcModal from "@/shared/NcModal/NcModal";
 import Uploader from "@/shared/Uploader/Uploader";
 import Table from "@/shared/Table/Table";
@@ -40,7 +42,7 @@ export default function Page() {
 
     const actions = defineActions<HomepageCategoryResponse>([
         {
-            label: <IoLogoApple className="text-black w-5 h-5" />,
+            label: <IoLogoApple className="w-4 h-4" />,
             title: "ویرایش آیکن",
             onClick: (row) => {
                 setIconTargetId(row.id);
@@ -55,7 +57,7 @@ export default function Page() {
             <Panel>
                 <PageTitle>دسته بندی های پرطرفدار</PageTitle>
                 <PageLink>
-                    <ButtonPrimary onClick={() => setShowModal(true)}>ایجاد</ButtonPrimary>
+                    <ToolbarButton onClick={() => setShowModal(true)} icon={<LuPlus className="w-4 h-4" />}>ایجاد</ToolbarButton>
                 </PageLink>
 
                 {iconModal && (
@@ -69,9 +71,13 @@ export default function Page() {
                         renderContent={() => (
                             <form action={(form) => iconMutation.mutate(form)} className="mt-5">
                                 <Uploader name="icon" />
-                                <ButtonPrimary className="mt-10" loading={iconMutation.isPending}>
-                                    آپلود
-                                </ButtonPrimary>
+                                <FormActions
+                                    className="mt-6"
+                                    loading={iconMutation.isPending}
+                                    saveText="آپلود"
+                                    backText="انصراف"
+                                    onBack={() => setIconModal(false)}
+                                />
                             </form>
                         )}
                     />

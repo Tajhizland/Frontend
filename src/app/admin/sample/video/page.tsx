@@ -1,9 +1,10 @@
 "use client";
 
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuArrowDownUp } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageLink from "@/shared/PageLink/PageLink";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import SampleTab from "@/components/Tabs/SampleTab";
 import { AttachedList } from "@/shared/AttachedList";
 import { SearchPickerItem } from "@/shared/SearchPicker";
@@ -11,7 +12,6 @@ import { deleteVideo, getVideo, setVideo } from "@/services/api/admin/sample";
 import { search } from "@/services/api/admin/vlog";
 import { VlogResponse } from "@/services/types/vlog";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Page() {
     return (
@@ -25,9 +25,7 @@ export default function Page() {
             <Panel>
                 <SampleTab />
                 <PageLink>
-                    <Link href="/admin/sample/video/sort">
-                        <ButtonPrimary>سورت کردن</ButtonPrimary>
-                    </Link>
+                    <ToolbarButton href="/admin/sample/video/sort" icon={<LuArrowDownUp className="w-4 h-4" />}>سورت کردن</ToolbarButton>
                 </PageLink>
                 <AttachedList
                     layout="grid"

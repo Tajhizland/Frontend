@@ -28,23 +28,23 @@ export const columns = defineColumns<CampaignResponse>([
             <Badge name={"غیر‌‌فعال"} color={"red"}/>,
 
     },
-    {key: 'start_date_fa', header: 'تاریخ شروع', filter: 'date', editable: false},
-    {key: 'end_date_fa', header: 'تاریخ پایان', filter: 'date', editable: false},
-    {key: 'created_at', header: 'تاریخ ایجاد', filter: 'date', editable: false},
+    { key: 'start_date', filter: 'date', header: 'تاریخ شروع', editable: false },
+    { key: 'end_date', filter: 'date', header: 'تاریخ پایان', editable: false },
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 
 ]);
 export const actions = defineActions<CampaignResponse>([
     {
-        label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
+        label: <HiMiniPencil className={"w-4 h-4"} title={"ویرایش"}/>,
         href: (row) => `campaign/edit/${row.id}`
     },
     {
-        label: <span className={"text-black"}>اسلایدر</span>,
+        label: <span>اسلایدر</span>,
         color: "primary",
         href: (row) => `campaign/${row.id}/slider`
     },
     {
-        label: <span className={"text-black"}>بنر</span>,
+        label: <span>بنر</span>,
         color: "primary",
         href: (row) => `campaign/${row.id}/banner`
     },

@@ -1,9 +1,8 @@
 "use client";
 
 import Input from "@/shared/Input/Input";
+import FormActions from "@/shared/Form/FormActions";
 import Select from "@/shared/Select/Select";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import React from "react";
 import {Controller, useForm} from "react-hook-form";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import {MenuResponse} from "@/services/types/menu";
@@ -154,11 +153,7 @@ export default function Form({data, onSubmit, loading, progress, resetOnSuccess}
 
             <hr className={"my-5"} />
             <FormProgress loading={loading} progress={progress} />
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"} loading={loading} disabled={loading}>
-                    ذخیره
-                </ButtonPrimary>
-            </div>
+            <FormActions loading={loading} />
         </form>
     );
 }

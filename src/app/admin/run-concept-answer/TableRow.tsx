@@ -8,11 +8,11 @@ export const columns = defineColumns<RunConceptAnswerResponse>([
     { key: 'answer', header: 'پاسخ', editable: true },
     { key: 'run_concept_question_id', header: 'پرسش', editable: true },
     { key: 'price', header: 'هزینه', editable: true },
-    { key: 'created_at', header: 'تاریخ ایجاد', editable: false },
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 ]);
 export const actions = defineActions<RunConceptAnswerResponse>([
     {
-        label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
+        label: <HiMiniPencil className={"w-4 h-4"} title={"ویرایش"}/>,
         href: (row) => `run-concept-answer/edit/${row.id}`,
     },
 ])

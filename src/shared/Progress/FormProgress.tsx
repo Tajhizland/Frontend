@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 
 type Props = {
     /** آیا فرم در حال ارسال است */

@@ -1,11 +1,9 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import FormComponent from "@/components/Form/Product/ColorForm";
+import FormActions from "@/shared/Form/FormActions";
 import Label from "@/shared/Label/Label";
 import ProductTab from "@/components/Tabs/ProductTab";
 import {findById, set} from "@/services/api/admin/filter";
-import ButtonCircle from "@/shared/Button/ButtonCircle";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import Spinner from "@/shared/Loading/Spinner";
 import Panel from "@/shared/Panel/Panel";
@@ -88,11 +86,7 @@ export default function Page() {
 
                         </div>
 
-                        <div className={"flex justify-center my-5"}>
-                            <ButtonPrimary type={"submit"}>
-                                ذخیره
-                            </ButtonPrimary>
-                        </div>
+                        <FormActions />
                     </form>
                 </>
             }

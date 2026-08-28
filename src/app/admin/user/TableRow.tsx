@@ -28,7 +28,7 @@ export const columns = defineColumns<UserResponse>([
             <Badge name={"کاربر"} color={"indigo"}/>,
 
     },
-    {key: 'created_at', header: 'تاریخ ثبت نام', filter: 'date', editable: true},
+    { key: 'created_at', filter: 'date', header: 'تاریخ ثبت نام', editable: false },
 
 
 ]);

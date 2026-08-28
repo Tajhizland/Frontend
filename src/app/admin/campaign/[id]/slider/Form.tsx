@@ -1,8 +1,8 @@
 "use client"
 import Label from "@/shared/Label/Label";
+import FormActions from "@/shared/Form/FormActions";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect} from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import {SliderResponse} from "@/services/types/slider";
@@ -108,11 +108,7 @@ export default function Form({data, submit ,isLoading}: Form) {
                 </div> : ""}
             </div>
             <hr className={"my-5"}/>
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"} loading={isLoading}>
-                    ذخیره
-                </ButtonPrimary>
-            </div>
+            <FormActions loading={isLoading} />
         </form>
     </>)
 }

@@ -8,7 +8,7 @@ export const columns = defineColumns<ContactResponse>([
     {key: 'name', header: 'نام', editable: false},
     {key: 'mobile', header: 'موبایل', editable: false},
     {key: 'concept', header: 'کانسپت', editable: false},
-    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 
 ]);
 export const actions = defineActions<ContactResponse>([

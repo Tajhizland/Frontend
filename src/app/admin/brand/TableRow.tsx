@@ -35,12 +35,12 @@ export const columns = defineColumns<BrandResponse>([
         render: (row) =>
             Number(row.status) === 1 ? <Badge name={"فعال"} color={"green"} /> : <Badge name={"غیر‌‌فعال"} color={"red"} />,
     },
-    { key: "created_at", header: "تاریخ ایجاد" },
+    { key: 'created_at', filter: 'date', header: "تاریخ ایجاد", editable: false },
 ]);
 
 export const actions = defineActions<BrandResponse>([
     {
-        label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"} />,
+        label: <HiMiniPencil className={"w-4 h-4"} title={"ویرایش"} />,
         href: (row) => `brand/edit/${row.id}`,
     },
 ]);

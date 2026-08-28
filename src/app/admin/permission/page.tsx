@@ -1,13 +1,14 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuPlus } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
+import PageLink from "@/shared/PageLink/PageLink";
 import Table from "@/shared/Table/Table";
 import {columns} from "@/app/admin/permission/TableRow";
 import {defineActions} from "@/shared/Table/types";
 import {HiMiniPencil} from "react-icons/hi2";
-import Link from "next/link";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {PermissionResponse} from "@/services/types/permission";
 import {permissionTable} from "@/services/api/admin/permission";
 
@@ -16,7 +17,7 @@ export default function Page() {
 
     const actions = defineActions<PermissionResponse>([
         {
-            label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
+            label: <HiMiniPencil className={"w-4 h-4"} title={"ویرایش"}/>,
             href: (row) => `permission/edit/${row.id}`
         }
     ])
@@ -32,13 +33,9 @@ export default function Page() {
             <PageTitle>
                 مدیریت دسترسی ها
             </PageTitle>
-            <PageTitle>
-                <Link href={"/admin/permission/create"}>
-                    <ButtonPrimary>
-                       ایجاد دسترسی
-                    </ButtonPrimary>
-                </Link>
-            </PageTitle>
+            <PageLink>
+                <ToolbarButton href={"/admin/permission/create"} icon={<LuPlus className="w-4 h-4" />}>ایجاد دسترسی</ToolbarButton>
+            </PageLink>
 
             <Table
                 fetcher={permissionTable}

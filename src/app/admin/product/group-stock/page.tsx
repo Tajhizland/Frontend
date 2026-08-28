@@ -23,7 +23,6 @@ import Image from "next/image";
 import Input from "@/shared/Input/Input";
 import Label from "@/shared/Label/Label";
 import toast from "react-hot-toast";
-import MultiSelect from "@/shared/Select/MultiSelect";
 import SearchableSelect from "@/shared/Select/SearchableSelect";
 
 export default function Page() {

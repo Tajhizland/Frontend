@@ -1,14 +1,13 @@
 "use client"
 import Label from "@/shared/Label/Label";
+import FormActions from "@/shared/Form/FormActions";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect, useState} from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import NcImage from "@/shared/NcImage/NcImage";
 import {Controller, useForm} from "react-hook-form";
 import {CampaignResponse} from "@/services/types/campaign";
-import PersianDatePicker from "@/shared/DatePicker/PersianDatePicker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian_fa from "react-date-object/locales/persian_fa";
 import persian from "react-date-object/calendars/persian";
@@ -226,11 +225,7 @@ export default function Form({data, submit, loading = false}: Form) {
             </div> : ""}
 
             <hr className={"my-5"}/>
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"} loading={loading}>
-                    ذخیره
-                </ButtonPrimary>
-            </div>
+            <FormActions loading={loading} />
         </form>
     </>)
 }

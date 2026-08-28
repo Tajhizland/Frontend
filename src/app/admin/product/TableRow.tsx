@@ -75,7 +75,7 @@ export const columns = defineColumns<ProductResponse>([
     {key: 'category', header: 'دسته محصول', editable: true},
     {key: 'brand_name', header: 'برند محصول', editable: true},
     {key: 'images_count', header: 'تعداد عکس', editable: false},
-    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 
 
     // {
@@ -160,13 +160,13 @@ export const columns = defineColumns<ProductResponse>([
 ]);
 export const actions = defineActions<ProductResponse>([
     {
-        label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"}/>,
+        label: <HiMiniPencil className={"w-4 h-4"} title={"ویرایش"}/>,
         href: (row) => `product/edit/${row.id}`,
     }, {
-        label: <BsCoin className={"text-black w-5 h-5"} title={"ویرایش قیمت"}/>,
+        label: <BsCoin className={"w-4 h-4"} title={"ویرایش قیمت"}/>,
         href: (row) => `product/color/${row.id}`,
     }, {
-        label: <BsCoin className={"text-black w-5 h-5"} title={"ویرایش قیمت"}/>,
+        label: <BsCoin className={"w-4 h-4"} title={"ویرایش قیمت"}/>,
         onClick: (row) => {
             console.log(row.id);
         }

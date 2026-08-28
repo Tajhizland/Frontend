@@ -23,7 +23,7 @@ export const columns = defineColumns<CategoryResponse>([
 
 export const actions = defineActions<CategoryResponse>([
     {
-        label: <HiMiniPencil className={"text-black w-5 h-5"} title={"ویرایش"} />,
+        label: <HiMiniPencil className={"w-4 h-4"} title={"ویرایش"} />,
         href: (row) => `category/edit/${row.id}`,
     },
 ]);

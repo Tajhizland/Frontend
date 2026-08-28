@@ -1,8 +1,8 @@
 "use client"
 import Label from "@/shared/Label/Label";
+import FormActions from "@/shared/Form/FormActions";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React, {useEffect, useState} from "react";
 import Uploader from "@/shared/Uploader/Uploader";
 import NcImage from "@/shared/NcImage/NcImage";
@@ -10,7 +10,6 @@ import SunEditors from "@/shared/Editor/SunEditors";
 import {CastResponse} from "@/services/types/cast";
 import {SearchPickerItem, SearchPickerModal} from "@/shared/SearchPicker";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import Image from "next/image";
 import {search} from "@/services/api/admin/vlog";
 import {VlogResponse} from "@/services/types/vlog";
 import {Controller, useForm} from "react-hook-form";
@@ -200,11 +199,7 @@ export default function Form({data, submit, loading = false}: Form) {
 
             </div>
             <hr className={"my-5"}/>
-            <div className={"flex justify-center my-5"}>
-                <ButtonPrimary type={"submit"} loading={loading}>
-                    ذخیره
-                </ButtonPrimary>
-            </div>
+            <FormActions loading={loading} />
         </form>
     </>)
 }

@@ -30,6 +30,6 @@ export const columns = defineColumns<WalletTransactionResponse>([
             <Badge name={"پرداخت نشده"} color={"red"}/>,
 
     },
-    {key: 'created_at', header: 'تاریخ ارسال', editable: false},
+    { key: 'created_at', filter: 'date', header: 'تاریخ ارسال', editable: false },
 
 ]);

@@ -1,16 +1,17 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuFileSpreadsheet } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
+import PageLink from "@/shared/PageLink/PageLink";
+import FormActions from "@/shared/Form/FormActions";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import Uploader from "@/shared/Uploader/Uploader";
 import Label from "@/shared/Label/Label";
 import {Controller, useForm} from "react-hook-form";
-import React from "react";
 import {useMutation} from "@tanstack/react-query";
 import {toast} from "react-hot-toast";
 import {phoneBockUploadExcel} from "@/services/api/admin/phoneBock";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Link from "next/link";
 
 export default function Page() {
     const {register, handleSubmit, control, formState: {errors}, setValue} = useForm({
@@ -48,13 +49,15 @@ export default function Page() {
             <PageTitle>
                 افزودن گروهی مخاطب
             </PageTitle>
-             <PageTitle>
-                 <Link href={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/x.xlsx`}>
-                     <ButtonPrimary>
-                         دانلود نمونه فایل
-                     </ButtonPrimary>
-                 </Link>
-            </PageTitle>
+            <PageLink>
+                <ToolbarButton
+                    variant="secondary"
+                    href={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/x.xlsx`}
+                    icon={<LuFileSpreadsheet className="w-4 h-4" />}
+                >
+                    دانلود نمونه فایل
+                </ToolbarButton>
+            </PageLink>
 
             <div>
 
@@ -77,9 +80,7 @@ export default function Page() {
                         </>
                     )}
                 />
-                    <ButtonPrimary>
-                        افزودن
-                    </ButtonPrimary>
+                    <FormActions saveText="افزودن" backHref="/admin/phone-bock" />
                 </form>
             </div>
         </Panel>

@@ -1,5 +1,6 @@
 "use client"
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import FormActions from "@/shared/Form/FormActions";
 import Label from "@/shared/Label/Label";
 import ProductTab from "@/components/Tabs/ProductTab";
 import {findByProductId} from "@/services/api/admin/option";
@@ -12,7 +13,6 @@ import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import {findById as productFindById} from "@/services/api/admin/product";
 import ProductOptionForm from "@/app/admin/product/option/ProductOptionForm";
 import {useForm, FormProvider} from "react-hook-form";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {updateProductOption} from "@/services/api/admin/option";
 
 export default function Page() {
@@ -115,9 +115,7 @@ export default function Page() {
 
                             {filteredOptions.length > 0 && (
                                 <div className="mt-5">
-                                    <ButtonPrimary type="submit">
-                                        ذخیره همه
-                                    </ButtonPrimary>
+                                    <FormActions saveText="ذخیره همه" />
                                 </div>
                             )}
                         </form>

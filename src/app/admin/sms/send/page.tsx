@@ -1,8 +1,8 @@
 "use client";
 
 import Label from "@/shared/Label/Label";
+import FormActions from "@/shared/Form/FormActions";
 import {useForm} from "react-hook-form";
-import Link from "next/link";
 import Textarea from "@/shared/Textarea/Textarea";
 import "suneditor/dist/css/suneditor.min.css";
 import {useMutation, useQuery} from "@tanstack/react-query";
@@ -177,12 +177,7 @@ export default function Page() {
                     </div>
 
                     {/* --- دکمه‌ها --- */}
-                    <div className="flex gap-5 mt-14">
-                        <Link href={"/admin/sms"}>
-                            <ButtonPrimary type="button">بازگشت</ButtonPrimary>
-                        </Link>
-                        <ButtonPrimary loading={mutation.isPending}>ارسال</ButtonPrimary>
-                    </div>
+                    <FormActions loading={mutation.isPending} saveText="ارسال" backHref="/admin/sms" />
                 </form>
             </Panel>
         </>

@@ -70,7 +70,7 @@ export const columns = defineColumns<ProductResponse>([
     {key: 'brand_name', header: 'برند محصول', editable: true},
     {key: 'images_count', header: 'تعداد عکس', editable: false},
     {key: 'testing_time', header: 'مهلت تست', editable: false},
-    {key: 'created_at', header: 'تاریخ ایجاد', editable: false},
+    { key: 'created_at', filter: 'date', header: 'تاریخ ایجاد', editable: false },
 
 
     // {

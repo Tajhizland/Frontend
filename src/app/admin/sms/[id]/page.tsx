@@ -17,7 +17,7 @@ export default function Page() {
 
     const actions = defineActions<SmsLogItemResponse>([
         {
-            label: <HiMiniPencil className={"text-black w-5 h-5"} title={"مشاهده"}/>,
+            label: <HiMiniPencil className={"w-4 h-4"} title={"مشاهده"}/>,
             href: (row) => `sms/${row.id}`,
         }
     ])

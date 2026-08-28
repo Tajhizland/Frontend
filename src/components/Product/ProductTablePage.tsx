@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
 import PageLink from "@/shared/PageLink/PageLink";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Table from "@/shared/Table/Table";
 import ColorPriceModal from "@/components/Product/ColorPriceModal";
 import { defineActions, TableColumn, TableFetcher } from "@/shared/Table/types";
@@ -15,6 +14,7 @@ import { ProductResponse } from "@/services/types/product";
 import { HiMiniPencil } from "react-icons/hi2";
 import { BsCoin } from "react-icons/bs";
 import { FaEye } from "react-icons/fa";
+import { LuPlus } from "react-icons/lu";
 
 type Props = {
     title: string;
@@ -54,17 +54,17 @@ const ProductTablePage: React.FC<Props> = ({ title, breadcrumb, fetcher, columns
 
     const actions = defineActions<ProductResponse>([
         {
-            label: <HiMiniPencil className="text-black w-5 h-5" />,
+            label: <HiMiniPencil className="w-4 h-4" />,
             title: "ویرایش",
             href: (row) => `/admin/product/edit/${row.id}`,
         },
         {
-            label: <BsCoin className="text-black w-5 h-5" />,
+            label: <BsCoin className="w-4 h-4" />,
             title: "ویرایش قیمت",
             onClick: (row) => setPriceProductId(row.id),
         },
         {
-            label: <FaEye className="text-black w-5 h-5" />,
+            label: <FaEye className="w-4 h-4" />,
             title: "مشاهده",
             onClick: async (row) => {
                 const product = await findProduct(row.id);
@@ -87,9 +87,9 @@ const ProductTablePage: React.FC<Props> = ({ title, breadcrumb, fetcher, columns
                 <PageTitle>{title}</PageTitle>
                 {showCreate && (
                     <PageLink>
-                        <Link href="/admin/product/create">
-                            <ButtonPrimary>ایجاد</ButtonPrimary>
-                        </Link>
+                        <ToolbarButton href="/admin/product/create" icon={<LuPlus className="w-4 h-4" />}>
+                            ایجاد
+                        </ToolbarButton>
                     </PageLink>
                 )}
                 <Table onEdit={submit} fetcher={fetcher} columns={columns} actions={actions} />

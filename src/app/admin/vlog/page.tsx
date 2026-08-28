@@ -1,10 +1,10 @@
 "use client";
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
+import { LuArrowDownUp, LuPlus } from "react-icons/lu";
+import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import PageLink from "@/shared/PageLink/PageLink";
-import Link from "next/link";
 import Table from "@/shared/Table/Table";
 import {actions, columns} from "@/app/admin/vlog/TableRow";
  import {update, vlogTable} from "@/services/api/admin/vlog";
@@ -34,13 +34,9 @@ export default function Page() {
                 مدیریت ولاگ
             </PageTitle>
             <PageLink>
-                <Link href={"/admin/vlog/create"}>
-                    <ButtonPrimary> ایجاد</ButtonPrimary>
-                </Link>
+                <ToolbarButton href="/admin/vlog/create" icon={<LuPlus className="w-4 h-4" />}>ایجاد</ToolbarButton>
 
-                <Link href={"/admin/vlog/sort"}>
-                    <ButtonPrimary>سورت کردن</ButtonPrimary>
-                </Link>
+                <ToolbarButton href="/admin/vlog/sort" icon={<LuArrowDownUp className="w-4 h-4" />}>سورت کردن</ToolbarButton>
             </PageLink>
             <Table
                 onEdit={submit}
