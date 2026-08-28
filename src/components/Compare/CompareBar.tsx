@@ -18,7 +18,7 @@ const CompareBar: React.FC<Props> = ({ items, onOpen, onClear }) => {
             <div className="flex gap-2 sm:gap-4 relative">
                 <div
                     onClick={onOpen}
-                    className="flex flex-col gap-1 rounded-r-2xl shrink-0 justify-center items-center text-black shadow-xl hover:bg-[#fcb415]/80 w-16 sm:w-20 h-16 sm:h-20 font-bold text-xs sm:text-sm cursor-pointer  text-center"
+                    className="flex flex-col gap-1 rounded-r-2xl shrink-0 justify-center items-center text-black shadow-xl bg-[#fcb415] w-16 sm:w-20 h-16 sm:h-20 font-bold text-xs sm:text-sm cursor-pointer hover:bg-[#fcb415]/80 text-center"
                 >
                     مقایسه
                     <br />
