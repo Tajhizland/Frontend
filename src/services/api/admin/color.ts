@@ -11,13 +11,11 @@ export const set = async <T extends ServerResponse<unknown>>(dto: ColorSetDto) =
     })
         .then((res) => res?.data);
 };
+// PHP بدنه‌ی multipart/form-data را فقط برای POST پارس می‌کند؛ روی PUT بدنه خالی به
+// کنترلر می‌رسد و درخواست بدون هیچ تغییری «موفق» برمی‌گردد. پس JSON می‌فرستیم.
 export const updateColorPrice = async <T extends ServerResponse<unknown>>(dto: ColorUpdateColorPriceDto) => {
 
-    return axios.put<T, SuccessResponseType<T>>("admin/product/color", dto, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    })
+    return axios.put<T, SuccessResponseType<T>>("admin/product/color", dto)
         .then((res) => res?.data);
 };
 

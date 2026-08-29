@@ -43,7 +43,7 @@ const ColorPriceModal: React.FC<Props> = ({ productId, open, onClose }) => {
                     status: Number(form.get(`color[${index}][status]`)),
                     stock: Number(form.get(`color[${index}][stock]`)),
                     delivery_delay: Number(form.get(`color[${index}][delivery_delay]`)),
-                    discount_expire_time: `${form.get(`color[${index}][discount_expire_time]`)}`,
+                    discount_expire_time: (form.get(`color[${index}][discount_expire_time]`) as string) || null,
                 })),
             }),
         {

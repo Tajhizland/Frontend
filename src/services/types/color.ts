@@ -67,6 +67,6 @@ export interface ColorUpdateColorPriceDto {
             status:number,
             stock:number,
             delivery_delay:number,
-            discount_expire_time:string,
+            discount_expire_time:string|null,
         }[];
 }
