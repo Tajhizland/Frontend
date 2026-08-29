@@ -6,43 +6,60 @@ import {notFound, redirect} from "next/navigation";
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
 export type { ServerResponse } from "@/services/http/types";
-import type { ServerResponse } from "@/services/http/types";
+import type { ErrorEnvelope, ServerResponse } from "@/services/http/types";
 
 export type FailedResponseType<T> = AxiosError<Extract<T, { success: false }>>;
 export type SuccessResponseType<T> = AxiosResponse<Extract<T, { success: true }>>;
 
 
+/** درخواست‌هایی که داده تغییر می‌دهند (POST/PUT/PATCH/DELETE) */
+const isMutation = (method?: string) =>
+    !!method && !["get", "head", "options"].includes(method.toLowerCase());
+
+/** خطاهایی که اینجا toast شده‌اند تا لایه‌های بالاتر دوباره toast نکنند */
+export type HandledAxiosError = AxiosError & { handledByInterceptor?: boolean };
+
+const markHandled = (error: AxiosError): HandledAxiosError => {
+    (error as HandledAxiosError).handledByInterceptor = true;
+    return error as HandledAxiosError;
+};
+
 const errorHandler = (error: AxiosError) => {
-    if (error.response?.status === 404) {
-        notFound(); // اجرای صفحه not-found.tsx
-    }
-    // مدیریت خطای 500
-    if (error.response?.status === 500) {
-        throw new Error("500"); //   خطا برای رندر صفحه خطای 500
+    const status = error.response?.status;
+    const serverMessage = (error.response?.data as ErrorEnvelope | undefined)?.message;
+    const mutation = isMutation(error.config?.method);
+
+    // رفتارهای سطح صفحه فقط برای درخواست‌های خواندنی معنی دارند؛
+    // یک POST/PUT/PATCH ناموفق نباید صفحه را با not-found یا صفحه خطا جایگزین کند.
+    if (!mutation) {
+        if (status === 404) {
+            notFound(); // اجرای صفحه not-found.tsx
+        }
+        if (status === 500) {
+            throw new Error("500"); //   خطا برای رندر صفحه خطای 500
+        }
+        if (status === 301) {
+            const redirectUrl = encodeURI(
+                (error.response?.data as { result?: { destination?: string } } | undefined)?.result?.destination || "/"
+            );
+            return redirect(redirectUrl);
+        }
+        if (status === 400 || status === 422) {
+            if (serverMessage) toast.error(serverMessage);
+            return;
+        }
+        throw error;
     }
 
-    if (error.response?.status === 301) {
-        //@ts-ignore
-        const redirectUrl = encodeURI(error.response?.data?.result?.destination || "/");
-        return redirect(redirectUrl);
-    }
-
-    // مدیریت سایر خطاها
-    if (error.response?.status === 401) {
+    // درخواست‌های تغییردهنده: پیام سرور را نشان بده و حتماً reject کن
+    // تا onError در react-query اجرا شود و onSuccess به اشتباه صدا زده نشود.
+    if (status === 401) {
         toast.error("خطای دسترسی: دوباره وارد شوید");
+    } else {
+        toast.error(serverMessage || "عملیات انجام نشد");
     }
-    if (error.response?.status === 400) {
-        //@ts-ignore
-        toast.error(error?.response?.data?.message as string);
-        return ;
 
-    }
-    if (error.response?.status === 422) {
-        //@ts-ignore
-        toast.error(error?.response?.data?.message as string);
-        return ;
-    }
-    throw error;
+    return Promise.reject(markHandled(error));
 };
 
 const axios: AxiosInstance = Axios.create({
@@ -76,8 +93,9 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     (res) => {
         if (!res.data.success) {
+            // پاسخ 200 ولی success=false — خطا با config/response همراه شود تا قابل بررسی باشد
             return Promise.reject(
-                new AxiosError(res.data.message || "خطای سرور")
+                new AxiosError(res.data.message || "خطای سرور", AxiosError.ERR_BAD_RESPONSE, res.config, res.request, res)
             );
         }
 

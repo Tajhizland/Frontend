@@ -15,8 +15,10 @@ export const getAllAddress = async <T extends ServerResponse<AddressResponse[]>>
         .then((res) => res?.data.result.data)
 };
 export const update = async <T extends ServerResponse<unknown>>
-(id: number, dto: AddressUpdateDto) => {
-    return axios.post<T, SuccessResponseType<T>>("address" , dto)
+(id: number | null | undefined, dto: AddressUpdateDto) => {
+    // بکند با وجود id بین ویرایش و ساخت آدرس جدید تفاوت می‌گذارد؛ بدون ارسال id
+    // هر ویرایشی یک آدرس تکراری می‌ساخت.
+    return axios.post<T, SuccessResponseType<T>>("address", {...dto, id: Number.isFinite(id) ? id : null})
         .then((res) => res?.data)
 };
 

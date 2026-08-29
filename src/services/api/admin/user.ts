@@ -48,13 +48,15 @@ export const getOnHoldOrder = async <T extends ServerResponse<OnHoldOrderRespons
 };
 
 export const updateAdminAddress = async <T extends ServerResponse<unknown>>
-(id: number, dto: UserUpdateAdminAddressDto) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/user/address", dto)
+(id: number | null | undefined, dto: UserUpdateAdminAddressDto) => {
+    // بدون id، بکند به جای ویرایش آدرس، یک آدرس جدید می‌سازد.
+    return axios.post<T, SuccessResponseType<T>>("admin/user/address", {...dto, id: Number.isFinite(id) ? id : null})
         .then((res) => res?.data)
 };
 export const adminChangeActiveAddress = async <T extends ServerResponse<unknown>>
 (id: number, dto: UserAdminChangeActiveAddressDto) => {
-    return axios.patch<T, SuccessResponseType<T>>("admin/user/address/active", dto)
+    // id همان شناسه آدرسی است که باید فعال شود و بکند بدون آن findOrFail را روی null اجرا می‌کرد.
+    return axios.patch<T, SuccessResponseType<T>>("admin/user/address/active", {...dto, id})
         .then((res) => res?.data)
 };
 export const adminUpdateWallet = async <T extends ServerResponse<unknown>>

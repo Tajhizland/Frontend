@@ -28,7 +28,11 @@ export const useApiMutation = <TData, TVars = void>(
             onSuccess?.(data, variables);
         },
         onError: (error) => {
-            if (!silent) toast.error(errorMessage ?? "عملیات انجام نشد");
+            // اگر اینترسپتور axios قبلاً پیام سرور را نشان داده، دوباره toast نکن
+            const alreadyToasted = (error as { handledByInterceptor?: boolean })?.handledByInterceptor;
+            if (!silent && !alreadyToasted) {
+                toast.error(errorMessage ?? (error as Error)?.message ?? "عملیات انجام نشد");
+            }
             onError?.(error);
         },
     });

@@ -34,7 +34,8 @@ export const getPhoneBockList = async <T extends ServerResponse<PhoneBockRespons
 };
 export const phoneBockUploadExcel = async <T extends ServerResponse<PhoneBockResponse[]>>
 (dto: PhoneBockPhoneBockUploadExcelDto) => {
-    return axios.post<T, SuccessResponseType<T>>("admin/phone-bock/excel", toFormData(dto),
+    // بکند فایل را با نام excel_file می‌خواند (UploadExcelRequest)، نه file
+    return axios.post<T, SuccessResponseType<T>>("admin/phone-bock/excel", toFormData({excel_file: dto.file}),
         {
             headers: {
                 'Content-Type': 'multipart/form-data',
