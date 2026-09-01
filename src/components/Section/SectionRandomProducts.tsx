@@ -101,9 +101,7 @@ const SectionRandomProducts: FC<SectionRandomProductsProps> = ({
                             <SparklesIcon className="w-4 h-4"/>
                             انتخاب تازه
                         </span>
-                        <h2 className="mt-3 text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50">
-                            {heading}
-                        </h2>
+
                     </div>
 
                     <div className="hidden sm:flex items-center gap-x-2">
