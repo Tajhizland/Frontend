@@ -135,7 +135,10 @@ const SectionRandomProducts: FC<SectionRandomProductsProps> = ({
                     {data.map((product) => (
                         <div
                             key={product.id}
-                            className="snap-start shrink-0 w-[46%] sm:w-[32%] lg:w-[24%] xl:w-[19.2%]"
+                            className="snap-start shrink-0
+                                       w-[calc((100%_-_1.5rem)/3)]
+                                       sm:w-[calc((100%_-_3.75rem)/4)]
+                                       lg:w-[calc((100%_-_6.25rem)/6)]"
                         >
                             <div
                                 className="h-full rounded-2xl bg-white dark:bg-slate-800 border border-neutral-100
