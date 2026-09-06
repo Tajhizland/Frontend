@@ -13,6 +13,8 @@ import {useQuery} from "@tanstack/react-query";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import FilterForm from "./FilterForm";
 import Spinner from "@/shared/Loading/Spinner";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import Link from "next/link";
 
 export default function Page() {
     const [extraFilter, setExtraFilter] = useState(0);
@@ -90,6 +92,14 @@ export default function Page() {
         <Panel>
             <CategoryTab id={id + ""} />
             {isLoading && <Spinner />}
+
+            <div>
+                <Link href={"/admin/category/filter/sort/" + id}>
+                    <ButtonPrimary>
+                        سورت کردن فیلتر ها
+                    </ButtonPrimary>
+                </Link>
+            </div>
 
             <form action={(form) => saveMutation.mutate(form)}>
 

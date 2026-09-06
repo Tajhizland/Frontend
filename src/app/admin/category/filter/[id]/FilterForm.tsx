@@ -6,6 +6,8 @@ import FilterItemForm from "@/app/admin/category/filter/[id]/FilterItemForm";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import Label from "@/shared/Label/Label";
 import Select from "@/shared/Select/Select";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import Link from "next/link";
 
 export default function FilterForm({ filter, index }: { filter?: FilterResponse, index: number }) {
     const [extraItem, setExtraItem] = useState(0);
@@ -34,6 +36,13 @@ export default function FilterForm({ filter, index }: { filter?: FilterResponse,
                     </Select>
                 </div>
             </div>
+            {filter?.id && (
+                <Link href={"/admin/category/filter/item/sort/" + filter.id}>
+                    <ButtonPrimary>
+                        سورت کردن آیتم ها
+                    </ButtonPrimary>
+                </Link>
+            )}
             <hr className="my-5" />
             <Input name={`filter[${index}][id]`} type={"hidden"} value={filter?.id} />
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 my-2"}>
