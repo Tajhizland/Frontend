@@ -30,7 +30,7 @@ export default function Page() {
             <ReportPeriodFilter value={period} onChange={setPeriod}/>
 
             <Panel>
-                <PageTitle subtitle="عبارت‌های هم‌ریشه یکسان‌سازی شده‌اند و تایپ تدریجی یک جستجو حساب می‌شود">
+                <PageTitle subtitle="">
                     بیشترین جستجوها
                 </PageTitle>
                 <RankedList
@@ -51,7 +51,7 @@ export default function Page() {
             </Panel>
 
             <Panel>
-                <PageTitle subtitle="تقاضایی که فروشگاه پاسخی برایش نداشته؛ بهترین فهرست برای تصمیم خرید و تامین کالا">
+                <PageTitle subtitle="">
                     جستجوهای بی‌نتیجه
                 </PageTitle>
                 <RankedList

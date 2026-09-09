@@ -100,7 +100,7 @@ export default function Page() {
             </Panel>
 
             <Panel>
-                <PageTitle subtitle="نشانه‌ی علاقه‌ی خرید در آینده؛ برای کمپین یادآوری مفید است">
+                <PageTitle subtitle="">
                     بیشترین افزودن به علاقه‌مندی
                 </PageTitle>
                 <RankedList
