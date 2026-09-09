@@ -48,6 +48,33 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         icon: <MdOutlineDashboardCustomize className="h-6 w-6 text-gray-500"/>,
     },
     {
+        title: "مارکتینگ",
+        url: "/marketing",
+        icon: <MdOutlineWaterfallChart className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "نمای کلی",
+                url: "/marketing",
+                icon: <MdOutlineWaterfallChart className="h-6 w-6 text-gray-500"/>,
+            },
+            {
+                title: "گزارش محصولات",
+                url: "/marketing/products",
+                icon: <CubeIcon className="h-6 w-6 text-gray-500"/>,
+            },
+            {
+                title: "گزارش جستجوها",
+                url: "/marketing/searches",
+                icon: <SiPagespeedinsights className="h-6 w-6 text-gray-500"/>,
+            },
+            {
+                title: "فرصت‌های فروش",
+                url: "/marketing/opportunities",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+            },
+        ]
+    },
+    {
         title: "محصولات",
         url: "/product",
         icon: <CubeIcon className="h-6 w-6 text-gray-500"/>,

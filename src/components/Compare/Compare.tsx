@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import {ProductResponse} from "@/services/types/product";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -8,6 +8,7 @@ import NcModal from "@/shared/NcModal/NcModal";
 import Input from "@/shared/Input/Input";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {allProduct, search} from "@/services/api/shop/compare";
+import {trackMarketingEvent} from "@/services/api/shop/marketingEvent";
 
 interface ComparePageProps {
     compareList: ProductResponse[];
@@ -20,6 +21,24 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
     const [openModal, setOpenModal] = useState(false);
     const [compareProducts, setCompareProducts] = useState<ProductResponse[]>(compareList);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const trackedCompares = useRef<Set<number>>(new Set());
+
+    // جدول مقایسه در مرورگر ساخته می‌شود، پس رویداد «مقایسه» باید از همین‌جا ثبت شود.
+    // هر محصول در طول عمر این کامپوننت یک بار شمرده می‌شود تا رندر مجدد آمار را باد نکند.
+    useEffect(() => {
+        compareProducts.forEach((product) => {
+            if (trackedCompares.current.has(product.id)) return;
+            trackedCompares.current.add(product.id);
+            void trackMarketingEvent({type: "compare", product_id: product.id}).catch(() => undefined);
+        });
+    }, [compareProducts]);
+
+    const addToCompare = (item: ProductResponse) => {
+        if (!compareProducts.find((p) => p.id === item.id)) {
+            setCompareProducts((prev) => [...prev, item]);
+        }
+        setOpenModal(false);
+    };
 
     useEffect(() => {
         const handleResize = () => {
@@ -101,12 +120,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                             <div
                                 key={item.id}
                                 className="flex justify-between items-center border shadow-sm rounded-sm pl-5 cursor-pointer hover:bg-slate-100"
-                                onClick={() => {
-                                    if (!compareProducts.find((p) => p.id === item.id)) {
-                                        setCompareProducts((prev) => [...prev, item]);
-                                    }
-                                    setOpenModal(false);
-                                }}
+                                onClick={() => addToCompare(item)}
                             >
                                 <div className="w-[100px] h-[100px]">
                                     <Image
@@ -124,12 +138,7 @@ export default function Compare({compareList, setCompareList, close}: ComparePag
                             <div
                                 key={item.id}
                                 className="flex justify-between items-center border shadow-sm rounded-sm pl-5 cursor-pointer hover:bg-slate-100"
-                                onClick={() => {
-                                    if (!compareProducts.find((p) => p.id === item.id)) {
-                                        setCompareProducts((prev) => [...prev, item]);
-                                    }
-                                    setOpenModal(false);
-                                }}
+                                onClick={() => addToCompare(item)}
                             >
                                 <div className="w-[100px] h-[100px]">
                                     <Image

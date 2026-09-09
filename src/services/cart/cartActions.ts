@@ -16,6 +16,7 @@ import {
     removeCartItem,
 } from "@/services/api/shop/cart";
 import {clearGuestCart, loadGuestCart, saveGuestCart} from "@/services/cart/guestCart";
+import {trackMarketingEvent} from "@/services/api/shop/marketingEvent";
 import {ProductResponse} from "@/services/types/product";
 import {ColorResponse} from "@/services/types/color";
 import {GuarantyResponse} from "@/services/types/guaranty";
@@ -56,6 +57,14 @@ export async function addItemToCart(
 
     reduxAddToCart(product, count, color, guaranty);
     persistGuestCart();
+    // سبد مهمان کاملا در مرورگر است و به API نمی‌خورد، پس رویداد آماری‌اش را باید صریح فرستاد؛
+    // مسیر کاربر لاگین‌کرده همین رویداد را سمت سرور داخل CartService ثبت می‌کند.
+    void trackMarketingEvent({
+        type: "add_to_cart",
+        product_id: product.id,
+        quantity: count,
+        meta: {product_color_id: color.id},
+    }).catch(() => undefined);
     return true;
 }
 

@@ -1,9 +1,20 @@
 import Axios, {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
+import {getSessionId} from "@/services/sessionId";
 import toast from "react-hot-toast";
 import {getCookie} from "cookies-next";
 import {notFound, redirect} from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
+
+declare module "axios" {
+    export interface AxiosRequestConfig {
+        /**
+         * درخواست‌های جانبی مثل ثبت رویدادهای آماری.
+         * خطایشان نباید به کاربر toast شود یا صفحه را به not-found/خطا ببرد.
+         */
+        silentError?: boolean;
+    }
+}
 
 export type { ServerResponse } from "@/services/http/types";
 import type { ErrorEnvelope, ServerResponse } from "@/services/http/types";
@@ -25,6 +36,11 @@ const markHandled = (error: AxiosError): HandledAxiosError => {
 };
 
 const errorHandler = (error: AxiosError) => {
+    // شکستِ یک درخواست آماری نباید هیچ اثری روی تجربه‌ی کاربر بگذارد.
+    if (error.config?.silentError) {
+        return Promise.reject(markHandled(error));
+    }
+
     const status = error.response?.status;
     const serverMessage = (error.response?.data as ErrorEnvelope | undefined)?.message;
     const mutation = isMutation(error.config?.method);
@@ -83,6 +99,12 @@ axios.interceptors.request.use(
         // حذف Content-Type برای FormData
         if (config.data instanceof FormData) {
             delete config.headers['Content-Type'];
+        }
+
+        // گزارش‌های مارکتینگ برای شمارش بازدیدکننده‌ی یکتا به این شناسه تکیه می‌کنند.
+        const sessionId = getSessionId();
+        if (sessionId) {
+            config.headers['X-Session-Id'] = sessionId;
         }
 
         return config;
