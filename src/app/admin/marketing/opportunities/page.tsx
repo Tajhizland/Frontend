@@ -35,7 +35,7 @@ export default function Page() {
             <ReportPeriodFilter value={period} onChange={setPeriod}/>
 
             <Panel>
-                <PageTitle subtitle="محصولاتی که بازدید می‌گیرند ولی کمتر به سبد می‌رسند؛ معمولا مشکل از قیمت، عکس یا توضیحات است">
+                <PageTitle subtitle="">
                     ضعیف‌ترین نرخ تبدیل بازدید به سبد
                 </PageTitle>
                 <RankedList

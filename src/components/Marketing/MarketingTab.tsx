@@ -16,7 +16,7 @@ export default function MarketingTab() {
     const pathname = usePathname();
 
     return (
-        <div className="border-b border-gray-200 mx-2">
+        <div className="border-b border-gray-200 mx-2 bg-white">
             <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                 {TABS.map((item) => (
                     <li className="me-2" key={item.link}>
