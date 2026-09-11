@@ -42,7 +42,6 @@ export default function Page() {
                     metricHeader="دفعات جستجو"
                     accent={MARKETING_COLORS.search}
                     columns={[
-                        {header: "جستجوکننده یکتا", render: (row) => faNumber(row.visitors)},
                         {header: "میانگین نتایج", render: (row) => faNumber(row.avgResults)},
                         {header: "بدون محصول", render: (row) => faNumber(row.noProductResults)},
                         {header: "آخرین جستجو", render: (row) => row.lastSearchedAt ?? "—"},
@@ -65,7 +64,6 @@ export default function Page() {
                     emptyText="هیچ جستجوی بی‌نتیجه‌ای در این بازه ثبت نشده است."
                     columns={[
                         {header: "کل جستجو", render: (row) => faNumber(row.total)},
-                        {header: "جستجوکننده یکتا", render: (row) => faNumber(row.visitors)},
                         {header: "سهم بی‌نتیجه", render: (row) => faPercent(row.zeroResultRate)},
                         {header: "آخرین جستجو", render: (row) => row.lastSearchedAt ?? "—"},
                     ]}

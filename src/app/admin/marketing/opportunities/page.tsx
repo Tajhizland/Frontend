@@ -76,7 +76,6 @@ export default function Page() {
                     accent={MARKETING_COLORS.zeroResult}
                     emptyText="محصول ناموجودی با تقاضای ثبت‌شده وجود ندارد."
                     columns={[
-                        {header: "بازدیدکننده یکتا", render: (row) => faNumber(row.visitors)},
                         {header: "کل بازدید محصول", render: (row) => faNumber(row.totalView)},
                     ]}
                 />

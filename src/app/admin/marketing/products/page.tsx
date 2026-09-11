@@ -22,7 +22,6 @@ const LIMIT = 20;
 
 /** ستون‌های مشترک گزارش‌های محصولی؛ هر جدول همین‌ها را کنار میله‌ی مقایسه نشان می‌دهد. */
 const productColumns = [
-    {header: "بازدیدکننده یکتا", render: (row: ProductStatResponse) => faNumber(row.visitors)},
     {header: "آخرین رویداد", render: (row: ProductStatResponse) => row.lastEventAt ?? "—"},
 ];
 
@@ -128,7 +127,6 @@ export default function Page() {
                     metricHeader="بازدید"
                     accent={MARKETING_COLORS.view}
                     columns={[
-                        {header: "بازدیدکننده یکتا", render: (row) => faNumber(row.visitors)},
                         {header: "آخرین رویداد", render: (row) => row.lastEventAt ?? "—"},
                     ]}
                 />

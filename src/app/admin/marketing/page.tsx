@@ -51,7 +51,6 @@ export default function Page() {
                         <StatTile
                             label="بازدید محصولات"
                             value={faNumber(summary.productViews)}
-                            hint={`${faNumber(summary.viewVisitors)} بازدیدکننده یکتا`}
                             accent={MARKETING_COLORS.view}
                             icon={<EyeIcon className="w-4 h-4"/>}
                         />
@@ -122,30 +121,6 @@ export default function Page() {
                     )}
                 </Panel>
             </div>
-
-            <Panel>
-                <PageTitle subtitle="فاصله‌ی دو خط یعنی چه سهمی از جستجوها به هیچ محصولی نرسیده است">
-                    روند جستجو
-                </PageTitle>
-                {isLoading && <Spinner/>}
-                {charts && (
-                    <TrendChart
-                        labels={charts.searches.map((point) => point.date)}
-                        series={[
-                            {
-                                label: "کل جستجوها",
-                                color: MARKETING_COLORS.search,
-                                data: charts.searches.map((point) => point.value),
-                            },
-                            {
-                                label: "جستجوی بی‌نتیجه",
-                                color: MARKETING_COLORS.zeroResult,
-                                data: charts.searches.map((point) => point.zeroResults ?? 0),
-                            },
-                        ]}
-                    />
-                )}
-            </Panel>
 
             <div className="grid grid-cols-1 lg:grid-cols-2">
                 <Panel>

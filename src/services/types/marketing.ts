@@ -86,7 +86,7 @@ export type SearchLogResponse = {
     product_count: number;
     ip: string | null;
     source: string;
-    user?: { id: number; name: string; username: string };
+    user?: { id: number; name: string; username: string } | null;
     created_at: string;
 };
 
