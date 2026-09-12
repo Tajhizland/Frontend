@@ -1,6 +1,7 @@
 import {
     ChartBarSquareIcon,
     CubeIcon,
+    DevicePhoneMobileIcon,
     InboxIcon,
     NewspaperIcon, PencilIcon,
 } from "@heroicons/react/24/outline";
@@ -66,6 +67,11 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 title: "گزارش جستجوها",
                 url: "/marketing/searches",
                 icon: <SiPagespeedinsights className="h-6 w-6 text-gray-500"/>,
+            },
+            {
+                title: "گزارش دستگاه‌ها",
+                url: "/marketing/devices",
+                icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500"/>,
             },
             {
                 title: "فرصت‌های فروش",

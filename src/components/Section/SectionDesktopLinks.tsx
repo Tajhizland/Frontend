@@ -16,8 +16,10 @@ type DesktopLinkItem = {
     hideOnMobile?: boolean;
 };
 
+const STOCK_HREF = "/product/stock" as Route;
+
 const DEFAULT_ITEMS: DesktopLinkItem[] = [
-    {title: "کارکرده", image: desktopStock, href: "/product/stock"},
+    {title: "کارکرده", image: desktopStock, href: STOCK_HREF},
     {title: "ولاگ", image: desktopVlog, href: "/vlog"},
     {title: "تجهیزکست", image: desktopCast, href: "/tajhizcast"},
     {title: "بلاگ", image: desktopBlog, href: "/news"},
@@ -25,13 +27,17 @@ const DEFAULT_ITEMS: DesktopLinkItem[] = [
     {title: "برند ها", image: desktopBrand, href: "/brand", hideOnMobile: true},
 ];
 
-export default function SectionDesktopLinks({className = "", items = DEFAULT_ITEMS}: {
+export default function SectionDesktopLinks({className = "", items = DEFAULT_ITEMS, showStock = true}: {
     className?: string;
     items?: DesktopLinkItem[];
+    /** وقتی هیچ محصول کارکرده‌ی فعال و موجودی نداریم، لینک «کارکرده» حذف می‌شود. */
+    showStock?: boolean;
 }) {
+    const visibleItems = showStock ? items : items.filter((item) => item.href !== STOCK_HREF);
+
     return (
         <div className={`flex py-5 items-center justify-center gap-2 sm:gap-10 ${className}`}>
-            {items.map((item, index) => (
+            {visibleItems.map((item, index) => (
                 <Link
                     key={index}
                     href={item.href}

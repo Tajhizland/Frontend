@@ -33,6 +33,7 @@ import ShopBreadcrump from "@/components/Breadcrumb/ShopBreadcrump";
 import ProductCard from "@/components/Card/ProductCard";
 import AdminEditShortcut from "@/components/Product/AdminEditShortcut";
 import {ProductColorProvider} from "@/components/Product/ProductColorContext";
+import {getDisplayColors} from "@/utils/productColors";
 
 
 interface ProductPageProps {
@@ -78,6 +79,8 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
     let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
     let product = productResponse.product;
     let relatedProduct = productResponse.relatedProduct.data;
+    // همان رنگ‌هایی که سایدبار نشان می‌دهد (رنگ‌های غیرفعال/ناموجود حذف می‌شوند).
+    const displayColors = getDisplayColors(product.colors);
 
     const structuredData = {
         "@context": "https://schema.org/",
@@ -90,7 +93,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
             "@type": "Offer",
             "url": product.url,
             "priceCurrency": "IRR",
-            "price": product.colors?.[0]?.price ?? 0,
+            "price": displayColors[0]?.price ?? 0,
             "itemCondition": "https://schema.org/NewCondition",
             "availability": "https://schema.org/InStock"
         },
@@ -315,7 +318,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
             <Script type="application/ld+json" id="schema">
                 {JSON.stringify(structuredData)}
             </Script>
-            <ProductColorProvider defaultColorId={product.colors[0]?.id ?? null}>
+            <ProductColorProvider defaultColorId={displayColors[0]?.id ?? null}>
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
                 <AdminEditShortcut productId={product.id}/>
                 <div className="container mt-2 sm:mt-10">

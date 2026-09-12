@@ -2,6 +2,7 @@ import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {tableFetcher} from "@/shared/Table/fetcher";
 import {
     CategoryStatResponse,
+    DeviceReportResponse,
     MarketingOverviewResponse,
     MarketingPeriod,
     ProductEngagementResponse,
@@ -35,5 +36,6 @@ export const topSearches = report<SearchTermResponse[]>("top-searches");
 export const zeroResultSearches = report<SearchTermResponse[]>("zero-result-searches");
 export const conversionOpportunities = report<ProductEngagementResponse[]>("conversion-opportunities");
 export const unmetDemand = report<ProductStatResponse[]>("unmet-demand");
+export const deviceReport = report<DeviceReportResponse>("devices");
 
 export const searchLogTable = tableFetcher<SearchLogResponse>("admin/marketing/search-log/dataTable");

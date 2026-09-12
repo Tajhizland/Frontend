@@ -27,9 +27,12 @@ import HorizontalProductCard from "@/components/Card/HorizontalProductCard";
 import Image from "next/image";
 import {CampaignResponse} from "@/services/types/campaign";
 import {useProductColorContext} from "@/components/Product/ProductColorContext";
+import {getDisplayColors} from "@/utils/productColors";
 
 export default function ProductSidebar({product, campaign}: { product: ProductResponse, campaign?: CampaignResponse }) {
-    const colors = product.colors;
+    // رنگ‌های غیرفعال/ناموجود نمایش داده نمی‌شوند؛ اگر هیچ رنگ موجودی نبود
+    // فقط یک رنگ ناموجود می‌ماند تا قیمت/بج «ناموجود» جایی برای نمایش داشته باشد.
+    const colors = getDisplayColors(product.colors);
     const guaranty = product.guaranties;
     // اگر Provider وجود داشته باشد رنگ انتخابی با گالری تصاویر مشترک می‌شود،
     // در غیر این صورت به state محلی برمی‌گردیم.

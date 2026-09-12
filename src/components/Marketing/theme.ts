@@ -12,6 +12,23 @@ export const MARKETING_COLORS = {
     zeroResult: "#4a3aa7",
 } as const;
 
+/**
+ * رنگ ثابت هر دستگاه در کل گزارش‌ها.
+ *
+ * ترتیب موبایل/دسکتاپ/تبلت همان ترتیبی است که با اسکریپت اعتبارسنجی چک شده (بدترین
+ * جفت مجاور ΔE 9.2). «ربات» و «نامشخص» رنگ خنثی می‌گیرند چون دسته‌ی واقعیِ کاربر
+ * نیستند و نباید هم‌وزن بقیه دیده شوند.
+ */
+export const DEVICE_COLORS: Record<string, string> = {
+    mobile: "#2a78d6",
+    desktop: "#eb6834",
+    tablet: "#1baf7a",
+    bot: "#94a3b8",
+    unknown: "#cbd5e1",
+};
+
+export const deviceColor = (device: string) => DEVICE_COLORS[device] ?? DEVICE_COLORS.unknown;
+
 /** نسخه‌ی کم‌رنگ برای پرکردن زیر نمودار خطی. */
 export const fade = (hex: string, alpha = 0.12) => {
     const value = hex.replace("#", "");

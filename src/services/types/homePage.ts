@@ -47,6 +47,9 @@ export type HomePageResponse = {
     trustedBrands: TrustedBrandResponse[];
     posters: PosterResponse[];
 
+    /** آیا محصول کارکرده‌ی فعال و موجودی وجود دارد؟ (لینک «کارکرده» صفحه اصلی) */
+    hasStockProducts: boolean;
+
     vlogs: VlogCardResponse[];
     news: NewsCardResponse[];
 };

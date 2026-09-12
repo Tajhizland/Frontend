@@ -69,6 +69,7 @@ const EMPTY_HOMEPAGE: HomePageResponse = {
     banners5: [],
     bannersStock: [],
     bannersCast: [],
+    hasStockProducts: true,
     topDiscountedProducts: [],
     specialProducts: [],
     randomProducts: [],
@@ -209,7 +210,8 @@ export default async function Homepage() {
                         <MobileHero data={heroMobile}/>
                     </div>
                 </div>
-                <SectionDesktopLinks />
+                {/* بک‌اندِ قدیمی‌تر این فلگ را ندارد؛ در آن حالت لینک مثل قبل نمایش داده می‌شود. */}
+                <SectionDesktopLinks showStock={response.hasStockProducts !== false}/>
 
 
                 {/* Banner Slider */}

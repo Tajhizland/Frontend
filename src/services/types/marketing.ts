@@ -100,3 +100,48 @@ export type MarketingEventDto = {
     quantity?: number;
     meta?: Record<string, unknown>;
 };
+
+export type DeviceShareResponse = {
+    device: string;
+    label: string;
+    total: number;
+    visitors: number;
+    /** سهم از بازدید کاربران واقعی؛ برای ربات null است چون سهم ربات معنا ندارد. */
+    share: number | null;
+};
+
+export type DeviceTrendPoint = {
+    date: string;
+    total: number;
+    mobile: number;
+    desktop: number;
+    tablet: number;
+    bot: number;
+    unknown: number;
+};
+
+export type DeviceAttributeResponse = {
+    name: string;
+    total: number;
+    visitors: number;
+};
+
+export type DeviceConversionResponse = {
+    device: string;
+    label: string;
+    views: number;
+    carts: number;
+    purchases: number;
+    visitors: number;
+    viewToCartRate: number;
+    cartToPurchaseRate: number;
+};
+
+export type DeviceReportResponse = {
+    share: DeviceShareResponse[];
+    humanTotal: number;
+    trend: DeviceTrendPoint[];
+    platforms: DeviceAttributeResponse[];
+    browsers: DeviceAttributeResponse[];
+    conversion: DeviceConversionResponse[];
+};
