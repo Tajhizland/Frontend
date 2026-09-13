@@ -626,8 +626,8 @@ const OnHoldCheckoutPage = () => {
                             </div>}
 
                         <div className={"flex items-center gap-2 mt-5 justify-center"}>
-                            <Checkbox name={"rule"} onChange={() => setAcceptRule(!acceptRule)}/>
-                            <p>با <Link className={"text-[#fcb415] font-bold"} href={"/page/rule"}>قوانین</Link> سایت موافقم</p>
+                            <Checkbox name={"rule"} checked={acceptRule} onChange={setAcceptRule}/>
+                            <label htmlFor={"rule"} className={"cursor-pointer select-none"}>با <Link className={"text-[#fcb415] font-bold"} href={"/page/rule"}>قوانین</Link> سایت موافقم</label>
                         </div>
                         <div className={"flex justify-center mt-5"}>
                             {!acceptRule &&

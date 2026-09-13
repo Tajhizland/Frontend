@@ -51,8 +51,6 @@ const CheckoutPage = () => {
     const [shippingMethod, setShippingMethod] = useState(1);
     const [shippingPrice, setShippingPrice] = useState(0);
     const [gateway, setGateway] = useState(1);
-    const [allowDigipay, setAllowDigipay] = useState(true);
-    const [allowSnappay, setAllowSnappay] = useState(true);
 
     // کاربر مهمان برای پرداخت باید ابتدا وارد شود و پس از ورود به همین صفحه بازگردد.
     // تا زمان مشخص شدن وضعیت احراز هویت، هیچ درخواستی زده نمی‌شود تا خطای ۴۰۱ رخ ندهد.
@@ -105,11 +103,14 @@ const CheckoutPage = () => {
         },
     });
 
-    useEffect(() => {
-        // درگاه فقط زمانی نمایش داده می‌شود که همه‌ی محصولات سبد اجازه‌ی آن را داشته باشند
-        setAllowDigipay(cart.every((item) => item.product?.allow_digipay != 0));
-        setAllowSnappay(cart.every((item) => item.product?.allow_snappay != 0));
-    }, [cart])
+    // درگاه فقط زمانی نمایش داده می‌شود که همه‌ی محصولات سبد اجازه‌ی آن را داشته باشند.
+    // مستقیم از سبد محاسبه می‌شود (نه state پیش‌فرض true در effect) تا قبل از بارگذاری سبد
+    // یا برای سبدی که اسنپ‌پی ندارد، API اِلیجیبل اسنپ‌پی بی‌دلیل صدا زده نشود.
+    const allowDigipay = useMemo(() => cart.every((item) => item.product?.allow_digipay != 0), [cart]);
+    const allowSnappay = useMemo(
+        () => cart.length > 0 && cart.every((item) => item.product?.allow_snappay != 0),
+        [cart]
+    );
 
     const paymentMutation = useApiMutation(
         () => paymentRequest(useWallet, shippingMethod, shippingPrice, code, gateway),
@@ -394,7 +395,7 @@ const CheckoutPage = () => {
         queryKey: ['snappay-eligible', snappayAmount],
         queryFn: () => snappayEligible({amount: snappayAmount}),
         staleTime: 5000,
-        enabled: authorized === true && allowSnappay && snappayAmount > 0,
+        enabled: authorized === true && isSuccess && allowSnappay && snappayAmount > 0,
     });
 
     // تا زمان مشخص شدن احراز هویت یا برای کاربر مهمان (که در حال ریدایرکت است) بدنه رندر نمی‌شود
@@ -801,16 +802,18 @@ const CheckoutPage = () => {
                             </div>
                         }
                         <div className={"flex items-center gap-2 mt-5 justify-center"}>
-                            <Checkbox name={"rule"} onChange={() => {
-                                setAcceptRule(!acceptRule)
-                            }}/>
-                            <p>با
+                            {/*
+                              چک‌باکس کنترل‌شده است؛ قبلا uncontrolled بود و مرورگر (مثلا با برگشت از صفحه قوانین)
+                              تیک را بازیابی می‌کرد در حالی که acceptRule هنوز false بود و دکمه پرداخت فعال نمی‌شد.
+                            */}
+                            <Checkbox name={"rule"} checked={acceptRule} onChange={setAcceptRule}/>
+                            <label htmlFor={"rule"} className={"cursor-pointer select-none"}>با
                                 {" "}
                                 <Link className={"text-[#fcb415] font-bold"} href={"/page/rule"}>
                                     قوانین
                                 </Link>
                                 {" "}
-                                سایت موافقم</p>
+                                سایت موافقم</label>
                         </div>
                         <div className={"flex justify-center mt-5"}>
                             {!acceptRule &&

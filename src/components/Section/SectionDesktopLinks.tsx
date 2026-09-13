@@ -33,7 +33,12 @@ export default function SectionDesktopLinks({className = "", items = DEFAULT_ITE
     /** وقتی هیچ محصول کارکرده‌ی فعال و موجودی نداریم، لینک «کارکرده» حذف می‌شود. */
     showStock?: boolean;
 }) {
-    const visibleItems = showStock ? items : items.filter((item) => item.href !== STOCK_HREF);
+    // بدون «کارکرده»، «برند ها» که در موبایل مخفی است جای خالی آن را در موبایل پر می‌کند.
+    const visibleItems = showStock
+        ? items
+        : items
+            .filter((item) => item.href !== STOCK_HREF)
+            .map((item) => ({...item, hideOnMobile: false}));
 
     return (
         <div className={`flex py-5 items-center justify-center gap-2 sm:gap-10 ${className}`}>

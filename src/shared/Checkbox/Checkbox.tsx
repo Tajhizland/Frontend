@@ -8,6 +8,8 @@ export interface CheckboxProps {
   labelClassName?: string;
   name: string;
   defaultChecked?: boolean;
+  /** حالت کنترل‌شده؛ وقتی داده شود تیک همیشه با state والد هماهنگ می‌ماند. */
+  checked?: boolean;
   onChange?: (checked: boolean) => void;
 }
 
@@ -19,6 +21,7 @@ const Checkbox: FC<CheckboxProps> = ({
   sizeClassName = "w-6 h-6",
   labelClassName = "",
   defaultChecked,
+  checked,
   onChange,
 }) => {
   return (
@@ -28,7 +31,7 @@ const Checkbox: FC<CheckboxProps> = ({
         name={name}
         type="checkbox"
         className={`focus:ring-action-primary text-primary-500 rounded-sm border-slate-400 hover:border-slate-700 bg-transparent dark:border-slate-700 dark:hover:border-slate-500 dark:checked:bg-primary-500 focus:ring-primary-500 ${sizeClassName}`}
-        defaultChecked={defaultChecked}
+        {...(checked !== undefined ? { checked } : { defaultChecked })}
         onChange={(e) => onChange && onChange(e.target.checked)}
       />
       {label && (
