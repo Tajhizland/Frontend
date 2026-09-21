@@ -47,7 +47,7 @@ export default function MultiSelect({
                 isSearchable
                 isMulti
                 onChange={handleChange}
-                className={className}
+                className={`text-neutral-900 ${className}`}
                 {...args}
             />
             <input

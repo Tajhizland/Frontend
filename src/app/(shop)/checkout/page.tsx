@@ -311,10 +311,10 @@ const CheckoutPage = () => {
             discountAmount = coupon.price;
         } else if (coupon.percent > 0) {
             // تخفیف درصدی: درصد از مجموع سبد خرید
-            discountAmount = (coupon.percent / 100) * sumDiscountedPrice;
+            discountAmount = (coupon.percent / 100) * couponBase;
         }
 
-        return discountAmount;
+        return gateway == 4 ? Math.min(couponBase, Math.round(discountAmount)) : discountAmount;
     }
     const renderAllow = () => {
         let allow: boolean = true;
@@ -347,7 +347,8 @@ const CheckoutPage = () => {
         let sumPrice: number = 0;
         cart.map((item) => {
             if (item.guaranty && item.guaranty.free == 0) {
-                sumPrice += ((GuarantyPrice(item.color.price) ?? 0) * item.count);
+                const price = GuarantyPrice(item.color.price) ?? 0;
+                sumPrice += (gateway == 4 ? Math.round(price) : price) * item.count;
             }
         })
         return sumPrice;
@@ -373,8 +374,14 @@ const CheckoutPage = () => {
     const limit = useMemo(() => renderLimit(), [cart]);
     const sumGuarantyPrice = useMemo(() => renderSumGuarantyPrice(), [cart, renderSumGuarantyPrice]);
     const sumDiscount = useMemo(() => renderDiscount(), [cart, gateway]);
-    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart, shippingPrice, gateway]);
-    const couponDiscount = useMemo(() => renderCouponDiscount(), [coupon, cart]);
+    const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart, shippingPrice, gateway, sumGuarantyPrice]);
+    const sumSnappayExtraPrice = useMemo(() => cart.reduce((sum, item) => {
+        const price = item.color.discountedPrice > 0 ? item.color.discountedPrice : item.color.price;
+        const guarantyPrice = item.guaranty?.id && !item.guaranty.free ? Math.round(GuarantyPrice(item.color.price) ?? 0) : 0;
+        return sum + Math.round((price + guarantyPrice) * (item.product.snappay_extra_price || 0) / 100) * item.count;
+    }, 0), [cart]);
+    const couponBase = sumDiscountedPrice + (gateway == 4 ? sumSnappayExtraPrice : 0);
+    const couponDiscount = useMemo(() => renderCouponDiscount(), [coupon, couponBase, gateway]);
     const maxDeliveryDelay = useMemo(() => renderMaxDeliveryDelay(), [cart]);
     const sumExtraPrice = useMemo(() => renderExtraPrice(), [cart, shippingPrice]);
 
@@ -383,11 +390,17 @@ const CheckoutPage = () => {
     // پرداخت مجاز نیست (چه با کیف پول و چه بدون آن).
     const GATEWAY_LIMIT = 200000000;
     const walletDeduction = useWallet ? (user?.wallet ?? 0) : 0;
-    const gatewayPayable = Math.max(0, sumDiscountedPrice - couponDiscount - walletDeduction);
+    const gatewayPayable = Math.max(0, couponBase - couponDiscount - walletDeduction);
     const exceedsGatewayLimit = gatewayPayable > GATEWAY_LIMIT;
 
     // مبلغ نهایی قابل پرداخت برای اسنپ‌پی = مجموع پس از کسر تخفیف و کد تخفیف (اسنپ‌پی با کیف پول ترکیب نمی‌شود)
-    const snappayAmount = Math.max(0, sumDiscountedPrice - couponDiscount);
+    const snappayBase = cart.reduce((sum, item) => {
+        const price = item.color.discountedPrice > 0 ? item.color.discountedPrice : item.color.price;
+        const guarantyPrice = item.guaranty?.id && !item.guaranty.free ? Math.round(GuarantyPrice(item.color.price) ?? 0) : 0;
+        return sum + (price + guarantyPrice) * item.count;
+    }, 0) + sumSnappayExtraPrice + shippingPrice;
+    const snappayCouponDiscount = coupon?.price ? coupon.price : snappayBase * (coupon?.percent || 0) / 100;
+    const snappayAmount = Math.max(0, snappayBase - Math.round(snappayCouponDiscount));
 
     // بررسی مجاز بودن پرداخت با اسنپ‌پی بر اساس مبلغ نهایی قابل پرداخت.
     // هر بار که مبلغ نهایی تغییر کند (تغییر روش ارسال یا اعمال کد تخفیف) به‌صورت خودکار دوباره فراخوانی می‌شود.
@@ -600,10 +613,10 @@ const CheckoutPage = () => {
                                         {sumGuarantyPrice.toLocaleString()} تومان
                                     </span>
                             </div>
-                            {gateway == 3 && <div className="flex justify-between py-4">
+                            {(gateway == 3 || gateway == 4) && <div className="flex justify-between py-4">
                                 <span> هزینه پرداخت قسطی    </span>
                                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                                        {sumExtraPrice.toLocaleString()} تومان
+                                        {(gateway == 4 ? sumSnappayExtraPrice : sumExtraPrice).toLocaleString()} تومان
                                     </span>
                             </div>}
                             {gateway == 3 ? <div
@@ -616,7 +629,7 @@ const CheckoutPage = () => {
                                 className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                                 <span> مجموع  </span>
                                 <span>
-                                    {sumDiscountedPrice.toLocaleString()} تومان
+                                    {couponBase.toLocaleString()} تومان
                                 </span>
                             </div>}
                             <div
@@ -665,7 +678,7 @@ const CheckoutPage = () => {
                                           label=" "
                                           desc=" "
                                           enabled={!useWallet}
-                                          disabled={gateway == 3}
+                                          disabled={gateway == 3 || gateway == 4}
                                           onChange={() => {
                                               setUseWallet(!useWallet)
                                           }}
@@ -701,8 +714,8 @@ const CheckoutPage = () => {
                                             مبلغ قابل پرداخت :
                                             {
                                                 (
-                                                    (sumDiscountedPrice - couponDiscount - (user?.wallet ?? 0)) > 0 ?
-                                                        (sumDiscountedPrice - couponDiscount - (user?.wallet ?? 0))
+                                                    (couponBase - couponDiscount - (user?.wallet ?? 0)) > 0 ?
+                                                        (couponBase - couponDiscount - (user?.wallet ?? 0))
                                                         :
                                                         0
                                                 ).toLocaleString()} تومان
@@ -714,8 +727,8 @@ const CheckoutPage = () => {
                                             مبلغ قابل پرداخت :
                                             {
                                                 (
-                                                    (sumDiscountedPrice - couponDiscount) > 0 ?
-                                                        (sumDiscountedPrice - couponDiscount)
+                                                    (couponBase - couponDiscount) > 0 ?
+                                                        (couponBase - couponDiscount)
                                                         :
                                                         0
                                                 ).toLocaleString()} تومان

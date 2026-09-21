@@ -25,7 +25,7 @@ const Radio: FC<RadioProps> = ({
         id={id}
         name={name}
         type="radio"
-        className={`focus:ring-action-primary text-primary-500 rounded-full border-slate-400 hover:border-slate-700 bg-transparent dark:border-slate-700 dark:hover:border-slate-500 dark:checked:bg-primary-500 focus:ring-primary-500 ${sizeClassName}`}
+        className={`cursor-pointer text-primary-6000 rounded-full border-slate-400 hover:border-slate-700 bg-transparent checked:bg-primary-6000 checked:border-primary-6000 dark:border-slate-700 dark:hover:border-slate-500 dark:checked:bg-primary-500 dark:checked:border-primary-500 focus:ring-primary-500 ${sizeClassName}`}
         onChange={(e) => onChange && onChange(e.target.value)}
         defaultChecked={defaultChecked}
         value={id}

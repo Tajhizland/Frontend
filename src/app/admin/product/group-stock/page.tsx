@@ -2,7 +2,8 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import {
-groupChangeDigipayPercent ,
+    groupChangeDigipayPercent,
+    groupChangeSnappayPercent,
     groupChangeDigipay,
     groupChangeSnappay,
     groupChangePrice,
@@ -142,6 +143,22 @@ export default function Page() {
             toast.success(res.message as string);
         },
     });
+    const actionSnappayExtraPriceMutation = useMutation({
+        mutationKey: [`product-group-snappay-extra-price`],
+        mutationFn: async () => {
+            const ids = Object.keys(selectedProducts)
+                .filter((id) => selectedProducts[Number(id)])
+                .map((id) => Number(id));
+            return groupChangeSnappayPercent({
+                ids: ids,
+                percent: Number(percent)
+            });
+        },
+        onSuccess: async (res) => {
+            await searchMutation.mutateAsync();
+            toast.success(res.message as string);
+        },
+    });
     // لیست دسته‌ها
     const {data: categoryLists} = useQuery({
         queryKey: [`category-list`],
@@ -262,6 +279,7 @@ export default function Page() {
                             <option value={"digipay"}>ویرایش دیجی پی</option>
                             <option value={"snappay"}>ویرایش اسنپ پی</option>
                             <option value={"digipay-percent"}>درصد هزینه دیجی پی</option>
+                            <option value={"snappay-percent"}>درصد هزینه اسنپ پی</option>
 
                         </Select>
                     </div>
@@ -345,16 +363,39 @@ export default function Page() {
                     &&
                     <div className={"flex flex-col gap-2"}>
                         <Label>
-                            دصد هزینه دیجی پی
+                            درصد هزینه دیجی پی
                         </Label>
                         <Input
-                            value={stock}
+                            value={percent}
                             onChange={(e) => {
                                 setPercent(Number(e.target.value))
                             }}
                         />
                         <ButtonPrimary loading={actionDigipayExtraPriceMutation.isPending}
                                        onClick={actionDigipayExtraPriceMutation.mutateAsync}>
+                            اعمال
+                        </ButtonPrimary>
+                    </div>
+                }
+                {
+                    action == "snappay-percent"
+                    &&
+                    <div className={"flex flex-col gap-2"}>
+                        <Label>
+                            درصد هزینه اسنپ پی
+                        </Label>
+                        <Input
+                            type="number"
+                            min={0}
+                            max={100}
+                            step={1}
+                            value={percent}
+                            onChange={(e) => {
+                                setPercent(Number(e.target.value))
+                            }}
+                        />
+                        <ButtonPrimary loading={actionSnappayExtraPriceMutation.isPending}
+                                       onClick={actionSnappayExtraPriceMutation.mutateAsync}>
                             اعمال
                         </ButtonPrimary>
                     </div>

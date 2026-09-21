@@ -10,28 +10,78 @@ type Options<T> = {
     initialFilters?: Record<string, any>;
     defaultSort?: { key: string; direction?: "asc" | "desc" };
     debounce: number;
+    storageKey?: string;
 };
 
-export const useTableData = <T,>({ fetchFn, baseKey, initialFilters, defaultSort, debounce }: Options<T>) => {
+type TableState = {
+    page: number;
+    filters: Record<string, any>;
+    sort: { key: string | null; direction: "asc" | "desc" };
+};
+
+const readState = (storageKey: string, fallback: TableState): TableState => {
+    try {
+        const saved = JSON.parse(sessionStorage.getItem(storageKey) ?? "null");
+        if (
+            saved && Number.isSafeInteger(saved.page) && saved.page > 0 &&
+            saved.filters && typeof saved.filters === "object" && !Array.isArray(saved.filters) &&
+            saved.sort && (saved.sort.key === null || typeof saved.sort.key === "string") &&
+            (saved.sort.direction === "asc" || saved.sort.direction === "desc")
+        ) {
+            return { page: saved.page, filters: saved.filters, sort: saved.sort };
+        }
+    } catch {
+        // Storage can be unavailable or contain data from an older version.
+    }
+    return fallback;
+};
+
+export const useTableData = <T,>({ fetchFn, baseKey, initialFilters, defaultSort, debounce, storageKey }: Options<T>) => {
     const queryClient = useQueryClient();
 
-    const [page, setPage] = useState(1);
-    const [filters, setFilters] = useState<Record<string, any>>(initialFilters ?? {});
-    const [debouncedFilters, setDebouncedFilters] = useState(filters);
+    const [defaults] = useState<TableState>(() => ({
+        page: 1,
+        filters: initialFilters ?? {},
+        sort: { key: defaultSort?.key ?? "id", direction: defaultSort?.direction ?? "desc" },
+    }));
+    const [state, setState] = useState(() => ({
+        ...defaults,
+        debouncedFilters: defaults.filters,
+        restoredKey: undefined as string | undefined,
+    }));
+    const { page, filters, debouncedFilters, sort } = state;
+    const ready = state.restoredKey === storageKey;
     const [filterEpoch, setFilterEpoch] = useState(0);
-    const [sort, setSort] = useState<{ key: string | null; direction: "asc" | "desc" }>({
-        key: defaultSort?.key ?? "id",
-        direction: defaultSort?.direction ?? "desc",
-    });
+
+    // Restore before enabling the query so returning to a list never requests page 1 first.
+    useEffect(() => {
+        const saved = storageKey ? readState(storageKey, defaults) : defaults;
+        // Browser storage is external state and must be read after hydration.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setState({ ...saved, debouncedFilters: saved.filters, restoredKey: storageKey });
+    }, [storageKey, defaults]);
 
     useEffect(() => {
-        const timer = setTimeout(() => setDebouncedFilters(filters), debounce);
+        if (!ready || filters === debouncedFilters) return;
+        const timer = setTimeout(() => {
+            setState((prev) => ({ ...prev, page: 1, debouncedFilters: prev.filters }));
+        }, debounce);
         return () => clearTimeout(timer);
-    }, [filters, debounce]);
+    }, [filters, debouncedFilters, debounce, ready]);
 
     useEffect(() => {
-        setPage(1);
-    }, [debouncedFilters, sort]);
+        if (!ready || !storageKey) return;
+        try {
+            sessionStorage.setItem(storageKey, JSON.stringify({
+                // Preserve newly typed filters even when navigating before the debounce ends.
+                page: filters === debouncedFilters ? page : 1,
+                filters,
+                sort,
+            }));
+        } catch {
+            // Keep the table usable when browser storage is disabled or full.
+        }
+    }, [storageKey, ready, page, filters, debouncedFilters, sort]);
 
     const sortParam = sort.key ? `${sort.direction === "asc" ? "" : "-"}${sort.key}` : undefined;
 
@@ -43,6 +93,7 @@ export const useTableData = <T,>({ fetchFn, baseKey, initialFilters, defaultSort
     const { data, isLoading, isFetching, refetch } = useQuery<TableResult<T>>({
         queryKey,
         queryFn: () => fetchFn({ page, sort: sortParam, filters: debouncedFilters }),
+        enabled: ready,
         // v5 replaced `keepPreviousData: true` with the placeholderData helper
         placeholderData: keepPreviousData,
         staleTime: 5000,
@@ -52,15 +103,25 @@ export const useTableData = <T,>({ fetchFn, baseKey, initialFilters, defaultSort
 
     // اولین کلیک روی یک ستون نزولی مرتب می‌کند (تازه‌ترین/بزرگ‌ترین اول).
     const toggleSort = (key: string) =>
-        setSort((prev) => ({
-            key,
-            direction: prev.key === key && prev.direction === "desc" ? "asc" : "desc",
+        setState((prev) => ({
+            ...prev,
+            page: 1,
+            sort: {
+                key,
+                direction: prev.sort.key === key && prev.sort.direction === "desc" ? "asc" : "desc",
+            },
         }));
 
-    const setFilter = (key: string, value: any) => setFilters((prev) => ({ ...prev, [key]: value }));
+    const setPage = (page: number) => setState((prev) => ({ ...prev, page }));
+
+    const setFilter = (key: string, value: any) => setState((prev) => ({
+        ...prev,
+        filters: { ...prev.filters, [key]: value },
+    }));
 
     const resetFilters = () => {
-        setFilters({});
+        const emptyFilters = {};
+        setState((prev) => ({ ...prev, page: 1, filters: emptyFilters, debouncedFilters: emptyFilters }));
         setFilterEpoch((epoch) => epoch + 1);
     };
 
@@ -75,7 +136,7 @@ export const useTableData = <T,>({ fetchFn, baseKey, initialFilters, defaultSort
         totalPages,
         page,
         setPage,
-        isLoading: isLoading || isFetching,
+        isLoading: !ready || isLoading || isFetching,
         refetch,
         invalidate,
         sort,

@@ -155,15 +155,22 @@ const OnHoldCheckoutPage = () => {
         return withFee - base;
     }, [items]);
 
+    const sumSnappayExtraPrice = useMemo(() => items.reduce((sum, item) => {
+        const unitPrice = item.color.price - item.color.discount + (item.guaranty?.price ?? 0);
+        return sum + Math.round(unitPrice * (item.product.snappay_extra_price || 0) / 100) * item.count;
+    }, 0), [items]);
     const sumDiscountedPrice = sumPrice - sumDiscount + sumGuarantyPrice + shippingPrice;
     // مبلغی که کد تخفیف روی آن اعمال می‌شود (برای دیجی‌پی شامل کارمزد هم هست)
-    const couponBase = gateway == 3 ? sumDiscountedPrice + sumExtraPrice : sumDiscountedPrice;
+    const couponBase = sumDiscountedPrice + (gateway == 3 ? sumExtraPrice : gateway == 4 ? sumSnappayExtraPrice : 0);
     const couponDiscount = useMemo(() => {
         if (!coupon) return 0;
         if (coupon.price > 0) return coupon.price;
-        if (coupon.percent > 0) return (coupon.percent / 100) * couponBase;
+        if (coupon.percent > 0) {
+            const discount = (coupon.percent / 100) * couponBase;
+            return gateway == 4 ? Math.round(discount) : discount;
+        }
         return 0;
-    }, [coupon, couponBase]);
+    }, [coupon, couponBase, gateway]);
 
     // مثل بک‌اند به عدد صحیح گرد می‌شود تا مبلغ نمایشی با مبلغ درگاه یکی باشد
     const totalPayable = Math.max(0, Math.round(couponBase - couponDiscount));
@@ -181,11 +188,15 @@ const OnHoldCheckoutPage = () => {
     );
 
     // اسنپ‌پی با کیف پول ترکیب نمی‌شود، پس مبلغ قبل از کسر کیف پول ملاک است
+    const snappayBase = items.reduce((sum, item) => sum + (item.color.price - item.color.discount) * item.count, 0)
+        + sumGuarantyPrice + sumSnappayExtraPrice + shippingPrice;
+    const snappayCouponDiscount = coupon?.price ? coupon.price : snappayBase * (coupon?.percent || 0) / 100;
+    const snappayAmount = Math.max(0, snappayBase - Math.round(snappayCouponDiscount));
     const {data: snappay} = useQuery({
-        queryKey: ['snappay-eligible', totalPayable],
-        queryFn: () => snappayEligible({amount: totalPayable}),
+        queryKey: ['snappay-eligible', snappayAmount],
+        queryFn: () => snappayEligible({amount: snappayAmount}),
         staleTime: 5000,
-        enabled: authorized === true && allowSnappay && totalPayable > 0,
+        enabled: authorized === true && allowSnappay && snappayAmount > 0,
     });
 
     const remainingSeconds = data?.expire_date_time
@@ -485,11 +496,11 @@ const OnHoldCheckoutPage = () => {
                                     {sumGuarantyPrice.toLocaleString()} تومان
                                 </span>
                             </div>
-                            {gateway == 3 &&
+                            {(gateway == 3 || gateway == 4) &&
                                 <div className="flex justify-between py-4">
                                     <span> هزینه پرداخت قسطی    </span>
                                     <span className="font-semibold text-slate-900 dark:text-slate-200">
-                                        {sumExtraPrice.toLocaleString()} تومان
+                                        {(gateway == 4 ? sumSnappayExtraPrice : sumExtraPrice).toLocaleString()} تومان
                                     </span>
                                 </div>}
                             <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">

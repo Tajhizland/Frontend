@@ -68,6 +68,9 @@ function Table<T extends { id: number | string }>({
         initialFilters: initialFilters as Record<string, any> | undefined,
         defaultSort: resolvedSort,
         debounce,
+        storageKey: pathname.startsWith("/admin/")
+            ? `admin-table-state-v1:${JSON.stringify([pathname, baseKey])}`
+            : undefined,
     });
 
     const { isVisible, toggle } = useVisibleColumns(`table-hidden-${pathname}`, allKeys);

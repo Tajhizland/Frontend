@@ -18,7 +18,7 @@ import SearchBar from "@/components/Header/SearchBar";
 import VlogLink from "@/components/Header/VlogLink";
 import BlogLink from "@/components/Header/BlogLink";
 import {MdOutlineOndemandVideo} from "react-icons/md";
-import {BiCategoryAlt} from "react-icons/bi";
+import SearchCategoryLink from "@/components/Header/SearchCategoryLink";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import Navigation from "@/components/Header/Navigation/Navigation";
@@ -171,43 +171,13 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                         </button>
                         <div className="flex flex-col   ">
                             {searchResults?.categories?.data?.length > 0 && <>
-                                <strong className={"text-center py-4"}>
-                                    دسته بندی ها
-                                </strong>
-
                                 {searchResults?.categories?.data.map((item) => (
-                                    <Link key={item.id} href={"/category/" + item.url}
-                                          onClick={() => setShowSearchForm(false)}>
-                                        <div
-                                            className="flex items-center justify-between  py-2 px-5 hover:bg-stone-100 dark:hover:bg-neutral-800 ">
-                                            <div className="flex items-center gap-x-5  ">
-                                                <div className={""}>
-                                                    <FaMagnifyingGlass className={" text-neutral-400"}/>
-                                                </div>
-                                                <div className={""}>
-                                                    {item.image ?
-                                                        <Image alt="categoryImage"
-                                                               src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${item.image}`}
-                                                               width={50}
-                                                               height={50}/>
-                                                        :
-                                                        <div
-                                                            className={"w-[50px] h-[50px] flex items-center justify-center"}>
-                                                            <BiCategoryAlt
-                                                                className={"text-neutral-400 dark:text-white w-6 h-6"}/>
-                                                        </div>
-                                                    }
-                                                </div>
-                                                <span
-                                                    className={"text-sm text-neutral-800 font-bold dark:text-white "}> {item.name}  </span>
-                                            </div>
-                                            <div>
-                                                <FaExternalLinkAlt className={" text-neutral-400"}/>
-                                            </div>
-                                        </div>
-                                    </Link>
+                                    <SearchCategoryLink
+                                        key={item.id}
+                                        category={item}
+                                        onClick={() => setShowSearchForm(false)}
+                                    />
                                 ))}
-
                                 <hr/>
                             </>}
                             <strong className={"text-center py-4"}>

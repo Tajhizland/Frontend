@@ -15,6 +15,7 @@ import LikeButton from "@/shared/Button/LikeButton";
 import Prices from "@/components/Price/Prices";
 import SmallTimer from "@/components/Timer/SmallTimer";
 import {useFavorite} from "@/hooks/useFavorite";
+import {isColorAvailable} from "@/utils/productColors";
 
 export interface ProductCardProps {
     className?: string;
@@ -108,9 +109,9 @@ const ProductCard2: FC<ProductCardProps> = ({
 
         return (
             <div className="flex gap-1 md:gap-1.5">
-                {data && data.colors && data?.colors.map((color, index) => (
+                {data && data.colors && data?.colors.filter(isColorAvailable).map((color, index) => (
                     <div
-                        key={index}
+                        key={color.id}
                         onClick={() => setVariantActive(index)}
                         className={`relative w-4 h-4  lg:w-6 lg:h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${variantActive == index ? "shadow-lg" : ""}`}
                         title={color.color_name}

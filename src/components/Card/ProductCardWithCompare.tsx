@@ -15,6 +15,7 @@ import SmallTimer from "@/components/Timer/SmallTimer";
 import {FaCodeCompare} from "react-icons/fa6";
 import {MdCompare, MdOutlineCompare} from "react-icons/md";
 import {useFavorite} from "@/hooks/useFavorite";
+import {isColorAvailable} from "@/utils/productColors";
 
 export interface ProductCardProps {
     className?: string;
@@ -41,9 +42,9 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
     const renderVariants = () => {
         return (
             <div className="flex gap-1 sm:gap-1.5 justify-start  w-full">
-                {data?.colors.map((color, index) => (
+                {data?.colors.filter(isColorAvailable).map((color) => (
                     <div
-                        key={index}
+                        key={color.id}
                         className={`relative w-4 h-4 sm:w-6 sm:h-6 rounded-full overflow-hidden z-10 border cursor-pointer`}
                         title={color.color_name}
                     >

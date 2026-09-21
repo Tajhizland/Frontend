@@ -84,6 +84,7 @@ export interface ProductBase {
 
 export interface ProductResponse extends ProductBase, Identified, Timestamps {
     digipay_extra_price: number;
+    snappay_extra_price?: number;
     view: number;
     brand_name: string;
     brand: BrandResponse;
@@ -170,3 +171,5 @@ export interface ProductGroupChangeDigipayPercentDto {
     percent: number;
     ids: number[];
 }
+
+export type ProductGroupChangeSnappayPercentDto = ProductGroupChangeDigipayPercentDto;

@@ -61,6 +61,7 @@ export const reduxAddToCart = (product: ProductResponse, quantity: number, color
         product: {
             name: product.name,
             digipay_extra_price: product.digipay_extra_price,
+            snappay_extra_price: product.snappay_extra_price,
             url: product.url,
             image: product.images[0]?.url || "",
         },

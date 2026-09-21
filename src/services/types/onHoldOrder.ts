@@ -35,6 +35,7 @@ export type OnHoldCheckoutItem = {
         allow_snappay?: number,
         url: string,
         digipay_extra_price: number,
+        snappay_extra_price?: number,
         image: string,
     };
     color: {

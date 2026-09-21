@@ -128,6 +128,7 @@ export default function Form({data, submit, loading = false}: Form) {
                         control={control}
                         render={({field}) => (
                             <ReactSelect<UserOption, false>
+                                className="text-neutral-900"
                                 isClearable
                                 isSearchable
                                 placeholder="همه"

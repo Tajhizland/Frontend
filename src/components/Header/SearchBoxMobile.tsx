@@ -11,7 +11,7 @@ import {useRouter} from "next/navigation";
 import Logo from "@/shared/Logo/Logo";
 import Image from "next/image";
 import {MdOutlineOndemandVideo} from "react-icons/md";
-import {BiCategoryAlt} from "react-icons/bi";
+import SearchCategoryLink from "@/components/Header/SearchCategoryLink";
 import ButtonClose from "@/shared/Button/ButtonClose";
 import {useSearchQuery} from "@/hooks/useSearchQuery";
 
@@ -121,39 +121,12 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
 
                         <div className="flex flex-col relative  ">
                             {data?.data?.categories?.data?.length > 0 && <>
-                                <strong className={"text-center py-4"}>
-                                    دسته بندی ها
-                                </strong>
                                 {data.data.categories.data.map((item) => (
-                                    <Link key={item.id} href={"/category/" + item.url}
-                                          onClick={onClickClose}>
-                                        <div
-                                            className="flex items-center justify-between  py-2 px-1 hover:bg-stone-100 dark:bg-black/30 dark:hover:bg-black/20 ">
-                                            <div className="flex items-center gap-x-5  ">
-                                                <div className={" shrink-0"}>
-                                                    {item.image ?
-                                                        <Image alt="categoryImage"
-                                                               src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${item.image}`}
-                                                               width={50}
-                                                               height={50}/>
-                                                        :
-                                                        <div
-                                                            className={"w-[50px] h-[50px] flex items-center justify-center"}>
-                                                            <BiCategoryAlt
-                                                                className={"text-neutral-400 dark:text-white w-6 h-6"}/>
-                                                        </div>
-                                                    }
-                                                </div>
-                                                <div>
-                                                    <span
-                                                        className={"text-xs text-neutral-800 font-bold  dark:text-white shrink-0 whitespace-normal"}> {item.name}  </span>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <FaExternalLinkAlt className={" text-neutral-400 dark:text-white"}/>
-                                            </div>
-                                        </div>
-                                    </Link>
+                                    <SearchCategoryLink
+                                        key={item.id}
+                                        category={item}
+                                        onClick={onClickClose}
+                                    />
                                 ))}
                                 <hr/>
                             </>}

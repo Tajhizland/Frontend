@@ -248,7 +248,7 @@ export default async function Homepage() {
                     </div>}
 
          {response.bannersCast.length > 0 &&
-                    <div className={"mt-5 lg:mt-10 container p-0"}> <SectionSingleBanner
+                    <div className={"mt-5 lg:mt-10 container py-0 sm:p-0"}> <SectionSingleBanner
                         w={"aspect-w-5 sm:aspect-w-13 lg:aspect-w-14"}
                         h={"aspect-h-1"}
                         banner={response.bannersCast[0]}

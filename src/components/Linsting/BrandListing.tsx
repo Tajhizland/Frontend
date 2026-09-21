@@ -145,13 +145,14 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
 
                     }
                     <hr/>
-                    <div className="max-w-[var(--breakpoint-sm)]">
+                    <div className="w-full min-w-0 max-w-none">
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             {response.brand.name}
                         </h2>
-                        <span className="block mt-4 text-neutral-500 dark:text-white text-sm sm:text-base">
-                            <div dangerouslySetInnerHTML={{__html: response.brand.description}}/>
-                        </span>
+                        <div
+                            className="mt-4 w-full break-words text-neutral-500 dark:text-white text-sm sm:text-base"
+                            dangerouslySetInnerHTML={{__html: response.brand.description}}
+                        />
                     </div>
                 </div>
 

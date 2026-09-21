@@ -1,3 +1,4 @@
+import {ProductGroupChangeSnappayPercentDto} from "@/services/types/product";
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
 import {ProductResponse} from "@/services/types/product";
 import {tableFetcher} from "@/shared/Table/fetcher";
@@ -84,5 +85,11 @@ export const groupChangeSnappay = async <T extends ServerResponse<unknown>>
 export const groupChangeDigipayPercent = async <T extends ServerResponse<unknown>>
 (dto: ProductGroupChangeDigipayPercentDto) => {
     return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-percent", dto)
+        .then((res) => res?.data)
+};
+
+export const groupChangeSnappayPercent = async <T extends ServerResponse<unknown>>
+(dto: ProductGroupChangeSnappayPercentDto) => {
+    return axios.patch<T, SuccessResponseType<T>>("admin/product/group-change-snappay-percent", dto)
         .then((res) => res?.data)
 };
