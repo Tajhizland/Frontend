@@ -32,6 +32,7 @@ const widgetMenus: WidgetFooterMenu[] = [
         link: "/vlog",
         icon: <PiVideo className={"w-6 h-6"}/>,
         menus: [
+            {href: "/instagram", label: "پست های اینستاگرام"},
             {href: "/page/aboutus", label: "درباره ما"},
             {href: "/faq", label: "سوالات متداول"},
             {href: "/page/rahnama", label: "راهنمای خرید"},

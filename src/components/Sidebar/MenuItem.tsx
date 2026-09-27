@@ -28,6 +28,7 @@ import {
 } from "react-icons/md";
 import {TfiLayoutSlider} from "react-icons/tfi";
 import {FaMessage} from "react-icons/fa6";
+import {FaInstagram} from "react-icons/fa6";
 import {PiShippingContainerDuotone} from "react-icons/pi";
 import {ImCoinDollar, ImImages} from "react-icons/im";
 import {IoMdSettings} from "react-icons/io";
@@ -258,6 +259,31 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
                 title: "افزودن دسته بندی ولاگ",
                 url: "/vlog_category/create",
                 icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            }
+        ]
+    },
+    {
+        title: "پست های اینستاگرام",
+        url: "/",
+        icon: <FaInstagram className="h-6 w-6 text-gray-500"/>,
+        sub: [
+            {
+                title: "مدیریت پست ها",
+                url: "/instagram_post",
+                icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "افزودن پست",
+                url: "/instagram_post/create",
+                icon: <PencilIcon className="h-6 w-6 text-gray-500"/>,
+
+            },
+            {
+                title: "ترتیب پست ها",
+                url: "/instagram_post/sort",
+                icon: <FaInstagram className="h-6 w-6 text-gray-500"/>,
 
             }
         ]
