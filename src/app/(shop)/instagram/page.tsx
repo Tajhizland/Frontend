@@ -42,8 +42,12 @@ export default async function Page() {
     // `container` یک padding افقی می‌گذارد که پست را از لبه‌ی صفحه جدا می‌کند؛
     // اینستاگرام چنین فاصله‌ای ندارد، پس ستون بدون آن ساخته می‌شود و فقط
     // هدر پروفایل padding خودش را می‌گیرد.
+    //
+    // نوار ناوبری دسکتاپ داخل هدرِ sticky با `absolute` و `top:100%` می‌نشیند،
+    // پس جایی در جریان صفحه نمی‌گیرد و روی ۴۰ پیکسل اول محتوا می‌افتد؛ مثل
+    // بقیه‌ی صفحات فقط در `lg` به بالا فضایش رزرو می‌شود تا فید موبایل باز نشود.
     return (
-        <div className="mt-6 mb-10">
+        <div className="mt-6 mb-10 lg:mt-14">
             <header className="mx-auto mb-6 flex w-full max-w-[470px] items-center gap-4 px-4">
                 <span
                     className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-linear-to-tr from-yellow-400 via-rose-500 to-purple-600 p-[3px]">
