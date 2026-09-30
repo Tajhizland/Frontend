@@ -39,9 +39,12 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
     const response = await getInstagramPostPaginated(1);
 
+    // `container` یک padding افقی می‌گذارد که پست را از لبه‌ی صفحه جدا می‌کند؛
+    // اینستاگرام چنین فاصله‌ای ندارد، پس ستون بدون آن ساخته می‌شود و فقط
+    // هدر پروفایل padding خودش را می‌گیرد.
     return (
-        <div className="container my-10">
-            <header className="mx-auto mb-8 flex w-full max-w-[470px] items-center gap-4">
+        <div className="mt-6 mb-10">
+            <header className="mx-auto mb-6 flex w-full max-w-[470px] items-center gap-4 px-4">
                 <span
                     className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-linear-to-tr from-yellow-400 via-rose-500 to-purple-600 p-[3px]">
                     <span

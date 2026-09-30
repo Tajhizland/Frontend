@@ -18,10 +18,12 @@ type Props = {
 };
 
 /**
- * کاروسل رسانه‌های یک پست: کشیدن انگشت روی موبایل، فلش‌ها روی دسکتاپ.
+ * کاروسل رسانه‌های یک پست، کاملاً راست‌به‌چپ مثل اینستاگرام فارسی:
+ * اسلاید اول سمت راست است و اسلایدهای بعدی به سمت چپ ادامه پیدا می‌کنند.
  *
- * ریل داخل یک زیردرختِ `dir="ltr"` قرار دارد تا محاسبه‌ی transform مستقل از
- * راست‌به‌چپ بودن صفحه باشد؛ وگرنه ترتیب اسلایدها با جهت حرکت جابه‌جا می‌شود.
+ * چون `direction: rtl` محور اصلی فلکس را از راست شروع می‌کند ولی translateX
+ * همیشه فیزیکی است، برای جلو رفتن باید ریل به راست (مقدار مثبت) حرکت کند.
+ * نقطه‌های زیر پست هم در همین جهت چیده می‌شوند تا با اسلاید فعال هم‌خوان باشند.
  */
 export default function InstagramCarousel({media, index, onIndexChange, alt, priority}: Props) {
     const count = media.length;
@@ -61,19 +63,20 @@ export default function InstagramCarousel({media, index, onIndexChange, alt, pri
         });
     }, [index, visible]);
 
+    // در چیدمان راست‌به‌چپ، اسلاید بعدی سمت چپ است؛ پس کشیدن انگشت به راست جلو می‌برد
     const swipeHandlers = useSwipeable({
-        onSwipedLeft: () => go(index + 1),
-        onSwipedRight: () => go(index - 1),
+        onSwipedRight: () => go(index + 1),
+        onSwipedLeft: () => go(index - 1),
         trackMouse: false,
         preventScrollOnSwipe: true,
     });
 
     return (
         <div ref={containerRef} className="relative w-full aspect-square bg-black overflow-hidden group">
-            <div dir="ltr" className="absolute inset-0" {...swipeHandlers}>
+            <div className="absolute inset-0" {...swipeHandlers}>
                 <div
                     className="flex h-full w-full transition-transform duration-300 ease-out"
-                    style={{transform: `translateX(-${index * 100}%)`}}
+                    style={{transform: `translateX(${index * 100}%)`}}
                 >
                     {media.map((item, slide) => (
                         <div key={item.id} className="relative h-full w-full shrink-0">
@@ -113,7 +116,7 @@ export default function InstagramCarousel({media, index, onIndexChange, alt, pri
                             onClick={() => go(index - 1)}
                             className="absolute start-2 top-1/2 -translate-y-1/2 hidden sm:flex h-7 w-7 items-center justify-center rounded-full bg-white/80 text-neutral-800 opacity-0 transition group-hover:opacity-100 hover:bg-white"
                         >
-                            <LuChevronRight className="h-4 w-4 rtl:rotate-180"/>
+                            <LuChevronRight className="h-4 w-4"/>
                         </button>
                     )}
                     {index < count - 1 && (
@@ -123,7 +126,7 @@ export default function InstagramCarousel({media, index, onIndexChange, alt, pri
                             onClick={() => go(index + 1)}
                             className="absolute end-2 top-1/2 -translate-y-1/2 hidden sm:flex h-7 w-7 items-center justify-center rounded-full bg-white/80 text-neutral-800 opacity-0 transition group-hover:opacity-100 hover:bg-white"
                         >
-                            <LuChevronLeft className="h-4 w-4 rtl:rotate-180"/>
+                            <LuChevronLeft className="h-4 w-4"/>
                         </button>
                     )}
                     <span

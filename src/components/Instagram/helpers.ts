@@ -7,8 +7,8 @@ export const POST_QUERY_PARAM = "post";
 const origin = () =>
     process.env.NEXT_PUBLIC_WEBSITE_URL || (typeof window !== "undefined" ? window.location.origin : "");
 
-export const instagramPostLink = (url: string) =>
-    `${origin()}/instagram?${POST_QUERY_PARAM}=${encodeURIComponent(url)}`;
+export const instagramPostLink = (id: number) =>
+    `${origin()}/instagram?${POST_QUERY_PARAM}=${id}`;
 
 /**
  * زمان انتشار به سبک اینستاگرام. برای پست‌های قدیمی‌تر از یک ماه،

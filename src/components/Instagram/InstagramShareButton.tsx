@@ -62,7 +62,8 @@ export default function InstagramShareButton({link}: Props) {
             title="کپی لینک پست"
             className="group/share flex items-center gap-1.5 text-neutral-800 dark:text-neutral-100 transition active:scale-90"
         >
-            <FiSend className="h-6 w-6 -rotate-12 transition group-hover/share:opacity-60"/>
+            {/* هواپیمای کاغذی فدر رو به راست‌بالا است؛ اینستاگرامِ راست‌به‌چپ آن را قرینه می‌کند */}
+            <FiSend className="h-6 w-6 -scale-x-100 transition group-hover/share:opacity-60"/>
             {copied && <span className="text-xs text-neutral-500">کپی شد</span>}
         </button>
     );

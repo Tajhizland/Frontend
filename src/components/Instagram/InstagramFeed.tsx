@@ -5,14 +5,14 @@ import Link from "next/link";
 import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
 import {useSearchParams} from "next/navigation";
 import {LuX} from "react-icons/lu";
-import {getInstagramPostPaginated, findInstagramPostByUrl} from "@/services/api/shop/instagramPost";
+import {getInstagramPostPaginated, findInstagramPostById} from "@/services/api/shop/instagramPost";
 import {InstagramPostListingResponse} from "@/services/types/instagramPost";
 import InstagramPostCard from "@/components/Instagram/InstagramPostCard";
 import {INSTAGRAM_ACCOUNT, POST_QUERY_PARAM} from "@/components/Instagram/helpers";
 import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
 const CardSkeleton = () => (
-    <div className="w-full overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+    <div className="w-full sm:overflow-hidden sm:rounded-lg sm:border sm:border-neutral-200 sm:dark:border-neutral-700">
         <div className="flex items-center gap-3 px-4 py-3">
             <div className="h-9 w-9 animate-pulse rounded-full bg-neutral-200 dark:bg-neutral-700"/>
             <div className="h-3 w-28 animate-pulse rounded-sm bg-neutral-200 dark:bg-neutral-700"/>
@@ -27,14 +27,14 @@ const CardSkeleton = () => (
 
 export default function InstagramFeed({response}: { response: InstagramPostListingResponse }) {
     const searchParams = useSearchParams();
-    const sharedUrl = searchParams.get(POST_QUERY_PARAM);
+    const sharedId = searchParams.get(POST_QUERY_PARAM);
 
     // پستی که از طریق لینک اشتراک‌گذاری باز شده — جدا گرفته می‌شود تا حتی
     // اگر در صفحه‌ی دهمِ فید باشد، بدون اسکرول بالای صفحه دیده شود.
     const {data: sharedPost, isError: sharedPostFailed} = useQuery({
-        queryKey: ["instagram-post", sharedUrl],
-        queryFn: () => findInstagramPostByUrl(sharedUrl as string),
-        enabled: !!sharedUrl,
+        queryKey: ["instagram-post", sharedId],
+        queryFn: () => findInstagramPostById(sharedId as string),
+        enabled: !!sharedId,
         staleTime: 60_000,
         retry: false,
     });
@@ -55,13 +55,13 @@ export default function InstagramFeed({response}: { response: InstagramPostListi
 
     const posts = (data?.pages ?? []).flatMap((page) => page?.data ?? []);
     // پستِ پین‌شده دوباره پایین تکرار نشود
-    const rest = sharedPost?.post ? posts.filter((post) => post.url !== sharedPost.post.url) : posts;
+    const rest = sharedPost?.post ? posts.filter((post) => post.id !== sharedPost.post.id) : posts;
 
     return (
-        <div className="mx-auto flex w-full max-w-[470px] flex-col gap-6">
+        <div className="mx-auto flex w-full max-w-[470px] flex-col gap-3 sm:gap-6">
             {sharedPost?.post && (
                 <div
-                    className="flex items-center justify-between gap-3 rounded-xl bg-neutral-100 px-4 py-2.5 text-xs text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
+                    className="mx-4 flex items-center justify-between gap-3 rounded-xl bg-neutral-100 px-4 py-2.5 text-xs text-neutral-600 sm:mx-0 dark:bg-neutral-800 dark:text-neutral-300">
                     <span>پست اشتراک‌گذاری‌شده</span>
                     <Link href="/instagram" className="flex items-center gap-1 hover:text-neutral-900 dark:hover:text-white">
                         نمایش همه پست ها
@@ -70,10 +70,10 @@ export default function InstagramFeed({response}: { response: InstagramPostListi
                 </div>
             )}
 
-            {sharedPost?.post && <InstagramPostCard post={sharedPost.post} priority highlighted/>}
+            {sharedPost?.post && <InstagramPostCard post={sharedPost.post} priority/>}
 
             {sharedPostFailed && (
-                <p className="rounded-xl bg-neutral-100 px-4 py-3 text-center text-xs text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
+                <p className="mx-4 rounded-xl bg-neutral-100 px-4 py-3 text-center text-xs text-neutral-600 sm:mx-0 dark:bg-neutral-800 dark:text-neutral-300">
                     پست مورد نظر پیدا نشد؛ ممکن است حذف شده باشد. در ادامه بقیه‌ی پست ها را می‌بینید.
                 </p>
             )}

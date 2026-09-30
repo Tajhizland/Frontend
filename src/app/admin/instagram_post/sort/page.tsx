@@ -28,7 +28,7 @@ export default function Page() {
                             src={post.media?.find((item) => item.type === "image")
                                 ? `instagram/${post.media.find((item) => item.type === "image")!.file}`
                                 : null}
-                            title={post.caption?.slice(0, 60) || post.url}
+                            title={post.caption?.slice(0, 60) || `پست #${post.id}`}
                             ratio="square"
                         />
                     )}

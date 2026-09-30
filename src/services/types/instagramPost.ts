@@ -12,7 +12,6 @@ export type InstagramPostMediaResponse = {
 
 export interface InstagramPostResponse extends Identified, Timestamps {
     caption: string | null;
-    url: string;
     status: number;
     view: number;
     sort: number | null;
@@ -33,14 +32,12 @@ export type InstagramPostPageResponse = {
 
 export interface InstagramPostStoreDto {
     caption?: string | null;
-    url: string;
     status: number | string;
     media: File[];
 }
 
 export interface InstagramPostUpdateDto {
     caption?: string | null;
-    url: string;
     status: number | string;
 }
 

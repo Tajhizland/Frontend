@@ -13,7 +13,6 @@ export const columns = defineColumns<InstagramPostResponse>([
             <span className="block max-w-xs truncate">{row.caption || "—"}</span>
         ),
     },
-    {key: 'url', header: 'آدرس', editable: true},
     {
         key: 'mediaCount',
         header: 'تعداد فایل',

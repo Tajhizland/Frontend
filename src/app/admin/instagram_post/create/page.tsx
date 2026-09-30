@@ -26,7 +26,6 @@ export default function Page() {
             }
             return store({
                 caption: values.caption,
-                url: values.url,
                 status: values.status,
                 media,
             }, setProgress);

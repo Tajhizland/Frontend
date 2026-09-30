@@ -12,8 +12,8 @@ export const getInstagramPostPaginated = async <T extends ServerResponse<Instagr
  * لینک اشتراک‌گذاریِ پستِ حذف‌شده نباید پیام «عملیات انجام نشد» بدهد،
  * پس خطا خاموش می‌ماند و خود فید پیام مناسب را نشان می‌دهد.
  */
-export const findInstagramPostByUrl = async <T extends ServerResponse<InstagramPostPageResponse>>
-(url: string) => {
-    return axios.post<T, SuccessResponseType<T>>("instagram-post/find", {url: url}, {silentError: true})
+export const findInstagramPostById = async <T extends ServerResponse<InstagramPostPageResponse>>
+(id: number | string) => {
+    return axios.post<T, SuccessResponseType<T>>("instagram-post/find", {id: id}, {silentError: true})
         .then((res) => res?.data?.result?.data);
 };

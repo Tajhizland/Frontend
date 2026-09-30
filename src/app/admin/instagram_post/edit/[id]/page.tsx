@@ -36,7 +36,7 @@ export default function Page() {
     const updateMutation = useMutation({
         mutationKey: ["update-instagram-post", postId],
         mutationFn: (values: InstagramPostFormValues) =>
-            update(postId, {caption: values.caption, url: values.url, status: values.status}),
+            update(postId, {caption: values.caption, status: values.status}),
         onSuccess: (response) => {
             if (!response.success) return;
             queryClient.invalidateQueries({queryKey: ["instagram-post-info", postId]});

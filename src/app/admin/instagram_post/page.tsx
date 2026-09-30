@@ -15,7 +15,6 @@ export default function Page() {
     const submit = (row: InstagramPostResponse) =>
         update(row.id, {
             caption: row.caption,
-            url: row.url,
             status: row.status,
         });
 
