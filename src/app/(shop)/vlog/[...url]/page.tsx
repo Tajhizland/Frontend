@@ -107,7 +107,7 @@ export default async function Page(props: PageProps) {
             return null;
         }
         return (
-            <div className={"container"}>
+            <div className={"container mt-10 mb-14 lg:mb-20"}>
                 <SectionLinkedProductSlider
                     heading="محصولات مرتبط"
                     subHeading=""
@@ -130,9 +130,9 @@ export default async function Page(props: PageProps) {
             </div>
             <hr/>
 
-            {renderRelatedProducts()}
-
             {renderRelatedVlogs()}
+
+            {renderRelatedProducts()}
         </div>
     </>)
 }

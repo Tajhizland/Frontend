@@ -27,9 +27,12 @@ const SectionLinkedProductSlider: FC<SectionLinkedProductSliderProps> = ({
                                                                           data
                                                                       }) => {
     const sliderRef = useRef(null);
+    const trackRef = useRef<HTMLDivElement>(null);
+    const slidesRef = useRef<HTMLUListElement>(null);
 
     //
     const [isShow, setIsShow] = useState(false);
+    const [hasOverflow, setHasOverflow] = useState(false);
 
     useEffect(() => {
         const OPTIONS: Partial<Glide.Options> = {
@@ -69,11 +72,26 @@ const SectionLinkedProductSlider: FC<SectionLinkedProductSliderProps> = ({
             slider.destroy();
         };
     }, [sliderRef]);
-    {
-        console.log("DATA IS ",data)
-    }
+    // دکمه‌های چپ/راست فقط وقتی معنا دارند که اسلایدها از عرض قاب بیرون بزنند؛
+    // با تعداد کمِ آیتم (کمتر از perView همان بریک‌پوینت) اسلایدر جای حرکت ندارد.
+    useEffect(() => {
+        const track = trackRef.current;
+        const slides = slidesRef.current;
+        if (!track || !slides) return;
+
+        const measure = () => setHasOverflow(slides.offsetWidth - track.offsetWidth > 1);
+        measure();
+
+        // عرض‌ها را خود گلاید روی اسلایدها می‌گذارد، پس به تغییر هر دو گوش می‌دهیم
+        const observer = new ResizeObserver(measure);
+        observer.observe(track);
+        observer.observe(slides);
+        return () => observer.disconnect();
+    }, [data?.length, isShow]);
+
     return (
-        <div className={`nc-SectionLinkedProductSlider ${className}`}>
+        <div
+            className={`nc-SectionLinkedProductSlider ${hasOverflow ? "" : "[&_.nc-NextPrev]:hidden"} ${className}`}>
             <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
                 <Heading
                     className={headingClassName}
@@ -83,8 +101,8 @@ const SectionLinkedProductSlider: FC<SectionLinkedProductSliderProps> = ({
                 >
                     {heading || `New Arrivals`}
                 </Heading>
-                <div className="glide__track" data-glide-el="track"  style={{direction:"rtl"}}>
-                    <ul className="glide__slides">
+                <div ref={trackRef} className="glide__track" data-glide-el="track"  style={{direction:"rtl"}}>
+                    <ul ref={slidesRef} className="glide__slides">
                         {data && data.map((item, index) => (
                             <li key={index} className={`glide__slide ${itemClassName}`}>
                                 <ProductCard2 data={item} />
