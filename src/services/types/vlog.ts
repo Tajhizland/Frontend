@@ -1,9 +1,12 @@
 import {Identified, Paginated, Timestamps} from "@/services/http";
 import {BannerResponse} from "@/services/types/banner";
 import {VlogCategoryResponse} from "@/services/types/vlogCategory";
+import {ProductCardResponse} from "@/services/types/product";
 
 export type VlogPageResponse = {
     relatedVlogs: { data: VlogResponse[] };
+    /** محصولاتی که این ولاگ به آن‌ها لینک شده؛ اگر لینکی نباشد data خالی است. */
+    relatedProducts: { data: ProductCardResponse[] };
     vlog: VlogResponse;
 }
 export type VlogCategoryListingResponse = {

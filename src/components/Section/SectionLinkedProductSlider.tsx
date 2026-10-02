@@ -4,7 +4,7 @@ import React, { FC, useEffect, useId, useRef, useState } from "react";
 import Heading from "@/components/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
-import { ProductResponse } from "@/services/types/product";
+import { ProductCardResponse } from "@/services/types/product";
 import ProductCard2 from "@/components/Card/ProductCard2";
 
 export interface SectionLinkedProductSliderProps {
@@ -14,7 +14,7 @@ export interface SectionLinkedProductSliderProps {
     headingFontClassName?: string;
     headingClassName?: string;
     subHeading?: string;
-    data?: ProductResponse[];
+    data?: ProductCardResponse[];
 }
 
 const SectionLinkedProductSlider: FC<SectionLinkedProductSliderProps> = ({

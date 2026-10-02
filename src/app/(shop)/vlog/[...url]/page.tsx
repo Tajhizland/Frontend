@@ -7,6 +7,7 @@ import {FaEye} from "react-icons/fa";
 import Heading from "@/components/Heading/Heading";
 import AdaptiveVideoPlayer from "@/shared/VideoPlayer/AdaptiveVideoPlayer";
 import {GoEye} from "react-icons/go";
+import SectionLinkedProductSlider from "@/components/Section/SectionLinkedProductSlider";
 
 interface PageProps {
     params: Promise<{
@@ -99,6 +100,24 @@ export default async function Page(props: PageProps) {
             </div>
         );
     };
+    // اگر ولاگ به هیچ محصولی لینک نشده باشد، این ردیف کامل حذف می‌شود (حتی تیتر)
+    const renderRelatedProducts = () => {
+        const products = response.relatedProducts?.data ?? [];
+        if (!products.length) {
+            return null;
+        }
+        return (
+            <div className={"container"}>
+                <SectionLinkedProductSlider
+                    heading="محصولات مرتبط"
+                    subHeading=""
+                    headingFontClassName="text-2xl font-semibold"
+                    data={products}
+                    headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
+                />
+            </div>
+        );
+    };
     return (<>
         <div className="nc-PageSingle pt-8 lg:pt-16 dark:bg-neutral-900">
 
@@ -110,6 +129,8 @@ export default async function Page(props: PageProps) {
                     className="max-w-[var(--breakpoint-md)] mx-auto border-b border-t border-neutral-100 dark:border-neutral-700"></div>
             </div>
             <hr/>
+
+            {renderRelatedProducts()}
 
             {renderRelatedVlogs()}
         </div>
