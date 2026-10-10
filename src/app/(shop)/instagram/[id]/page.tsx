@@ -39,8 +39,8 @@ export default async function Page({params}: Props) {
     const post = await getPost(id);
 
     return (
-        <main dir="rtl" className="mx-auto mt-4 mb-12 w-full max-w-[1000px] sm:px-5 lg:mt-14">
-            <nav aria-label="ناوبری پست" className="relative flex h-14 items-center justify-center border-b border-neutral-200 px-4 lg:mb-5 lg:border-0 dark:border-neutral-800">
+        <main dir="rtl" className="mx-auto mt-4 mb-12 w-full max-w-[640px] sm:px-5 lg:mt-14">
+            <nav aria-label="ناوبری پست" className="relative flex h-14 items-center justify-center border-b border-neutral-200 px-4 dark:border-neutral-800">
                 <Link href="/instagram" aria-label="بازگشت به همه پست‌ها"
                       className="absolute right-3 flex h-10 w-10 items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800">
                     <LuChevronRight className="h-6 w-6"/>

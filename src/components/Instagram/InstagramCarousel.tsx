@@ -80,7 +80,7 @@ export default function InstagramCarousel({media, index, onIndexChange, alt, pri
                  }
              }}
              tabIndex={count > 1 ? 0 : undefined}
-             className="group relative aspect-[3/4] w-full overflow-hidden bg-black lg:h-full lg:aspect-auto">
+             className="group relative aspect-[3/4] w-full overflow-hidden bg-black">
             <div className="absolute inset-0" {...swipeHandlers}>
                 <div
                     className="flex h-full w-full transition-transform duration-300 ease-out"
@@ -107,7 +107,7 @@ export default function InstagramCarousel({media, index, onIndexChange, alt, pri
                                     src={`${base}/instagram/${item.file}`}
                                     alt={alt}
                                     fill
-                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 600px, 620px"
+                                    sizes="(max-width: 640px) 100vw, 600px"
                                     className="object-contain"
                                     loading={priority && slide === 0 ? "eager" : "lazy"}
                                 />
