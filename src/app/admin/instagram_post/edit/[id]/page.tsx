@@ -7,9 +7,10 @@ import Label from "@/shared/Label/Label";
 import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Form, {InstagramPostFormValues} from "@/app/admin/instagram_post/Form";
 import MediaPicker from "@/app/admin/instagram_post/MediaPicker";
+import MediaCoverEditor from "@/app/admin/instagram_post/MediaCoverEditor";
 import {SortableList} from "@/shared/SortableList";
 import {addMedia, findById, getMedia, removeMedia, sortMedia, update} from "@/services/api/admin/instagramPost";
-import {InstagramPostMediaResponse} from "@/services/types/instagramPost";
+import {InstagramMediaUpload, InstagramPostMediaResponse} from "@/services/types/instagramPost";
 import {useApiMutation} from "@/hooks/useApiMutation";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useParams} from "next/navigation";
@@ -24,7 +25,7 @@ export default function Page() {
     const postId = Number(id);
     const queryClient = useQueryClient();
 
-    const [newMedia, setNewMedia] = useState<File[]>([]);
+    const [newMedia, setNewMedia] = useState<InstagramMediaUpload[]>([]);
     const [progress, setProgress] = useState(0);
 
     const {data, isLoading} = useQuery({
@@ -45,7 +46,7 @@ export default function Page() {
     });
 
     const addMediaMutation = useApiMutation(
-        () => addMedia({postId, media: newMedia}, setProgress),
+        () => addMedia({postId, media: newMedia.map((item) => item.file), covers: newMedia.map((item) => item.cover)}, setProgress),
         {
             invalidate: [["instagram-post-media", postId], ["instagram-post-info", postId]],
             onSuccess: () => {
@@ -79,6 +80,7 @@ export default function Page() {
                 <PageTitle>فایل های پست</PageTitle>
                 <p className="text-xs text-slate-500 mb-4">
                     با کشیدن و رها کردن، ترتیب اسلایدهای کاروسل را تغییر دهید و سپس ذخیره کنید.
+                    {" "}رسانهٔ اول و کاور آن در اکسپلور نمایش داده می‌شود. کاور هر ویدیو پس از انتخاب ذخیره می‌شود.
                 </p>
 
                 <SortableList<InstagramPostMediaResponse>
@@ -93,8 +95,9 @@ export default function Page() {
                             <div className="relative aspect-square overflow-hidden rounded-lg bg-black">
                                 {media.type === "video" ? (
                                     <video src={`${base}/instagram/${media.file}`}
+                                           poster={media.cover ? `${base}/instagram/${media.cover}` : undefined}
                                            className="w-full h-full object-contain"
-                                           muted playsInline preload="metadata"/>
+                                           muted playsInline preload="none"/>
                                 ) : (
                                     // eslint-disable-next-line @next/next/no-img-element
                                     <img src={`${base}/instagram/${media.file}`} alt=""
@@ -104,10 +107,13 @@ export default function Page() {
                                     {index + 1}
                                 </span>
                             </div>
+                            {media.type === "video" && <MediaCoverEditor media={media}/>}
                             <button
                                 type="button"
                                 disabled={removeMediaMutation.isPending}
                                 onClick={() => removeMediaMutation.mutate(media.id)}
+                                onPointerDown={(event) => event.stopPropagation()}
+                                onKeyDown={(event) => event.stopPropagation()}
                                 className="inline-flex items-center justify-center gap-1 rounded-lg border border-rose-100 bg-rose-50 px-2 py-1 text-xs text-rose-700 hover:bg-rose-100 disabled:opacity-50"
                             >
                                 <LuTrash2 className="w-3.5 h-3.5"/>
@@ -120,7 +126,7 @@ export default function Page() {
                 <hr className="my-6"/>
 
                 <Label>افزودن فایل جدید</Label>
-                <MediaPicker name="instagram-media-add" value={newMedia} onChange={setNewMedia}/>
+                <MediaPicker name="instagram-media-add" value={newMedia} onChange={setNewMedia} disabled={addMediaMutation.isPending}/>
 
                 {newMedia.length > 0 && (
                     <div className="mt-4">

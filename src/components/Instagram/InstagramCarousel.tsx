@@ -3,7 +3,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import {useSwipeable} from "react-swipeable";
-import {LuChevronLeft, LuChevronRight, LuVolume2, LuVolumeX} from "react-icons/lu";
+import {LuChevronLeft, LuChevronRight} from "react-icons/lu";
 import {InstagramPostMediaResponse} from "@/services/types/instagramPost";
 
 const base = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
@@ -13,7 +13,7 @@ type Props = {
     index: number;
     onIndexChange: (index: number) => void;
     alt: string;
-    /** اولین پست‌های فید برای LCP زودتر لود می‌شوند */
+    /** تصویر اسلاید اول هنگام بازشدن پست زودتر بارگیری شود */
     priority?: boolean;
 };
 
@@ -29,7 +29,6 @@ export default function InstagramCarousel({media, index, onIndexChange, alt, pri
     const count = media.length;
     const containerRef = useRef<HTMLDivElement>(null);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-    const [muted, setMuted] = useState(true);
     const [visible, setVisible] = useState(false);
 
     const go = (next: number) => {
@@ -50,7 +49,7 @@ export default function InstagramCarousel({media, index, onIndexChange, alt, pri
         return () => observer.disconnect();
     }, []);
 
-    // فقط ویدیوی اسلاید فعالِ درون دید پخش می‌شود؛ بقیه متوقف و از ابتدا
+    // تنها اسلاید فعال ویدیو می‌سازد؛ وقتی از دید خارج شود پخش متوقف می‌شود.
     useEffect(() => {
         videoRefs.current.forEach((video, slide) => {
             if (!video) return;
@@ -80,26 +79,28 @@ export default function InstagramCarousel({media, index, onIndexChange, alt, pri
                 >
                     {media.map((item, slide) => (
                         <div key={item.id} className="relative h-full w-full shrink-0">
-                            {item.type === "video" ? (
+                            {item.type === "video" ? slide === index ? (
                                 <video
                                     ref={(node) => {
                                         videoRefs.current[slide] = node;
                                     }}
                                     src={`${base}/instagram/${item.file}`}
+                                    poster={item.cover ? `${base}/instagram/${item.cover}` : undefined}
                                     className="h-full w-full object-contain"
-                                    muted={muted}
+                                    controls
+                                    muted
                                     loop
                                     playsInline
-                                    preload="metadata"
+                                    preload="none"
                                 />
-                            ) : (
+                            ) : null : (
                                 <Image
                                     src={`${base}/instagram/${item.file}`}
                                     alt={alt}
                                     fill
                                     sizes="(max-width: 640px) 100vw, 470px"
                                     className="object-contain"
-                                    priority={priority && slide === 0}
+                                    loading={priority && slide === 0 ? "eager" : "lazy"}
                                 />
                             )}
                         </div>
@@ -136,16 +137,6 @@ export default function InstagramCarousel({media, index, onIndexChange, alt, pri
                 </>
             )}
 
-            {media[index]?.type === "video" && (
-                <button
-                    type="button"
-                    aria-label={muted ? "پخش صدا" : "قطع صدا"}
-                    onClick={() => setMuted((previous) => !previous)}
-                    className="absolute bottom-3 end-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/75"
-                >
-                    {muted ? <LuVolumeX className="h-4 w-4"/> : <LuVolume2 className="h-4 w-4"/>}
-                </button>
-            )}
         </div>
     );
 }

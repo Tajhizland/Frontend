@@ -7,6 +7,7 @@ export type InstagramPostMediaResponse = {
     postId: number;
     type: InstagramMediaType;
     file: string;
+    cover?: string | null;
     sort: number | null;
 };
 
@@ -34,6 +35,7 @@ export interface InstagramPostStoreDto {
     caption?: string | null;
     status: number | string;
     media: File[];
+    covers?: (File | null)[];
 }
 
 export interface InstagramPostUpdateDto {
@@ -44,4 +46,10 @@ export interface InstagramPostUpdateDto {
 export interface InstagramPostAddMediaDto {
     postId: number;
     media: File[];
+    covers?: (File | null)[];
 }
+
+export type InstagramMediaUpload = {
+    file: File;
+    cover: File | null;
+};

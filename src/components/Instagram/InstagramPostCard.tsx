@@ -34,9 +34,6 @@ export default function InstagramPostCard({post, priority}: Props) {
     const isLong = caption.length > CAPTION_CLAMP;
     const shown = !isLong || expanded ? caption : caption.slice(0, CAPTION_CLAMP).trimEnd();
 
-    // روی موبایل پست دقیقاً مثل اینستاگرام لبه‌تا‌لبه است: بدون حاشیه، بدون
-    // گوشه‌ی گرد و بدون فاصله از کناره‌ی صفحه. قاب فقط از اندازه‌ی تبلت به بالا
-    // ظاهر می‌شود تا ستون ۴۷۰ پیکسلی در وسط صفحه شناور نماند.
     return (
         <article
             className="w-full bg-white dark:bg-neutral-900 sm:overflow-hidden sm:rounded-lg sm:border sm:border-neutral-200 sm:dark:border-neutral-700">

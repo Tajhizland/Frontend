@@ -7,6 +7,7 @@ import Label from "@/shared/Label/Label";
 import Form, {InstagramPostFormValues} from "@/app/admin/instagram_post/Form";
 import MediaPicker from "@/app/admin/instagram_post/MediaPicker";
 import {store} from "@/services/api/admin/instagramPost";
+import {InstagramMediaUpload} from "@/services/types/instagramPost";
 import toast from "react-hot-toast";
 import React, {useState} from "react";
 import {useMutation} from "@tanstack/react-query";
@@ -14,7 +15,7 @@ import {useRouter} from "next/navigation";
 
 export default function Page() {
     const router = useRouter();
-    const [media, setMedia] = useState<File[]>([]);
+    const [media, setMedia] = useState<InstagramMediaUpload[]>([]);
     const [progress, setProgress] = useState(0);
 
     const mutation = useMutation({
@@ -27,7 +28,8 @@ export default function Page() {
             return store({
                 caption: values.caption,
                 status: values.status,
-                media,
+                media: media.map((item) => item.file),
+                covers: media.map((item) => item.cover),
             }, setProgress);
         },
         onSuccess: (response) => {
@@ -52,7 +54,7 @@ export default function Page() {
                 <PageTitle>افزودن پست جدید</PageTitle>
                 <Form onSubmit={mutation.mutateAsync} loading={mutation.isPending} saveText="انتشار پست">
                     <Label>تصاویر و ویدیوها</Label>
-                    <MediaPicker name="instagram-media" value={media} onChange={setMedia}/>
+                    <MediaPicker name="instagram-media" value={media} onChange={setMedia} disabled={mutation.isPending}/>
                 </Form>
                 {progress > 0 && (
                     <div className="w-full bg-gray-200 rounded-md mt-4">

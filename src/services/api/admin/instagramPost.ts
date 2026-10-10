@@ -73,6 +73,13 @@ export const removeMedia = async <T extends ServerResponse<unknown>>
         .then((res) => res?.data);
 };
 
+export const updateMediaCover = async <T extends ServerResponse<InstagramPostMediaResponse>>
+(id: number, cover: File, onProgress?: UploadProgress) => {
+    return axios.post<T, SuccessResponseType<T>>(
+        `admin/instagram-post/media/${id}/cover`, toFormData({cover}), withProgress(onProgress)
+    ).then((res) => res?.data);
+};
+
 export const sortMedia = async <T extends ServerResponse<unknown>>
 (param: { media: { id: number; sort: number }[] }) => {
     return axios.post<T, SuccessResponseType<T>>("admin/instagram-post/media/sort", param)
