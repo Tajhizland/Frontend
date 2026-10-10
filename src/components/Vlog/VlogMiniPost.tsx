@@ -37,7 +37,7 @@ export default function VlogMiniPost({
                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
                                         className="object-cover w-full h-full "
                                         fill
-                                        alt="vlog"
+                                        alt={item.title}
                                     />
                                 </div>
                                 <span className="py-2.5 px-2 dark:text-white text-xs">{item.title}</span>

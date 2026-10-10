@@ -1,171 +1,53 @@
 const axios = require('axios');
 
+const privatePaths = [
+    '/admin', '/api', '/account*', '/cart', '/checkout', '/search', '/compare',
+    '/factor', '/login', '/signup', '/forgot-pass', '/thank_you_page', '/failed_payment', '/403',
+];
+const sources = [
+    ['product', '/product'], ['category', '/category'], ['brand', '/brand'],
+    ['blog', '/news/show'], ['vlog', '/vlog'], ['guaranty', '/guaranty'],
+    ['landing', '/landing'], ['group', '/group'], ['category-group', '/category-group'],
+    ['page', '/page'], ['vlog-category', '/vlog/category'], ['cast', '/tajhizcast'],
+];
+
 module.exports = {
-    siteUrl: "https://tajhizland.com",
+    siteUrl: (process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://tajhizland.com').replace(/\/+$/, ''),
     generateRobotsTxt: true,
-    changefreq: "daily",
-    priority: 0.7,
+    autoLastmod: false,
     sitemapSize: 5000,
-    exclude: [
-        "/admin/*",
-        "/api/*",
-        "/account-address",
-        "/account",
-        "/account-wallet",
-        "/account-billing",
-        "/account-order",
-        "/account-order-on-hold",
-        "/account-password",
-        "/account-savelists",
-        "/cart",
-        "/login",
-        "/thank_you_page",
-        "/failed_payment",
-        "/forgot-pass",
-        "/signup",
-        "/checkout/*",
-        "/checkout",
-        "/thank_you_page/*",
-        "/403",
-        "/factor/*",
-    ],
-
-
-    additionalPaths: async (config) => {
-        const result = [];
-
-        result.push({
-            loc: '/',
-            changefreq: 'daily',
-            priority: 0.8,
-            lastmod: new Date().toISOString(),
-        });
-
-        result.push({
-            loc: '/product/discounted',
-            changefreq: 'daily',
-            priority: 0.8,
-            lastmod: new Date().toISOString(),
-        });
-        result.push({
-            loc: '/brand',
-            changefreq: 'daily',
-            priority: 0.8,
-            lastmod: new Date().toISOString(),
-        });
-        result.push({
-            loc: '/news',
-            changefreq: 'daily',
-            priority: 0.8,
-            lastmod: new Date().toISOString(),
-        });
-        result.push({
-            loc: '/special',
-            changefreq: 'daily',
-            priority: 0.8,
-            lastmod: new Date().toISOString(),
-        });
-        result.push({
-            loc: '/vlog',
-            changefreq: 'daily',
-            priority: 0.8,
-            lastmod: new Date().toISOString(),
-        });
-        let guarantyResponse = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}sitemap/guaranty`);
-        const guarantys = guarantyResponse?.data?.result?.data;
-        if (guarantys && Array.isArray(guarantys)) {
-            guarantys.forEach(guaranty => {
-                result.push({
-                    loc: `/guaranty/${guaranty.url}`,
-                    changefreq: 'daily',
-                    priority: 0.8,
-                    lastmod: new Date().toISOString(),
-                });
-            });
-        }
-        let landingResponse = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}sitemap/landing`);
-        const landings = landingResponse?.data?.result?.data;
-        if (landings && Array.isArray(landings)) {
-            landings.forEach(landing => {
-                result.push({
-                    loc: `/landing/${landing.url}`,
-                    changefreq: 'daily',
-                    priority: 0.8,
-                    lastmod: new Date().toISOString(),
-                });
-            });
-        }
-        let productResponse = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}sitemap/product`);
-        const products = productResponse?.data?.result?.data;
-        if (products && Array.isArray(products)) {
-            products.forEach(product => {
-                result.push({
-                    loc: `/product/${product.url}`,
-                    changefreq: 'daily',
-                    priority: 0.8,
-                    lastmod: new Date().toISOString(),
-                });
-            });
-        }
-        const categoryResponse = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}sitemap/category`);
-        const categorys = categoryResponse?.data?.result?.data;
-        if (categorys && Array.isArray(categorys)) {
-            categorys.forEach(category => {
-                result.push({
-                    loc: `/category/${category.url}`,
-                    changefreq: 'daily',
-                    priority: 0.8,
-                    lastmod: new Date().toISOString(),
-                });
-            });
-        }
-        const brandResponse = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}sitemap/brand`);
-        const brands = brandResponse?.data?.result?.data;
-        if (brands && Array.isArray(brands)) {
-            brands.forEach(brand => {
-                result.push({
-                    loc: `/brand/${brand.url}`,
-                    changefreq: 'daily',
-                    priority: 0.8,
-                    lastmod: new Date().toISOString(),
-                });
-            });
-        }
-        const blogResponse = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}sitemap/blog`);
-        const blogs = blogResponse?.data?.result?.data;
-        if (blogs && Array.isArray(blogs)) {
-            blogs.forEach(blog => {
-                result.push({
-                    loc: `/blog/${blog.url}`,
-                    changefreq: 'daily',
-                    priority: 0.8,
-                    lastmod: new Date().toISOString(),
-                });
-            });
-        }
- const vlogResponse = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}sitemap/vlog`);
-        const vlogs = vlogResponse?.data?.result?.data;
-        if (vlogs && Array.isArray(vlogs)) {
-            vlogs.forEach(vlog => {
-                result.push({
-                    loc: `/vlog/${vlog.url}`,
-                    changefreq: 'daily',
-                    priority: 0.8,
-                    lastmod: new Date().toISOString(),
-                });
-            });
-        }
-
-
-        return result;
+    exclude: privatePaths.flatMap(path => [path, `${path}/*`]),
+    robotsTxtOptions: {
+        policies: [{
+            userAgent: '*', allow: '/',
+            // Public search/login/compare pages must remain crawlable to expose noindex.
+            // Tracking parameters are canonicalized, not blocked before crawlers see it.
+            disallow: ['/admin', '/api', '/account', '/cart', '/checkout', '/factor', '/thank_you_page', '/failed_payment'],
+        }],
+        transformRobotsTxt: async (_, robots) => robots.replace(/^Host:.*\r?\n/gm, ''),
     },
-
-    transform: async (config, path) => {
-        return {
-            loc: path,
-            changefreq: 'daily',
-            priority: 0.7,
-            lastmod: new Date().toISOString(),
-        };
+    additionalPaths: async () => {
+        const base = process.env.NEXT_PUBLIC_BACKEND_API_URL;
+        if (!base) throw new Error('NEXT_PUBLIC_BACKEND_API_URL is required to build the sitemap');
+        const entries = new Map([
+            '/', '/brand', '/news', '/special', '/vlog', '/tajhizcast', '/contact',
+            '/branch', '/leading', '/faq', '/sample', '/instagram', '/product/stock', '/product/discounted',
+        ].map(loc => [loc, {loc}]));
+        const responses = await Promise.all(sources.map(async ([endpoint, prefix]) => {
+            const response = await axios.get(`${base.replace(/\/+$/, '')}/sitemap/${endpoint}`, {timeout: 30000});
+            const rows = response.data?.result?.data;
+            // Do not silently publish a partial sitemap after a failed API deployment.
+            if (!Array.isArray(rows)) throw new Error(`Invalid sitemap response: ${endpoint}`);
+            return rows.filter(row => typeof row.url === 'string' && row.url.trim()).map(row => {
+                // URL handles Persian text, reserved characters, and existing %-encoding.
+                const loc = new URL(`${prefix}/${row.url.replace(/^\/+|\/+$/g, '')}`, 'https://tajhizland.com').pathname;
+                const lastmod = typeof row.updated_at === 'string' && /^20\d{2}-\d{2}-\d{2}T/.test(row.updated_at)
+                    ? new Date(row.updated_at) : null;
+                return {loc, ...(lastmod && !Number.isNaN(lastmod.getTime()) && {lastmod: lastmod.toISOString()})};
+            });
+        }));
+        for (const row of responses.flat()) entries.set(row.loc, row);
+        return [...entries.values()];
     },
+    transform: async (_, path) => ({loc: path}),
 };

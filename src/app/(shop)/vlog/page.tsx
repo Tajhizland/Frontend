@@ -1,43 +1,22 @@
-import {getVlogPaginated} from "@/services/api/shop/vlog"
+import type {Metadata} from "next";
+import {notFound} from "next/navigation";
+import {getVlogPaginated} from "@/services/server/shop";
 import VlogListing from "@/components/Linsting/VlogListing";
-import {Metadata} from "next";
-import logo from "@/images/lightLogo.png";
+import {buildMetadata, pageNumber, SITE_DESCRIPTION} from "@/utils/seo";
 
-interface PageProps {
-    searchParams: Promise<{
-        page?: string;
-        search?: string;
-    }>
-}
-export async function generateMetadata(): Promise<Metadata> {
-    return {
-        title: "ولاگ تجهیزلند",
-        description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-        twitter: {
-            title: "ولاگ تجهیزلند",
-            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-            images: logo.src,
-        },
-        openGraph: {
-            title: "ولاگ تجهیزلند",
-            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-            images: logo.src,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}`,
-            type: "website",
-        },
-        robots: "index , follow",
-        alternates: {
-            canonical: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/vlog`,
-        }
-    }
-}
-export default async function Page(props: PageProps) {
-    const searchParams = await props.searchParams;
-    const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
-    const search=searchParams.search?.toString();
-    const response = await getVlogPaginated(page,search?("filter[search]="+search):"");
+type Props = {searchParams: Promise<{page?: string | string[]; search?: string}>};
+export const revalidate = 300;
 
-    return (<>
-        <VlogListing response={response} search={search}/>
-    </>)
+export async function generateMetadata({searchParams}: Props): Promise<Metadata> {
+    const query = await searchParams;
+    return buildMetadata({title: "ویدیوها و ولاگ تجهیزلند", description: "ویدیوها و ولاگ تجهیزلند؛ " + SITE_DESCRIPTION,
+        path: "/vlog", page: pageNumber(query.page), noindex: Boolean(query.search)});
+}
+
+export default async function Page({searchParams}: Props) {
+    const query = await searchParams;
+    const page = pageNumber(query.page);
+    const response = await getVlogPaginated(page, query.search ? new URLSearchParams({"filter[search]": query.search}).toString() : "");
+    if (page > 1 && !response.listing.data.length) notFound();
+    return <VlogListing key={`${page}:${query.search || ""}`} response={response} search={query.search} />;
 }

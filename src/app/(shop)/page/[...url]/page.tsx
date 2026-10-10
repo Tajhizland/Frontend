@@ -1,8 +1,10 @@
+import {buildMetadata, assetUrl, absoluteUrl, metaDescription, isoDate} from "@/utils/seo";
+import {normalizeContentHeadings} from "@/utils/seo";
 import React from "react";
 import {stripHTML} from "@/hooks/StripHtml";
-import {findPageByUrl} from "@/services/api/shop/page";
+import {findPageByUrl} from "@/services/server/shop";
 import {Metadata} from "next";
-import Script from "next/script";
+import JsonLd from "@/components/Seo/JsonLd";
 
 interface ProductPageProps {
     params: Promise<{
@@ -11,26 +13,10 @@ interface ProductPageProps {
 }
 
 export async function generateMetadata(props: ProductPageProps): Promise<Metadata> {
-    const params = await props.params;
-    const page = await findPageByUrl(decodeURIComponent(params.url.join("/")));
-    return {
-        title: page.title,
-        description: stripHTML(page.content),
-        twitter: {
-            title: page.title,
-            description: stripHTML(page.content),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/page/${page.image}`,
-        },
-        openGraph: {
-            title: page.title,
-            description: stripHTML(page.content),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/page/${page.image}`,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/page/${page.url}`,
-            type: "website",
-        },
-        robots: "index , follow",
-
-    }
+    const {url} = await props.params;
+    const page = await findPageByUrl(decodeURIComponent(url.join("/")));
+    return buildMetadata({title: page.title, description: page.content || page.title,
+        path: `/page/${page.url}`, image: assetUrl("page", page.image)});
 }
 
 const BlogSingle = async (props: ProductPageProps) => {
@@ -39,17 +25,9 @@ const BlogSingle = async (props: ProductPageProps) => {
     const page = await findPageByUrl(decodeURIComponent(params.url.join("/")));
 
     const structuredData = {
-        "@context": "https://schema.org/",
-        "@type": "BlogPosting",
-        "headline": page.title,
-        "description": stripHTML(page.content),
-        "image": process.env.NEXT_PUBLIC_IMAGE_BASE_URL+"/page/"+page.image,
-        "datePublished": page.created_at,
-        "author": {
-            "@type": "Person",
-            "name": "مدیر سایت",
-            "url": "/page"
-        }
+        "@context": "https://schema.org", "@type": "WebPage",
+        name: page.title, description: metaDescription(page.content),
+        image: assetUrl("page", page.image), url: absoluteUrl(`/page/${page.url}`),
     };
 
     const renderHeader = () => {
@@ -71,15 +49,13 @@ const BlogSingle = async (props: ProductPageProps) => {
 
     const renderContent = () => {
         return (
-            <div className={"description"} dangerouslySetInnerHTML={{__html: page.content}}/>
+            <div className={"description"} dangerouslySetInnerHTML={{__html: normalizeContentHeadings(page.content)}}/>
         );
     };
 
     return (
         <>
-            <Script type="application/ld+json" id="schema">
-                {JSON.stringify(structuredData)}
-            </Script>
+            <JsonLd data={structuredData} />
             <div className="nc-PageSingle pt-8 lg:pt-16 ">
 
                 {renderHeader()}
@@ -96,3 +72,5 @@ const BlogSingle = async (props: ProductPageProps) => {
 };
 
 export default BlogSingle;
+
+export const revalidate = 300;

@@ -1,42 +1,22 @@
-import React  from "react";
-import {getDiscountedProducts} from "@/services/api/shop/product";
+import type {Metadata} from "next";
+import {notFound} from "next/navigation";
+import {getDiscountedProducts} from "@/services/server/shop";
 import DiscountListing from "@/components/Linsting/DiscountListing";
-import {Metadata} from "next";
-//@ts-ignore
-import logo from "@/images/lightLogo.png";
+import {buildMetadata, pageNumber, SITE_DESCRIPTION} from "@/utils/seo";
 
-export const dynamic = 'force-dynamic';
+type Props = {searchParams: Promise<{page?: string | string[]; search?: string}>};
+export const revalidate = 300;
 
-export async function generateMetadata(): Promise<Metadata> {
-    return {
-        title: "محصولات تخفیف دار تجهیزلند",
-        description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-        twitter: {
-            title: "محصولات تخفیف دار تجهیزلند",
-            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-            images: logo.src,
-        },
-        openGraph: {
-            title: "محصولات تخفیف دار تجهیزلند",
-            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-            images: logo.src,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}`,
-            type: "website",
-        },
-        robots: "index , follow",
-        alternates: {
-            canonical: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/product/discounted`,
-        }
-    }
+export async function generateMetadata({searchParams}: Props): Promise<Metadata> {
+    const query = await searchParams;
+    return buildMetadata({title: "محصولات تخفیف‌دار", description: "محصولات تخفیف‌دار؛ " + SITE_DESCRIPTION,
+        path: "/product/discounted", page: pageNumber(query.page), noindex: Boolean(query.search)});
 }
 
-const Page = async ( ) => {
-    const response = await getDiscountedProducts();
-    return (
-        <>
-            <DiscountListing response={response} />
-        </>
-    );
-};
-
-export default Page;
+export default async function Page({searchParams}: Props) {
+    const query = await searchParams;
+    const page = pageNumber(query.page);
+    const response = await getDiscountedProducts(page);
+    if (page > 1 && !response.data.data.length) notFound();
+    return <DiscountListing key={`${page}:${query.search || ""}`} response={response} />;
+}

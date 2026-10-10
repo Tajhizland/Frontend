@@ -140,7 +140,6 @@ export default function Page() {
     return (
         <>
             <head>
-                <meta name="robots" content="noindex,nofollow" />
             </head>
             <NcModal
                 isOpenProp={openModal}

@@ -33,7 +33,7 @@ const CategoryCard2: FC<CardCategory2Props> = ({
                 <div className="absolute inset-5 flex flex-col justify-center gap-y-5 items-center">
                     <div className="flex justify-center items-center w-20 h-20 lg:w-32 lg:h-32">
                         <NcImage
-                            alt=""
+                            alt={name}
                             width={680}
                             height={680}
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${featuredImage}`}

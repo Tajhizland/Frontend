@@ -1,4 +1,8 @@
-import {findVlogByUrl} from "@/services/api/shop/vlog";
+import type {Metadata} from "next";
+import {normalizeContentHeadings} from "@/utils/seo";
+import JsonLd from "@/components/Seo/JsonLd";
+import {buildMetadata, assetUrl, absoluteUrl, metaDescription, isoDate} from "@/utils/seo";
+import {findVlogByUrl} from "@/services/server/shop";
 import React from "react";
 import {VlogResponse} from "@/services/types/vlog";
 import Link from "next/link";
@@ -15,10 +19,25 @@ interface PageProps {
     }>,
 }
 
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+    const {url} = await props.params;
+    const {vlog} = await findVlogByUrl(decodeURIComponent(url.join("/")));
+    return buildMetadata({title: vlog.title, description: vlog.description || vlog.title,
+        path: `/vlog/${vlog.url}`, image: assetUrl("vlog", vlog.poster), type: "video.other"});
+}
+
 export default async function Page(props: PageProps) {
     const params = await props.params;
     let response = await findVlogByUrl(decodeURIComponent(params.url.join("/")));
 
+    const uploadDate = isoDate(response.vlog.published_at_iso);
+    const videoSchema = uploadDate && response.vlog.poster && (response.vlog.video || response.vlog.hls) ? {
+        "@context": "https://schema.org", "@type": "VideoObject",
+        name: response.vlog.title, description: metaDescription(response.vlog.description || response.vlog.title),
+        thumbnailUrl: assetUrl("vlog", response.vlog.poster), uploadDate,
+        contentUrl: response.vlog.video ? assetUrl("vlog", response.vlog.video) : assetUrl("hls", response.vlog.hls),
+        url: absoluteUrl(`/vlog/${response.vlog.url}`),
+    } : null;
     const renderHeader = () => {
         return (
             <>
@@ -26,7 +45,6 @@ export default async function Page(props: PageProps) {
                     <div className=" mx-auto space-y-5 flex justify-between">
                         <h1
                             className=" text-neutral-900 font-semibold text-3xl md:text-4xl md:!leading-[120%] lg:text-4xl dark:text-neutral-100 max-w-4xl "
-                            title="Quiet ingenuity: 120,000 lunches and counting"
                         >
                             {response.vlog.title}
                         </h1>
@@ -52,7 +70,7 @@ export default async function Page(props: PageProps) {
                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.video}`}
                     poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.poster}`}
                 />
-                <div dangerouslySetInnerHTML={{__html: (response.vlog.description)}}/>
+                <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings((response.vlog.description))}}/>
             </div>
         );
     };
@@ -69,7 +87,7 @@ export default async function Page(props: PageProps) {
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
                         className="object-cover w-full h-full drop-shadow-xl"
                         fill
-                        alt="vlog"
+                        alt={item.title}
                     />
                     <span className="py-2.5 px-2 dark:text-white text-xs sm:text-sm">{item.title}</span>
                     <div className="flex justify-between items-center py-1 px-2 text-neutral-500 dark:text-white">
@@ -119,6 +137,7 @@ export default async function Page(props: PageProps) {
         );
     };
     return (<>
+        {videoSchema && <JsonLd data={videoSchema} />}
         <div className="nc-PageSingle pt-8 lg:pt-16 dark:bg-neutral-900">
 
             {renderHeader()}
@@ -136,3 +155,5 @@ export default async function Page(props: PageProps) {
         </div>
     </>)
 }
+
+export const revalidate = 300;

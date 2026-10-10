@@ -1,6 +1,7 @@
 "use client"
+import {normalizeContentHeadings} from "@/utils/seo";
+import ShopPagination from "@/shared/Pagination/ShopPagination";
 import React, {useState, useEffect, useRef} from "react";
-import {useRouter} from "next/navigation";
 import {useInfiniteQuery} from "@tanstack/react-query";
 import {BrandListingResponse} from "@/services/types/brand";
 import {findBrandByUrl} from "@/services/api/shop/brand";
@@ -19,8 +20,8 @@ import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 const BrandListing = ({response, url}: { response: BrandListingResponse, url: string }) => {
     const [filter, setFilter] = useState<number>();
     const [loadingFilter, setLoadingFilter] = useState<boolean>(false);
-    const router = useRouter();
 
+    const initialPage = response.products.meta?.current_page || 1;
     const {
         data,
         fetchNextPage,
@@ -30,16 +31,16 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
         refetch,
         isFetching,
     } = useInfiniteQuery({
-        queryKey: ["brandProducts", url, filter],
+        queryKey: ["brandProducts", url, filter, initialPage],
         queryFn: async ({pageParam}) => {
             const result = await findBrandByUrl(url, filter ? `filter[category]=${filter}` : "", pageParam);
             return result;
         },
-        initialPageParam: 1,
-        initialData: {
+        initialPageParam: (filter ? 1 : initialPage),
+        initialData: !filter ? {
                 pages: [response],
-                pageParams: [1],
-            },
+                pageParams: [initialPage],
+            } : undefined,
             getNextPageParam: (lastPage) => {
                 //@ts-ignore
                 return lastPage?.products?.meta?.current_page < lastPage?.products?.meta?.last_page
@@ -51,24 +52,15 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
 
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
-    useEffect(() => {
-        if (data) {
-            const currentPage = data.pages[data.pages.length - 1]?.products?.meta?.current_page;
-            if (currentPage) {
-                router.replace(`?page=${currentPage}`, {scroll: false});
-            }
-        }
-    }, [data, router]);
+
 
     const allProducts = data?.pages.flatMap((page) => page.products.data) || [];
 
     const changeFilter = async (value: number) => {
         if (filter === value) {
             setFilter(undefined);
-            await fetchNextPage(); // Reset filter
         } else {
             setFilter(value);
-            await fetchNextPage(); // Apply new filter
         }
     };
 
@@ -89,7 +81,10 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
                             className={`relative w-full aspect-w-2 sm:aspect-w-3  lg:aspect-w-4 aspect-h-1 rounded-2xl overflow-hidden group border`}
                         >
                             <Image
-                                alt=""
+                                alt={response.brand.name}
+                                loading="eager"
+                                fetchPriority="high"
+                                sizes="100vw"
                                 fill
                                 className="w-full h-full object-cover"
                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand-banner/${response.brand.banner}`}
@@ -122,7 +117,7 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
                         </div>
                     </div>
                     {
-                        (isLoading || isFetching) ? <div><Spinner/></div>
+                        isLoading ? <div><Spinner/></div>
                             :
                             <main>
                                 {/* LOOP ITEMS */}
@@ -131,7 +126,7 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
                                     {allProducts.length === 0 && !isLoading
                                         ? <div></div>
                                         : allProducts.map((item, index) => (
-                                            <ProductCard data={item} key={index}/>
+                                            <ProductCard priority={index < 4} data={item} key={item.id}/>
                                         ))
                                     }
                                 </div>
@@ -141,17 +136,19 @@ const BrandListing = ({response, url}: { response: BrandListingResponse, url: st
                                      className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                                     {isFetchingNextPage && <ProductCardSkeleton/>}
                                 </div>
-                            </main>
+
+                        {!filter && <ShopPagination currentPage={initialPage} totalPages={response.products.meta?.last_page || 1} url={`/brand/${url}`} />}
+                    </main>
 
                     }
                     <hr/>
                     <div className="w-full min-w-0 max-w-none">
-                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
+                        <h1 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             {response.brand.name}
-                        </h2>
+                        </h1>
                         <div
                             className="mt-4 w-full break-words text-neutral-500 dark:text-white text-sm sm:text-base"
-                            dangerouslySetInnerHTML={{__html: response.brand.description}}
+                            dangerouslySetInnerHTML={{__html: normalizeContentHeadings(response.brand.description)}}
                         />
                     </div>
                 </div>

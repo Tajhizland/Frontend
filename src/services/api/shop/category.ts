@@ -8,7 +8,7 @@ export const findCategoryByUrl = async <T extends ServerResponse<CategoryListing
     page: number = 1
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("category/find?"+ "page=" + page+"&"+  filter,  {url: url})
+    return axios.post<T, SuccessResponseType<T>>("category/find?"+ "page=" + page+"&"+  filter,  {url: url}, {pageRead: true, maxRedirects: 0})
         .then((res) => res?.data?.result?.data)
 };
 
@@ -19,6 +19,6 @@ export const findCategoryGroupByUrl = async <T extends ServerResponse<CategoryLi
     page: number = 1
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("category/group?"+ "page=" + page+"&"+  filter,  {url: url})
+    return axios.post<T, SuccessResponseType<T>>("category/group?"+ "page=" + page+"&"+  filter,  {url: url}, {pageRead: true, maxRedirects: 0})
         .then((res) => res?.data?.result?.data)
 };

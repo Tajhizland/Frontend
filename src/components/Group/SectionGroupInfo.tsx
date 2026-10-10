@@ -1,4 +1,5 @@
 "use client"
+import {normalizeContentHeadings} from "@/utils/seo";
 import React, {useState} from "react";
 import {
     ClockIcon,
@@ -28,7 +29,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
                                          }
 ) {
 
-    const [product, setProduct] = useState<ProductResponse | undefined>(groupItems[0].product);
+    const [product, setProduct] = useState<ProductResponse | undefined>(groupItems[0]?.product);
 
     if (!product)
         return;
@@ -174,7 +175,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
 
                 <div
                     className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
-                    <div dangerouslySetInnerHTML={{__html: product.review}}/>
+                    <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings(product.review)}}/>
                 </div>
                 {/* ---------- 6 ----------  */}
 
@@ -186,7 +187,7 @@ export default function SectionGroupInfo({groupItems, relatedProduct}:
         <>
 
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
-                {product.images.length > 0 && <ProductImage productImages={product.images}/>}
+                {product.images.length > 0 && <ProductImage productImages={product.images} productName={product.name}/>}
                 {/* MAIn */}
                 <main className="container relative z-10 mt-9 sm:mt-11 flex ">
                     {/* CONTENT */}

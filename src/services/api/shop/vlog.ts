@@ -3,7 +3,7 @@ import { VlogListingResponse, VlogCategoryListingResponse, VlogPageResponse, Vlo
 
 export const findVlogByUrl = async <T extends ServerResponse<VlogPageResponse>>
     (url: string) => {
-    return axios.post<T, SuccessResponseType<T>>("vlog/find", { url: url })
+    return axios.post<T, SuccessResponseType<T>>("vlog/find", { url: url }, {pageRead: true, maxRedirects: 0})
         .then((res) => res?.data?.result.data)
 };
 export const getVlogPaginated = async <T extends ServerResponse<VlogListingResponse>>
@@ -13,6 +13,6 @@ export const getVlogPaginated = async <T extends ServerResponse<VlogListingRespo
 };
 export const getVlogByCategoryPaginated = async <T extends ServerResponse<VlogCategoryListingResponse>>
     (url: string, page: number, filters?: string) => {
-    return axios.post<T, SuccessResponseType<T>>("vlog/category?" + "page=" + page + "&" + filters, { url: url })
+    return axios.post<T, SuccessResponseType<T>>("vlog/category?" + "page=" + page + "&" + filters, { url: url }, {pageRead: true, maxRedirects: 0})
         .then((res) => res?.data?.result?.data)
 };

@@ -1,15 +1,18 @@
+import {productSchema, productComparisonMetadata} from "@/utils/productSeo";
+import {normalizeContentHeadings} from "@/utils/seo";
+import {buildMetadata, assetUrl, breadcrumbSchema} from "@/utils/seo";
 import React from "react";
 import {
     ClockIcon,
     SparklesIcon,
 } from "@heroicons/react/24/outline";
 
-import {findProductByUrl} from "@/services/api/shop/product";
+import {findProductByUrl} from "@/services/server/shop";
 import ProductSidebar from "@/components/Product/ProductSidebar";
 import ProductGallery from "@/components/Product/ProductGallery";
 import ProductComment from "../../../../components/Product/ProductComment";
 import {Metadata} from "next";
-import Script from "next/script";
+import JsonLd from "@/components/Seo/JsonLd";
 import {stripHTML} from "@/hooks/StripHtml";
 import TextExpander from "@/shared/TextExpander/TextExpander";
 import {ProductResponse} from "@/services/types/product";
@@ -34,6 +37,8 @@ import ProductCard from "@/components/Card/ProductCard";
 import AdminEditShortcut from "@/components/Product/AdminEditShortcut";
 import {ProductColorProvider} from "@/components/Product/ProductColorContext";
 import {getDisplayColors} from "@/utils/productColors";
+import ProductOpenGraph from "@/components/Seo/ProductOpenGraph";
+import {productCardData} from "@/utils/productCard";
 
 
 interface ProductPageProps {
@@ -42,66 +47,31 @@ interface ProductPageProps {
     }>
 }
 
-// export async function generateStaticParams() {
-//     const products = await productSitemap();
-//     return products.map((product) => ({
-//         url: product.url.split("/"),
-//     }));
-// }
 
 export async function generateMetadata(props: ProductPageProps): Promise<Metadata> {
-    const params = await props.params;
-    let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
-    let product = productResponse.product;
-
+    const {url} = await props.params;
+    const {product} = await findProductByUrl(decodeURIComponent(url.join("/")));
     return {
-        title: product.meta_title ?? product.name,
-        description: product.meta_description ?? stripHTML(product.description),
-        twitter: {
-            title: product.meta_title ?? product.name,
-            description: product.meta_description ?? stripHTML(product.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
-
-        },
-        openGraph: {
-            title: product.meta_title ?? product.name,
-            description: product.meta_description ?? stripHTML(product.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/product/${product.url}`,
-            type: "website",
-        },
-        robots: "index , follow",
-    }
+        ...buildMetadata({title: product.meta_title || product.name,
+            description: product.meta_description || product.description || product.review || product.name,
+            path: `/product/${product.url}`, image: assetUrl("product", product.images[0]?.url), type: "product"}),
+        other: productComparisonMetadata(product),
+    };
 }
 
 const ProductDetailPage2 = async (props: ProductPageProps) => {
     const params = await props.params;
     let productResponse = await findProductByUrl(decodeURIComponent(params.url.join("/")));
     let product = productResponse.product;
-    let relatedProduct = productResponse.relatedProduct.data;
+    const relatedProduct = productResponse.relatedProduct.data.map(productCardData);
     // همان رنگ‌هایی که سایدبار نشان می‌دهد (رنگ‌های غیرفعال/ناموجود حذف می‌شوند).
     const displayColors = getDisplayColors(product.colors);
 
-    const structuredData = {
-        "@context": "https://schema.org/",
-        "@type": "Product",
-        "name": product.name,
-        "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
-        "description": product.description,
-        "sku": product.id,
-        "offers": {
-            "@type": "Offer",
-            "url": product.url,
-            "priceCurrency": "IRR",
-            "price": displayColors[0]?.price ?? 0,
-            "itemCondition": "https://schema.org/NewCondition",
-            "availability": "https://schema.org/InStock"
-        },
-        "brand": {
-            "@type": "Brand",
-            "name": product.brand_name
-        }
-    };
+    const structuredData = productSchema(product);
+    const breadcrumbs = breadcrumbSchema([
+        ...productResponse.breadcrumb.data,
+        {name: product.name, url: `/product/${product.url}`},
+    ]);
 
     const renderMixDiscount = (product: ProductResponse) => {
         let maxDiscount = 0;
@@ -211,9 +181,9 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
             <div className="listingSection__wrap !space-y-6">
                 <div>
                     <div className="flex md:items-center md:flex-row flex-col-reverse gap-2">
-                        <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold dark:text-white">
+                        <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold dark:text-white">
                             {product.name}
-                        </h2>
+                        </h1>
                         <div className="flex items-center gap-2">
                             {product?.is_stock ?
                                 <div className={"flex justify-end sm:justify-start"}>
@@ -282,7 +252,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
 
                             <div
                                 className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
-                                <div dangerouslySetInnerHTML={{__html: product.stockOf?.review}}/>
+                                <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings(product.stockOf?.review)}}/>
                             </div>
                             {/* ---------- 6 ----------  */}
 
@@ -293,7 +263,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
 
                             <div
                                 className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl  dark:text-white html_description">
-                                <div dangerouslySetInnerHTML={{__html: product.review}}/>
+                                <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings(product.review)}}/>
                             </div>
                             {/* ---------- 6 ----------  */}
 
@@ -309,15 +279,15 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
         productResponse.breadcrumb.data.map((breadcrumb) => {
             breadcrumbs.push({title: breadcrumb.name, href: breadcrumb.url});
         })
-        console.log("breadcrumbs", breadcrumbs)
+
         return breadcrumbs;
     }
 
     return (
         <>
-            <Script type="application/ld+json" id="schema">
-                {JSON.stringify(structuredData)}
-            </Script>
+            <ProductOpenGraph product={product} />
+            <JsonLd data={structuredData} />
+            <JsonLd data={breadcrumbs} />
             <ProductColorProvider defaultColorId={displayColors[0]?.id ?? null}>
             <div className={`ListingDetailPage nc-ProductDetailPage2 dark:bg-neutral-900`}>
                 <AdminEditShortcut productId={product.id}/>
@@ -325,7 +295,7 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
                     <ShopBreadcrump breadcrumb={renderBreadcrump()} lastHasLink={true}/>
                 </div>
 
-                {product.images.length > 0 && <ProductGallery productImages={product.images}/>}
+                {product.images.length > 0 && <ProductGallery productImages={product.images} productName={product.name}/>}
                 {/* MAIn */}
                 <main className="container relative z-10 mt-9 sm:mt-11 flex ">
                     {/* CONTENT */}
@@ -370,3 +340,5 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
 };
 
 export default ProductDetailPage2;
+
+export const revalidate = 300;

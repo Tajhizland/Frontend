@@ -1,4 +1,5 @@
 "use client";
+import {normalizeContentHeadings} from "@/utils/seo";
 import React, {Fragment, useEffect, useMemo, useState} from "react";
 import {GroupProductResponse} from "@/services/types/groupProduct";
 import {ProductResponse} from "@/services/types/product";
@@ -269,7 +270,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
                                     className="object-cover w-full h-full drop-shadow-xl"
                                     fill
                                     sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                                    alt="guaranty"
+                                    alt={item.name}
                                 /></div>
                                 <small
                                     className={`text-xs  max-w-xs shrink-0 ${selectedGuaranty?.id == item.id ? "text-primary-6000" : "text-slate-600 dark:text-white"}`}>
@@ -289,7 +290,7 @@ export default function ProductGroupFilter({groupItems, setProduct}: Props) {
                         {item.id == selectedGuaranty?.id && selectedGuaranty && selectedGuaranty?.description && selectedGuaranty?.description != "null" &&
                             <div
                                 className={"text-xs text-primary-6000  shrink-0 rounded-2xl p-2 max-w-sm "}>
-                                <div dangerouslySetInnerHTML={{__html: (selectedGuaranty?.description)}}/>
+                                <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings((selectedGuaranty?.description))}}/>
                             </div>}
                     </Fragment>
                 ))}

@@ -1,4 +1,5 @@
 "use client"
+import {normalizeContentHeadings} from "@/utils/seo";
 import React, {Fragment, useState} from "react";
 import {ColorResponse} from "@/services/types/color";
 import {useGlobalState, useUser} from "@/services/globalState/GlobalState";
@@ -226,7 +227,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                         {isSelected && item.description && item.description != "null" &&
                             <div
                                 className={"text-xs text-primary-6000 rounded-2xl px-3 pb-1"}>
-                                <div dangerouslySetInnerHTML={{__html: item.description}}/>
+                                <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings(item.description)}}/>
                             </div>}
                     </Fragment>
                 );

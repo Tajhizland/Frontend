@@ -1,8 +1,10 @@
+import {buildMetadata, assetUrl, absoluteUrl, metaDescription, isoDate} from "@/utils/seo";
+import {normalizeContentHeadings} from "@/utils/seo";
 import React from "react";
-import {findNewsByUrl} from "@/services/api/shop/news";
+import {findNewsByUrl} from "@/services/server/shop";
 import {stripHTML} from "@/hooks/StripHtml";
 import {Metadata} from "next";
-import Script from "next/script";
+import JsonLd from "@/components/Seo/JsonLd";
 
 interface ProductPageProps {
     params: Promise<{
@@ -12,25 +14,10 @@ interface ProductPageProps {
 
 
 export async function generateMetadata(props: ProductPageProps): Promise<Metadata> {
-    const params = await props.params;
-    const news = await findNewsByUrl(decodeURIComponent(params.url.join("/")));
-    return {
-        title: news.title,
-        description: stripHTML(news.content),
-        twitter: {
-            title: news.title,
-            description: stripHTML(news.content),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/blog/${news.img}`,
-        },
-        openGraph: {
-            title: news.title,
-            description: stripHTML(news.content),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/blog/${news.img}`,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/news/show/${news.url}`,
-            type: "website",
-        },
-        robots: "index , follow",
-    }
+    const {url} = await props.params;
+    const news = await findNewsByUrl(decodeURIComponent(url.join("/")));
+    return buildMetadata({title: news.title, description: news.content || news.title,
+        path: `/news/show/${news.url}`, image: assetUrl("blog", news.img), type: "article", publishedTime: news.published_at_iso, modifiedTime: news.updated_at_iso, author: news.author});
 }
 
 
@@ -41,34 +28,27 @@ const BlogSingle = async (props: ProductPageProps) => {
 
 
     const structuredData = {
-        "@context": "https://schema.org/",
-        "@type": "BlogPosting",
-        "headline": news.title,
-        "description": stripHTML(news.content),
-        "image": process.env.NEXT_PUBLIC_IMAGE_BASE_URL + "/blog/" + news.img,
-        "datePublished": news.created_at,
-        "author": {
-            "@type": "Person",
-            "name": "مدیر سایت",
-            "url": "/news"
-        }
+        "@context": "https://schema.org", "@type": "BlogPosting",
+        headline: news.title, description: metaDescription(news.content),
+        image: assetUrl("blog", news.img), url: absoluteUrl(`/news/show/${news.url}`),
+        mainEntityOfPage: absoluteUrl(`/news/show/${news.url}`),
+        datePublished: isoDate(news.published_at_iso), dateModified: isoDate(news.updated_at_iso),
+        ...(news.author && {author: {"@type": "Person", name: news.author}}),
+        publisher: {"@type": "Organization", name: "تجهیزلند", url: absoluteUrl("/")},
     };
 
     const renderHeader = () => {
         return (
             <>
-                <Script type="application/ld+json" id="schema">
-                    {JSON.stringify(structuredData)}
-                </Script>
+                <JsonLd data={structuredData} />
             <header className="container rounded-xl mb-5">
                 <div className=" mx-auto space-y-5 flex justify-center">
                     <h1
                         className=" text-neutral-900 font-semibold text-3xl md:text-4xl md:!leading-[120%] lg:text-4xl dark:text-neutral-100 max-w-4xl "
-                        title="Quiet ingenuity: 120,000 lunches and counting"
                     >
                         {news.title}
                     </h1>
-                 
+
                 </div>
             </header>
             </>
@@ -77,7 +57,7 @@ const BlogSingle = async (props: ProductPageProps) => {
 
     const renderContent = () => {
         return (
-            <div dangerouslySetInnerHTML={{__html: news.content}}/>
+            <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings(news.content)}}/>
         );
     };
 
@@ -100,3 +80,5 @@ const BlogSingle = async (props: ProductPageProps) => {
 };
 
 export default BlogSingle;
+
+export const revalidate = 300;

@@ -1,5 +1,6 @@
 "use client";
 
+import ShopPagination from "@/shared/Pagination/ShopPagination";
 import React, { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { findCategoryGroupByUrl } from "@/services/api/shop/category";
@@ -23,13 +24,14 @@ const GroupListing = ({ response, url, breadcrump }: Props) => {
 
     useCategoryViewTracker(response.category?.id);
 
+    const initialPage = response.groups.meta?.current_page || 1;
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-        queryKey: ["categoryGroups", url, filter],
+        queryKey: ["categoryGroups", url, filter, initialPage],
         queryFn: ({ pageParam }) => findCategoryGroupByUrl(url, filter, pageParam),
-        initialPageParam: 1,
-        initialData: { pages: [response], pageParams: [1] },
+        initialPageParam: (filter ? 1 : initialPage),
+        initialData: !filter ? { pages: [response], pageParams: [initialPage] } : undefined,
             getNextPageParam: (lastPage) => {
-                const meta = lastPage?.products?.meta;
+                const meta = lastPage?.groups?.meta;
                 return meta && meta.current_page < meta.last_page ? meta.current_page + 1 : undefined;
             },
     });
@@ -66,6 +68,8 @@ const GroupListing = ({ response, url, breadcrump }: Props) => {
                         >
                             {isFetchingNextPage && <ProductCardSkeleton />}
                         </div>
+
+                        {!filter && <ShopPagination currentPage={initialPage} totalPages={response.groups.meta?.last_page || 1} url={`/category-group/${url}`} />}
                     </main>
                 </div>
             </div>

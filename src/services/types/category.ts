@@ -1,4 +1,4 @@
-import {Identified, Timestamps} from "@/services/http";
+import {Identified, Timestamps, Paginated} from "@/services/http";
 import {FilterResponse} from "@/services/types/filter";
 import {ProductResponse} from "@/services/types/product";
 import {CategoryConceptResponse} from "@/services/types/categoryConcept";
@@ -30,7 +30,7 @@ export type breadcrumbResponse = {
 export type CategoryListing = {
     category: CategoryResponse;
     children: { data: CategoryResponse[] };
-    groups: { data: ProductResponse[] };
+    groups: { data: ProductResponse[]; meta?: Paginated<ProductResponse>["meta"] };
     breadcrumb: { data: breadcrumbResponse[] };
     products: {
         data: ProductResponse[];

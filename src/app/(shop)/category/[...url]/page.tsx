@@ -1,93 +1,28 @@
-import React from "react";
-import {findCategoryByUrl} from "@/services/api/shop/category";
-import {Metadata} from "next";
-import {stripHTML} from "@/hooks/StripHtml";
-import Script from "next/script";
-import {BreadcrumbType} from "@/components/Breadcrumb/BreadcrumbType";
+import type {Metadata} from "next";
+import {notFound} from "next/navigation";
+import {findCategoryByUrl} from "@/services/server/shop";
 import CategoryListing from "@/components/Linsting/CategoryListing";
+import JsonLd from "@/components/Seo/JsonLd";
+import {buildMetadata, assetUrl, breadcrumbSchema, pageNumber} from "@/utils/seo";
 
-interface CategoryPageProps {
-    params: Promise<{
-        url: [string];
-    }>,
-    searchParams: Promise<{
-        page?: string;
-    }>
-}
-export const dynamic = 'force-dynamic';
+type Props = {params: Promise<{url: string[]}>; searchParams: Promise<{page?: string | string[]}>};
+export const revalidate = 300;
 
-export async function generateMetadata(props: CategoryPageProps): Promise<Metadata> {
-    const searchParams = await props.searchParams;
-    const params = await props.params;
-    const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
-    let response = await findCategoryByUrl(decodeURIComponent(params.url.join("/")), "", page)
-    return {
-        title: response.category.name,
-        description: stripHTML(response.category.description),
-        twitter: {
-            title: response.category.name,
-            description: stripHTML(response.category.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${response.category.image}`,
-        },
-        openGraph: {
-            title: response.category.name,
-            description: stripHTML(response.category.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/category/${response.category.image}`,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/category/${response.category.url}`,
-            type: "website",
-        },
-        robots: "index , follow",
-        alternates: {
-            canonical: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/category/${response.category.url}`,
-        }
-    }
+export async function generateMetadata({params, searchParams}: Props): Promise<Metadata> {
+    const {url} = await params;
+    const page = pageNumber((await searchParams).page);
+    const response = await findCategoryByUrl(decodeURIComponent(url.join("/")), "", page);
+    return buildMetadata({title: response.category.name, description: response.category.description || response.category.name,
+        path: `/category/${response.category.url}`, page, image: assetUrl("category", response.category.image)});
 }
 
-const PageCollection = async (props: CategoryPageProps) => {
-    const searchParams = await props.searchParams;
-    const params = await props.params;
-    const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
-    let response = await findCategoryByUrl(decodeURIComponent(params.url.join("/")), "", page)
- 
-    const breadcrumbStructuredData = {
-        "@context": "https://schema.org/",
-        "@type": "BreadcrumbList",
-        "itemListElement":
-            [
-                {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "item": {
-                        "@id": `${process.env.NEXT_PUBLIC_WEBSITE_URL}`,
-                        "name": "خانه"
-                    }
-                },
-                ...response.breadcrumb.data.map((breadcrumb, index) => ({
-                    "@type": "ListItem",
-                    "position": index + 2,
-                    "item":
-                        {
-                            "@id": `${process.env.NEXT_PUBLIC_WEBSITE_URL}/${breadcrumb.url}`,
-                            "name": breadcrumb.name,
-                        }
-                }))
-            ]
-    };
- 
-    const renderBreadcrump=()=>{
-        let breadcrumbs:BreadcrumbType[]=[];
-        response.breadcrumb.data.map((breadcrumb)=>{
-            breadcrumbs.push({title:breadcrumb.name,href:breadcrumb.url});
-        })
-        return breadcrumbs;
-    }
-    return (<>
-            <Script type="application/ld+json" id="schema">
-                {JSON.stringify(breadcrumbStructuredData)}
-            </Script>
-            <CategoryListing response={response} breadcrump={renderBreadcrump()} url={decodeURIComponent(params.url.join("/"))}/>
-        </>
-    );
-};
-
-export default PageCollection;
+export default async function Page({params, searchParams}: Props) {
+    const {url} = await params;
+    const page = pageNumber((await searchParams).page);
+    const response = await findCategoryByUrl(decodeURIComponent(url.join("/")), "", page);
+    if (page > 1 && !response.products.data.length) notFound();
+    return <>
+        <JsonLd data={breadcrumbSchema(response.breadcrumb.data)} />
+        <CategoryListing key={page} response={response} url={decodeURIComponent(url.join("/"))} breadcrump={response.breadcrumb.data.map(item => ({title: item.name, href: item.url}))} />
+    </>;
+}

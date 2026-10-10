@@ -35,7 +35,7 @@ const CompareBar: React.FC<Props> = ({ items, onOpen, onClear }) => {
                             className="object-cover w-full h-full drop-shadow-xl flex"
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                            alt="product"
+                            alt={item.name}
                         />
                     </div>
                 ))}

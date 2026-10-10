@@ -10,6 +10,6 @@ export const paginatedCast = async <T extends ServerResponse<CastListingResponse
 export const findCast = async <T extends ServerResponse<CastResponse>>
 (url: string
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("cast/find", {url: url})
+    return axios.post<T, SuccessResponseType<T>>("cast/find", {url: url}, {pageRead: true, maxRedirects: 0})
         .then((res) => res?.data?.result?.data)
 };

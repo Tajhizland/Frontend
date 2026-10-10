@@ -1,3 +1,4 @@
+import {buildMetadata} from "@/utils/seo";
 import {Metadata} from "next";
 import {Suspense} from "react";
 import Image from "next/image";
@@ -13,28 +14,7 @@ export const dynamic = "force-dynamic";
 const TITLE = "پست های اینستاگرام تجهیزلند";
 const DESCRIPTION = "جدیدترین پست ها و ویدیوهای اینستاگرام تجهیزلند؛ تجهیزات آشپزخانه صنعتی، رستوران، فست فود و کافی شاپ.";
 
-export async function generateMetadata(): Promise<Metadata> {
-    return {
-        title: TITLE,
-        description: DESCRIPTION,
-        twitter: {
-            title: TITLE,
-            description: DESCRIPTION,
-            images: logo.src,
-        },
-        openGraph: {
-            title: TITLE,
-            description: DESCRIPTION,
-            images: logo.src,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/instagram`,
-            type: "website",
-        },
-        robots: "index , follow",
-        alternates: {
-            canonical: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/instagram`,
-        },
-    };
-}
+export const metadata = buildMetadata({title: "اینستاگرام تجهیزلند", description: "ویدیوها و محتوای اینستاگرام تجهیزلند؛ آشنایی با تجهیزات کافه و رستوران.", path: "/instagram"});
 
 export default async function Page() {
     const response = await getInstagramPostPaginated(1);

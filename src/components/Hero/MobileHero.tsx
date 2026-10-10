@@ -146,8 +146,10 @@ const MobileHero = <T extends BaseSlider>({
                         fill
                         className="w-full h-full object-cover"
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}
-                        alt={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slider/${item.image}`}
-                        priority
+                        alt={item.title || "تجهیزلند"}
+                        loading={index === 0 ? "eager" : "lazy"}
+                        fetchPriority={index === 0 ? "high" : "auto"}
+                        sizes="100vw"
                     />
 
                     <div>{renderDots()}</div>

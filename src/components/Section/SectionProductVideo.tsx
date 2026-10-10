@@ -28,7 +28,7 @@ export default function SectionProductVideo({videos}: { videos: ProductVideoResp
                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item?.vlog?.poster}`}
                                         className="object-cover w-full h-full drop-shadow-xl"
                                         fill
-                                        alt="vlog"
+                                        alt={item.title || item.vlog?.title || "ویدیوی محصول"}
                                     />
                                 </div>
 

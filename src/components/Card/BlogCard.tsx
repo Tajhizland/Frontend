@@ -25,7 +25,7 @@ const BlogCard: FC<BlogCardProps> = ({ className = "h-full", item }) => {
                     className={`block w-full h-0 aspect-h-2  aspect-w-3 `}
                 >
                     <NcImage
-                        alt=""
+                        alt={item.title}
                         fill
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/blog/${item.img}`}
                         containerClassName="absolute inset-0"
@@ -51,7 +51,7 @@ const BlogCard: FC<BlogCardProps> = ({ className = "h-full", item }) => {
                         </h2>
                         <div className="hidden sm:block sm:mt-2">
               <span className="text-neutral-500 dark:text-neutral-400 text-base line-clamp-1">
-                <div dangerouslySetInnerHTML={{ __html: stripHTML(item.content) }} />
+                <div>{stripHTML(item.content)}</div>
               </span>
                         </div>
                     </div>

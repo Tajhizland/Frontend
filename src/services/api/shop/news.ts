@@ -3,7 +3,7 @@ import {NewsListingResponse, NewsResponse} from "@/services/types/news";
 
 export const findNewsByUrl = async <T extends ServerResponse<NewsResponse>>
 (url:string) => {
-    return axios.post<T, SuccessResponseType<T>>("news/find",{url:url})
+    return axios.post<T, SuccessResponseType<T>>("news/find",{url:url}, {pageRead: true, maxRedirects: 0})
         .then((res) => res?.data?.result.data)
 };
 export const getNewsPaginated = async <T extends ServerResponse<NewsListingResponse>>

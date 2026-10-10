@@ -1,3 +1,4 @@
+import {SITE_DESCRIPTION} from "@/utils/seo";
 import localFont from 'next/font/local'
 import {NextFont} from "next/dist/compiled/@next/font";
 import type {Metadata} from "next";
@@ -28,7 +29,11 @@ export const metadata: Metadata = {
         default: "تجهیزلند",
         template: "%s | تجهیزلند",
     },
+    description: SITE_DESCRIPTION,
+    openGraph: {siteName: "تجهیزلند", locale: "fa_IR", type: "website", title: "تجهیزلند", description: SITE_DESCRIPTION, images: ["/logo.png"]},
+    twitter: {card: "summary_large_image", title: "تجهیزلند", description: SITE_DESCRIPTION, images: ["/logo.png"]},
     applicationName: "تجهیزلند",
+    manifest: "/manifest.json",
     icons: {
         icon: [
             {url: "/favicon.ico", sizes: "any"},
@@ -50,7 +55,6 @@ export default function RootLayout({
         <html lang="fa" dir={"rtl"}>
         <head>
             <Script src={"/js/goftino.js"}></Script>
-            <link rel="manifest" href="/manifest.json"/>
             <meta name="theme-color" content="#fff"/>
             <meta name="apple-mobile-web-app-status-bar" content="#fff"/>
         </head>

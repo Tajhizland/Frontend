@@ -30,6 +30,8 @@ export interface VlogBase {
 }
 
 export interface VlogResponse extends VlogBase, Identified, Timestamps {
+    published_at_iso?: string;
+    updated_at_iso?: string;
     hls: string;
     video: string;
     poster: string;

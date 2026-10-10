@@ -23,7 +23,7 @@ export default function CastCard({cast}: { cast: CastResponse }) {
                     className="block w-full h-0 aspect-h-2 aspect-w-3 rounded-2xl overflow-hidden static sm:absolute  sm:-right-10  sm:top-1/2  sm:-translate-y-1/2"
                 >
                     <NcImage
-                        alt=""
+                        alt={cast.title}
                         fill
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/cast/image/${cast.image}`}
                         containerClassName="absolute inset-0"
@@ -47,7 +47,7 @@ export default function CastCard({cast}: { cast: CastResponse }) {
                         </h2>
                         <div className="  sm:block sm:mt-2">
               <span className="text-neutral-500 dark:text-neutral-400  text-xs sm:text-sm line-clamp-2">
-                <div dangerouslySetInnerHTML={{__html: stripHTML(cast.description)}}/>
+                <div>{stripHTML(cast.description)}</div>
               </span>
                         </div>
                     </div>

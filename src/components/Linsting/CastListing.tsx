@@ -1,9 +1,9 @@
 "use client";
+import ShopPagination from "@/shared/Pagination/ShopPagination";
 import React, { useRef, useEffect, useState } from "react";
 import {CastListingResponse} from "@/services/types/cast";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import VlogCardSkeleton from "@/components/Skeleton/VlogCardSkeleton";
-import { useRouter } from "next/navigation";
 import {paginatedCast} from "@/services/api/shop/cast";
 import CastCard from "@/components/Card/CastCard";
 import {CastResponse} from "@/services/types/cast";
@@ -16,30 +16,30 @@ import Image from "next/image";
 import Logo from "@/shared/Logo/Logo";
 import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
-export default function CastListing({ response, search }: { response: any, search?: string }) {
-    const router = useRouter();
-    const [filter, setFilter] = useState<string>(search ? ("filter[search]=" + search) : "");
-    const [page, setPage] = useState<number>(1);
+export default function CastListing({ response, search }: { response: CastListingResponse, search?: string }) {
+    const [filter, setFilter] = useState<string>(search ? new URLSearchParams({"filter[search]": search}).toString() : "");
 
     // استفاده از useInfiniteQuery برای بارگذاری داده‌ها به صورت بی‌پایان
+    const initialPage = response.listing.meta?.current_page || 1;
+    const initialFilter = search ? new URLSearchParams({"filter[search]": search}).toString() : "";
     const {
         data,
         fetchNextPage,
         hasNextPage,
         isFetchingNextPage,
     } = useInfiniteQuery({
-        queryKey: ["casts", filter],
+        queryKey: ["casts", filter, initialPage],
         queryFn: // فیلترها را در queryKey ارسال می‌کنیم
         async ({ pageParam, queryKey }) => {
-            const filters = queryKey[1]; // دریافت فیلترها از queryKey
+            const filters = filter; // دریافت فیلترها از queryKey
             const result = await paginatedCast(pageParam, filters);
             return result.listing;
         },
-        initialPageParam: 1,
-        initialData: {
+        initialPageParam: (filter === initialFilter ? initialPage : 1),
+        initialData: filter === initialFilter ? {
                 pages: [response.listing],
-                pageParams: [1],
-            },
+                pageParams: [initialPage],
+            } : undefined,
             getNextPageParam: (lastPage) =>
                 //@ts-ignore
                 lastPage?.meta?.current_page < lastPage?.meta?.last_page
@@ -51,17 +51,13 @@ export default function CastListing({ response, search }: { response: any, searc
 
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
-    useEffect(() => {
-        if (page > 1) {
-            router.replace(`?page=${page}`, { scroll: false });
-        }
-    }, [page, router]);
+
 
     const allCasts = data?.pages.flatMap((page) => page.data) || [];
 
     const handleFilterChange = (filters: string) => {
         setFilter(filters); // فیلتر را در state تغییر می‌دهیم
-        setPage(1)
+
     };
 
     return (
@@ -87,6 +83,7 @@ export default function CastListing({ response, search }: { response: any, searc
                             </div>
                         </div>
                     }
+                        <h1 className="text-2xl font-bold">تجهیزکست؛ پادکست تجهیزلند</h1>
                         <main>
                         {/* TABS FILTER */}
                         <CastFilter   changeFilter={handleFilterChange} defualtSearch={search} />
@@ -114,6 +111,8 @@ export default function CastListing({ response, search }: { response: any, searc
 
                         {/* Infinite Scroll Loader */}
 
+
+                        {!filter && <ShopPagination currentPage={initialPage} totalPages={response.listing.meta?.last_page || 1} url={"/tajhizcast"} />}
                     </main>
                 </div>
             </div>

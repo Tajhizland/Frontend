@@ -1,0 +1,35 @@
+"use client"
+import "../globals.css";
+import "@/styles/index.scss";
+import "rc-slider/assets/index.css";
+import {Suspense, useState} from "react";
+import Navbar from "@/components/Navbar/Navbar";
+import Sidebar from "@/components/Sidebar/Sidebar";
+import CommonClient from "@/app/(shop)/CommonClient";
+import AutoLoading from "@/app/admin/AutoLoading";
+import QueryProgressBar from "@/shared/Progress/QueryProgressBar";
+
+
+export default function AdminLayout({
+                                        children,
+                                    }: {
+    children: React.ReactNode;
+}) {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    return (
+        <div>
+                <QueryProgressBar/>
+                <Navbar sidebarControl={() => {
+                    setSidebarOpen(!sidebarOpen)
+                }}/>
+                <Sidebar isOpen={sidebarOpen}/>
+                <div className={`pb-2 pt-4 bg-slate-100 min-h-screen mt-14 transition-all  ${sidebarOpen ? "md:mr-52 " : " "}`}>
+                    <Suspense>
+                        <AutoLoading/>
+                    </Suspense>
+                    {children}
+                </div>
+            <CommonClient/>
+        </div>
+    );
+}

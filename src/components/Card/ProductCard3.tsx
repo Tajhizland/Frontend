@@ -98,7 +98,7 @@ const ProductCard3: FC<ProductCardProps> = ({
                 className="object-cover w-full h-full drop-shadow-xl"
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                alt="guaranty"
+                alt={data?.guaranty?.name || "گارانتی"}
             /></div>
         }
         return null;
@@ -201,7 +201,7 @@ const ProductCard3: FC<ProductCardProps> = ({
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                            alt="product"
+                            alt={data?.name || ""}
                         />
 
                     </Link>

@@ -1,7 +1,7 @@
 "use client";
+import ShopPagination from "@/shared/Pagination/ShopPagination";
 import React, {useEffect, useRef, useState} from "react";
 import {DiscountedProductPageResponse} from "@/services/types/product";
-import {useRouter} from "next/navigation";
 import {getDiscountedProducts} from "@/services/api/shop/product";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
 import {useInfiniteQuery} from "@tanstack/react-query";
@@ -16,11 +16,11 @@ import Image from "next/image";
 import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
 const DiscountListing = ({response}: {response: DiscountedProductPageResponse}) => {
-    const router = useRouter();
     const [filter, setFilter] = useState<number>();
 
 
     // استفاده از useInfiniteQuery برای بارگذاری داده‌ها
+    const initialPage = response.data.meta?.current_page || 1;
     const {
         data,
         fetchNextPage,
@@ -28,17 +28,17 @@ const DiscountListing = ({response}: {response: DiscountedProductPageResponse}) 
         isFetchingNextPage,
         refetch,
     } = useInfiniteQuery({
-        queryKey: ["discountedProducts", filter],
+        queryKey: ["discountedProducts", filter, initialPage],
         queryFn: async ({pageParam}) => {
             const result = await getDiscountedProducts(pageParam, filter ? `filter[category]=${filter}` : ""); // فراخوانی getDiscountedProducts به صورت صفحه‌بندی شده
             return result.data;
         },
-        initialPageParam: 1,
+        initialPageParam: (filter ? 1 : initialPage),
         // داده‌های اولیه از props
-            initialData: {
+            initialData: !filter ? {
                 pages: [response.data],
-                pageParams: [1],
-            },
+                pageParams: [initialPage],
+            } : undefined,
             getNextPageParam: (lastPage) =>
                 lastPage?.meta?.current_page < lastPage?.meta?.last_page
                     ? lastPage?.meta?.current_page + 1
@@ -47,23 +47,14 @@ const DiscountListing = ({response}: {response: DiscountedProductPageResponse}) 
 
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
-    useEffect(() => {
-        if (data) {
-            const currentPage = data.pages[data.pages.length - 1]?.meta?.current_page;
-            if (currentPage) {
-                router.replace(`?page=${currentPage}`, {scroll: false});
-            }
-        }
-    }, [data, router]);
+
     const allProducts = data?.pages.flatMap((page) => page.data) || [];
 
     const changeFilter = async (value: number) => {
         if (filter === value) {
             setFilter(undefined);
-            await fetchNextPage(); // Reset filter
         } else {
             setFilter(value);
-            await fetchNextPage(); // Apply new filter
         }
     };
     return (
@@ -144,13 +135,15 @@ const DiscountListing = ({response}: {response: DiscountedProductPageResponse}) 
                              className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                             {isFetchingNextPage && <ProductCardSkeleton/>}
                         </div>
+
+                        {!filter && <ShopPagination currentPage={initialPage} totalPages={response.data.meta?.last_page || 1} url={"/product/discounted"} />}
                     </main>
                     <hr className="border-slate-200 dark:border-slate-700"/>
 
                     <div className="container">
-                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
+                        <h1 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             تخفیفی های تجهیزلند
-                        </h2>
+                        </h1>
                         <span className="block mt-4 text-neutral-500 dark:text-white text-sm sm:text-base">
                     تمام محصولات تخفیفی تجهیزلند رو میتونید در این صفحه مشاهده کنید
                 </span>

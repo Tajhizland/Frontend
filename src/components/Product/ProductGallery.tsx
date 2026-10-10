@@ -15,7 +15,7 @@ import {useProductColorContext} from "@/components/Product/ProductColorContext";
 
 const BASE = `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/`;
 
-export default function ProductGallery({productImages: allImages}: { productImages: ProductImageResponse[] }) {
+export default function ProductGallery({productImages: allImages, productName}: { productImages: ProductImageResponse[]; productName: string }) {
     // نمایش لیست کامل تصاویر (اسکرول)
     const [isGalleryOpen, setIsGalleryOpen] = useState(false);
     // نمایش تک تصویر (لایت‌باکس) — index یا null، همه‌چیز با state محلی و بدون url
@@ -80,7 +80,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
                             onClick={openGallery}
                         >
                             <NcImage
-                                alt="firt"
+                                alt={productName}
                                 containerClassName="aspect-w-3 aspect-h-4 relative md:aspect-none md:absolute md:inset-0"
                                 className="object-cover rounded-md sm:rounded-xl"
                                 src={`${BASE}${productImages[0]?.url}`}
@@ -97,7 +97,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
                             onClick={openGallery}
                         >
                             <NcImage
-                                alt=""
+                                alt={productName}
                                 fill
                                 sizes="(max-width: 640px) 100vw, 50vw"
                                 containerClassName="absolute inset-0"
@@ -118,7 +118,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
                                     onClick={openGallery}
                                 >
                                     <NcImage
-                                        alt=""
+                                        alt={productName}
                                         fill
                                         sizes="(max-width: 640px) 100vw, 33vw"
                                         containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"
@@ -164,7 +164,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
                         {productImages.slice(0, 5)?.map((item, index) => (
                             <div onClick={openGallery} className={"w-24 "} key={index}>
                                 <NcImage
-                                    alt=""
+                                    alt={productName}
                                     fill
                                     sizes="(max-width: 640px) 100vw, 33vw"
                                     containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"
@@ -185,7 +185,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
                         {productImages.slice(0, 2)?.map((item, index) => (
                             <div onClick={openGallery} className={"w-14"} key={index}>
                                 <NcImage
-                                    alt=""
+                                    alt={productName}
                                     fill
                                     sizes="(max-width: 640px) 100vw, 33vw"
                                     containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"
@@ -250,7 +250,7 @@ export default function ProductGallery({productImages: allImages}: { productImag
                                                 className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight focus:outline-hidden"
                                             >
                                                 <Image
-                                                    alt="product gallery"
+                                                    alt={productName}
                                                     className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110 focus:outline-hidden"
                                                     style={{transform: "translate3d(0, 0, 0)"}}
                                                     src={`${BASE}${url}`}

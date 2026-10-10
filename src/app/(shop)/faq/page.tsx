@@ -1,30 +1,11 @@
+import {buildMetadata} from "@/utils/seo";
 import { getFaq } from "@/services/api/shop/faq";
 import {Metadata} from "next";
 import logo from "@/images/lightLogo.png";
 import Accordion from "@/components/Accordion/Accordion";
 
 
-export async function generateMetadata(): Promise<Metadata> {
-
-    return {
-        title: "پرسش های متداول",
-        description: "سایت رسمی تجهیزلند با هدف ایجاد فضایی  جهت خرید امن و مطمئن طراحی شده است و با دریافت نماد اعتماد تجارت الکترونیکی روند ارائه و ارسال خود را به صورت کاملا قانونی ثبت نموده و اطمینان و رضایت خاطر کاربران را برای خریدی موفق فراهم ساخته است",
-        twitter: {
-            title: "پرسش های متداول",
-            description: "سایت رسمی تجهیزلند با هدف ایجاد فضایی  جهت خرید امن و مطمئن طراحی شده است و با دریافت نماد اعتماد تجارت الکترونیکی روند ارائه و ارسال خود را به صورت کاملا قانونی ثبت نموده و اطمینان و رضایت خاطر کاربران را برای خریدی موفق فراهم ساخته است",
-            images:logo.src,
-        },
-        openGraph: {
-            title: "پرسش های متداول",
-            description: "سایت رسمی تجهیزلند با هدف ایجاد فضایی  جهت خرید امن و مطمئن طراحی شده است و با دریافت نماد اعتماد تجارت الکترونیکی روند ارائه و ارسال خود را به صورت کاملا قانونی ثبت نموده و اطمینان و رضایت خاطر کاربران را برای خریدی موفق فراهم ساخته است",
-            images: logo.src,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/faq`,
-            type: "website",
-        },
-        robots: "index , follow",
-
-    }
-}
+export const metadata = buildMetadata({title: "پرسش‌های متداول", description: "پاسخ پرسش‌های متداول درباره خرید، ارسال، پرداخت و گارانتی تجهیزات آشپزخانه صنعتی در تجهیزلند.", path: "/faq"});
 
 export default async function page() {
     let faq = await getFaq();

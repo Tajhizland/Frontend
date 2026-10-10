@@ -19,12 +19,14 @@ export interface ProductCardProps {
     className?: string;
     data?: ProductResponse;
     isLiked?: boolean;
+    priority?: boolean;
 }
 
 const ProductCard: FC<ProductCardProps> = ({
                                                className = "",
                                                data,
                                                isLiked,
+                                               priority = false,
                                            }) => {
     const {likeHandle} = useFavorite(data?.id);
 
@@ -185,7 +187,9 @@ const ProductCard: FC<ProductCardProps> = ({
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                            alt="product"
+                            alt={data?.name || ""}
+                            loading={priority ? "eager" : "lazy"}
+                            fetchPriority={priority ? "high" : "auto"}
                         />
                     </Link>
 

@@ -1,7 +1,7 @@
 "use client"
+import ShopPagination from "@/shared/Pagination/ShopPagination";
 import React, { useEffect, useRef } from "react";
 import {SpecialProductPageResponse} from "@/services/types/product";
-import { useRouter } from "next/navigation";
 import { getSpecialProductsPaginate } from "@/services/api/shop/product";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { ProductResponse } from "@/services/types/product";
@@ -11,9 +11,9 @@ import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
 export default function SpecialListing({ response }: { response: SpecialProductPageResponse }) {
-    const router = useRouter();
 
     // استفاده از useInfiniteQuery برای بارگذاری داده‌ها
+    const initialPage = response.data.meta?.current_page || 1;
     const {
         data,
         fetchNextPage,
@@ -22,16 +22,16 @@ export default function SpecialListing({ response }: { response: SpecialProductP
         isLoading,
         refetch,
     } = useInfiniteQuery({
-        queryKey: ["specialProducts"],
+        queryKey: ["specialProducts", initialPage],
         queryFn: // شناسه کوئری
         async ({ pageParam }) => {
             const result = await getSpecialProductsPaginate(pageParam);
             return result.data;
         },
-        initialPageParam: 1,
+        initialPageParam: initialPage,
         initialData: {
                 pages: [response.data],
-                pageParams: [1],
+                pageParams: [initialPage],
             },
             getNextPageParam: (lastPage) => {
                 return lastPage?.meta?.current_page < lastPage?.meta?.last_page
@@ -43,14 +43,7 @@ export default function SpecialListing({ response }: { response: SpecialProductP
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
     // به‌روزرسانی URL با تغییر صفحه
-    useEffect(() => {
-        if (data) {
-            const currentPage = data.pages[data.pages.length - 1]?.meta?.current_page;
-            if (currentPage) {
-                router.replace(`?page=${currentPage}`, { scroll: false });
-            }
-        }
-    }, [data, router]);
+
 
     const allProducts = data?.pages.flatMap((page) => page.data) || [];
      return (
@@ -76,12 +69,14 @@ export default function SpecialListing({ response }: { response: SpecialProductP
                                  className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                                 {isFetchingNextPage && <ProductCardSkeleton/>}
                             </div>
-                        </main>
+
+                        <ShopPagination currentPage={initialPage} totalPages={response.data.meta?.last_page || 1} url="/special" />
+                    </main>
                         <hr className="border-slate-200 dark:border-slate-700" />
                         <div className="max-w-[var(--breakpoint-sm)]">
-                            <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
+                            <h1 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                                 محصولات خاص پسند ها
-                            </h2>
+                            </h1>
                         </div>
 
                     </div>

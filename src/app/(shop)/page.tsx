@@ -1,3 +1,4 @@
+import JsonLd from "@/components/Seo/JsonLd";
 import React from "react";
 import {homePage} from "@/services/api/shop/homePage";
 import MobileHero from "@/components/Hero/MobileHero";
@@ -34,11 +35,11 @@ export async function generateMetadata(): Promise<Metadata> {
     const image = `${siteUrl}/logo.png`;
 
     return {
-        title: "تجهیزلند",
+        title: {absolute: "تجهیزلند"},
         description,
         alternates: {canonical: siteUrl},
         twitter: {
-            card: "summary",
+            card: "summary_large_image",
             title: "تجهیزلند",
             description,
             images: image,
@@ -153,10 +154,7 @@ export default async function Homepage() {
               JSON-LD باید در HTML سمت سرور باشد. next/script با استراتژی پیش‌فرض
               اسکریپت را سمت کلاینت تزریق می‌کند و ممکن است خزنده‌ی گوگل آن را نبیند.
             */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}}
-            />
+            <JsonLd data={structuredData} />
 
             <div className="relative overflow-hidden lg:mt-10 dark:bg-neutral-900">
 

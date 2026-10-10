@@ -21,6 +21,7 @@ export interface ProductCardProps {
     className?: string;
     data?: ProductResponse;
     isLiked?: boolean;
+    priority?: boolean;
     isProductInCompareList?: boolean;
     addToCompare?: () => void;
 }
@@ -31,6 +32,7 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                                                           addToCompare,
                                                           isProductInCompareList,
                                                           isLiked,
+                                               priority = false,
                                                       }) => {
     const {likeHandle} = useFavorite(data?.id);
 
@@ -187,20 +189,20 @@ const ProductCardWithCompare: FC<ProductCardProps> = ({
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 transition-all block group-hover:hidden"
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images[0]?.url}`}
-                            priority
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                            alt="product"
+                            alt={data?.name || ""}
+                            loading={priority ? "eager" : "lazy"}
+                            fetchPriority={priority ? "high" : "auto"}
                         />
                         <NcImage
                             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 transition-all hidden group-hover:block"
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${data?.images[2]?.url ?? data?.images[0]?.url}`}
-                            priority
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                            alt="product"
+                            alt={data?.name || ""}
                         />
                     </Link>
 

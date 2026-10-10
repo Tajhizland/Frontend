@@ -8,6 +8,6 @@ export const findGroupByUrl = async <T extends ServerResponse<ProductPageRespons
     url:string
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("group/find",{url:url})
+    return axios.post<T, SuccessResponseType<T>>("group/find",{url:url}, {pageRead: true, maxRedirects: 0})
         .then((res) => res?.data?.result?.data)
 };

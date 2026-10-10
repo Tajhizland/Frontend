@@ -1,3 +1,4 @@
+import {buildMetadata} from "@/utils/seo";
 import {Metadata} from "next";
 import logo from "@/images/lightLogo.png";
 import {findSample} from "@/services/api/shop/sample";
@@ -6,29 +7,7 @@ import SectionSampleVideo from "@/components/Section/SectionSampleVideo";
 import SectionSampleImage from "@/components/Section/SectionSampleImage";
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata(): Promise<Metadata> {
-    return {
-        title: "محصولات ویژه تجهیزلند",
-        description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-        twitter: {
-            title: "محصولات ویژه تجهیزلند",
-            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-            images: logo.src,
-        },
-        openGraph: {
-            title: "محصولات ویژه تجهیزلند",
-            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-            images: logo.src,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}`,
-            type: "website",
-        },
-        robots: "index , follow",
-        alternates: {
-            canonical: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/special`,
-        }
-
-    }
-}
+export const metadata = buildMetadata({title: "پروژه‌های تجهیزشده تجهیزلند", description: "تصاویر و ویدیوهای پروژه‌های کافه، رستوران و آشپزخانه صنعتی تجهیزشده توسط تجهیزلند.", path: "/sample"});
 
 export default async function page() {
     let response = await findSample();

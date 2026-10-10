@@ -4,10 +4,11 @@ import Image from "next/image";
 import React from "react";
 
 export default function SectionSingleBanner({banner, w = "aspect-w-2 sm:aspect-w-3 lg:aspect-w-4", h = "aspect-h-1"}: {
-    banner: BannerResponse,
+    banner?: BannerResponse,
     w?: string,
     h?: string
 }) {
+    if (!banner) return null;
     return (
         <div
             className={`relative w-full   rounded-2xl overflow-hidden group border ${w} ${h}`}

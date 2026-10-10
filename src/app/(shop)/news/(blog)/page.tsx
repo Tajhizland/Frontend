@@ -1,73 +1,32 @@
-import React from "react";
-import {getNewsPaginated} from "@/services/api/shop/news";
-import {stripHTML} from "@/hooks/StripHtml";
-import {Metadata} from "next";
-//@ts-ignore
-import logo from "@/images/lightLogo.png";
-import Script from "next/script";
+import type {Metadata} from "next";
+import {notFound} from "next/navigation";
+import {getNewsPaginated} from "@/services/server/shop";
 import BlogListing from "@/components/Linsting/BlogListing";
+import {absoluteUrl, buildMetadata, pageNumber, paginatedPath, SITE_DESCRIPTION} from "@/utils/seo";
+import JsonLd from "@/components/Seo/JsonLd";
 
-interface BlogPageProps {
-    searchParams: Promise<{ page?: string }>;
+type Props = {searchParams: Promise<{page?: string | string[]; search?: string}>};
+export const revalidate = 300;
+
+export async function generateMetadata({searchParams}: Props): Promise<Metadata> {
+    const query = await searchParams;
+    return buildMetadata({title: "اخبار و مقالات", description: "اخبار و مقالات؛ " + SITE_DESCRIPTION,
+        path: "/news", page: pageNumber(query.page), noindex: Boolean(query.search)});
 }
 
-
-export async function generateMetadata(): Promise<Metadata> {
-    return {
-        title: "اخبار و مقالات",
-        description: "اخبار و مقالات",
-        twitter: {
-            title: "اخبار و مقالات",
-            description: "اخبار و مقالات",
-            images: logo.src,
-        },
-        openGraph: {
-            title: "اخبار و مقالات",
-            description: "اخبار و مقالات",
-            images: logo.src,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/news`,
-            type: "website",
-        },
-        robots: "index , follow",
-        alternates: {
-            canonical: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/news`,
-        }
-    }
+export default async function Page({searchParams}: Props) {
+    const query = await searchParams;
+    const page = pageNumber(query.page);
+    const response = await getNewsPaginated(page);
+    if (page > 1 && !response.listing.data.length) notFound();
+    return <>
+        <JsonLd data={{"@context": "https://schema.org", "@type": "CollectionPage",
+            name: "اخبار و مقالات تجهیزلند", url: absoluteUrl(paginatedPath("/news", page)),
+            mainEntity: {"@type": "ItemList", itemListElement: response.listing.data.map((article, index) => ({
+                "@type": "ListItem", position: (page - 1) * response.listing.meta.per_page + index + 1,
+                name: article.title, url: absoluteUrl(`/news/show/${article.url}`),
+            }))},
+        }} />
+        <BlogListing key={`${page}:${query.search || ""}`} response={response} />
+    </>;
 }
-
-const BlogPage = async (props: BlogPageProps) => {
-    const searchParams = await props.searchParams;
-    const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
-    const data = await getNewsPaginated(page);
-    const structuredData = {
-        "@context": "https://schema.org/",
-        "@type": "ItemList",
-        "itemListElement": data.listing.data.map((article, index) => ({
-            "@type": "ListItem",
-            "position": index + 1,
-            "item": {
-                "@type": "NewsArticle",
-                "headline": article.title,
-                "description": stripHTML(article.content),
-                "image": article.img,
-                "datePublished": article.created_at,
-                "author": {
-                    "@type": "Person",
-                    "name": "مدیر سایت",
-                    "url": "/news"
-                },
-                "url": article.url
-            }
-        }))
-    };
-    return (
-        <>
-            <Script type="application/ld+json" id="schema">
-                {JSON.stringify(structuredData)}
-            </Script>
-            <BlogListing response={data} />
-        </>
-    );
-};
-
-export default BlogPage;

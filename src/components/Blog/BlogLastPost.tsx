@@ -35,7 +35,7 @@ export default function BlogLastPost({
                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/blog/${item.img}`}
                                         className="object-cover w-full h-full "
                                         fill
-                                        alt="vlog"
+                                        alt={item.title}
                                     />
                                 </div>
                                 <span className="py-2.5 px-2 dark:text-white text-xs">{item.title}</span>

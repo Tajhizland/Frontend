@@ -8,7 +8,7 @@ import {usePathname, useRouter} from "next/navigation";
 import {Suspense} from "react";
 import Image from "next/image";
 
-export default function ProductImage({productImages}: { productImages: ProductImageResponse[] }) {
+export default function ProductImage({productImages, productName}: { productImages: ProductImageResponse[]; productName: string }) {
     const router = useRouter();
     const thisPathname = usePathname();
     const handleCloseModalImageGallery = () => {
@@ -30,7 +30,7 @@ export default function ProductImage({productImages}: { productImages: ProductIm
                             onClick={handleOpenModalImageGallery}
                         >
                             <NcImage
-                                alt="firt"
+                                alt={productName}
                                 containerClassName="aspect-w-3 aspect-h-4 relative md:aspect-none md:absolute md:inset-0"
                                 className="object-cover rounded-md sm:rounded-xl"
                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${productImages[0]?.url}`}
@@ -49,7 +49,7 @@ export default function ProductImage({productImages}: { productImages: ProductIm
                             onClick={handleOpenModalImageGallery}
                         >
                             <NcImage
-                                alt=""
+                                alt={productName}
                                 fill
                                 sizes="(max-width: 640px) 100vw, 50vw"
                                 containerClassName="absolute inset-0"
@@ -70,7 +70,7 @@ export default function ProductImage({productImages}: { productImages: ProductIm
                                     }`}
                                 >
                                     <NcImage
-                                        alt=""
+                                        alt={productName}
                                         fill
                                         sizes="(max-width: 640px) 100vw, 33vw"
                                         containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"
@@ -124,7 +124,7 @@ export default function ProductImage({productImages}: { productImages: ProductIm
                                     onClick={handleOpenModalImageGallery}
                                     className={"w-24 "} key={index}>
                                     <NcImage
-                                        alt=""
+                                        alt={productName}
                                         fill
                                         sizes="(max-width: 640px) 100vw, 33vw"
                                         containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"
@@ -151,7 +151,7 @@ export default function ProductImage({productImages}: { productImages: ProductIm
                                     onClick={handleOpenModalImageGallery}
                                     className={"w-14"} key={index}>
                                     <NcImage
-                                        alt=""
+                                        alt={productName}
                                         fill
                                         sizes="(max-width: 640px) 100vw, 33vw"
                                         containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"

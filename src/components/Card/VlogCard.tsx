@@ -27,7 +27,7 @@ const VlogCard: FC<Card13Props> = ({className = "", data}) => {
                 </h2>
                 <span className="sm:block my-3 text-slate-500 dark:text-slate-400 max-w-sm sm:max-w-2xl min-w-[10rem] sm:min-w-[20rem]">
                     <span className="line-clamp-2 text-xs">
-                        <div dangerouslySetInnerHTML={{__html: stripHTML(data.description)}}/>
+                        <div>{stripHTML(data.description)}</div>
                     </span>
                 </span>
 
@@ -41,7 +41,7 @@ const VlogCard: FC<Card13Props> = ({className = "", data}) => {
                 aria-label={"vlog"}
                 className="flex flex-col w-full  justify-center mr-5"
             >
-                <VlogPoster poster={data.poster} className="rounded-xl"/>
+                <VlogPoster alt={data.title} poster={data.poster} className="rounded-xl"/>
             </Link>
         </div>
     );

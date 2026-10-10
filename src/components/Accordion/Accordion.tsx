@@ -1,5 +1,6 @@
 "use client";
 
+import {normalizeContentHeadings} from "@/utils/seo";
 import { Disclosure } from "@headlessui/react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { ReactNode } from "react";
@@ -35,7 +36,7 @@ export default function Accordion({
                             </Disclosure.Button>
                             <Disclosure.Panel className={panelClassName} as="div">
                                 { typeof item.content === "string" ? (
-                                    <div dangerouslySetInnerHTML={{ __html: item.content }} />
+                                    <div dangerouslySetInnerHTML={{ __html: normalizeContentHeadings(item.content)}} />
                                 ) : (
                                     item.content
                                 )}

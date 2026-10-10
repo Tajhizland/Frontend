@@ -15,6 +15,8 @@ export interface NewsBase {
 }
 
 export interface NewsResponse extends NewsBase, Identified, Timestamps {
+    published_at_iso?: string;
+    updated_at_iso?: string;
     category_id:number;
     img:string;
     author:string;

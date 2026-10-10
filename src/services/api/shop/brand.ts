@@ -7,7 +7,7 @@ export const findBrandByUrl = async <T extends ServerResponse<BrandListingRespon
     filter?: string,
     page: number = 1
 ) => {
-    return axios.post<T, SuccessResponseType<T>>("brand/find?"+ "page=" + page+"&"+  filter,  {url: url})
+    return axios.post<T, SuccessResponseType<T>>("brand/find?"+ "page=" + page+"&"+  filter,  {url: url}, {pageRead: true, maxRedirects: 0})
         .then((res) => res?.data?.result?.data)
 };
 

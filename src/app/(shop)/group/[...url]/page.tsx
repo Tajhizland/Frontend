@@ -1,112 +1,33 @@
-import React from "react";
-import {
-    ClockIcon,
-    SparklesIcon,
-} from "@heroicons/react/24/outline";
-
-import {findProductByUrl} from "@/services/api/shop/product";
-import ProductSidebar from "@/components/Product/ProductSidebar";
-import ProductImage from "../../../../components/Product/ProductImage";
-import ProductComment from "../../../../components/Product/ProductComment";
-import {Metadata} from "next";
-import Script from "next/script";
-import {stripHTML} from "@/hooks/StripHtml";
-import TextExpander from "@/shared/TextExpander/TextExpander";
-import {ProductResponse} from "@/services/types/product";
-import Policy from "../../../../components/Product/Policy";
-import SectionLinkedProductSlider from "@/components/Section/SectionLinkedProductSlider";
-import IconDiscount from "@/components/Icon/IconDiscount";
-import LikeSaveBtns from "@/shared/Button/LikeSaveBtns";
-import Accordion from "@/components/Accordion/Accordion";
-import SectionVideo from "@/components/Section/SectionVideo";
-import Badge from "@/shared/Badge/Badge";
-import SectionProductVideo from "@/components/Section/SectionProductVideo";
-import SectionGroup from "@/components/Group/SectionGroup";
-import Link from "next/link";
-import {FaCodeCompare} from "react-icons/fa6";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import {MdCompare} from "react-icons/md";
-import {FaShareAlt} from "react-icons/fa";
-import ShareButton from "@/shared/Button/ShareButton";
+import type {Metadata} from "next";
+import {findGroupByUrl} from "@/services/server/shop";
 import SectionGroupInfo from "@/components/Group/SectionGroupInfo";
-import {findGroupByUrl} from "@/services/api/shop/group";
+import JsonLd from "@/components/Seo/JsonLd";
+import {absoluteUrl, assetUrl, buildMetadata} from "@/utils/seo";
 
-interface ProductPageProps {
-    params: Promise<{
-        url: [string];
-    }>
+type Props = {params: Promise<{url: string[]}>};
+export const revalidate = 300;
+
+export async function generateMetadata({params}: Props): Promise<Metadata> {
+    const {url} = await params;
+    const {product} = await findGroupByUrl(decodeURIComponent(url.join("/")));
+    return buildMetadata({title: product.meta_title || product.name,
+        description: product.meta_description || product.description || product.name,
+        path: `/group/${product.url}`, image: assetUrl("product", product.images[0]?.url)});
 }
 
-export async function generateMetadata(props: ProductPageProps): Promise<Metadata> {
-    const params = await props.params;
-    let productResponse = await findGroupByUrl(decodeURIComponent(params.url.join("/")));
-    let product = productResponse.product;
-
-    return {
-        title: product.meta_title ?? product.name,
-        description: product.meta_description ?? stripHTML(product.description),
-        twitter: {
-            title: product.meta_title ?? product.name,
-            description: product.meta_description ?? stripHTML(product.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
-
-        },
-        openGraph: {
-            title: product.meta_title ?? product.name,
-            description: product.meta_description ?? stripHTML(product.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/product/${product.url}`,
-            type: "website",
-        },
-        robots: "index , follow",
-        other: {
-            product_id: product?.id,
-            product_name: product?.name,
-            product_price: product?.min_price,
-            product_old_price: product?.min_price,
-            availability: product.status == 1 ? "instock" : "outofstock",
-            guarantee: product?.guaranties[0] ? product?.guaranties[0]?.name ?? "" : ""
-        }
-
-    }
+export default async function Page({params}: Props) {
+    const {url} = await params;
+    const {product, relatedProduct} = await findGroupByUrl(decodeURIComponent(url.join("/")));
+    return <>
+        <h1 className="container mt-10 text-2xl font-semibold dark:text-white">{product.name}</h1>
+        <JsonLd data={{"@context": "https://schema.org", "@type": "CollectionPage",
+            name: product.name, url: absoluteUrl(`/group/${product.url}`),
+            mainEntity: {"@type": "ItemList", itemListElement: product.groupItems
+                .filter(item => item.product).map((item, index) => ({
+                    "@type": "ListItem", position: index + 1, name: item.product!.name,
+                    url: absoluteUrl(`/product/${item.product!.url}`),
+                }))},
+        }} />
+        <SectionGroupInfo groupItems={product.groupItems} relatedProduct={relatedProduct.data} />
+    </>;
 }
-
-const ProductDetailPage2 = async (props: ProductPageProps) => {
-    const params = await props.params;
-    let productResponse = await findGroupByUrl(decodeURIComponent(params.url.join("/")));
-    let product = productResponse.product;
-    let relatedProduct = productResponse.relatedProduct.data;
-
-    const structuredData = {
-        "@context": "https://schema.org/",
-        "@type": "Product",
-        "name": product.name,
-        "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
-        "description": product.description,
-        "sku": product.id,
-        "offers": {
-            "@type": "Offer",
-            "url": product.url,
-            "priceCurrency": "IRR",
-            "price": product.min_price,
-            "itemCondition": "https://schema.org/NewCondition",
-            "availability": "https://schema.org/InStock"
-        },
-        "brand": {
-            "@type": "Brand",
-            "name": product.brand
-        }
-    };
-
-
-    return (
-        <>
-            <Script type="application/ld+json" id="schema">
-                {JSON.stringify(structuredData)}
-            </Script>
-            <SectionGroupInfo groupItems={product.groupItems} relatedProduct={relatedProduct} />
-        </>
-    );
-};
-
-export default ProductDetailPage2;

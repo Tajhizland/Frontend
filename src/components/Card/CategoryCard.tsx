@@ -32,7 +32,7 @@ const CardCategory: FC<CardCategoryProps> = ({
                 <div className="absolute  inset-1  sm:inset-8 flex flex-col justify-between gap-2 md:gap-1 ">
                     <div className="flex justify-center md:justify-center items-center">
                         <NcImage
-                            alt=""
+                            alt={name}
                             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${imageBaseUrl}/${featuredImage}`}
                             containerClassName={`w-20 h-20 sm:w-[6rem] sm:h-[6rem] rounded-full overflow-hidden z-0 ${color}`}
                             width={80}

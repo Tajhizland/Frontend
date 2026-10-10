@@ -1,86 +1,36 @@
-import React from "react";
-import {findBrandByUrl} from "@/services/api/shop/brand";
-import {Metadata} from "next";
-import {stripHTML} from "@/hooks/StripHtml";
-import Script from "next/script";
+import type {Metadata} from "next";
+import {notFound} from "next/navigation";
+import {findBrandByUrl} from "@/services/server/shop";
 import BrandListing from "@/components/Linsting/BrandListing";
+import JsonLd from "@/components/Seo/JsonLd";
+import {buildMetadata, assetUrl, absoluteUrl, breadcrumbSchema, pageNumber, paginatedPath} from "@/utils/seo";
 
-interface CategoryPageProps {
-    params: Promise<{
-        url: [string];
-    }>,
-    searchParams: Promise<{
-        page?: string;
-    }>
+type Props = {params: Promise<{url: string[]}>; searchParams: Promise<{page?: string | string[]}>};
+export const revalidate = 300;
+
+export async function generateMetadata({params, searchParams}: Props): Promise<Metadata> {
+    const {url} = await params;
+    const page = pageNumber((await searchParams).page);
+    const response = await findBrandByUrl(decodeURIComponent(url.join("/")), "", page);
+    return buildMetadata({title: response.brand.name, description: response.brand.description || response.brand.name,
+        path: `/brand/${response.brand.url}`, page, image: assetUrl("brand", response.brand.image)});
 }
 
-
-export async function generateMetadata(props: CategoryPageProps): Promise<Metadata> {
-    const searchParams = await props.searchParams;
-    const params = await props.params;
-    const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
-    const response = await findBrandByUrl(decodeURIComponent(params.url.join("/")), "", page)
-
-    return {
-        title: response.brand.name,
-        description: stripHTML(response.brand.description),
-        twitter: {
-            title: response.brand.name,
-            description: stripHTML(response.brand.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${response.brand.image}`,
-        },
-        openGraph: {
-            title: response.brand.name,
-            description: stripHTML(response.brand.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${response.brand.image}`,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/brand/${response.brand.url}`,
-            type: "website",
-        },
-        robots: "index , follow",
-        alternates: {
-            canonical: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/brand/${response.brand.url}`,
-        }
-    }
+export default async function Page({params, searchParams}: Props) {
+    const {url} = await params;
+    const page = pageNumber((await searchParams).page);
+    const response = await findBrandByUrl(decodeURIComponent(url.join("/")), "", page);
+    if (page > 1 && !response.products.data.length) notFound();
+    const path = `/brand/${response.brand.url}`;
+    return <>
+        <JsonLd data={{"@context": "https://schema.org", "@type": "CollectionPage",
+            name: response.brand.name, url: absoluteUrl(paginatedPath(path, page)),
+            about: {"@type": "Brand", name: response.brand.name, logo: assetUrl("brand", response.brand.image)},
+            mainEntity: {"@type": "ItemList", itemListElement: response.products.data.map((product, index) => ({
+                "@type": "ListItem", position: ((page - 1) * (response.products.meta?.per_page || response.products.data.length)) + index + 1,
+                name: product.name, url: absoluteUrl(`/product/${product.url}`),
+            }))},
+        }} />
+        <BrandListing key={page} response={response} url={decodeURIComponent(url.join("/"))} />
+    </>;
 }
-
-const PageCollection = async (props: CategoryPageProps) => {
-    const searchParams = await props.searchParams;
-    const params = await props.params;
-    const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
-    let response = await findBrandByUrl(decodeURIComponent(params.url.join("/")), "", page)
-
-
-    const structuredData = {
-        "@context": "https://schema.org/",
-        "@type": "Brand",
-        "name": response.brand.name,
-        "description": response.brand.description,
-        "logo": response.brand.image,
-        "sameAs": response.brand.url,
-        "itemListElement": response.products.data.map((product, index) => ({
-            "@type": "Product",
-            "position": index + 1,
-            "name": product.name,
-            "image": `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/product/${product?.images[0]?.url}`,
-            "description": product.description,
-            "sku": product.id,
-            "offers": {
-                "@type": "Offer",
-                "url": product.url,
-                "priceCurrency": "IRR",
-                "price": product.min_price,
-                "itemCondition": "https://schema.org/NewCondition",
-                "availability": "https://schema.org/InStock"
-            }
-        }))
-    };
-    return (<>
-            <Script type="application/ld+json" id="schema">
-                {JSON.stringify(structuredData)}
-            </Script>
-            <BrandListing response={response} url={decodeURIComponent(params.url.join("/"))}/>
-        </>
-    );
-};
-
-export default PageCollection;

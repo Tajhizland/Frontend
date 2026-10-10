@@ -23,7 +23,7 @@ const TextExpander: React.FC<TextExpanderProps> = ({ text }) => {
           isExpanded ? 'line-clamp-none' : 'line-clamp-3'
         }`}
       >
-         <div dangerouslySetInnerHTML={{__html: stripHTML(text)}}/>
+         <div>{stripHTML(text)}</div>
 
         {/* افکت فید برای خط سوم */}
         {!isExpanded && (

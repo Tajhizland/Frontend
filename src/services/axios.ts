@@ -2,7 +2,7 @@ import Axios, {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestCon
 import {getSessionId} from "@/services/sessionId";
 import toast from "react-hot-toast";
 import {getCookie} from "cookies-next";
-import {notFound, redirect} from "next/navigation";
+import {notFound, permanentRedirect} from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
@@ -13,6 +13,7 @@ declare module "axios" {
          * خطایشان نباید به کاربر toast شود یا صفحه را به not-found/خطا ببرد.
          */
         silentError?: boolean;
+        pageRead?: boolean;
     }
 }
 
@@ -43,7 +44,7 @@ const errorHandler = (error: AxiosError) => {
 
     const status = error.response?.status;
     const serverMessage = (error.response?.data as ErrorEnvelope | undefined)?.message;
-    const mutation = isMutation(error.config?.method);
+    const mutation = isMutation(error.config?.method) && !error.config?.pageRead;
 
     // رفتارهای سطح صفحه فقط برای درخواست‌های خواندنی معنی دارند؛
     // یک POST/PUT/PATCH ناموفق نباید صفحه را با not-found یا صفحه خطا جایگزین کند.
@@ -58,7 +59,7 @@ const errorHandler = (error: AxiosError) => {
             const redirectUrl = encodeURI(
                 (error.response?.data as { result?: { destination?: string } } | undefined)?.result?.destination || "/"
             );
-            return redirect(redirectUrl);
+            return permanentRedirect(redirectUrl);
         }
         if (status === 400 || status === 422) {
             if (serverMessage) toast.error(serverMessage);

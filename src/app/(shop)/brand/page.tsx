@@ -1,32 +1,15 @@
+import {buildMetadata} from "@/utils/seo";
 import React, {Fragment} from "react";
-import {getBrandList} from "@/services/api/shop/brand";
+import {getBrandList} from "@/services/server/shop";
 import {Metadata} from "next";
 //@ts-ignore
 import logo from "@/images/lightLogo.png"
 import BrandCard from "@/components/Card/BrandCard";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
-export async function generateMetadata(): Promise<Metadata> {
-    return {
-        title: "برند های تجهیزلند",
-        description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-        twitter: {
-            title: "برند های تجهیزلند",
-            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-            images: logo.src,
-        },
-        openGraph: {
-            title: "برند های تجهیزلند",
-            description: "فروشگاه اینترنتی تجهیزات آشپزخانه صنعتی،رستوران،فست فود،کافی شاپ و...",
-            images: logo.src,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}`,
-            type: "website",
-        },
-        robots: "index , follow",
-    }
-}
+export const metadata = buildMetadata({title: "برندهای تجهیزات آشپزخانه صنعتی", description: "معرفی برندهای تجهیزات کافه، رستوران و آشپزخانه صنعتی در فروشگاه تجهیزلند.", path: "/brand"});
 
 const Page = async () => {
     const response = await getBrandList();

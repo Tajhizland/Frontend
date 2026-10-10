@@ -1,4 +1,5 @@
 "use client"
+import {normalizeContentHeadings} from "@/utils/seo";
 import { stripHTML } from '@/hooks/StripHtml';
 import { useState } from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa';
@@ -23,7 +24,7 @@ const TextExpander2: React.FC<TextExpanderProps> = ({ text }) => {
           isExpanded ? 'line-clamp-none' : 'line-clamp-3'
         }`}
       >
-         <div dangerouslySetInnerHTML={{__html:text}}/>
+         <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings(text)}}/>
 
         {/* افکت فید برای خط سوم */}
         {!isExpanded && (

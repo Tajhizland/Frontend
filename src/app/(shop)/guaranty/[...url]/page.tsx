@@ -1,7 +1,9 @@
+import {buildMetadata, assetUrl, absoluteUrl, metaDescription, isoDate} from "@/utils/seo";
+import {normalizeContentHeadings} from "@/utils/seo";
 import React from "react";
 import {Metadata} from "next";
 import {stripHTML} from "@/hooks/StripHtml";
-import {findByUrl} from "@/services/api/shop/guaranty";
+import {findByUrl} from "@/services/server/shop";
 import NcImage from "@/shared/NcImage/NcImage";
 
 interface PageProps {
@@ -11,26 +13,10 @@ interface PageProps {
 }
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
-    const params = await props.params;
-    const response = await findByUrl(decodeURIComponent(params.url.join("/")))
-
-    return {
-        title: response.name,
-        description: stripHTML(response.description),
-        twitter: {
-            title: response.name,
-            description: stripHTML(response.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${response.icon}`,
-        },
-        openGraph: {
-            title: response.name,
-            description: stripHTML(response.description),
-            images: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/guaranty/${response.icon}`,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/guaranty/${response.url}`,
-            type: "website",
-        },
-        robots: "index , follow",
-    }
+    const {url} = await props.params;
+    const response = await findByUrl(decodeURIComponent(url.join("/")));
+    return buildMetadata({title: response.name, description: response.description || response.name,
+        path: `/guaranty/${response.url}`, image: assetUrl("guaranty", response.icon)});
 }
 
 const PageCollection = async (props: PageProps) => {
@@ -46,7 +32,7 @@ const PageCollection = async (props: PageProps) => {
                             className="object-cover w-full h-full drop-shadow-xl"
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                            alt="guaranty"
+                            alt={response.name}
                         />
                     </div>
                 <h1 className={"text-center font-bold text-xl"}>
@@ -55,7 +41,7 @@ const PageCollection = async (props: PageProps) => {
                 </div>
                 <hr/>
                 <div className={"text-neutral-800 my-5"}>
-                    <div dangerouslySetInnerHTML={{__html: (response.description)}}/>
+                    <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings((response.description))}}/>
                 </div>
             </div>
         </>
@@ -63,3 +49,5 @@ const PageCollection = async (props: PageProps) => {
 };
 
 export default PageCollection;
+
+export const revalidate = 300;

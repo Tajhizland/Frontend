@@ -2,7 +2,18 @@ import type { NextConfig } from "next";
 import withPWA from "@ducanh2912/next-pwa";
 
 const nextConfig: NextConfig = {
-    images: { 
+    async redirects() {
+        return [
+            {
+                source: "/:path*",
+                has: [{type: "host", value: "www.tajhizland.com"}],
+                destination: "https://tajhizland.com/:path*",
+                permanent: true,
+            },
+            {source: "/blog/:path+", destination: "/news/show/:path+", permanent: true},
+        ];
+    },
+    images: {
         remotePatterns: [
             {
                 protocol: 'https',

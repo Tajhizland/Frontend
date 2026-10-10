@@ -1,5 +1,6 @@
 "use client";
 
+import ShopPagination from "@/shared/Pagination/ShopPagination";
 import React, { useState } from "react";
 import Link from "next/link";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -34,11 +35,12 @@ const CategoryListingPage = ({ response, url, breadcrump }: Props) => {
 
     useCategoryViewTracker(response.category?.id);
 
+    const initialPage = response.products.meta?.current_page || 1;
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-        queryKey: ["categoryProducts", url, filter],
+        queryKey: ["categoryProducts", url, filter, initialPage],
         queryFn: ({ pageParam }) => findCategoryByUrl(url, filter, pageParam),
-        initialPageParam: 1,
-        initialData: { pages: [response], pageParams: [1] },
+        initialPageParam: (filter ? 1 : initialPage),
+        initialData: !filter ? { pages: [response], pageParams: [initialPage] } : undefined,
             getNextPageParam: (lastPage) => {
                 const meta = lastPage?.products?.meta;
                 return meta && meta.current_page < meta.last_page ? meta.current_page + 1 : undefined;
@@ -117,9 +119,10 @@ const CategoryListingPage = ({ response, url, breadcrump }: Props) => {
                         />
 
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-5 sm:gap-y-10 mt-8 lg:mt-10">
-                            {products.map((item) => (
+                            {products.map((item, index) => (
                                 <ProductCardWithCompare
                                     data={item}
+                                    priority={index < 4}
                                     key={item.id}
                                     addToCompare={() => compare.toggle(item)}
                                     isProductInCompareList={compare.has(item)}
@@ -133,6 +136,8 @@ const CategoryListingPage = ({ response, url, breadcrump }: Props) => {
                         >
                             {isFetchingNextPage && <ProductCardSkeleton />}
                         </div>
+
+                        {!filter && <ShopPagination currentPage={initialPage} totalPages={response.products.meta?.last_page || 1} url={`/category/${url}`} />}
                     </main>
                 </div>
 
@@ -140,9 +145,9 @@ const CategoryListingPage = ({ response, url, breadcrump }: Props) => {
 
                 <div>
                     <div className="max-w-[var(--breakpoint-sm)]">
-                        <h2 className="block text-xl sm:text-2xl lg:text-3xl font-semibold dark:text-white">
+                        <h1 className="block text-xl sm:text-2xl lg:text-3xl font-semibold dark:text-white">
                             {response.category.name}
-                        </h2>
+                        </h1>
                     </div>
                     <span className="block mt-4 text-neutral-500 text-sm sm:text-base dark:text-white">
                         <TextExpander2 text={response.category.description} />

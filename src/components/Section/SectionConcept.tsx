@@ -59,7 +59,7 @@ const SectionConcept: FC<SectionGridMoreExploreProps> = ({
                                     className="object-cover w-full h-full drop-shadow-xl"
                                     fill
                                     sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                                    alt="guaranty"
+                                    alt={item.title}
                                 /></div>
 
                                 <span>{item.title}</span>

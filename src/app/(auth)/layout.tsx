@@ -1,4 +1,5 @@
-"use client"
+import type {Metadata} from "next";
+export const metadata: Metadata = {robots: {index: false, follow: true}};
 import "../globals.css";
 import "@/styles/index.scss";
 import {Suspense} from "react";

@@ -10,6 +10,7 @@ export type DiscountItemResponse = {
     productColor?: ColorResponse,
     discount?: DiscountResponse,
     discount_expire_time: string,
+    discount_expire_time_iso?: string | null,
     discount_expire_time_fa: string,
     created_at: string,
     updated_at: string,

@@ -63,7 +63,7 @@ export default function SectionVideo({
                                         // contain تا پوستر ویدیوی عمودی بریده نشود
                                         className="object-contain w-full h-full drop-shadow-xl"
                                         fill
-                                        alt="vlog"
+                                        alt={item.title}
                                     />
                                 </div>
 

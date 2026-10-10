@@ -1,0 +1,174 @@
+"use client"
+import React from "react";
+import Input from "@/shared/Input/Input";
+import Textarea from "@/shared/Textarea/Textarea";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import {storeContact} from "@/services/api/admin/contact";
+import {toast} from "react-hot-toast";
+import {useApiMutation} from "@/hooks/useApiMutation";
+import {useProvinceCity} from "@/hooks/useProvinceCity";
+import Select from "@/shared/Select/Select";
+import Label from "@/shared/Label/Label";
+import Maps from "@/components/Maps/Maps";
+import {MdEmail} from "react-icons/md";
+import {FaPhone} from "react-icons/fa";
+import {FaLocationCrosshairs, FaLocationDot} from "react-icons/fa6";
+
+const info = [
+    {
+        icon: <FaLocationCrosshairs/>,
+        title: "آدرس",
+        desc: "تهران ، خیابان جمهوری ، بین خیابان دانشگاه و ابوریحان ، ضلع شمال خیابان جمهوری(لاین خط ویژه) ،پلاک 981 ",
+    },
+    {
+        icon: <MdEmail/>,
+        title: "ایمیل",
+        desc: "support@tajhizland.com",
+    },
+    {
+        icon: <FaPhone/>,
+        title: "تلفن",
+        desc: <a
+            href="tel:02166477790"
+        >
+            021-66477790-1
+        </a>,
+    },
+    {
+        icon: <FaLocationDot/>,
+        title: " لوکیشن",
+        desc: <Maps/>,
+    },
+];
+const PageContact = ({}) => {
+    const contactMutation = useApiMutation((form: FormData) =>
+        storeContact({
+            name: form.get("name") as string,
+            mobile: form.get("mobile") as string,
+            concept: form.get("concept") as string,
+            message: form.get("message") as string,
+            city_id: Number(form.get("city_id")),
+            province_id: Number(form.get("province_id")),
+        })
+    );
+
+
+    const {provinces, cities, setProvinceId} = useProvinceCity();
+    const concepts = [
+        "کافه"
+        , "فست فود"
+        , "کافه رستوران"
+        , "رستوران ایرانی"
+        , "آبمیوه بستنی"
+        , "سوخاری"
+        , "سیب زمینی بلژیکی"
+        , "هایپر مارکت"
+        , "سایر"
+    ]
+    return (
+        <div className={`nc-PageContact overflow-hidden dark:bg-slate-900 dark:text-white mb-10`}>
+            <div className="">
+                <h1 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
+                    تماس با ما
+                </h1>
+                <div className="container max-w-7xl mx-auto">
+                    <div className="shrink-0 grid grid-cols-1 md:grid-cols-2 gap-12 ">
+                        <div className="max-w-sm space-y-8">
+                            {info.map((item, index) => (
+                                <div key={index}>
+                                    <div className={"flex items-center gap-2"}>
+                                        {item.icon}
+                                        <h3 className="uppercase font-semibold text-sm dark:text-neutral-200 tracking-wider">
+                                            {item.title}
+                                        </h3>
+                                    </div>
+                                    <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
+                    {item.desc}
+                  </span>
+                                </div>
+                            ))}
+                        </div>
+                        <div>
+                            <form className="grid grid-cols-1 gap-6" action={(form) => contactMutation.mutate(form)}>
+                                <label className="block">
+                                    <Label>نام</Label>
+
+                                    <Input
+                                        placeholder="نام"
+                                        type="text"
+                                        className="mt-1"
+                                        name="name"
+                                    />
+                                </label>
+                                <label className="block">
+                                    <Label>موبایل</Label>
+
+                                    <Input
+                                        type="text"
+                                        placeholder="موبایل"
+                                        className="mt-1"
+                                        name="mobile"
+
+                                    />
+                                </label>
+                                <label className="block">
+                                    <Label>استان</Label>
+
+                                    <Select name={"province_id"} onChange={(e) => {
+                                        setProvinceId(Number(e.target.value))
+                                    }}>
+                                        <option>انتخاب کنید</option>
+                                        {
+                                            provinces && provinces?.map((item, index) => (
+                                                <option key={index} value={item.id as number}>
+                                                    {item.name}
+                                                </option>
+                                            ))
+                                        }
+                                    </Select>
+                                </label>
+                                <label className="block">
+                                    <Label>شهر</Label>
+                                    <Select name={"city_id"} className={"disabled:cursor-not-allowed"}
+                                            disabled={!cities}>
+                                        {
+                                            cities && cities?.map((item) => (<>
+                                                <option value={item.id}>
+                                                    {item.name}
+                                                </option>
+                                            </>))
+                                        }
+                                    </Select>
+                                </label>
+                                <label className="block">
+                                    <Label>کانسپت</Label>
+                                    <Select name={"concept"}>
+                                        {
+                                            concepts.map((item, index) => (
+                                                <option value={item} key={index}>
+                                                    {item}
+                                                </option>
+                                            ))
+                                        }
+
+                                    </Select>
+                                </label>
+                                <label className="block">
+                                    <Label>پیام</Label>
+
+                                    <Textarea name="message" className="mt-1" rows={6}/>
+                                </label>
+                                <div>
+                                    <ButtonPrimary type="submit">ارسال پیام</ButtonPrimary>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    );
+};
+export default PageContact;

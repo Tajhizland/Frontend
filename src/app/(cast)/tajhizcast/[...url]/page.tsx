@@ -1,4 +1,8 @@
-import {findCast, paginatedCast} from "@/services/api/shop/cast";
+import type {Metadata} from "next";
+import {normalizeContentHeadings} from "@/utils/seo";
+import JsonLd from "@/components/Seo/JsonLd";
+import {buildMetadata, assetUrl, absoluteUrl, metaDescription, isoDate} from "@/utils/seo";
+import {findCast} from "@/services/server/shop";
 import AdaptiveVideoPlayer from "@/shared/VideoPlayer/AdaptiveVideoPlayer";
 import React from "react";
 import Player from "@/shared/Player/Player";
@@ -10,11 +14,24 @@ interface CastPageProps {
     }>,
 }
 
+export async function generateMetadata(props: CastPageProps): Promise<Metadata> {
+    const {url} = await props.params;
+    const cast = await findCast(decodeURIComponent(url.join("/")));
+    return buildMetadata({title: cast.title, description: cast.description || cast.title,
+        path: `/tajhizcast/${cast.url}`, image: assetUrl("cast/image", cast.image)});
+}
+
 export default async function page(props: CastPageProps) {
     const params = await props.params;
     let response = await findCast(decodeURIComponent(params.url.join("/")));
     return (
         <div className={"container py-2 lg:pb-28 lg:pt-5 space-y-10"}>
+            <JsonLd data={{"@context": "https://schema.org", "@type": "PodcastEpisode",
+                name: response.title, description: metaDescription(response.description || response.title),
+                url: absoluteUrl(`/tajhizcast/${response.url}`), image: assetUrl("cast/image", response.image),
+                datePublished: isoDate(response.created_at),
+                ...(response.audio && {associatedMedia: {"@type": "AudioObject", contentUrl: assetUrl("cast/audio", response.audio)}}),
+            }} />
             <CastLinkSection />
             <h1 className={"font-bold text-xl md:text-4xl "}>
                 {
@@ -36,8 +53,9 @@ export default async function page(props: CastPageProps) {
                 </div>
             </div>
 
-            <div dangerouslySetInnerHTML={{__html: (response.description)}}/>
+            <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings((response.description))}}/>
 
         </div>
     )
 }
+export const revalidate = 300;

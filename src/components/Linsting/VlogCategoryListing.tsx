@@ -1,4 +1,5 @@
 "use client";
+import ShopPagination from "@/shared/Pagination/ShopPagination";
 import React, {useRef, useEffect, useState} from "react";
 import {VlogCategoryListingResponse} from "@/services/types/vlog";
 import {VlogListingResponse} from "@/services/types/vlog";
@@ -15,36 +16,35 @@ import VlogCardSkeleton from "@/components/Skeleton/VlogCardSkeleton";
 import {FaCirclePlay} from "react-icons/fa6";
 import VlogMiniPost from "@/components/Vlog/VlogMiniPost";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
 import SectionSingleBanner from "@/components/Section/SectionSingleBanner";
 import {GoEye} from "react-icons/go";
 import {MdOutlineOndemandVideo} from "react-icons/md";
 import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
 export default function VlogCategoryListing({response, search, url}: { response: VlogCategoryListingResponse, search?: string, url: string }) {
-    const router = useRouter();
-    const [filter, setFilter] = useState<string>(search ? ("filter[search]=" + search) : "");
-    const [page, setPage] = useState<number>(1);
+    const [filter, setFilter] = useState<string>(search ? new URLSearchParams({"filter[search]": search}).toString() : "");
 
     // استفاده از useInfiniteQuery برای بارگذاری داده‌ها به صورت بی‌پایان
+    const initialPage = response.listing.meta?.current_page || 1;
+    const initialFilter = search ? new URLSearchParams({"filter[search]": search}).toString() : "";
     const {
         data,
         fetchNextPage,
         hasNextPage,
         isFetchingNextPage,
     } = useInfiniteQuery({
-        queryKey: ["vlogs", filter],
+        queryKey: ["vlogs", filter, url, initialPage],
         queryFn: // فیلترها را در queryKey ارسال می‌کنیم
         async ({pageParam, queryKey}) => {
-            const filters = queryKey[1]; // دریافت فیلترها از queryKey
+            const filters = filter; // دریافت فیلترها از queryKey
             const result = await getVlogByCategoryPaginated(url, pageParam, filters);
             return result.listing;
         },
-        initialPageParam: 1,
-        initialData: {
+        initialPageParam: (filter === initialFilter ? initialPage : 1),
+        initialData: filter === initialFilter ? {
                 pages: [response.listing],
-                pageParams: [1],
-            },
+                pageParams: [initialPage],
+            } : undefined,
             getNextPageParam: (lastPage) =>
                 //@ts-ignore
                 lastPage?.meta?.current_page < lastPage?.meta?.last_page
@@ -56,11 +56,7 @@ export default function VlogCategoryListing({response, search, url}: { response:
 
     const sentinelRef = useInfiniteScroll({hasNextPage, isFetchingNextPage, fetchNextPage});
 
-    useEffect(() => {
-        if (page > 1) {
-            router.replace(`?page=${page}`, {scroll: false});
-        }
-    }, [page, router]);
+
 
     const allVlogs = data?.pages.flatMap((page) => page.data) || [];
 
@@ -78,7 +74,7 @@ export default function VlogCategoryListing({response, search, url}: { response:
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${item.poster}`}
                         className="object-cover w-full h-full "
                         fill
-                        alt="vlog"
+                        alt={item.title}
                     />
                     <div
                         className="absolute top-0 left-0 bg-black/70 w-full h-full group-hover:flex justify-center items-center hidden">
@@ -99,7 +95,7 @@ export default function VlogCategoryListing({response, search, url}: { response:
 
     const handleFilterChange = (filters: string) => {
         setFilter(filters); // فیلتر را در state تغییر می‌دهیم
-        setPage(1)
+
     };
 
     return (
@@ -124,7 +120,7 @@ export default function VlogCategoryListing({response, search, url}: { response:
                                                                  src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog-category/${item.icon}`}
                                                                  className="object-cover w-full h-full drop-shadow-xl"
                                                                  fill
-                                                                 alt="vlog"
+                                                                 alt={item.name}
                                                              />
                                                          </div>
                                                          :
@@ -163,12 +159,14 @@ export default function VlogCategoryListing({response, search, url}: { response:
 
                         {/* Infinite Scroll Loader */}
 
+
+                        {!filter && <ShopPagination currentPage={initialPage} totalPages={response.listing.meta?.last_page || 1} url={`/vlog/category/${url}`} />}
                     </main>
                     {/* HEADING */}
                     <div className="max-w-[var(--breakpoint-sm)]">
-                        <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
+                        <h1 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold dark:text-white">
                             {response.category.name}
-                        </h2>
+                        </h1>
                     </div>
                 </div>
             </div>

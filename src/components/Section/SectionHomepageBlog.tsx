@@ -44,7 +44,7 @@ const SectionHomepageBlog: FC<SectionHomepageBlogProps> = ({
                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/blog/${item.img}`}
                                         className="object-fill w-full h-full rounded-sm group-hover:opacity-80"
                                         fill
-                                        alt="vlog"
+                                        alt={item.title}
                                     />
                                     <div className="flex flex-col gap-y-2 mt-2 p-2">
                                         <span

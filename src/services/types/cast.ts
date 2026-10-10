@@ -1,11 +1,11 @@
-import {Identified, Timestamps} from "@/services/http";
+import {Identified, Timestamps, Paginated} from "@/services/http";
 import {VlogResponse} from "@/services/types/vlog";
 import {CategoryResponse} from "@/services/types/category";
 import {CastCategoryResponse} from "@/services/types/castCategory";
 import {BannerResponse} from "@/services/types/banner";
 
 export type CastListingResponse = {
-    listing: { data: CastResponse[] };
+    listing: Paginated<CastResponse>;
     mostViewed: { data: CastResponse[] };
     category: { data: CastCategoryResponse[] };
     banner: { data: BannerResponse[] };

@@ -11,7 +11,7 @@ export const findProductByUrl = async <T extends ServerResponse<ProductPageRespo
     url: string
 ) => {
 
-    return axios.post<T, SuccessResponseType<T>>("product/find", {url: url})
+    return axios.post<T, SuccessResponseType<T>>("product/find", {url: url}, {pageRead: true, maxRedirects: 0})
         .then((res) => res?.data?.result?.data)
 };
 export const getDiscountedProducts = async <T extends ServerResponse<DiscountedProductPageResponse>>

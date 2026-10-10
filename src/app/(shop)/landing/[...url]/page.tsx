@@ -1,5 +1,7 @@
+import {buildMetadata, assetUrl, absoluteUrl, metaDescription, isoDate} from "@/utils/seo";
+import {normalizeContentHeadings} from "@/utils/seo";
 import React from "react";
-import {findLandingByUrl} from "@/services/api/shop/landing";
+import {findLandingByUrl} from "@/services/server/shop";
 
 import {Metadata} from "next";
 //@ts-ignore
@@ -17,26 +19,10 @@ interface ProductPageProps {
 }
 
 export async function generateMetadata(props: ProductPageProps): Promise<Metadata> {
-    const params = await props.params;
-    const response = await findLandingByUrl(decodeURIComponent(params.url.join("/")))
-
-    return {
-        title: response.title,
-        description: stripHTML(response.description),
-        twitter: {
-            title: response.title,
-            description: stripHTML(response.description),
-            images: logo.src,
-        },
-        openGraph: {
-            title: response.title,
-            description: stripHTML(response.description),
-            images: logo.src,
-            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/landing/${response.url}`,
-            type: "website",
-        },
-        robots: "index , follow",
-    }
+    const {url} = await props.params;
+    const response = await findLandingByUrl(decodeURIComponent(url.join("/")));
+    return buildMetadata({title: response.title, description: response.description || response.title,
+        path: `/landing/${response.url}`, image: undefined});
 }
 
 export default async function page(props: ProductPageProps) {
@@ -58,7 +44,7 @@ export default async function page(props: ProductPageProps) {
                     <span
                         className=" text-neutral-900 font-semibold   md:!leading-[120%] mt-10   dark:text-neutral-100 max-w-4xl "
                     >
-                        <div dangerouslySetInnerHTML={{__html: (response.description)}}/>
+                        <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings((response.description))}}/>
                     </span>
                 </div>
             </div>
@@ -95,3 +81,5 @@ export default async function page(props: ProductPageProps) {
         </>
     )
 }
+
+export const revalidate = 300;
