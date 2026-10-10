@@ -10,7 +10,7 @@ export const getInstagramPostPaginated = async <T extends ServerResponse<Instagr
 /**
  * چون این درخواست POST است، اینترسپتور یک ۴۰۴ را مثل خطای عملیات toast می‌کند؛
  * لینک اشتراک‌گذاریِ پستِ حذف‌شده نباید پیام «عملیات انجام نشد» بدهد،
- * پس خطا خاموش می‌ماند و خود فید پیام مناسب را نشان می‌دهد.
+ * پس خطا خاموش می‌ماند و صفحهٔ پست وضعیت مناسب را نشان می‌دهد.
  */
 export const findInstagramPostById = async <T extends ServerResponse<InstagramPostPageResponse>>
 (id: number | string) => {

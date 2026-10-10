@@ -2,14 +2,14 @@
 
 import {useState} from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {LuClapperboard, LuLayers, LuPlay} from "react-icons/lu";
 import logo from "@/images/lightSmallLogo.png";
 import {InstagramPostResponse} from "@/services/types/instagramPost";
-import {INSTAGRAM_ACCOUNT} from "./helpers";
+import {INSTAGRAM_ACCOUNT, instagramPostPath} from "./helpers";
 
-export default function InstagramExploreCard({post, onOpen, eager}: {
+export default function InstagramExploreCard({post, eager}: {
     post: InstagramPostResponse;
-    onOpen: () => void;
     eager?: boolean;
 }) {
     const [failedImage, setFailedImage] = useState<string | null>(null);
@@ -22,8 +22,8 @@ export default function InstagramExploreCard({post, onOpen, eager}: {
     const caption = post.caption?.trim().slice(0, 100) || `پست ${INSTAGRAM_ACCOUNT}`;
 
     return (
-        <button type="button" onClick={onOpen} aria-haspopup="dialog" aria-label={`باز کردن ${caption}`}
-                className="group relative aspect-square w-full overflow-hidden bg-neutral-100 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 dark:bg-neutral-800">
+        <Link href={instagramPostPath(post.id)} prefetch={false} aria-label={`باز کردن ${caption}`}
+                className="group relative block aspect-[3/4] w-full overflow-hidden bg-neutral-100 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 dark:bg-neutral-800">
             {cover && failedImage !== cover ? (
                 <Image src={cover} alt={caption} fill
                        sizes="(max-width: 960px) 33vw, 320px"
@@ -40,6 +40,6 @@ export default function InstagramExploreCard({post, onOpen, eager}: {
                 {media.length > 1 ? <LuLayers className="h-5 w-5 fill-black/20 sm:h-6 sm:w-6"/>
                     : first.type === "video" ? <LuClapperboard className="h-5 w-5 fill-black/20 sm:h-6 sm:w-6"/> : null}
             </span>
-        </button>
+        </Link>
     );
 }

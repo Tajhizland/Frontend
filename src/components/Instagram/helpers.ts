@@ -1,14 +1,16 @@
 /** نام حسابی که بالای هر پست نمایش داده می‌شود */
 export const INSTAGRAM_ACCOUNT = "tajhizland_com";
 
-/** پارامتری که یک پست خاص را در فید باز می‌کند؛ دکمه‌ی اشتراک‌گذاری همین را می‌سازد */
+/** برای حفظ سازگاری لینک‌های اشتراک‌گذاری قدیمی */
 export const POST_QUERY_PARAM = "post";
 
 const origin = () =>
     process.env.NEXT_PUBLIC_WEBSITE_URL || (typeof window !== "undefined" ? window.location.origin : "");
 
+export const instagramPostPath = (id: number | string) => `/instagram/${id}`;
+
 export const instagramPostLink = (id: number) =>
-    `${origin()}/instagram?${POST_QUERY_PARAM}=${id}`;
+    `${origin().replace(/\/+$/, "")}${instagramPostPath(id)}`;
 
 /**
  * زمان انتشار به سبک اینستاگرام. برای پست‌های قدیمی‌تر از یک ماه،
