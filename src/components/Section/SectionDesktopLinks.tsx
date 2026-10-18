@@ -4,6 +4,7 @@ import Image, {StaticImageData} from "next/image";
 import React from "react";
 import desktopStock from "@/images/desktopStock.png";
 import desktopVlog from "@/images/desktopVlog.png";
+import desktopInstagram from "@/images/desktopInstagram.svg";
 import desktopCast from "@/images/desktopCast.png";
 import desktopBlog from "@/images/desktopBlog.png";
 import desktopStart from "@/images/desktopStart.png";
@@ -21,6 +22,7 @@ const STOCK_HREF = "/product/stock" as Route;
 const DEFAULT_ITEMS: DesktopLinkItem[] = [
     {title: "کارکرده", image: desktopStock, href: STOCK_HREF},
     {title: "ولاگ", image: desktopVlog, href: "/vlog"},
+    {title: "اینستگرام", image: desktopInstagram, href: "/instagram"},
     {title: "تجهیزکست", image: desktopCast, href: "/tajhizcast"},
     {title: "بلاگ", image: desktopBlog, href: "/news"},
     {title: "راه اندازی", image: desktopStart, href: "/sample"},
@@ -41,7 +43,7 @@ export default function SectionDesktopLinks({className = "", items = DEFAULT_ITE
             .map((item) => ({...item, hideOnMobile: false}));
 
     return (
-        <div className={`flex py-5 items-center justify-center gap-2 sm:gap-10 ${className}`}>
+        <div className={`flex flex-wrap py-5 items-center justify-center gap-x-2 gap-y-4 sm:gap-10 ${className}`}>
             {visibleItems.map((item, index) => (
                 <Link
                     key={index}
