@@ -1,4 +1,5 @@
 import {Identified, Paginated, Timestamps} from "@/services/http";
+import {InstagramProfileResponse} from "./instagramProfile";
 
 export type InstagramMediaType = "image" | "video";
 
@@ -25,10 +26,12 @@ export interface InstagramPostResponse extends Identified, Timestamps {
 
 export type InstagramPostListingResponse = {
     listing: Paginated<InstagramPostResponse>;
+    profile: InstagramProfileResponse;
 };
 
 export type InstagramPostPageResponse = {
     post: InstagramPostResponse;
+    profile: InstagramProfileResponse;
 };
 
 export interface InstagramPostStoreDto {

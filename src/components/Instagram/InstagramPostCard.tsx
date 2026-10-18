@@ -1,18 +1,19 @@
 "use client";
 
 import React, {useState, useSyncExternalStore} from "react";
-import Image from "next/image";
 import Link from "next/link";
 import {FiBookmark, FiHeart} from "react-icons/fi";
-import logo from "@/images/lightSmallLogo.png";
 import {InstagramPostResponse} from "@/services/types/instagramPost";
+import {InstagramProfileResponse} from "@/services/types/instagramProfile";
+import InstagramAvatar from "./InstagramAvatar";
 import InstagramCarousel from "@/components/Instagram/InstagramCarousel";
 import InstagramShareButton from "@/components/Instagram/InstagramShareButton";
-import {INSTAGRAM_ACCOUNT, instagramPostLink, relativeTime} from "@/components/Instagram/helpers";
+import {instagramPostLink, relativeTime} from "@/components/Instagram/helpers";
 import {usePostPreference} from "./usePostPreference";
 
 type Props = {
     post: InstagramPostResponse;
+    profile: InstagramProfileResponse;
     priority?: boolean;
 };
 
@@ -23,7 +24,7 @@ const neverChanges = () => () => undefined;
 const onClient = () => true;
 const onServer = () => false;
 
-export default function InstagramPostCard({post, priority}: Props) {
+export default function InstagramPostCard({post, profile, priority}: Props) {
     const media = post.media ?? [];
     const [index, setIndex] = useState(0);
     const [expanded, setExpanded] = useState(false);
@@ -43,20 +44,20 @@ export default function InstagramPostCard({post, priority}: Props) {
         <article dir="ltr"
             className="mx-auto flex w-full max-w-[600px] flex-col bg-white sm:overflow-hidden sm:rounded-sm sm:border sm:border-neutral-200 dark:bg-neutral-900 sm:dark:border-neutral-800">
             <header dir="rtl" className="flex items-center gap-3 px-4 py-3">
-                <Link href="/instagram" aria-label="پروفایل تجهیزلند"
+                <Link href="/instagram" aria-label={`پروفایل ${profile.name}`}
                     className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-linear-to-tr from-yellow-400 via-rose-500 to-purple-600 p-[2px]">
                     <span
                         className="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-white p-[2px] dark:bg-neutral-900">
-                        <Image src={logo} alt={INSTAGRAM_ACCOUNT} className="h-full w-full object-contain"/>
+                        <InstagramAvatar profile={profile} sizes="36px"/>
                     </span>
                 </Link>
                 <div className="flex min-w-0 flex-col leading-tight">
                     <Link href="/instagram" dir="ltr" className="truncate text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                        {INSTAGRAM_ACCOUNT}
+                        {profile.username}
                     </Link>
-                    <span className="mt-1 text-xs text-neutral-500">تجهیزلند</span>
+                    <span dir="auto" className="mt-1 truncate text-xs text-neutral-500">{profile.name}</span>
                 </div>
-                <a href={`https://www.instagram.com/${INSTAGRAM_ACCOUNT}/`} target="_blank" rel="noopener noreferrer"
+                <a href={profile.url} target="_blank" rel="noopener noreferrer"
                    className="ms-auto shrink-0 text-xs font-semibold text-sky-500 hover:text-sky-600">دنبال کردن</a>
             </header>
 
@@ -65,7 +66,7 @@ export default function InstagramPostCard({post, priority}: Props) {
                     media={media}
                     index={index}
                     onIndexChange={setIndex}
-                    alt={caption ? caption.slice(0, 80) : `پست اینستاگرام ${INSTAGRAM_ACCOUNT}`}
+                    alt={caption ? caption.slice(0, 80) : `پست اینستاگرام ${profile.username}`}
                     priority={priority}
                 />
             </div>
@@ -108,7 +109,7 @@ export default function InstagramPostCard({post, priority}: Props) {
             <div dir="rtl" className="min-h-0 px-4 pb-5 text-sm leading-7 wrap-anywhere text-neutral-800 dark:text-neutral-200">
                 {caption && (
                     <>
-                        <Link href="/instagram" dir="ltr" className="inline-block font-semibold">{INSTAGRAM_ACCOUNT}</Link>{" "}
+                        <Link href="/instagram" dir="ltr" className="inline-block font-semibold">{profile.username}</Link>{" "}
                         <span className="whitespace-pre-line">{shown}</span>
                         {isLong && (
                             <button

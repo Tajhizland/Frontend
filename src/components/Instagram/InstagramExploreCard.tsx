@@ -6,10 +6,11 @@ import Link from "next/link";
 import {LuClapperboard, LuLayers, LuPlay} from "react-icons/lu";
 import logo from "@/images/lightSmallLogo.png";
 import {InstagramPostResponse} from "@/services/types/instagramPost";
-import {INSTAGRAM_ACCOUNT, instagramPostPath} from "./helpers";
+import {instagramPostPath} from "./helpers";
 
-export default function InstagramExploreCard({post, eager}: {
+export default function InstagramExploreCard({post, username, eager}: {
     post: InstagramPostResponse;
+    username: string;
     eager?: boolean;
 }) {
     const [failedImage, setFailedImage] = useState<string | null>(null);
@@ -19,7 +20,7 @@ export default function InstagramExploreCard({post, eager}: {
 
     const file = first.type === "video" ? first.cover : first.file;
     const cover = file ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/instagram/${file}` : null;
-    const caption = post.caption?.trim().slice(0, 100) || `پست ${INSTAGRAM_ACCOUNT}`;
+    const caption = post.caption?.trim().slice(0, 100) || `پست ${username}`;
 
     return (
         <Link href={instagramPostPath(post.id)} prefetch={false} aria-label={`باز کردن ${caption}`}

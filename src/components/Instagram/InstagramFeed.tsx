@@ -5,7 +5,6 @@ import {LuGrid3X3} from "react-icons/lu";
 import {getInstagramPostPaginated} from "@/services/api/shop/instagramPost";
 import {InstagramPostListingResponse} from "@/services/types/instagramPost";
 import InstagramExploreCard from "./InstagramExploreCard";
-import {INSTAGRAM_ACCOUNT} from "./helpers";
 import {useInfiniteScroll} from "@/hooks/useInfiniteScroll";
 
 export default function InstagramFeed({response}: {response: InstagramPostListingResponse}) {
@@ -41,7 +40,7 @@ export default function InstagramFeed({response}: {response: InstagramPostListin
 
             <div aria-label="پست‌های اینستاگرام" className="grid grid-cols-3 gap-[3px]">
                 {posts.map((post, index) => (
-                    <InstagramExploreCard key={post.id} post={post} eager={index < 6}/>
+                    <InstagramExploreCard key={post.id} post={post} username={response.profile.username} eager={index < 6}/>
                 ))}
                 {isFetchingNextPage && Array.from({length: 12}, (_, index) => (
                     <div key={index} aria-hidden="true" className="aspect-[3/4] animate-pulse bg-neutral-200 dark:bg-neutral-800"/>
@@ -50,7 +49,7 @@ export default function InstagramFeed({response}: {response: InstagramPostListin
 
             {!posts.length && (
                 <p className="px-4 py-20 text-center text-sm text-neutral-500">
-                    هنوز پستی از {INSTAGRAM_ACCOUNT} منتشر نشده است.
+                    هنوز پستی از {response.profile.username} منتشر نشده است.
                 </p>
             )}
 

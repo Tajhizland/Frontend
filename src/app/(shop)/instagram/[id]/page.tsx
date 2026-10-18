@@ -17,14 +17,14 @@ const getPost = cache(async (id: string) => {
         throw error;
     });
     if (!response?.post?.media?.length) notFound();
-    return response.post;
+    return response;
 });
 
 type Props = {params: Promise<{id: string}>};
 
 export async function generateMetadata({params}: Props) {
     const {id} = await params;
-    const post = await getPost(id);
+    const {post} = await getPost(id);
     const first = post.media?.[0];
     return buildMetadata({
         title: "پست اینستاگرام تجهیزلند",
@@ -36,7 +36,7 @@ export async function generateMetadata({params}: Props) {
 
 export default async function Page({params}: Props) {
     const {id} = await params;
-    const post = await getPost(id);
+    const {post, profile} = await getPost(id);
 
     return (
         <main dir="rtl" className="mx-auto mt-4 mb-12 w-full max-w-[640px] sm:px-5 lg:mt-14">
@@ -47,7 +47,7 @@ export default async function Page({params}: Props) {
                 </Link>
                 <h1 className="text-base font-semibold">پست‌ها</h1>
             </nav>
-            <InstagramPostCard key={post.id} post={post} priority/>
+            <InstagramPostCard key={post.id} post={post} profile={profile} priority/>
         </main>
     );
 }

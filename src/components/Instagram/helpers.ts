@@ -1,5 +1,5 @@
-/** نام حسابی که بالای هر پست نمایش داده می‌شود */
-export const INSTAGRAM_ACCOUNT = "tajhizland_com";
+export const instagramAvatarUrl = (file: string | null): string | undefined =>
+    file ? `${(process.env.NEXT_PUBLIC_IMAGE_BASE_URL ?? "").replace(/\/+$/, "")}/instagram/${file}` : undefined;
 
 /** برای حفظ سازگاری لینک‌های اشتراک‌گذاری قدیمی */
 export const POST_QUERY_PARAM = "post";

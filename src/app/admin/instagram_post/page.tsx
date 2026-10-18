@@ -1,7 +1,7 @@
 "use client";
 
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
-import {LuArrowDownUp, LuPlus} from "react-icons/lu";
+import {LuArrowDownUp, LuPlus, LuSettings} from "react-icons/lu";
 import ToolbarButton from "@/shared/Toolbar/ToolbarButton";
 import Panel from "@/shared/Panel/Panel";
 import PageTitle from "@/shared/PageTitle/PageTitle";
@@ -30,6 +30,9 @@ export default function Page() {
                 مدیریت پست های اینستاگرام
             </PageTitle>
             <PageLink>
+                <ToolbarButton href="/admin/instagram_post/profile" icon={<LuSettings className="w-4 h-4"/>}>
+                    تنظیمات پروفایل
+                </ToolbarButton>
                 <ToolbarButton href="/admin/instagram_post/create" icon={<LuPlus className="w-4 h-4"/>}>
                     ایجاد
                 </ToolbarButton>

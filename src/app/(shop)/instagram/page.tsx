@@ -1,10 +1,9 @@
 import {buildMetadata} from "@/utils/seo";
 import {notFound, redirect} from "next/navigation";
-import Image from "next/image";
-import smallLogo from "@/images/lightSmallLogo.png";
+import InstagramAvatar from "@/components/Instagram/InstagramAvatar";
 import {getInstagramPostPaginated} from "@/services/api/shop/instagramPost";
 import InstagramFeed from "@/components/Instagram/InstagramFeed";
-import {INSTAGRAM_ACCOUNT, instagramPostPath, POST_QUERY_PARAM} from "@/components/Instagram/helpers";
+import {instagramPostPath, POST_QUERY_PARAM} from "@/components/Instagram/helpers";
 
 // فید باید همیشه تازه باشد؛ بدون این، صفحه در زمان build پرِرندر و منجمد می‌شود
 export const dynamic = "force-dynamic";
@@ -20,6 +19,7 @@ export default async function Page({searchParams}: {
         redirect(instagramPostPath(sharedId));
     }
     const response = await getInstagramPostPaginated(1);
+    const {profile} = response;
 
     // نوار ناوبری دسکتاپ داخل هدرِ sticky با `absolute` و `top:100%` می‌نشیند،
     // پس جایی در جریان صفحه نمی‌گیرد و روی ۴۰ پیکسل اول محتوا می‌افتد؛ مثل
@@ -31,20 +31,20 @@ export default async function Page({searchParams}: {
                     className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-linear-to-tr from-yellow-400 via-rose-500 to-purple-600 p-[3px] sm:row-span-2 sm:mx-auto sm:h-36 sm:w-36">
                     <span
                         className="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-white p-1 dark:bg-neutral-900">
-                        <Image src={smallLogo} alt={INSTAGRAM_ACCOUNT} className="h-full w-full object-contain"/>
+                        <InstagramAvatar profile={profile} sizes="(max-width: 640px) 80px, 144px"/>
                     </span>
                 </span>
                 <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
-                    <h1 dir="ltr" className="w-fit max-w-full truncate text-lg font-medium sm:text-2xl">{INSTAGRAM_ACCOUNT}</h1>
-                    <a href={`https://www.instagram.com/${INSTAGRAM_ACCOUNT}/`} target="_blank" rel="noopener noreferrer"
+                    <h1 dir="ltr" className="w-fit max-w-full truncate text-lg font-medium sm:text-2xl">{profile.username}</h1>
+                    <a href={profile.url} target="_blank" rel="noopener noreferrer"
                        className="w-fit rounded-lg bg-sky-500 px-5 py-2 text-xs font-semibold text-white transition hover:bg-sky-600 sm:text-sm">
                         دنبال کردن
                     </a>
                 </div>
                 <div className="col-span-2 space-y-2 text-sm leading-6 sm:col-span-1 sm:col-start-2">
                     <p><strong className="font-semibold">{response.listing.meta.total.toLocaleString("fa-IR")}</strong> پست</p>
-                    <p className="font-semibold">تجهیزلند | تجهیزات کافه و رستوران</p>
-                    <p className="text-neutral-600 dark:text-neutral-400">دنیای تجهیزات حرفه‌ای آشپزخانه، کافه و رستوران</p>
+                    <p dir="auto" className="font-semibold wrap-anywhere">{profile.name}</p>
+                    {profile.bio && <p dir="auto" className="whitespace-pre-line wrap-anywhere text-neutral-600 dark:text-neutral-400">{profile.bio}</p>}
                 </div>
             </header>
             <InstagramFeed response={response}/>

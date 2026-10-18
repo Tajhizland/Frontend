@@ -269,6 +269,11 @@ export const MENU_ITEM: MENU_ITEM_INTERFACE[] = [
         icon: <FaInstagram className="h-6 w-6 text-gray-500"/>,
         sub: [
             {
+                title: "تنظیمات پروفایل",
+                url: "/instagram_post/profile",
+                icon: <FaInstagram className="h-6 w-6 text-gray-500"/>,
+            },
+            {
                 title: "مدیریت پست ها",
                 url: "/instagram_post",
                 icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500"/>,
