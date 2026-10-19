@@ -4,7 +4,7 @@ import Image, {StaticImageData} from "next/image";
 import React from "react";
 import desktopStock from "@/images/desktopStock.png";
 import desktopVlog from "@/images/desktopVlog.png";
-import desktopInstagram from "@/images/desktopInstagram.svg";
+import desktopInstagram from "@/images/desktopInstagram.png";
 import desktopCast from "@/images/desktopCast.png";
 import desktopBlog from "@/images/desktopBlog.png";
 import desktopStart from "@/images/desktopStart.png";
@@ -22,7 +22,7 @@ const STOCK_HREF = "/product/stock" as Route;
 const DEFAULT_ITEMS: DesktopLinkItem[] = [
     {title: "کارکرده", image: desktopStock, href: STOCK_HREF},
     {title: "ولاگ", image: desktopVlog, href: "/vlog"},
-    {title: "اینستگرام", image: desktopInstagram, href: "/instagram"},
+    {title: "اینستاگرام", image: desktopInstagram, href: "/instagram"},
     {title: "تجهیزکست", image: desktopCast, href: "/tajhizcast"},
     {title: "بلاگ", image: desktopBlog, href: "/news"},
     {title: "راه اندازی", image: desktopStart, href: "/sample"},
