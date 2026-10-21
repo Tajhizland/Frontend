@@ -16,6 +16,8 @@ export default function Bell() {
         staleTime: 5000,
     });
 
+    const unreadCount = (data ?? []).filter(item => Number(item.seen) === 0).length;
+
     // لیست نمایش داده شده هنگام باز شدن پنل ثابت می‌ماند؛ چون بعد از seen کردن،
     // اندپوینت unseen دیگر چیزی برنمی‌گرداند و پنل خالی می‌شد.
     const [items, setItems] = useState<NotificationResponse[]>([]);
@@ -25,7 +27,7 @@ export default function Bell() {
     function handleButtonClick(open: boolean) {
         if (open) return;
         setItems(data ?? []);
-        if (data && data.length > 0) {
+        if (unreadCount > 0) {
             seenMutation.mutate();
         }
     }
@@ -62,9 +64,9 @@ export default function Bell() {
                         >
                             <div className={"relative"}>
                                 <BellAlertIcon className="h-6 w-6 text-slate-900"/>
-                                {data && data.length > 0 && <div
+                                {unreadCount > 0 && <div
                                     className={"absolute -right-2 -top-2 bg-rose-600 rounded-full flex justify-center items-start text-white font-bold text-xs w-4 h-4"}>
-                                    {data.length}
+                                    {unreadCount}
                                 </div>}
                             </div>
                         </PopoverButton>
@@ -98,13 +100,14 @@ export default function Bell() {
                                                         <div className={"flex flex-col"}>
                                                             <h4 className={"text-black"}>  {item.title}</h4>
                                                             <p> {item.message}</p>
+                                                            <span className="mt-1 text-xs opacity-70">{item.created_at}{Number(item.seen) === 0 ? " · خوانده نشده" : ""}</span>
 
                                                         </div>
                                                     </Alert>
                                                 </Link>
                                             )) : (
                                                 <p className={"text-center text-sm text-neutral-500 dark:text-neutral-400"}>
-                                                    اعلان جدیدی وجود ندارد
+                                                    اعلانی وجود ندارد
                                                 </p>
                                             )
                                         }

@@ -1,0 +1,41 @@
+.page { padding: 2rem 1rem 4rem; background: #f5f5f5; color: #171717; }
+.toolbar { max-width: 1200px; margin: 0 auto 1.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+.toolbar p { flex: 1; font-weight: 700; }
+.toolbar span { width: 100%; font-size: .8rem; color: #525252; }
+.viewport { max-width: 1248px; margin: auto; overflow-x: auto; border-radius: .75rem; box-shadow: 0 4px 24px #0000000a; background: white; }
+.invoice { min-width: 1000px; padding: 28px; background: #fff; font-size: 12px; line-height: 1.9; color: #171717; }
+.header { display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; gap: 16px; padding-bottom: 26px; }
+.header img { width: 200px; height: auto; }
+.header h1 { font-size: 25px; font-weight: 800; text-align: center; }
+.header > div { text-align: left; font-size: 11px; }
+.party { display: flex; border: 1px solid #333; margin-bottom: 5px; min-height: 82px; }
+.party h2 { width: 50px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; writing-mode: vertical-rl; background: #f1f1f1; border-left: 1px solid #333; font-size: 12px; }
+.details { flex: 1; padding: 12px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-content: center; gap: 8px 20px; }
+.full { grid-column: 1 / -1; }
+.address { grid-column: span 2; }
+.table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.table th, .table td { border: 1px solid #333; padding: 10px 6px; text-align: center; overflow-wrap: anywhere; }
+.table thead th { background: #f1f1f1; font-weight: 500; height: 58px; }
+.table tbody td { height: 64px; }
+.table .product { text-align: right; }
+.table tfoot th, .table tfoot td { padding: 6px; }
+.footer { display: grid; grid-template-columns: 46% 29% 25%; border: 1px solid #333; border-top: 0; min-height: 125px; }
+.orderDetails { display: grid; grid-template-columns: 1fr 1fr; align-content: start; gap: 8px 12px; padding: 14px; }
+.orderDetails p { overflow-wrap: anywhere; }
+.signature { border-right: 1px solid #333; padding: 8px 12px; text-align: center; }
+.signature img { width: 100%; max-width: 300px; height: auto; margin: 12px auto 0; }
+.unit { font-size: 10px; margin-top: 8px; color: #525252; }
+@media print {
+    @page { size: A4 landscape; margin: 10mm; }
+    :global(body):has(.invoice) { background: white !important; }
+    :global(body):has(.invoice) *:not(:has(.invoice)):not(.invoice):not(.invoice *) { display: none !important; }
+    :global(body) *:has(.invoice) { display: block !important; margin: 0 !important; padding: 0 !important; min-height: 0 !important; background: white !important; }
+    .invoice { position: static; width: 100%; min-width: 0; padding: 0; font-size: 10px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .page, .viewport { overflow: visible; background: white; padding: 0; box-shadow: none; }
+    .toolbar { display: none; }
+    .header h1 { font-size: 22px; }
+    .header img { width: 170px; }
+    .table thead { display: table-header-group; }
+    .table tfoot { display: table-row-group; }
+    .table tr, .party, .header, .footer { break-inside: avoid; }
+}

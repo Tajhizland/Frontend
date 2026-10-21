@@ -88,9 +88,9 @@ const SectionHomepageBrand: FC<SectionHomepageBrandProps> = ({
                                 <Link href={"/brand/" + item.url} title={item.name}>
                                     <NcImage
                                         alt={item.name}
-                                        containerClassName="w-full h-full flex justify-center"
+                                        containerClassName="aspect-square w-full flex items-center justify-center rounded-2xl border border-neutral-200 bg-white p-3 sm:p-5"
                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/brand/${item.image}`}
-                                        className="object-cover rounded-2xl w-full h-full"
+                                        className="object-contain w-full h-full"
                                         width={720}
                                         height={720}
                                     />

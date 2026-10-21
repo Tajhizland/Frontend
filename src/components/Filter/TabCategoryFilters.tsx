@@ -4,6 +4,7 @@ import React, {Fragment, useState} from "react";
 import {
     Dialog,
     DialogTitle,
+    DialogPanel,
     Popover,
     PopoverButton,
     PopoverPanel,
@@ -707,10 +708,10 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                 <Transition appear show={isOpenMoreFilter}>
                     <Dialog
                         as="div"
-                        className="fixed inset-0 z-50"
+                        className="relative z-[1000]"
                         onClose={closeModalMoreFilter}
                     >
-                        <div className="min-h-screen text-center">
+                        <div className="fixed inset-0 flex items-end justify-center sm:items-center">
                             <TransitionChild
                                 enter="ease-out duration-300"
                                 enterFrom="opacity-0"
@@ -719,19 +720,12 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                             >
-                                <div className="fixed inset-0 bg-black/40 dark:bg-black/60"/>
+                                <div className="absolute inset-0 bg-black/40 dark:bg-black/60" aria-hidden="true"/>
                             </TransitionChild>
 
-                            {/* This element is to trick the browser into centering the modal contents. */}
-                            <span
-                                className="inline-block h-svh align-middle"
-                                aria-hidden="true"
-                            >
-                &#8203;
-              </span>
                             <TransitionChild
                                 as={"div"}
-                                className="inline-block h-svh w-full max-w-4xl"
+                                className="relative z-10 h-dvh w-full sm:max-h-[90dvh] sm:max-w-4xl"
                                 enter="ease-out duration-300"
                                 enterFrom="opacity-0 scale-95"
                                 enterTo="opacity-100 scale-100"
@@ -739,8 +733,8 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <div
-                                    className="inline-flex flex-col w-full text-right align-middle transition-all transform bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 h-full">
+                                <DialogPanel
+                                    className="flex h-full w-full min-h-0 flex-col overflow-hidden bg-white text-right dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 sm:rounded-2xl">
                                     <div
                                         className="relative shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
                                         <DialogTitle
@@ -754,7 +748,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                     </span>
                                     </div>
 
-                                    <div className="grow overflow-y-auto">
+                                    <div className="min-h-0 grow overflow-y-auto overscroll-contain">
                                         <div
                                             className="px-6 sm:px-8 md:px-10 divide-y divide-neutral-200 dark:divide-neutral-800">
                                             {/* --------- */}
@@ -934,7 +928,7 @@ const TabFilters = ({filters,categorys, changeFilter, minPrice, maxPrice}: {
                                             اعمال
                                         </ButtonPrimary>
                                     </div>
-                                </div>
+                                </DialogPanel>
                             </TransitionChild>
                         </div>
                     </Dialog>

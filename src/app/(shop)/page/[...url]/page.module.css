@@ -1,0 +1,36 @@
+.content {
+    max-width: 76rem;
+    margin-inline: auto;
+    font-size: 1rem;
+    line-height: 2.15;
+    overflow-wrap: anywhere;
+}
+.content :where(p, li, div, span) { line-height: inherit; }
+.content :where(p, ul, ol, blockquote, figure, table) { margin-block: 1.25em; }
+.content :where(h2, h3, h4, h5, h6) { font-weight: 700; line-height: 1.65; margin-block: 1.8em .75em; }
+.content h2 { font-size: 1.6rem; }
+.content h3 { font-size: 1.3rem; }
+.content :where(h4, h5, h6) { font-size: 1.1rem; }
+.content :where(img, video, iframe) { max-width: 100% !important; border-radius: .75rem; }
+.content :where(img, video) { height: auto !important; }
+.content :where(figure) { max-width: 100% !important; margin-inline: 0; }
+.content :where(ul, ol) { padding-inline-start: 1.5em; }
+.content ul { list-style: disc; }
+.content ol { list-style: decimal; }
+.content li + li { margin-top: .5em; }
+.content blockquote { border-inline-start: 3px solid #f59e0b; padding: .75em 1.25em; background: #f59e0b0a; border-radius: .5rem; }
+.content table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+.content :where(th, td) { padding: .75em 1em; border: 1px solid #d4d4d4; }
+.content a { color: #b45309; text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 639px) {
+    .content { font-size: .9375rem; line-height: 2; }
+    /* Editors store desktop sizes and spacing inline; normalize those on phones. */
+    .content :where(p, li, div, span, strong, em, a) { font-size: inherit !important; line-height: inherit !important; }
+    .content :where(p, div) { margin: 0 0 1.1em !important; padding: 0 !important; text-indent: 0 !important; }
+    .content :where(div, p, figure, table) { width: auto !important; max-width: 100% !important; min-width: 0 !important; }
+    .content :where(h2, h3, h4, h5, h6) { margin: 1.5em 0 .65em !important; line-height: 1.8 !important; }
+    .content h2, .content h2 * { font-size: 1.25rem !important; }
+    .content h3, .content h3 * { font-size: 1.125rem !important; }
+    .content :where(h4, h5, h6), .content :where(h4, h5, h6) * { font-size: 1rem !important; }
+    .content :where(th, td) { font-size: .8125rem !important; padding: .65em; }
+}
