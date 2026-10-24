@@ -66,7 +66,14 @@ const ColorPriceModal: React.FC<Props> = ({ productId, open, onClose }) => {
         return (
             <>
                 <strong className="text-center mx-auto flex justify-center">{colors?.[0]?.product?.name}</strong>
-                <form action={(form) => saveMutation.mutate(form)}>
+                <form
+                    onSubmit={(event) => {
+                        // A form action resets uncontrolled inputs before the request completes.
+                        event.preventDefault();
+                        if (saveMutation.isPending) return;
+                        saveMutation.mutate(new FormData(event.currentTarget));
+                    }}
+                >
                     {colors?.map((item, index) => (
                         <Fragment key={item.id}>
                             <div className="flex flex-col text-right gap-y-5">
@@ -121,7 +128,7 @@ const ColorPriceModal: React.FC<Props> = ({ productId, open, onClose }) => {
                             <hr className="border-slate-200 my-5" />
                         </Fragment>
                     ))}
-                    <ButtonPrimary loading={saveMutation.isPending}>ذخیره</ButtonPrimary>
+                    <ButtonPrimary type="submit" loading={saveMutation.isPending}>ذخیره</ButtonPrimary>
                 </form>
             </>
         );
