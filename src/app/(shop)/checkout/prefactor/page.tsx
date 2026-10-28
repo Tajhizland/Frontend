@@ -1,8 +1,7 @@
-//@ts-nocheck
 "use client"
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import {setCart, useCart, useUser} from "@/services/globalState/GlobalState";
 import {useQuery} from "@tanstack/react-query";
 import {getCart} from "@/services/api/shop/cart";
@@ -10,6 +9,7 @@ import PreFactorTable from "@/components/Factor/PreFactorTable";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import logoLight from "@/images/lightLogo.png";
+import {findActive} from "@/services/api/shop/address";
 
 export default function PreFactorPage() {
     const [cart] = useCart();
@@ -20,14 +20,24 @@ export default function PreFactorPage() {
         queryFn: () => getCart(),
         staleTime: 5000,
         enabled: !!user,
-        onSuccess: (cartData) => {
-            setCart(cartData);
-        }
     });
-    const contentRef = useRef(undefined);
+    useEffect(() => {
+        if (isSuccess && data) setCart(data);
+    }, [isSuccess, data]);
+
+    const {data: address, isPending: addressPending, isError: addressError} = useQuery({
+        queryKey: ['address'],
+        queryFn: () => findActive(),
+        staleTime: 5000,
+        enabled: !!user,
+    });
+    const buyerName = [user?.name, user?.last_name].filter(Boolean).join(" ") || "—";
+    const buyerAddress = [address?.province?.name, address?.city?.name, address?.address].filter(Boolean).join("، ") || "—";
+    const contentRef = useRef<HTMLDivElement>(null);
     const handleDownloadPDF = async () => {
         try {
             const content = contentRef.current;
+            if (!content || !user || addressPending || addressError) return;
 
             // گرفتن عکس از صفحه با html2canvas
             const canvas = await html2canvas(content, {
@@ -86,6 +96,19 @@ export default function PreFactorPage() {
                                 <span>تهران ، خیابان جمهوری ، بین خیابان دانشگاه و ابوریحان ، ضلع شمال خیابان جمهوری  ،پلاک 981 </span>
                             </div>
                         </div>
+                        <section aria-label="مشخصات مشتری">
+                            <h2 className="my-2">مشخصات مشتری</h2>
+                            <div className="border border-slate-400 grid grid-cols-1 md:grid-cols-3 text-sm gap-5 pt-3 pb-5 px-2 rounded-lg text-neutral-800">
+                                <p><strong>نام و نام خانوادگی:</strong> {buyerName}</p>
+                                <p><strong>کد ملی:</strong> <bdi>{user?.national_code || "—"}</bdi></p>
+                                <p><strong>شماره تماس:</strong> <bdi>{address?.mobile || user?.username || "—"}</bdi></p>
+                                <p><strong>تلفن ثابت:</strong> <bdi>{address?.tell || "—"}</bdi></p>
+                                <p><strong>کد پستی:</strong> <bdi>{address?.zip_code || "—"}</bdi></p>
+                                <p className="md:col-span-3"><strong>نشانی:</strong> {buyerAddress}</p>
+                            </div>
+                            {user && addressPending && <p role="status" className="my-2 text-sm">در حال دریافت مشخصات مشتری…</p>}
+                            {addressError && <p role="alert" className="my-2 text-sm text-red-600">دریافت نشانی مشتری امکان‌پذیر نیست. لطفاً صفحه را دوباره بارگذاری کنید.</p>}
+                        </section>
                         <div className={"my-10 overflow-x-auto border border-slate-400 rounded-lg"}>
                             <PreFactorTable cart={cart}/>
                         </div>
@@ -118,6 +141,7 @@ export default function PreFactorPage() {
                 <ButtonPrimary
                     className={"mt-10"}
                     onClick={handleDownloadPDF}
+                    disabled={!user || addressPending || addressError}
                 >
                     دانلود PDF
                 </ButtonPrimary>

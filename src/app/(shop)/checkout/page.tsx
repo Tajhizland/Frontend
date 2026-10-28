@@ -757,9 +757,9 @@ const CheckoutPage = () => {
                         </div>}
                         {allowSnappay && snappay?.eligible && (
                             <div
-                                className="flex items-center justify-between gap-3 mt-8 p-4 rounded-2xl border border-[#5a2d82]/20 bg-[#f6f2fb] dark:bg-white/5">
-                                <div className="flex items-center gap-3">
-                                    <div className="relative w-14 h-14 shrink-0">
+                                className="flex items-center justify-between gap-3 font-semibold text-slate-900 dark:text-slate-200 text-base pt-8">
+                                <div className="flex items-center gap-2">
+                                    <div className="relative w-8 h-8 shrink-0">
                                         <Image
                                             src={snappBoxLogo}
                                             alt="اسنپ‌پی"
@@ -768,7 +768,7 @@ const CheckoutPage = () => {
                                         />
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                        <strong className="text-sm text-slate-900 dark:text-slate-100">
+                                        <strong className="text-base text-slate-900 dark:text-slate-200">
                                             {snappay.title_message}
                                         </strong>
                                         <span className="text-xs leading-5 text-slate-600 dark:text-slate-300">

@@ -47,6 +47,7 @@ const widgetMenus: WidgetFooterMenu[] = [
         icon: <PiNewspaper className={"w-6 h-6"}/>,
         title: "تجهیزلند بلاگ",
         menus: [
+            {href: "/page/etebari", label: "خرید اقساطی"},
             {href: "/page/tajhizrahandazi", label: "تجهیز و راه اندازی"},
             {href: "/page/mosshvereamozesh", label: "مشاوره و آموزش"},
             {href: "/page/zemanatesalat", label: "ضمانت اصالت کالا"},
