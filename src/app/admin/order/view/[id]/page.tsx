@@ -6,7 +6,6 @@ import {cancelOrder, findById} from "@/services/api/admin/order";
 import {useParams} from "next/navigation";
 import {useQuery} from "@tanstack/react-query";
 import {useState} from "react";
-import {toast} from "react-hot-toast";
 import ConfirmModal from "@/shared/NcModal/ConfirmModal";
 import NcImage from "@/shared/NcImage/NcImage";
 import Prices from "@/components/Price/Prices";
@@ -16,6 +15,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ItemActions from "@/app/admin/order/view/[id]/ItemActions";
 import { toJalali } from "@/utils/jalali";
 import {useApiMutation} from "@/hooks/useApiMutation";
+import OrderInvoice from "@/components/OrderInvoice/OrderInvoice";
 
 export default function Page() {
     const {id} = useParams();
@@ -33,12 +33,7 @@ export default function Page() {
     });
 
     const handlePrint = () => {
-        const printSection = document.getElementById('print');
-        const originalContents = document.body.innerHTML;
-        //@ts-ignore
-        document.body.innerHTML = printSection.innerHTML;
         window.print();
-        document.body.innerHTML = originalContents;
     };
     return (<>
         <Breadcrump breadcrumb={[
@@ -245,6 +240,7 @@ export default function Page() {
             <div className="flex flex-wrap items-center gap-3">
                 <ButtonPrimary
                     onClick={handlePrint}
+                    disabled={!data}
                 >
                     پرینت
                 </ButtonPrimary>
@@ -256,6 +252,10 @@ export default function Page() {
                 </ButtonPrimary>
             </div>
         </Panel>
+
+        <div className="hidden print:block">
+            {data && <OrderInvoice order={data}/>}
+        </div>
 
         <ConfirmModal
             open={openCancel}
