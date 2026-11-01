@@ -25,7 +25,7 @@ export default function OrderInvoice({order}: {order: OrderResponse}) {
                 <tbody>{order.orderItems?.map((item, index) => <tr key={item.id}>
                     <td>{number(index + 1)}</td><td className={styles.product}>{item.product?.name || "—"}</td><td>{item.productColor?.color_name || "—"}</td><td>{number(item.count)}</td><td>{number(item.price)}</td><td>{item.guaranty?.name || "—"}</td><td>{number(item.guaranty_price)}</td><td>{number(item.discount)}</td><td>{number(item.final_price * item.count)}</td>
                 </tr>)}</tbody>
-                <tfoot><tr><th colSpan={2} scope="row">هزینه ارسال</th><td colSpan={7}>{money(order.delivery_price)}</td></tr><tr><th colSpan={2} scope="row">جمع کل</th><td colSpan={7}><strong>{money(order.total_price)}</strong></td></tr></tfoot>
+                <tfoot><tr><th colSpan={2} scope="row">هزینه ارسال</th><td colSpan={7}>{order.delivery_price === 0 ? "ارسال به عهده مشتری" : money(order.delivery_price)}</td></tr><tr><th colSpan={2} scope="row">جمع کل</th><td colSpan={7}><strong>{money(order.total_price)}</strong></td></tr></tfoot>
             </table>
             <footer className={styles.footer}><div className={styles.orderDetails}>
                 <p><strong>وضعیت:</strong> {OrderStatus[Number(order.status)] || "—"}</p><p><strong>روش ارسال:</strong> {order.delivery?.name || "—"}</p><p><strong>تاریخ ثبت:</strong> <bdi>{order.created_at}</bdi></p><p><strong>روش پرداخت:</strong> {order.payment?.name || "—"}</p><p><strong>تاریخ ارسال:</strong> <bdi>{order.delivery_date || "—"}</bdi></p><p><strong>استفاده از کیف پول:</strong> {money(order.use_wallet_price)}</p><p><strong>مبلغ پرداخت از درگاه:</strong> {money(order.final_price)}</p>

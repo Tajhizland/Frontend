@@ -37,6 +37,8 @@ import Input from "@/shared/Input/Input";
 import Label from "@/shared/Label/Label";
 import {check} from "@/services/api/shop/coupon";
 import {CouponResponse} from "@/services/types/coupon";
+import {getDelivery} from "@/services/api/shop/checkout";
+import {availableShipping} from "@/utils/shipping";
 import {useApiMutation} from "@/hooks/useApiMutation";
 
 const CheckoutPage = () => {
@@ -48,8 +50,7 @@ const CheckoutPage = () => {
     const [useWallet, setUseWallet] = useState(false);
     const [coupon, setCoupon] = useState<CouponResponse>();
     const [code, setCode] = useState("");
-    const [shippingMethod, setShippingMethod] = useState(1);
-    const [shippingPrice, setShippingPrice] = useState(0);
+    const [preferredShippingMethod, setShippingMethod] = useState(0);
     const [gateway, setGateway] = useState(1);
 
     // کاربر مهمان برای پرداخت باید ابتدا وارد شود و پس از ورود به همین صفحه بازگردد.
@@ -82,6 +83,17 @@ const CheckoutPage = () => {
         enabled: authorized === true,
     });
 
+    const {data: deliveries, isSuccess: shippingLoaded, isFetching: shippingFetching} = useQuery({
+        queryKey: ['get-shipping-methods'],
+        queryFn: () => getDelivery(),
+        staleTime: 5000,
+        enabled: authorized === true,
+    });
+    const selectedShipping = availableShipping(deliveries, preferredShippingMethod);
+    const shippingMethod = selectedShipping?.id ?? 0;
+    const shippingPrice = selectedShipping?.price ?? 0;
+    const shippingReady = authorized === true && shippingLoaded && !shippingFetching && !!selectedShipping;
+
     useEffect(() => {
         if (useWallet) {
             setGateway(1)
@@ -113,7 +125,10 @@ const CheckoutPage = () => {
     );
 
     const paymentMutation = useApiMutation(
-        () => paymentRequest(useWallet, shippingMethod, shippingPrice, code, gateway),
+        () => {
+            if (!shippingReady) return Promise.reject(new Error("لطفاً منتظر دریافت روش‌های ارسال بمانید."));
+            return paymentRequest(useWallet, shippingMethod, shippingPrice, code, gateway);
+        },
         {
             silent: true,
             onSuccess: (response) => {
@@ -524,7 +539,7 @@ const CheckoutPage = () => {
                         <div className="space-y-8">
                             <ShippingMethod
                                 setShippingMethod={setShippingMethod}
-                                setShippingPrice={setShippingPrice}
+                                deliveries={deliveries}
                                 shippingMethod={shippingMethod}
                                 isActive={tabActive === "ShippingMethod"}
                                 onOpenActive={() => {
@@ -790,7 +805,7 @@ const CheckoutPage = () => {
                         )}
                         <ButtonPrimary className="mt-8 w-full" onClick={() => paymentMutation.mutate()}
                                        loading={paymentMutation.isPending}
-                                       disabled={!allow || !acceptRule || sumDiscountedPrice <= 0 ||
+                                       disabled={!shippingReady || !allow || !acceptRule || sumDiscountedPrice <= 0 ||
                                            exceedsGatewayLimit
                                        }>پرداخت</ButtonPrimary>
 

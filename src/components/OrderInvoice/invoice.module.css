@@ -4,7 +4,7 @@
 .toolbar span { width: 100%; font-size: .8rem; color: #525252; }
 .viewport { max-width: 1248px; margin: auto; overflow-x: auto; border-radius: .75rem; box-shadow: 0 4px 24px #0000000a; background: white; }
 .invoice { min-width: 1000px; padding: 28px; background: #fff; font-size: 12px; line-height: 1.9; color: #171717; }
-.header { display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; gap: 16px; padding-bottom: 26px; }
+.header { display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; gap: 16px; padding: 20px 24px 28px; }
 .header img { width: 200px; height: auto; }
 .header h1 { font-size: 25px; font-weight: 800; text-align: center; }
 .header > div { text-align: left; font-size: 11px; }
@@ -33,6 +33,7 @@
     .invoice { position: static; width: 100%; min-width: 0; padding: 0; font-size: 10px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
     .page, .viewport { overflow: visible; background: white; padding: 0; box-shadow: none; }
     .toolbar { display: none; }
+    .header { padding: 5mm 6mm 7mm; }
     .header h1 { font-size: 22px; }
     .header img { width: 170px; }
     .table thead { display: table-header-group; }

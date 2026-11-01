@@ -37,6 +37,7 @@ import {CouponResponse} from "@/services/types/coupon";
 import snappBoxLogo from "@/images/snappayLogo.svg";
 import walletIcon from "@/images/walletIcon.png";
 import digipayIcon from "@/images/digipayIcon.png";
+import {availableShipping} from "@/utils/shipping";
 import {useApiMutation} from "@/hooks/useApiMutation";
 
 // سقف مبلغی که درگاه بانکی اجازه‌ی پرداختش را می‌دهد (تومان)
@@ -52,7 +53,7 @@ const OnHoldCheckoutPage = () => {
     const [useWallet, setUseWallet] = useState(false);
     const [coupon, setCoupon] = useState<CouponResponse>();
     const [code, setCode] = useState("");
-    const [shippingMethod, setShippingMethod] = useState(0);
+    const [preferredShippingMethod, setShippingMethod] = useState(0);
     const [gateway, setGateway] = useState(1);
     const [expired, setExpired] = useState(false);
     const [tabActive, setTabActive] = useState<
@@ -84,7 +85,7 @@ const OnHoldCheckoutPage = () => {
     });
 
     // روش‌های ارسال روی اقلام همین سفارش حساب می‌شوند، نه سبد خرید فعلی
-    const {data: deliveries} = useQuery({
+    const {data: deliveries, isSuccess: shippingLoaded, isFetching: shippingFetching} = useQuery({
         queryKey: ['on-hold-shipping-methods', onHoldId],
         queryFn: () => onHoldDelivery(onHoldId),
         staleTime: 5000,
@@ -93,18 +94,10 @@ const OnHoldCheckoutPage = () => {
 
     const items: OnHoldCheckoutItem[] = useMemo(() => data?.items ?? [], [data]);
 
-    // اولین روش ارسالِ در دسترس به‌عنوان پیش‌فرض انتخاب می‌شود
-    useEffect(() => {
-        if (deliveries?.length && !shippingMethod) {
-            setShippingMethod(deliveries[0].id);
-        }
-    }, [deliveries]);
-
-    // هزینه‌ی ارسال همیشه از روی روش انتخاب‌شده خوانده می‌شود تا با رفرش لیست از مبلغ واقعی جدا نیفتد
-    const shippingPrice = useMemo(
-        () => deliveries?.find((item) => item.id === shippingMethod)?.price ?? 0,
-        [deliveries, shippingMethod]
-    );
+    const selectedShipping = availableShipping(deliveries, preferredShippingMethod);
+    const shippingMethod = selectedShipping?.id ?? 0;
+    const shippingPrice = selectedShipping?.price ?? 0;
+    const shippingReady = authorized === true && shippingLoaded && !shippingFetching && !!selectedShipping;
 
     useEffect(() => {
         if (useWallet) {
@@ -211,13 +204,15 @@ const OnHoldCheckoutPage = () => {
     });
 
     const paymentMutation = useApiMutation(
-        () =>
-            onHoldCheckoutPayment(onHoldId, {
+        () => {
+            if (!shippingReady) return Promise.reject(new Error("لطفاً منتظر دریافت روش‌های ارسال بمانید."));
+            return onHoldCheckoutPayment(onHoldId, {
                 wallet: useWallet,
                 shippingMethod: shippingMethod,
                 code: coupon ? code : undefined,
                 gateway: gateway,
-            }),
+            });
+        },
         {
             silent: true,
             errorMessage: "خطایی در پرداخت رخ داد",
@@ -415,11 +410,8 @@ const OnHoldCheckoutPage = () => {
                     <div className="w-full">
                         <div className="space-y-8">
                             <ShippingMethod
-                                fetcher={() => onHoldDelivery(onHoldId)}
-                                queryKey={['on-hold-shipping-methods', onHoldId]}
+                                deliveries={deliveries}
                                 setShippingMethod={setShippingMethod}
-                                setShippingPrice={() => {
-                                }}
                                 shippingMethod={shippingMethod}
                                 isActive={tabActive === "ShippingMethod"}
                                 onOpenActive={() => {
@@ -620,7 +612,7 @@ const OnHoldCheckoutPage = () => {
                             onClick={() => paymentMutation.mutate()}
                             disabled={
                                 !allow || !acceptRule || paymentMutation.isPending || expired || remainingSeconds <= 0 ||
-                                !shippingMethod || couponBase <= 0 || exceedsGatewayLimit
+                                !shippingReady || couponBase <= 0 || exceedsGatewayLimit
                             }
                         >
                             پرداخت

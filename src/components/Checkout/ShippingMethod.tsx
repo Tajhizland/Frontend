@@ -1,9 +1,7 @@
 "use client";
 
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useState} from "react";
 import Radio from "@/shared/Radio/Radio";
-import {useQuery} from "@tanstack/react-query";
-import {getDelivery} from "@/services/api/shop/checkout";
 import {DeliveryResponse} from "@/services/types/delivery";
 import {FaTruck} from "react-icons/fa";
 import {FaSignsPost} from "react-icons/fa6";
@@ -16,11 +14,7 @@ interface Props {
     onCloseActive: () => void;
     onOpenActive: () => void;
     setShippingMethod: (n: number) => void;
-    setShippingPrice: (n: number) => void;
-    /** منبع روش‌های ارسال. پیش‌فرض: روش‌های سبد خرید */
-    fetcher?: () => Promise<DeliveryResponse[] | undefined>;
-    /** کلید کش react-query. وقتی fetcher سفارشی می‌دهی حتماً کلید جدا بده */
-    queryKey?: any[];
+    deliveries?: DeliveryResponse[];
 }
 
 const ShippingMethod: FC<Props> = ({
@@ -28,33 +22,17 @@ const ShippingMethod: FC<Props> = ({
                                        onCloseActive,
                                        setShippingMethod,
                                        shippingMethod,
-                                       setShippingPrice,
                                        onOpenActive,
-                                       fetcher,
-                                       queryKey,
+                                       deliveries,
                                    }) => {
-    const [mothodActive, setMethodActive] = useState<number>(shippingMethod);
     const [open, setOpen] = useState(false);
-    const {data: data} = useQuery({
-        queryKey: queryKey ?? ['get-shipping-methods'],
-        queryFn: () => (fetcher ?? getDelivery)(),
-        staleTime: 5000,
-    });
-
-
-    useEffect(() => {
-        if (data)
-            setShippingPrice(data?.[0]?.price ?? 0);
-    }, [data]);
-
-
-    const selectedItem = data?.find((item) => item.id === mothodActive) ?? data?.[0];
+    const selectedItem = deliveries?.find((item) => item.id === shippingMethod);
 
     const priceLabel = (price?: number) =>
         price === 0 ? "(هزینه ارسال با مشتری)" : (price ?? 0).toLocaleString() + " تومان ";
 
     const renderItem = (item: DeliveryResponse) => {
-        const active = mothodActive === item.id;
+        const active = shippingMethod === item.id;
         return (
             <label
                 htmlFor={item.name}
@@ -64,11 +42,9 @@ const ShippingMethod: FC<Props> = ({
                     <Radio
                         name="shipping-method"
                         id={item.name}
-                        defaultChecked={active}
+                        checked={active}
                         onChange={() => {
-                            setMethodActive(item.id as any);
                             setShippingMethod(item.id);
-                            setShippingPrice(item.price);
                         }}
                     />
                     <div
@@ -107,10 +83,10 @@ const ShippingMethod: FC<Props> = ({
             <div className="flex items-center justify-between mt-4">
                 <div className="flex items-center gap-2 text-slate-700 dark:text-slate-200">
                     <FaTruck className="text-slate-400"/>
-                    <span>{selectedItem?.name}</span>
+                    <span>{selectedItem?.name ?? "روش ارسال در دسترس نیست"}</span>
                 </div>
                 <span className="text-emerald-600 text-sm">
-                    {priceLabel(selectedItem?.price)}
+                    {selectedItem ? priceLabel(selectedItem.price) : "—"}
                 </span>
             </div>
 
@@ -122,7 +98,7 @@ const ShippingMethod: FC<Props> = ({
                 contentExtraClass="max-w-2xl"
                 renderContent={() => (
                     <div className="divide-y divide-slate-100 dark:divide-slate-700">
-                        {data && data.map((item) => (
+                        {deliveries && deliveries.map((item) => (
                             <div key={item.id}>
                                 {renderItem(item)}
                             </div>

@@ -208,7 +208,7 @@ export default function Page() {
                         <div>
                             <span className="block text-gray-500 mb-1">هزینه ارسال</span>
                             <span className="font-medium">
-                    {data?.delivery_price === 0 ? "رایگان" : <Prices price={data?.delivery_price} />}
+                    {data?.delivery_price === 0 ? "ارسال به عهده مشتری" : <Prices price={data?.delivery_price} />}
                 </span>
                         </div>
 
