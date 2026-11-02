@@ -6,6 +6,7 @@ import Image from "next/image";
 import React, {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {OnHoldOrderResponse} from "@/services/types/onHoldOrder";
+import {isOnHoldOrderRejected} from "@/utils/onHoldOrder";
 import Counter2 from "@/components/Counter/Counter2";
 import Badge from "@/shared/Badge/Badge";
 import Prices from "@/components/Price/Prices";
@@ -83,6 +84,7 @@ const AccountOrder = () => {
 
 
     const renderOrder = (item: OnHoldOrderResponse) => {
+        const rejected = isOnHoldOrderRejected(item);
         return (
             <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
                 <div
@@ -92,13 +94,13 @@ const AccountOrder = () => {
                         <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 sm:mt-2">
                             <span>{toJalali(item.created_at)}</span>
                             <span className="mx-2">·</span>
-                            <Badge color={"blue"} name={OnHoldOrderStatus[Number(item.status)]}/>
+                            <Badge color={rejected ? "red" : "blue"} name={rejected ? "رد شده" : OnHoldOrderStatus[Number(item.status)]}/>
                             {
-                                (item.status == 1 && item?.order && item?.order?.status < 3 && item.expire_date_time * 1000 < Date.now()) ?
+                                (!rejected && item.status == 1 && item?.order && item?.order?.status < 3 && item.expire_date_time * 1000 < Date.now()) ?
                                     <Badge color={"red"} name={"زمان پرداخت منقضی شده"}/> : ""
                             }
                             {
-                                (item.status == 1 && item?.order && item?.order?.status > 5 && item.expire_date_time * 1000 < Date.now()) ?
+                                (!rejected && item.status == 1 && item?.order && item?.order?.status > 5 && item.expire_date_time * 1000 < Date.now()) ?
                                     <Badge color={"green"} name={"پرداخت شده"}/> : ""
                             }
 
@@ -106,7 +108,7 @@ const AccountOrder = () => {
                     </div>
 
                     {
-                        (item.status == 1 && item.expire_date_time * 1000 > Date.now()) ?
+                        (!rejected && item.status == 1 && item.expire_date_time * 1000 > Date.now()) ?
                             <div className={"flex flex-col gap-y-2"}>
                                 <div
                                     className="flex flex-col items-center font-semibold text-slate-900 dark:text-slate-200 text-xs  ">

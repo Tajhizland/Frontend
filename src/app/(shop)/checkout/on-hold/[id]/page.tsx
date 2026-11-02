@@ -20,6 +20,7 @@ import Checkbox from "@/shared/Checkbox/Checkbox";
 import Input from "@/shared/Input/Input";
 import Label from "@/shared/Label/Label";
 import MySwitch from "@/shared/Switch/MySwitch";
+import {isOnHoldOrderRejected} from "@/utils/onHoldOrder";
 import Counter2 from "@/components/Counter/Counter2";
 import {Alert} from "@/shared/Alert/Alert";
 import {useUser} from "@/services/globalState/GlobalState";
@@ -192,6 +193,8 @@ const OnHoldCheckoutPage = () => {
         enabled: authorized === true && allowSnappay && snappayAmount > 0,
     });
 
+    const rejected = data ? isOnHoldOrderRejected(data) : false;
+
     const remainingSeconds = data?.expire_date_time
         ? Math.floor((data.expire_date_time * 1000 - Date.now()) / 1000)
         : 0;
@@ -205,7 +208,7 @@ const OnHoldCheckoutPage = () => {
 
     const paymentMutation = useApiMutation(
         () => {
-            if (!shippingReady) return Promise.reject(new Error("لطفاً منتظر دریافت روش‌های ارسال بمانید."));
+            if (rejected || !shippingReady) return Promise.reject(new Error("لطفاً منتظر دریافت روش‌های ارسال بمانید."));
             return onHoldCheckoutPayment(onHoldId, {
                 wallet: useWallet,
                 shippingMethod: shippingMethod,
@@ -363,7 +366,8 @@ const OnHoldCheckoutPage = () => {
                                 اقلام این سفارش پس از تایید مدیریت قفل شده و قابل تغییر نیست؛ اما می‌توانید آدرس،
                                 روش ارسال، کد تخفیف و روش پرداخت را انتخاب کنید.
                             </span>
-                            {remainingSeconds > 0 && !expired &&
+                            {rejected && <span className="font-semibold text-red-600">رد شده</span>}
+                            {!rejected && remainingSeconds > 0 && !expired &&
                                 <span className="flex items-center gap-1 font-semibold">
                                     مهلت پرداخت:
                                     <Counter2 initialSeconds={remainingSeconds} end={() => setExpired(true)}/>
@@ -611,7 +615,7 @@ const OnHoldCheckoutPage = () => {
                             className="mt-8 w-full"
                             onClick={() => paymentMutation.mutate()}
                             disabled={
-                                !allow || !acceptRule || paymentMutation.isPending || expired || remainingSeconds <= 0 ||
+                                rejected || !allow || !acceptRule || paymentMutation.isPending || expired || remainingSeconds <= 0 ||
                                 !shippingReady || couponBase <= 0 || exceedsGatewayLimit
                             }
                         >

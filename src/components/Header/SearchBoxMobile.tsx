@@ -11,6 +11,7 @@ import {useRouter} from "next/navigation";
 import Logo from "@/shared/Logo/Logo";
 import Image from "next/image";
 import {MdOutlineOndemandVideo} from "react-icons/md";
+import SearchBrandLink from "@/components/Header/SearchBrandLink";
 import SearchCategoryLink from "@/components/Header/SearchCategoryLink";
 import ButtonClose from "@/shared/Button/ButtonClose";
 import {useSearchQuery} from "@/hooks/useSearchQuery";
@@ -130,6 +131,14 @@ const SearchBoxMobile: React.FC<NavMobileProps> = ({
                                 ))}
                                 <hr/>
                             </>}
+                            {data.data?.brands?.data?.map((item) => (
+                                <SearchBrandLink
+                                    key={item.id}
+                                    brand={item}
+                                    onClick={onClickClose}
+                                />
+                            ))}
+                            {!!data.data?.brands?.data?.length && <hr/>}
                             <strong className={"text-center py-4"}>
                                   محصولات
                             </strong>

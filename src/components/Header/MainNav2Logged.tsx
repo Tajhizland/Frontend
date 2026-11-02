@@ -18,6 +18,7 @@ import SearchBar from "@/components/Header/SearchBar";
 import VlogLink from "@/components/Header/VlogLink";
 import BlogLink from "@/components/Header/BlogLink";
 import {MdOutlineOndemandVideo} from "react-icons/md";
+import SearchBrandLink from "@/components/Header/SearchBrandLink";
 import SearchCategoryLink from "@/components/Header/SearchCategoryLink";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
@@ -180,6 +181,14 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                                 ))}
                                 <hr/>
                             </>}
+                            {searchResults?.brands?.data?.map((item) => (
+                                <SearchBrandLink
+                                    key={item.id}
+                                    brand={item}
+                                    onClick={() => setShowSearchForm(false)}
+                                />
+                            ))}
+                            {!!searchResults?.brands?.data?.length && <hr/>}
                             <strong className={"text-center py-4"}>
                                 محصولات
                             </strong>
