@@ -219,9 +219,8 @@ export default function CartDropdown() {
                             className="hidden md:block absolute z-10 w-screen max-w-sm sm:max-w-lg px-4 mt-3.5 -left-28 sm:left-0 sm:px-0">
                             <div
                                 className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/10">
-                                <div className="relative bg-white dark:bg-neutral-800">
-                                    <div className="max-h-[60vh] p-5 overflow-y-auto hiddenScrollbar">
-                                        <OpenOnHoldOrders compact onNavigate={close}/>
+                                <div className="relative max-h-[75vh] overflow-y-auto overscroll-contain bg-white hiddenScrollbar dark:bg-neutral-800">
+                                    <div className="p-5">
                                         <h3 className="text-base font-semibold">
                                             سبد خرید فعلی
                                         </h3>
@@ -255,6 +254,9 @@ export default function CartDropdown() {
                                             </ButtonPrimary>
                                         </div>
                                     </div>}
+                                    <div className="p-5 empty:hidden">
+                                        <OpenOnHoldOrders compact onNavigate={close}/>
+                                    </div>
                                 </div>
                             </div>
                         </PopoverPanel>

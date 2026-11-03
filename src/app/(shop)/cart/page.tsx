@@ -229,8 +229,6 @@ const CartPage = () => {
                     </div>
                 </div>
 
-                <OpenOnHoldOrders/>
-
                 <h2 className="mb-6 mt-10 text-lg font-semibold">سبد خرید فعلی</h2>
 
                 {cart.length > 0 ? <div className="flex flex-col lg:flex-row">
@@ -336,6 +334,10 @@ const CartPage = () => {
                     <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">برای شروع خرید، محصولات موردنظرتان را به سبد اضافه کنید.</p>
                     <Link href="/" className="mt-5 inline-flex rounded-xl bg-slate-900 px-5 py-3 text-sm font-medium text-white dark:bg-slate-100 dark:text-slate-900">ادامه خرید</Link>
                 </div>}
+
+                <div className="mt-10 border-t border-slate-200 pt-8 empty:hidden dark:border-slate-700">
+                    <OpenOnHoldOrders/>
+                </div>
             </main>
         </div>
     );

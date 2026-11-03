@@ -21,22 +21,17 @@ export default function OpenOnHoldOrders({compact = false, onNavigate}: Props) {
         refetchInterval: 60000,
     });
 
-    // Remove expired approvals while the cart stays open, even between refreshes.
+    // Use the deadline itself so the countdown stays accurate after returning to the tab.
     useEffect(() => {
-        const deadlines = (data ?? [])
-            .filter((item) => Number(item.status) === 1 && item.expire_date_time)
-            .map((item) => Number(item.expire_date_time) * 1000)
-            .filter((deadline) => deadline > now);
-        if (!deadlines.length) return;
-        const delay = Math.max(0, Math.min(...deadlines) - Date.now());
-        const timer = setTimeout(() => setNow(Date.now()), Math.min(delay + 100, 2147483647));
-        return () => clearTimeout(timer);
-    }, [data, now]);
+        if (!data?.some((item) => Number(item.status) === 1 && item.expire_date_time)) return;
+        const timer = setInterval(() => setNow(Date.now()), 1000);
+        return () => clearInterval(timer);
+    }, [data]);
 
     if (!user) return null;
-    if (isPending) return <div role="status" className="mb-6 rounded-2xl border border-slate-200 p-4 text-xs text-slate-500 dark:border-slate-700">در حال بررسی سفارش‌های معلق…</div>;
+    if (isPending) return <div role="status" className="rounded-2xl border border-slate-200 p-4 text-xs text-slate-500 dark:border-slate-700">در حال بررسی سفارش‌های معلق…</div>;
     if (isError) return (
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 p-4 text-xs text-slate-500 dark:border-slate-700">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 p-4 text-xs text-slate-500 dark:border-slate-700">
             <span>دریافت سفارش‌های معلق امکان‌پذیر نیست.</span>
             <button type="button" onClick={() => refetch()} className="rounded-lg px-2 py-1 font-semibold text-slate-900 focus-visible:outline-2 dark:text-white">تلاش دوباره</button>
         </div>
@@ -49,7 +44,7 @@ export default function OpenOnHoldOrders({compact = false, onNavigate}: Props) {
     const Heading = compact ? "h3" : "h2";
 
     return (
-        <section aria-label="سفارش‌های معلق باز" className={`mb-6 rounded-2xl border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900/50 ${compact ? "p-3" : "p-4 sm:p-6"}`}>
+        <section aria-label="سفارش‌های معلق باز" className={`rounded-2xl border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900/50 ${compact ? "p-3" : "p-4 sm:p-6"}`}>
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                 <div>
                     <Heading className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-white">
@@ -62,9 +57,12 @@ export default function OpenOnHoldOrders({compact = false, onNavigate}: Props) {
                     مشاهده همه <ArrowLeftIcon aria-hidden="true" className="h-3.5 w-3.5"/>
                 </Link>
             </div>
-            <div className={compact ? "space-y-3" : "grid gap-4 lg:grid-cols-2"}>
+            <div className={compact ? "space-y-3" : "space-y-4"}>
                 {visible.map((item) => {
                     const approved = Number(item.status) === 1;
+                    const secondsLeft = Math.max(0, Math.ceil((Number(item.expire_date_time) * 1000 - now) / 1000));
+                    const timeLeft = [Math.floor(secondsLeft / 3600), Math.floor(secondsLeft / 60) % 60, secondsLeft % 60]
+                        .map((value) => value.toLocaleString("fa-IR", {minimumIntegerDigits: 2, useGrouping: false})).join(":");
                     const Icon = approved ? CheckCircleIcon : ClockIcon;
                     return (
                         <article key={item.id} className="flex min-w-0 flex-col rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
@@ -78,7 +76,11 @@ export default function OpenOnHoldOrders({compact = false, onNavigate}: Props) {
                             <p className="mt-3 line-clamp-2 text-xs leading-6 text-slate-600 dark:text-slate-300">{item.product_names.join("، ") || "اقلام سفارش"}</p>
                             <p className="mt-1 text-[11px] text-slate-400">{number(item.items_count)} عدد کالا</p>
                             {approved ? (
-                                <div className="mt-auto pt-4">
+                                <div className={`mt-auto pt-4 ${compact ? "" : "sm:max-w-sm"}`}>
+                                    <div className="mb-3 flex flex-wrap items-center justify-between gap-2 rounded-lg bg-emerald-50 px-3 py-2 text-xs text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-300">
+                                        <span>زمان باقی‌مانده پرداخت</span>
+                                        <span role="timer" aria-label="زمان باقی‌مانده برای پرداخت" dir="ltr" className="font-semibold tabular-nums">{timeLeft}</span>
+                                    </div>
                                     {item.expire_date && <p className="mb-3 text-[11px] leading-5 text-slate-500 dark:text-slate-400">مهلت پرداخت: <bdi>{item.expire_date}</bdi></p>}
                                     <Link href={`/checkout/on-hold/${item.id}`} onClick={onNavigate} className="flex min-h-10 items-center justify-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white">
                                         ادامه و پرداخت این سفارش
