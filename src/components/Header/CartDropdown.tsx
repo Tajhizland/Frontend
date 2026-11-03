@@ -19,6 +19,7 @@ import {CartResponse} from "@/services/types/cart";
 import {setCart, useCart, useUser} from "@/services/globalState/GlobalState";
 import {toast} from "react-hot-toast";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
+import OpenOnHoldOrders from "@/components/Cart/OpenOnHoldOrders";
 import Prices from "@/components/Price/Prices";
 
 export default function CartDropdown() {
@@ -220,18 +221,20 @@ export default function CartDropdown() {
                                 className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/10">
                                 <div className="relative bg-white dark:bg-neutral-800">
                                     <div className="max-h-[60vh] p-5 overflow-y-auto hiddenScrollbar">
-                                        <h3 className="text-xl font-semibold">
-                                            سبد خرید
+                                        <OpenOnHoldOrders compact onNavigate={close}/>
+                                        <h3 className="text-base font-semibold">
+                                            سبد خرید فعلی
                                         </h3>
+                                        {cart.length === 0 && <p className="py-5 text-sm text-slate-500 dark:text-slate-400">سبد خرید فعلی شما خالی است.</p>}
                                         <div className="divide-y divide-slate-100 dark:divide-slate-700">
                                             {cart && cart.map(
                                                 (item, index) => renderProduct(item, index, close)
                                             )}
                                         </div>
                                     </div>
-                                    <div className="bg-neutral-50 dark:bg-slate-900 p-5">
+                                    {cart.length > 0 && <div className="bg-neutral-50 dark:bg-slate-900 p-5">
                                         <p className="flex justify-between font-semibold text-slate-900 dark:text-slate-100">
-                                            <span>قیمت کل</span>
+                                            <span>جمع سبد خرید فعلی</span>
                                             <span
                                                 className={`text-slate-900 leading-none! `}>{new Intl.NumberFormat('en-US').format(renderSumPrice())} تومان </span>
                                         </p>
@@ -248,10 +251,10 @@ export default function CartDropdown() {
                                                 onClick={close}
                                                 className="flex-1"
                                             >
-                                                پرداخت
+                                                پرداخت سبد خرید
                                             </ButtonPrimary>
                                         </div>
-                                    </div>
+                                    </div>}
                                 </div>
                             </div>
                         </PopoverPanel>

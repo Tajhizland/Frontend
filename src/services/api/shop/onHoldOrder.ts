@@ -1,5 +1,5 @@
 import axios, {ServerResponse, SuccessResponseType} from "@/services/axios";
- import {OnHoldCheckoutResponse, OnHoldOrderResponse} from "@/services/types/onHoldOrder";
+ import {OnHoldCheckoutResponse, OnHoldOrderResponse, OpenOnHoldOrder} from "@/services/types/onHoldOrder";
 import {PaymentResponse} from "@/services/types/payment";
 import {DeliveryResponse} from "@/services/types/delivery";
 import {CouponResponse} from "@/services/types/coupon";
@@ -57,4 +57,9 @@ export const onHoldCheckoutPayment = async <T extends ServerResponse<PaymentResp
 ) => {
     return axios.post<T, SuccessResponseType<T>>(`on-hold-order/${id}/checkout/payment`, params)
         .then((res) => res?.data?.result?.data)
+};
+
+export const openOnHoldOrders = async <T extends ServerResponse<OpenOnHoldOrder[]>>() => {
+    return axios.get<T, SuccessResponseType<T>>("on-hold-order/open", {silentError: true})
+        .then((res) => res.data.result.data);
 };

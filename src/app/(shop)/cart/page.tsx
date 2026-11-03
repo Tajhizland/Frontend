@@ -13,6 +13,7 @@ import {Fragment, useMemo, useEffect} from "react";
 import {Alert} from "@/shared/Alert/Alert";
 import {GuarantyPrice} from "@/hooks/GuarantyPrice";
 import Prices from "@/components/Price/Prices";
+import OpenOnHoldOrders from "@/components/Cart/OpenOnHoldOrders";
 import CartController from "@/components/CartController/CartController";
 
 const CartPage = () => {
@@ -228,9 +229,11 @@ const CartPage = () => {
                     </div>
                 </div>
 
-                <hr className="border-slate-200 dark:border-slate-700 my-10 xl:my-12"/>
+                <OpenOnHoldOrders/>
 
-                <div className="flex flex-col lg:flex-row">
+                <h2 className="mb-6 mt-10 text-lg font-semibold">سبد خرید فعلی</h2>
+
+                {cart.length > 0 ? <div className="flex flex-col lg:flex-row">
                     <div className="w-full lg:w-[60%] xl:w-[55%] divide-y divide-slate-200 dark:divide-slate-700 ">
                         {cart && cart.map(renderProduct)}
                     </div>
@@ -328,7 +331,11 @@ const CartPage = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> : <div className="rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center dark:border-slate-700">
+                    <p className="font-medium">سبد خرید فعلی شما خالی است.</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">برای شروع خرید، محصولات موردنظرتان را به سبد اضافه کنید.</p>
+                    <Link href="/" className="mt-5 inline-flex rounded-xl bg-slate-900 px-5 py-3 text-sm font-medium text-white dark:bg-slate-100 dark:text-slate-900">ادامه خرید</Link>
+                </div>}
             </main>
         </div>
     );

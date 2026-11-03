@@ -77,3 +77,13 @@ export type OnHoldCheckoutResponse = {
 };
 
 
+
+export type OpenOnHoldOrder = {
+    id: number;
+    order_id: number;
+    status: number;
+    expire_date_time: number | null;
+    expire_date: string | null;
+    items_count: number;
+    product_names: string[];
+};

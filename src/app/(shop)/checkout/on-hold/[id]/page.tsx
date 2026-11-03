@@ -218,6 +218,7 @@ const OnHoldCheckoutPage = () => {
         },
         {
             silent: true,
+            invalidate: [["open-on-hold-orders"], ["my-on-hold-order"]],
             errorMessage: "خطایی در پرداخت رخ داد",
             onSuccess: (response) => {
                 if (!response) return;
