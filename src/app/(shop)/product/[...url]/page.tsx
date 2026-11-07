@@ -297,16 +297,16 @@ const ProductDetailPage2 = async (props: ProductPageProps) => {
 
                 {product.images.length > 0 && <ProductGallery productImages={product.images} productName={product.name}/>}
                 {/* MAIn */}
-                <main className="container relative z-10 mt-9 sm:mt-11 flex ">
+                <main className="container relative z-10 mt-9 grid grid-cols-1 items-start gap-8 sm:mt-11 lg:grid-cols-[minmax(0,1fr)_320px] xl:grid-cols-[minmax(0,1fr)_360px]">
                     {/* CONTENT */}
-                    <div className="w-full lg:w-3/5 xl:w-2/3 space-y-10 lg:pl-14 lg:space-y-14">
+                    <div className="min-w-0 space-y-10 lg:space-y-14">
                         {renderSection1()}
                         {/* {renderSection2()} */}
                     </div>
 
                     {/* SIDEBAR */}
-                    <div className="grow">
-                        <div className="hidden lg:block sticky top-36 dark:bg-black/20">
+                    <div className="sticky top-36 hidden min-w-0 lg:block">
+                        <div className="dark:bg-black/20">
                             {/*{renderSectionSidebar()}*/}
                             <ProductSidebar product={product} campaign={productResponse.campaign}/>
                         </div>

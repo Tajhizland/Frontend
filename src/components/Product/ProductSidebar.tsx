@@ -154,7 +154,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
         return (
             <div>
                 <label htmlFor="">
-                    <div className={"flex justify-between items-center"}>
+                    <div className={"flex flex-wrap justify-between items-center gap-x-3 gap-y-2"}>
                         <span className="text-sm font-medium dark:text-white">
                             رنگ :
                             <span className="ml-1 font-semibold">
@@ -167,12 +167,12 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                         </div>
                     </div>
                 </label>
-                <div className="flex mt-3">
+                <div className="mt-3 flex flex-wrap gap-2">
                     {colors.map((color, index) => (
                         <div
                             key={index}
                             onClick={() => setSelectedColor(color)}
-                            className={`relative flex-1 max-w-[75px] h-10 sm:h-11 rounded-full border-2 cursor-pointer ${color.id === selectedColor.id
+                            className={`relative h-10 w-10 shrink-0 sm:h-11 sm:w-11 rounded-full border-2 cursor-pointer ${color.id === selectedColor.id
                                 ? "border-primary-6000 dark:border-primary-500"
                                 : " "
                             }`}
@@ -212,7 +212,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                                     alt={item.name}
                                 />
                                 <small
-                                    className={`text-xs leading-5 ${isSelected ? "text-primary-6000" : "text-slate-600 dark:text-white"}`}>
+                                    className={`min-w-0 break-words text-xs leading-5 ${isSelected ? "text-primary-6000" : "text-slate-600 dark:text-white"}`}>
                                     {item.name}
                                 </small>
                             </div>
@@ -356,7 +356,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
     };
 
     return (<>
-        <div className="listingSectionSidebar__wrap lg:shadow-lg">
+        <div className="listingSectionSidebar__wrap min-w-0 lg:px-4! xl:px-5! lg:shadow-lg">
             <div className="space-y-3">
                 {/* PRICE */}
                 <div className="">
@@ -406,7 +406,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                     </div>
                 </div>
                 {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
-                {selectedColor.statusLabel != "disable" ? <div className="hidden lg:flex   gap-x-3.5">
+                {selectedColor.statusLabel != "disable" ? <div className="hidden lg:flex lg:flex-col gap-3">
                     <div
                         className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full dark:text-white">
 
@@ -422,7 +422,7 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                     </div>
                     {checkColorInCart() == 0 && selectedCount > 0 && <ButtonPrimary
                         onClick={addToCartHandle}
-                        className="flex-1 shrink-0"
+                        className="w-full min-w-0"
                     >
                         <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
                         <span className="mr-3">افزودن به سبد خرید</span>
