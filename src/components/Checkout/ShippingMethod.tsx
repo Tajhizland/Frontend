@@ -1,6 +1,7 @@
 "use client";
 
 import React, {FC, useState} from "react";
+import Image from "next/image";
 import Radio from "@/shared/Radio/Radio";
 import {DeliveryResponse} from "@/services/types/delivery";
 import {FaTruck} from "react-icons/fa";
@@ -15,6 +16,13 @@ interface Props {
     onOpenActive: () => void;
     setShippingMethod: (n: number) => void;
     deliveries?: DeliveryResponse[];
+}
+
+function DeliveryLogo({logo}: {logo?: string}) {
+    if (!logo) return <FaTruck aria-hidden="true" className="h-6 w-6 text-slate-400"/>;
+    const src = /^https?:\/\//i.test(logo) ? logo
+        : `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL?.replace(/\/$/, "")}/delivery/${logo.replace(/^\//, "")}`;
+    return <Image src={src} alt="" width={48} height={48} unoptimized className="h-12 w-12 shrink-0 object-contain"/>;
 }
 
 const ShippingMethod: FC<Props> = ({
@@ -36,9 +44,9 @@ const ShippingMethod: FC<Props> = ({
         return (
             <label
                 htmlFor={item.name}
-                className="flex items-center justify-between gap-x-4 cursor-pointer py-2"
+                className="flex flex-wrap items-center justify-between gap-3 cursor-pointer py-3"
             >
-                <div className="flex items-center gap-x-4">
+                <div className="flex min-w-0 items-center gap-3">
                     <Radio
                         name="shipping-method"
                         id={item.name}
@@ -48,12 +56,12 @@ const ShippingMethod: FC<Props> = ({
                         }}
                     />
                     <div
-                        className={`p-2.5 rounded-xl border-2 ${active
+                        className={`shrink-0 bg-white p-2 rounded-xl border-2 ${active
                             ? "border-slate-600 dark:border-slate-300"
                             : "border-gray-200 dark:border-slate-600"
                         }`}
                     >
-                        <FaTruck/>
+                        <DeliveryLogo logo={item.logo}/>
                     </div>
                     <p className="font-medium"> {item.name} </p>
                 </div>
@@ -66,7 +74,7 @@ const ShippingMethod: FC<Props> = ({
 
     return (
         <div className="border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2 text-slate-700 dark:text-slate-200">
                     <FaSignsPost/>
                     <span className="font-medium">روش ارسال کالا</span>
@@ -80,9 +88,9 @@ const ShippingMethod: FC<Props> = ({
                 </button>
             </div>
 
-            <div className="flex items-center justify-between mt-4">
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2 text-slate-700 dark:text-slate-200">
-                    <FaTruck className="text-slate-400"/>
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-white"><DeliveryLogo logo={selectedItem?.logo}/></div>
                     <span>{selectedItem?.name ?? "روش ارسال در دسترس نیست"}</span>
                 </div>
                 <span className="text-emerald-600 text-sm">

@@ -206,8 +206,8 @@ const CheckoutPage = () => {
         if (item.guaranty && item.guaranty.free == 0) {
             guarantyPrice = GuarantyPrice(item.color.price) ?? 0;
         }
-        // با انتخاب دیجی‌پی (gateway 3) تخفیف اعمال نمی‌شود
-        const hasDiscount = gateway != 3
+        // در پرداخت قسطی با دیجی‌پی یا اسنپ‌پی، تخفیف محصول اعمال نمی‌شود
+        const hasDiscount = gateway != 3 && gateway != 4
             && !!item.color.discountedPrice
             && item.color.discountedPrice > 0
             && item.color.discountedPrice < item.color.price;
@@ -303,7 +303,7 @@ const CheckoutPage = () => {
     }
     const renderDiscount = () => {
         // با انتخاب اسنپ پی / دیجی پی تخفیف اعمال نمی‌شود
-        if (gateway == 3)
+        if (gateway == 3 || gateway == 4)
             return 0;
         let sumDiscount: number = 0;
         cart.map((item) => {
@@ -391,7 +391,7 @@ const CheckoutPage = () => {
     const sumDiscount = useMemo(() => renderDiscount(), [cart, gateway]);
     const sumDiscountedPrice = useMemo(() => renderDiscountedPrice(), [cart, shippingPrice, gateway, sumGuarantyPrice]);
     const sumSnappayExtraPrice = useMemo(() => cart.reduce((sum, item) => {
-        const price = item.color.discountedPrice > 0 ? item.color.discountedPrice : item.color.price;
+        const price = item.color.price;
         const guarantyPrice = item.guaranty?.id && !item.guaranty.free ? Math.round(GuarantyPrice(item.color.price) ?? 0) : 0;
         return sum + Math.round((price + guarantyPrice) * (item.product.snappay_extra_price || 0) / 100) * item.count;
     }, 0), [cart]);
@@ -408,9 +408,9 @@ const CheckoutPage = () => {
     const gatewayPayable = Math.max(0, couponBase - couponDiscount - walletDeduction);
     const exceedsGatewayLimit = gatewayPayable > GATEWAY_LIMIT;
 
-    // مبلغ نهایی قابل پرداخت برای اسنپ‌پی = مجموع پس از کسر تخفیف و کد تخفیف (اسنپ‌پی با کیف پول ترکیب نمی‌شود)
+    // مبلغ نهایی قابل پرداخت برای اسنپ‌پی = مجموع بدون تخفیف محصول و پس از کسر کد تخفیف (اسنپ‌پی با کیف پول ترکیب نمی‌شود)
     const snappayBase = cart.reduce((sum, item) => {
-        const price = item.color.discountedPrice > 0 ? item.color.discountedPrice : item.color.price;
+        const price = item.color.price;
         const guarantyPrice = item.guaranty?.id && !item.guaranty.free ? Math.round(GuarantyPrice(item.color.price) ?? 0) : 0;
         return sum + (price + guarantyPrice) * item.count;
     }, 0) + sumSnappayExtraPrice + shippingPrice;
@@ -712,7 +712,7 @@ const CheckoutPage = () => {
                             gateway == 4 &&
                             <div className="mt-3">
                                 <Alert type={"warning"}>
-                                    در صورت انتخاب پرداخت با اسنپ پی، امکان استفاده از موجودی کیف پول وجود ندارد
+                                    در صورت انتخاب پرداخت با اسنپ پی، امکان استفاده از موجودی کیف پول وجود ندارد و تخفیف کالاها اعمال نمی‌شود
                                 </Alert>
                             </div>
                         }

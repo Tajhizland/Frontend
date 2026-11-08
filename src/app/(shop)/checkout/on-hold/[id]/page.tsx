@@ -132,9 +132,9 @@ const OnHoldCheckoutPage = () => {
         () => items.reduce((sum, item) => sum + (item.guaranty?.price ?? 0) * item.count, 0),
         [items]
     );
-    // دیجی‌پی تخفیف محصول را اعمال نمی‌کند
+    // درگاه‌های قسطی تخفیف محصول را اعمال نمی‌کنند
     const sumDiscount = useMemo(
-        () => (gateway == 3 ? 0 : items.reduce((sum, item) => sum + item.color.discount * item.count, 0)),
+        () => (gateway == 3 || gateway == 4 ? 0 : items.reduce((sum, item) => sum + item.color.discount * item.count, 0)),
         [items, gateway]
     );
     // کارمزد پرداخت قسطی: درصدِ هر محصول روی مبلغ همان قلم، بدون تخفیف
@@ -150,7 +150,7 @@ const OnHoldCheckoutPage = () => {
     }, [items]);
 
     const sumSnappayExtraPrice = useMemo(() => items.reduce((sum, item) => {
-        const unitPrice = item.color.price - item.color.discount + (item.guaranty?.price ?? 0);
+        const unitPrice = item.color.price + (item.guaranty?.price ?? 0);
         return sum + Math.round(unitPrice * (item.product.snappay_extra_price || 0) / 100) * item.count;
     }, 0), [items]);
     const sumDiscountedPrice = sumPrice - sumDiscount + sumGuarantyPrice + shippingPrice;
@@ -182,7 +182,7 @@ const OnHoldCheckoutPage = () => {
     );
 
     // اسنپ‌پی با کیف پول ترکیب نمی‌شود، پس مبلغ قبل از کسر کیف پول ملاک است
-    const snappayBase = items.reduce((sum, item) => sum + (item.color.price - item.color.discount) * item.count, 0)
+    const snappayBase = items.reduce((sum, item) => sum + item.color.price * item.count, 0)
         + sumGuarantyPrice + sumSnappayExtraPrice + shippingPrice;
     const snappayCouponDiscount = coupon?.price ? coupon.price : snappayBase * (coupon?.percent || 0) / 100;
     const snappayAmount = Math.max(0, snappayBase - Math.round(snappayCouponDiscount));
@@ -257,7 +257,7 @@ const OnHoldCheckoutPage = () => {
 
     const renderProduct = (item: OnHoldCheckoutItem, index: number) => {
         // با انتخاب دیجی‌پی تخفیف اعمال نمی‌شود
-        const hasDiscount = gateway != 3 && item.color.discount > 0;
+        const hasDiscount = gateway != 3 && gateway != 4 && item.color.discount > 0;
         return (
             <div key={index} className="relative flex py-7 first:pt-0 last:pb-0">
                 <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -558,7 +558,7 @@ const OnHoldCheckoutPage = () => {
                             {gateway == 4 &&
                                 <div className="mt-3">
                                     <Alert type={"warning"}>
-                                        در صورت انتخاب پرداخت با اسنپ پی، امکان استفاده از موجودی کیف پول وجود ندارد
+                                        در صورت انتخاب پرداخت با اسنپ پی، امکان استفاده از موجودی کیف پول وجود ندارد و تخفیف کالاها اعمال نمی‌شود
                                     </Alert>
                                 </div>}
                             {useWallet &&

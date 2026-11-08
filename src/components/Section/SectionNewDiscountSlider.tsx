@@ -23,6 +23,7 @@ export interface SectionSliderProductCardProps {
     headingClassName?: string;
     subHeading?: string;
     timer?: string;
+    maxDiscountPercent?: number;
     data?: ProductCardResponse[];
     campaign?: CampaignResponse;
 }
@@ -36,6 +37,7 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                                                                          heading,
                                                                          subHeading = "REY backpacks & bags",
                                                                          timer,
+                                                                         maxDiscountPercent = 0,
                                                                          data
                                                                      }) => {
     const sliderRef = useRef(null);
@@ -102,7 +104,7 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                             تا
                             <span className={"text-red-600"}>
                             {" "}
-                                60 %
+                                {maxDiscountPercent.toLocaleString("fa-IR")}٪
                                 {" "}
                             </span>
                             تخفیف
@@ -127,7 +129,7 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                         </div>
                         <div className={"flex items-center gap-2"}>
                          <span className={"font-bold  text-4xl text-red-600"}>
-                            % 20
+                            {maxDiscountPercent.toLocaleString("fa-IR")}٪
                         </span>
                             <div>
                                 {timer && <Timer date={timer} label={true}/>}
@@ -166,7 +168,7 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                             تا
                             <span className={"text-red-600"}>
                             {" "}
-                                60 %
+                                {maxDiscountPercent.toLocaleString("fa-IR")}٪
                                 {" "}
                             </span>
                             تخفیف
@@ -194,7 +196,7 @@ const SectionNewDiscountSlider: FC<SectionSliderProductCardProps> = ({
                         </div>
                         <div>
                             <strong className={"font-bold xl:text-6xl lg:text-5xl text-red-600"}>
-                                % 20
+                                {maxDiscountPercent.toLocaleString("fa-IR")}٪
                             </strong>
                         </div>
                         <div>

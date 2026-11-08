@@ -61,6 +61,7 @@ const EMPTY_HOMEPAGE: HomePageResponse = {
     campaign: null,
     pending_campaign: null,
     discount: null,
+    maxDiscountPercent: 0,
     desktopSliders: [],
     mobileSliders: [],
     banners: [],
@@ -223,6 +224,7 @@ export default async function Homepage() {
                     <SectionNewDiscountSlider
                         campaign={campaign ?? undefined}
                         timer={response.discount?.discount_expire_time}
+                        maxDiscountPercent={response.maxDiscountPercent}
                         data={response.topDiscountedProducts}
                         subHeading={""}
                     />

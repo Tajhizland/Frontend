@@ -69,6 +69,14 @@ export default function SharedModal({
         className="relative z-50 flex aspect-3/2 w-full max-w-7xl items-center wide:h-full xl:taller-than-854:h-auto"
         {...handlers}
       >
+        <button
+          type="button"
+          aria-label={navigation ? "بستن تصویر" : "بازگشت به گالری"}
+          onClick={closeModal}
+          className="fixed top-[max(1rem,env(safe-area-inset-top))] right-4 z-60 flex h-11 w-11 items-center justify-center rounded-full bg-black/70 text-white shadow-lg backdrop-blur-lg transition hover:bg-black/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:absolute sm:top-3 sm:right-auto sm:left-3"
+        >
+          {navigation ? <XMarkIcon className="h-6 w-6"/> : <ArrowUturnLeftIcon className="h-6 w-6"/>}
+        </button>
         {/* Main image */}
         <div className="w-full overflow-hidden">
           <div className="relative flex aspect-1 items-center justify-center">
@@ -148,18 +156,7 @@ export default function SharedModal({
                   </a>
                 )}
               </div>
-              <div className="absolute sm:top-0 left-[40%] sm:left-0 flex items-center gap-2 p-3 text-white">
-                <button
-                  onClick={() => closeModal()}
-                  className="rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white"
-                >
-                  {navigation ? (
-                    <XMarkIcon className="h-5 w-5" />
-                  ) : (
-                    <ArrowUturnLeftIcon className="h-5 w-5" />
-                  )}
-                </button>
-              </div>
+
             </div>
           )}
           {/* Bottom Nav bar */}

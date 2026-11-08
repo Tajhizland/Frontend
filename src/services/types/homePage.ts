@@ -24,6 +24,7 @@ export type HomePageResponse = {
     campaign: CampaignResponse | null;
     pending_campaign: CampaignResponse | null;
     discount: DiscountItemResponse | null;
+    maxDiscountPercent: number;
 
     desktopSliders: SliderResponse[];
     mobileSliders: SliderResponse[];
