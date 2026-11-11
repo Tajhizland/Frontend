@@ -159,7 +159,24 @@ const NavMobile: React.FC<NavMobileProps> = ({
                 </div>
                 {/*</Link>*/}
                 {item.children && (
-                    <Disclosure.Panel>{_renderMenuChild(item)}</Disclosure.Panel>
+                    <Disclosure.Panel>
+                        {_renderMenuChild(item)}
+                        {item.banner_logo && item.banner_link && <Link
+                            href={item.banner_link}
+                            onClick={onClickClose}
+                            className="mx-3 mt-4 mb-3 block overflow-hidden rounded-xl focus-visible:outline-2 focus-visible:outline-primary-500"
+                            aria-label={item.title}
+                        >
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/menu/${item.banner_logo}`}
+                                alt={item.title}
+                                width={640}
+                                height={360}
+                                sizes="(max-width: 640px) 85vw, 360px"
+                                className="h-auto w-full object-contain"
+                            />
+                        </Link>}
+                    </Disclosure.Panel>
                 )}
             </Disclosure>
         );

@@ -150,6 +150,7 @@ const MobileHero = <T extends BaseSlider>({
                         loading={index === 0 ? "eager" : "lazy"}
                         fetchPriority={index === 0 ? "high" : "auto"}
                         sizes="100vw"
+                        quality={95}
                     />
 
                     <div>{renderDots()}</div>

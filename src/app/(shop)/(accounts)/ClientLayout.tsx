@@ -10,6 +10,7 @@ import React from "react";
 import { FC, useEffect} from "react";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import AccountTabs from "@/components/Account/AccountTabs";
 import avatar from "@/images/avatar.svg";
 
 export interface CommonLayoutProps {
@@ -97,32 +98,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
             </div>
 
           </div>
-          <div className="mt-8 border-t border-slate-200 dark:border-slate-700">
-            <div className="flex gap-3 overflow-x-auto hiddenScrollbar border-b border-slate-200 dark:border-slate-700">
-              {pages.map((item, index) => {
-                const active = pathname === item.link;
-                return (
-                  <Link
-                    key={index}
-                    href={item.link}
-                    className={`shrink-0 flex flex-col items-center pt-4 pb-4 -mb-px border-b-2 transition-colors ${
-                      active ? "border-primary-500" : "border-transparent"
-                    }`}
-                  >
-                    <span
-                      className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm sm:text-base transition-colors ${
-                        active
-                          ? "border-primary-500 font-medium text-slate-900 dark:text-slate-100"
-                          : "border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:border-slate-300 dark:hover:text-slate-200"
-                      }`}
-                    >
-                      {item.name}
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
+          <AccountTabs pages={pages}/>
         </div>
       </div>
       <div className="max-w-4xl mx-auto pt-14 sm:pt-26 pb-24 lg:pb-32">

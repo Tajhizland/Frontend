@@ -84,6 +84,8 @@ const SectionBannerSlider = <T extends BaseBanner>({ data }: { data: T[] }) => {
                                     <Image
                                         alt=""
                                         fill
+                                        quality={95}
+                                        sizes="(max-width: 500px) 67vw, (max-width: 768px) 46vw, (max-width: 1023px) 39vw, 25vw"
                                         className="w-full h-full object-cover"
                                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner/${item.image}`}
                                     />

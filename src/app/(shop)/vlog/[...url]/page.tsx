@@ -42,15 +42,15 @@ export default async function Page(props: PageProps) {
         return (
             <>
                 <header className="container rounded-xl mb-5">
-                    <div className=" mx-auto space-y-5 flex justify-between">
+                    <div className="mx-auto flex flex-col gap-2 md:flex-row md:items-start md:justify-between md:gap-5">
                         <h1
-                            className=" text-neutral-900 font-semibold text-3xl md:text-4xl md:!leading-[120%] lg:text-4xl dark:text-neutral-100 max-w-4xl "
+                            className="max-w-4xl text-xs font-normal leading-6 text-neutral-900 dark:text-neutral-100 sm:text-sm md:text-4xl md:leading-tight"
                         >
                             {response.vlog.title}
                         </h1>
                         <span
                             style={{direction: "ltr"}}
-                            className=" text-neutral-500 font-semibold text-sm dark:text-neutral-100 "
+                            className="shrink-0 self-start text-xs font-normal leading-6 text-neutral-500 dark:text-neutral-300"
                         >
             {response.vlog.created_at}
           </span>

@@ -175,7 +175,8 @@ const CheckoutPage = () => {
     >("ContactInfo");
 
     const handleScrollToEl = (id: string) => {
-        const element = document.getElementById(id);
+        const mobileElement = document.getElementById(id + "Mobile");
+        const element = mobileElement?.getClientRects().length ? mobileElement : document.getElementById(id);
         setTimeout(() => {
             element?.scrollIntoView({behavior: "smooth"});
         }, 80);
@@ -200,6 +201,23 @@ const CheckoutPage = () => {
             </div>
         );
     };
+
+    const renderShippingSelector = () => (
+        <ShippingMethod
+                                setShippingMethod={setShippingMethod}
+                                deliveries={deliveries}
+                                shippingMethod={shippingMethod}
+                                isActive={tabActive === "ShippingMethod"}
+                                onOpenActive={() => {
+                                    setTabActive("ShippingMethod");
+                                    handleScrollToEl("ShippingMethod");
+                                }}
+                                onCloseActive={() => {
+                                    setTabActive("ShippingAddress");
+                                    handleScrollToEl("ShippingAddress");
+                                }}
+                            />
+    );
 
     const renderProduct = (item: CartResponse, index: number) => {
         let guarantyPrice = 0;
@@ -478,6 +496,7 @@ const CheckoutPage = () => {
                                 }}
                             />
                         </div>
+                        <div id="ShippingMethodMobile" className="scroll-mt-24 lg:hidden">{renderShippingSelector()}</div>
 
                         <div>
                             <h3 className="text-lg font-semibold">مشخصات سفارش</h3>
@@ -537,20 +556,7 @@ const CheckoutPage = () => {
                     {/* ستون چپ: روش ارسال، خلاصه و پرداخت */}
                     <div className="w-full ">
                         <div className="space-y-8">
-                            <ShippingMethod
-                                setShippingMethod={setShippingMethod}
-                                deliveries={deliveries}
-                                shippingMethod={shippingMethod}
-                                isActive={tabActive === "ShippingMethod"}
-                                onOpenActive={() => {
-                                    setTabActive("ShippingMethod");
-                                    handleScrollToEl("ShippingMethod");
-                                }}
-                                onCloseActive={() => {
-                                    setTabActive("ShippingAddress");
-                                    handleScrollToEl("ShippingAddress");
-                                }}
-                            />
+                            <div id="ShippingMethod" className="hidden scroll-mt-24 lg:block">{renderShippingSelector()}</div>
 
                             {user && (user.name == null || user.last_name == null || user.national_code == null) &&
                                 <div id="ContactInfo" className="scroll-mt-24">

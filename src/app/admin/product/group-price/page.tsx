@@ -165,6 +165,9 @@ export default function Page() {
                                 setPercent(Number(e.target.value))
                             }}
                         />
+                        {action === "inc" && <p className="mt-2 text-xs leading-6 text-slate-500 dark:text-slate-400">
+                            پس از افزایش، قیمت نهایی رو به بالا با گام ۱۰۰ هزار تومان رند می‌شود؛ مثلاً ۱۲٬۵۶۸٬۱۰۰ به ۱۲٬۶۰۰٬۰۰۰ تومان می‌رسد.
+                        </p>}
                     </div>
                     <ButtonPrimary loading={actionMutation.isPending} onClick={actionMutation.mutateAsync}>
                         اعمال

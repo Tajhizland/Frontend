@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FC, useState} from "react";
+import React, {FC, useId, useState} from "react";
 import Image from "next/image";
 import Radio from "@/shared/Radio/Radio";
 import {DeliveryResponse} from "@/services/types/delivery";
@@ -34,6 +34,7 @@ const ShippingMethod: FC<Props> = ({
                                        deliveries,
                                    }) => {
     const [open, setOpen] = useState(false);
+    const groupId = useId();
     const selectedItem = deliveries?.find((item) => item.id === shippingMethod);
 
     const priceLabel = (price?: number) =>
@@ -43,13 +44,13 @@ const ShippingMethod: FC<Props> = ({
         const active = shippingMethod === item.id;
         return (
             <label
-                htmlFor={item.name}
+                htmlFor={`${groupId}-${item.id}`}
                 className="flex flex-wrap items-center justify-between gap-3 cursor-pointer py-3"
             >
                 <div className="flex min-w-0 items-center gap-3">
                     <Radio
-                        name="shipping-method"
-                        id={item.name}
+                        name={`${groupId}-shipping-method`}
+                        id={`${groupId}-${item.id}`}
                         checked={active}
                         onChange={() => {
                             setShippingMethod(item.id);

@@ -84,8 +84,8 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
         setSelectedFilters((prevFilters) => {
             const newFilters: SelectedFilters = {
                 ...prevFilters,
-                ...(values[0] > 0 ? {minPrice: values[0].toString()} : {}),
-                ...(values[1] > 0 ? {maxPrice: values[1].toString()} : {}),
+                minPrice: values[0].toString(),
+                maxPrice: values[1].toString(),
             };
 
             changeFilter(buildFilterQueryString(newFilters));
@@ -540,11 +540,12 @@ const TabCategoryFilters = ({filters, categorys, changeFilter, minPrice, maxPric
                                                                 className="text-red-400"
                                                                 min={minPrice}
                                                                 max={maxPrice}
-                                                                step={500000}
-                                                                defaultValue={[rangePrices[0], rangePrices[1]]}
+                                                                step={Math.max(1, Math.floor((maxPrice - minPrice) / 100))}
+                                                                value={rangePrices}
+                                                                onChangeComplete={(value) => handlePriceChange(value as number[])}
                                                                 allowCross={false}
                                                                 onChange={(_input: number | number[]) =>
-                                                                    handlePriceChange(_input as number[])
+                                                                    setRangePrices(_input as number[])
                                                                 }
                                                             />
                                                         </div>

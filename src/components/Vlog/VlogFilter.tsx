@@ -2,6 +2,7 @@
 import {
     Dialog,
     DialogTitle,
+    DialogPanel,
     Popover,
     PopoverButton,
     PopoverPanel,
@@ -405,10 +406,10 @@ export default function VlogFilter({changeFilter, defualtSearch, hasFilter = tru
                 <Transition appear show={isOpenMoreFilter}>
                     <Dialog
                         as="div"
-                        className="fixed inset-0 z-50"
+                        className="relative z-150"
                         onClose={closeModalMoreFilter}
                     >
-                        <div className="min-h-screen text-center">
+                        <div className="fixed inset-0 z-10 flex items-center justify-center">
                             <TransitionChild
                                 enter="ease-out duration-300"
                                 enterFrom="opacity-0"
@@ -417,19 +418,12 @@ export default function VlogFilter({changeFilter, defualtSearch, hasFilter = tru
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                             >
-                                <div className="fixed inset-0 bg-black/40 dark:bg-black/60"/>
+                                <div className="fixed inset-0 z-0 bg-black/40 dark:bg-black/60"/>
                             </TransitionChild>
 
-                            {/* This element is to trick the browser into centering the modal contents. */}
-                            <span
-                                className="inline-block h-svh align-middle"
-                                aria-hidden="true"
-                            >
-                &#8203;
-              </span>
                             <TransitionChild
                                 as={"div"}
-                                className="inline-block h-svh w-full max-w-4xl"
+                                className="relative z-10 h-dvh w-full max-w-4xl"
                                 enter="ease-out duration-300"
                                 enterFrom="opacity-0 scale-95"
                                 enterTo="opacity-100 scale-100"
@@ -437,8 +431,8 @@ export default function VlogFilter({changeFilter, defualtSearch, hasFilter = tru
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <div
-                                    className="inline-flex flex-col w-full text-right align-middle transition-all transform bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 h-full">
+                                <DialogPanel
+                                    className="flex h-full w-full flex-col bg-white text-right dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100">
                                     <div
                                         className="relative shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
                                         <DialogTitle
@@ -452,7 +446,7 @@ export default function VlogFilter({changeFilter, defualtSearch, hasFilter = tru
                     </span>
                                     </div>
 
-                                    <div className="grow overflow-y-auto">
+                                    <div className="min-h-0 grow overflow-y-auto overscroll-contain">
                                         <div
                                             className="px-6 sm:px-8 md:px-10 divide-y divide-neutral-200 dark:divide-neutral-800">
                                             {/* --------- */}
@@ -496,21 +490,21 @@ export default function VlogFilter({changeFilter, defualtSearch, hasFilter = tru
                                                             name="radioNameSort"
                                                             label={"بیشترین بازدید"}
                                                             defaultChecked={sortOrderStates === "view"}
-                                                            onChange={setSortOrderStates}
+                                                            onChange={handleSortChange}
                                                         />
                                                         <Radio
                                                             id={"new"}
                                                             name="radioNameSort"
                                                             label={"جدید ترین"}
                                                             defaultChecked={sortOrderStates === "new"}
-                                                            onChange={setSortOrderStates}
+                                                            onChange={handleSortChange}
                                                         />
                                                         <Radio
                                                             id={"old"}
                                                             name="radioNameSort"
                                                             label={"قدیمی ترین"}
                                                             defaultChecked={sortOrderStates === "old"}
-                                                            onChange={setSortOrderStates}
+                                                            onChange={handleSortChange}
                                                         />
                                                     </div>
                                                 </div>
@@ -526,6 +520,7 @@ export default function VlogFilter({changeFilter, defualtSearch, hasFilter = tru
                                                 setSortOrderStates("");
                                                 closeModalMoreFilter();
                                                 setSelectedFilters({});
+                                                changeFilter("");
                                             }}
                                             sizeClass="py-2.5 px-5"
                                         >
@@ -538,7 +533,7 @@ export default function VlogFilter({changeFilter, defualtSearch, hasFilter = tru
                                             اعمال
                                         </ButtonPrimary>
                                     </div>
-                                </div>
+                                </DialogPanel>
                             </TransitionChild>
                         </div>
                     </Dialog>
