@@ -44,7 +44,7 @@ export default async function Page(props: PageProps) {
                 <header className="container rounded-xl mb-5">
                     <div className="mx-auto flex flex-col gap-2 md:flex-row md:items-start md:justify-between md:gap-5">
                         <h1
-                            className="max-w-4xl text-xs font-normal leading-6 text-neutral-900 dark:text-neutral-100 sm:text-sm md:text-4xl md:leading-tight"
+                            className="max-w-4xl text-xs font-bold leading-6 text-neutral-900 dark:text-neutral-100 sm:text-sm md:text-4xl md:leading-tight"
                         >
                             {response.vlog.title}
                         </h1>

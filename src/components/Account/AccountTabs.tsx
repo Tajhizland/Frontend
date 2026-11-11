@@ -3,7 +3,7 @@
 import {useEffect, useRef, useState} from "react";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
+import {ArrowsRightLeftIcon} from "@heroicons/react/24/outline";
 
 export default function AccountTabs({pages}: {pages: {name: string; link: string}[]}) {
     const pathname = usePathname();
@@ -34,25 +34,23 @@ export default function AccountTabs({pages}: {pages: {name: string; link: string
         viewport.current?.querySelector('[aria-current="page"]')?.scrollIntoView({block: "nearest", inline: "nearest", behavior: "smooth"});
     }, [pathname]);
 
-    return <nav aria-label="بخش‌های حساب کاربری" className="mt-8 rounded-2xl border border-slate-200 bg-slate-50/70 p-2 dark:border-slate-700 dark:bg-slate-800/40">
-        <div className="relative px-9" dir="rtl">
-            <button type="button" aria-label="بخش‌های قبلی" disabled={!edges.before}
-                onClick={() => viewport.current?.scrollBy({left: 240, behavior: "smooth"})}
-                className="absolute right-0 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 disabled:opacity-25 dark:border-slate-600 dark:bg-slate-800 dark:text-white">
-                <ChevronRightIcon className="h-4 w-4"/>
-            </button>
-            <div ref={viewport} className="flex gap-2 overflow-x-auto overscroll-x-contain py-2" style={{scrollbarWidth: "thin"}}>
-                {pages.map((item) => <Link key={item.link} href={item.link} aria-current={pathname === item.link ? "page" : undefined}
-                    className={`shrink-0 whitespace-nowrap rounded-xl border px-4 py-2.5 text-xs transition-colors sm:text-sm ${pathname === item.link ? "border-primary-500 bg-primary-500 font-medium text-slate-950" : "border-slate-200 bg-white text-slate-600 hover:border-primary-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"}`}>
-                    {item.name}
-                </Link>)}
-            </div>
-            <button type="button" aria-label="بخش‌های بعدی" disabled={!edges.after}
-                onClick={() => viewport.current?.scrollBy({left: -240, behavior: "smooth"})}
-                className="absolute left-0 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 disabled:opacity-25 dark:border-slate-600 dark:bg-slate-800 dark:text-white">
-                <ChevronLeftIcon className="h-4 w-4"/>
-            </button>
+    return <nav aria-label="بخش‌های حساب کاربری" className="mt-8 border-t border-slate-200 dark:border-slate-700">
+        <div ref={viewport} dir="rtl" className="flex gap-3 overflow-x-auto overscroll-x-contain hiddenScrollbar border-b border-slate-200 dark:border-slate-700">
+            {pages.map((item) => {
+                const active = pathname === item.link;
+                return <Link key={item.link} href={item.link} aria-current={active ? "page" : undefined}
+                    className={`shrink-0 flex flex-col items-center pt-4 pb-4 -mb-px border-b-2 transition-colors ${active ? "border-primary-500" : "border-transparent"}`}>
+                    <span className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm sm:text-base transition-colors ${active
+                        ? "border-primary-500 font-medium text-slate-900 dark:text-slate-100"
+                        : "border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:border-slate-300 dark:hover:text-slate-200"}`}>
+                        {item.name}
+                    </span>
+                </Link>;
+            })}
         </div>
-        {(edges.before || edges.after) && <p className="px-2 pb-1 text-center text-[11px] leading-5 text-slate-500 dark:text-slate-400">برای دیدن بقیه بخش‌ها، نوار را به طرفین بکشید یا از فلش‌ها استفاده کنید.</p>}
+        {(edges.before || edges.after) && <p className="flex items-center justify-center gap-1.5 pt-2 text-center text-[11px] leading-5 text-slate-500 dark:text-slate-400 sm:hidden">
+            <ArrowsRightLeftIcon aria-hidden="true" className="h-3.5 w-3.5 shrink-0"/>
+            برای دیدن بقیه بخش‌ها، نوار را به طرفین بکشید.
+        </p>}
     </nav>;
 }
