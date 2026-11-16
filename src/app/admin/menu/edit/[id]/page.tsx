@@ -7,15 +7,16 @@ import Form, {MenuFormValues} from "@/app/admin/menu/Form";
 import {findById, update} from "@/services/api/admin/menu";
 import toast from "react-hot-toast";
 import {useParams} from "next/navigation";
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useState} from "react";
 
 export default function Page() {
     const {id} = useParams();
+    const queryClient = useQueryClient();
     const [progress, setProgress] = useState(0);
 
     const {data, isLoading} = useQuery({
-        queryKey: [`menu_info`, Number(id)],
+        queryKey: [`menu-info`, Number(id)],
         queryFn: () => findById(Number(id)),
         staleTime: 5000,
     });
@@ -34,6 +35,8 @@ export default function Page() {
         },
         onSuccess: (response) => {
             if (response.success) toast.success(response.message as string);
+            queryClient.invalidateQueries({queryKey: ["menu-info", Number(id)]});
+            queryClient.invalidateQueries({queryKey: ["menu-list"]});
         },
         onSettled: () => setProgress(0),
     });

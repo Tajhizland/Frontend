@@ -7,6 +7,11 @@ import {SiBasicattentiontoken} from "react-icons/si"
 export default function ProductTab({id, url}: { id: string, url: string }) {
     const TABS = [
         {
+            title: "نظر ها",
+            link: "/admin/product/comment/" + id,
+            icon: <IoMdOptions className="w-5 h-5"/>
+        },
+        {
             title: "محصول",
             link: "/admin/product/edit/" + id,
             icon: <SiBasicattentiontoken className="w-5 h-5"/>

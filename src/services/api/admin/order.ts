@@ -39,6 +39,12 @@ export const deleteItem = async <T extends ServerResponse<unknown>>
     return axios.delete<T, SuccessResponseType<T>>("admin/order/item/" + id)
         .then((res) => res?.data)
 };
+export const gatewayCalc = async <T extends ServerResponse<{ value: number }>>
+(gateway: "digipay" | "snappay" | "zibal", dto: OrderDigipayCalcDto) => {
+    return axios.post<T, SuccessResponseType<T>>(`admin/order/${gateway}-calc`, dto)
+        .then((res) => res?.data?.result?.data);
+};
+
 export const digipayCalc = async <T extends ServerResponse<{ value: number }>>
 (dto: OrderDigipayCalcDto) => {
     return axios.post<T, SuccessResponseType<T>>("admin/order/digipay-calc", dto)

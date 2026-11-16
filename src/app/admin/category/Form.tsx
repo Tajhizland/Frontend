@@ -50,7 +50,7 @@ export default function Form({data, submit}: productForm) {
             setValue("type", data.type);
             setValue("status", data.status);
             setValue("url", data.url);
-            setValue("parent_id", data.parent_id.toString());
+            setValue("parent_id", String(data.parent_id ?? 0));
             setValue("description", data.description);
         }
     }, [data, setValue]);
@@ -89,19 +89,21 @@ export default function Form({data, submit}: productForm) {
                 </div>
                 <div>
                     <Label>والد</Label>
-                    <Select  {...register("parent_id")} >
+                    <Controller name="parent_id" control={control} render={({field}) => <Select {...field}>
                         <option value={"0"}>
                             بدون والد
                         </option>
+                        {data?.parent_id && !categoryLists?.data.some(item => Number(item.id) === Number(data.parent_id)) ?
+                            <option value={data.parent_id}>والد فعلی (شناسه {data.parent_id})</option> : null}
                         {
-                            categoryLists?.data.map((item) => (<>
-                                <option value={item.id} selected={item.id == data?.parent_id}>
+                            categoryLists?.data.filter(item => Number(item.id) !== Number(data?.id)).map((item) => (
+                                <option key={item.id} value={item.id}>
                                     {item.name}
                                 </option>
-                            </>))
+                            ))
                         }
 
-                    </Select>
+                    </Select>} />
                 </div>
 
             </div>

@@ -83,6 +83,12 @@ export default function Page() {
                 <ToolbarButton href="/admin/order/digipay" icon={<LuFileText className="w-4 h-4" />}>
                     گزارش دیجی پی
                 </ToolbarButton>
+                <ToolbarButton href="/admin/order/snappay" icon={<LuFileText className="w-4 h-4" />}>
+                    گزارش اسنپ پی
+                </ToolbarButton>
+                <ToolbarButton href="/admin/order/zibal" icon={<LuFileText className="w-4 h-4" />}>
+                    گزارش زیپال
+                </ToolbarButton>
             </PageLink>
 
             <Table

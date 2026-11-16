@@ -1,5 +1,6 @@
 "use client";
 
+import {useEffect} from "react";
 import Input from "@/shared/Input/Input";
 import FormActions from "@/shared/Form/FormActions";
 import Select from "@/shared/Select/Select";
@@ -64,6 +65,14 @@ export default function Form({data, onSubmit, loading, progress, resetOnSuccess}
         },
     });
 
+    useEffect(() => {
+        if (data) reset({
+            title: data.title ?? "", url: data.url ?? "", status: String(data.status),
+            parent_id: String(data.parent_id ?? 0), category_id: String(data.category_id ?? 0),
+            banner_link: data.banner_link ?? "", banner_logo: null,
+        });
+    }, [data, reset]);
+
     const deleteBannerMutation = useApiMutation(() => deleteBanner(Number(data?.id)), {
         invalidate: [["menu-info", Number(data?.id)], ["table"]],
     });
@@ -98,26 +107,30 @@ export default function Form({data, onSubmit, loading, progress, resetOnSuccess}
                 </div>
                 <div>
                     <Label>والد</Label>
-                    <Select {...register("parent_id")}>
+                    <Controller name="parent_id" control={control} render={({field}) => <Select {...field}>
                         <option value={0}>بدون والد</option>
+                        {data?.parent_id && !list?.some(item => Number(item.id) === Number(data.parent_id)) ?
+                            <option value={data.parent_id}>والد فعلی (شناسه {data.parent_id})</option> : null}
                         {list &&
-                            list.map((item, index) => (
-                                <option key={index} value={item.id}>
+                            list.filter(item => Number(item.id) !== Number(data?.id)).map((item) => (
+                                <option key={item.id} value={item.id}>
                                     {item.title}
                                 </option>
                             ))}
-                    </Select>
+                    </Select>} />
                 </div>
                 <div>
                     <Label>دسته بندی</Label>
-                    <Select {...register("category_id")}>
+                    <Controller name="category_id" control={control} render={({field}) => <Select {...field}>
                         <option value={0}>بدون دسته بندی</option>
+                        {data?.category_id && !categoryLists?.data.some(item => Number(item.id) === Number(data.category_id)) ?
+                            <option value={data.category_id}>دسته‌بندی فعلی (شناسه {data.category_id})</option> : null}
                         {categoryLists?.data.map((item) => (
                             <option key={item.id} value={item.id}>
                                 {item.name}
                             </option>
                         ))}
-                    </Select>
+                    </Select>} />
                 </div>
                 <div>
                     <Label>آدرس بنر</Label>
