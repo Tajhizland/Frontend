@@ -378,8 +378,8 @@ export default function ProductSidebar({product, campaign}: { product: ProductRe
                             <div className="">
                                 <StarIcon className="w-5 h-5 pb-px text-orange-400"/>
                             </div>
-                            <span className="mr-1.5 flex">
-                                <span>{product.rating} </span>
+                            <span className="mr-1.5 flex gap-x-2">
+                                <span>{Number(product.rating).toFixed(1)}</span>
                                 <span className="text-slate-700 dark:text-slate-400 underline">
                                     {product.comments.length} نظر
                                 </span>
