@@ -7,11 +7,10 @@ import React from "react";
 import {VlogResponse} from "@/services/types/vlog";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
-import {FaEye} from "react-icons/fa";
 import Heading from "@/components/Heading/Heading";
 import AdaptiveVideoPlayer from "@/shared/VideoPlayer/AdaptiveVideoPlayer";
 import {GoEye} from "react-icons/go";
-import SectionLinkedProductSlider from "@/components/Section/SectionLinkedProductSlider";
+import VlogRelatedProducts from "@/components/Vlog/VlogRelatedProducts";
 
 interface PageProps {
     params: Promise<{
@@ -64,12 +63,15 @@ export default async function Page(props: PageProps) {
         return (
             <div className={"flex flex-col gap-y-10 text-right dark:text-white"}>
                 {/* پلیر خودش افقی/عمودی بودن ویدیو را تشخیص می‌دهد و قاب را متناسب می‌سازد */}
-                <AdaptiveVideoPlayer
-                    className="max-h-[80vh] mx-auto"
-                    hls={response.vlog.hls ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${response.vlog.hls}` : null}
-                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.video}`}
-                    poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.poster}`}
-                />
+                <div className="relative">
+                    <AdaptiveVideoPlayer
+                        className="max-h-[80vh] mx-auto"
+                        hls={response.vlog.hls ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/hls/${response.vlog.hls}` : null}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.video}`}
+                        poster={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/vlog/${response.vlog.poster}`}
+                    />
+                    <VlogRelatedProducts products={response.relatedProducts?.data ?? []}/>
+                </div>
                 <div dangerouslySetInnerHTML={{__html: normalizeContentHeadings((response.vlog.description))}}/>
             </div>
         );
@@ -110,29 +112,9 @@ export default async function Page(props: PageProps) {
                 </Heading>
                 <div  className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-10">
                     {
-                        response.relatedVlogs.data.map((item) => (<>
-                            {renderVlogCard(item)}
-                        </>))
+                        response.relatedVlogs.data.map(renderVlogCard)
                     }
                 </div>
-            </div>
-        );
-    };
-    // اگر ولاگ به هیچ محصولی لینک نشده باشد، این ردیف کامل حذف می‌شود (حتی تیتر)
-    const renderRelatedProducts = () => {
-        const products = response.relatedProducts?.data ?? [];
-        if (!products.length) {
-            return null;
-        }
-        return (
-            <div className={"container mt-10 mb-14 lg:mb-20"}>
-                <SectionLinkedProductSlider
-                    heading="محصولات مرتبط"
-                    subHeading=""
-                    headingFontClassName="text-2xl font-semibold"
-                    data={products}
-                    headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
-                />
             </div>
         );
     };
@@ -150,8 +132,6 @@ export default async function Page(props: PageProps) {
             <hr/>
 
             {renderRelatedVlogs()}
-
-            {renderRelatedProducts()}
         </div>
     </>)
 }

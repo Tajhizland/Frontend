@@ -2,14 +2,14 @@
 import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import Panel from "@/shared/Panel/Panel";
 import {groupChangePrice, searchProductList} from "@/services/api/admin/product";
-import React, {useState} from "react";
-import {useRouter} from "next/navigation";
+import React, {useRef, useState} from "react";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {categoryList} from "@/services/api/admin/category";
 import {brandList} from "@/services/api/admin/brand";
 import Select from "@/shared/Select/Select";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import {ProductResponse} from "@/services/types/product";
+import {productSelection} from "@/utils/productSelection";
+import {ProductSearchProductListDto, ProductResponse} from "@/services/types/product";
 import Prices from "@/components/Price/Prices";
 import Image from "next/image";
 import Input from "@/shared/Input/Input";
@@ -25,25 +25,23 @@ export default function Page() {
     const [response, setResponse] = useState<ProductResponse[]>([]);
     const [selectedProducts, setSelectedProducts] = useState<Record<number, boolean>>({});
 
-    const router = useRouter();
+    const lastSearch = useRef<ProductSearchProductListDto | null>(null);
 
     // Mutation برای جستجو
     const searchMutation = useMutation({
         mutationKey: [`search-product-list`],
-        mutationFn: async () => {
-            return searchProductList({
+        mutationFn: async ({preserveSelection = false}: {preserveSelection?: boolean} = {}) => {
+            const filters = preserveSelection && lastSearch.current ? lastSearch.current : {
                 brandId: Number(brand),
-                categoryId: Number(category)
-            });
+                categoryId: Number(category),
+            };
+            const products = await searchProductList(filters);
+            return {products, filters, preserveSelection};
         },
-        onSuccess: (res) => {
-            setResponse(res);
-            // ✅ وقتی داده‌ها لود شدن، همه رو تیک بزن
-            const initialSelection: Record<number, boolean> = {};
-            res.forEach((item: ProductResponse) => {
-                initialSelection[item.id] = true;
-            });
-            setSelectedProducts(initialSelection);
+        onSuccess: ({products, filters, preserveSelection}) => {
+            lastSearch.current = filters;
+            setResponse(products);
+            setSelectedProducts(previous => productSelection(products, previous, preserveSelection));
         },
     });
     // Mutation برای جستجو
@@ -61,7 +59,7 @@ export default function Page() {
             });
         },
         onSuccess: async (res) => {
-            await searchMutation.mutateAsync();
+            await searchMutation.mutateAsync({preserveSelection: true});
             toast.success(res.message as string);
         },
     });
@@ -133,7 +131,7 @@ export default function Page() {
                         onChange={(e) => setBrand(Number(e))}
                     />
 
-                    <ButtonPrimary loading={searchMutation.isPending} onClick={searchMutation.mutateAsync}>
+                    <ButtonPrimary loading={searchMutation.isPending} onClick={() => searchMutation.mutateAsync({})}>
                         جستجو
                     </ButtonPrimary>
                 </div>
