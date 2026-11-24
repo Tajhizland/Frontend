@@ -3,6 +3,7 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import FormActions from "@/shared/Form/FormActions";
 import Label from "@/shared/Label/Label";
 import ProductTab from "@/components/Tabs/ProductTab";
+import ProductCategoryEditLinks from "@/components/Product/ProductCategoryEditLinks";
 import {findById, set} from "@/services/api/admin/filter";
 import Input from "@/shared/Input/Input";
 import Spinner from "@/shared/Loading/Spinner";
@@ -58,6 +59,7 @@ export default function Page() {
         <Panel>
 
             <ProductTab id={id + ""} url={productInfo?.url ?? ""}/>
+            <ProductCategoryEditLinks product={productInfo} type="filter"/>
             {
                 isLoading ? <Spinner/> : <>
                     <form action={(form) => saveMutation.mutate(form)}>

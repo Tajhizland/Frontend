@@ -3,6 +3,7 @@ import Breadcrump from "@/components/Breadcrumb/Breadcrump";
 import FormActions from "@/shared/Form/FormActions";
 import Label from "@/shared/Label/Label";
 import ProductTab from "@/components/Tabs/ProductTab";
+import ProductCategoryEditLinks from "@/components/Product/ProductCategoryEditLinks";
 import {findByProductId} from "@/services/api/admin/option";
 import Spinner from "@/shared/Loading/Spinner";
 import Panel from "@/shared/Panel/Panel";
@@ -27,7 +28,7 @@ export default function Page() {
     });
 
     const {data: productInfo} = useQuery({
-        queryKey: [`product-info`],
+        queryKey: [`product-info`, Number(id)],
         queryFn: () => productFindById(Number(id)),
         staleTime: 5000,
     });
@@ -84,6 +85,7 @@ export default function Page() {
             ]}/>
             <Panel>
                 <ProductTab id={id + ""} url={productInfo?.url ?? ""}/>
+                <ProductCategoryEditLinks product={productInfo} type="option"/>
                 {isLoading ? <Spinner/> : (
                     <FormProvider {...methods}>
                         <form

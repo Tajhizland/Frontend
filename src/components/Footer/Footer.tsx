@@ -10,6 +10,7 @@ import {FaInstagram, FaYoutube} from "react-icons/fa";
 import {IoLogoWhatsapp} from "react-icons/io";
 import Image from "next/image";
 import posterTajhizland from "@/images/posterTajhizland.png"
+import SamandehiLogo from "./SamandehiLogo";
 
 export interface CustomLink {
     label: string;
@@ -139,13 +140,7 @@ const Footer: React.FC = () => {
                                     code='dHACISLBlXNOcdnB2JpZ'/></a>
                             </div>
                             <div className={"border rounded-2xl p-4"}>
-                                <img
-                                    className={"w-[100px] h-[100px]"}
-                                    referrerPolicy={"origin"}
-                                    id={"rgvjjxlzsizprgvjnbqejzpe"}
-                                    src={"https://logo.samandehi.ir/logo.aspx?id=319327&p=qftinbpdbsiyqftiodrfyndt"}
-                                    alt={"samandehi"}
-                                />
+                                <SamandehiLogo/>
                             </div>
                         </div>
                     </div>
@@ -195,13 +190,7 @@ const Footer: React.FC = () => {
                                         code='dHACISLBlXNOcdnB2JpZ'/></a>
                                 </div>
                                 <div className={"border rounded-2xl p-4"}>
-                                    <img
-                                        className={"w-[100px] h-[100px]"}
-                                        referrerPolicy={"origin"}
-                                        id={"rgvjjxlzsizprgvjnbqejzpe"}
-                                        src={"https://logo.samandehi.ir/logo.aspx?id=319327&p=qftinbpdbsiyqftiodrfyndt"}
-                                        alt={"samandehi"}
-                                    />
+                                    <SamandehiLogo/>
                                 </div>
                             </div>
                         </div>
